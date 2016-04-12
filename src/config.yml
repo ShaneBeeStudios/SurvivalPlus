@@ -1,0 +1,119 @@
+# Settings
+
+Version: 1.10d
+
+Language: EN
+
+MultiWorld:
+  EnableResourcePack: true
+  ResourcePackURL: ""
+  ResetResourcePackURL: "https://docs.google.com/uc?id=0B8D0KMKK7musNU9xNjBPQXBuVjA"
+  NotifyMessage: true
+  Worlds:
+  - world
+  - world_nether
+  - world_the_end
+
+LocalChatDist: 64
+
+Survival:
+  Enabled: true
+  
+  BreakOnlyWith:
+    Axe: true
+    Pickaxe: true
+    Shovel: true
+    Hoe: true
+    Shears: true
+    
+  PlaceOnlyWith:
+    Hammer: true
+    
+  Torch: true
+
+Mechanics:
+  SharedWorkbench: true
+  
+  BedFatigueLevel: true
+  
+  SlowArmor: true
+  ReinforcedLeatherArmor: true
+  Bow: true
+  MedicalKit: true
+  ReducedGoldNugget: true
+  
+  RawMeatHunger: true
+  EmptyPotions: true
+  PoisonousPotato: true
+  CookieHealthBoost: true
+  BeetrootSandwich: true
+  FoodDiversity: true
+  Thirst:
+    Enabled: true
+    PurifyWater: true
+    MeltSnow: true
+  
+  CompassWaypoint: true
+  Clownfish: true
+  
+  FermentedSkin: true
+  RedMushroomFermentation: true
+  
+  LivingSlime: true
+  
+  FishingRod: true
+  
+  FarmingProducts:
+    Bread: true
+    Cookie: true
+    BeetrootSandwich: true
+  
+  Chairs:
+    Enabled: true
+    MaxChairWidth: 2
+    AllowedBlocks:
+      - WOOD_STAIRS
+      - SPRUCE_WOOD_STAIRS
+      - JUNGLE_WOOD_STAIRS
+      - BIRCH_WOOD_STAIRS
+      - SANDSTONE_STAIRS
+      - COBBLESTONE_STAIRS
+      - BRICK_STAIRS
+      - SMOOTH_STAIRS
+      - NETHER_BRICK_STAIRS
+      - QUARTZ_STAIRS
+      - ACACIA_STAIRS
+      - DARK_OAK_STAIRS
+      - RED_SANDSTONE_STAIRS
+      - PURPUR_STAIRS
+
+Recipes:
+  Saddle: true
+  Nametag: true
+  PackedIce: true
+  IronBard: true
+  GoldBard: true
+  DiamondBard: true
+  ClayBrick: true
+  QuartzBlock: true
+  WoolString: true
+  WebString: true
+  Ice: true
+  Clay: true
+  Diorite: true
+  Granite: true
+  Andesite: true
+  Gravel: true
+  Bed: true
+  Slimeball: true
+  Cobweb: true
+
+LegendaryItems:
+  CanRepair: true
+  StarBattleaxe: true
+  QuartzPickaxe: true
+  ObsidianMace: true
+  GiantBlade: true
+  BlazeSword: true
+  NotchApple: true
+  GoldArmorBuff: true
