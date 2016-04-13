@@ -59,7 +59,7 @@ public class Survival extends JavaPlugin
     public static FileConfiguration config = new YamlConfiguration();
     public static File configFile;
     public static FileConfiguration settings = new YamlConfiguration();
-    public static String Version = "1.10b";
+    public static String Version = "1.10";
     public static String Language = "EN";
     public static int LocalChatDist = 64;
     public static Map<String, String> Words;
