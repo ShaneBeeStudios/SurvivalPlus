@@ -33,24 +33,27 @@ public class NoAnvil implements Listener
 				{
 					// item in the left slot
 					ItemStack item = anvil.getContents()[0];
-					 
-					if
-					(
-						item.getType() == Material.GOLD_AXE
-						|| item.getType() == Material.GOLD_PICKAXE
-						|| item.getType() == Material.GOLD_SPADE
-						|| item.getType() == Material.GOLD_HOE
-						|| item.getType() == Material.GOLD_SWORD
-						|| item.getType() == Material.WOOD_AXE
-						|| item.getType() == Material.WOOD_PICKAXE
-						|| item.getType() == Material.WOOD_SPADE
-						|| item.getType() == Material.WOOD_HOE
-						|| item.getType() == Material.WOOD_SWORD
-					)
+					
+					if(!(item == null || item.getType() == Material.AIR))
 					{
-						e.setCancelled(true);
-						e.getWhoClicked().closeInventory();
-						e.getWhoClicked().sendMessage(ChatColor.RED + Survival.Words.get("You cannot rename or repair ") + item.getItemMeta().getDisplayName() + ChatColor.RED + Survival.Words.get("period"));
+						if
+						(
+							item.getType() == Material.GOLD_AXE
+							|| item.getType() == Material.GOLD_PICKAXE
+							|| item.getType() == Material.GOLD_SPADE
+							|| item.getType() == Material.GOLD_HOE
+							|| item.getType() == Material.GOLD_SWORD
+							|| item.getType() == Material.WOOD_AXE
+							|| item.getType() == Material.WOOD_PICKAXE
+							|| item.getType() == Material.WOOD_SPADE
+							|| item.getType() == Material.WOOD_HOE
+							|| item.getType() == Material.WOOD_SWORD
+						)
+						{
+							e.setCancelled(true);
+							e.getWhoClicked().closeInventory();
+							e.getWhoClicked().sendMessage(ChatColor.RED + Survival.Words.get("You cannot rename or repair ") + item.getItemMeta().getDisplayName() + ChatColor.RED + Survival.Words.get("period"));
+						}
 					}
 				}
 			}
