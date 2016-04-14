@@ -52,6 +52,7 @@ import net.minecraft.server.v1_9_R1.NBTTagString;
 
 public class Survival extends JavaPlugin
 {
+    public static String Version = "1.10";
 	public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -59,13 +60,11 @@ public class Survival extends JavaPlugin
     public static FileConfiguration config = new YamlConfiguration();
     public static File configFile;
     public static FileConfiguration settings = new YamlConfiguration();
-    public static String Version = "1.10";
     public static String Language = "EN";
     public static int LocalChatDist = 64;
     public static Map<String, String> Words;
 	public static List<Material> allowedBlocks = new ArrayList<Material>();
 	public static List<Player> usingPlayers = new ArrayList<Player>();
-	public static List<String> worlds = new ArrayList<String>();
 	
 	@SuppressWarnings("deprecation")
 	public void onEnable()
@@ -124,25 +123,6 @@ public class Survival extends JavaPlugin
 		
 		Words = copyToStringValueMap(lang_data);
 		
-		worlds = Survival.settings.getStringList("MultiWorld.Worlds");
-		for(World w : Bukkit.getWorlds())
-	    {
-	    	if(worlds.contains(w.getName()))
-	    	{
-	    		for(Player p : w.getPlayers())
-	    		{
-	    			usingPlayers.add(p);
-	    		}
-	    	}
-	    	else
-	    	{
-	    		for(Player p : w.getPlayers())
-	    		{
-	    			usingPlayers.remove(p);
-	    		}
-	    	}
-	    }
-		
 		manager = Bukkit.getScoreboardManager();
 		board = manager.getNewScoreboard();
 		mainBoard = manager.getMainScoreboard();
@@ -194,6 +174,7 @@ public class Survival extends JavaPlugin
 		PluginDescriptionFile pdfFile = getDescription();
 		Logger logger = getLogger();
 		getServer().getScheduler().cancelTasks(this);
+		getServer().resetRecipes();
 		usingPlayers = new ArrayList<Player>();
 		
 		logger.info(pdfFile.getName() + " has been disabled.");
@@ -2009,24 +1990,38 @@ public class Survival extends JavaPlugin
 		if(settings.getBoolean("Recipes.WebString"))
 			getServer().addRecipe(string);
 		if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
+		{
 			getServer().addRecipe(gAxe);
+			if(settings.getBoolean("LegendaryItems.CanRepair"))
+				getServer().addRecipe(repair_gAxe);
+		}
 		if(settings.getBoolean("LegendaryItems.QuartzPickaxe"))
 		{
 			getServer().addRecipe(gPickaxe1);
 			getServer().addRecipe(gPickaxe2);
+			if(settings.getBoolean("LegendaryItems.CanRepair"))
+				getServer().addRecipe(repair_gPickaxe);
 		}
 		if(settings.getBoolean("LegendaryItems.ObsidianMace"))
 		{
 			getServer().addRecipe(gSpade1);
 			getServer().addRecipe(gSpade2);
+			if(settings.getBoolean("LegendaryItems.CanRepair"))
+				getServer().addRecipe(repair_gSpade);
 		}
 		if(settings.getBoolean("LegendaryItems.GiantBlade"))
 		{
 			getServer().addRecipe(gHoe1);
 			getServer().addRecipe(gHoe2);
+			if(settings.getBoolean("LegendaryItems.CanRepair"))
+				getServer().addRecipe(repair_gHoe);
 		}
 		if(settings.getBoolean("LegendaryItems.BlazeSword"))
+		{
 			getServer().addRecipe(gSword);
+			if(settings.getBoolean("LegendaryItems.CanRepair"))
+				getServer().addRecipe(repair_gSword);
+		}
 		if(settings.getBoolean("LegendaryItems.NotchApple"))
 			getServer().addRecipe(notchApple);
 		if(settings.getBoolean("Recipes.Saddle"))
@@ -2064,19 +2059,6 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(woolString);
 		if(settings.getBoolean("Recipes.Ice"))
 			getServer().addRecipe(ice);
-		if(settings.getBoolean("LegendaryItems.CanRepair"))
-		{
-			if(settings.getBoolean("LegendaryItems.BlazeSword"))
-				getServer().addRecipe(repair_gSword);
-			if(settings.getBoolean("LegendaryItems.GiantBlade"))
-				getServer().addRecipe(repair_gHoe);
-			if(settings.getBoolean("LegendaryItems.QuartzPickaxe"))
-				getServer().addRecipe(repair_gPickaxe);
-			if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
-				getServer().addRecipe(repair_gAxe);
-			if(settings.getBoolean("LegendaryItems.ObsidianMace"))
-				getServer().addRecipe(repair_gSpade);
-		}
 		if(settings.getBoolean("Recipes.Clay"))
 		{
 			getServer().addRecipe(clay0);

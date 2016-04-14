@@ -1,18 +1,13 @@
 # Settings
 
-Version: 1.10
+Version: "1.10"
 
 Language: EN
 
 MultiWorld:
   EnableResourcePack: true
   ResourcePackURL: ""
-  ResetResourcePackURL: "https://docs.google.com/uc?id=0B8D0KMKK7musNU9xNjBPQXBuVjA"
   NotifyMessage: true
-  Worlds:
-  - world
-  - world_nether
-  - world_the_end
 
 LocalChatDist: 64
 

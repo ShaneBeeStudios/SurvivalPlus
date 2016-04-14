@@ -14,7 +14,6 @@ import com.fattymieo.survival.Survival;
 public class SetResourcePack implements Listener
 {
 	final String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
-	final String reset = Survival.settings.getString("MultiWorld.ResetResourcePackURL");
 	boolean resourcePack = Survival.settings.getBoolean("MultiWorld.EnableResourcePack");
 	
 	@EventHandler
@@ -52,34 +51,17 @@ public class SetResourcePack implements Listener
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable(){
 		    	public void run()
 		    	{
-		    		if(Survival.worlds.contains(player.getWorld().getName()))
-		    		{
-		    			try
-		    			{
-		    				player.setResourcePack(url);
-		    			}
-						catch(Exception e)
-						{
-							Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
-							Bukkit.getPluginManager().disablePlugin(Survival.instance);
-							return;
-						}
-		    			Survival.usingPlayers.add(player);
-		    		}
-		    		else
-		    		{
-		    			try
-		    			{
-		    				player.setResourcePack(reset);
-		    			}
-						catch(Exception e)
-						{
-							Bukkit.getConsoleSender().sendMessage("ResetResourcePackURL is null or URL is too long! Plugin disabled.");
-							Bukkit.getPluginManager().disablePlugin(Survival.instance);
-							return;
-						}
-		    			Survival.usingPlayers.remove(player);
-		    		}
+	    			try
+	    			{
+	    				player.setResourcePack(url);
+	    			}
+					catch(Exception e)
+					{
+						Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
+						Bukkit.getPluginManager().disablePlugin(Survival.instance);
+						return;
+					}
+	    			Survival.usingPlayers.add(player);
 	            }
 		    },
 		    20L);
