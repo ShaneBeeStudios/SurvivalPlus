@@ -11,6 +11,8 @@ MultiWorld:
 
 LocalChatDist: 64
 
+NoPos: true
+
 Survival:
   Enabled: true
   

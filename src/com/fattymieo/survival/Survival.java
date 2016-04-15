@@ -83,7 +83,11 @@ public class Survival extends JavaPlugin
 		if(!Version.equals(settings.getString("Version")))
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "config.yml has different version from current version, recommended to recheck.");
 
-	    Bukkit.getPluginManager().registerEvents(new NoPos(), this);
+		if(Survival.settings.getBoolean("NoPos"))
+		{
+			Bukkit.getPluginManager().registerEvents(new NoPos(), this);
+			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.YELLOW + "NoPos implemented, F3 coordinates are disabled!");
+		}
 	    
 		//settings = YamlConfiguration.loadConfiguration(getResource("config.yml"));
 		String url = settings.getString("MultiWorld.ResourcePackURL");
