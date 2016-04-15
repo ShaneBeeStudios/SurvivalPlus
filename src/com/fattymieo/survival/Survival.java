@@ -82,6 +82,8 @@ public class Survival extends JavaPlugin
 		configFile = new File(getDataFolder(), "config.yml");
 		if(!Version.equals(settings.getString("Version")))
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "config.yml has different version from current version, recommended to recheck.");
+
+	    Bukkit.getPluginManager().registerEvents(new NoPos(), this);
 	    
 		//settings = YamlConfiguration.loadConfiguration(getResource("config.yml"));
 		String url = settings.getString("MultiWorld.ResourcePackURL");
