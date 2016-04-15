@@ -1,7 +1,7 @@
 ####################
 # Language: English (EN)
 # Author: FattyMieo
-# Date: 9/4/2016
+# Date: 15/4/2016
 ####################
 #
 # Please don't remove the color codes.
@@ -35,7 +35,7 @@
 "Crossbow is being reloaded" : "Crossbow is being reloaded."
 
 "Compass has pointed at" : "Compass has pointed at"
-"Waypoint's coordinate is" : "Waypoint's coordinate is"
+"Your coordinates is" : "Your coordinates is"
 
 "Works on players only" : "Works on players only."
 "§bToggled to §aLocal§b Chat" : "§bToggled to §aLocal§b Chat."

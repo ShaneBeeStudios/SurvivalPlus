@@ -64,16 +64,16 @@ public class CompassWaypoint implements Listener
 							default:
 						}
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Compass has pointed at") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 						loc.add(0.5, 0.5, 0.5);
 						player.setCompassTarget(loc);
                         ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0, 25, loc, player);
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Compass has pointed at") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 					}
 
 					if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					{
-						Location loc = player.getCompassTarget();
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Waypoint's coordinate is") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
+						Location loc = player.getLocation().getBlock().getLocation();
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Your coordinates is") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
 					}
 				}
 			}
