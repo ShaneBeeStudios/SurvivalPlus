@@ -69,8 +69,11 @@ public class Consume implements Listener
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable(){
 	    	public void run()
 	    	{
-	    		Survival.ShowHunger(player);
-	    		Survival.ShowThirst(player);
+	    		if(!Survival.settings.getBoolean("Mechanics.StatusScoreboard"))
+	    		{
+	    			player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " + Survival.ShowHunger(player).get(0).toUpperCase());
+	    			player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " + Survival.ShowThirst(player).get(0).toUpperCase());
+	    		}
             }
 	    }, 1L);
 	}

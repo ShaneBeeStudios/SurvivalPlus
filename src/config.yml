@@ -37,6 +37,7 @@ Mechanics:
   MedicalKit: true
   ReducedGoldNugget: true
   
+  StatusScoreboard: true
   RawMeatHunger: true
   EmptyPotions: true
   PoisonousPotato: true

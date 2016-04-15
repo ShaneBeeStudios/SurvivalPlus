@@ -33,6 +33,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
@@ -40,6 +41,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
+import com.fattymieo.survival.events.ScoreboardStats;
 
 import lib.ParticleEffect;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
@@ -144,6 +146,14 @@ public class Survival extends JavaPlugin
 	    catch (IllegalArgumentException e){}
 	    try{mainBoard.registerNewObjective("Salts", "dummy");}
 	    catch (IllegalArgumentException e){}
+	    try{mainBoard.registerNewObjective("BoardHunger", "dummy");}
+	    catch (IllegalArgumentException e){}
+	    try{mainBoard.registerNewObjective("BoardThirst", "dummy");}
+	    catch (IllegalArgumentException e){}
+	    try{mainBoard.registerNewObjective("BoardFatigue", "dummy");}
+	    catch (IllegalArgumentException e){}
+	    try{mainBoard.registerNewObjective("BoardNutrients", "dummy");}
+	    catch (IllegalArgumentException e){}
 		
 		registerCommands();
 		registerEvents();
@@ -165,6 +175,7 @@ public class Survival extends JavaPlugin
 			DaysNoSleep();
 		if(settings.getBoolean("Mechanics.FoodDiversity"))
 			FoodDiversity();
+		ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
 
 		logger.info(pdfFile.getName() + " has been enabled.");
 	}
@@ -298,6 +309,8 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new FoodDiversityConsume(), this);
 		//if(settings.getBoolean("Mechanics.Crossbow"))
 			//pm.registerEvents(new Crossbow(), this);
+		if(settings.getBoolean("Mechanics.StatusScoreboard"))
+			pm.registerEvents(new ScoreboardStats(), this);
 	}
 	
 	public void removeRecipes()
@@ -2390,14 +2403,12 @@ public class Survival extends JavaPlugin
 	    				int hunger = player.getFoodLevel();
 	    				if(hunger <= 6)
 	                    {
-	            			ShowHunger(player);
 	                    	player.sendMessage(ChatColor.RED + Words.get("Starved, eat some food"));
 	                    }
 	    				
 		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
 	                    if(thirst.getScore() <= 6)
 	                    {
-	            			ShowThirst(player);
 	                    	player.sendMessage(ChatColor.RED + Words.get("Dehydrated, drink some water"));
 	                    }
 	                    
@@ -2423,7 +2434,7 @@ public class Survival extends JavaPlugin
                 }
             }
 	    },
-	    -1L, 80L);
+	    -1L, 320L);
 	}
 	
 	public void FoodDiversity()
@@ -2547,30 +2558,30 @@ public class Survival extends JavaPlugin
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void ShowThirst(Player player)
+	public static List<String> ShowThirst(Player player)
 	{
 		Objective thirst = Survival.mainBoard.getObjective("Thirst");
-		String thirstBar = "|";
+		String thirstBar = "";
 		for(int i = 0; i < thirst.getScore(player).getScore(); i++)
 		{
 			thirstBar += "|";
 		}
+		
 		if(thirst.getScore(player).getScore() >= 40)
-		{
 			thirstBar = ChatColor.GREEN + thirstBar;
-		}
 		else if(thirst.getScore(player).getScore() <= 6)
-		{
 			thirstBar = ChatColor.RED + thirstBar;
-		}
-		player.sendMessage(ChatColor.AQUA + thirstBar + " " + ChatColor.AQUA + Words.get("THIRST"));
+		else
+			thirstBar = ChatColor.AQUA + thirstBar;
+		
+		return Arrays.asList(ChatColor.AQUA + Words.get("Thirst"), (thirstBar.length() <= 22 ? thirstBar.substring(0) : thirstBar.substring(0, 22)), thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
 	}
 	
-	public static void ShowHunger(Player player)
+	public static List<String> ShowHunger(Player player)
 	{
 		int hunger = player.getFoodLevel();
 		int saturation = (int)Math.round(player.getSaturation());
-		String hungerBar = "|";
+		String hungerBar = "";
 		String saturationBar = ChatColor.YELLOW + "";
 		for(int i = 0; i < hunger; i++)
 		{
@@ -2580,20 +2591,21 @@ public class Survival extends JavaPlugin
 		{
 			saturationBar += "|";
 		}
+		
 		if(hunger >= 20)
-		{
 			hungerBar = ChatColor.GREEN + hungerBar;
-		}
 		else if(hunger <= 6)
-		{
 			hungerBar = ChatColor.RED + hungerBar;
-		}
-		player.sendMessage(ChatColor.GOLD + hungerBar + saturationBar + " " + ChatColor.GOLD + Words.get("HUNGER"));
+		else
+			hungerBar = ChatColor.GOLD + hungerBar;
+		
+		return Arrays.asList(ChatColor.GOLD + Words.get("Hunger"), hungerBar + ChatColor.RESET, saturationBar);
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void ShowNutrients(Player player)
+	public static List<String> ShowNutrients(Player player)
 	{
+		List<String> nutrients = new ArrayList<>();
 		int carbon = mainBoard.getObjective("Carbs").getScore(player).getScore();
 		int protein = mainBoard.getObjective("Protein").getScore(player).getScore();
 		int salts = mainBoard.getObjective("Salts").getScore(player).getScore();
@@ -2603,25 +2615,27 @@ public class Survival extends JavaPlugin
 			 showCarbon = ChatColor.GREEN + showCarbon;
 		else
 			 showCarbon = ChatColor.RED + showCarbon;
-		player.sendMessage(showCarbon + " " + ChatColor.DARK_GREEN + Words.get("Carbohydrates"));
+		nutrients.add(showCarbon + " " + ChatColor.DARK_GREEN + Words.get("Carbohydrates"));
 		
 		String showProtein = Integer.toString(protein);
 		if(protein >= 120)
 			showProtein = ChatColor.GREEN + showProtein;
 		else
 			showProtein = ChatColor.RED + showProtein;
-		player.sendMessage(showProtein + " " + ChatColor.DARK_RED + Words.get("Protein"));
+		nutrients.add(showProtein + " " + ChatColor.DARK_RED + Words.get("Protein"));
 		
 		String showSalts = Integer.toString(salts);
 		if(salts >= 180)
 			showSalts = ChatColor.GREEN + showSalts;
 		else
 			showSalts = ChatColor.RED + showSalts;
-		player.sendMessage(showSalts + " " + ChatColor.BLUE + Words.get("Vitamins and Salts"));
+		nutrients.add(showSalts + " " + ChatColor.BLUE + Words.get("Vitamins and Salts"));
+		
+		return nutrients;
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void ShowFatigue(Player player)
+	public static String ShowFatigue(Player player)
 	{
 		int fatigue = mainBoard.getObjective("Fatigue").getScore(player).getScore();
 		
@@ -2633,7 +2647,7 @@ public class Survival extends JavaPlugin
 		else
 			showFatigue = ChatColor.RESET + showFatigue;
 		
-		player.sendMessage(ChatColor.LIGHT_PURPLE + Words.get("Fatigue Level") + " " + showFatigue);
+		return ChatColor.LIGHT_PURPLE + Words.get("Fatigue Level") + " " + showFatigue;
 	}
 	
 	public void DaysNoSleep()
@@ -2692,5 +2706,16 @@ public class Survival extends JavaPlugin
                 }
 			}
 		}, -1, 100);
+	}
+	
+	public void ResetStatusScoreboard(boolean enabled)
+	{
+		for(Player player : getServer().getOnlinePlayers())
+		{
+			if(enabled)
+				ScoreboardStats.SetupScorebard(player);
+			else
+				player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+		}
 	}
 }
