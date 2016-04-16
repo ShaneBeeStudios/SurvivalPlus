@@ -115,6 +115,7 @@ public class Survival extends JavaPlugin
 		switch(Language)
 		{
 			case "ZH":
+				Language = "ZH_Simplified";
 			case "ZH_Simplified":
 				lang_data = langPack_ZH_simplified.getValues(true);
 				break;
@@ -127,9 +128,14 @@ public class Survival extends JavaPlugin
 		}
 
 		if(lang_data == null)
+		{
+			Language = "EN";
 			lang_data = langPack_EN.getValues(true);
+		}
 		
 		Words = copyToStringValueMap(lang_data);
+		
+		logger.info("Selected Language: " + Language);
 		
 		manager = Bukkit.getScoreboardManager();
 		board = manager.getNewScoreboard();
