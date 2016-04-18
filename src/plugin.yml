@@ -17,3 +17,6 @@ commands:
       description: Checking Hunger and Thirst Status
       usage: /<command>
       aliases: [stat, s]
+   snowgen:
+      description: Regenerates snow layers for all chunks
+      usage: /<command>

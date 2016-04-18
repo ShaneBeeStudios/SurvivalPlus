@@ -1,3 +1,4 @@
+
 package com.fattymieo.survival.events;
 
 import java.util.Random;

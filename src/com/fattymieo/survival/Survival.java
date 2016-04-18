@@ -41,7 +41,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
-import com.fattymieo.survival.events.ScoreboardStats;
 
 import lib.ParticleEffect;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
@@ -257,6 +256,8 @@ public class Survival extends JavaPlugin
 			getCommand("togglechat").setExecutor(new ToggleChat());
 		getCommand("status").setExecutor(new Status());
 		getCommand("reload-survival").setExecutor(new Reload());
+		if(settings.getBoolean("Mechanics.SnowGenerationRevamp"))
+			getCommand("snowgen").setExecutor(new SnowGen());
 	}
 	
 	public void registerEvents()
@@ -323,6 +324,10 @@ public class Survival extends JavaPlugin
 			//pm.registerEvents(new Crossbow(), this);
 		if(settings.getBoolean("Mechanics.StatusScoreboard"))
 			pm.registerEvents(new ScoreboardStats(), this);
+		if(settings.getBoolean("Mechanics.SnowballRevamp"))
+			pm.registerEvents(new SnowballThrow(), this);
+		if(settings.getBoolean("Mechanics.SnowGenerationRevamp"))
+			pm.registerEvents(new SnowGeneration(), this);
 	}
 	
 	public void removeRecipes()
@@ -438,6 +443,11 @@ public class Survival extends JavaPlugin
 									it.remove();
 							break;
 						}
+						break;
+					case SNOW:
+					case SNOW_BLOCK:
+						if(settings.getBoolean("Mechanics.SnowballRevamp"))
+							it.remove();
 						break;
 					default:
 				}
