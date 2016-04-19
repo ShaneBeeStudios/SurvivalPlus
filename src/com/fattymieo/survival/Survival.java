@@ -53,7 +53,7 @@ import net.minecraft.server.v1_9_R1.NBTTagString;
 
 public class Survival extends JavaPlugin
 {
-    public static String Version = "2.0.0";
+    public static String Version = "2.0.1";
 	public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
