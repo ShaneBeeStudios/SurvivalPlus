@@ -18,13 +18,16 @@ public class SnowGeneration implements Listener
 	@EventHandler(ignoreCancelled = true)
 	public void chunkLoad(final ChunkLoadEvent event)
 	{
-		Bukkit.getScheduler().runTaskAsynchronously(Survival.instance, new Runnable()
+		if(event.isNewChunk())
 		{
-			public void run()
+			Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
 			{
-				checkChunk(event.getChunk());
-			}
-		});
+				public void run()
+				{
+					checkChunk(event.getChunk());
+				}
+			});
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -50,7 +53,7 @@ public class SnowGeneration implements Listener
 		if(event.getNewState().getType() != Material.SNOW)
 			return;
 		
-		Bukkit.getScheduler().runTaskAsynchronously(Survival.instance, new Runnable()
+		Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
 		{
 			public void run()
 			{
