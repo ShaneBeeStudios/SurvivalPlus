@@ -18,5 +18,5 @@ commands:
       usage: /<command>
       aliases: [stat, s]
    snowgen:
-      description: Regenerates snow layers for all chunks
-      usage: /<command>
+      description: Regenerates snow layers for all chunks, or toggles real-time snow formation
+      usage: /<command> [on|off]

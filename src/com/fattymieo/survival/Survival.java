@@ -66,6 +66,7 @@ public class Survival extends JavaPlugin
     public static Map<String, String> Words;
 	public static List<Material> allowedBlocks = new ArrayList<Material>();
 	public static List<Player> usingPlayers = new ArrayList<Player>();
+	public static boolean snowGenOption = true;
 	
 	@SuppressWarnings("deprecation")
 	public void onEnable()

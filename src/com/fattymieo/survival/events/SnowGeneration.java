@@ -18,15 +18,18 @@ public class SnowGeneration implements Listener
 	@EventHandler(ignoreCancelled = true)
 	public void chunkLoad(final ChunkLoadEvent event)
 	{
-		if(event.isNewChunk())
+		if(Survival.snowGenOption)
 		{
-			Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
+			if(event.isNewChunk())
 			{
-				public void run()
+				Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
 				{
-					checkChunk(event.getChunk());
-				}
-			});
+					public void run()
+					{
+						checkChunk(event.getChunk());
+					}
+				});
+			}
 		}
 	}
 	
@@ -50,16 +53,19 @@ public class SnowGeneration implements Listener
 	@EventHandler(ignoreCancelled = true)
 	public void snowForm(final BlockFormEvent event)
 	{
-		if(event.getNewState().getType() != Material.SNOW)
-			return;
-		
-		Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
+		if(Survival.snowGenOption)
 		{
-			public void run()
+			if(event.getNewState().getType() != Material.SNOW)
+				return;
+			
+			Bukkit.getScheduler().runTask(Survival.instance, new Runnable()
 			{
-				placeSnow(event.getBlock());
-			}
-		});
+				public void run()
+				{
+					placeSnow(event.getBlock());
+				}
+			});
+		}
 	}
 	
 	private void placeSnow(final Block block)
