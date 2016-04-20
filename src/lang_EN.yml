@@ -1,7 +1,7 @@
 ####################
 # Language: English (EN)
 # Author: FattyMieo
-# Date: 16/4/2016
+# Date: 20/4/2016
 ####################
 #
 # Please don't remove the color codes.
@@ -63,6 +63,11 @@
 "Healing interrupted" : "Healing interrupted."
 
 "Fatigue Level" : "Fatigue Level"
+"Energized" : "Energized"
+"Sleepy" : "Sleepy"
+"Overworked" : "Overworked"
+"Distressed" : "Distressed"
+"Collapsed" : "Collapsed"
 "You felt your eyelids heavy, perhaps you should get some sleep" : "You felt your eyelids heavy, perhaps you should get some sleep?"
 "You felt your vision blurred, you should get some sleep fast" : "You felt your vision blurred, you should get some sleep fast."
 "You felt being enveloped by darkness, you must get to sleep" : "You felt being enveloped by darkness, you must get to sleep!"

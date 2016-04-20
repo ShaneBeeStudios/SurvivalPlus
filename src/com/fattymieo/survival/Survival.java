@@ -63,6 +63,7 @@ public class Survival extends JavaPlugin
     public static FileConfiguration settings = new YamlConfiguration();
     public static String Language = "EN";
     public static int LocalChatDist = 64;
+    public static int AlertInterval = 20;
     public static Map<String, String> Words;
 	public static List<Material> allowedBlocks = new ArrayList<Material>();
 	public static List<Player> usingPlayers = new ArrayList<Player>();
@@ -103,6 +104,13 @@ public class Survival extends JavaPlugin
 		}
 		Language = settings.getString("Language");
 		LocalChatDist = settings.getInt("LocalChatDist");
+		AlertInterval = settings.getInt("Mechanics.AlertInterval");
+		if(AlertInterval <= 0)
+		{
+			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "AlertInterval cannot be zero or below! Plugin disabled.");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
 		for(String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
 			allowedBlocks.add(Material.getMaterial(type));
 		
@@ -2422,18 +2430,8 @@ public class Survival extends JavaPlugin
 	    		for(Player player : getServer().getOnlinePlayers())
                 {
 	    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
-	    			{
-	    				int hunger = player.getFoodLevel();
-	    				if(hunger <= 6)
-	                    {
-	                    	player.sendMessage(ChatColor.RED + Words.get("Starved, eat some food"));
-	                    }
-	    				
+	    			{	    				
 		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
-	                    if(thirst.getScore() <= 6)
-	                    {
-	                    	player.sendMessage(ChatColor.RED + Words.get("Dehydrated, drink some water"));
-	                    }
 	                    
 	                    if(thirst.getScore() <= 0)
 	                    {
@@ -2458,6 +2456,34 @@ public class Survival extends JavaPlugin
             }
 	    },
 	    -1L, 320L);
+
+		if(!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0)
+		{
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+		    	@SuppressWarnings("deprecation")
+				public void run()
+		    	{
+		    		for(Player player : getServer().getOnlinePlayers())
+	                {
+		    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+		    			{
+		    				int hunger = player.getFoodLevel();
+		    				if(hunger <= 6)
+		                    {
+		                    	player.sendMessage(ChatColor.GOLD + Words.get("Starved, eat some food"));
+		                    }
+		    				
+			    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
+		                    if(thirst.getScore() <= 6)
+		                    {
+		                    	player.sendMessage(ChatColor.AQUA + Words.get("Dehydrated, drink some water"));
+		                    }
+		    			}
+	                }
+	            }
+		    },
+		    -1L, AlertInterval * 20);
+		}
 	}
 	
 	public void FoodDiversity()
@@ -2504,14 +2530,6 @@ public class Survival extends JavaPlugin
 	    				Score carbon = mainBoard.getObjective("Carbs").getScore(player);
 		    			Score protein = mainBoard.getObjective("Protein").getScore(player);
 		    			Score salts = mainBoard.getObjective("Salts").getScore(player);
-	                    
-		    			if(carbon.getScore() <= 24)
-		    			{
-	                    	player.sendMessage(Words.get("Lack of carbohydrates, please intake grains and sugar!"));
-            				player.setFoodLevel(player.getFoodLevel() - 1);
-	                    	if(player.getFoodLevel() < 0)
-	                    		player.setFoodLevel(0);
-		    			}
 		    			
 	                    if(carbon.getScore() <= 0)
 	                    {
@@ -2529,17 +2547,10 @@ public class Survival extends JavaPlugin
 	                    		default:
 	                    	}
 	                    }
-	                    
-		    			if(salts.getScore() <= 9)
-		    			{
-	                    	player.sendMessage(Words.get("Lack of vitamins and salts, please intake vegetables and fruits!"));
-        					player.setFoodLevel(player.getFoodLevel() - 1);
-	                    	if(player.getFoodLevel() < 0)
-	                    		player.setFoodLevel(0);
-		    			}
 		    			
 		    			if(salts.getScore() <= 0)
 		    			{
+                			player.setExhaustion(player.getExhaustion() + 1);
 		    				switch(player.getWorld().getDifficulty())
 	                    	{
 	                    		case NORMAL:
@@ -2551,17 +2562,10 @@ public class Survival extends JavaPlugin
 	                    		default:
 	                    	}
 		    			}
-
-		    			if(protein.getScore() <= 6)
-		    			{
-	                    	player.sendMessage(Words.get("Lack of protein, please intake meat, poultry and dairies!"));
-            				player.setFoodLevel(player.getFoodLevel() - 1);
-	                    	if(player.getFoodLevel() < 0)
-	                    		player.setFoodLevel(0);
-		    			}
 		    			
 		    			if(protein.getScore() <= 0)
 		    			{
+                			player.setExhaustion(player.getExhaustion() + 1);
 		    				switch(player.getWorld().getDifficulty())
 	                    	{
 	                    		case NORMAL:
@@ -2578,6 +2582,41 @@ public class Survival extends JavaPlugin
             }
 	    },
 	    -1L, 320L);
+		
+		if(!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0)
+		{
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+		    	@SuppressWarnings("deprecation")
+				public void run()
+		    	{
+		    		for(Player player : getServer().getOnlinePlayers())
+	                {
+		    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+		    			{
+		    				Score carbon = mainBoard.getObjective("Carbs").getScore(player);
+			    			Score protein = mainBoard.getObjective("Protein").getScore(player);
+			    			Score salts = mainBoard.getObjective("Salts").getScore(player);
+		                    
+			    			if(carbon.getScore() <= 480)
+			    			{
+		                    	player.sendMessage(ChatColor.DARK_GREEN + Words.get("Lack of carbohydrates, please intake grains and sugar!"));
+			    			}
+		                    
+			    			if(salts.getScore() <= 180)
+			    			{
+		                    	player.sendMessage(ChatColor.BLUE +Words.get("Lack of vitamins and salts, please intake vegetables and fruits!"));
+			    			}
+	
+			    			if(protein.getScore() <= 120)
+			    			{
+		                    	player.sendMessage(ChatColor.DARK_RED + Words.get("Lack of protein, please intake meat, poultry and dairies!"));
+			    			}
+		    			}
+	                }
+	            }
+		    },
+		    -1L, AlertInterval * 20);
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -2588,6 +2627,10 @@ public class Survival extends JavaPlugin
 		for(int i = 0; i < thirst.getScore(player).getScore(); i++)
 		{
 			thirstBar += "|";
+		}
+		for(int i = thirst.getScore(player).getScore(); i < 20; i++)
+		{
+			thirstBar += ".";
 		}
 		
 		if(thirst.getScore(player).getScore() >= 40)
@@ -2609,6 +2652,10 @@ public class Survival extends JavaPlugin
 		for(int i = 0; i < hunger; i++)
 		{
 			hungerBar += "|";
+		}
+		for(int i = hunger; i < 20; i++)
+		{
+			hungerBar += ".";
 		}
 		for(int i = 0; i < saturation; i++)
 		{
@@ -2661,16 +2708,19 @@ public class Survival extends JavaPlugin
 	public static String ShowFatigue(Player player)
 	{
 		int fatigue = mainBoard.getObjective("Fatigue").getScore(player).getScore();
-		
-		String showFatigue = Integer.toString(fatigue);
-		if(fatigue >= 4)
-			showFatigue = ChatColor.DARK_RED + showFatigue;
-		else if(fatigue > 0)
-			showFatigue = ChatColor.RED + showFatigue;
+
+		if(fatigue <= 0)
+			return ChatColor.YELLOW + Words.get("Energized");
+		else if(fatigue == 1)
+			return ChatColor.LIGHT_PURPLE + Words.get("Sleepy");
+		else if(fatigue == 2)
+			return ChatColor.RED + Words.get("Overworked");
+		else if(fatigue == 3)
+			return ChatColor.WHITE + Words.get("Distressed");
+		else if(fatigue >= 4)
+			return ChatColor.DARK_GRAY + Words.get("Collapsed");
 		else
-			showFatigue = ChatColor.RESET + showFatigue;
-		
-		return ChatColor.LIGHT_PURPLE + Words.get("Fatigue Level") + " " + showFatigue;
+			return "";
 	}
 	
 	public void DaysNoSleep()
@@ -2703,11 +2753,7 @@ public class Survival extends JavaPlugin
 							}
 							else if(fatigue.getScore(player).getScore() >= 4)
 							{
-								player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 0), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, 0), true);
-		                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 6), true);
-		                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, 199), true);
+								player.damage(100);
 							}
 						//}
 						World overworld = player.getWorld();

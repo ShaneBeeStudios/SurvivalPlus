@@ -40,6 +40,7 @@ Mechanics:
   ReducedGoldNugget: true
   
   StatusScoreboard: true
+  AlertInterval: 20
   RawMeatHunger: true
   EmptyPotions: true
   PoisonousPotato: true
