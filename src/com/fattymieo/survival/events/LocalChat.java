@@ -27,7 +27,7 @@ public class LocalChat implements Listener
 				if(player.getInventory().getHelmet().getType() == Material.GOLD_HELMET)
 				{
 					event.setCancelled(false);
-					event.setFormat(ChatColor.GOLD + "<%1$s> " + ChatColor.YELLOW + "%2$s");
+					event.setFormat(ChatColor.YELLOW + "[King] " + ChatColor.GOLD + "%1$s: " + ChatColor.YELLOW + "%2$s");
 					return;
 				}
 			}
@@ -35,17 +35,23 @@ public class LocalChat implements Listener
 		
 		int channel = Survival.board.getObjective("Chat").getScore(player).getScore();
 		if(channel > 0)
+		{
+			event.setFormat(ChatColor.DARK_GREEN + "[Global] " + ChatColor.RESET + "%1$s: %2$s");
 			return;
+		}
 		
 		event.setCancelled(true);
 
 		Bukkit.getConsoleSender().sendMessage("<" + player.getDisplayName() + "> " + msg);
 		for(Player other : Bukkit.getServer().getOnlinePlayers())
         {
-            if(other.getLocation().distance(player.getLocation()) <= maxDist)
-            {
-                other.sendMessage("<" + player.getDisplayName() + "> " + msg);
-            }
+			if(other.getLocation().getWorld() == player.getLocation().getWorld())
+			{
+	            if(other.getLocation().distance(player.getLocation()) <= maxDist)
+	            {
+	                other.sendMessage(ChatColor.GREEN + "[Local] " + ChatColor.RESET + player.getDisplayName() + ": " + msg);
+	            }
+			}
         }
 	}
 }
