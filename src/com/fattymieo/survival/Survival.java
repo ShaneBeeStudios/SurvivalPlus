@@ -148,14 +148,16 @@ public class Survival extends JavaPlugin
 		manager = Bukkit.getScoreboardManager();
 		board = manager.getNewScoreboard();
 		mainBoard = manager.getMainScoreboard();
+		board.registerNewObjective("DualWieldMsg", "dummy");
 	    board.registerNewObjective("Charge", "dummy");
 	    board.registerNewObjective("Charging", "dummy");
+	    board.registerNewObjective("Spin", "dummy");
 	    board.registerNewObjective("DualWield", "dummy");
 	    board.registerNewObjective("Chat", "dummy");
 	    board.registerNewObjective("Healing", "dummy");
 	    board.registerNewObjective("HealTimes", "dummy");
-	    board.registerNewObjective("CrossbowFiring", "dummy");
-	    board.registerNewObjective("CrossbowCooldown", "dummy");
+	    board.registerNewObjective("RecurveFiring", "dummy");
+	    board.registerNewObjective("RecurveCooldown", "dummy");
 	    try{mainBoard.registerNewObjective("Thirst", "dummy");}
 	    catch (IllegalArgumentException e){}
 	    try{mainBoard.registerNewObjective("Fatigue", "dummy");}
@@ -185,8 +187,8 @@ public class Survival extends JavaPlugin
 			GiantBlade();
 		if(settings.getBoolean("LegendaryItems.ObsidianMace"))
 			ObsidianMace();
-		if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
-			StarBattleaxe();
+		if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))
+			Valkyrie();
 		if(settings.getBoolean("LegendaryItems.QuartzPickaxe"))
 			QuartzPickaxe();
 		if(settings.getBoolean("Mechanics.Thirst.Enabled"))
@@ -285,8 +287,8 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new Bow(), this);
 		if(settings.getBoolean("LegendaryItems.ObsidianMace"))
 			pm.registerEvents(new ObsidianMaceWeakness(), this);
-		if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
-			pm.registerEvents(new StarBattleaxeWither(), this);
+		if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))
+			pm.registerEvents(new Valkyrie(), this);
 		if(settings.getBoolean("LegendaryItems.GiantBlade"))
 			pm.registerEvents(new GiantBlade(), this);
 		if(settings.getBoolean("LegendaryItems.BlazeSword"))
@@ -329,8 +331,8 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new BedFatigue(), this);
 		if(settings.getBoolean("Mechanics.FoodDiversity"))
 			pm.registerEvents(new FoodDiversityConsume(), this);
-		//if(settings.getBoolean("Mechanics.Crossbow"))
-			//pm.registerEvents(new Crossbow(), this);
+		if(settings.getBoolean("Mechanics.RecurveBow"))
+			pm.registerEvents(new RecurvedBow(), this);
 		if(settings.getBoolean("Mechanics.StatusScoreboard"))
 			pm.registerEvents(new ScoreboardStats(), this);
 		if(settings.getBoolean("Mechanics.SnowballRevamp"))
@@ -371,7 +373,7 @@ public class Survival extends JavaPlugin
 							it.remove();
 						break;
 					case GOLD_AXE:
-						if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
+						if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))
 							it.remove();
 						break;
 					case GOLD_PICKAXE:
@@ -579,7 +581,7 @@ public class Survival extends JavaPlugin
 		hammerMeta.setDisplayName(ChatColor.RESET + Words.get("Hammer"));
 		i_hammer.setItemMeta(hammerMeta);
 		
-		//Star Battleaxe
+		//Valkyrie's Axe
 		ItemStack i_gAxe = new ItemStack(Material.GOLD_AXE, 1);
 		
 		net.minecraft.server.v1_9_R1.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
@@ -592,6 +594,7 @@ public class Survival extends JavaPlugin
         }
         NBTTagList modifiers_gAxe = new NBTTagList();
         int gAxe_spd = 1;
+        int gAxe_dmg = 8;
         
         NBTTagCompound atkSpd_gAxe = new NBTTagCompound();
         atkSpd_gAxe.set("Slot", new NBTTagString("mainhand"));
@@ -603,26 +606,29 @@ public class Survival extends JavaPlugin
         atkSpd_gAxe.set("UUIDMost", new NBTTagInt(2));
         modifiers_gAxe.add(atkSpd_gAxe);
         
-        compound_gAxe.setInt("HideFlags", 3);
+        compound_gAxe.setInt("HideFlags", 2);
         
         compound_gAxe.set("AttributeModifiers", modifiers_gAxe);
         nmsStack_gAxe.setTag(compound_gAxe);
         i_gAxe = CraftItemStack.asBukkitCopy(nmsStack_gAxe);
 		
 		ItemMeta gAxeMeta= i_gAxe.getItemMeta();
-		gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Star Battleaxe"));
+		gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Valkyrie's Axe"));
 		gAxeMeta.setLore
 		(
 				Arrays.asList
 				(
-					ChatColor.RESET + "" + Words.get("§3Bane: Causes §kHeavy Withering§r§3 on hit"),
+					ChatColor.RESET + "" + Words.get("§cUnable to dual-wield with Valkyrie's Axe"),
 					"",
 					ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
 					ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_spd + " " + Words.get("Attack Speed"),
-					ChatColor.RESET + "" + " " + Words.get("§cAttack Damage disabled")
+					ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_dmg + " " + Words.get("Attack Damage"),
+					ChatColor.RESET + "" + "  " + Words.get("§aSpin: Spin your axe in circle, attack all nearby enemies"),
+					ChatColor.RESET + "" + "  " + Words.get("§7> Cooldown: 1 second"),
+					ChatColor.RESET + "" + "  " + Words.get("§7> Decreases hunger value")
 				)
 			);
-		gAxeMeta.addEnchant(Enchantment.DEPTH_STRIDER, 3, true);
+		gAxeMeta.addEnchant(Enchantment.DURABILITY, 10, true);
 		i_gAxe.setItemMeta(gAxeMeta);
 		
 		//Quartz Pickaxe
@@ -1426,6 +1432,20 @@ public class Survival extends JavaPlugin
       	ItemMeta beetrootMeta= i_beetroot.getItemMeta();
       	beetrootMeta.setDisplayName(ChatColor.RESET + Words.get("Beetroot Sandwich"));
       	i_beetroot.setItemMeta(beetrootMeta);
+      	
+      	//Recurve Bow
+      	ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
+      		
+  		ItemMeta recurveBowMeta= i_recurveBow.getItemMeta();
+  		recurveBowMeta.setLore
+  		(
+  			Arrays.asList
+  			(
+  				ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")
+  			)
+  		);
+		recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
+  		i_recurveBow.setItemMeta(recurveBowMeta);
         
 		//Recipes
 		ShapedRecipe hatchet1 = new ShapedRecipe(i_hatchet);
@@ -1528,6 +1548,9 @@ public class Survival extends JavaPlugin
 		ShapedRecipe diamondChestplate = new ShapedRecipe(i_diamondChestplate);
 		ShapedRecipe diamondLeggings = new ShapedRecipe(i_diamondLeggings);
 		ShapedRecipe diamondHelmet = new ShapedRecipe(i_diamondHelmet);
+
+		ShapedRecipe recurveBow1 = new ShapedRecipe(i_recurveBow);
+		ShapedRecipe recurveBow2 = new ShapedRecipe(i_recurveBow);
 		
 		hatchet1.shape("@@"," 1");
 
@@ -2004,6 +2027,20 @@ public class Survival extends JavaPlugin
 		diamondHelmet.shape("@@@","@ @");
 
 		diamondHelmet.setIngredient('@', Material.DIAMOND);
+		
+		recurveBow1.shape(" @1","#^1"," @1");
+
+		recurveBow1.setIngredient('^', Material.BOW, -1);
+		recurveBow1.setIngredient('#', Material.PISTON_BASE);
+		recurveBow1.setIngredient('@', Material.IRON_INGOT);
+		recurveBow1.setIngredient('1', Material.STRING);
+		
+		recurveBow2.shape("1@ ","1^#","1@ ");
+
+		recurveBow2.setIngredient('^', Material.BOW, -1);
+		recurveBow2.setIngredient('#', Material.WOOD);
+		recurveBow2.setIngredient('@', Material.IRON_INGOT);
+		recurveBow2.setIngredient('1', Material.STRING);
 
 		//Add recipes
 		if(settings.getBoolean("Survival.Enabled"))
@@ -2033,7 +2070,7 @@ public class Survival extends JavaPlugin
 		}
 		if(settings.getBoolean("Recipes.WebString"))
 			getServer().addRecipe(string);
-		if(settings.getBoolean("LegendaryItems.StarBattleaxe"))
+		if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))
 		{
 			getServer().addRecipe(gAxe);
 			if(settings.getBoolean("LegendaryItems.CanRepair"))
@@ -2201,6 +2238,11 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(slimeball);
 		if(settings.getBoolean("Recipes.Cobweb"))
 			getServer().addRecipe(cobweb);
+		if(settings.getBoolean("Mechanics.RecurveBow"))
+		{
+			getServer().addRecipe(recurveBow1);
+			getServer().addRecipe(recurveBow2);
+		}
 	}
 	
 	public void BlazeSword()
@@ -2268,7 +2310,10 @@ public class Survival extends JavaPlugin
                     if
                     (
                     	(
-                    		mainItem.getType() == Material.GOLD_HOE
+                    		(
+                    			mainItem.getType() == Material.GOLD_HOE
+                    			|| mainItem.getType() == Material.GOLD_AXE
+                    		)
                     	&&	(
                     			offItem.getType() == Material.WOOD_AXE
                     			|| offItem.getType() == Material.WOOD_SWORD
@@ -2300,7 +2345,10 @@ public class Survival extends JavaPlugin
                     	)
                     	||
                     	(
-                        	offItem.getType() == Material.GOLD_HOE
+                    		(
+                    			offItem.getType() == Material.GOLD_HOE
+                    			|| offItem.getType() == Material.GOLD_AXE
+                            )
                         &&	(
                     			mainItem.getType() == Material.WOOD_AXE
                     			|| mainItem.getType() == Material.WOOD_SWORD
@@ -2368,7 +2416,7 @@ public class Survival extends JavaPlugin
         }, 1L, 10L);
 	}
 	
-	public void StarBattleaxe()
+	public void Valkyrie()
 	{	
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
             public void run() {
@@ -2376,8 +2424,9 @@ public class Survival extends JavaPlugin
                 {
                     if(player.getInventory().getItemInMainHand().getType() == Material.GOLD_AXE)
                     {
-                        player.removePotionEffect(PotionEffectType.GLOWING);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20, 0, false));
+                    	Location particleLoc = player.getLocation();
+                    	particleLoc.setY(particleLoc.getY() + 1);
+                    	ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
                     }
                 }
             }

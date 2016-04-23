@@ -36,6 +36,7 @@ Mechanics:
   SlowArmor: true
   ReinforcedLeatherArmor: true
   Bow: true
+  RecurveBow: true
   MedicalKit: true
   ReducedGoldNugget: true
   
@@ -112,7 +113,7 @@ Recipes:
 
 LegendaryItems:
   CanRepair: true
-  StarBattleaxe: true
+  ValkyrieAxe: true
   QuartzPickaxe: true
   ObsidianMace: true
   GiantBlade: true

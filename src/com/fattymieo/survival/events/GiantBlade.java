@@ -69,7 +69,7 @@ public class GiantBlade implements Listener
 	}
 	
 	//To prevent double messages send to player.
-	Objective tech_dualWieldMsg = Survival.board.registerNewObjective("DualWieldMsg", "dummy");
+	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -92,7 +92,7 @@ public class GiantBlade implements Listener
 						{
 							Random rand = new Random();
 							
-							ChargeForward(player, 3, mainItem);
+							ChargeForward(player, 3);
 							
 							if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
@@ -136,7 +136,7 @@ public class GiantBlade implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void ChargeForward(Player player, int velocity, ItemStack mainItem)
+	private void ChargeForward(Player player, int velocity)
 	{
 		player.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Survival.Words.get("CHARGE!"));
 		
@@ -187,9 +187,9 @@ public class GiantBlade implements Listener
 	    100L);
 	}
 	
-	public void damageNearbyEnemies(Player player, int dmg)
+	private void damageNearbyEnemies(Player player, int dmg)
 	{
-		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 1, 2, 1);
+		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 2, 2, 2);
 	    for(Entity e : enemies)
 	    {
 	    	if(e instanceof LivingEntity && e != (Entity)player)

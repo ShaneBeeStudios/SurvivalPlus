@@ -1,7 +1,7 @@
 ####################
 # Language: English (EN)
 # Author: FattyMieo
-# Date: 20/4/2016
+# Date: 23/4/2016
 ####################
 #
 # Please don't remove the color codes.
@@ -29,10 +29,12 @@
 "Unable to Charge immediately": "Unable to Charge immediately."
 "Unable to dual-wield with Giant Blade": "Unable to dual-wield with Giant Blade."
 
-"Must load Arrows on off hand": "Must load Arrows on off hand."
-"Must use a Bow with main hand": "Must use a Bow with main hand."
-"Ready to Fire" : "Ready to Fire."
-"Crossbow is being reloaded" : "Crossbow is being reloaded."
+"Lack of energy, unable to spin": "Lack of energy, unable to spin."
+"Unable to dual-wield with Valkyrie's Axe": "Unable to dual-wield with Valkyrie's Axe."
+
+"Must load Arrows on off hand" : "Must load Arrows on off hand."
+"Must use a Bow with main hand" : "Must use a Bow with main hand."
+"Recurved" : "Recurved"
 
 "Compass has pointed at" : "Compass has pointed at"
 "Your coordinates is" : "Your coordinates is"
@@ -83,6 +85,7 @@
 "Attack Damage": "Attack Damage"
 "Right Click when sprinting:": "Right Click when sprinting:"
 "Right Click when sneaking:": "Right Click when sneaking:"
+"§7> Decreases hunger value": "§7> Decreases hunger value"
 
 "Hatchet": "Hatchet"
 
@@ -98,9 +101,10 @@
 
 "Hammer": "Hammer"
 
-"Star Battleaxe": "Star Battleaxe"
-"§3Bane: Causes §kHeavy Withering§r§3 on hit": "§3Bane: Causes §kHeavy Withering§r§3 on hit"
-"§cAttack Damage disabled": "§cAttack Damage disabled"
+"Valkyrie's Axe" : "Valkyrie's Axe"
+"§cUnable to dual-wield with Valkyrie's Axe": "§cUnable to dual-wield with Valkyrie's Axe"
+"§aSpin: Spin your axe in circle, attack all nearby enemies" : "§aSpin: Spin your axe in circle, attack all nearby enemies"
+"§7> Cooldown: 1 second": "§7> Cooldown: 1 second"
 
 "Quartz Breaker": "Quartz Breaker"
 "§eHaste": "§eHaste"
@@ -116,7 +120,6 @@
 "§cUnable to dual-wield with Giant Blade": "§cUnable to dual-wield with Giant Blade"
 "§aCharge: Sprint forward, attack enemies infront": "§aCharge: Sprint forward, attack enemies infront"
 "§7> Cooldown: 5 seconds": "§7> Cooldown: 5 seconds"
-"§7> Decreases hunger value": "§7> Decreases hunger value"
 "§aHalf-Shield: Gains §4Resistance II": "§aHalf-Shield: Gains §4Resistance II"
 "§7> Reflecting incoming damage by 40%": "§7> Reflecting incoming damage by 40%"
 
