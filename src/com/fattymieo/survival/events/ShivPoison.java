@@ -40,7 +40,7 @@ public class ShivPoison implements Listener
 			
 			if(offItem.getType() == Material.WOOD_HOE)
 			{
-				int chance_poison = rand.nextInt(4) - 1;
+				int chance_poison = rand.nextInt(4) + 1;
 				switch(chance_poison)
 				{
 					case 1:

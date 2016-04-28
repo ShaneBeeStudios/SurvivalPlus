@@ -38,7 +38,7 @@ public class BlockPlace implements Listener
 					if(offTool.getType() == Material.WOOD_SWORD)
 					{
 						Random rand = new Random();
-						int chance_reduceDur = rand.nextInt(10) - 1;
+						int chance_reduceDur = rand.nextInt(10) + 1;
 						switch(chance_reduceDur)
 						{
 							case 1:
@@ -56,7 +56,7 @@ public class BlockPlace implements Listener
 					else if(mainTool.getType() == Material.WOOD_SWORD)
 					{
 						Random rand = new Random();
-						int chance_reduceDur = rand.nextInt(10) - 1;
+						int chance_reduceDur = rand.nextInt(10) + 1;
 						switch(chance_reduceDur)
 						{
 							case 1:

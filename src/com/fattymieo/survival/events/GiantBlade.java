@@ -60,7 +60,7 @@ public class GiantBlade implements Listener
 					enemy.damage(event.getDamage() * 40 / 100, player);
 				}
 				
-				int chance_reduceDur = rand.nextInt(10) - 1;
+				int chance_reduceDur = rand.nextInt(10) + 1;
 				switch(chance_reduceDur)
 				{
 					case 1:
@@ -107,7 +107,7 @@ public class GiantBlade implements Listener
 							if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
 							
-							int chance_reduceDur = rand.nextInt(10) - 1;
+							int chance_reduceDur = rand.nextInt(10) + 1;
 							switch(chance_reduceDur)
 							{
 								case 1:

@@ -363,6 +363,7 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new SnowballThrow(), this);
 		if(settings.getBoolean("Mechanics.SnowGenerationRevamp"))
 			pm.registerEvents(new SnowGeneration(), this);
+		pm.registerEvents(new ChickenSpawn(), this);
 	}
 	
 	public void removeRecipes()
