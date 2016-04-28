@@ -48,7 +48,7 @@ public class FoodDiversityConsume implements Listener
 				addStats(player, salts, 12);
 				break;
 			//case CAKE: (PlayerInteractEvent)
-			case POTATO:
+			case POTATO_ITEM:
 				addStats(player, carbon, 25);
 				addStats(player, protein, 0);
 				addStats(player, salts, 4);
