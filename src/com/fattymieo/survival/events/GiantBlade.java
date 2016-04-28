@@ -35,20 +35,30 @@ public class GiantBlade implements Listener
     Objective charging = Survival.board.getObjective("Charging");
     Objective dualWield = Survival.board.getObjective("DualWield");
     
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onAttack(EntityDamageByEntityEvent event)
 	{
-		if(event.getEntity() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
+		if(event.getEntity() instanceof Player)
 		{
 			Player player = (Player)event.getEntity();
-			LivingEntity enemy = (LivingEntity)event.getDamager();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 
+			if(dualWield.getScore(player).getScore() == 1)
+			{
+				event.setCancelled(true);
+				return;
+			}
+			
 			Random rand = new Random();
 			
 			if(offItem.getType() == Material.GOLD_HOE)
 			{
-				enemy.damage(event.getDamage() * 40 / 100, player);
+				if(event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
+				{
+					LivingEntity enemy = (LivingEntity)event.getDamager();
+					enemy.damage(event.getDamage() * 40 / 100, player);
+				}
 				
 				int chance_reduceDur = rand.nextInt(10) - 1;
 				switch(chance_reduceDur)
@@ -79,10 +89,10 @@ public class GiantBlade implements Listener
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player);
-		
-		if(dualWield.getScore(player).getScore() == 0)
+
+		if(mainItem.getType() == Material.GOLD_HOE)
 		{
-			if(mainItem.getType() == Material.GOLD_HOE)
+			if(dualWield.getScore(player).getScore() == 0)
 			{
 				if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)
 				{
@@ -120,16 +130,16 @@ public class GiantBlade implements Listener
 					}
 				}
 			}
-		}
-		else 
-		{
-			if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-				score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
-			else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-				score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-			if(score_dualWieldMsg.getScore() == 2)
+			else 
 			{
-				player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
+				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
+				if(score_dualWieldMsg.getScore() == 2)
+				{
+					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
+				}
 			}
 		}
 		score_dualWieldMsg.setScore(0);

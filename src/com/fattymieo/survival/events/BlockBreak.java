@@ -61,27 +61,17 @@ public class BlockBreak implements Listener
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Shovel on this task"));
 					}
-		
+					
+					//Flint
 					if(material == Material.GRAVEL)
 					{
 						event.setCancelled(true);
 						event.getBlock().setType(Material.AIR);
 						
 						Random rand = new Random();
-						int times_flint = 0;
-						int chance_flint = rand.nextInt(4) - 1;
+						int chance = rand.nextInt(100) - 1;
 						
-						switch(chance_flint)
-						{
-							case 1:
-							case 2:
-								times_flint = 1;
-								break;
-							default:
-								times_flint = 0;
-						}
-						
-						for(int i = 0; i < times_flint;i++)
+						if(chance <= Survival.settings.getInt("Survival.DropRate.Flint"))
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(),new ItemStack(Material.FLINT));
 					}
 				}
@@ -315,22 +305,9 @@ public class BlockBreak implements Listener
 					)
 					{
 						Random rand = new Random();
-						int times = 0;
-						int chance = rand.nextInt(4) - 1;
+						int chance = rand.nextInt(100) - 1;
 						
-						switch(chance)
-						{
-							case 1:
-								times = 1;
-								break;
-							case 2:
-								times = 2;
-								break;
-							default:
-								times = 0;
-						}
-						
-						for(int i = 0; i < times;i++)
+						if(chance <= Survival.settings.getInt("Survival.DropRate.Stick"))
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(),new ItemStack(Material.STICK));
 					}
 				}

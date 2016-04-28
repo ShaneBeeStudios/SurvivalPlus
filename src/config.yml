@@ -25,7 +25,11 @@ Survival:
     
   PlaceOnlyWith:
     Hammer: true
-    
+
+  DropRate:
+    Flint: 50
+    Stick: 25
+
   Torch: true
 
 Mechanics:

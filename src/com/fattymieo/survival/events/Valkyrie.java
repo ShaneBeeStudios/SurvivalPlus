@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Objective;
@@ -43,9 +44,9 @@ public class Valkyrie implements Listener
 		
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player);
 		
-		if(dualWield.getScore(player).getScore() == 0)
+		if(mainItem.getType() == Material.GOLD_AXE)
 		{
-			if(mainItem.getType() == Material.GOLD_AXE)
+			if(dualWield.getScore(player).getScore() == 0)
 			{
 				if(event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR)
 				{
@@ -69,7 +70,7 @@ public class Valkyrie implements Listener
 								default:
 							}
 							
-							if(event.getItem().getDurability() >= 32)
+							if(mainItem.getDurability() >= 32)
 							{
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
@@ -83,19 +84,74 @@ public class Valkyrie implements Listener
 					}
 				}
 			}
-		}
-		else 
-		{
-			if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-				score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
-			else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-				score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-			if(score_dualWieldMsg.getScore() == 2)
+			else 
 			{
-				player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Valkyrie's Axe"));
+				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
+				if(score_dualWieldMsg.getScore() == 2)
+				{
+					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Valkyrie's Axe"));
+				}
 			}
 		}
 		score_dualWieldMsg.setScore(0);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	public void onAttack(EntityDamageByEntityEvent event)
+	{
+		if(event.getDamager() instanceof Player)
+		{
+			Player player = (Player)event.getDamager();
+			ItemStack mainItem = player.getInventory().getItemInMainHand();
+			
+			if(dualWield.getScore(player).getScore() == 0)
+			{
+				if(mainItem.getType() == Material.GOLD_AXE)
+				{
+					if(spin.getScore(player).getScore() == 0)
+					{
+						if(player.getFoodLevel() > 6)
+						{
+							Random rand = new Random();
+							
+							Spin(player);
+							
+							if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+								player.setFoodLevel(player.getFoodLevel() - 1);
+							
+							int chance_reduceDur = rand.nextInt(10) - 1;
+							switch(chance_reduceDur)
+							{
+								case 1:
+									mainItem.setDurability((short)(mainItem.getDurability() + 1));
+									break;
+								default:
+							}
+							
+							if(mainItem.getDurability() >= 32)
+							{
+								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+								player.getInventory().setItemInMainHand(null);
+							}
+							player.updateInventory();
+						}
+						else
+						{
+							player.sendMessage(ChatColor.RED + Survival.Words.get("Lack of energy, unable to spin"));
+						}
+					}
+				}
+			}
+			else
+			{
+				event.setCancelled(true);
+				return;
+			}
+		}
 	}
 	
 	@SuppressWarnings("deprecation")

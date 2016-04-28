@@ -60,16 +60,18 @@ public class Survival extends JavaPlugin
     public static Scoreboard mainBoard;
     public static FileConfiguration config = new YamlConfiguration();
     public static File configFile;
+    public static List<File> langFiles;
+    public static List<FileConfiguration> langFileConfigs;
     public static FileConfiguration settings = new YamlConfiguration();
     public static String Language = "EN";
     public static int LocalChatDist = 64;
     public static int AlertInterval = 20;
+    public static List<Integer> DropRate = new ArrayList<>();
     public static Map<String, String> Words;
 	public static List<Material> allowedBlocks = new ArrayList<Material>();
 	public static List<Player> usingPlayers = new ArrayList<Player>();
 	public static boolean snowGenOption = true;
 	
-	@SuppressWarnings("deprecation")
 	public void onEnable()
 	{		
 		instance = this;
@@ -83,8 +85,8 @@ public class Survival extends JavaPlugin
 		configFile = new File(getDataFolder(), "config.yml");
 		if(!Version.equals(settings.getString("Version")))
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "config.yml has different version from current version, recommended to recheck.");
-
-		if(Survival.settings.getBoolean("NoPos"))
+		
+		if(settings.getBoolean("NoPos"))
 		{
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this);
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.YELLOW + "NoPos implemented, F3 coordinates are disabled!");
@@ -104,6 +106,7 @@ public class Survival extends JavaPlugin
 		}
 		Language = settings.getString("Language");
 		LocalChatDist = settings.getInt("LocalChatDist");
+		
 		AlertInterval = settings.getInt("Mechanics.AlertInterval");
 		if(AlertInterval <= 0)
 		{
@@ -111,35 +114,56 @@ public class Survival extends JavaPlugin
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
+		
+		DropRate.add(settings.getInt("Survival.DropRate.Flint"));
+		DropRate.add(settings.getInt("Survival.DropRate.Stick"));
+		for(int i : DropRate)
+		{
+			if(i <= 0)
+			{
+				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "DropRate cannot be zero or below! Plugin disabled.");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			else if(i > 100)
+			{
+				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "DropRate cannot be above 100! Plugin disabled.");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+				
+		}
+		
 		for(String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
 			allowedBlocks.add(Material.getMaterial(type));
-		
-		FileConfiguration langPack_EN = YamlConfiguration.loadConfiguration(getResource("lang_EN.yml"));
-		FileConfiguration langPack_ZH_simplified = YamlConfiguration.loadConfiguration(getResource("lang_ZH_simplified.yml"));
-		FileConfiguration langPack_ZH_traditional = YamlConfiguration.loadConfiguration(getResource("lang_ZH_traditional.yml"));
+
+	    saveResource("lang_EN.yml", true);
+	    saveResource("lang_ZH_simplified.yml", true);
+	    saveResource("lang_ZH_traditional.yml", true);
+	    
+	    switch(Language)
+		{
+		    case "ZH":
+		    case "ZH_Simplified":
+		    	Language = "ZH_simplified";
+		    	break;
+		    case "ZH_Traditional":
+		    	Language = "ZH_simplified";
+		    	break;
+		    default:
+	    }
 		
 	    Map<String, Object> lang_data;
-		
-		switch(Language)
-		{
-			case "ZH":
-				Language = "ZH_Simplified";
-			case "ZH_Simplified":
-				lang_data = langPack_ZH_simplified.getValues(true);
-				break;
-			case "ZH_Traditional":
-				lang_data = langPack_ZH_traditional.getValues(true);
-				break;
-			case "EN":
-			default: //EN
-				lang_data = langPack_EN.getValues(true);
-		}
-
-		if(lang_data == null)
-		{
+	    
+	    File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
+	    if(!lang_file.exists())
+	    {
+	    	Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.YELLOW + "Unable to locate lang_" + Language + ".yml, using default language (EN).");
 			Language = "EN";
-			lang_data = langPack_EN.getValues(true);
-		}
+	    	lang_file = new File(getDataFolder(), "lang_EN.yml");
+	    }
+	    
+		lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
 		
 		Words = copyToStringValueMap(lang_data);
 		
