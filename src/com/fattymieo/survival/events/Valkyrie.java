@@ -196,7 +196,7 @@ public class Valkyrie implements Listener
 	
 	private void damageNearbyEnemies(Player player, int dmg)
 	{
-		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 3.5f, 1, 3.5f);
+		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation().add(0, 0.5, 0), 3.5f, 1.5f, 3.5f);
 	    for(Entity e : enemies)
 	    {
 	    	if(e instanceof LivingEntity && e != (Entity)player)
