@@ -182,9 +182,9 @@ public class FoodDiversityConsume implements Listener
 	public void onRespawn(PlayerRespawnEvent event)
 	{
 		Player player = event.getPlayer();
-		carbon.getScore(player).setScore(170);
-		protein.getScore(player).setScore(50);
-		salts.getScore(player).setScore(70);
+		carbon.getScore(player).setScore(960);
+		protein.getScore(player).setScore(240);
+		salts.getScore(player).setScore(360);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -194,9 +194,9 @@ public class FoodDiversityConsume implements Listener
 		Player player = event.getPlayer();
 		if(!player.hasPlayedBefore())
 		{
-			carbon.getScore(player).setScore(170);
-			protein.getScore(player).setScore(50);
-			salts.getScore(player).setScore(70);
+			carbon.getScore(player).setScore(960);
+			protein.getScore(player).setScore(240);
+			salts.getScore(player).setScore(360);
 		}
 	}
 	
