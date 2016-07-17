@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class CauldronWaterBottle implements Listener
 {	
@@ -45,7 +45,7 @@ public class CauldronWaterBottle implements Listener
 								
 								ItemStack waterBottle = new ItemStack(Material.POTION, 1);
 								
-								net.minecraft.server.v1_9_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(waterBottle);
+								net.minecraft.server.v1_10_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(waterBottle);
 						        NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
 						        compound_bottle.setString("Potion","minecraft:water");
 						        nmsStack_bottle.setTag(compound_bottle);

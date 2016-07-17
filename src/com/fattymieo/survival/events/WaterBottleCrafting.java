@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
 
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_10_R1.NBTTagCompound;
 
 public class WaterBottleCrafting implements Listener
 {
@@ -81,7 +81,7 @@ public class WaterBottleCrafting implements Listener
 	
 	public boolean checkWaterBottle(ItemStack bottle)
 	{
-		net.minecraft.server.v1_9_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
+		net.minecraft.server.v1_10_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
         NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
         if (compound_bottle != null)
         {
