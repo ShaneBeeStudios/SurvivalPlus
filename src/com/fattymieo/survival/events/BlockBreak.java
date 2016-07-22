@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -142,6 +143,24 @@ public class BlockBreak implements Listener
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use an Axe on this task"));
+					}
+					
+					//Fix half door glitch
+					if
+					(
+						material == Material.WOODEN_DOOR
+						|| material == Material.ACACIA_DOOR
+						|| material == Material.BIRCH_DOOR
+						|| material == Material.DARK_OAK_DOOR
+						|| material == Material.IRON_DOOR
+						|| material == Material.JUNGLE_DOOR
+						|| material == Material.SPRUCE_DOOR
+					)
+					{
+						if(block.getRelative(BlockFace.UP).getType() == material)
+							block.getRelative(BlockFace.UP).getState().update(true);
+						if(block.getRelative(BlockFace.DOWN).getType() == material)
+							block.getRelative(BlockFace.DOWN).getState().update(true);
 					}
 				}
 				
