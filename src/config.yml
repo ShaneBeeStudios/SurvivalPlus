@@ -114,6 +114,7 @@ Recipes:
   Bed: true
   Slimeball: true
   Cobweb: true
+  SaplingToSticks: true
 
 LegendaryItems:
   CanRepair: true

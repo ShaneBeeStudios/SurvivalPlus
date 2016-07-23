@@ -22,9 +22,22 @@ public class RawMeatHunger implements Listener
 			case PORK:
 			case MUTTON:
 			case RAW_FISH:
+			case RAW_CHICKEN:
+			case ROTTEN_FLESH:
 				int hungerChance = rand.nextInt(10) + 1;
-				if(hungerChance >= 1 && hungerChance <= 3)
-					player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0, false));
+				if(hungerChance >= 1 && hungerChance <= 8)
+				{
+					int dur = 600;
+					for (PotionEffect effect : player.getActivePotionEffects())
+					{
+						if(effect.getType().equals(PotionEffectType.HUNGER))
+						{
+							dur += effect.getDuration();
+					        player.removePotionEffect(effect.getType());
+						}
+					}
+					player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, dur, 0, false));
+				}
 				break;
 			default:
 		}

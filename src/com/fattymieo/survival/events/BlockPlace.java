@@ -92,7 +92,8 @@ public class BlockPlace implements Listener
 			|| material == Material.TRAP_DOOR
 			|| material == Material.CHEST
 			|| material == Material.TRAPPED_CHEST
-			|| material == Material.WORKBENCH
+			|| material == Material.LOG
+			|| material == Material.LOG_2
 			|| material == Material.FENCE
 			|| material == Material.FENCE_GATE
 			|| material == Material.JUKEBOX

@@ -1556,6 +1556,7 @@ public class Survival extends JavaPlugin
 		ShapedRecipe cookie = new ShapedRecipe(new ItemStack(Material.COOKIE, 8));
 		ShapelessRecipe slimeball = new ShapelessRecipe(new ItemStack(Material.SLIME_BALL, 1));
 		ShapelessRecipe cobweb = new ShapelessRecipe(new ItemStack(Material.WEB, 1));
+		ShapelessRecipe sapling = new ShapelessRecipe(new ItemStack(Material.STICK, 4));
 
 		ShapedRecipe leatherBoots = new ShapedRecipe(i_leatherBoots);
 		ShapedRecipe leatherChestplate = new ShapedRecipe(i_leatherChestplate);
@@ -1984,6 +1985,8 @@ public class Survival extends JavaPlugin
 		cobweb.addIngredient(Material.SLIME_BALL);
 		cobweb.addIngredient(2, Material.STRING);
 		
+		sapling.addIngredient(Material.SAPLING);
+		
 		leatherBoots.shape("@*@");
 
 		leatherBoots.setIngredient('@', Material.IRON_INGOT);
@@ -2095,6 +2098,8 @@ public class Survival extends JavaPlugin
 		}
 		if(settings.getBoolean("Recipes.WebString"))
 			getServer().addRecipe(string);
+		if(settings.getBoolean("Recipes.SaplingToSticks"))
+			getServer().addRecipe(sapling);
 		if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))
 		{
 			getServer().addRecipe(gAxe);
@@ -2188,7 +2193,7 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(bed);
 		if(settings.getBoolean("Mechanics.RedMushroomFermentation"))
 			getServer().addRecipe(fermentedSpiderEye);
-		if(settings.getBoolean("Recipes.FermentedSkin"))
+		if(settings.getBoolean("Mechanics.FermentedSkin"))
 		{
 			getServer().addRecipe(fermentedSkin1);
 			if(settings.getBoolean("Mechanics.RedMushroomFermentation"))
