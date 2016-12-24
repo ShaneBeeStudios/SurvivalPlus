@@ -19,7 +19,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceRecipe;
@@ -43,11 +43,11 @@ import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 
 import lib.ParticleEffect;
-import net.minecraft.server.v1_10_R1.NBTTagCompound;
-import net.minecraft.server.v1_10_R1.NBTTagFloat;
-import net.minecraft.server.v1_10_R1.NBTTagInt;
-import net.minecraft.server.v1_10_R1.NBTTagList;
-import net.minecraft.server.v1_10_R1.NBTTagString;
+import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_11_R1.NBTTagFloat;
+import net.minecraft.server.v1_11_R1.NBTTagInt;
+import net.minecraft.server.v1_11_R1.NBTTagList;
+import net.minecraft.server.v1_11_R1.NBTTagString;
 
 //Special thanks to DarkBlade12 for ParticleEffect Library
 
@@ -509,7 +509,7 @@ public class Survival extends JavaPlugin
 		//Firestriker
 		ItemStack i_firestriker = new ItemStack(Material.WOOD_SPADE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_firestriker = CraftItemStack.asNMSCopy(i_firestriker);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_firestriker = CraftItemStack.asNMSCopy(i_firestriker);
         NBTTagCompound compound_firestriker = nmsStack_firestriker.getTag();
         if (compound_firestriker == null)
         {
@@ -543,7 +543,7 @@ public class Survival extends JavaPlugin
 		//Shiv
 		ItemStack i_shiv = new ItemStack(Material.WOOD_HOE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_shiv = CraftItemStack.asNMSCopy(i_shiv);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_shiv = CraftItemStack.asNMSCopy(i_shiv);
         NBTTagCompound compound_shiv = nmsStack_shiv.getTag();
         if (compound_shiv == null)
         {
@@ -609,7 +609,7 @@ public class Survival extends JavaPlugin
 		//Valkyrie's Axe
 		ItemStack i_gAxe = new ItemStack(Material.GOLD_AXE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
         NBTTagCompound compound_gAxe = nmsStack_gAxe.getTag();
         if (compound_gAxe == null)
         {
@@ -659,7 +659,7 @@ public class Survival extends JavaPlugin
 		//Quartz Pickaxe
 		ItemStack i_gPickaxe = new ItemStack(Material.GOLD_PICKAXE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_gPickaxe = CraftItemStack.asNMSCopy(i_gPickaxe);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gPickaxe = CraftItemStack.asNMSCopy(i_gPickaxe);
         NBTTagCompound compound_gPickaxe = nmsStack_gPickaxe.getTag();
         if (compound_gPickaxe == null)
         {
@@ -716,7 +716,7 @@ public class Survival extends JavaPlugin
 		//Obsidian Mace
 		ItemStack i_gSpade = new ItemStack(Material.GOLD_SPADE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_gSpade = CraftItemStack.asNMSCopy(i_gSpade);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gSpade = CraftItemStack.asNMSCopy(i_gSpade);
         NBTTagCompound compound_gSpade = nmsStack_gSpade.getTag();
         if (compound_gSpade == null)
         {
@@ -789,7 +789,7 @@ public class Survival extends JavaPlugin
 		//Ender Giant Blade
 		ItemStack i_gHoe = new ItemStack(Material.GOLD_HOE, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_gHoe = CraftItemStack.asNMSCopy(i_gHoe);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gHoe = CraftItemStack.asNMSCopy(i_gHoe);
         NBTTagCompound compound_gHoe = nmsStack_gHoe.getTag();
         if (compound_gHoe == null)
         {
@@ -865,7 +865,7 @@ public class Survival extends JavaPlugin
 		//Blaze Sword
 		ItemStack i_gSword = new ItemStack(Material.GOLD_SWORD, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_gSword = CraftItemStack.asNMSCopy(i_gSword);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gSword = CraftItemStack.asNMSCopy(i_gSword);
         NBTTagCompound compound_gSword = nmsStack_gSword.getTag();
         if (compound_gSword == null)
         {
@@ -938,7 +938,7 @@ public class Survival extends JavaPlugin
 		//Reinforced Leather Boots
 		ItemStack i_leatherBoots = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_leatherBoots = CraftItemStack.asNMSCopy(i_leatherBoots);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_leatherBoots = CraftItemStack.asNMSCopy(i_leatherBoots);
         NBTTagCompound compound_leatherBoots = nmsStack_leatherBoots.getTag();
         if (compound_leatherBoots == null)
         {
@@ -995,7 +995,7 @@ public class Survival extends JavaPlugin
 		//Golden Sabatons
 		ItemStack i_goldBoots = new ItemStack(Material.GOLD_BOOTS, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_goldBoots = CraftItemStack.asNMSCopy(i_goldBoots);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldBoots = CraftItemStack.asNMSCopy(i_goldBoots);
         NBTTagCompound compound_goldBoots = nmsStack_goldBoots.getTag();
         if (compound_goldBoots == null)
         {
@@ -1029,7 +1029,7 @@ public class Survival extends JavaPlugin
 		//Golden Guard
   		ItemStack i_goldChestplate = new ItemStack(Material.GOLD_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_goldChestplate = CraftItemStack.asNMSCopy(i_goldChestplate);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldChestplate = CraftItemStack.asNMSCopy(i_goldChestplate);
 	    NBTTagCompound compound_goldChestplate = nmsStack_goldChestplate.getTag();
 	    if (compound_goldChestplate == null)
 	    {
@@ -1063,7 +1063,7 @@ public class Survival extends JavaPlugin
 		//Golden Greaves
   		ItemStack i_goldLeggings = new ItemStack(Material.GOLD_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_goldLeggings = CraftItemStack.asNMSCopy(i_goldLeggings);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldLeggings = CraftItemStack.asNMSCopy(i_goldLeggings);
 	    NBTTagCompound compound_goldLeggings = nmsStack_goldLeggings.getTag();
 	    if (compound_goldLeggings == null)
 	    {
@@ -1097,7 +1097,7 @@ public class Survival extends JavaPlugin
 		//Golden Crown
 		ItemStack i_goldHelmet = new ItemStack(Material.GOLD_HELMET, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_goldHelmet = CraftItemStack.asNMSCopy(i_goldHelmet);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldHelmet = CraftItemStack.asNMSCopy(i_goldHelmet);
         NBTTagCompound compound_goldHelmet = nmsStack_goldHelmet.getTag();
         if (compound_goldHelmet == null)
         {
@@ -1131,7 +1131,7 @@ public class Survival extends JavaPlugin
 		//Iron Boots
 		ItemStack i_ironBoots = new ItemStack(Material.IRON_BOOTS, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_ironBoots = CraftItemStack.asNMSCopy(i_ironBoots);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironBoots = CraftItemStack.asNMSCopy(i_ironBoots);
         NBTTagCompound compound_ironBoots = nmsStack_ironBoots.getTag();
         if (compound_ironBoots == null)
         {
@@ -1170,7 +1170,7 @@ public class Survival extends JavaPlugin
         //Iron Chestplate
   		ItemStack i_ironChestplate = new ItemStack(Material.IRON_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_ironChestplate = CraftItemStack.asNMSCopy(i_ironChestplate);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironChestplate = CraftItemStack.asNMSCopy(i_ironChestplate);
 	    NBTTagCompound compound_ironChestplate = nmsStack_ironChestplate.getTag();
 	    if (compound_ironChestplate == null)
 	    {
@@ -1209,7 +1209,7 @@ public class Survival extends JavaPlugin
         //Iron Leggings
   		ItemStack i_ironLeggings = new ItemStack(Material.IRON_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_ironLeggings = CraftItemStack.asNMSCopy(i_ironLeggings);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironLeggings = CraftItemStack.asNMSCopy(i_ironLeggings);
 	    NBTTagCompound compound_ironLeggings = nmsStack_ironLeggings.getTag();
 	    if (compound_ironLeggings == null)
 	    {
@@ -1248,7 +1248,7 @@ public class Survival extends JavaPlugin
 		//Iron Helmet
 		ItemStack i_ironHelmet = new ItemStack(Material.IRON_HELMET, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_ironHelmet = CraftItemStack.asNMSCopy(i_ironHelmet);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironHelmet = CraftItemStack.asNMSCopy(i_ironHelmet);
         NBTTagCompound compound_ironHelmet = nmsStack_ironHelmet.getTag();
         if (compound_ironHelmet == null)
         {
@@ -1287,7 +1287,7 @@ public class Survival extends JavaPlugin
 		//Diamond Boots
 		ItemStack i_diamondBoots = new ItemStack(Material.DIAMOND_BOOTS, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_diamondBoots = CraftItemStack.asNMSCopy(i_diamondBoots);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondBoots = CraftItemStack.asNMSCopy(i_diamondBoots);
         NBTTagCompound compound_diamondBoots = nmsStack_diamondBoots.getTag();
         if (compound_diamondBoots == null)
         {
@@ -1326,7 +1326,7 @@ public class Survival extends JavaPlugin
         //Diamond Chestplate
   		ItemStack i_diamondChestplate = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_diamondChestplate = CraftItemStack.asNMSCopy(i_diamondChestplate);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondChestplate = CraftItemStack.asNMSCopy(i_diamondChestplate);
 	    NBTTagCompound compound_diamondChestplate = nmsStack_diamondChestplate.getTag();
 	    if (compound_diamondChestplate == null)
 	    {
@@ -1365,7 +1365,7 @@ public class Survival extends JavaPlugin
         //Diamond Leggings
   		ItemStack i_diamondLeggings = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_10_R1.ItemStack nmsStack_diamondLeggings = CraftItemStack.asNMSCopy(i_diamondLeggings);
+  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondLeggings = CraftItemStack.asNMSCopy(i_diamondLeggings);
 	    NBTTagCompound compound_diamondLeggings = nmsStack_diamondLeggings.getTag();
 	    if (compound_diamondLeggings == null)
 	    {
@@ -1404,7 +1404,7 @@ public class Survival extends JavaPlugin
 		//Diamond Helmet
 		ItemStack i_diamondHelmet = new ItemStack(Material.DIAMOND_HELMET, 1);
 		
-		net.minecraft.server.v1_10_R1.ItemStack nmsStack_diamondHelmet = CraftItemStack.asNMSCopy(i_diamondHelmet);
+		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondHelmet = CraftItemStack.asNMSCopy(i_diamondHelmet);
         NBTTagCompound compound_diamondHelmet = nmsStack_diamondHelmet.getTag();
         if (compound_diamondHelmet == null)
         {
