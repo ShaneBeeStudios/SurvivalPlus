@@ -1,6 +1,7 @@
 package com.fattymieo.survival.events;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -8,9 +9,10 @@ import com.fattymieo.survival.Survival;
 
 public class SpecialItemInteractCancel implements Listener
 {
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInteractBlock(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		switch(event.getAction())
 		{
 			case RIGHT_CLICK_BLOCK:

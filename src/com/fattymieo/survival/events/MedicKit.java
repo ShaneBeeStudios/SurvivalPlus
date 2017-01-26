@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -29,9 +30,10 @@ public class MedicKit implements Listener
 	Objective healTimes = Survival.board.getObjective("HealTimes");
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onDamaged(EntityDamageByEntityEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.getEntity() instanceof Player)
 		{
 			Player player = (Player)event.getEntity();
@@ -40,9 +42,10 @@ public class MedicKit implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onClickEntity(PlayerInteractEntityEvent event)
 	{
+		if(event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
 		if((mainItem != null && mainItem.getType() == Material.WATCH))
@@ -127,9 +130,10 @@ public class MedicKit implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSelfClick(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.hasItem() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
 		{
 			final Player player = event.getPlayer();

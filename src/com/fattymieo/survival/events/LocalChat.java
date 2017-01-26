@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
 
@@ -14,9 +15,10 @@ import com.fattymieo.survival.Survival;
 public class LocalChat implements Listener
 {
 	double maxDist = 64;
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(PlayerChatEvent event)
 	{
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		String msg = event.getMessage();
 		

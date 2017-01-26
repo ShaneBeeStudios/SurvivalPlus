@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -36,9 +37,10 @@ public class Valkyrie implements Listener
 	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		
@@ -100,9 +102,10 @@ public class Valkyrie implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.getDamager() instanceof Player)
 		{
 			Player player = (Player)event.getDamager();

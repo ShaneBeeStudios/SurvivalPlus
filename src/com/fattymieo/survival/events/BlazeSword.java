@@ -11,6 +11,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -22,9 +23,10 @@ import org.bukkit.inventory.ItemStack;
 public class BlazeSword implements Listener
 {	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();
@@ -98,24 +100,13 @@ public class BlazeSword implements Listener
 	@SuppressWarnings("deprecation")
 	public boolean ignite(Player igniter, Location loc, IgniteCause cause) {
 	    Random rand = new Random();
-	 
+
+	    loc.add(0.5, 0.5, 0.5);
+	    
 	    BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(), 
 	            cause, (org.bukkit.entity.Entity) igniter);
 	    Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
 	    if (igniteEvent.isCancelled()) {
-	        return false;
-	    }
-
-	    loc.add(0.5, 0.5, 0.5);
-	    
-	    BlockState blockState = loc.getBlock().getState();
-	    
-	    BlockPlaceEvent placeEvent = new BlockPlaceEvent(loc.getBlock(), 
-	            blockState, loc.getBlock(), igniter.getItemInHand(), igniter, true);
-	    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
-	    
-	    if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
-	        placeEvent.getBlockPlaced().setTypeIdAndData(0, (byte) 0, false);
 	        return false;
 	    }
 	    
@@ -134,6 +125,23 @@ public class BlazeSword implements Listener
 	    
 	    for(Location l : locations)
 	    {
+		    BlockIgniteEvent igniteEvent2 = new BlockIgniteEvent(l.getBlock(), 
+		            cause, (org.bukkit.entity.Entity) igniter);
+		    Bukkit.getServer().getPluginManager().callEvent(igniteEvent2);
+		    if (igniteEvent2.isCancelled()) {
+		        continue;
+		    }
+		    
+		    BlockState blockState = l.getBlock().getState();
+		    
+		    BlockPlaceEvent placeEvent = new BlockPlaceEvent(l.getBlock(), 
+		            blockState, l.getBlock(), igniter.getItemInHand(), igniter, true);
+		    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
+		    
+		    if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
+		        continue;
+		    }
+	    	
 	    	if(l.getBlock() == null || l.getBlock().getType() == Material.AIR)
 	    		l.getBlock().setType(Material.FIRE);
 	    }

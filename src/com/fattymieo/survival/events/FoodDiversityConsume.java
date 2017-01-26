@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -21,9 +22,10 @@ public class FoodDiversityConsume implements Listener
 	Objective carbon = Survival.mainBoard.getObjective("Carbs");
 	Objective protein = Survival.mainBoard.getObjective("Protein");
 	Objective salts = Survival.mainBoard.getObjective("Salts");
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onConsume(PlayerItemConsumeEvent event)
 	{
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		switch(event.getItem().getType())
 		{
@@ -147,9 +149,10 @@ public class FoodDiversityConsume implements Listener
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onConsumeCake(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if(event.hasBlock() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 		{
@@ -166,9 +169,10 @@ public class FoodDiversityConsume implements Listener
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onDamage(EntityDamageEvent e)
 	{
+		if(e.isCancelled()) return;
 		if(e.getEntity() instanceof Player)
 		{
 			Player player = (Player)e.getEntity();

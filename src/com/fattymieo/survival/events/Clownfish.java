@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
@@ -14,9 +15,10 @@ import lib.ParticleEffect;
 
 public class Clownfish implements Listener
 {
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onConsume(PlayerItemConsumeEvent event)
 	{
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if(event.getItem().getType() == Material.RAW_FISH && event.getItem().getDurability() == (short)2)
 		{

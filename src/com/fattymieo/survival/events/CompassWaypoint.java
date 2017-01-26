@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,9 +17,10 @@ import lib.ParticleEffect;
 
 public class CompassWaypoint implements Listener
 {	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();

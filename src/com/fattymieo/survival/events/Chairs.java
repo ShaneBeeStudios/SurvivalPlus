@@ -3,6 +3,7 @@ package com.fattymieo.survival.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -26,9 +28,10 @@ import com.fattymieo.survival.Survival;
 
 public class Chairs implements Listener
 {	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK)
 		{
 			Block block = event.getClickedBlock();
@@ -119,17 +122,34 @@ public class Chairs implements Listener
 				
 				// Changing the drop material is only necessary for the item merge feature of CB++
 				// The client won't update the material, though.
-				drop.setPassenger(player);	
+				drop.addPassenger(player);
 				
 				// Cancel BlockPlaceEvent Result, if player is rightclicking with a block in his hand.
 				event.setUseInteractedBlock(Result.DENY);
+				
+				//A schedule that removes the ArmorStand once the player leaves from the chair
+				final ArmorStand chair = drop;
+				
+				Runnable run = new Runnable()
+				{
+					public void run()
+					{
+						if(chair.getPassengers().isEmpty())
+							chair.remove();
+						else
+							Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 10L);
+					}
+				};
+				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, run, -1);
 			}
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(Survival.allowedBlocks.contains(event.getBlock().getType()))
 		{
 			ArmorStand drop = dropSeat(event.getBlock(), (Stairs)event.getBlock().getState().getData());
@@ -154,15 +174,20 @@ public class Chairs implements Listener
 			vehicle.remove();
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onHit(EntityDamageEvent event)
 	{
-		if(event.getEntity().getCustomName() == "Chair")
+		if(event.isCancelled()) return;
+		Entity hitTarget = event.getEntity();
+		if(hitTarget != null && hitTarget instanceof ArmorStand && hitTarget.getCustomName() == "Chair")
+			// Chair entity is immune to damage.
 			event.setCancelled(true);
-		if(event.getEntity().getVehicle() != null)
+		else if(hitTarget != null && hitTarget instanceof Player && hitTarget.getVehicle() != null)
 		{
-			if(event.getEntity().getVehicle().getCustomName() == "Chair")
-				event.getEntity().getVehicle().remove();
+			// Let players stand up if receiving damage.
+			Entity vehicle = hitTarget.getVehicle();
+			if(vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
+				vehicle.remove();
 		}
 	}
 	
@@ -204,7 +229,7 @@ public class Chairs implements Listener
 		{
 			if(e != null && e instanceof ArmorStand && e.getCustomName() == "Chair")
 			{
-				if(e.getPassenger() == null)
+				if(e.getPassengers().isEmpty())
 					e.remove();
 				else
 					drops.add(drop);

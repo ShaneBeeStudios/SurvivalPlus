@@ -3,6 +3,7 @@ package com.fattymieo.survival.events;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.AnvilInventory;
@@ -14,9 +15,10 @@ import com.fattymieo.survival.Survival;
 
 public class NoAnvil implements Listener
 {
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClick(InventoryClickEvent e)
 	{
+		if(e.isCancelled()) return;
 		Inventory inv = e.getInventory();
 			 
 		if(inv instanceof AnvilInventory)

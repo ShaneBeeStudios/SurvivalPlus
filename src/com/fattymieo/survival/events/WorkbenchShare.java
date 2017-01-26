@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -26,9 +27,10 @@ import com.fattymieo.survival.Survival;
 
 public class WorkbenchShare implements Listener
 {
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInteract(PlayerInteractEvent e)
 	{
+		if(e.isCancelled()) return;
 		final Player p = e.getPlayer();
 		
 		if(e.getClickedBlock() == null)
@@ -101,9 +103,10 @@ public class WorkbenchShare implements Listener
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClick(final InventoryClickEvent e)
 	{
+		if(e.isCancelled()) return;
 		if (!(e.getWhoClicked() instanceof Player))
 			return;
 		
@@ -186,9 +189,10 @@ public class WorkbenchShare implements Listener
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryDrag(final InventoryDragEvent e)
 	{
+		if(e.isCancelled()) return;
 		if (!(e.getWhoClicked() instanceof Player))
 			return;
 		
@@ -318,9 +322,10 @@ public class WorkbenchShare implements Listener
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBreakWorkbench(BlockBreakEvent e)
 	{
+		if(e.isCancelled()) return;
 		Block workbench = e.getBlock();
 		
 		workbench.removeMetadata("shared_inventory", Survival.instance);

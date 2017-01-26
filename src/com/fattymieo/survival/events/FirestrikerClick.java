@@ -11,6 +11,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -32,9 +33,10 @@ import com.fattymieo.survival.Survival;
 public class FirestrikerClick implements Listener
 {	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(PlayerInteractEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();
@@ -97,21 +99,22 @@ public class FirestrikerClick implements Listener
 						}
 						
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-						ignite(player, loc, IgniteCause.FLINT_AND_STEEL);
-
-						Random rand = new Random();
-		            	player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-						
-						event.getItem().setDurability((short)(event.getItem().getDurability() + 7));
-						if(event.getItem().getDurability() >= 56)
+						if(ignite(player, loc, IgniteCause.FLINT_AND_STEEL))
 						{
-							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-							if(player.getInventory().getItemInMainHand().getType() == event.getItem().getType())
-								player.getInventory().setItemInMainHand(null);
-							else if(player.getInventory().getItemInOffHand().getType() == event.getItem().getType())
-								player.getInventory().setItemInOffHand(null);
+							Random rand = new Random();
+			            	player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+							
+							event.getItem().setDurability((short)(event.getItem().getDurability() + 7));
+							if(event.getItem().getDurability() >= 56)
+							{
+								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+								if(player.getInventory().getItemInMainHand().getType() == event.getItem().getType())
+									player.getInventory().setItemInMainHand(null);
+								else if(player.getInventory().getItemInOffHand().getType() == event.getItem().getType())
+									player.getInventory().setItemInOffHand(null);
+							}
+							player.updateInventory();
 						}
-						player.updateInventory();
 					}
 				}
 			}
@@ -121,7 +124,9 @@ public class FirestrikerClick implements Listener
 	@SuppressWarnings("deprecation")
 	public boolean ignite(Player igniter, Location loc, IgniteCause cause) {
 	    Random rand = new Random();
-	 
+
+	    loc.add(0.5, 0.5, 0.5);
+	    
 	    BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(), 
 	            cause, (org.bukkit.entity.Entity) igniter);
 	    Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
@@ -131,7 +136,6 @@ public class FirestrikerClick implements Listener
 	 
 	    BlockState blockState = loc.getBlock().getState();
 	 
-	    loc.add(0.5, 0.5, 0.5);
 	    loc.getWorld().playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 	    loc.getBlock().setType(Material.FIRE);
 	 
@@ -147,11 +151,11 @@ public class FirestrikerClick implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClick(InventoryClickEvent event)
 	{
-		
-		if(!ChatColor.stripColor(event.getInventory().getName()).equalsIgnoreCase(Survival.Words.get("Firestriker")))
+		if(event.isCancelled()) return;
+		if(event.getInventory().getTitle() != Survival.Words.get("Firestriker"))
 			return;
 		
 		Player player = (Player) event.getWhoClicked();
@@ -252,9 +256,10 @@ public class FirestrikerClick implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event)
 	{
+		if(event.isCancelled()) return;
 		if(event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
 		{
 			Player player = (Player)event.getDamager();
