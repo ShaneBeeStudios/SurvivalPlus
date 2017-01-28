@@ -33,10 +33,9 @@ import com.fattymieo.survival.Survival;
 public class FirestrikerClick implements Listener
 {	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
-		if(event.isCancelled()) return;
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();
@@ -58,6 +57,7 @@ public class FirestrikerClick implements Listener
 						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Survival.Words.get("Firestriker"));
 						player.openInventory(firestriker);
 						firestriker.setItem(1, event.getItem());
+						event.setCancelled(true);
 					}
 				}
 				else
@@ -136,9 +136,6 @@ public class FirestrikerClick implements Listener
 	 
 	    BlockState blockState = loc.getBlock().getState();
 	 
-	    loc.getWorld().playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-	    loc.getBlock().setType(Material.FIRE);
-	 
 	    BlockPlaceEvent placeEvent = new BlockPlaceEvent(loc.getBlock(), 
 	            blockState, loc.getBlock(), igniter.getItemInHand(), igniter, true);
 	    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
@@ -147,14 +144,17 @@ public class FirestrikerClick implements Listener
 	        placeEvent.getBlockPlaced().setTypeIdAndData(0, (byte) 0, false);
 	        return false;
 	    }
+
+	    loc.getWorld().playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+	    loc.getBlock().setType(Material.FIRE);
+	    
 	    return true;
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event)
 	{
-		if(event.isCancelled()) return;
 		if(event.getInventory().getTitle() != Survival.Words.get("Firestriker"))
 			return;
 		
@@ -172,7 +172,7 @@ public class FirestrikerClick implements Listener
 			{
 				if(event.getCursor() == null || event.getCursor().getType() == Material.AIR)
 				{
-					if(event.getInventory().getItem(1).getType() == Material.WOOD_SPADE)
+					if(event.getInventory().getItem(1) != null && event.getInventory().getItem(1).getType() == Material.WOOD_SPADE)
 					{
 						if(smeltCheck(event.getInventory(), event.getInventory().getItem(0)))
 						{
@@ -212,8 +212,10 @@ public class FirestrikerClick implements Listener
 	public boolean smeltCheck(Inventory inv, ItemStack item)
 	{
 		boolean canSmelt = true;
-		
-		     if(item.getType() == Material.PORK)
+
+	    if(item == null)
+	    	canSmelt = false;
+	    else if(item.getType() == Material.PORK)
 			inv.setItem(2, new ItemStack(Material.GRILLED_PORK));
 		else if(item.getType() == Material.RAW_BEEF)
 			inv.setItem(2, new ItemStack(Material.COOKED_BEEF));

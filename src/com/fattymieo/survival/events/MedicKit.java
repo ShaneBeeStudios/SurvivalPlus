@@ -130,10 +130,9 @@ public class MedicKit implements Listener
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onSelfClick(PlayerInteractEvent event)
 	{
-		if(event.isCancelled()) return;
 		if(event.hasItem() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
 		{
 			final Player player = event.getPlayer();

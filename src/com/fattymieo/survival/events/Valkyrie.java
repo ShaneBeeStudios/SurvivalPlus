@@ -37,10 +37,9 @@ public class Valkyrie implements Listener
 	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
-		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		

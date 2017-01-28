@@ -103,10 +103,9 @@ public class WorkbenchShare implements Listener
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onInventoryClick(final InventoryClickEvent e)
 	{
-		if(e.isCancelled()) return;
 		if (!(e.getWhoClicked() instanceof Player))
 			return;
 		

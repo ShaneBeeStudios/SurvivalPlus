@@ -28,10 +28,9 @@ import com.fattymieo.survival.Survival;
 
 public class Chairs implements Listener
 {	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
-		if(event.isCancelled()) return;
 		if(event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK)
 		{
 			Block block = event.getClickedBlock();

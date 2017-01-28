@@ -11,7 +11,6 @@ import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -23,10 +22,9 @@ import org.bukkit.inventory.ItemStack;
 public class BlazeSword implements Listener
 {	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
-		if(event.isCancelled()) return;
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();
