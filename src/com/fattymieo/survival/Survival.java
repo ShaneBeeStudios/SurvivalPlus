@@ -17,6 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
@@ -53,7 +54,7 @@ import net.minecraft.server.v1_11_R1.NBTTagString;
 
 public class Survival extends JavaPlugin
 {
-    public static String Version = "2.0.5";
+    public static String Version = "2.0.6";
 	public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -66,7 +67,7 @@ public class Survival extends JavaPlugin
     public static String Language = "EN";
     public static int LocalChatDist = 64;
     public static int AlertInterval = 20;
-    public static List<Integer> DropRate = new ArrayList<>();
+    public static List<Double> Rates = new ArrayList<>();
     public static Map<String, String> Words;
 	public static List<Material> allowedBlocks = new ArrayList<Material>();
 	public static List<Player> usingPlayers = new ArrayList<Player>();
@@ -115,19 +116,20 @@ public class Survival extends JavaPlugin
 			return;
 		}
 		
-		DropRate.add(settings.getInt("Survival.DropRate.Flint"));
-		DropRate.add(settings.getInt("Survival.DropRate.Stick"));
-		for(int i : DropRate)
+		Rates.add(settings.getDouble("Survival.DropRate.Flint"));
+		Rates.add(settings.getDouble("Survival.DropRate.Stick"));
+		Rates.add(settings.getDouble("Mechanics.Thirst.DrainRate"));
+		for(double i : Rates)
 		{
 			if(i <= 0)
 			{
-				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "DropRate cannot be zero or below! Plugin disabled.");
+				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "Rate values cannot be zero or below! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
-			else if(i > 100)
+			else if(i > 1)
 			{
-				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "DropRate cannot be above 100! Plugin disabled.");
+				Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + "Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
@@ -233,6 +235,26 @@ public class Survival extends JavaPlugin
 		getServer().getScheduler().cancelTasks(this);
 		getServer().resetRecipes();
 		usingPlayers = new ArrayList<Player>();
+		//Avoid WorkbenchShare glitch
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			if (p.hasMetadata("shared_workbench"))
+			{
+				Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)p.getMetadata("shared_workbench").get(0).value() : null;
+				
+				if(workbench != null && workbench.getType() == Material.WORKBENCH)
+				{
+					if (workbench.hasMetadata("shared_players"))
+						workbench.removeMetadata("shared_players", Survival.instance);
+					else
+						p.getOpenInventory().getTopInventory().clear();
+					
+					p.closeInventory();	
+				}
+				
+				p.removeMetadata("shared_workbench", Survival.instance);
+			}
+		}
 		
 		logger.info(pdfFile.getName() + " has been disabled.");
 	}
@@ -2492,7 +2514,9 @@ public class Survival extends JavaPlugin
 		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
 	                    if(player.getExhaustion() >= 4)
 	                    {
-	                        thirst.setScore(thirst.getScore() - 1);
+	                        Random rand = new Random();
+	                        double chance = rand.nextDouble();
+	                        thirst.setScore(thirst.getScore() - (chance <= settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0));
 	                        if(thirst.getScore() < 0)
 	                            thirst.setScore(0);
 	                    }

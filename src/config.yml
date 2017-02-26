@@ -1,6 +1,6 @@
 # Settings
 
-Version: "2.0.5"
+Version: "2.0.6"
 
 Language: EN
 
@@ -27,8 +27,8 @@ Survival:
     Hammer: true
 
   DropRate:
-    Flint: 50
-    Stick: 25
+    Flint: 0.5
+    Stick: 0.25
 
   Torch: true
 
@@ -56,6 +56,7 @@ Mechanics:
     Enabled: true
     PurifyWater: true
     MeltSnow: true
+    DrainRate: 1.0
   
   CompassWaypoint: true
   Clownfish: true

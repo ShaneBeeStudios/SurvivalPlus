@@ -72,9 +72,9 @@ public class BlockBreak implements Listener
 						event.getBlock().setType(Material.AIR);
 						
 						Random rand = new Random();
-						int chance = rand.nextInt(100) + 1;
+						double chance = rand.nextDouble();
 						
-						if(chance <= Survival.settings.getInt("Survival.DropRate.Flint"))
+						if(chance <= Survival.settings.getDouble("Survival.DropRate.Flint"))
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(),new ItemStack(Material.FLINT));
 					}
 				}
@@ -326,9 +326,9 @@ public class BlockBreak implements Listener
 					)
 					{
 						Random rand = new Random();
-						int chance = rand.nextInt(100) + 1;
+						double chance = rand.nextDouble();
 						
-						if(chance <= Survival.settings.getInt("Survival.DropRate.Stick"))
+						if(chance <= Survival.settings.getDouble("Survival.DropRate.Stick"))
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(),new ItemStack(Material.STICK));
 					}
 				}
