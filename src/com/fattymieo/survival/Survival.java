@@ -54,7 +54,7 @@ import net.minecraft.server.v1_11_R1.NBTTagString;
 
 public class Survival extends JavaPlugin
 {
-    public static String Version = "2.0.6";
+    public static String Version = "2.0.7";
 	public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -331,6 +331,8 @@ public class Survival extends JavaPlugin
 		pm.registerEvents(new NoAnvil(), this);
 		if(settings.getBoolean("Mechanics.Bow"))
 			pm.registerEvents(new Bow(), this);
+		if(settings.getBoolean("Mechanics.GrapplingHook"))
+			pm.registerEvents(new GrapplingHook(), this);
 		if(settings.getBoolean("LegendaryItems.ObsidianMace"))
 			pm.registerEvents(new ObsidianMaceWeakness(), this);
 		if(settings.getBoolean("LegendaryItems.ValkyrieAxe"))

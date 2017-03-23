@@ -1,6 +1,6 @@
 # Settings
 
-Version: "2.0.6"
+Version: "2.0.7"
 
 Language: EN
 
@@ -41,6 +41,7 @@ Mechanics:
   ReinforcedLeatherArmor: true
   Bow: true
   RecurveBow: true
+  GrapplingHook: true
   MedicalKit: true
   ReducedGoldNugget: true
   

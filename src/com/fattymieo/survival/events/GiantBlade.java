@@ -89,9 +89,10 @@ public class GiantBlade implements Listener
 	{
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
+		ItemStack offItem = player.getInventory().getItemInOffHand();
 		
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player);
-
+		
 		if(mainItem.getType() == Material.GOLD_HOE)
 		{
 			if(dualWield.getScore(player).getScore() == 0)
@@ -138,7 +139,21 @@ public class GiantBlade implements Listener
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
 				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if(score_dualWieldMsg.getScore() == 2)
+				if(score_dualWieldMsg.getScore() >= 2)
+				{
+					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
+				}
+			}
+		}
+		else if(offItem.getType() == Material.GOLD_HOE)
+		{
+			if(dualWield.getScore(player).getScore() != 0)
+			{
+				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
+				if(score_dualWieldMsg.getScore() >= 2)
 				{
 					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
 				}
