@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,7 +20,7 @@ import org.bukkit.scoreboard.Objective;
 
 import com.fattymieo.survival.Survival;
 
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class Consume implements Listener
 {
@@ -48,6 +49,21 @@ public class Consume implements Listener
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
 						}
+					}
+				}
+				break;
+			case BEETROOT_SOUP: //Water Bowl
+				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 18);
+				event.setCancelled(true);
+				player.getInventory().remove(event.getItem());
+				player.getInventory().addItem(new ItemStack(Material.BOWL));
+				if(Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater"))
+				{
+					Random rand = new Random();
+					if(rand.nextInt(10) + 1 <= 6)
+					{
+						player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 					}
 				}
 				break;
@@ -101,7 +117,7 @@ public class Consume implements Listener
 	
 	public boolean checkWaterBottle(ItemStack bottle)
 	{
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
         NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
         if (compound_bottle != null)
         {

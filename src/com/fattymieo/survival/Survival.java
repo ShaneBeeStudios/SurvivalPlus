@@ -20,7 +20,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceRecipe;
@@ -44,17 +44,17 @@ import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 
 import lib.ParticleEffect;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
-import net.minecraft.server.v1_11_R1.NBTTagFloat;
-import net.minecraft.server.v1_11_R1.NBTTagInt;
-import net.minecraft.server.v1_11_R1.NBTTagList;
-import net.minecraft.server.v1_11_R1.NBTTagString;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagFloat;
+import net.minecraft.server.v1_12_R1.NBTTagInt;
+import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_12_R1.NBTTagString;
 
 //Special thanks to DarkBlade12 for ParticleEffect Library
 
 public class Survival extends JavaPlugin
 {
-    public static String Version = "2.0.7";
+    public static String Version = "2.1.0";
 	public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -327,6 +327,7 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new BlockPlace(), this);
 			pm.registerEvents(new FirestrikerClick(), this);
 			pm.registerEvents(new ShivPoison(), this);
+			pm.registerEvents(new WaterBowl(), this);
 		}
 		pm.registerEvents(new NoAnvil(), this);
 		if(settings.getBoolean("Mechanics.Bow"))
@@ -369,12 +370,12 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new Chairs(), this);
 		if(settings.getBoolean("Mechanics.CookieHealthBoost"))
 			pm.registerEvents(new CookieHealthBoost(), this);
+		if(settings.getBoolean("Mechanics.BeetrootStrength"))
+			pm.registerEvents(new BeetrootStrength(), this);
 		if(settings.getBoolean("Mechanics.Clownfish"))
 			pm.registerEvents(new Clownfish(), this);
 		if(settings.getBoolean("Mechanics.LivingSlime"))
 			pm.registerEvents(new LivingSlime(), this);
-		if(settings.getBoolean("Mechanics.BeetrootSandwich"))
-			pm.registerEvents(new BeetrootSandwich(), this);
 		if(settings.getBoolean("Mechanics.BedFatigueLevel"))
 			pm.registerEvents(new BedFatigue(), this);
 		if(settings.getBoolean("Mechanics.FoodDiversity"))
@@ -392,11 +393,21 @@ public class Survival extends JavaPlugin
 	
 	public void removeRecipes()
 	{
-		Iterator<Recipe> it = getServer().recipeIterator();
-		Recipe recipe;
+		List<Recipe> backup = new ArrayList<Recipe>();
+		
+	    Iterator<Recipe> a = getServer().recipeIterator();
+
+	    while(a.hasNext())
+	    {
+	        Recipe recipe = a.next();
+	        backup.add(recipe);
+	    }
+	    
+	    Iterator<Recipe> it = backup.iterator();
+	    
 		while(it.hasNext())
 		{
-			recipe = it.next();
+			Recipe recipe = it.next();
 			if (recipe != null)
 			{
 				switch(recipe.getResult().getType())
@@ -409,6 +420,7 @@ public class Survival extends JavaPlugin
 					case FURNACE:
 					case WORKBENCH:
 					case CHEST:
+					case BEETROOT_SOUP:
 						if(settings.getBoolean("Survival.Enabled"))
 							it.remove();
 						break;
@@ -458,13 +470,14 @@ public class Survival extends JavaPlugin
 							it.remove();
 						break;
 						
-					case BED:
-						if(settings.getBoolean("Recipes.Bed"))
+					case FISHING_ROD:
+						if(settings.getBoolean("Recipes.FishingRod"))
 							it.remove();
 						break;
 						
-					case FISHING_ROD:
-						if(settings.getBoolean("Recipes.FishingRod"))
+					case IRON_NUGGET:
+					case IRON_INGOT:
+						if(settings.getBoolean("Mechanics.ReducedIronNugget"))
 							it.remove();
 						break;
 						
@@ -480,10 +493,6 @@ public class Survival extends JavaPlugin
 						break;
 					case COOKIE:
 						if(settings.getBoolean("Mechanics.FarmingProducts.Cookie"))
-							it.remove();
-						break;
-					case BEETROOT_SOUP:
-						if(settings.getBoolean("Mechanics.FarmingProducts.BeetrootSoup"))
 							it.remove();
 						break;
 						
@@ -513,6 +522,13 @@ public class Survival extends JavaPlugin
 				}
 			}
 		}
+		
+		getServer().clearRecipes();
+		
+		for (Recipe r : backup)
+		{
+			getServer().addRecipe(r);
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -533,7 +549,7 @@ public class Survival extends JavaPlugin
 		//Firestriker
 		ItemStack i_firestriker = new ItemStack(Material.WOOD_SPADE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_firestriker = CraftItemStack.asNMSCopy(i_firestriker);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_firestriker = CraftItemStack.asNMSCopy(i_firestriker);
         NBTTagCompound compound_firestriker = nmsStack_firestriker.getTag();
         if (compound_firestriker == null)
         {
@@ -567,7 +583,7 @@ public class Survival extends JavaPlugin
 		//Shiv
 		ItemStack i_shiv = new ItemStack(Material.WOOD_HOE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_shiv = CraftItemStack.asNMSCopy(i_shiv);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_shiv = CraftItemStack.asNMSCopy(i_shiv);
         NBTTagCompound compound_shiv = nmsStack_shiv.getTag();
         if (compound_shiv == null)
         {
@@ -633,7 +649,7 @@ public class Survival extends JavaPlugin
 		//Valkyrie's Axe
 		ItemStack i_gAxe = new ItemStack(Material.GOLD_AXE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
         NBTTagCompound compound_gAxe = nmsStack_gAxe.getTag();
         if (compound_gAxe == null)
         {
@@ -683,7 +699,7 @@ public class Survival extends JavaPlugin
 		//Quartz Pickaxe
 		ItemStack i_gPickaxe = new ItemStack(Material.GOLD_PICKAXE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gPickaxe = CraftItemStack.asNMSCopy(i_gPickaxe);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_gPickaxe = CraftItemStack.asNMSCopy(i_gPickaxe);
         NBTTagCompound compound_gPickaxe = nmsStack_gPickaxe.getTag();
         if (compound_gPickaxe == null)
         {
@@ -740,7 +756,7 @@ public class Survival extends JavaPlugin
 		//Obsidian Mace
 		ItemStack i_gSpade = new ItemStack(Material.GOLD_SPADE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gSpade = CraftItemStack.asNMSCopy(i_gSpade);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_gSpade = CraftItemStack.asNMSCopy(i_gSpade);
         NBTTagCompound compound_gSpade = nmsStack_gSpade.getTag();
         if (compound_gSpade == null)
         {
@@ -813,7 +829,7 @@ public class Survival extends JavaPlugin
 		//Ender Giant Blade
 		ItemStack i_gHoe = new ItemStack(Material.GOLD_HOE, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gHoe = CraftItemStack.asNMSCopy(i_gHoe);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_gHoe = CraftItemStack.asNMSCopy(i_gHoe);
         NBTTagCompound compound_gHoe = nmsStack_gHoe.getTag();
         if (compound_gHoe == null)
         {
@@ -889,7 +905,7 @@ public class Survival extends JavaPlugin
 		//Blaze Sword
 		ItemStack i_gSword = new ItemStack(Material.GOLD_SWORD, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_gSword = CraftItemStack.asNMSCopy(i_gSword);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_gSword = CraftItemStack.asNMSCopy(i_gSword);
         NBTTagCompound compound_gSword = nmsStack_gSword.getTag();
         if (compound_gSword == null)
         {
@@ -962,7 +978,7 @@ public class Survival extends JavaPlugin
 		//Reinforced Leather Boots
 		ItemStack i_leatherBoots = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_leatherBoots = CraftItemStack.asNMSCopy(i_leatherBoots);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_leatherBoots = CraftItemStack.asNMSCopy(i_leatherBoots);
         NBTTagCompound compound_leatherBoots = nmsStack_leatherBoots.getTag();
         if (compound_leatherBoots == null)
         {
@@ -1019,7 +1035,7 @@ public class Survival extends JavaPlugin
 		//Golden Sabatons
 		ItemStack i_goldBoots = new ItemStack(Material.GOLD_BOOTS, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldBoots = CraftItemStack.asNMSCopy(i_goldBoots);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_goldBoots = CraftItemStack.asNMSCopy(i_goldBoots);
         NBTTagCompound compound_goldBoots = nmsStack_goldBoots.getTag();
         if (compound_goldBoots == null)
         {
@@ -1053,7 +1069,7 @@ public class Survival extends JavaPlugin
 		//Golden Guard
   		ItemStack i_goldChestplate = new ItemStack(Material.GOLD_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldChestplate = CraftItemStack.asNMSCopy(i_goldChestplate);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_goldChestplate = CraftItemStack.asNMSCopy(i_goldChestplate);
 	    NBTTagCompound compound_goldChestplate = nmsStack_goldChestplate.getTag();
 	    if (compound_goldChestplate == null)
 	    {
@@ -1087,7 +1103,7 @@ public class Survival extends JavaPlugin
 		//Golden Greaves
   		ItemStack i_goldLeggings = new ItemStack(Material.GOLD_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldLeggings = CraftItemStack.asNMSCopy(i_goldLeggings);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_goldLeggings = CraftItemStack.asNMSCopy(i_goldLeggings);
 	    NBTTagCompound compound_goldLeggings = nmsStack_goldLeggings.getTag();
 	    if (compound_goldLeggings == null)
 	    {
@@ -1121,7 +1137,7 @@ public class Survival extends JavaPlugin
 		//Golden Crown
 		ItemStack i_goldHelmet = new ItemStack(Material.GOLD_HELMET, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_goldHelmet = CraftItemStack.asNMSCopy(i_goldHelmet);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_goldHelmet = CraftItemStack.asNMSCopy(i_goldHelmet);
         NBTTagCompound compound_goldHelmet = nmsStack_goldHelmet.getTag();
         if (compound_goldHelmet == null)
         {
@@ -1155,7 +1171,7 @@ public class Survival extends JavaPlugin
 		//Iron Boots
 		ItemStack i_ironBoots = new ItemStack(Material.IRON_BOOTS, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironBoots = CraftItemStack.asNMSCopy(i_ironBoots);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_ironBoots = CraftItemStack.asNMSCopy(i_ironBoots);
         NBTTagCompound compound_ironBoots = nmsStack_ironBoots.getTag();
         if (compound_ironBoots == null)
         {
@@ -1194,7 +1210,7 @@ public class Survival extends JavaPlugin
         //Iron Chestplate
   		ItemStack i_ironChestplate = new ItemStack(Material.IRON_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironChestplate = CraftItemStack.asNMSCopy(i_ironChestplate);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_ironChestplate = CraftItemStack.asNMSCopy(i_ironChestplate);
 	    NBTTagCompound compound_ironChestplate = nmsStack_ironChestplate.getTag();
 	    if (compound_ironChestplate == null)
 	    {
@@ -1233,7 +1249,7 @@ public class Survival extends JavaPlugin
         //Iron Leggings
   		ItemStack i_ironLeggings = new ItemStack(Material.IRON_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironLeggings = CraftItemStack.asNMSCopy(i_ironLeggings);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_ironLeggings = CraftItemStack.asNMSCopy(i_ironLeggings);
 	    NBTTagCompound compound_ironLeggings = nmsStack_ironLeggings.getTag();
 	    if (compound_ironLeggings == null)
 	    {
@@ -1272,7 +1288,7 @@ public class Survival extends JavaPlugin
 		//Iron Helmet
 		ItemStack i_ironHelmet = new ItemStack(Material.IRON_HELMET, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_ironHelmet = CraftItemStack.asNMSCopy(i_ironHelmet);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_ironHelmet = CraftItemStack.asNMSCopy(i_ironHelmet);
         NBTTagCompound compound_ironHelmet = nmsStack_ironHelmet.getTag();
         if (compound_ironHelmet == null)
         {
@@ -1311,7 +1327,7 @@ public class Survival extends JavaPlugin
 		//Diamond Boots
 		ItemStack i_diamondBoots = new ItemStack(Material.DIAMOND_BOOTS, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondBoots = CraftItemStack.asNMSCopy(i_diamondBoots);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_diamondBoots = CraftItemStack.asNMSCopy(i_diamondBoots);
         NBTTagCompound compound_diamondBoots = nmsStack_diamondBoots.getTag();
         if (compound_diamondBoots == null)
         {
@@ -1350,7 +1366,7 @@ public class Survival extends JavaPlugin
         //Diamond Chestplate
   		ItemStack i_diamondChestplate = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondChestplate = CraftItemStack.asNMSCopy(i_diamondChestplate);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_diamondChestplate = CraftItemStack.asNMSCopy(i_diamondChestplate);
 	    NBTTagCompound compound_diamondChestplate = nmsStack_diamondChestplate.getTag();
 	    if (compound_diamondChestplate == null)
 	    {
@@ -1389,7 +1405,7 @@ public class Survival extends JavaPlugin
         //Diamond Leggings
   		ItemStack i_diamondLeggings = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
   		
-  		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondLeggings = CraftItemStack.asNMSCopy(i_diamondLeggings);
+  		net.minecraft.server.v1_12_R1.ItemStack nmsStack_diamondLeggings = CraftItemStack.asNMSCopy(i_diamondLeggings);
 	    NBTTagCompound compound_diamondLeggings = nmsStack_diamondLeggings.getTag();
 	    if (compound_diamondLeggings == null)
 	    {
@@ -1428,7 +1444,7 @@ public class Survival extends JavaPlugin
 		//Diamond Helmet
 		ItemStack i_diamondHelmet = new ItemStack(Material.DIAMOND_HELMET, 1);
 		
-		net.minecraft.server.v1_11_R1.ItemStack nmsStack_diamondHelmet = CraftItemStack.asNMSCopy(i_diamondHelmet);
+		net.minecraft.server.v1_12_R1.ItemStack nmsStack_diamondHelmet = CraftItemStack.asNMSCopy(i_diamondHelmet);
         NBTTagCompound compound_diamondHelmet = nmsStack_diamondHelmet.getTag();
         if (compound_diamondHelmet == null)
         {
@@ -1475,12 +1491,6 @@ public class Survival extends JavaPlugin
       	ItemMeta medicKitMeta= i_medicKit.getItemMeta();
       	medicKitMeta.setDisplayName(ChatColor.RESET + Words.get("Medical Kit"));
       	i_medicKit.setItemMeta(medicKitMeta);
-      	
-        //Beetroot Sandwich
-      	ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
-      	ItemMeta beetrootMeta= i_beetroot.getItemMeta();
-      	beetrootMeta.setDisplayName(ChatColor.RESET + Words.get("Beetroot Sandwich"));
-      	i_beetroot.setItemMeta(beetrootMeta);
       	
       	//Recurve Bow
       	ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
@@ -1542,11 +1552,7 @@ public class Survival extends JavaPlugin
 		ShapedRecipe furnace1 = new ShapedRecipe(new ItemStack(Material.FURNACE, 1));
 		ShapedRecipe furnace2 = new ShapedRecipe(new ItemStack(Material.FURNACE, 1));
 		ShapedRecipe chest = new ShapedRecipe(new ItemStack(Material.CHEST, 1));
-		ShapelessRecipe clay0 = new ShapelessRecipe(new ItemStack(Material.CLAY, 1));
-		ShapelessRecipe clay1 = new ShapelessRecipe(new ItemStack(Material.CLAY, 1));
-		ShapelessRecipe clay2 = new ShapelessRecipe(new ItemStack(Material.CLAY, 2));
-		ShapelessRecipe clay3 = new ShapelessRecipe(new ItemStack(Material.CLAY, 3));
-		ShapelessRecipe clay4 = new ShapelessRecipe(new ItemStack(Material.CLAY, 4));
+		ShapelessRecipe clay = new ShapelessRecipe(new ItemStack(Material.CLAY, 1));
 		ShapelessRecipe diorite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)3));
 		ShapelessRecipe granite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)1));
 		ShapelessRecipe andesite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)5));
@@ -1555,13 +1561,13 @@ public class Survival extends JavaPlugin
 		ShapelessRecipe firestriker = new ShapelessRecipe(i_firestriker);
 		ShapelessRecipe torch1 = new ShapelessRecipe(new ItemStack(Material.TORCH, 4));
 		ShapelessRecipe torch2 = new ShapelessRecipe(new ItemStack(Material.TORCH, 32));
-		ShapedRecipe bed = new ShapedRecipe(new ItemStack(Material.BED, 1));
 		ShapelessRecipe flint = new ShapelessRecipe(new ItemStack(Material.FLINT, 1));
 		ShapelessRecipe fermentedSpiderEye = new ShapelessRecipe(new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
 		ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(i_fermentedSkin);
 		ShapelessRecipe fermentedSkin2 = new ShapelessRecipe(i_fermentedSkin);
 		ShapelessRecipe poisonousPotato = new ShapelessRecipe(new ItemStack(Material.POISONOUS_POTATO, 1));
 		ShapelessRecipe glassBottle = new ShapelessRecipe(new ItemStack(Material.GLASS_BOTTLE, 1));
+		ShapelessRecipe bowl = new ShapelessRecipe(new ItemStack(Material.BOWL, 1));
 		ShapedRecipe medicKit1 = new ShapedRecipe(i_medicKit);
 		ShapedRecipe medicKit2 = new ShapedRecipe(i_medicKit);
 		ShapedRecipe medicKit3 = new ShapedRecipe(i_medicKit);
@@ -1570,12 +1576,14 @@ public class Survival extends JavaPlugin
 		ShapedRecipe medicKit6 = new ShapedRecipe(i_medicKit);
 		ShapedRecipe fishingRod1 = new ShapedRecipe(new ItemStack(Material.FISHING_ROD, 1));
 		ShapedRecipe fishingRod2 = new ShapedRecipe(new ItemStack(Material.FISHING_ROD, 1));
+		ShapedRecipe ironIngot = new ShapedRecipe(new ItemStack(Material.IRON_INGOT, 1));
+		ShapelessRecipe ironNugget = new ShapelessRecipe(new ItemStack(Material.IRON_NUGGET, 4));
+		ShapelessRecipe ironBlock = new ShapelessRecipe(new ItemStack(Material.IRON_INGOT, 9));
+		FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE);
 		ShapedRecipe goldIngot = new ShapedRecipe(new ItemStack(Material.GOLD_INGOT, 1));
 		ShapelessRecipe goldNugget = new ShapelessRecipe(new ItemStack(Material.GOLD_NUGGET, 4));
 		ShapelessRecipe goldBlock = new ShapelessRecipe(new ItemStack(Material.GOLD_INGOT, 9));
 		FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE);
-		ShapedRecipe beetrootSandwich1 = new ShapedRecipe(i_beetroot);
-		ShapedRecipe beetrootSandwich2 = new ShapedRecipe(i_beetroot);
 		ShapedRecipe bread = new ShapedRecipe(new ItemStack(Material.BREAD, 2));
 		ShapedRecipe cookie = new ShapedRecipe(new ItemStack(Material.COOKIE, 8));
 		ShapelessRecipe slimeball = new ShapelessRecipe(new ItemStack(Material.SLIME_BALL, 1));
@@ -1723,11 +1731,12 @@ public class Survival extends JavaPlugin
 		notchApple.setIngredient('@', Material.GOLD_BLOCK);
 		notchApple.setIngredient('*', Material.APPLE);	
 
-		saddle.shape("@@@","*-*");
+		saddle.shape("@@@","*-*","= =");
 
 		saddle.setIngredient('@', Material.LEATHER);
 		saddle.setIngredient('*', Material.STRING);
 		saddle.setIngredient('-', Material.IRON_INGOT);
+		saddle.setIngredient('=', Material.IRON_NUGGET);
 
 		nametag1.shape(" -@"," *-","*  ");
 
@@ -1747,41 +1756,47 @@ public class Survival extends JavaPlugin
 		
 		packedIce2.addIngredient(Material.PACKED_ICE);
 
-		ironHorse1.shape("  @","@-@","@*@");
+		ironHorse1.shape("  @","#-#","= =");
 
+		ironHorse1.setIngredient('#', Material.IRON_BLOCK);
 		ironHorse1.setIngredient('@', Material.IRON_INGOT);
-		ironHorse1.setIngredient('-', Material.LEATHER);
-		ironHorse1.setIngredient('*', Material.STRING);
-		
-		ironHorse2.shape("@  ","@-@","@*@");
+		ironHorse1.setIngredient('-', Material.SADDLE);
+		ironHorse1.setIngredient('=', Material.IRON_NUGGET);
 
+		ironHorse2.shape("@  ","#-#","= =");
+
+		ironHorse2.setIngredient('#', Material.IRON_BLOCK);
 		ironHorse2.setIngredient('@', Material.IRON_INGOT);
-		ironHorse2.setIngredient('-', Material.LEATHER);
-		ironHorse2.setIngredient('*', Material.STRING);
-		
-		goldHorse1.shape("  @","@-@","@*@");
+		ironHorse2.setIngredient('-', Material.SADDLE);
+		ironHorse2.setIngredient('=', Material.IRON_NUGGET);
 
+		goldHorse1.shape("  @","#-#","= =");
+
+		goldHorse1.setIngredient('#', Material.GOLD_BLOCK);
 		goldHorse1.setIngredient('@', Material.GOLD_INGOT);
-		goldHorse1.setIngredient('-', Material.LEATHER);
-		goldHorse1.setIngredient('*', Material.STRING);
-		
-		goldHorse2.shape("@  ","@-@","@*@");
+		goldHorse1.setIngredient('-', Material.SADDLE);
+		goldHorse1.setIngredient('=', Material.GOLD_NUGGET);
 
+		goldHorse2.shape("@  ","#-#","= =");
+
+		goldHorse2.setIngredient('#', Material.GOLD_BLOCK);
 		goldHorse2.setIngredient('@', Material.GOLD_INGOT);
-		goldHorse2.setIngredient('-', Material.LEATHER);
-		goldHorse2.setIngredient('*', Material.STRING);
+		goldHorse2.setIngredient('-', Material.SADDLE);
+		goldHorse2.setIngredient('=', Material.GOLD_NUGGET);
 		
-		diamondHorse1.shape("  @","@-@","@*@");
+		diamondHorse1.shape("  H","@-@","B B");
 
 		diamondHorse1.setIngredient('@', Material.DIAMOND);
-		diamondHorse1.setIngredient('-', Material.LEATHER);
-		diamondHorse1.setIngredient('*', Material.STRING);
+		diamondHorse1.setIngredient('-', Material.IRON_BARDING);
+		diamondHorse1.setIngredient('H', Material.DIAMOND_HELMET);
+		diamondHorse1.setIngredient('B', Material.DIAMOND_BOOTS);
 		
-		diamondHorse2.shape("@  ","@-@","@*@");
+		diamondHorse2.shape("H  ","@-@","B B");
 
 		diamondHorse2.setIngredient('@', Material.DIAMOND);
-		diamondHorse2.setIngredient('-', Material.LEATHER);
-		diamondHorse2.setIngredient('*', Material.STRING);
+		diamondHorse2.setIngredient('-', Material.IRON_BARDING);
+		diamondHorse2.setIngredient('H', Material.DIAMOND_HELMET);
+		diamondHorse2.setIngredient('B', Material.DIAMOND_BOOTS);
 
 		clayBrick.addIngredient(Material.BRICK);
 
@@ -1836,25 +1851,9 @@ public class Survival extends JavaPlugin
 		chest.setIngredient('@', Material.WOOD, -1);
 		chest.setIngredient('#', Material.IRON_INGOT);
 
-		clay0.addIngredient(Material.DIRT);
-		clay0.addIngredient(Material.SAND, -1);
-		clay0.addIngredient(Material.POTION, 0);
-
-		clay1.addIngredient(1, Material.DIRT);
-		clay1.addIngredient(1, Material.SAND, -1);
-		clay1.addIngredient(Material.WATER_BUCKET);
-		
-		clay2.addIngredient(2, Material.DIRT);
-		clay2.addIngredient(2, Material.SAND, -1);
-		clay2.addIngredient(Material.WATER_BUCKET);
-		
-		clay3.addIngredient(3, Material.DIRT);
-		clay3.addIngredient(3, Material.SAND, -1);
-		clay3.addIngredient(Material.WATER_BUCKET);
-		
-		clay4.addIngredient(4, Material.DIRT);
-		clay4.addIngredient(4, Material.SAND, -1);
-		clay4.addIngredient(Material.WATER_BUCKET);
+		clay.addIngredient(Material.DIRT);
+		clay.addIngredient(Material.SAND, -1);
+		clay.addIngredient(Material.BEETROOT_SOUP);
 
 		diorite.addIngredient(Material.INK_SACK, 15);
 		diorite.addIngredient(Material.COBBLESTONE);
@@ -1883,12 +1882,6 @@ public class Survival extends JavaPlugin
 		
 		torch2.addIngredient(Material.FLINT_AND_STEEL);
 		torch2.addIngredient(8, Material.STICK);
-		
-		bed.shape("---","WWW","P P");
-		
-		bed.setIngredient('-', Material.CARPET, -1);
-		bed.setIngredient('W', Material.WOOL, -1);
-		bed.setIngredient('P', Material.WOOD, -1);
 
 		flint.addIngredient(Material.GRAVEL);
 
@@ -1908,6 +1901,8 @@ public class Survival extends JavaPlugin
 		poisonousPotato.addIngredient(Material.INK_SACK, 15);
 		
 		glassBottle.addIngredient(Material.POTION, 0);
+		
+		bowl.addIngredient(Material.BEETROOT_SOUP);
 
 		medicKit1.shape(" @ ","ABC"," @ ");
 
@@ -1965,6 +1960,14 @@ public class Survival extends JavaPlugin
 		fishingRod2.setIngredient('-', Material.STRING);
 		fishingRod2.setIngredient('*', Material.FEATHER);
 		
+		ironIngot.shape("@@","@@");
+		
+		ironIngot.setIngredient('@', Material.IRON_NUGGET);
+
+		ironNugget.addIngredient(Material.IRON_INGOT);
+		
+		ironBlock.addIngredient(Material.IRON_BLOCK);
+		
 		goldIngot.shape("@@","@@");
 		
 		goldIngot.setIngredient('@', Material.GOLD_NUGGET);
@@ -1972,22 +1975,6 @@ public class Survival extends JavaPlugin
 		goldNugget.addIngredient(Material.GOLD_INGOT);
 		
 		goldBlock.addIngredient(Material.GOLD_BLOCK);
-		
-		beetrootSandwich1.shape(" A ","BCD"," @ ");
-
-		beetrootSandwich1.setIngredient('@', Material.BOWL);
-		beetrootSandwich1.setIngredient('A', Material.COOKED_CHICKEN);
-		beetrootSandwich1.setIngredient('B', Material.BREAD);
-		beetrootSandwich1.setIngredient('C', Material.BEETROOT);
-		beetrootSandwich1.setIngredient('D', Material.BROWN_MUSHROOM);
-		
-		beetrootSandwich2.shape(" A ","BCD"," @ ");
-
-		beetrootSandwich2.setIngredient('@', Material.BOWL);
-		beetrootSandwich2.setIngredient('A', Material.COOKED_CHICKEN);
-		beetrootSandwich2.setIngredient('B', Material.BREAD);
-		beetrootSandwich2.setIngredient('C', Material.BEETROOT);
-		beetrootSandwich2.setIngredient('D', Material.RED_MUSHROOM);
 		
 		bread.shape(" E ","WWW");
 
@@ -2002,9 +1989,7 @@ public class Survival extends JavaPlugin
 		cookie.setIngredient('C', Material.INK_SACK, 3);
 		
 		slimeball.addIngredient(Material.MILK_BUCKET);
-		slimeball.addIngredient(Material.INK_SACK, 2);
-		slimeball.addIngredient(Material.LONG_GRASS, 2);
-		slimeball.addIngredient(Material.VINE);
+		slimeball.addIngredient(8, Material.VINE);
 		
 		cobweb.addIngredient(Material.SLIME_BALL);
 		cobweb.addIngredient(2, Material.STRING);
@@ -2195,13 +2180,7 @@ public class Survival extends JavaPlugin
 		if(settings.getBoolean("Recipes.Ice"))
 			getServer().addRecipe(ice);
 		if(settings.getBoolean("Recipes.Clay"))
-		{
-			getServer().addRecipe(clay0);
-			getServer().addRecipe(clay1);
-			getServer().addRecipe(clay2);
-			getServer().addRecipe(clay3);
-			getServer().addRecipe(clay4);
-		}
+			getServer().addRecipe(clay);
 		if(settings.getBoolean("Recipes.Diorite"))
 			getServer().addRecipe(diorite);
 		if(settings.getBoolean("Recipes.Granite"))
@@ -2213,8 +2192,6 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(gravel1);
 			getServer().addRecipe(gravel2);
 		}
-		if(settings.getBoolean("Recipes.Bed"))
-			getServer().addRecipe(bed);
 		if(settings.getBoolean("Mechanics.RedMushroomFermentation"))
 			getServer().addRecipe(fermentedSpiderEye);
 		if(settings.getBoolean("Mechanics.FermentedSkin"))
@@ -2226,7 +2203,10 @@ public class Survival extends JavaPlugin
 		if(settings.getBoolean("Mechanics.PoisonousPotato"))
 			getServer().addRecipe(poisonousPotato);
 		if(settings.getBoolean("Mechanics.EmptyPotions"))
+		{
 			getServer().addRecipe(glassBottle);
+			getServer().addRecipe(bowl);
+		}
 		if(settings.getBoolean("Mechanics.ReinforcedLeatherArmor"))
 		{
 			getServer().addRecipe(leatherBoots);
@@ -2270,18 +2250,20 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(fishingRod2);
 		}
 		
+		if(settings.getBoolean("Mechanics.ReducedIronNugget"))
+		{
+			getServer().addRecipe(ironNugget);
+			getServer().addRecipe(ironIngot);
+			getServer().addRecipe(ironBlock);
+			getServer().addRecipe(smelt_ironIngot);
+		}
+		
 		if(settings.getBoolean("Mechanics.ReducedGoldNugget"))
 		{
 			getServer().addRecipe(goldNugget);
 			getServer().addRecipe(goldIngot);
 			getServer().addRecipe(goldBlock);
 			getServer().addRecipe(smelt_goldIngot);
-		}
-
-		if(settings.getBoolean("Mechanics.FarmingProducts.BeetrootSandwich"))
-		{
-			getServer().addRecipe(beetrootSandwich1);
-			getServer().addRecipe(beetrootSandwich2);
 		}
 
 		if(settings.getBoolean("Mechanics.FarmingProducts.Bread"))
