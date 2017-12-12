@@ -29,11 +29,6 @@ public class FoodDiversityConsume implements Listener
 		Player player = event.getPlayer();
 		switch(event.getItem().getType())
 		{
-			case BEETROOT_SOUP:
-				addStats(player, carbon, 300);
-				addStats(player, protein, 250);
-				addStats(player, salts, 147);
-				break;
 			case PUMPKIN_PIE:
 				addStats(player, carbon, 300);
 				addStats(player, protein, 50);

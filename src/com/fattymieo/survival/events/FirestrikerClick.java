@@ -158,7 +158,7 @@ public class FirestrikerClick implements Listener
 		if(event.getInventory().getTitle() != Survival.Words.get("Firestriker"))
 			return;
 		
-		Player player = (Player) event.getWhoClicked();
+		final Player player = (Player) event.getWhoClicked();
 		
 		switch(event.getRawSlot())
 		{
@@ -168,35 +168,41 @@ public class FirestrikerClick implements Listener
 			break;
 			
 			case 2:
+			event.setCancelled(true);
 			if(event.getClick() == ClickType.LEFT)
 			{
 				if(event.getCursor() == null || event.getCursor().getType() == Material.AIR)
 				{
-					if(event.getInventory().getItem(1) != null && event.getInventory().getItem(1).getType() == Material.WOOD_SPADE)
+					if(event.getInventory().getItem(2) == null || event.getInventory().getItem(2).getType() == Material.AIR)
 					{
-						if(smeltCheck(event.getInventory(), event.getInventory().getItem(0)))
+						if(event.getInventory().getItem(1) != null && event.getInventory().getItem(1).getType() == Material.WOOD_SPADE)
 						{
-							Random randBurn = new Random();
-							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, randBurn.nextFloat() * 0.4F + 0.8F);
-							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_BURN, 1.0F, randBurn.nextFloat() * 0.4F + 0.8F);
-							
-							ItemStack i_smelt = event.getInventory().getItem(0);
-							i_smelt.setAmount(i_smelt.getAmount() - 1);
-							event.getInventory().setItem(0, i_smelt);
-							
-							ItemStack i_firecracker = event.getInventory().getItem(1);
-							i_firecracker.setDurability((short)(i_firecracker.getDurability() + 7));
-							if(i_firecracker.getDurability() >= 56)
+							if(smeltCheck(event.getInventory(), event.getInventory().getItem(0)))
 							{
-								Random rand = new Random();
-								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-								ItemStack ban = new ItemStack(Material.BARRIER);
-								ItemMeta banMeta = ban.getItemMeta();
-								banMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.RED + Survival.Words.get("Damaged Firestriker"));
-								ban.setItemMeta(banMeta);
-								event.getInventory().setItem(1, ban);
+								event.setCancelled(true);
+								Random randBurn = new Random();
+								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, randBurn.nextFloat() * 0.4F + 0.8F);
+								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_BURN, 1.0F, randBurn.nextFloat() * 0.4F + 0.8F);
+								
+								ItemStack i_smelt = event.getInventory().getItem(0);
+								i_smelt.setAmount(i_smelt.getAmount() - 1);
+								event.getInventory().setItem(0, i_smelt);
+								
+								ItemStack i_firecracker = event.getInventory().getItem(1);
+								i_firecracker.setDurability((short)(i_firecracker.getDurability() + 7));
+								if(i_firecracker.getDurability() >= 56)
+								{
+									Random rand = new Random();
+									player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+									event.getInventory().setItem(1, null);
+								}
 							}
 						}
+					}
+					else
+					{
+						event.setCursor(event.getInventory().getItem(2));
+						event.getInventory().setItem(2, null);
 					}
 				}
 				else
@@ -204,7 +210,13 @@ public class FirestrikerClick implements Listener
 			}
 			else
 				event.setCancelled(true);
-			player.updateInventory();
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable()
+		    {
+		    	public void run()
+		    	{
+					player.updateInventory();
+	            }
+		    }, 1L);
 			break;
 		}
 	}

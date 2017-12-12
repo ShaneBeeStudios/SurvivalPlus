@@ -1,15 +1,15 @@
 # Settings
 
-Version: "2.0.7"
+Version: "2.1.0"
 
 Language: EN
 
 MultiWorld:
   EnableResourcePack: true
-  ResourcePackURL: ""
+  ResourcePackURL: https://docs.google.com/uc?id=1qymv2QojGhjg4qQ6UMlaPAgZO90wThp2
   NotifyMessage: true
 
-LocalChatDist: 64
+LocalChatDist: -1
 
 NoPos: true
 
@@ -43,6 +43,7 @@ Mechanics:
   RecurveBow: true
   GrapplingHook: true
   MedicalKit: true
+  ReducedIronNugget: true
   ReducedGoldNugget: true
   
   StatusScoreboard: true
@@ -51,7 +52,7 @@ Mechanics:
   EmptyPotions: true
   PoisonousPotato: true
   CookieHealthBoost: true
-  BeetrootSandwich: true
+  BeetrootStrength: true
   FoodDiversity: true
   Thirst:
     Enabled: true
@@ -68,14 +69,13 @@ Mechanics:
   LivingSlime: true
   
   SnowballRevamp: true
-  SnowGenerationRevamp: true
+  SnowGenerationRevamp: false
   
   FishingRod: true
   
   FarmingProducts:
     Bread: true
     Cookie: true
-    BeetrootSandwich: true
   
   Chairs:
     Enabled: true
@@ -113,7 +113,6 @@ Recipes:
   Granite: true
   Andesite: true
   Gravel: true
-  Bed: true
   Slimeball: true
   Cobweb: true
   SaplingToSticks: true

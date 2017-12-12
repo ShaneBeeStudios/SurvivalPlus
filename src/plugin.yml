@@ -1,7 +1,7 @@
 name: SurvivalPlus
 main: com.fattymieo.survival.Survival
 author: FattyMieo
-version: "2.0.7"
+version: "2.1.0"
 commands:
    reload-survival:
       description: Reload configurations

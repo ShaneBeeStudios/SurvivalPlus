@@ -58,6 +58,7 @@ public class BlockBreak implements Listener
 						|| material == Material.SNOW
 						|| material == Material.SNOW_BLOCK
 						|| material == Material.GRASS_PATH
+						|| material == Material.CONCRETE_POWDER
 					)
 					{
 						event.setCancelled(true);
@@ -256,6 +257,23 @@ public class BlockBreak implements Listener
 						|| material == Material.DETECTOR_RAIL
 						|| material == Material.POWERED_RAIL
 						|| material == Material.BEACON
+						|| material == Material.BLACK_GLAZED_TERRACOTTA
+						|| material == Material.BLUE_GLAZED_TERRACOTTA
+						|| material == Material.BROWN_GLAZED_TERRACOTTA
+						|| material == Material.CYAN_GLAZED_TERRACOTTA
+						|| material == Material.GRAY_GLAZED_TERRACOTTA
+						|| material == Material.GREEN_GLAZED_TERRACOTTA
+						|| material == Material.LIGHT_BLUE_GLAZED_TERRACOTTA
+						|| material == Material.LIME_GLAZED_TERRACOTTA
+						|| material == Material.MAGENTA_GLAZED_TERRACOTTA
+						|| material == Material.ORANGE_GLAZED_TERRACOTTA
+						|| material == Material.PINK_GLAZED_TERRACOTTA
+						|| material == Material.PURPLE_GLAZED_TERRACOTTA
+						|| material == Material.RED_GLAZED_TERRACOTTA
+						|| material == Material.SILVER_GLAZED_TERRACOTTA
+						|| material == Material.WHITE_GLAZED_TERRACOTTA
+						|| material == Material.YELLOW_GLAZED_TERRACOTTA
+						|| material == Material.CONCRETE
 					)
 					{
 						event.setCancelled(true);

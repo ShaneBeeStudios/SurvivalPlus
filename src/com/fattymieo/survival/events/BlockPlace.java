@@ -192,6 +192,26 @@ public class BlockPlace implements Listener
 			|| material == Material.DIODE_BLOCK_OFF
 			|| material == Material.DIODE_BLOCK_ON
 			|| material == Material.TRIPWIRE_HOOK
+			|| material == Material.BLACK_GLAZED_TERRACOTTA
+			|| material == Material.BLUE_GLAZED_TERRACOTTA
+			|| material == Material.BROWN_GLAZED_TERRACOTTA
+			|| material == Material.CYAN_GLAZED_TERRACOTTA
+			|| material == Material.GRAY_GLAZED_TERRACOTTA
+			|| material == Material.GREEN_GLAZED_TERRACOTTA
+			|| material == Material.LIGHT_BLUE_GLAZED_TERRACOTTA
+			|| material == Material.LIME_GLAZED_TERRACOTTA
+			|| material == Material.MAGENTA_GLAZED_TERRACOTTA
+			|| material == Material.ORANGE_GLAZED_TERRACOTTA
+			|| material == Material.PINK_GLAZED_TERRACOTTA
+			|| material == Material.PURPLE_GLAZED_TERRACOTTA
+			|| material == Material.RED_GLAZED_TERRACOTTA
+			|| material == Material.SILVER_GLAZED_TERRACOTTA
+			|| material == Material.WHITE_GLAZED_TERRACOTTA
+			|| material == Material.YELLOW_GLAZED_TERRACOTTA
+			|| material == Material.CONCRETE
+			|| material == Material.CONCRETE_POWDER
+			|| material == Material.BEACON
+			|| material == Material.IRON_FENCE
 		)
 			return true;
 		else
