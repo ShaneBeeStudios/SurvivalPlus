@@ -1,8 +1,8 @@
 ![https://docs.google.com/uc?id=0B8D0KMKK7musWTBQaWozV0dxN2c](https://docs.google.com/uc?id=0B8D0KMKK7musWTBQaWozV0dxN2c)
 
 ## Welcome to SurvivalPlus
+SurvivalPlus is a Minecraft mod that adds new contents and experience to Minecraft Survival gameplay
 ### [Project Page @ SpigotMC](https://www.spigotmc.org/resources/survivalplus-survival.20174/)
-Adds new contents and experience to Minecraft Survival gameplay
 
 Suitable for SP and MP
 Best with **PvE**, **PvP**, **Survival**, **Semi-Vanilla**
@@ -24,23 +24,26 @@ Works well in **Hunger Games**, **UHC, Walls**
 ## Core Feature Showcase
 ## Getting started
 First of all, wooden tools and golden tools are removed.
+
 ![https://docs.google.com/uc?id=0B8D0KMKK7musay1aNFQ3NnBLVkU](https://docs.google.com/uc?id=0B8D0KMKK7musay1aNFQ3NnBLVkU)
+
 So how can you survive without wooden tools?
 
 Fear not, a new bunch of new items are added within this plugin.
+
 ![https://docs.google.com/uc?id=0B8D0KMKK7musYlc2YzFQQWwwUkE](https://docs.google.com/uc?id=0B8D0KMKK7musYlc2YzFQQWwwUkE)
 
-## **Understand the usage of tools**
+## Understand the usage of tools
 ![https://docs.google.com/uc?id=0B8D0KMKK7muscG9TOTRrRmZnMFk](https://docs.google.com/uc?id=0B8D0KMKK7muscG9TOTRrRmZnMFk)
 
-* Punching wood? Nope. You must use an **Axe** for breaking any **wooden **blocks.
-* Digging dirt with your bare hands? Nope. You must use a **Spade **for breaking any **sandy **blocks.
-* Breaking stone? You must use a **Pickaxe** for breaking any **hard **blocks.
-* Gathering fruits or vegetables? You must use a **Hoe **for **harvesting **crops.
-* Placing artificial blocks? You must use a **Hammer **for **placing**.
-* Cut strings or disarm TnT? You must use a **Shears **for **cutting**.
+* Punching wood? Nope. You must use an **Axe** for breaking any **wooden** blocks.
+* Digging dirt with your bare hands? Nope. You must use a **Spade** for breaking any **sandy** blocks.
+* Breaking stone? You must use a **Pickaxe** for breaking any **hard** blocks.
+* Gathering fruits or vegetables? You must use a **Hoe** for **harvesting** crops.
+* Placing artificial blocks? You must use a **Hammer** for **placing**.
+* Cut strings or disarm TnT? You must use a **Shears** for **cutting**.
 
-## **Survive and thrive**
+## Survive and thrive
 First, find some trees. Gather some **sticks** by breaking the **leaves**.
 
 * Leaves have **25%** chance to **drop 1 stick**, otherwise no drop.
@@ -71,31 +74,31 @@ Now you can make a **Mattock**.
 
 Next, find some **stones**. No, you can't break dirt straight down to find stones yet, you will need a **shovel**.
 
-Hence, find a cave, or a mountain. Gather stones, and if you're lucky, get some **coal **too.
+Hence, find a cave, or a mountain. Gather stones, and if you're lucky, get some **coal** too.
 
 To make a workbench, you need the last tool, **Hammer**.
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musWnlUcmhGZnd6VjA](https://docs.google.com/uc?id=0B8D0KMKK7musWnlUcmhGZnd6VjA)
 
-It is used to make **workbenches **and **build artificial blocks**.(See below)
+It is used to make **workbenches** and **build artificial blocks**.(See below)
 
-## **Get a weapon**
+## Get a weapon
 You can choose either using a Stone Sword or **Shiv** as your basic weapon.
 
 **Shiv** adds poison effect on hit, but with less damage.
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musUk8taHMxZU82cVU](https://docs.google.com/uc?id=0B8D0KMKK7musUk8taHMxZU82cVU)
 
-Harvest **cows **and **sheep **to obtain **Leather **and **String**(from Wool)
+Harvest **cows** and **sheep** to obtain **Leather** and **String**(from Wool)
 **
 Hydration**
 If you are thirsty, craft a **Bowl** to obtain water.
 Simply throw **1 Bowl** into a water source, it will become a **Water Bowl**.
 ![https://drive.google.com/uc?id=1qP_RLIYx_kAHQphgijBpM7dXHrHpPhnM](https://drive.google.com/uc?id=1qP_RLIYx_kAHQphgijBpM7dXHrHpPhnM)
 
-Drinking it will quench the thirst, but **purified water **is recommended when cauldrons are affordable. (See section *Food & Water > Thirst*).
+Drinking it will quench the thirst, but **purified water** is recommended when cauldrons are affordable. (See section *Food & Water > Thirst*).
 
-**## Plan and craft**
+## Plan and craft
 Then, you craft a **Workbench** like so:
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musdkJOOEhpQ2lGR0k](https://docs.google.com/uc?id=0B8D0KMKK7musdkJOOEhpQ2lGR0k)
@@ -106,7 +109,7 @@ With a shovel, digging Gravel is less risky to get a flint.
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musSjE0cVQ3Z25uYXc](https://docs.google.com/uc?id=0B8D0KMKK7musSjE0cVQ3Z25uYXc)
 
-## **We need to go deeper**
+## We need to go deeper
 Need to discover the underground? You'll need **Torches**.
 
 But you need to make a **Firestriker** for igniting.
@@ -131,19 +134,19 @@ To use the **smelting option** of a firestriker, right click while sneaking.
 
 **Firestriker Recipes:**
 
-* Any cookable **Food**
+Any cookable **Food**
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musaDZMNjJJLWdrYkU](https://docs.google.com/uc?id=0B8D0KMKK7musaDZMNjJJLWdrYkU)
 
-* **Charcoal**
+**Charcoal**
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musWFBwLW1iaC1HMWM](https://docs.google.com/uc?id=0B8D0KMKK7musWFBwLW1iaC1HMWM)
 
-* **Glass**
+**Glass**
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musMmczNU1Ybk5MYnM](https://docs.google.com/uc?id=0B8D0KMKK7musMmczNU1Ybk5MYnM)
 
-* **Brick**
+**Brick**
 
 ![https://docs.google.com/uc?id=0B8D0KMKK7musNTR1ZmNiX0lQb2s](https://docs.google.com/uc?id=0B8D0KMKK7musNTR1ZmNiX0lQb2s)
 
@@ -163,19 +166,22 @@ Make your own **Furnace** in the workbench.
 
 Now you can smelt ores with Furnace.
 
-## **Settle down before sunset**
+## Settle down before sunset
 Time to settle, make sure you bring the workbench with you, it's important.
 
-Make some **Chests **to store your items.
+Make some **Chests** to store your items.
+
 ![https://docs.google.com/uc?id=0B8D0KMKK7musMmNxNlQ3ZkY2ZHM](https://docs.google.com/uc?id=0B8D0KMKK7musMmNxNlQ3ZkY2ZHM)
 
 **Build your house**
 This is where hammer comes in handy.
 All **artificially crafted blocks** (eg. planks) can only be **placed** when with the use of a **hammer**.
-![https://docs.google.com/uc?id=0B8D0KMKK7musc05ReDBGZnZlNUk](https://docs.google.com/uc?id=0B8D0KMKK7musc05ReDBGZnZlNUk)
-Put a **hammer **on the **off hand**, your **blocks **on the **main hand**, start building your house!
 
-Each **placed block** has **10% chance** to reduce hammer's **durability **by **1**.
+![https://docs.google.com/uc?id=0B8D0KMKK7musc05ReDBGZnZlNUk](https://docs.google.com/uc?id=0B8D0KMKK7musc05ReDBGZnZlNUk)
+
+Put a **hammer** on the **off hand**, your **blocks** on the **main hand**, start building your house!
+
+Each **placed block** has **10% chance** to reduce hammer's **durability** by **1**.
 
 ## Check out more in the link below!
 ### [Project Page @ SpigotMC](https://www.spigotmc.org/resources/survivalplus-survival.20174/)
