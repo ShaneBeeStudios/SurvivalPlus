@@ -1,27 +1,19 @@
 package com.fattymieo.survival.events;
 
-import java.util.Random;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scoreboard.Score;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class WaterBowl implements Listener
 {
@@ -31,7 +23,6 @@ public class WaterBowl implements Listener
 		if(!Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
 		{
 			if(event.isCancelled()) return;
-			Player player = event.getPlayer();
 			if(event.getItem().getType() == Material.BEETROOT_SOUP)
 			{
 				event.setCancelled(true);
@@ -58,7 +49,7 @@ public class WaterBowl implements Listener
 		    			
 		    	      	ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
 		    	      	ItemMeta beetrootMeta= i_beetroot.getItemMeta();
-		    	      	beetrootMeta.setDisplayName(ChatColor.RESET + Survival.instance.Words.get("Water Bowl"));
+		    	      	beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
 		    	      	i_beetroot.setItemMeta(beetrootMeta);
 		    	      	
 		    			itemDrop.getWorld().dropItem(itemLocation, i_beetroot);

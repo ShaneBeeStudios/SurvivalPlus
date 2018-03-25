@@ -29,7 +29,6 @@ public class MedicKit implements Listener
 	Objective healing = Survival.board.getObjective("Healing");
 	Objective healTimes = Survival.board.getObjective("HealTimes");
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onDamaged(EntityDamageByEntityEvent event)
 	{
@@ -37,11 +36,10 @@ public class MedicKit implements Listener
 		if(event.getEntity() instanceof Player)
 		{
 			Player player = (Player)event.getEntity();
-			healing.getScore(player).setScore(0);
+			healing.getScore(player.getName()).setScore(0);
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onClickEntity(PlayerInteractEntityEvent event)
 	{
@@ -50,30 +48,30 @@ public class MedicKit implements Listener
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
 		if((mainItem != null && mainItem.getType() == Material.WATCH))
 		{
-			if(healing.getScore(player).getScore() <= 0)
+			if(healing.getScore(player.getName()).getScore() <= 0)
 			{
 				if(!player.isSneaking())
 				{
 					if(event.getRightClicked() instanceof Player)
 					{
 						final Player healed = (Player)event.getRightClicked();
-						if(healing.getScore(healed).getScore() <= 0)
+						if(healing.getScore(healed.getName()).getScore() <= 0)
 						{
 							if(player.getLocation().distance(healed.getLocation()) <= 4)
 							{
-								healing.getScore(player).setScore(1);
-								healing.getScore(healed).setScore(1);
+								healing.getScore(player.getName()).setScore(1);
+								healing.getScore(healed.getName()).setScore(1);
 								healed.teleport(Survival.lookAt(healed.getLocation(), player.getLocation()));
 								player.sendMessage(Survival.Words.get("§aHealing ") + ChatColor.RESET + healed.getDisplayName() + Survival.Words.get("§a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("§a on hand"));
 								healed.sendMessage(Survival.Words.get("§aYou are being healed by ") + ChatColor.RESET + player.getDisplayName() + Survival.Words.get("§a, stay still"));
 								
-								healTimes.getScore(player).setScore(5);
+								healTimes.getScore(player.getName()).setScore(5);
 								final Runnable task = new Runnable()
 								{
 									public void run()
 									{
-										int times = healTimes.getScore(player).getScore();
-										if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player).getScore() > 0 && healing.getScore(healed).getScore() > 0)
+										int times = healTimes.getScore(player.getName()).getScore();
+										if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player.getName()).getScore() > 0 && healing.getScore(healed.getName()).getScore() > 0)
 										{
 											if(times-- > 0)
 											{
@@ -94,13 +92,13 @@ public class MedicKit implements Listener
 						                        ParticleEffect.VILLAGER_HAPPY.display(0.5f, 0.5f, 0.5f, 0, 10, particleLoc, 64);
 
 												Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
-						                        healTimes.getScore(player).setScore(times);
+						                        healTimes.getScore(player.getName()).setScore(times);
 											}
 
 											else
 											{
-												healing.getScore(player).setScore(0);
-												healing.getScore(healed).setScore(0);
+												healing.getScore(player.getName()).setScore(0);
+												healing.getScore(healed.getName()).setScore(0);
 												
 												player.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
 												healed.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
@@ -110,8 +108,8 @@ public class MedicKit implements Listener
 										}
 										else
 										{
-											healing.getScore(player).setScore(0);
-											healing.getScore(healed).setScore(0);
+											healing.getScore(player.getName()).setScore(0);
+											healing.getScore(healed.getName()).setScore(0);
 											
 											player.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
 											healed.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
@@ -129,7 +127,6 @@ public class MedicKit implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onSelfClick(PlayerInteractEvent event)
 	{
@@ -139,20 +136,20 @@ public class MedicKit implements Listener
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			if(mainItem != null && mainItem.getType() == Material.WATCH)
 			{
-				if(healing.getScore(player).getScore() <= 0)
+				if(healing.getScore(player.getName()).getScore() <= 0)
 				{
 					if(player.isSneaking())
 					{
-						healing.getScore(player).setScore(1);
+						healing.getScore(player.getName()).setScore(1);
 						player.sendMessage(Survival.Words.get("§aHealing §ryourself") + Survival.Words.get("§a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("§a on hand"));
 						
-						healTimes.getScore(player).setScore(5);
+						healTimes.getScore(player.getName()).setScore(5);
 						final Runnable task = new Runnable()
 						{
 							public void run()
 							{
-								int times = healTimes.getScore(player).getScore();
-								if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && healing.getScore(player).getScore() > 0)
+								int times = healTimes.getScore(player.getName()).getScore();
+								if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && healing.getScore(player.getName()).getScore() > 0)
 								{
 									if(times-- > 0)
 									{													
@@ -171,12 +168,12 @@ public class MedicKit implements Listener
 				                        ParticleEffect.VILLAGER_HAPPY.display(0.5f, 0.5f, 0.5f, 0, 10, particleLoc, 64);
 
 										Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
-										healTimes.getScore(player).setScore(times);
+										healTimes.getScore(player.getName()).setScore(times);
 									}
 
 									else
 									{
-										healing.getScore(player).setScore(0);
+										healing.getScore(player.getName()).setScore(0);
 										
 										player.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
 										
@@ -185,7 +182,7 @@ public class MedicKit implements Listener
 								}
 								else
 								{
-									healing.getScore(player).setScore(0);
+									healing.getScore(player.getName()).setScore(0);
 									
 									player.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
 									

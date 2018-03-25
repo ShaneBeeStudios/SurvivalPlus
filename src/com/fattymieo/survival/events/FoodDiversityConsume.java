@@ -176,41 +176,37 @@ public class FoodDiversityConsume implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent event)
 	{
 		Player player = event.getPlayer();
-		carbon.getScore(player).setScore(960);
-		protein.getScore(player).setScore(240);
-		salts.getScore(player).setScore(360);
+		carbon.getScore(player.getName()).setScore(960);
+		protein.getScore(player.getName()).setScore(240);
+		salts.getScore(player.getName()).setScore(360);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@EventHandler
 	public void onFirstJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
 		if(!player.hasPlayedBefore())
 		{
-			carbon.getScore(player).setScore(960);
-			protein.getScore(player).setScore(240);
-			salts.getScore(player).setScore(360);
+			carbon.getScore(player.getName()).setScore(960);
+			protein.getScore(player.getName()).setScore(240);
+			salts.getScore(player.getName()).setScore(360);
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void addStats(Player player, Objective nutrient, int point)
 	{
-		nutrient.getScore(player).setScore(nutrient.getScore(player).getScore() + point);
+		nutrient.getScore(player.getName()).setScore(nutrient.getScore(player.getName()).getScore() + point);
 	}
 	
-	@SuppressWarnings("deprecation")
 	private double addMultiplier(Player player)
 	{
 		double damageMultiplier = 1;
 		
-		if(protein.getScore(player).getScore() <= 0)
+		if(protein.getScore(player.getName()).getScore() <= 0)
 		{
 			switch(player.getWorld().getDifficulty())
         	{
@@ -226,7 +222,7 @@ public class FoodDiversityConsume implements Listener
         		default:
         	}
 		}
-		if(salts.getScore(player).getScore() <= 0)
+		if(salts.getScore(player.getName()).getScore() <= 0)
 		{
 			switch(player.getWorld().getDifficulty())
         	{

@@ -12,7 +12,6 @@ import com.fattymieo.survival.Survival;
 public class ToggleChat implements CommandExecutor
 {
 	Objective chat = Survival.board.getObjective("Chat");
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(command.getName().equalsIgnoreCase("togglechat"))
@@ -31,12 +30,12 @@ public class ToggleChat implements CommandExecutor
 					case "local":
 					case "l":
 						player.sendMessage(Survival.Words.get("§bToggled to §aLocal§b Chat"));
-						chat.getScore(player).setScore(0);
+						chat.getScore(player.getName()).setScore(0);
 						break;
 					case "global":
 					case "g":
 						player.sendMessage(Survival.Words.get("§bToggled to §2Global§b Chat"));
-						chat.getScore(player).setScore(1);
+						chat.getScore(player.getName()).setScore(1);
 						break;
 					default:
 						return false;
@@ -45,15 +44,15 @@ public class ToggleChat implements CommandExecutor
 			else if(args.length == 0)
 			{
 				Player player = (Player) sender;
-				switch(chat.getScore(player).getScore())
+				switch(chat.getScore(player.getName()).getScore())
 				{
 					case 0:
 						player.sendMessage(Survival.Words.get("§bToggled to §2Global§b Chat"));
-						chat.getScore(player).setScore(1);
+						chat.getScore(player.getName()).setScore(1);
 						break;
 					default:
 						player.sendMessage(Survival.Words.get("§bToggled to §aLocal§b Chat"));
-						chat.getScore(player).setScore(0);
+						chat.getScore(player.getName()).setScore(0);
 						break;
 				}
 			}

@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
@@ -43,7 +42,6 @@ public class WaterBottleCrafting implements Listener
 						final int slot = i + 1;
 						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
 						{
-							@SuppressWarnings("deprecation")
 							public void run()
 							{
 								inv.setItem(slot, new ItemStack(Material.GLASS_BOTTLE));
@@ -65,7 +63,6 @@ public class WaterBottleCrafting implements Listener
 					final int slot = i + 1;
 					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
 					{
-						@SuppressWarnings("deprecation")
 						public void run()
 						{
 							inv.setItem(slot, new ItemStack(Material.BOWL));

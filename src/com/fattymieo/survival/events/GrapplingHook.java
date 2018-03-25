@@ -16,8 +16,8 @@ import org.bukkit.util.Vector;
 
 import com.fattymieo.survival.Survival;
 
-public class GrapplingHook implements Listener{
-	@SuppressWarnings("deprecation")
+public class GrapplingHook implements Listener
+{
 	@EventHandler
 	public void onPlayerFish(PlayerFishEvent event)
 	{

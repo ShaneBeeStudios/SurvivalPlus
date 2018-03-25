@@ -14,7 +14,6 @@ public class BedFatigue implements Listener
 {
 	Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBedLeave(PlayerBedLeaveEvent e)
 	{
@@ -22,26 +21,24 @@ public class BedFatigue implements Listener
 		if(time % 24000 == 0)
 		{
 			Player player = e.getPlayer();
-			fatigue.getScore(player).setScore(0);
+			fatigue.getScore(player.getName()).setScore(0);
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent event)
 	{
 		Player player = event.getPlayer();
-		fatigue.getScore(player).setScore(0);
+		fatigue.getScore(player.getName()).setScore(0);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onFirstJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
 		if(!player.hasPlayedBefore())
 		{
-			fatigue.getScore(player).setScore(0);
+			fatigue.getScore(player.getName()).setScore(0);
 		}
 	}
 }

@@ -7,16 +7,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.fattymieo.survival.Survival;
 
-@SuppressWarnings("deprecation")
 public class LocalChat implements Listener
 {
 	double maxDist = 64;
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(PlayerChatEvent event)
+	public void onChat(AsyncPlayerChatEvent event)
 	{
 		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
@@ -35,7 +34,7 @@ public class LocalChat implements Listener
 			}
 		}
 		
-		int channel = Survival.board.getObjective("Chat").getScore(player).getScore();
+		int channel = Survival.board.getObjective("Chat").getScore(player.getName()).getScore();
 		if(channel > 0)
 		{
 			event.setFormat(ChatColor.GREEN + "<%1$s> " + ChatColor.RESET + "%2$s");

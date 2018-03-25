@@ -17,11 +17,11 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 public class BlazeSword implements Listener
-{	
-	@SuppressWarnings("deprecation")
+{
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
@@ -95,7 +95,6 @@ public class BlazeSword implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public boolean ignite(Player igniter, Location loc, IgniteCause cause) {
 	    Random rand = new Random();
 
@@ -131,9 +130,8 @@ public class BlazeSword implements Listener
 		    }
 		    
 		    BlockState blockState = l.getBlock().getState();
-		    
-		    BlockPlaceEvent placeEvent = new BlockPlaceEvent(l.getBlock(), 
-		            blockState, l.getBlock(), igniter.getItemInHand(), igniter, true);
+		    BlockPlaceEvent placeEvent = new BlockPlaceEvent(l.getBlock(), blockState, l.getBlock(),
+		    		igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
 		    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
 		    
 		    if (placeEvent.isCancelled() || !placeEvent.canBuild()) {

@@ -1,36 +1,191 @@
 package com.fattymieo.survival.events;
 
-import java.util.Random;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.BlockState;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
 
-public class FirestrikerClick implements Listener
+public class Backpack implements Listener
 {
+	@EventHandler
+	public void onInventoryClick(InventoryClickEvent event)
+	{
+		//if(true) return;
+		
+		if(event.getRawSlot() < event.getView().getTopInventory().getSize()) //Bottom Inventory only
+			return;
+		
+		final Player player = (Player) event.getWhoClicked();
+		player.sendMessage("In inventory now, clicking slot " + Integer.toString(event.getSlot()));
+		
+		if(!(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE))
+			return;
+		
+		ItemStack backpackSlot = event.getView().getBottomInventory().getItem(event.getSlot());
+		ItemStack cursorSlot = event.getCursor();
+		
+		switch(event.getSlot())
+		{
+			case 19:
+			case 22:
+			case 25:
+				if(event.getClick() != ClickType.LEFT)
+				{
+					event.setCancelled(true);
+					return;
+				}
+				
+				if(backpackSlot != null && backpackSlot.getType() != Material.AIR) //If slot is not empty
+				{
+					if(backpackSlot.getType() == Material.WOOD_HOE) //If slot is has wood hoe
+					{
+						if(cursorSlot != null && cursorSlot.getType() != Material.AIR) //If cursor is not empty
+						{
+							event.setCancelled(true);
+						}
+					}
+					else
+					{
+						event.setCancelled(true);
+						player.getWorld().dropItem(player.getLocation(), player.getInventory().getItem(event.getSlot()));
+						player.getInventory().clear(event.getSlot());
+						player.updateInventory();
+						player.sendMessage("ERROR, NON BACKPACK DETECTED!");
+					}
+				}
+				else
+				{
+					if(!(cursorSlot != null && cursorSlot.getType() == Material.WOOD_HOE)) //If cursor is not a wood hoe
+					{
+						event.setCancelled(true);
+					}
+				}
+				break;
+			case 9:
+			case 10:
+			case 11:
+			case 18:
+			case 20:
+			case 27:
+			case 28:
+			case 29:
+			case 12:
+			case 13:
+			case 14:
+			case 21:
+			case 23:
+			case 30:
+			case 31:
+			case 32:
+			case 15:
+			case 16:
+			case 17:
+			case 24:
+			case 26:
+			case 33:
+			case 34:
+			case 35:
+				if(backpackSlot != null && Survival.CheckIfLockedSlot(backpackSlot))
+				{
+					event.setCancelled(true);
+				}
+				break;
+			default:
+				return;
+		}
+	}
+	
+	@EventHandler
+	public void onPickupItem(EntityPickupItemEvent event)
+	{
+		/*
+		if(!(event.getEntity() instanceof Player))
+			return;
+		
+		Player player = (Player)event.getEntity();
+		ItemStack item = event.getItem().getItemStack();
+		
+		Inventory inv = player.getInventory();
+		
+		//int maxSize = inv.getSize();
+		int maxSize = 36;
+		int newItemSlot = inv.firstEmpty();
+		
+		while(newItemSlot < maxSize)
+		{
+			if(!isSlotAvailableInBackpack(inv, newItemSlot))
+			{
+				newItemSlot++;
+			}
+			else
+			{
+				if(inv.getItem(newItemSlot) != null)
+				{
+					if(inv.getItem(newItemSlot).getType() == Material.AIR)
+					{
+						event.setCancelled(false);
+						event.getItem().remove();
+						player.getInventory().setItem(newItemSlot, item);
+						return;
+					}
+					else
+					{
+						newItemSlot++;
+					}
+				}
+				else
+				{
+					newItemSlot++;
+				}
+			}
+		}*/
+	}
+	
+	public boolean isSlotAvailableInBackpack(Inventory inv, int slot)
+	{
+		switch(slot)
+		{
+		case 9:
+		case 10:
+		case 11:
+		case 18:
+		case 20:
+		case 27:
+		case 28:
+		case 29:
+			return (inv.getItem(19) != null && inv.getItem(19).getType() == Material.WOOD_HOE);
+		case 12:
+		case 13:
+		case 14:
+		case 21:
+		case 23:
+		case 30:
+		case 31:
+		case 32:
+			return (inv.getItem(22) != null && inv.getItem(22).getType() == Material.WOOD_HOE);
+		case 15:
+		case 16:
+		case 17:
+		case 24:
+		case 26:
+		case 33:
+		case 34:
+		case 35:
+			return (inv.getItem(25) != null && inv.getItem(25).getType() == Material.WOOD_HOE);
+		default:
+			return true;
+		}
+	}
+	
+	/*
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
@@ -134,11 +289,11 @@ public class FirestrikerClick implements Listener
 	    BlockState blockState = loc.getBlock().getState();
 	 
 	    BlockPlaceEvent placeEvent = new BlockPlaceEvent(loc.getBlock(), 
-	            blockState, loc.getBlock(), igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
+	            blockState, loc.getBlock(), igniter.getItemInHand(), igniter, true);
 	    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
 	 
 	    if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
-	        placeEvent.getBlockPlaced().getState().setType(Material.AIR);
+	        placeEvent.getBlockPlaced().setTypeIdAndData(0, (byte) 0, false);
 	        return false;
 	    }
 
@@ -272,11 +427,12 @@ public class FirestrikerClick implements Listener
 		if(event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
 		{
 			Player player = (Player)event.getDamager();
-			ItemStack item = player.getInventory().getItemInMainHand();
+			ItemStack item = player.getItemInHand();
 			if(item.getType() == Material.WOOD_SPADE)
 			{
 				item.setDurability((short)(item.getDurability() - 2));
 			}
 		}
 	}
+	*/
 }

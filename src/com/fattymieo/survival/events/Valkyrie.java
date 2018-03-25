@@ -36,22 +36,21 @@ public class Valkyrie implements Listener
 	//To prevent double messages send to player.
 	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		
-		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player);
+		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 		
 		if(mainItem.getType() == Material.GOLD_AXE)
 		{
-			if(dualWield.getScore(player).getScore() == 0)
+			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
 				if(event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR)
 				{
-					if(spin.getScore(player).getScore() == 0)
+					if(spin.getScore(player.getName()).getScore() == 0)
 					{
 						if(player.getFoodLevel() > 6)
 						{
@@ -100,7 +99,6 @@ public class Valkyrie implements Listener
 		score_dualWieldMsg.setScore(0);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event)
 	{
@@ -110,11 +108,11 @@ public class Valkyrie implements Listener
 			Player player = (Player)event.getDamager();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			
-			if(dualWield.getScore(player).getScore() == 0)
+			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
 				if(mainItem.getType() == Material.GOLD_AXE)
 				{
-					if(spin.getScore(player).getScore() == 0)
+					if(spin.getScore(player.getName()).getScore() == 0)
 					{
 						if(player.getFoodLevel() > 6)
 						{
@@ -156,10 +154,9 @@ public class Valkyrie implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void Spin(final Player player)
 	{		
-		Score score = spin.getScore(player);
+		Score score = spin.getScore(player.getName());
 		score.setScore(1);
 	    
         particleCircle(player, 50, 2.5f, ParticleEffect.CRIT);
@@ -173,7 +170,7 @@ public class Valkyrie implements Listener
 	    
 	    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable()
 	    {
-			Score score = spin.getScore(player);
+			Score score = spin.getScore(player.getName());
 	    	public void run()
 	    	{
 	    		score.setScore(0);

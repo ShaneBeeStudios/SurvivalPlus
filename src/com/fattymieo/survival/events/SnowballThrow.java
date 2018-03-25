@@ -16,7 +16,6 @@ import org.bukkit.util.BlockIterator;
 
 public class SnowballThrow implements Listener
 {
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onThrowingSnowball(ProjectileHitEvent e)
 	{
@@ -30,14 +29,14 @@ public class SnowballThrow implements Listener
 			{
 				actual = iterator.next();
 				 
-				if (actual.getTypeId() != 0)
+				if (actual.getState().getType() != Material.AIR)
 					break;
 			}
 		    
 			switch(actual.getType())
 			{
 				case SNOW:
-			    	if (actual.getData() == 6)
+			    	if (actual.getState().getRawData() == 6)
 			    		actual.setType(Material.SNOW_BLOCK);
 			    	else
 			    		actual.setData((byte)(actual.getData() + 1));
@@ -65,7 +64,6 @@ public class SnowballThrow implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBreakSnow(BlockBreakEvent e)
 	{
@@ -90,7 +88,7 @@ public class SnowballThrow implements Listener
 							if(mainItem.getDurability() >= mainItem.getType().getMaxDurability() + 1)
 								player.getInventory().setItemInMainHand(null);
 				            player.updateInventory();
-				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOW_BALL, block.getData() + 1));
+				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOW_BALL, (int)(block.getState().getRawData()) + 1));
 				            block.setType(Material.AIR);
 							break;
 						case SNOW_BLOCK:

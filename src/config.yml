@@ -1,6 +1,6 @@
 # Settings
 
-Version: "2.1.0"
+Version: "2.1.1"
 
 Language: EN
 
@@ -109,9 +109,9 @@ Recipes:
   WebString: true
   Ice: true
   Clay: true
-  Diorite: true
-  Granite: true
-  Andesite: true
+  Diorite: false
+  Granite: false
+  Andesite: false
   Gravel: true
   Slimeball: true
   Cobweb: true

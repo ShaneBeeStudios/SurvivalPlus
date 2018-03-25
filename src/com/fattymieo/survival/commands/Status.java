@@ -14,7 +14,7 @@ public class Status implements CommandExecutor
 	Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
 	Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
 	Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
-	@SuppressWarnings("deprecation")
+	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(command.getName().equalsIgnoreCase("status"))
@@ -37,10 +37,10 @@ public class Status implements CommandExecutor
 				}
 				else
 				{
-					boardHunger.getScore(player).setScore(0);
-					boardThirst.getScore(player).setScore(0);
-					boardFatigue.getScore(player).setScore(1);
-					boardNutrients.getScore(player).setScore(1);
+					boardHunger.getScore(player.getName()).setScore(0);
+					boardThirst.getScore(player.getName()).setScore(0);
+					boardFatigue.getScore(player.getName()).setScore(1);
+					boardNutrients.getScore(player.getName()).setScore(1);
 				}
 			}
 			
@@ -64,10 +64,10 @@ public class Status implements CommandExecutor
 						}
 						else
 						{
-							boardHunger.getScore(player).setScore(0);
-							boardThirst.getScore(player).setScore(0);
-							boardFatigue.getScore(player).setScore(0);
-							boardNutrients.getScore(player).setScore(0);
+							boardHunger.getScore(player.getName()).setScore(0);
+							boardThirst.getScore(player.getName()).setScore(0);
+							boardFatigue.getScore(player.getName()).setScore(0);
+							boardNutrients.getScore(player.getName()).setScore(0);
 						}
 						break;
 					case "hunger":
@@ -77,7 +77,7 @@ public class Status implements CommandExecutor
 							player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " + Survival.ShowHunger(player).get(0).toUpperCase());
 						}
 						else
-							boardHunger.getScore(player).setScore(Reverse(boardHunger.getScore(player).getScore()));
+							boardHunger.getScore(player.getName()).setScore(Reverse(boardHunger.getScore(player.getName()).getScore()));
 						break;
 					case "thirst":
 					case "t":
@@ -87,7 +87,7 @@ public class Status implements CommandExecutor
 								player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " + Survival.ShowThirst(player).get(0).toUpperCase());
 						}
 						else
-							boardThirst.getScore(player).setScore(Reverse(boardThirst.getScore(player).getScore()));
+							boardThirst.getScore(player.getName()).setScore(Reverse(boardThirst.getScore(player.getName()).getScore()));
 						break;
 					case "fatigue":
 					case "f":
@@ -97,7 +97,7 @@ public class Status implements CommandExecutor
 								player.sendMessage(Survival.ShowFatigue(player));
 						}
 						else
-							boardFatigue.getScore(player).setScore(Reverse(boardFatigue.getScore(player).getScore()));
+							boardFatigue.getScore(player.getName()).setScore(Reverse(boardFatigue.getScore(player.getName()).getScore()));
 						break;
 					case "nutrients":
 					case "n":
@@ -110,7 +110,7 @@ public class Status implements CommandExecutor
 							}
 						}
 						else
-							boardNutrients.getScore(player).setScore(Reverse(boardNutrients.getScore(player).getScore()));
+							boardNutrients.getScore(player.getName()).setScore(Reverse(boardNutrients.getScore(player.getName()).getScore()));
 						break;
 					default:
 						return false;

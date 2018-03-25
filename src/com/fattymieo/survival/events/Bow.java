@@ -11,7 +11,6 @@ import com.fattymieo.survival.Survival;
 
 public class Bow implements Listener
 {
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onShootWithoutArrows(EntityShootBowEvent event)
 	{

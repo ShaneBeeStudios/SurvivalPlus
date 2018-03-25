@@ -25,7 +25,6 @@ import net.minecraft.server.v1_12_R1.NBTTagCompound;
 public class Consume implements Listener
 {
 	Objective thirst = Survival.mainBoard.getObjective("Thirst");
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onConsume(PlayerItemConsumeEvent event)
 	{
@@ -34,7 +33,7 @@ public class Consume implements Listener
 		switch(event.getItem().getType())
 		{
 			case POTION:
-				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 18);
+				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				if(Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater"))
 				{
 					if(checkWaterBottle(event.getItem()))
@@ -53,7 +52,7 @@ public class Consume implements Listener
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
-				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 18);
+				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				event.setCancelled(true);
 				player.getInventory().remove(event.getItem());
 				player.getInventory().addItem(new ItemStack(Material.BOWL));
@@ -68,20 +67,20 @@ public class Consume implements Listener
 				}
 				break;
 			case MILK_BUCKET:
-				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 30);
+				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 30);
 				break;
 			case MELON:
-				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 6);
+				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 6);
 				break;
 			case MUSHROOM_SOUP:
-				thirst.getScore(player).setScore(thirst.getScore(player).getScore() + 12);
+				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 12);
 				break;
 			default:
 		}
 		
-		if(thirst.getScore(player).getScore() > 40)
+		if(thirst.getScore(player.getName()).getScore() > 40)
 		{
-			thirst.getScore(player).setScore(40);
+			thirst.getScore(player.getName()).setScore(40);
 		}
 		
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable(){
@@ -96,22 +95,20 @@ public class Consume implements Listener
 	    }, 1L);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent event)
 	{
 		Player player = event.getPlayer();
-		thirst.getScore(player).setScore(30);
+		thirst.getScore(player.getName()).setScore(30);
 	}
-
-	@SuppressWarnings("deprecation")
+	
 	@EventHandler
 	public void onFirstJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
 		if(!player.hasPlayedBefore())
 		{
-			thirst.getScore(player).setScore(30);
+			thirst.getScore(player.getName()).setScore(30);
 		}
 	}
 	

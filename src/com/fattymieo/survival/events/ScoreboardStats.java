@@ -19,17 +19,16 @@ public class ScoreboardStats implements Listener
 	Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
 	Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
 	{
 		Player player = e.getPlayer();
 		if(!player.hasPlayedBefore())
 		{
-			boardHunger.getScore(player).setScore(0);
-			boardThirst.getScore(player).setScore(0);
-			boardFatigue.getScore(player).setScore(1);
-			boardNutrients.getScore(player).setScore(1);
+			boardHunger.getScore(player.getName()).setScore(0);
+			boardThirst.getScore(player.getName()).setScore(0);
+			boardFatigue.getScore(player.getName()).setScore(1);
+			boardNutrients.getScore(player.getName()).setScore(1);
 		}
 		SetupScorebard(player);
 	}
@@ -48,7 +47,7 @@ public class ScoreboardStats implements Listener
 			Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
 			Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
 			Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
-			@SuppressWarnings("deprecation")
+			
 			public void run()
 			{
 				status.unregister();
@@ -56,7 +55,7 @@ public class ScoreboardStats implements Listener
 				status.setDisplaySlot(DisplaySlot.SIDEBAR);
 				status.setDisplayName("Status");
 				
-				if(boardHunger.getScore(player).getScore() <= 0)
+				if(boardHunger.getScore(player.getName()).getScore() <= 0)
 				{
 					Score hunger0 = status.getScore(Survival.ShowHunger(player).get(0));
 					hunger0.setScore(10);
@@ -66,7 +65,7 @@ public class ScoreboardStats implements Listener
 					hunger2.setScore(8);
 				}
 				
-				if(Survival.settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player).getScore() <= 0)
+				if(Survival.settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player.getName()).getScore() <= 0)
 				{
 					Score thirst0 = status.getScore(Survival.ShowThirst(player).get(0));
 					thirst0.setScore(7);
@@ -76,13 +75,13 @@ public class ScoreboardStats implements Listener
 					thirst2.setScore(5);
 				}
 
-				if(Survival.settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player).getScore() <= 0)
+				if(Survival.settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player.getName()).getScore() <= 0)
 				{
 					Score fatigue = status.getScore(Survival.ShowFatigue(player));
 					fatigue.setScore(4);
 				}
 
-				if(Survival.settings.getBoolean("Mechanics.FoodDiversity") && boardNutrients.getScore(player).getScore() <= 0)
+				if(Survival.settings.getBoolean("Mechanics.FoodDiversity") && boardNutrients.getScore(player.getName()).getScore() <= 0)
 				{
 					Score carbon = status.getScore(Survival.ShowNutrients(player).get(0));
 					carbon.setScore(3);

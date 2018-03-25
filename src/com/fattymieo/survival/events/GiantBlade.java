@@ -36,7 +36,6 @@ public class GiantBlade implements Listener
     Objective charging = Survival.board.getObjective("Charging");
     Objective dualWield = Survival.board.getObjective("DualWield");
     
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event)
 	{
@@ -46,7 +45,7 @@ public class GiantBlade implements Listener
 			Player player = (Player)event.getEntity();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 
-			if(dualWield.getScore(player).getScore() == 1)
+			if(dualWield.getScore(player.getName()).getScore() == 1)
 			{
 				event.setCancelled(true);
 				return;
@@ -83,7 +82,6 @@ public class GiantBlade implements Listener
 	//To prevent double messages send to player.
 	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
 	{
@@ -91,17 +89,17 @@ public class GiantBlade implements Listener
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		ItemStack offItem = player.getInventory().getItemInOffHand();
 		
-		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player);
+		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 		
 		if(mainItem.getType() == Material.GOLD_HOE)
 		{
-			if(dualWield.getScore(player).getScore() == 0)
+			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
 				if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)
 				{
 					if(player.isSprinting())
 					{
-						if(charge.getScore(player).getScore() == 0)
+						if(charge.getScore(player.getName()).getScore() == 0)
 						{
 							Random rand = new Random();
 							
@@ -147,7 +145,7 @@ public class GiantBlade implements Listener
 		}
 		else if(offItem.getType() == Material.GOLD_HOE)
 		{
-			if(dualWield.getScore(player).getScore() != 0)
+			if(dualWield.getScore(player.getName()).getScore() != 0)
 			{
 				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
@@ -162,12 +160,11 @@ public class GiantBlade implements Listener
 		score_dualWieldMsg.setScore(0);
 	}
 	
-	@SuppressWarnings("deprecation")
 	private void ChargeForward(Player player, int velocity)
 	{
 		player.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Survival.Words.get("CHARGE!"));
 		
-		Score score = charge.getScore(player);
+		Score score = charge.getScore(player.getName());
 		score.setScore(1);
 		
 		Location loc = player.getLocation();
@@ -181,7 +178,7 @@ public class GiantBlade implements Listener
 	    player.setVelocity(newVel);
 	    
 	    final Player chargingPlayer = player;
-	    charging.getScore(chargingPlayer).setScore(8);
+	    charging.getScore(chargingPlayer.getName()).setScore(8);
 	    
 	    final Runnable task = new Runnable()
 	    {
@@ -193,10 +190,10 @@ public class GiantBlade implements Listener
         	    chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
         		ParticleEffect.EXPLOSION_NORMAL.display(0, 0, 0, 0, 10, chargingPlayer.getLocation(), 64);
 
-    	    	int times = charging.getScore(chargingPlayer).getScore();
+    	    	int times = charging.getScore(chargingPlayer.getName()).getScore();
         		if(--times > 1)
         			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 1L);
-        		charging.getScore(chargingPlayer).setScore(times);
+        		charging.getScore(chargingPlayer.getName()).setScore(times);
             }
 	    };
 	    
@@ -204,7 +201,7 @@ public class GiantBlade implements Listener
 	    
 	    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable()
 	    {
-			Score score = charge.getScore(chargingPlayer);
+			Score score = charge.getScore(chargingPlayer.getName());
 	    	public void run()
 	    	{
 	    		score.setScore(0);

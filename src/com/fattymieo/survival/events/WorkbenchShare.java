@@ -57,7 +57,6 @@ public class WorkbenchShare implements Listener
 					if (!block.hasMetadata("shared_players"))
 						block.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, new ArrayList<UUID>()));
 					
-					@SuppressWarnings("unchecked")
 					final List<UUID> list = (block.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 					
 					final Inventory open = p.getOpenInventory().getTopInventory();
@@ -92,7 +91,6 @@ public class WorkbenchShare implements Listener
 							open.setContents(pInv.getContents());
 							Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
 							{
-								@SuppressWarnings("deprecation")
 								@Override
 								public void run()
 								{
@@ -143,7 +141,6 @@ public class WorkbenchShare implements Listener
 				return;
 			}
 			
-			@SuppressWarnings("unchecked")
 			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 
 			final Inventory pInv = p.getOpenInventory().getTopInventory();
@@ -187,7 +184,6 @@ public class WorkbenchShare implements Listener
 						open.setContents(pInv.getContents());
 						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
 						{
-							@SuppressWarnings("deprecation")
 							@Override
 							public void run()
 							{
@@ -223,8 +219,7 @@ public class WorkbenchShare implements Listener
 				
 				return;
 			}
-
-			@SuppressWarnings("unchecked")
+			
 			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 			
 			list.remove(p.getUniqueId());
@@ -253,7 +248,6 @@ public class WorkbenchShare implements Listener
 		
 		if (workbench != null && workbench.hasMetadata("shared_players") && workbench.getType() == Material.WORKBENCH)
 		{
-			@SuppressWarnings("unchecked")
 			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 
 			list.remove(p.getUniqueId());
@@ -276,7 +270,6 @@ public class WorkbenchShare implements Listener
 		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.WORKBENCH)
 			return;
 		
-		@SuppressWarnings("unchecked")
 		List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 		
 		Iterator<UUID> iterator = list.iterator();

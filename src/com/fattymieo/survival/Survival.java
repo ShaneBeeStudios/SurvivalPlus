@@ -12,9 +12,11 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -29,6 +31,10 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Coal;
+import org.bukkit.material.Dye;
+import org.bukkit.material.Wood;
+import org.bukkit.material.Wool;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -54,8 +60,9 @@ import net.minecraft.server.v1_12_R1.NBTTagString;
 
 public class Survival extends JavaPlugin
 {
-    public static String Version = "2.1.0";
+    public static String Version = "2.1.1";
 	public static Survival instance;
+    public static NamespacedKey key;
     public static ScoreboardManager manager;
     public static Scoreboard board;
     public static Scoreboard mainBoard;
@@ -78,6 +85,7 @@ public class Survival extends JavaPlugin
 		instance = this;
 		PluginDescriptionFile pdfFile = getDescription();
 		Logger logger = getLogger();
+		key = new NamespacedKey(this, getDescription().getName());
 	    
 	    settings = getConfig();
 	    settings.options().copyDefaults(true);
@@ -224,6 +232,7 @@ public class Survival extends JavaPlugin
 		if(settings.getBoolean("Mechanics.FoodDiversity"))
 			FoodDiversity();
 		ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
+		//BackpackCheck(); //Testing Backpack
 
 		logger.info(pdfFile.getName() + " has been enabled.");
 	}
@@ -328,6 +337,7 @@ public class Survival extends JavaPlugin
 			pm.registerEvents(new FirestrikerClick(), this);
 			pm.registerEvents(new ShivPoison(), this);
 			pm.registerEvents(new WaterBowl(), this);
+			//pm.registerEvents(new Backpack(), this);
 		}
 		pm.registerEvents(new NoAnvil(), this);
 		if(settings.getBoolean("Mechanics.Bow"))
@@ -531,7 +541,6 @@ public class Survival extends JavaPlugin
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void customRecipes()
 	{	
 		//Hatchet
@@ -1507,108 +1516,106 @@ public class Survival extends JavaPlugin
   		i_recurveBow.setItemMeta(recurveBowMeta);
         
 		//Recipes
-		ShapedRecipe hatchet1 = new ShapedRecipe(i_hatchet);
-		ShapedRecipe hatchet2 = new ShapedRecipe(i_hatchet);
-		ShapedRecipe mattock1 = new ShapedRecipe(i_mattock);
-		ShapedRecipe mattock2 = new ShapedRecipe(i_mattock);
-		ShapedRecipe shiv1 = new ShapedRecipe(i_shiv);
-		ShapedRecipe shiv2 = new ShapedRecipe(i_shiv);
-		ShapedRecipe shiv3 = new ShapedRecipe(i_shiv);
-		ShapedRecipe shiv4 = new ShapedRecipe(i_shiv);
-		ShapedRecipe hammer1 = new ShapedRecipe(i_hammer);
-		ShapedRecipe hammer2 = new ShapedRecipe(i_hammer);
-		ShapelessRecipe string = new ShapelessRecipe(new ItemStack(Material.STRING, 2));
-		ShapedRecipe gAxe = new ShapedRecipe(i_gAxe);
-		ShapedRecipe gPickaxe1 = new ShapedRecipe(i_gPickaxe);
-		ShapedRecipe gPickaxe2 = new ShapedRecipe(i_gPickaxe);
-		ShapedRecipe gSpade1 = new ShapedRecipe(i_gSpade);
-		ShapedRecipe gSpade2 = new ShapedRecipe(i_gSpade);
-		ShapedRecipe gHoe1 = new ShapedRecipe(i_gHoe);
-		ShapedRecipe gHoe2 = new ShapedRecipe(i_gHoe);
-		ShapedRecipe gSword = new ShapedRecipe(i_gSword);
-		ShapedRecipe notchApple = new ShapedRecipe(new ItemStack(Material.GOLDEN_APPLE, 1, (byte)1));
-		ShapedRecipe saddle = new ShapedRecipe(new ItemStack(Material.SADDLE, 1));
-		ShapedRecipe nametag1 = new ShapedRecipe(new ItemStack(Material.NAME_TAG, 1));
-		ShapedRecipe nametag2 = new ShapedRecipe(new ItemStack(Material.NAME_TAG, 1));
-		ShapedRecipe packedIce1 = new ShapedRecipe(new ItemStack(Material.PACKED_ICE, 1));
-		ShapelessRecipe packedIce2 = new ShapelessRecipe(new ItemStack(Material.ICE, 4));
-		ShapedRecipe ironHorse1 = new ShapedRecipe(new ItemStack(Material.IRON_BARDING, 1));
-		ShapedRecipe ironHorse2 = new ShapedRecipe(new ItemStack(Material.IRON_BARDING, 1));
-		ShapedRecipe goldHorse1 = new ShapedRecipe(new ItemStack(Material.GOLD_BARDING, 1));
-		ShapedRecipe goldHorse2 = new ShapedRecipe(new ItemStack(Material.GOLD_BARDING, 1));
-		ShapedRecipe diamondHorse1 = new ShapedRecipe(new ItemStack(Material.DIAMOND_BARDING, 1));
-		ShapedRecipe diamondHorse2 = new ShapedRecipe(new ItemStack(Material.DIAMOND_BARDING, 1));
-		ShapelessRecipe clayBrick = new ShapelessRecipe(new ItemStack(Material.CLAY_BRICK, 4));
-		ShapelessRecipe quartz = new ShapelessRecipe(new ItemStack(Material.QUARTZ, 4));
-		ShapelessRecipe woolString = new ShapelessRecipe(new ItemStack(Material.STRING, 4));
-		ShapedRecipe ice = new ShapedRecipe(new ItemStack(Material.ICE, 1));
-		ShapelessRecipe repair_gSword = new ShapelessRecipe(i_gSword);
-		ShapelessRecipe repair_gHoe = new ShapelessRecipe(i_gHoe);
-		ShapelessRecipe repair_gPickaxe = new ShapelessRecipe(i_gPickaxe);
-		ShapelessRecipe repair_gAxe = new ShapelessRecipe(i_gAxe);
-		ShapelessRecipe repair_gSpade = new ShapelessRecipe(i_gSpade);
-		ShapelessRecipe workbench1 = new ShapelessRecipe(new ItemStack(Material.WORKBENCH, 1));
-		ShapelessRecipe workbench2 = new ShapelessRecipe(new ItemStack(Material.WORKBENCH, 1));
-		ShapedRecipe furnace1 = new ShapedRecipe(new ItemStack(Material.FURNACE, 1));
-		ShapedRecipe furnace2 = new ShapedRecipe(new ItemStack(Material.FURNACE, 1));
-		ShapedRecipe chest = new ShapedRecipe(new ItemStack(Material.CHEST, 1));
-		ShapelessRecipe clay = new ShapelessRecipe(new ItemStack(Material.CLAY, 1));
-		ShapelessRecipe diorite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)3));
-		ShapelessRecipe granite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)1));
-		ShapelessRecipe andesite = new ShapelessRecipe(new ItemStack(Material.STONE, 1, (byte)5));
-		ShapedRecipe gravel1 = new ShapedRecipe(new ItemStack(Material.GRAVEL, 2));
-		ShapedRecipe gravel2 = new ShapedRecipe(new ItemStack(Material.GRAVEL, 2));
-		ShapelessRecipe firestriker = new ShapelessRecipe(i_firestriker);
-		ShapelessRecipe torch1 = new ShapelessRecipe(new ItemStack(Material.TORCH, 4));
-		ShapelessRecipe torch2 = new ShapelessRecipe(new ItemStack(Material.TORCH, 32));
-		ShapelessRecipe flint = new ShapelessRecipe(new ItemStack(Material.FLINT, 1));
-		ShapelessRecipe fermentedSpiderEye = new ShapelessRecipe(new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
-		ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(i_fermentedSkin);
-		ShapelessRecipe fermentedSkin2 = new ShapelessRecipe(i_fermentedSkin);
-		ShapelessRecipe poisonousPotato = new ShapelessRecipe(new ItemStack(Material.POISONOUS_POTATO, 1));
-		ShapelessRecipe glassBottle = new ShapelessRecipe(new ItemStack(Material.GLASS_BOTTLE, 1));
-		ShapelessRecipe bowl = new ShapelessRecipe(new ItemStack(Material.BOWL, 1));
-		ShapedRecipe medicKit1 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe medicKit2 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe medicKit3 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe medicKit4 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe medicKit5 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe medicKit6 = new ShapedRecipe(i_medicKit);
-		ShapedRecipe fishingRod1 = new ShapedRecipe(new ItemStack(Material.FISHING_ROD, 1));
-		ShapedRecipe fishingRod2 = new ShapedRecipe(new ItemStack(Material.FISHING_ROD, 1));
-		ShapedRecipe ironIngot = new ShapedRecipe(new ItemStack(Material.IRON_INGOT, 1));
-		ShapelessRecipe ironNugget = new ShapelessRecipe(new ItemStack(Material.IRON_NUGGET, 4));
-		ShapelessRecipe ironBlock = new ShapelessRecipe(new ItemStack(Material.IRON_INGOT, 9));
-		FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE);
-		ShapedRecipe goldIngot = new ShapedRecipe(new ItemStack(Material.GOLD_INGOT, 1));
-		ShapelessRecipe goldNugget = new ShapelessRecipe(new ItemStack(Material.GOLD_NUGGET, 4));
-		ShapelessRecipe goldBlock = new ShapelessRecipe(new ItemStack(Material.GOLD_INGOT, 9));
-		FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE);
-		ShapedRecipe bread = new ShapedRecipe(new ItemStack(Material.BREAD, 2));
-		ShapedRecipe cookie = new ShapedRecipe(new ItemStack(Material.COOKIE, 8));
-		ShapelessRecipe slimeball = new ShapelessRecipe(new ItemStack(Material.SLIME_BALL, 1));
-		ShapelessRecipe cobweb = new ShapelessRecipe(new ItemStack(Material.WEB, 1));
-		ShapelessRecipe sapling = new ShapelessRecipe(new ItemStack(Material.STICK, 4));
+		ShapedRecipe 		hatchet1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "hatchet1"			), i_hatchet);
+		ShapedRecipe 		hatchet2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "hatchet2" 			), i_hatchet);
+		ShapedRecipe 		mattock1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "mattock1"			), i_mattock);
+		ShapedRecipe 		mattock2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "mattock2"			), i_mattock);
+		ShapedRecipe 		shiv1 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "shiv1"				), i_shiv);
+		ShapedRecipe 		shiv2 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "shiv2"				), i_shiv);
+		ShapedRecipe 		shiv3 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "shiv3"				), i_shiv);
+		ShapedRecipe 		shiv4 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "shiv4"				), i_shiv);
+		ShapedRecipe 		hammer1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "hammer1"				), i_hammer);
+		ShapedRecipe 		hammer2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "hammer"				), i_hammer);
+		ShapelessRecipe 	string 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "string"				), new ItemStack(Material.STRING, 2));
+		ShapedRecipe 		gAxe 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gAxe"				), i_gAxe);
+		ShapedRecipe 		gPickaxe1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gPickaxe1"			), i_gPickaxe);
+		ShapedRecipe 		gPickaxe2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gPickaxe2"			), i_gPickaxe);
+		ShapedRecipe 		gSpade1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gSpade1"				), i_gSpade);
+		ShapedRecipe 		gSpade2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gSpade2"				), i_gSpade);
+		ShapedRecipe 		gHoe1 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gHoe1"				), i_gHoe);
+		ShapedRecipe 		gHoe2 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gHoe2"				), i_gHoe);
+		ShapedRecipe 		gSword 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gSword"				), i_gSword);
+		ShapedRecipe 		notchApple 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "notchApple"			), new ItemStack(Material.GOLDEN_APPLE, 1, (byte)1));
+		ShapedRecipe 		saddle 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "saddle"				), new ItemStack(Material.SADDLE, 1));
+		ShapedRecipe 		nametag1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "nametag1"			), new ItemStack(Material.NAME_TAG, 1));
+		ShapedRecipe 		nametag2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "nametag2"			), new ItemStack(Material.NAME_TAG, 1));
+		ShapedRecipe 		packedIce1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "packedIce1"			), new ItemStack(Material.PACKED_ICE, 1));
+		ShapelessRecipe 	packedIce2 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "packedIce2"			), new ItemStack(Material.ICE, 4));
+		ShapedRecipe 		ironHorse1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironHorse1"			), new ItemStack(Material.IRON_BARDING, 1));
+		ShapedRecipe 		ironHorse2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironHorse2"			), new ItemStack(Material.IRON_BARDING, 1));
+		ShapedRecipe 		goldHorse1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldHorse1"			), new ItemStack(Material.GOLD_BARDING, 1));
+		ShapedRecipe 		goldHorse2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldHorse2"			), new ItemStack(Material.GOLD_BARDING, 1));
+		ShapedRecipe 		diamondHorse1 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondHorse1"		), new ItemStack(Material.DIAMOND_BARDING, 1));
+		ShapedRecipe 		diamondHorse2 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondHorse2"		), new ItemStack(Material.DIAMOND_BARDING, 1));
+		ShapelessRecipe 	clayBrick 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "clayBrick"			), new ItemStack(Material.CLAY_BRICK, 4));
+		ShapelessRecipe 	quartz 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "quartz"				), new ItemStack(Material.QUARTZ, 4));
+		ShapelessRecipe 	woolString 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "woolString"			), new ItemStack(Material.STRING, 4));
+		ShapedRecipe 		ice 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ice"					), new ItemStack(Material.ICE, 1));
+		ShapelessRecipe 	repair_gSword 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "repair_gSword"		), i_gSword);
+		ShapelessRecipe 	repair_gHoe 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "repair_gHoe"			), i_gHoe);
+		ShapelessRecipe 	repair_gPickaxe 		= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "repair_gPickaxe"		), i_gPickaxe);
+		ShapelessRecipe 	repair_gAxe 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "repair_gAxe"			), i_gAxe);
+		ShapelessRecipe 	repair_gSpade 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "repair_gSpade"		), i_gSpade);
+		ShapelessRecipe 	workbench1 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "workbench1"			), new ItemStack(Material.WORKBENCH, 1));
+		ShapelessRecipe 	workbench2 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "workbench2"			), new ItemStack(Material.WORKBENCH, 1));
+		ShapedRecipe 		furnace 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "furnace"				), new ItemStack(Material.FURNACE, 1));
+		ShapedRecipe 		chest 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "chest"				), new ItemStack(Material.CHEST, 1));
+		ShapelessRecipe 	clay 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "clay"				), new ItemStack(Material.CLAY, 1));
+		ShapelessRecipe 	diorite 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "diorite"				), new ItemStack(Material.STONE, 1, (byte)3));
+		ShapelessRecipe 	granite 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "granite"				), new ItemStack(Material.STONE, 1, (byte)1));
+		ShapelessRecipe 	andesite 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "andesite"			), new ItemStack(Material.STONE, 1, (byte)5));
+		ShapedRecipe 		gravel1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gravel1"				), new ItemStack(Material.GRAVEL, 2));
+		ShapedRecipe 		gravel2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gravel2"				), new ItemStack(Material.GRAVEL, 2));
+		ShapelessRecipe 	firestriker 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "firestriker"			), i_firestriker);
+		ShapelessRecipe 	torch 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "torch"				), new ItemStack(Material.TORCH, 8));
+		ShapelessRecipe 	flint 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "flint"				), new ItemStack(Material.FLINT, 1));
+		ShapelessRecipe 	fermentedSpiderEye 		= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "fermentedSpiderEye"	), new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
+		ShapelessRecipe 	fermentedSkin1 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "fermentedSkin1"		), i_fermentedSkin);
+		ShapelessRecipe 	fermentedSkin2 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "fermentedSkin2"		), i_fermentedSkin);
+		ShapelessRecipe 	poisonousPotato 		= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "poisonousPotato"		), new ItemStack(Material.POISONOUS_POTATO, 1));
+		ShapelessRecipe 	glassBottle 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "glassBottle"			), new ItemStack(Material.GLASS_BOTTLE, 1));
+		ShapelessRecipe 	bowl 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "bowl"				), new ItemStack(Material.BOWL, 1));
+		ShapedRecipe 		medicKit1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit1"			), i_medicKit);
+		ShapedRecipe 		medicKit2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit2"			), i_medicKit);
+		ShapedRecipe 		medicKit3 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit3"			), i_medicKit);
+		ShapedRecipe 		medicKit4 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit4"			), i_medicKit);
+		ShapedRecipe 		medicKit5 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit5"			), i_medicKit);
+		ShapedRecipe 		medicKit6 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "medicKit6"			), i_medicKit);
+		ShapedRecipe 		fishingRod1 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "fishingRod1"			), new ItemStack(Material.FISHING_ROD, 1));
+		ShapedRecipe 		fishingRod2 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "fishingRod2"			), new ItemStack(Material.FISHING_ROD, 1));
+		ShapedRecipe 		ironIngot 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironIngot"			), new ItemStack(Material.IRON_INGOT, 1));
+		ShapelessRecipe 	ironNugget 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "ironNugget"			), new ItemStack(Material.IRON_NUGGET, 4));
+		ShapelessRecipe 	ironBlock 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "ironBlock"			), new ItemStack(Material.IRON_INGOT, 9));
+		FurnaceRecipe 		smelt_ironIngot 		= new FurnaceRecipe		(new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE);
+		ShapedRecipe 		goldIngot 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldIngot"			), new ItemStack(Material.GOLD_INGOT, 1));
+		ShapelessRecipe 	goldNugget 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "goldNugget"			), new ItemStack(Material.GOLD_NUGGET, 4));
+		ShapelessRecipe 	goldBlock 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "goldBlock"			), new ItemStack(Material.GOLD_INGOT, 9));
+		FurnaceRecipe 		smelt_goldIngot 		= new FurnaceRecipe		(new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE);
+		ShapedRecipe 		bread 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "bread"				), new ItemStack(Material.BREAD, 2));
+		ShapedRecipe 		cookie 					= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "cookie"				), new ItemStack(Material.COOKIE, 8));
+		ShapelessRecipe 	slimeball 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "slimeball"			), new ItemStack(Material.SLIME_BALL, 1));
+		ShapelessRecipe 	cobweb 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "cobweb"				), new ItemStack(Material.WEB, 1));
+		ShapelessRecipe 	sapling 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "sapling"				), new ItemStack(Material.STICK, 4));
 
-		ShapedRecipe leatherBoots = new ShapedRecipe(i_leatherBoots);
-		ShapedRecipe leatherChestplate = new ShapedRecipe(i_leatherChestplate);
-		ShapedRecipe leatherLeggings = new ShapedRecipe(i_leatherLeggings);
-		ShapedRecipe leatherHelmet = new ShapedRecipe(i_leatherHelmet);
-		ShapedRecipe goldBoots = new ShapedRecipe(i_goldBoots);
-		ShapedRecipe goldChestplate = new ShapedRecipe(i_goldChestplate);
-		ShapedRecipe goldLeggings = new ShapedRecipe(i_goldLeggings);
-		ShapedRecipe goldHelmet = new ShapedRecipe(i_goldHelmet);
-		ShapedRecipe ironBoots = new ShapedRecipe(i_ironBoots);
-		ShapedRecipe ironChestplate = new ShapedRecipe(i_ironChestplate);
-		ShapedRecipe ironLeggings = new ShapedRecipe(i_ironLeggings);
-		ShapedRecipe ironHelmet = new ShapedRecipe(i_ironHelmet);
-		ShapedRecipe diamondBoots = new ShapedRecipe(i_diamondBoots);
-		ShapedRecipe diamondChestplate = new ShapedRecipe(i_diamondChestplate);
-		ShapedRecipe diamondLeggings = new ShapedRecipe(i_diamondLeggings);
-		ShapedRecipe diamondHelmet = new ShapedRecipe(i_diamondHelmet);
+		ShapedRecipe 		leatherBoots 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "leatherBoots"		), i_leatherBoots);
+		ShapedRecipe 		leatherChestplate 		= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "leatherChestplate"	), i_leatherChestplate);
+		ShapedRecipe 		leatherLeggings 		= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "leatherLeggings"		), i_leatherLeggings);
+		ShapedRecipe 		leatherHelmet 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "leatherHelmet"		), i_leatherHelmet);
+		ShapedRecipe 		goldBoots 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldBoots"			), i_goldBoots);
+		ShapedRecipe 		goldChestplate 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldChestplate"		), i_goldChestplate);
+		ShapedRecipe 		goldLeggings 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldLeggings"		), i_goldLeggings);
+		ShapedRecipe 		goldHelmet 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "goldHelmet"			), i_goldHelmet);
+		ShapedRecipe 		ironBoots 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironBoots"			), i_ironBoots);
+		ShapedRecipe 		ironChestplate 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironChestplate"		), i_ironChestplate);
+		ShapedRecipe 		ironLeggings 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironLeggings"		), i_ironLeggings);
+		ShapedRecipe 		ironHelmet 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "ironHelmet"			), i_ironHelmet);
+		ShapedRecipe 		diamondBoots 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondBoots"		), i_diamondBoots);
+		ShapedRecipe 		diamondChestplate 		= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondChestplate"	), i_diamondChestplate);
+		ShapedRecipe 		diamondLeggings 		= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondLeggings"		), i_diamondLeggings);
+		ShapedRecipe 		diamondHelmet 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "diamondHelmet"		), i_diamondHelmet);
 
-		ShapedRecipe recurveBow1 = new ShapedRecipe(i_recurveBow);
-		ShapedRecipe recurveBow2 = new ShapedRecipe(i_recurveBow);
+		ShapedRecipe 		recurveBow1 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "recurveBow1"			), i_recurveBow);
+		ShapedRecipe 		recurveBow2 			= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "recurveBow2"			), i_recurveBow);
 		
 		hatchet1.shape("@@"," 1");
 
@@ -1623,13 +1630,13 @@ public class Survival extends JavaPlugin
 		mattock1.shape("@-","1@");
 
 		mattock1.setIngredient('@', Material.FLINT);
-		mattock1.setIngredient('-', Material.WOOD, -1);
+		mattock1.setIngredient('-', new Wood(Material.WOOD));
 		mattock1.setIngredient('1', Material.STICK);
 
 		mattock2.shape("-@","@1");
 
 		mattock2.setIngredient('@', Material.FLINT);
-		mattock2.setIngredient('-', Material.WOOD, -1);
+		mattock2.setIngredient('-', new Wood(Material.WOOD));
 		mattock2.setIngredient('1', Material.STICK);
 		
 		shiv1.shape("*@","1&");
@@ -1711,14 +1718,14 @@ public class Survival extends JavaPlugin
 		gHoe1.setIngredient('*', Material.EYE_OF_ENDER);
 		gHoe1.setIngredient('@', Material.DIAMOND);
 		gHoe1.setIngredient('B', Material.DIAMOND_BLOCK);
-		gHoe1.setIngredient('1', Material.WOOD, -1);
+		gHoe1.setIngredient('1', new Wood(Material.WOOD));
 		
 		gHoe2.shape("@@ ","@*B"," B1");
 
 		gHoe2.setIngredient('*', Material.EYE_OF_ENDER);
 		gHoe2.setIngredient('@', Material.DIAMOND);
 		gHoe2.setIngredient('B', Material.DIAMOND_BLOCK);
-		gHoe2.setIngredient('1', Material.WOOD, -1);
+		gHoe2.setIngredient('1', new Wood(Material.WOOD));
 
 		gSword.shape("*@*","*@*","*1*");
 
@@ -1734,7 +1741,7 @@ public class Survival extends JavaPlugin
 		saddle.shape("@@@","*-*","= =");
 
 		saddle.setIngredient('@', Material.LEATHER);
-		saddle.setIngredient('*', Material.STRING);
+		saddle.setIngredient('*', Material.LEASH);
 		saddle.setIngredient('-', Material.IRON_INGOT);
 		saddle.setIngredient('=', Material.IRON_NUGGET);
 
@@ -1802,7 +1809,7 @@ public class Survival extends JavaPlugin
 
 		quartz.addIngredient(Material.QUARTZ_BLOCK);
 
-		woolString.addIngredient(Material.WOOL, -1);
+		woolString.addIngredient(new Wool());
 		
 		ice.shape("@@@","@*@","@@@");
 
@@ -1826,36 +1833,31 @@ public class Survival extends JavaPlugin
 		repair_gSpade.addIngredient(Material.GOLD_SPADE, -1);
 		repair_gSpade.addIngredient(1, Material.END_CRYSTAL);
 
-		workbench1.addIngredient(Material.LOG, -1);
+		workbench1.addIngredient(new Wood(Material.LOG));
 		workbench1.addIngredient(Material.LEATHER);
 		workbench1.addIngredient(Material.STRING);
-		workbench1.addIngredient(Material.WOOD_SWORD, -1);
+		workbench1.addIngredient(Material.WOOD_SWORD);
 		
-		workbench2.addIngredient(Material.LOG_2, -1);
+		workbench2.addIngredient(new Wood(Material.LOG_2));
 		workbench2.addIngredient(Material.LEATHER);
 		workbench2.addIngredient(Material.STRING);
-		workbench2.addIngredient(Material.WOOD_SWORD, -1);
+		workbench2.addIngredient(Material.WOOD_SWORD);
 
-		furnace1.shape("@@@","@*@","@@@");
+		furnace.shape("@@@","@*@","@@@");
 
-		furnace1.setIngredient('@', Material.CLAY_BRICK);
-		furnace1.setIngredient('*', Material.WOOD_SPADE);
-		
-		furnace2.shape("@@@","@*@","@@@");
-
-		furnace2.setIngredient('@', Material.CLAY_BRICK);
-		furnace2.setIngredient('*', Material.FLINT_AND_STEEL);
+		furnace.setIngredient('@', Material.CLAY_BRICK);
+		furnace.setIngredient('*', Material.WOOD_SPADE);
 
 		chest.shape("@@@","@#@","@@@");
 		
-		chest.setIngredient('@', Material.WOOD, -1);
+		chest.setIngredient('@', new Wood(Material.WOOD));
 		chest.setIngredient('#', Material.IRON_INGOT);
 
 		clay.addIngredient(Material.DIRT);
-		clay.addIngredient(Material.SAND, -1);
+		clay.addIngredient(Material.SAND);
 		clay.addIngredient(Material.BEETROOT_SOUP);
 
-		diorite.addIngredient(Material.INK_SACK, 15);
+		diorite.addIngredient(new Dye(DyeColor.WHITE));
 		diorite.addIngredient(Material.COBBLESTONE);
 
 		granite.addIngredient(Material.NETHERRACK);
@@ -1866,22 +1868,19 @@ public class Survival extends JavaPlugin
 
 		gravel1.shape("@B","B@");
 		
-		gravel1.setIngredient('@', Material.SAND, -1);
+		gravel1.setIngredient('@', Material.SAND);
 		gravel1.setIngredient('B', Material.COBBLESTONE);
 		
 		gravel2.shape("B@","@B");
 		
-		gravel2.setIngredient('@', Material.SAND, -1);
+		gravel2.setIngredient('@', Material.SAND);
 		gravel2.setIngredient('B', Material.COBBLESTONE);
 
 		firestriker.addIngredient(Material.FLINT);
-		firestriker.addIngredient(Material.COAL, -1);
-
-		torch1.addIngredient(Material.WOOD_SPADE);
-		torch1.addIngredient(Material.STICK);
+		firestriker.addIngredient(new Coal());
 		
-		torch2.addIngredient(Material.FLINT_AND_STEEL);
-		torch2.addIngredient(8, Material.STICK);
+		torch.addIngredient(Material.WOOD_SPADE);
+		torch.addIngredient(8, Material.STICK);
 
 		flint.addIngredient(Material.GRAVEL);
 
@@ -1898,9 +1897,9 @@ public class Survival extends JavaPlugin
 		fermentedSkin2.addIngredient(Material.RED_MUSHROOM);
 
 		poisonousPotato.addIngredient(Material.POTATO_ITEM);
-		poisonousPotato.addIngredient(Material.INK_SACK, 15);
+		poisonousPotato.addIngredient(new Dye(DyeColor.WHITE));
 		
-		glassBottle.addIngredient(Material.POTION, 0);
+		glassBottle.addIngredient(Material.POTION);
 		
 		bowl.addIngredient(Material.BEETROOT_SOUP);
 
@@ -1986,7 +1985,7 @@ public class Survival extends JavaPlugin
 		cookie.setIngredient('E', Material.EGG);
 		cookie.setIngredient('W', Material.WHEAT);
 		cookie.setIngredient('S', Material.SUGAR);
-		cookie.setIngredient('C', Material.INK_SACK, 3);
+		cookie.setIngredient('C', new Dye(DyeColor.BROWN));
 		
 		slimeball.addIngredient(Material.MILK_BUCKET);
 		slimeball.addIngredient(8, Material.VINE);
@@ -2067,14 +2066,14 @@ public class Survival extends JavaPlugin
 		
 		recurveBow1.shape(" @1","#^1"," @1");
 
-		recurveBow1.setIngredient('^', Material.BOW, -1);
+		recurveBow1.setIngredient('^', Material.BOW);
 		recurveBow1.setIngredient('#', Material.PISTON_BASE);
 		recurveBow1.setIngredient('@', Material.IRON_INGOT);
 		recurveBow1.setIngredient('1', Material.STRING);
 		
 		recurveBow2.shape("1@ ","1^#","1@ ");
 
-		recurveBow2.setIngredient('^', Material.BOW, -1);
+		recurveBow2.setIngredient('^', Material.BOW);
 		recurveBow2.setIngredient('#', Material.WOOD);
 		recurveBow2.setIngredient('@', Material.IRON_INGOT);
 		recurveBow2.setIngredient('1', Material.STRING);
@@ -2095,15 +2094,13 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(firestriker);
 			getServer().addRecipe(workbench1);
 			getServer().addRecipe(workbench2);
-			getServer().addRecipe(furnace1);
-			getServer().addRecipe(furnace2);
+			getServer().addRecipe(furnace);
 			getServer().addRecipe(chest);
 			getServer().addRecipe(flint);
 		}
 		if(settings.getBoolean("Survival.Torch"))
 		{
-			getServer().addRecipe(torch1);
-			getServer().addRecipe(torch2);
+			getServer().addRecipe(torch);
 		}
 		if(settings.getBoolean("Recipes.WebString"))
 			getServer().addRecipe(string);
@@ -2340,8 +2337,7 @@ public class Survival extends JavaPlugin
                         ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
                     }
                     
-                    @SuppressWarnings("deprecation")
-					Score dualWield = board.getObjective("DualWield").getScore(player);
+					Score dualWield = board.getObjective("DualWield").getScore(player.getName());
                     
                     if
                     (
@@ -2488,14 +2484,13 @@ public class Survival extends JavaPlugin
 	public void PlayerStatus()
 	{
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-	    	@SuppressWarnings("deprecation")
 			public void run()
 	    	{
 	    		for(Player player : getServer().getOnlinePlayers())
                 {
 	    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 	    			{
-		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
+		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
 	                    if(player.getExhaustion() >= 4)
 	                    {
 	                        Random rand = new Random();
@@ -2511,14 +2506,13 @@ public class Survival extends JavaPlugin
 	    -1L, 1L);
 		
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-	    	@SuppressWarnings("deprecation")
 			public void run()
 	    	{
 	    		for(Player player : getServer().getOnlinePlayers())
                 {
 	    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 	    			{	    				
-		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
+		    			Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
 	                    
 	                    if(thirst.getScore() <= 0)
 	                    {
@@ -2547,7 +2541,6 @@ public class Survival extends JavaPlugin
 		if(!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0)
 		{
 			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-		    	@SuppressWarnings("deprecation")
 				public void run()
 		    	{
 		    		for(Player player : getServer().getOnlinePlayers())
@@ -2560,7 +2553,7 @@ public class Survival extends JavaPlugin
 		                    	player.sendMessage(ChatColor.GOLD + Words.get("Starved, eat some food"));
 		                    }
 		    				
-			    			Score thirst = mainBoard.getObjective("Thirst").getScore(player);
+			    			Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
 		                    if(thirst.getScore() <= 6)
 		                    {
 		                    	player.sendMessage(ChatColor.AQUA + Words.get("Dehydrated, drink some water"));
@@ -2576,16 +2569,15 @@ public class Survival extends JavaPlugin
 	public void FoodDiversity()
 	{
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-	    	@SuppressWarnings("deprecation")
 			public void run()
 	    	{
 	    		for(Player player : getServer().getOnlinePlayers())
                 {
 	    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 	    			{
-		    			Score carbon = mainBoard.getObjective("Carbs").getScore(player);
-		    			Score protein = mainBoard.getObjective("Protein").getScore(player);
-		    			Score salts = mainBoard.getObjective("Salts").getScore(player);
+		    			Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
+		    			Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
+		    			Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
 	                    if(player.getExhaustion() >= 4)
 	                    {
 	                        carbon.setScore(carbon.getScore() - 8);
@@ -2607,16 +2599,15 @@ public class Survival extends JavaPlugin
 	    -1L, 1L);
 		
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-	    	@SuppressWarnings("deprecation")
 			public void run()
 	    	{
 	    		for(Player player : getServer().getOnlinePlayers())
                 {
 	    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 	    			{
-	    				Score carbon = mainBoard.getObjective("Carbs").getScore(player);
-		    			Score protein = mainBoard.getObjective("Protein").getScore(player);
-		    			Score salts = mainBoard.getObjective("Salts").getScore(player);
+	    				Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
+		    			Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
+		    			Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
 		    			
 	                    if(carbon.getScore() <= 0)
 	                    {
@@ -2673,16 +2664,15 @@ public class Survival extends JavaPlugin
 		if(!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0)
 		{
 			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
-		    	@SuppressWarnings("deprecation")
 				public void run()
 		    	{
 		    		for(Player player : getServer().getOnlinePlayers())
 	                {
 		    			if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 		    			{
-		    				Score carbon = mainBoard.getObjective("Carbs").getScore(player);
-			    			Score protein = mainBoard.getObjective("Protein").getScore(player);
-			    			Score salts = mainBoard.getObjective("Salts").getScore(player);
+		    				Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
+			    			Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
+			    			Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
 		                    
 			    			if(carbon.getScore() <= 480)
 			    			{
@@ -2706,23 +2696,22 @@ public class Survival extends JavaPlugin
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static List<String> ShowThirst(Player player)
 	{
 		Objective thirst = Survival.mainBoard.getObjective("Thirst");
 		String thirstBar = "";
-		for(int i = 0; i < thirst.getScore(player).getScore(); i++)
+		for(int i = 0; i < thirst.getScore(player.getName()).getScore(); i++)
 		{
 			thirstBar += "|";
 		}
-		for(int i = thirst.getScore(player).getScore(); i < 20; i++)
+		for(int i = thirst.getScore(player.getName()).getScore(); i < 20; i++)
 		{
 			thirstBar += ".";
 		}
 		
-		if(thirst.getScore(player).getScore() >= 40)
+		if(thirst.getScore(player.getName()).getScore() >= 40)
 			thirstBar = ChatColor.GREEN + thirstBar;
-		else if(thirst.getScore(player).getScore() <= 6)
+		else if(thirst.getScore(player.getName()).getScore() <= 6)
 			thirstBar = ChatColor.RED + thirstBar;
 		else
 			thirstBar = ChatColor.AQUA + thirstBar;
@@ -2759,13 +2748,12 @@ public class Survival extends JavaPlugin
 		return Arrays.asList(ChatColor.GOLD + Words.get("Hunger"), hungerBar + ChatColor.RESET, saturationBar);
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static List<String> ShowNutrients(Player player)
 	{
 		List<String> nutrients = new ArrayList<>();
-		int carbon = mainBoard.getObjective("Carbs").getScore(player).getScore();
-		int protein = mainBoard.getObjective("Protein").getScore(player).getScore();
-		int salts = mainBoard.getObjective("Salts").getScore(player).getScore();
+		int carbon = mainBoard.getObjective("Carbs").getScore(player.getName()).getScore();
+		int protein = mainBoard.getObjective("Protein").getScore(player.getName()).getScore();
+		int salts = mainBoard.getObjective("Salts").getScore(player.getName()).getScore();
 		
 		String showCarbon = Integer.toString(carbon);
 		if(carbon >= 480)
@@ -2791,10 +2779,9 @@ public class Survival extends JavaPlugin
 		return nutrients;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static String ShowFatigue(Player player)
 	{
-		int fatigue = mainBoard.getObjective("Fatigue").getScore(player).getScore();
+		int fatigue = mainBoard.getObjective("Fatigue").getScore(player.getName()).getScore();
 
 		if(fatigue <= 0)
 			return ChatColor.YELLOW + Words.get("Energized");
@@ -2816,7 +2803,6 @@ public class Survival extends JavaPlugin
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
 		{
-			@SuppressWarnings("deprecation")
 			public void run()
 			{
 				for(Player player : getServer().getOnlinePlayers())
@@ -2826,19 +2812,19 @@ public class Survival extends JavaPlugin
 
 						//if(overworld.getTime() >= 14000 && overworld.getTime() < 22000)
 						//{
-							if(fatigue.getScore(player).getScore() == 1)
+							if(fatigue.getScore(player.getName()).getScore() == 1)
 								player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0), true);
-							else if(fatigue.getScore(player).getScore() == 2)
+							else if(fatigue.getScore(player.getName()).getScore() == 2)
 							{
 								player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 50, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10, 0), true);
 							}
-							else if(fatigue.getScore(player).getScore() == 3)
+							else if(fatigue.getScore(player.getName()).getScore() == 3)
 							{
 								player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0), true);
 							}
-							else if(fatigue.getScore(player).getScore() >= 4)
+							else if(fatigue.getScore(player.getName()).getScore() >= 4)
 							{
 								player.damage(100);
 							}
@@ -2847,15 +2833,15 @@ public class Survival extends JavaPlugin
 
 						if(overworld.getTime() >= 22000 && overworld.getTime() < 22100)
 						{
-							fatigue.getScore(player).setScore(fatigue.getScore(player).getScore() + 1);
+							fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
 							
-							if(fatigue.getScore(player).getScore() == 1)
+							if(fatigue.getScore(player.getName()).getScore() == 1)
 								player.sendMessage(Survival.Words.get("You felt your eyelids heavy, perhaps you should get some sleep"));
-							else if(fatigue.getScore(player).getScore() == 2)
+							else if(fatigue.getScore(player.getName()).getScore() == 2)
 								player.sendMessage(Survival.Words.get("You felt your vision blurred, you should get some sleep fast"));
-							else if(fatigue.getScore(player).getScore() == 3)
+							else if(fatigue.getScore(player.getName()).getScore() == 3)
 								player.sendMessage(Survival.Words.get("You felt being enveloped by darkness, you must get to sleep"));
-							else if(fatigue.getScore(player).getScore() >= 4)
+							else if(fatigue.getScore(player.getName()).getScore() >= 4)
 								player.sendMessage(Survival.Words.get("You collapsed on the ground"));
 						}
 					}
@@ -2873,5 +2859,134 @@ public class Survival extends JavaPlugin
 			else
 				player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
 		}
+	}
+	
+	public void BackpackCheck()
+	{
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
+		{
+			public void run()
+			{
+				for(Player player : getServer().getOnlinePlayers())
+                {
+					ItemStack backpacks[] = new ItemStack[3];
+					backpacks[0] = player.getInventory().getItem(19);
+					backpacks[1] = player.getInventory().getItem(22);
+					backpacks[2] = player.getInventory().getItem(25);
+					
+					int backpackSlots[] = new int[] {19, 22, 25};
+					
+					int collection[][] = new int[][]
+					{
+						{9, 10, 11, 18, 20, 27, 28, 29},
+						{12, 13, 14, 21, 23, 30, 31, 32},
+						{15, 16, 17, 24, 26, 33, 34, 35}
+					};
+					
+					for(int i = 0; i < 3; i++)
+					{
+						ItemStack backpackItem = player.getInventory().getItem(backpackSlots[i]);
+						
+						if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+						{
+							if(backpackItem == null || (backpackItem != null && backpackItem.getType() == Material.AIR))
+							{
+								player.getInventory().setItem(backpackSlots[i], GetLockedSlotItem());
+							}
+							
+							if(backpackItem != null && backpackItem.getType() == Material.WOOD_HOE)
+							{
+								for(int j = 0; j < 8; j++)
+								{
+									ItemStack item = player.getInventory().getItem(collection[i][j]);
+									
+									if(item != null && CheckIfLockedSlot(item))
+									{
+										player.getInventory().clear(collection[i][j]);
+									}
+								}
+							}
+							else
+							{
+								for(int j = 0; j < 8; j++)
+								{
+									ItemStack item = player.getInventory().getItem(collection[i][j]);
+									if(item != null && !CheckIfLockedSlot(item))
+									{
+										player.getWorld().dropItem(player.getLocation(), item);
+									}
+									
+									player.getInventory().setItem(collection[i][j], GetLockedSlotItem());
+								}
+							}
+						}
+						else
+						{
+							for(int j = 0; j < 8; j++)
+							{
+								ItemStack item = player.getInventory().getItem(collection[i][j]);
+								
+								if(item != null && CheckIfLockedSlot(item))
+								{
+									player.getInventory().clear(collection[i][j]);
+								}
+							}
+						}
+					}
+                }
+			}
+		}, -1, 100);
+	}
+	
+	public static boolean CheckIfLockedSlot(ItemStack item)
+	{
+		if(item != null && item.getType() == Material.BARRIER)
+		{
+			ItemMeta meta = item.getItemMeta();
+			
+			List<String> lore = meta.getLore();
+			if(lore != null)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public static ItemStack GetLockedSlotItem()
+	{
+		ItemStack lockedSlot = new ItemStack(Material.BARRIER);
+		ItemMeta meta = lockedSlot.getItemMeta();
+		
+		meta.setDisplayName(ChatColor.RESET + Survival.Words.get("Locked"));
+		
+		List<String> lore = Arrays.asList
+		(
+			ChatColor.RESET + "" + ChatColor.GRAY + Survival.Words.get("Missing Component")
+		);
+		meta.setLore(lore);
+			
+		lockedSlot.setItemMeta(meta);
+		
+		return lockedSlot;
+	}
+	
+	public static ItemStack GetBackpackSlotUIItem()
+	{
+		ItemStack backpackSlot = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemMeta meta = backpackSlot.getItemMeta();
+		
+		meta.setDisplayName(ChatColor.RESET + Survival.Words.get(" "));
+		
+		List<String> lore = Arrays.asList
+		(
+			ChatColor.RESET + "" + ChatColor.GRAY + Survival.Words.get("Backpack Slot")
+		);
+		meta.setLore(lore);
+			
+		backpackSlot.setItemMeta(meta);
+		
+		return backpackSlot;
 	}
 }

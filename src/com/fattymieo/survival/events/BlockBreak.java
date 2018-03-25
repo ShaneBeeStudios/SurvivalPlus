@@ -19,15 +19,13 @@ import com.fattymieo.survival.Survival;
 
 public class BlockBreak implements Listener
 {
-	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event)
 	{
 		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		
-		ItemStack tool = player.getItemInHand();
+		ItemStack tool = player.getInventory().getItemInMainHand();
 		
 		Block block = event.getBlock();
 		Material material = block.getType();

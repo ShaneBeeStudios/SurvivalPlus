@@ -5,6 +5,7 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.SandstoneType;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,13 +14,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Sandstone;
 
 import com.fattymieo.survival.Survival;
 
 public class BlockPlace implements Listener
 {
-	
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockPlace(BlockPlaceEvent event)
 	{
@@ -84,7 +84,6 @@ public class BlockPlace implements Listener
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	private boolean checkArtifact(Block block)
 	{
 		Material material = block.getType();
@@ -150,9 +149,9 @@ public class BlockPlace implements Listener
 			|| material == Material.PRISMARINE
 			|| material == Material.CLAY_BRICK
 			|| material == Material.QUARTZ_STAIRS
-			|| (material == Material.SANDSTONE && block.getData() != (byte) 0)
+			|| (material == Material.SANDSTONE && block.getState().getData() != new Sandstone(SandstoneType.CRACKED))
 			|| material == Material.SANDSTONE_STAIRS
-			|| (material == Material.RED_SANDSTONE && block.getData() != (byte) 0)
+			|| (material == Material.RED_SANDSTONE && block.getState().getData() != new Sandstone(SandstoneType.CRACKED))
 			|| material == Material.RED_SANDSTONE_STAIRS
 			|| material == Material.SEA_LANTERN
 			|| material == Material.GLOWSTONE
