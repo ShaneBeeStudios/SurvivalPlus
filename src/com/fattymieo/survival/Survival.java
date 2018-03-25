@@ -12,12 +12,14 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.CoalType;
 import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.TreeSpecies;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -1566,7 +1568,8 @@ public class Survival extends JavaPlugin
 		ShapelessRecipe 	andesite 				= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "andesite"			), new ItemStack(Material.STONE, 1, (byte)5));
 		ShapedRecipe 		gravel1 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gravel1"				), new ItemStack(Material.GRAVEL, 2));
 		ShapedRecipe 		gravel2 				= new ShapedRecipe		(NamespacedKey.minecraft(key.getKey() + "_" + "gravel2"				), new ItemStack(Material.GRAVEL, 2));
-		ShapelessRecipe 	firestriker 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "firestriker"			), i_firestriker);
+		ShapelessRecipe 	firestriker1 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "firestriker1"		), i_firestriker);
+		ShapelessRecipe 	firestriker2 			= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "firestriker2"		), i_firestriker);
 		ShapelessRecipe 	torch 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "torch"				), new ItemStack(Material.TORCH, 8));
 		ShapelessRecipe 	flint 					= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "flint"				), new ItemStack(Material.FLINT, 1));
 		ShapelessRecipe 	fermentedSpiderEye 		= new ShapelessRecipe	(NamespacedKey.minecraft(key.getKey() + "_" + "fermentedSpiderEye"	), new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
@@ -1630,13 +1633,13 @@ public class Survival extends JavaPlugin
 		mattock1.shape("@-","1@");
 
 		mattock1.setIngredient('@', Material.FLINT);
-		mattock1.setIngredient('-', new Wood(Material.WOOD));
+		mattock1.setIngredient('-', Material.WOOD, -1);
 		mattock1.setIngredient('1', Material.STICK);
 
 		mattock2.shape("-@","@1");
 
 		mattock2.setIngredient('@', Material.FLINT);
-		mattock2.setIngredient('-', new Wood(Material.WOOD));
+		mattock2.setIngredient('-', Material.WOOD, -1);
 		mattock2.setIngredient('1', Material.STICK);
 		
 		shiv1.shape("*@","1&");
@@ -1718,14 +1721,14 @@ public class Survival extends JavaPlugin
 		gHoe1.setIngredient('*', Material.EYE_OF_ENDER);
 		gHoe1.setIngredient('@', Material.DIAMOND);
 		gHoe1.setIngredient('B', Material.DIAMOND_BLOCK);
-		gHoe1.setIngredient('1', new Wood(Material.WOOD));
+		gHoe1.setIngredient('1', Material.WOOD, -1);
 		
 		gHoe2.shape("@@ ","@*B"," B1");
 
 		gHoe2.setIngredient('*', Material.EYE_OF_ENDER);
 		gHoe2.setIngredient('@', Material.DIAMOND);
 		gHoe2.setIngredient('B', Material.DIAMOND_BLOCK);
-		gHoe2.setIngredient('1', new Wood(Material.WOOD));
+		gHoe2.setIngredient('1', Material.WOOD, -1);
 
 		gSword.shape("*@*","*@*","*1*");
 
@@ -1809,7 +1812,7 @@ public class Survival extends JavaPlugin
 
 		quartz.addIngredient(Material.QUARTZ_BLOCK);
 
-		woolString.addIngredient(new Wool());
+		woolString.addIngredient(new Wool(DyeColor.WHITE));
 		
 		ice.shape("@@@","@*@","@@@");
 
@@ -1833,12 +1836,12 @@ public class Survival extends JavaPlugin
 		repair_gSpade.addIngredient(Material.GOLD_SPADE, -1);
 		repair_gSpade.addIngredient(1, Material.END_CRYSTAL);
 
-		workbench1.addIngredient(new Wood(Material.LOG));
+		workbench1.addIngredient(Material.LOG, -1);
 		workbench1.addIngredient(Material.LEATHER);
 		workbench1.addIngredient(Material.STRING);
 		workbench1.addIngredient(Material.WOOD_SWORD);
 		
-		workbench2.addIngredient(new Wood(Material.LOG_2));
+		workbench2.addIngredient(Material.LOG_2, -1);
 		workbench2.addIngredient(Material.LEATHER);
 		workbench2.addIngredient(Material.STRING);
 		workbench2.addIngredient(Material.WOOD_SWORD);
@@ -1850,7 +1853,7 @@ public class Survival extends JavaPlugin
 
 		chest.shape("@@@","@#@","@@@");
 		
-		chest.setIngredient('@', new Wood(Material.WOOD));
+		chest.setIngredient('@', Material.WOOD, -1);
 		chest.setIngredient('#', Material.IRON_INGOT);
 
 		clay.addIngredient(Material.DIRT);
@@ -1876,8 +1879,11 @@ public class Survival extends JavaPlugin
 		gravel2.setIngredient('@', Material.SAND);
 		gravel2.setIngredient('B', Material.COBBLESTONE);
 
-		firestriker.addIngredient(Material.FLINT);
-		firestriker.addIngredient(new Coal());
+		firestriker1.addIngredient(Material.FLINT);
+		firestriker1.addIngredient(new Coal(CoalType.COAL));
+
+		firestriker2.addIngredient(Material.FLINT);
+		firestriker2.addIngredient(new Coal(CoalType.CHARCOAL));
 		
 		torch.addIngredient(Material.WOOD_SPADE);
 		torch.addIngredient(8, Material.STICK);
@@ -2091,7 +2097,8 @@ public class Survival extends JavaPlugin
 			getServer().addRecipe(shiv4);
 			getServer().addRecipe(hammer1);
 			getServer().addRecipe(hammer2);
-			getServer().addRecipe(firestriker);
+			getServer().addRecipe(firestriker1);
+			getServer().addRecipe(firestriker2);
 			getServer().addRecipe(workbench1);
 			getServer().addRecipe(workbench2);
 			getServer().addRecipe(furnace);
