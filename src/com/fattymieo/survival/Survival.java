@@ -1999,7 +1999,7 @@ public class Survival extends JavaPlugin
 		cobweb.addIngredient(Material.SLIME_BALL);
 		cobweb.addIngredient(2, Material.STRING);
 		
-		sapling.addIngredient(Material.SAPLING);
+		sapling.addIngredient(Material.SAPLING, -1);
 		
 		leatherBoots.shape("@*@");
 
