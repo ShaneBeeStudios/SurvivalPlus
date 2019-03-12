@@ -38,16 +38,16 @@ public class NoAnvil implements Listener
 					{
 						if
 						(
-							item.getType() == Material.GOLD_AXE
-							|| item.getType() == Material.GOLD_PICKAXE
-							|| item.getType() == Material.GOLD_SPADE
-							|| item.getType() == Material.GOLD_HOE
-							|| item.getType() == Material.GOLD_SWORD
-							|| item.getType() == Material.WOOD_AXE
-							|| item.getType() == Material.WOOD_PICKAXE
-							|| item.getType() == Material.WOOD_SPADE
-							|| item.getType() == Material.WOOD_HOE
-							|| item.getType() == Material.WOOD_SWORD
+							item.getType() == Material.GOLDEN_AXE
+							|| item.getType() == Material.GOLDEN_PICKAXE
+							|| item.getType() == Material.GOLDEN_SHOVEL
+							|| item.getType() == Material.GOLDEN_HOE
+							|| item.getType() == Material.GOLDEN_SWORD
+							|| item.getType() == Material.WOODEN_AXE
+							|| item.getType() == Material.WOODEN_PICKAXE
+							|| item.getType() == Material.WOODEN_SHOVEL
+							|| item.getType() == Material.WOODEN_HOE
+							|| item.getType() == Material.WOODEN_SWORD
 						)
 						{
 							e.setCancelled(true);

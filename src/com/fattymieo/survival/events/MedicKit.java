@@ -46,7 +46,7 @@ public class MedicKit implements Listener
 		if(event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
-		if((mainItem != null && mainItem.getType() == Material.WATCH))
+		if((mainItem != null && mainItem.getType() == Material.CLOCK))
 		{
 			if(healing.getScore(player.getName()).getScore() <= 0)
 			{
@@ -62,8 +62,8 @@ public class MedicKit implements Listener
 								healing.getScore(player.getName()).setScore(1);
 								healing.getScore(healed.getName()).setScore(1);
 								healed.teleport(Survival.lookAt(healed.getLocation(), player.getLocation()));
-								player.sendMessage(Survival.Words.get("§aHealing ") + ChatColor.RESET + healed.getDisplayName() + Survival.Words.get("§a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("§a on hand"));
-								healed.sendMessage(Survival.Words.get("§aYou are being healed by ") + ChatColor.RESET + player.getDisplayName() + Survival.Words.get("§a, stay still"));
+								player.sendMessage(Survival.Words.get("ï¿½aHealing ") + ChatColor.RESET + healed.getDisplayName() + Survival.Words.get("ï¿½a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("ï¿½a on hand"));
+								healed.sendMessage(Survival.Words.get("ï¿½aYou are being healed by ") + ChatColor.RESET + player.getDisplayName() + Survival.Words.get("ï¿½a, stay still"));
 								
 								healTimes.getScore(player.getName()).setScore(5);
 								final Runnable task = new Runnable()
@@ -71,7 +71,7 @@ public class MedicKit implements Listener
 									public void run()
 									{
 										int times = healTimes.getScore(player.getName()).getScore();
-										if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player.getName()).getScore() > 0 && healing.getScore(healed.getName()).getScore() > 0)
+										if(player.getInventory().getItemInMainHand().getType() == Material.CLOCK && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player.getName()).getScore() > 0 && healing.getScore(healed.getName()).getScore() > 0)
 										{
 											if(times-- > 0)
 											{
@@ -84,7 +84,7 @@ public class MedicKit implements Listener
 						                        player.removePotionEffect(PotionEffectType.JUMP);
 						                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true, false));
 						                        
-						                        healed.getWorld().playSound(healed.getLocation(), Sound.ENTITY_LEASHKNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+						                        healed.getWorld().playSound(healed.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 												healed.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
 												
 												Location particleLoc = healed.getLocation();
@@ -134,14 +134,14 @@ public class MedicKit implements Listener
 		{
 			final Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if(mainItem != null && mainItem.getType() == Material.WATCH)
+			if(mainItem != null && mainItem.getType() == Material.CLOCK)
 			{
 				if(healing.getScore(player.getName()).getScore() <= 0)
 				{
 					if(player.isSneaking())
 					{
 						healing.getScore(player.getName()).setScore(1);
-						player.sendMessage(Survival.Words.get("§aHealing §ryourself") + Survival.Words.get("§a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("§a on hand"));
+						player.sendMessage(Survival.Words.get("ï¿½aHealing ï¿½ryourself") + Survival.Words.get("ï¿½a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("ï¿½a on hand"));
 						
 						healTimes.getScore(player.getName()).setScore(5);
 						final Runnable task = new Runnable()
@@ -149,7 +149,7 @@ public class MedicKit implements Listener
 							public void run()
 							{
 								int times = healTimes.getScore(player.getName()).getScore();
-								if(player.getInventory().getItemInMainHand().getType() == Material.WATCH && healing.getScore(player.getName()).getScore() > 0)
+								if(player.getInventory().getItemInMainHand().getType() == Material.CLOCK && healing.getScore(player.getName()).getScore() > 0)
 								{
 									if(times-- > 0)
 									{													
@@ -160,7 +160,7 @@ public class MedicKit implements Listener
 				                        player.removePotionEffect(PotionEffectType.JUMP);
 				                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true, false));
 				                        
-				                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LEASHKNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+				                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 										player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
 										
 										Location particleLoc = player.getLocation();
@@ -200,7 +200,7 @@ public class MedicKit implements Listener
 	
 	private ItemStack i_MedicKit()
 	{
-		ItemStack i_medicKit = new ItemStack(Material.WATCH, 1);
+		ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
       	//ItemMeta medicKitMeta= i_medicKit.getItemMeta();
       	//medicKitMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Medical Kit"));
       	//i_medicKit.setItemMeta(medicKitMeta);

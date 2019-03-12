@@ -30,7 +30,7 @@ public class ShivPoison implements Listener
 
 			Random rand = new Random();
 			
-			if(mainItem.getType() == Material.WOOD_HOE)
+			if(mainItem.getType() == Material.WOODEN_HOE)
 			{
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false));
 				if(mainItem.getDurability() >= 59)
@@ -40,7 +40,7 @@ public class ShivPoison implements Listener
 				}
 			}
 			
-			if(offItem.getType() == Material.WOOD_HOE)
+			if(offItem.getType() == Material.WOODEN_HOE)
 			{
 				int chance_poison = rand.nextInt(4) + 1;
 				switch(chance_poison)

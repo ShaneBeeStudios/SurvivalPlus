@@ -27,7 +27,7 @@ public class ObsidianMaceWeakness implements Listener
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			LivingEntity enemy = (LivingEntity)event.getEntity();
 			
-			if(mainItem.getType() == Material.GOLD_SPADE)
+			if(mainItem.getType() == Material.GOLDEN_SHOVEL)
 			{
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));

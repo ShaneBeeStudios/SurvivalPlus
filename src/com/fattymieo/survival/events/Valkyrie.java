@@ -19,6 +19,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 
@@ -30,11 +32,11 @@ public class Valkyrie implements Listener
 {	
 	int schedule = 0;
     
-    Objective spin = Survival.board.getObjective("Spin");
-    Objective dualWield = Survival.board.getObjective("DualWield");
+    private Objective spin = Survival.board.getObjective("Spin");
+    private Objective dualWield = Survival.board.getObjective("DualWield");
     
 	//To prevent double messages send to player.
-	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
+	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 	
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event)
@@ -44,7 +46,7 @@ public class Valkyrie implements Listener
 		
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 		
-		if(mainItem.getType() == Material.GOLD_AXE)
+		if(mainItem.getType() == Material.GOLDEN_AXE)
 		{
 			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
@@ -65,12 +67,16 @@ public class Valkyrie implements Listener
 							switch(chance_reduceDur)
 							{
 								case 1:
-									mainItem.setDurability((short)(mainItem.getDurability() + 1));
+									//mainItem.setDurability((short)(mainItem.getDurability() + 1));
+									// in favor of new item meta based durability
+									ItemMeta meta = mainItem.getItemMeta();
+									((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+									mainItem.setItemMeta(meta);
 									break;
 								default:
 							}
 							
-							if(mainItem.getDurability() >= 32)
+							if(((Damageable) mainItem.getItemMeta()).getDamage() >= 32)
 							{
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
@@ -110,7 +116,7 @@ public class Valkyrie implements Listener
 			
 			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
-				if(mainItem.getType() == Material.GOLD_AXE)
+				if(mainItem.getType() == Material.GOLDEN_AXE)
 				{
 					if(spin.getScore(player.getName()).getScore() == 0)
 					{

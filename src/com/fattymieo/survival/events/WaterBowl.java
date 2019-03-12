@@ -37,25 +37,21 @@ public class WaterBowl implements Listener
 		final Item itemDrop = event.getEntity();
 		if(itemDrop.getItemStack().getType() == Material.BOWL)
 		{
-		    final Runnable task = new Runnable()
-		    {
-		    	public void run()
-		    	{
-		    		if(itemDrop.getItemStack().getAmount() != 1) return;
-		    		Location itemLocation = itemDrop.getLocation();
-		    		if(itemLocation.getBlock().getType() == Material.WATER || itemLocation.getBlock().getType() == Material.STATIONARY_WATER)
-		    		{
-		    			itemDrop.remove();
-		    			
-		    	      	ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
-		    	      	ItemMeta beetrootMeta= i_beetroot.getItemMeta();
-		    	      	beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
-		    	      	i_beetroot.setItemMeta(beetrootMeta);
-		    	      	
-		    			itemDrop.getWorld().dropItem(itemLocation, i_beetroot);
-		    		}
-	            }
-		    };
+		    final Runnable task = () -> {
+				if(itemDrop.getItemStack().getAmount() != 1) return;
+				Location itemLocation = itemDrop.getLocation();
+				if(itemLocation.getBlock().getType() == Material.WATER || itemLocation.getBlock().getType() == Material.WATER)
+				{
+					itemDrop.remove();
+
+					  ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
+					  ItemMeta beetrootMeta= i_beetroot.getItemMeta();
+					  beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
+					  i_beetroot.setItemMeta(beetrootMeta);
+
+					itemDrop.getWorld().dropItem(itemLocation, i_beetroot);
+				}
+			};
 		    
 		    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, 20L);
 		}

@@ -44,62 +44,45 @@ public class WorkbenchShare implements Listener
 		if(e.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
 		
-		if(block.getType() == Material.WORKBENCH)
+		if(block.getType() == Material.CRAFTING_TABLE)
 		{
-			Bukkit.getServer().getScheduler().runTask(Survival.instance, new Runnable()
-			{
-				@Override
-				public void run()
+			Bukkit.getServer().getScheduler().runTask(Survival.instance, () -> {
+				if (!p.isOnline())
+					return;
+
+				if (!block.hasMetadata("shared_players"))
+					block.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, new ArrayList<UUID>()));
+
+				final List<UUID> list = (block.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
+
+				final Inventory open = p.getOpenInventory().getTopInventory();
+
+				if (open == null || open.getType() != InventoryType.WORKBENCH)
+					return;
+
+				// Workaround to get the accessed WorkBench
+				final Block workbench = p.getTargetBlock((Set<Material>) null, 8);
+
+				if (workbench == null || workbench.getType() != Material.CRAFTING_TABLE)
 				{
-					if (!p.isOnline())
-						return;
-					
-					if (!block.hasMetadata("shared_players"))
-						block.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, new ArrayList<UUID>()));
-					
-					final List<UUID> list = (block.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
-					
-					final Inventory open = p.getOpenInventory().getTopInventory();
-					
-					if (open == null || open.getType() != InventoryType.WORKBENCH)
-						return;
-
-					// Workaround to get the accessed WorkBench
-					final Block workbench = p.getTargetBlock((Set<Material>) null, 8);
-					
-					if (workbench == null || workbench.getType() != Material.WORKBENCH)
-					{
-						// Close Inventory if player managed to access the workbench without actually use one.
-						p.closeInventory();
-						return;
-					}
-
-					list.add(p.getUniqueId());
-					p.setMetadata("shared_workbench", new FixedMetadataValue(Survival.instance, block));
-
-					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							if (list.isEmpty())
-								return;
-							Player first = Bukkit.getPlayer(list.get(0));
-							Inventory pInv = first.getOpenInventory().getTopInventory();
-							if (pInv == null || pInv.getType() != InventoryType.WORKBENCH)
-								return;
-							open.setContents(pInv.getContents());
-							Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-							{
-								@Override
-								public void run()
-								{
-									p.updateInventory();
-								}
-							}, 1);
-						}
-					}, 1);
+					// Close Inventory if player managed to access the workbench without actually use one.
+					p.closeInventory();
+					return;
 				}
+
+				list.add(p.getUniqueId());
+				p.setMetadata("shared_workbench", new FixedMetadataValue(Survival.instance, block));
+
+				Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+					if (list.isEmpty())
+						return;
+					Player first = Bukkit.getPlayer(list.get(0));
+					Inventory pInv = first.getOpenInventory().getTopInventory();
+					if (pInv == null || pInv.getType() != InventoryType.WORKBENCH)
+						return;
+					open.setContents(pInv.getContents());
+					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> p.updateInventory(), 1);
+				}, 1);
 			});
 		}
 	}
@@ -132,7 +115,7 @@ public class WorkbenchShare implements Listener
 			// Workaround to get the accessed WorkBench
 			final Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)p.getMetadata("shared_workbench").get(0).value() : null;
 
-			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.WORKBENCH)
+			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			{
 				if (p.getOpenInventory().getTopInventory() != null)
 					p.getOpenInventory().getTopInventory().clear();
@@ -176,22 +159,12 @@ public class WorkbenchShare implements Listener
 					continue;
 				}
 
-				Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						open.setContents(pInv.getContents());
-						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								p.updateInventory();
-								idPlayer.updateInventory();
-							}
-						}, 1);
-					}
+				Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+					open.setContents(pInv.getContents());
+					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+						p.updateInventory();
+						idPlayer.updateInventory();
+					}, 1);
 				}, 1);
 			}
 		}
@@ -211,7 +184,7 @@ public class WorkbenchShare implements Listener
 			// Workaround to get the accessed WorkBench
 			final Block workbench = p.getTargetBlock((Set<Material>) null, 8);
 
-			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.WORKBENCH)
+			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			{
 				if (p.getOpenInventory().getTopInventory() != null)
 					p.getOpenInventory().getTopInventory().clear();
@@ -246,7 +219,7 @@ public class WorkbenchShare implements Listener
 		
 		Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)p.getMetadata("shared_workbench").get(0).value() : null;
 		
-		if (workbench != null && workbench.hasMetadata("shared_players") && workbench.getType() == Material.WORKBENCH)
+		if (workbench != null && workbench.hasMetadata("shared_players") && workbench.getType() == Material.CRAFTING_TABLE)
 		{
 			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
 
@@ -267,7 +240,7 @@ public class WorkbenchShare implements Listener
 		if(e.isCancelled()) return;
 		Block workbench = e.getBlock();
 
-		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.WORKBENCH)
+		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			return;
 		
 		List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>)workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();

@@ -10,8 +10,7 @@ import org.bukkit.scoreboard.Objective;
 
 import com.fattymieo.survival.Survival;
 
-public class BedFatigue implements Listener
-{
+public class BedFatigue implements Listener {
 	Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
 	
 	@EventHandler

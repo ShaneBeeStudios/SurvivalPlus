@@ -14,10 +14,10 @@ import com.fattymieo.survival.Survival;
 
 public class ScoreboardStats implements Listener
 {	
-	Objective boardHunger = Survival.mainBoard.getObjective("BoardHunger");
-	Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
-	Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
-	Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
+	private Objective boardHunger = Survival.mainBoard.getObjective("BoardHunger");
+	private Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
+	private Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
+	private Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)

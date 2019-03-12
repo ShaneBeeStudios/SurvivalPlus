@@ -29,7 +29,7 @@ public class StarBattleaxeWither implements Listener
 
 			Random rand = new Random();
 			
-			if(mainItem.getType() == Material.GOLD_AXE)
+			if(mainItem.getType() == Material.GOLDEN_AXE)
 			{
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 480, 2, false));
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 480, 0, false));

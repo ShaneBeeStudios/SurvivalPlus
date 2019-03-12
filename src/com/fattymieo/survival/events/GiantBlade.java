@@ -53,7 +53,7 @@ public class GiantBlade implements Listener
 			
 			Random rand = new Random();
 			
-			if(offItem.getType() == Material.GOLD_HOE)
+			if(offItem.getType() == Material.GOLDEN_HOE)
 			{
 				if(event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
 				{
@@ -91,7 +91,7 @@ public class GiantBlade implements Listener
 		
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 		
-		if(mainItem.getType() == Material.GOLD_HOE)
+		if(mainItem.getType() == Material.GOLDEN_HOE)
 		{
 			if(dualWield.getScore(player.getName()).getScore() == 0)
 			{
@@ -143,7 +143,7 @@ public class GiantBlade implements Listener
 				}
 			}
 		}
-		else if(offItem.getType() == Material.GOLD_HOE)
+		else if(offItem.getType() == Material.GOLDEN_HOE)
 		{
 			if(dualWield.getScore(player.getName()).getScore() != 0)
 			{

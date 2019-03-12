@@ -2,10 +2,8 @@ package com.fattymieo.survival.events;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import com.fattymieo.survival.util.Utils;
+import org.bukkit.*;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -28,6 +26,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import javax.rmi.CORBA.Util;
 
 public class FirestrikerClick implements Listener
 {
@@ -37,7 +39,7 @@ public class FirestrikerClick implements Listener
 		if(event.hasItem())
 		{
 			Player player = event.getPlayer();
-			if(event.getItem().getType() == Material.WOOD_SPADE)
+			if(event.getItem().getType() == Material.WOODEN_SHOVEL)
 			{
 				if(player.isSneaking())
 				{
@@ -64,37 +66,31 @@ public class FirestrikerClick implements Listener
 					{
 						switch(event.getClickedBlock().getType())
 						{
-							case ENCHANTMENT_TABLE:
+							case ENCHANTING_TABLE:
 							case ANVIL:
 							case BREWING_STAND:
 							case SPRUCE_DOOR:
 							case BIRCH_DOOR:
-							case WOOD_DOOR:
+							case OAK_DOOR:
 							case JUNGLE_DOOR:
 							case ACACIA_DOOR:
 							case DARK_OAK_DOOR:
 							case IRON_DOOR:
 							case TRAPPED_CHEST:
 							case CHEST:
-							case BED:
 							case NOTE_BLOCK:
-							case FENCE_GATE:
-							case SPRUCE_FENCE_GATE:
-							case BIRCH_FENCE_GATE:
-							case JUNGLE_FENCE_GATE:
-							case DARK_OAK_FENCE_GATE:
-							case ACACIA_FENCE_GATE:
-							case TRAP_DOOR:
 							case IRON_TRAPDOOR:
 							case FURNACE:
-							case BURNING_FURNACE:
 							case HOPPER:
-							case WORKBENCH:
+							case CRAFTING_TABLE:
 							case DROPPER:
 							case DISPENSER:
 								return;
 							default:
 						}
+						if (Utils.isBed(event.getClickedBlock().getType())) return;
+						if (Utils.isWoodGate(event.getClickedBlock().getType())) return;
+						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
 						
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
 						if(ignite(player, loc, IgniteCause.FLINT_AND_STEEL))
@@ -171,7 +167,7 @@ public class FirestrikerClick implements Listener
 				{
 					if(event.getInventory().getItem(2) == null || event.getInventory().getItem(2).getType() == Material.AIR)
 					{
-						if(event.getInventory().getItem(1) != null && event.getInventory().getItem(1).getType() == Material.WOOD_SPADE)
+						if(event.getInventory().getItem(1) != null && event.getInventory().getItem(1).getType() == Material.WOODEN_SHOVEL)
 						{
 							if(smeltCheck(event.getInventory(), event.getInventory().getItem(0)))
 							{
@@ -206,55 +202,49 @@ public class FirestrikerClick implements Listener
 			}
 			else
 				event.setCancelled(true);
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable()
-		    {
-		    	public void run()
-		    	{
-					player.updateInventory();
-	            }
-		    }, 1L);
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, player::updateInventory, 1L);
 			break;
 		}
 	}
 	
-	public boolean smeltCheck(Inventory inv, ItemStack item)
-	{
+	private boolean smeltCheck(Inventory inv, ItemStack item) {
 		boolean canSmelt = true;
 
-	    if(item == null)
-	    	canSmelt = false;
-	    else if(item.getType() == Material.PORK)
-			inv.setItem(2, new ItemStack(Material.GRILLED_PORK));
-		else if(item.getType() == Material.RAW_BEEF)
+		if (item == null)
+			canSmelt = false;
+		else if (item.getType() == Material.PORKCHOP)
+			inv.setItem(2, new ItemStack(Material.COOKED_PORKCHOP));
+		else if (item.getType() == Material.BEEF)
 			inv.setItem(2, new ItemStack(Material.COOKED_BEEF));
-		else if(item.getType() == Material.RAW_CHICKEN)
+		else if (item.getType() == Material.CHICKEN)
 			inv.setItem(2, new ItemStack(Material.COOKED_CHICKEN));
-		else if(item.getType() == Material.RAW_FISH)
-			inv.setItem(2, new ItemStack(Material.COOKED_FISH, 1, item.getDurability()));
-		else if(item.getType() == Material.POTATO_ITEM)
+		else if (item.getType() == Material.SALMON)
+			inv.setItem(2, new ItemStack(Material.COOKED_SALMON));
+		else if (item.getType() == Material.COD)
+			inv.setItem(1, new ItemStack((Material.COOKED_COD)));
+		else if (item.getType() == Material.POTATO)
 			inv.setItem(2, new ItemStack(Material.BAKED_POTATO));
-		else if(item.getType() == Material.MUTTON)
+		else if (item.getType() == Material.MUTTON)
 			inv.setItem(2, new ItemStack(Material.COOKED_MUTTON));
-		else if(item.getType() == Material.RABBIT)
+		else if (item.getType() == Material.RABBIT)
 			inv.setItem(2, new ItemStack(Material.COOKED_RABBIT));
-		else if(item.getType() == Material.SAND)
+		else if (item.getType() == Material.SAND)
 			inv.setItem(2, new ItemStack(Material.GLASS));
-		else if(item.getType() == Material.CLAY_BALL)
-			inv.setItem(2, new ItemStack(Material.CLAY_BRICK));
-		else if(item.getType() == Material.LOG)
-			inv.setItem(2, new ItemStack(Material.COAL, 1, (short)1));
-		else if(item.getType() == Material.LOG_2)
-			inv.setItem(2, new ItemStack(Material.COAL, 1, (short)1));
+		else if (item.getType() == Material.CLAY_BALL)
+			inv.setItem(2, new ItemStack(Material.BRICKS));
+		else if (Tag.LOGS.isTagged(item.getType()))
+			inv.setItem(2, new ItemStack(Material.CHARCOAL));
 		else
 			canSmelt = false;
-		
+
 		return canSmelt;
 	}
 	
 	@EventHandler
 	public void onCloseInventory(InventoryCloseEvent event)
 	{
-		if(event.getInventory().getTitle() == Survival.Words.get("Firestriker"))
+		//if(event.getInventory().getTitle() == Survival.Words.get("Firestriker"))
+		if (event.getView().getTitle() == Survival.Words.get("Firestriker")) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
 			Player player = (Player) event.getPlayer();
@@ -273,9 +263,11 @@ public class FirestrikerClick implements Listener
 		{
 			Player player = (Player)event.getDamager();
 			ItemStack item = player.getInventory().getItemInMainHand();
-			if(item.getType() == Material.WOOD_SPADE)
+			if(item.getType() == Material.WOODEN_SHOVEL)
 			{
-				item.setDurability((short)(item.getDurability() - 2));
+				ItemMeta meta = item.getItemMeta();
+				((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 2);
+				item.setItemMeta(meta);
 			}
 		}
 	}

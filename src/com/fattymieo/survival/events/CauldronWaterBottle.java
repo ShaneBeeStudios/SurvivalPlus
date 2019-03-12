@@ -3,12 +3,14 @@ package com.fattymieo.survival.events;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.block.data.Levelled;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,7 +23,6 @@ import org.bukkit.material.Cauldron;
 
 import com.fattymieo.survival.Survival;
 
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class CauldronWaterBottle implements Listener
 {
@@ -41,18 +42,21 @@ public class CauldronWaterBottle implements Listener
 					{
 						if(event.getClickedBlock().getType() == Material.CAULDRON)
 						{
-							Cauldron cauldron = (Cauldron)(event.getClickedBlock().getState().getData());
-							if(!cauldron.isEmpty())
+							Levelled cauldron = (Levelled)(event.getClickedBlock().getBlockData());
+							if(cauldron.getLevel() > 0)
 							{
 								Block fire = event.getClickedBlock().getRelative(BlockFace.DOWN);
 								event.setCancelled(true);
 								
 								event.getClickedBlock().getState().setData(new Cauldron());
-								event.getClickedBlock().setData((byte)((int)event.getClickedBlock().getData() - 1));
+								//event.getClickedBlock().setData((byte)((int)event.getClickedBlock().getData() - 1));
+								cauldron.setLevel(cauldron.getLevel() + 1);
+								event.getClickedBlock().setBlockData(cauldron); // TODO not sure if this will work, def needs testing
+
 								
 								ItemStack waterBottle = new ItemStack(Material.POTION, 1);
 								
-								net.minecraft.server.v1_12_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(waterBottle);
+								net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(waterBottle);
 						        NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
 						        compound_bottle.setString("Potion","minecraft:water");
 						        compound_bottle.setInt("HideFlags", 32);

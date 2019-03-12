@@ -271,10 +271,14 @@ public class Chairs implements Listener
 				{
 					case SIGN:
 					case WALL_SIGN:
-					case SIGN_POST:
 					case ITEM_FRAME:
 					case PAINTING:
-					case TRAP_DOOR:
+					case ACACIA_TRAPDOOR:
+					case BIRCH_TRAPDOOR:
+					case JUNGLE_TRAPDOOR:
+					case OAK_TRAPDOOR:
+					case SPRUCE_TRAPDOOR:
+					case DARK_OAK_TRAPDOOR:
 					case IRON_TRAPDOOR:
 						return true;
 					default:

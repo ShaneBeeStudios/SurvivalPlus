@@ -25,7 +25,7 @@ public class LocalChat implements Listener
 		{
 			if(player.getInventory().getHelmet() != null)
 			{
-				if(player.getInventory().getHelmet().getType() == Material.GOLD_HELMET)
+				if(player.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET)
 				{
 					event.setCancelled(false);
 					event.setFormat(ChatColor.GOLD + "<%1$s> " + ChatColor.YELLOW + "%2$s");

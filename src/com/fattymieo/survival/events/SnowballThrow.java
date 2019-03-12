@@ -36,16 +36,10 @@ public class SnowballThrow implements Listener
 			switch(actual.getType())
 			{
 				case SNOW:
-			    	if (actual.getState().getRawData() == 6)
-			    		actual.setType(Material.SNOW_BLOCK);
-			    	else
-			    		actual.setData((byte)(actual.getData() + 1));
-			    	break;
-				case LONG_GRASS:
-				case YELLOW_FLOWER:
-				case RED_ROSE:
+				case TALL_GRASS:
+				case DANDELION:
+				case ROSE_RED:
 				case DEAD_BUSH:
-				case DOUBLE_PLANT:
 			 		actual.setType(Material.SNOW);
 					break;
 				default:
@@ -74,11 +68,11 @@ public class SnowballThrow implements Listener
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			switch(mainItem.getType())
 			{
-				case WOOD_SPADE:
-				case GOLD_SPADE:
-				case STONE_SPADE:
-				case DIAMOND_SPADE:
-				case IRON_SPADE:
+				case WOODEN_SHOVEL:
+				case GOLDEN_SHOVEL:
+				case STONE_SHOVEL:
+				case DIAMOND_SHOVEL:
+				case IRON_SHOVEL:
 					Block block = e.getBlock();
 					switch(block.getType())
 					{
@@ -88,7 +82,7 @@ public class SnowballThrow implements Listener
 							if(mainItem.getDurability() >= mainItem.getType().getMaxDurability() + 1)
 								player.getInventory().setItemInMainHand(null);
 				            player.updateInventory();
-				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOW_BALL, (int)(block.getState().getRawData()) + 1));
+				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, (int)(block.getState().getRawData()) + 1));
 				            block.setType(Material.AIR);
 							break;
 						case SNOW_BLOCK:
@@ -97,7 +91,7 @@ public class SnowballThrow implements Listener
 							if(mainItem.getDurability() >= mainItem.getType().getMaxDurability() + 1)
 								player.getInventory().setItemInMainHand(null);
 				            player.updateInventory();
-				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOW_BALL, 8));
+				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, 8));
 				            block.setType(Material.AIR);
 				            break;
 						default:

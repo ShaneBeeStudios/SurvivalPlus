@@ -16,7 +16,7 @@ public class SpecialItemInteractCancel implements Listener
 			case RIGHT_CLICK_BLOCK:
 				switch(event.getMaterial())
 				{
-					case WOOD_HOE:
+					case WOODEN_HOE:
 					if(Survival.settings.getBoolean("Survival.Enabled"))
 					{
 						switch(event.getClickedBlock().getType())
@@ -30,7 +30,7 @@ public class SpecialItemInteractCancel implements Listener
 						}
 					}
 					break;
-					case GOLD_HOE:
+					case GOLDEN_HOE:
 						if(Survival.settings.getBoolean("LegendaryItems.GiantBlade"))
 						{
 							switch(event.getClickedBlock().getType())
@@ -45,7 +45,7 @@ public class SpecialItemInteractCancel implements Listener
 						}
 					break;
 					
-					case WOOD_SPADE:
+					case WOODEN_SHOVEL:
 						if(Survival.settings.getBoolean("Survival.Enabled"))
 						{
 							switch(event.getClickedBlock().getType())
@@ -58,7 +58,7 @@ public class SpecialItemInteractCancel implements Listener
 							}
 						}
 					break;
-					case GOLD_SPADE:
+					case GOLDEN_SHOVEL:
 						if(Survival.settings.getBoolean("LegendaryItems.ObsidianMace"))
 						{
 							switch(event.getClickedBlock().getType())

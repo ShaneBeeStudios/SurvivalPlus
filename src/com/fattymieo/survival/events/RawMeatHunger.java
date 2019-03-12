@@ -20,11 +20,12 @@ public class RawMeatHunger implements Listener
 		Player player = event.getPlayer();
 		switch(event.getItem().getType())
 		{
-			case RAW_BEEF:
-			case PORK:
+			case BEEF:
+			case PORKCHOP:
 			case MUTTON:
-			case RAW_FISH:
-			case RAW_CHICKEN:
+			case SALMON:
+			case COD:
+			case CHICKEN:
 			case ROTTEN_FLESH:
 				int hungerChance = rand.nextInt(10) + 1;
 				if(hungerChance >= 1 && hungerChance <= 8)

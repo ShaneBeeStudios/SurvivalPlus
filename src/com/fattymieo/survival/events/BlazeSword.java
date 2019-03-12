@@ -29,7 +29,7 @@ public class BlazeSword implements Listener
 		{
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if(mainItem.getType() == Material.GOLD_SWORD)
+			if(mainItem.getType() == Material.GOLDEN_SWORD)
 			{
 				if(player.isSneaking())
 				{
@@ -39,32 +39,36 @@ public class BlazeSword implements Listener
 						{
 							switch(event.getClickedBlock().getType())
 							{
-								case ENCHANTMENT_TABLE:
+								case ENCHANTING_TABLE:
 								case ANVIL:
 								case BREWING_STAND:
 								case SPRUCE_DOOR:
 								case BIRCH_DOOR:
-								case WOOD_DOOR:
+								case OAK_DOOR:
 								case JUNGLE_DOOR:
 								case ACACIA_DOOR:
 								case DARK_OAK_DOOR:
 								case IRON_DOOR:
 								case TRAPPED_CHEST:
 								case CHEST:
-								case BED:
+								case WHITE_BED:
 								case NOTE_BLOCK:
-								case FENCE_GATE:
+								case OAK_FENCE_GATE:
 								case SPRUCE_FENCE_GATE:
 								case BIRCH_FENCE_GATE:
 								case JUNGLE_FENCE_GATE:
 								case DARK_OAK_FENCE_GATE:
 								case ACACIA_FENCE_GATE:
-								case TRAP_DOOR:
+								case OAK_TRAPDOOR:
+								case BIRCH_TRAPDOOR:
+								case SPRUCE_TRAPDOOR:
+								case JUNGLE_TRAPDOOR:
+								case ACACIA_TRAPDOOR:
+								case DARK_OAK_TRAPDOOR:
 								case IRON_TRAPDOOR:
 								case FURNACE:
-								case BURNING_FURNACE:
 								case HOPPER:
-								case WORKBENCH:
+								case CRAFTING_TABLE:
 								case DROPPER:
 								case DISPENSER:
 									return;
@@ -123,7 +127,7 @@ public class BlazeSword implements Listener
 	    for(Location l : locations)
 	    {
 		    BlockIgniteEvent igniteEvent2 = new BlockIgniteEvent(l.getBlock(), 
-		            cause, (org.bukkit.entity.Entity) igniter);
+		            cause, igniter);
 		    Bukkit.getServer().getPluginManager().callEvent(igniteEvent2);
 		    if (igniteEvent2.isCancelled()) {
 		        continue;

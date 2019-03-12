@@ -45,7 +45,7 @@ public class Backpack implements Listener
 				
 				if(backpackSlot != null && backpackSlot.getType() != Material.AIR) //If slot is not empty
 				{
-					if(backpackSlot.getType() == Material.WOOD_HOE) //If slot is has wood hoe
+					if(backpackSlot.getType() == Material.WOODEN_HOE) //If slot is has wood hoe
 					{
 						if(cursorSlot != null && cursorSlot.getType() != Material.AIR) //If cursor is not empty
 						{
@@ -63,7 +63,7 @@ public class Backpack implements Listener
 				}
 				else
 				{
-					if(!(cursorSlot != null && cursorSlot.getType() == Material.WOOD_HOE)) //If cursor is not a wood hoe
+					if(!(cursorSlot != null && cursorSlot.getType() == Material.WOODEN_HOE)) //If cursor is not a wood hoe
 					{
 						event.setCancelled(true);
 					}
@@ -161,7 +161,7 @@ public class Backpack implements Listener
 		case 27:
 		case 28:
 		case 29:
-			return (inv.getItem(19) != null && inv.getItem(19).getType() == Material.WOOD_HOE);
+			return (inv.getItem(19) != null && inv.getItem(19).getType() == Material.WOODEN_HOE);
 		case 12:
 		case 13:
 		case 14:
@@ -170,7 +170,7 @@ public class Backpack implements Listener
 		case 30:
 		case 31:
 		case 32:
-			return (inv.getItem(22) != null && inv.getItem(22).getType() == Material.WOOD_HOE);
+			return (inv.getItem(22) != null && inv.getItem(22).getType() == Material.WOODEN_HOE);
 		case 15:
 		case 16:
 		case 17:
@@ -179,7 +179,7 @@ public class Backpack implements Listener
 		case 33:
 		case 34:
 		case 35:
-			return (inv.getItem(25) != null && inv.getItem(25).getType() == Material.WOOD_HOE);
+			return (inv.getItem(25) != null && inv.getItem(25).getType() == Material.WOODEN_HOE);
 		default:
 			return true;
 		}

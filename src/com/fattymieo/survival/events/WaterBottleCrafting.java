@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
 
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class WaterBottleCrafting implements Listener
 {
@@ -40,13 +40,9 @@ public class WaterBottleCrafting implements Listener
 					if(checkWaterBottle(bottles[i]))
 					{
 						final int slot = i + 1;
-						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-						{
-							public void run()
-							{
-								inv.setItem(slot, new ItemStack(Material.GLASS_BOTTLE));
-								player.updateInventory();
-							}
+						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+							inv.setItem(slot, new ItemStack(Material.GLASS_BOTTLE));
+							player.updateInventory();
 						}, 1);
 					}
 				}
@@ -61,13 +57,9 @@ public class WaterBottleCrafting implements Listener
 				if(bottles[i].getType() == Material.BEETROOT_SOUP)
 				{
 					final int slot = i + 1;
-					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, new Runnable()
-					{
-						public void run()
-						{
-							inv.setItem(slot, new ItemStack(Material.BOWL));
-							player.updateInventory();
-						}
+					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+						inv.setItem(slot, new ItemStack(Material.BOWL));
+						player.updateInventory();
 					}, 1);
 				}
 			}
@@ -100,16 +92,13 @@ public class WaterBottleCrafting implements Listener
 		}
 	}
 	
-	public boolean checkWaterBottle(ItemStack bottle)
+	private boolean checkWaterBottle(ItemStack bottle)
 	{
-		net.minecraft.server.v1_12_R1.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
+		net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
         NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
         if (compound_bottle != null)
         {
-        	if(compound_bottle.getString("Potion").equals("minecraft:water"))
-				return true;
-        	else
-        		return false;
+        	return (compound_bottle.getString("Potion").equals("minecraft:water"));
         }
         return false;
 	}

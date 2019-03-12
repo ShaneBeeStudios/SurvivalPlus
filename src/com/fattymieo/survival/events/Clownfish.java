@@ -20,7 +20,7 @@ public class Clownfish implements Listener
 	{
 		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
-		if(event.getItem().getType() == Material.RAW_FISH && event.getItem().getDurability() == (short)2)
+		if(event.getItem().getType() == Material.PUFFERFISH)
 		{
 			Random rand = new Random();
 			Location originLoc = player.getLocation();

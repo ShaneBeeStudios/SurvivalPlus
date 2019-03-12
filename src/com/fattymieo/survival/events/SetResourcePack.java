@@ -11,60 +11,48 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.fattymieo.survival.Survival;
 
-public class SetResourcePack implements Listener
-{
-	final String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
-	boolean resourcePack = Survival.settings.getBoolean("MultiWorld.EnableResourcePack");
-	
+public class SetResourcePack implements Listener {
+	private final String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
+	private boolean resourcePack = Survival.settings.getBoolean("MultiWorld.EnableResourcePack");
+
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event)
-	{
-		if(resourcePack)
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		if (resourcePack)
 			applyResourcePack(event.getPlayer());
 	}
-	
+
 	@EventHandler
-	public void onPlayerChangedWorld(PlayerChangedWorldEvent event)
-	{
-		if(resourcePack)
+	public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
+		if (resourcePack)
 			applyResourcePack(event.getPlayer());
 	}
-	
+
 	@EventHandler
-	public void onPlayerLeave(PlayerQuitEvent event)
-	{
+	public void onPlayerLeave(PlayerQuitEvent event) {
 		Survival.usingPlayers.remove(event.getPlayer());
 	}
-	
-	public void applyResourcePack(Player p)
-	{
+
+	private void applyResourcePack(Player p) {
 		final Player player = p;
-		if(Survival.settings.getBoolean("MultiWorld.NotifyMessage"))
-		{
+		if (Survival.settings.getBoolean("MultiWorld.NotifyMessage")) {
 			player.sendMessage(ChatColor.AQUA + "[SurvivalPlus]" + " " + ChatColor.GREEN + Survival.Words.get("Please apply the requested Resource Pack"));
 			player.sendMessage(ChatColor.AQUA + "[SurvivalPlus]" + " " + ChatColor.GREEN + Survival.Words.get("Don't use any other Resource Packs"));
 			player.sendMessage(ChatColor.AQUA + "[SurvivalPlus]" + " " + ChatColor.GREEN + Survival.Words.get("The resource pack is required for visual effects"));
 		}
-		
-		if(url != "" || url != null)
-		{
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable(){
-		    	public void run()
-		    	{
-	    			try
-	    			{
-	    				player.setResourcePack(url);
-	    			}
-					catch(Exception e)
-					{
-						Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
-						Bukkit.getPluginManager().disablePlugin(Survival.instance);
-						return;
-					}
-	    			Survival.usingPlayers.add(player);
-	            }
-		    },
-		    20L);
+
+		if (url != null) {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
+						try {
+							player.setResourcePack(url);
+						} catch (Exception e) {
+							Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
+							Bukkit.getPluginManager().disablePlugin(Survival.instance);
+							return;
+						}
+						Survival.usingPlayers.add(player);
+					},
+					20L);
 		}
 	}
+
 }
