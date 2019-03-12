@@ -1,5 +1,9 @@
 package lib;
 
+/**
+ *  Temporarily removing as this seems to not be used
+ */
+/*
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -9,8 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryStringDeSerializer
-{
+public class InventoryStringDeSerializer {
    @SuppressWarnings("deprecation")
    public static String InventoryToString (Inventory invInventory)
    {
@@ -42,7 +45,7 @@ public class InventoryStringDeSerializer
                {
                    for (Entry<Enchantment,Integer> ench : isEnch.entrySet())
                    {
-                       serializedItemStack += ":e@" + ench.getKey().getId() + "@" + ench.getValue();
+                       serializedItemStack += ":e@" + ench.getKey().getId() + "@" + ench.getValue(); //TODO I have no clue what to do here
                    }
                }
               
@@ -91,7 +94,7 @@ public class InventoryStringDeSerializer
                }
                else if (itemAttribute[0].equals("e") && createdItemStack)
                {
-                   is.addEnchantment(Enchantment.getById(Integer.valueOf(itemAttribute[1])), Integer.valueOf(itemAttribute[2]));
+                   is.addEnchantment(Enchantment.getById(Integer.valueOf(itemAttribute[1])), Integer.valueOf(itemAttribute[2])); //TODO I have no clue what to do here
                }
            }
            deserializedInventory.setItem(stackPosition, is);
@@ -100,3 +103,4 @@ public class InventoryStringDeSerializer
        return deserializedInventory;
    }
 }
+*/
