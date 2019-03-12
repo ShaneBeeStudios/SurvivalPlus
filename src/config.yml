@@ -1,12 +1,12 @@
 # Settings
 
-Version: "2.1.1"
+Version: 3.0.0
 
 Language: EN
 
 MultiWorld:
   EnableResourcePack: true
-  ResourcePackURL: https://docs.google.com/uc?id=1qymv2QojGhjg4qQ6UMlaPAgZO90wThp2
+  ResourcePackURL: https://www.dropbox.com/s/3jgd7fpn8nxgzrh/testtest.zip?dl=1
   NotifyMessage: true
 
 LocalChatDist: -1
