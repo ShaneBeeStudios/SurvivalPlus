@@ -2,6 +2,7 @@ name: SurvivalPlus
 main: com.fattymieo.survival.Survival
 authors: [FattyMieo, ShaneBee]
 version: 3.0.0
+api-version: 1.13
 commands:
    reload-survival:
       description: Reload configurations
