@@ -15,9 +15,10 @@ public class Reload implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
 
+		Survival.instance.reloadConfig();
 		Bukkit.getPluginManager().disablePlugin(Survival.instance);
 		Bukkit.getPluginManager().enablePlugin(Survival.instance);
-		Survival.instance.reloadConfig();
+
 
 		if (sender instanceof Player) {
 			sender.sendMessage(prefix + ChatColor.GREEN + "Reload complete.");
