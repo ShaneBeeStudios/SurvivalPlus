@@ -1,6 +1,7 @@
 package com.fattymieo.survival;
 
-import com.fattymieo.survival.RecipesManager.CustomRecipes;
+import com.fattymieo.survival.managers.ScoreBoardManager;
+import com.fattymieo.survival.managers.recipeManager;
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 import lib.ParticleEffect;
@@ -44,16 +45,20 @@ public class Survival extends JavaPlugin {
         String Version = this.getDescription().getVersion();
         String Language;
         instance = this;
-        NamespacedKey key;
-        key = new NamespacedKey(this, getDescription().getName());
+        NamespacedKey key = new NamespacedKey(this, getDescription().getName());
 
         settings = getConfig();
         settings.options().copyDefaults(true);
+
         saveConfig();
 
-        if (!Version.equalsIgnoreCase(settings.getString("Version"))) {
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "config.yml has different version from current version, recommended to recheck.");
+
+        if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
+            settings.set("Version", Version);
+            saveConfig();
         }
+
+
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
@@ -122,59 +127,16 @@ public class Survival extends JavaPlugin {
         manager = Bukkit.getScoreboardManager();
         board = manager.getNewScoreboard();
         mainBoard = manager.getMainScoreboard();
-        board.registerNewObjective("DualWieldMsg", "dummy");
-        board.registerNewObjective("Charge", "dummy");
-        board.registerNewObjective("Charging", "dummy");
-        board.registerNewObjective("Spin", "dummy");
-        board.registerNewObjective("DualWield", "dummy");
-        board.registerNewObjective("Chat", "dummy");
-        board.registerNewObjective("Healing", "dummy");
-        board.registerNewObjective("HealTimes", "dummy");
-        board.registerNewObjective("RecurveFiring", "dummy");
-        board.registerNewObjective("RecurveCooldown", "dummy");
-        try {
-            mainBoard.registerNewObjective("Thirst", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("Fatigue", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("Carbs", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("Protein", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("Salts", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("BoardHunger", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("BoardThirst", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("BoardFatigue", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
-        try {
-            mainBoard.registerNewObjective("BoardNutrients", "dummy");
-        } catch (IllegalArgumentException ignored) {
-        }
+        ScoreBoardManager sbm = new ScoreBoardManager();
+        sbm.loadScoreboards(board, mainBoard);
 
         registerCommands();
         registerEvents();
 
         // Load custom recipes
-        CustomRecipes recipes = new CustomRecipes(this, settings, key, Words);
+        recipeManager recipes = new recipeManager(this, settings, key, Words);
         recipes.loadCustomRecipes();
+        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Custom recipes loaded");
 
         if (settings.getBoolean("LegendaryItems.BlazeSword"))
             BlazeSword();
@@ -195,7 +157,7 @@ public class Survival extends JavaPlugin {
         ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
         //BackpackCheck(); //Testing Backpack
 
-        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "has been enabled");
+        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Successfully enabled");
     }
 
     public void onDisable() {
