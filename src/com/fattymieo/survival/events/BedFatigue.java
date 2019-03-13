@@ -11,33 +11,30 @@ import org.bukkit.scoreboard.Objective;
 import com.fattymieo.survival.Survival;
 
 public class BedFatigue implements Listener {
-	Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
-	
+
+	private Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
+
 	@EventHandler
-	public void onBedLeave(PlayerBedLeaveEvent e)
-	{
+	public void onBedLeave(PlayerBedLeaveEvent e) {
 		long time = e.getBed().getWorld().getTime();
-		if(time % 24000 == 0)
-		{
+		if (time % 24000 == 0) {
 			Player player = e.getPlayer();
 			fatigue.getScore(player.getName()).setScore(0);
 		}
 	}
-	
+
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event)
-	{
+	public void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		fatigue.getScore(player.getName()).setScore(0);
 	}
 
 	@EventHandler
-	public void onFirstJoin(PlayerJoinEvent event)
-	{
+	public void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPlayedBefore())
-		{
+		if (!player.hasPlayedBefore()) {
 			fatigue.getScore(player.getName()).setScore(0);
 		}
 	}
+
 }
