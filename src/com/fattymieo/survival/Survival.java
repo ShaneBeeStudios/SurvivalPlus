@@ -30,7 +30,7 @@ public class Survival extends JavaPlugin {
     public static Scoreboard board;
     public static Scoreboard mainBoard;
     public static FileConfiguration settings = new YamlConfiguration();
-    private static int LocalChatDist = 64;
+    public static int LocalChatDist = 64;
     private static int AlertInterval = 20;
     private static List<Double> Rates = new ArrayList<>();
     public static Map<String, String> Words;
@@ -53,7 +53,6 @@ public class Survival extends JavaPlugin {
 
         if (!Version.equalsIgnoreCase(settings.getString("Version"))) {
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "config.yml has different version from current version, recommended to recheck.");
-
         }
 
         if (settings.getBoolean("NoPos")) {
@@ -61,7 +60,6 @@ public class Survival extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "NoPos implemented, F3 coordinates are disabled!");
         }
 
-        //settings = YamlConfiguration.loadConfiguration(getResource("config.yml"));
         String url = settings.getString("MultiWorld.ResourcePackURL");
         boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
         if (resourcePack) {
@@ -69,8 +67,11 @@ public class Survival extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Resource Pack is not set! Plugin disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
+            } else {
+                Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Resource Pack enabled");
             }
-        }
+        } else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
+
         Language = settings.getString("Language");
         LocalChatDist = settings.getInt("LocalChatDist");
 
@@ -100,35 +101,23 @@ public class Survival extends JavaPlugin {
         for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
             allowedBlocks.add(Material.getMaterial(type));
 
-        saveResource("lang_EN.yml", true);
-        saveResource("lang_ZH_simplified.yml", true);
-        saveResource("lang_ZH_traditional.yml", true);
-
-        switch (Language) {
-            case "ZH":
-            case "ZH_Simplified":
-                Language = "ZH_simplified";
-                break;
-            case "ZH_Traditional":
-                Language = "ZH_simplified";
-                break;
-            default:
-        }
+        Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
         Map<String, Object> lang_data;
 
         File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
         if (!lang_file.exists()) {
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Unable to locate lang_" + Language + ".yml, using default language (EN).");
-            Language = "EN";
             lang_file = new File(getDataFolder(), "lang_EN.yml");
+            saveResource("lang_EN.yml", true);
+            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "New lang_EN.yml created");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "lang_EN.yml loaded");
         }
 
         lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
 
         Words = copyToStringValueMap(lang_data);
-
-        Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
         manager = Bukkit.getScoreboardManager();
         board = manager.getNewScoreboard();
@@ -280,8 +269,7 @@ public class Survival extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("recipes").setExecutor(new Recipes());
-        if (LocalChatDist > -1)
-            getCommand("togglechat").setExecutor(new ToggleChat());
+        getCommand("togglechat").setExecutor(new ToggleChat());
         getCommand("status").setExecutor(new Status());
         getCommand("reload-survival").setExecutor(new Reload());
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
@@ -934,6 +922,14 @@ public class Survival extends JavaPlugin {
         backpackSlot.setItemMeta(meta);
 
         return backpackSlot;
+    }
+
+    public static void sendColoredMessage(Player player, String msg) {
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+    }
+
+    public static void sendColoredConsoleMsg(String msg) {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
 }
