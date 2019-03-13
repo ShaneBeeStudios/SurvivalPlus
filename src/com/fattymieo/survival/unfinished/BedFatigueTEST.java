@@ -71,7 +71,11 @@ public class BedFatigueTEST implements Listener
 			if(Utils.isBed(clicked.getType()))
 			{
                 event.setCancelled(true);
-                sleepPlayer(event.getPlayer(), clicked.getX(), clicked.getY(), clicked.getZ());
+                //sleepPlayer(event.getPlayer(), clicked.getX(), clicked.getY(), clicked.getZ());
+				if (event.getPlayer().sleep(clicked.getLocation(), true))
+					Bukkit.broadcastMessage("SLEEPY TIME");
+				else
+					Bukkit.broadcastMessage("NO SLEEPY TIME");
 			}
 		}
 	}
