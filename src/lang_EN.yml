@@ -1,19 +1,26 @@
+# SurvivalPlus Language File
+
 ####################
 # Language: English (EN)
-# Author: FattyMieo
-# Date: 28/4/2016
+# Authors: FattyMieo, ShaneBee
+# Date: 28/4/2016 (Refreshed 13/3/2019)
 ####################
 #
-# This language pack is fixed, resetting every reload.
-# Please don't remove the color codes.
+# Edit this file to your liking
+# Example:
+# "DO NOT CHANGE" : "You can change this part"
 #
+####################
+
 ####################
 # System Messages
 ####################
 
+"Resource pack accepted": "Successfully loaded resource pack."
+"Resource pack declined": "**Resource pack declined**"
 "Please apply the requested Resource Pack": "Please apply the requested Resource Pack."
-"Don't use any other Resource Packs": "Don't use any other Resource Packs."
 "The resource pack is required for visual effects": "The resource pack is required for visual effects."
+
 
 "Must use a Shovel on this task": "Must use a Shovel on this task."
 "Must use an Axe on this task": "Must use an Axe on this task."
@@ -44,8 +51,9 @@
 "Your coordinates is" : "Your coordinates is"
 
 "Works on players only" : "Works on players only."
-"§bToggled to §aLocal§b Chat" : "§bToggled to §aLocal§b Chat."
-"§bToggled to §2Global§b Chat" : "§bToggled to §2Global§b Chat."
+"Toggled to Local Chat" : "§bToggled to §aLocal§b Chat."
+"Toggled to Global Chat" : "§bToggled to §2Global§b Chat."
+"Toggled Chat Disabled" : "§cChat toggle has been disabled on this server."
 "Invalid Arguments" : "Invalid Arguments."
 
 "Starved, eat some food" : "Starved, eat some food."
