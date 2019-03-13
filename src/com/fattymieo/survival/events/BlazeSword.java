@@ -20,25 +20,18 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class BlazeSword implements Listener
-{
+public class BlazeSword implements Listener {
+
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event)
-	{
-		if(event.hasItem())
-		{
+	public void onItemClick(PlayerInteractEvent event) {
+		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if(mainItem.getType() == Material.GOLDEN_SWORD)
-			{
-				if(player.isSneaking())
-				{
-					if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)
-					{
-						if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
-						{
-							switch(event.getClickedBlock().getType())
-							{
+			if (mainItem.getType() == Material.GOLDEN_SWORD) {
+				if (player.isSneaking()) {
+					if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+						if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+							switch (event.getClickedBlock().getType()) {
 								case ENCHANTING_TABLE:
 								case ANVIL:
 								case BREWING_STAND:
@@ -77,17 +70,15 @@ public class BlazeSword implements Listener
 							Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
 							ignite(player, loc, IgniteCause.FLINT_AND_STEEL);
 						}
-						
-						if(event.getAction() == Action.RIGHT_CLICK_AIR)
-						{
+
+						if (event.getAction() == Action.RIGHT_CLICK_AIR) {
 							Location loc = player.getLocation();
 							loc.add(-0.5, -0.5, -0.5);
 							ignite(player, loc, IgniteCause.FLINT_AND_STEEL);
 						}
-						
-						mainItem.setDurability((short)(mainItem.getDurability() + 1));
-						if(mainItem.getDurability() >= 32)
-						{
+
+						mainItem.setDurability((short) (mainItem.getDurability() + 1));
+						if (mainItem.getDurability() >= 32) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInMainHand(null);
@@ -98,56 +89,52 @@ public class BlazeSword implements Listener
 			}
 		}
 	}
-	
-	public boolean ignite(Player igniter, Location loc, IgniteCause cause) {
-	    Random rand = new Random();
 
-	    loc.add(0.5, 0.5, 0.5);
-	    
-	    BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(), 
-	            cause, (org.bukkit.entity.Entity) igniter);
-	    Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
-	    if (igniteEvent.isCancelled()) {
-	        return false;
-	    }
-	    
-	    List<Location> locations = new ArrayList<Location>();
-	    
-	    for(double x = loc.getX() - 2;x <= loc.getX() + 2;x++)
-	    {
-	    	for(double y = loc.getY() - 1;y <= loc.getY() + 1;y++)
-	    	{
-	    		for(double z = loc.getZ() - 2;z <= loc.getZ() + 2;z++)
-	    		{
-	    			locations.add(new Location(loc.getWorld(),x,y,z));
-	    		}
-	    	}
-	    }
-	    
-	    for(Location l : locations)
-	    {
-		    BlockIgniteEvent igniteEvent2 = new BlockIgniteEvent(l.getBlock(), 
-		            cause, igniter);
-		    Bukkit.getServer().getPluginManager().callEvent(igniteEvent2);
-		    if (igniteEvent2.isCancelled()) {
-		        continue;
-		    }
-		    
-		    BlockState blockState = l.getBlock().getState();
-		    BlockPlaceEvent placeEvent = new BlockPlaceEvent(l.getBlock(), blockState, l.getBlock(),
-		    		igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
-		    Bukkit.getServer().getPluginManager().callEvent(placeEvent);
-		    
-		    if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
-		        continue;
-		    }
-	    	
-	    	if(l.getBlock() == null || l.getBlock().getType() == Material.AIR)
-	    		l.getBlock().setType(Material.FIRE);
-	    }
+	private void ignite(Player igniter, Location loc, IgniteCause cause) {
+		Random rand = new Random();
 
-    	loc.getWorld().playSound(loc, Sound.ITEM_FIRECHARGE_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-	    
-	    return true;
+		loc.add(0.5, 0.5, 0.5);
+
+		BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(),
+				cause, igniter);
+		Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
+		if (igniteEvent.isCancelled()) {
+			return;
+		}
+
+		List<Location> locations = new ArrayList<Location>();
+
+		for (double x = loc.getX() - 2; x <= loc.getX() + 2; x++) {
+			for (double y = loc.getY() - 1; y <= loc.getY() + 1; y++) {
+				for (double z = loc.getZ() - 2; z <= loc.getZ() + 2; z++) {
+					locations.add(new Location(loc.getWorld(), x, y, z));
+				}
+			}
+		}
+
+		for (Location l : locations) {
+			BlockIgniteEvent igniteEvent2 = new BlockIgniteEvent(l.getBlock(),
+					cause, igniter);
+			Bukkit.getServer().getPluginManager().callEvent(igniteEvent2);
+			if (igniteEvent2.isCancelled()) {
+				continue;
+			}
+
+			BlockState blockState = l.getBlock().getState();
+			BlockPlaceEvent placeEvent = new BlockPlaceEvent(l.getBlock(), blockState, l.getBlock(),
+					igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
+			Bukkit.getServer().getPluginManager().callEvent(placeEvent);
+
+			if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
+				continue;
+			}
+
+			if (l.getBlock() == null || l.getBlock().getType() == Material.AIR)
+				l.getBlock().setType(Material.FIRE);
+		}
+
+		loc.getWorld().playSound(loc, Sound.ITEM_FIRECHARGE_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+
 	}
+
 }

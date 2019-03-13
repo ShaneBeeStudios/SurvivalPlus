@@ -15,27 +15,25 @@ import org.bukkit.potion.PotionEffectType;
 
 import lib.ParticleEffect;
 
-public class ObsidianMaceWeakness implements Listener
-{
+public class ObsidianMaceWeakness implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event)
-	{
-		if(event.isCancelled()) return;
-		if(event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
-		{
-			Player player = (Player)event.getDamager();
+	public void onAttack(EntityDamageByEntityEvent event) {
+		if (event.isCancelled()) return;
+		if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
+			Player player = (Player) event.getDamager();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			LivingEntity enemy = (LivingEntity)event.getEntity();
-			
-			if(mainItem.getType() == Material.GOLDEN_SHOVEL)
-			{
+			LivingEntity enemy = (LivingEntity) event.getEntity();
+
+			if (mainItem.getType() == Material.GOLDEN_SHOVEL) {
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));
 				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 2);
-                ParticleEffect.HEART.display(0.5f, 0, 0.5f, 1, 2, particleLoc, 64);
+				ParticleEffect.HEART.display(0.5f, 0, 0.5f, 1, 2, particleLoc, 64);
 			}
 		}
 	}
+
 }

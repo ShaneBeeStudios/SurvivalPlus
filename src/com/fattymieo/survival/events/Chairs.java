@@ -26,83 +26,75 @@ import org.bukkit.util.Vector;
 
 import com.fattymieo.survival.Survival;
 
-public class Chairs implements Listener
-{	
+public class Chairs implements Listener {
+
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event)
-	{
-		if(event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK)
-		{
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		if (event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
-			
-			if(Survival.allowedBlocks.contains(block.getType()))
-			{
+
+			if (Survival.allowedBlocks.contains(block.getType())) {
 				Player player = event.getPlayer();
-				Stairs stairs = (Stairs)block.getState().getData();
+				Stairs stairs = (Stairs) block.getState().getData();
 				int chairwidth = 1;
-				
+
 				// Check if block beneath chair is solid.
-				if(block.getRelative(BlockFace.DOWN).getType() == Material.AIR || block.getRelative(BlockFace.DOWN) == null)
+				if (block.getRelative(BlockFace.DOWN).getType() == Material.AIR || block.getRelative(BlockFace.DOWN) == null)
 					return;
-				
+
 				// Check if player is sitting.
-				if(!player.isSneaking() && player.getVehicle() != null)
-				{
+				if (!player.isSneaking() && player.getVehicle() != null) {
 					player.getVehicle().remove();
 					return;
 				}
-				
+
 				// Check for distance distance between player and chair.
-				if(player.getLocation().distance(block.getLocation().add(0.5, 0, 0.5)) > 2)
+				if (player.getLocation().distance(block.getLocation().add(0.5, 0, 0.5)) > 2)
 					return;
-				
+
 				// Check for signs.
 				boolean sign1 = false;
 				boolean sign2 = false;
-				
-				if(stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
+
+				if (stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
 					sign1 = checkSign(block, BlockFace.EAST);
 					sign2 = checkSign(block, BlockFace.WEST);
-				}
-				else if(stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
+				} else if (stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
 					sign1 = checkSign(block, BlockFace.NORTH);
 					sign2 = checkSign(block, BlockFace.SOUTH);
 				}
-				
-				if(!(sign1 == true && sign2 == true))
+
+				if (!(sign1 == true && sign2 == true))
 					return;
-				
+
 				// Check for maximal chair width.
-				if(stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
+				if (stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
 					chairwidth += getChairWidth(block, BlockFace.EAST);
 					chairwidth += getChairWidth(block, BlockFace.WEST);
-				}
-				else if(stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
+				} else if (stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
 					chairwidth += getChairWidth(block, BlockFace.NORTH);
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
-			
-				if(chairwidth > Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"))
+
+				if (chairwidth > Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"))
 					return;
-				
+
 				// Sit-down process.
-				if(player.getVehicle() != null)
+				if (player.getVehicle() != null)
 					player.getVehicle().remove();
 
 				ArmorStand drop = dropSeat(block, stairs);
 				List<ArmorStand> drops = checkChair(drop);
-				
-				if (drops != null)
-				{
+
+				if (drops != null) {
 					drop.remove();
 					return;
 				}
-				
+
 				// Rotate the player's view to the descending side of the block.
 				Location plocation = player.getLocation();
-				
-				switch(stairs.getDescendingDirection())
-				{
+
+				switch (stairs.getDescendingDirection()) {
 					case NORTH:
 						plocation.setYaw(180);
 						break;
@@ -116,86 +108,76 @@ public class Chairs implements Listener
 						plocation.setYaw(90);
 					default:
 				}
-			
+
 				player.teleport(plocation);
-				
+
 				// Changing the drop material is only necessary for the item merge feature of CB++
 				// The client won't update the material, though.
 				drop.addPassenger(player);
-				
+
 				// Cancel BlockPlaceEvent Result, if player is rightclicking with a block in his hand.
 				event.setUseInteractedBlock(Result.DENY);
-				
+
 				//A schedule that removes the ArmorStand once the player leaves from the chair
 				final ArmorStand chair = drop;
-				
-				Runnable run = new Runnable()
-				{
-					public void run()
-					{
-						if(chair.getPassengers().isEmpty())
+
+				Runnable run = new Runnable() {
+					public void run() {
+						if (chair.getPassengers().isEmpty())
 							chair.remove();
 						else
 							Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 10L);
 					}
 				};
-				
+
 				Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, run, -1);
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBlockBreak(BlockBreakEvent event)
-	{
-		if(event.isCancelled()) return;
-		if(Survival.allowedBlocks.contains(event.getBlock().getType()))
-		{
-			ArmorStand drop = dropSeat(event.getBlock(), (Stairs)event.getBlock().getState().getData());
-			
-			for(Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5))
-			{
-				if(e != null && e instanceof ArmorStand && e.getCustomName() == "Chair")
+	public void onBlockBreak(BlockBreakEvent event) {
+		if (event.isCancelled()) return;
+		if (Survival.allowedBlocks.contains(event.getBlock().getType())) {
+			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
+
+			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
+				if (e != null && e instanceof ArmorStand && e.getCustomName() == "Chair")
 					e.remove();
 			}
-			
+
 			drop.remove();
 		}
 	}
-	
+
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event)
-	{
+	public void onPlayerQuit(PlayerQuitEvent event) {
 		Entity vehicle = event.getPlayer().getVehicle();
-		
+
 		// Let players stand up when leaving the server.
-		if(vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
+		if (vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
 			vehicle.remove();
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onHit(EntityDamageEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onHit(EntityDamageEvent event) {
+		if (event.isCancelled()) return;
 		Entity hitTarget = event.getEntity();
-		if(hitTarget != null && hitTarget instanceof ArmorStand && hitTarget.getCustomName() == "Chair")
+		if (hitTarget != null && hitTarget instanceof ArmorStand && hitTarget.getCustomName() == "Chair")
 			// Chair entity is immune to damage.
 			event.setCancelled(true);
-		else if(hitTarget != null && hitTarget instanceof Player && hitTarget.getVehicle() != null)
-		{
+		else if (hitTarget != null && hitTarget instanceof Player && hitTarget.getVehicle() != null) {
 			// Let players stand up if receiving damage.
 			Entity vehicle = hitTarget.getVehicle();
-			if(vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
+			if (vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
 				vehicle.remove();
 		}
 	}
-	
-	private ArmorStand dropSeat(Block chair, Stairs stairs)
-	{
+
+	private ArmorStand dropSeat(Block chair, Stairs stairs) {
 		Location location = chair.getLocation().add(0.5, (-0.7 - 0.5), 0.5);
-		
-		switch(stairs.getDescendingDirection())
-		{
+
+		switch (stairs.getDescendingDirection()) {
 			case NORTH:
 				location.setYaw(180);
 				break;
@@ -209,66 +191,57 @@ public class Chairs implements Listener
 				location.setYaw(90);
 			default:
 		}
-		
-		ArmorStand drop = (ArmorStand)location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+
+		ArmorStand drop = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
 		drop.setCustomName("Chair");
 		drop.setVelocity(new Vector(0, 0, 0));
 		drop.setGravity(false);
 		drop.setVisible(false);
-		
+
 		return drop;
 	}
-	
-	private List<ArmorStand> checkChair(ArmorStand drop)
-	{
+
+	private List<ArmorStand> checkChair(ArmorStand drop) {
 		List<ArmorStand> drops = new ArrayList<ArmorStand>();
-		
+
 		// Check for already existing chair items.
-		for(Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5))
-		{
-			if(e != null && e instanceof ArmorStand && e.getCustomName() == "Chair")
-			{
-				if(e.getPassengers().isEmpty())
+		for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
+			if (e != null && e instanceof ArmorStand && e.getCustomName() == "Chair") {
+				if (e.getPassengers().isEmpty())
 					e.remove();
 				else
 					drops.add(drop);
 			}
 		}
-		
-		if(!drops.isEmpty())
+
+		if (!drops.isEmpty())
 			return drops;
-		
+
 		return null;
 	}
-	
-	private int getChairWidth(Block block, BlockFace face)
-	{
+
+	private int getChairWidth(Block block, BlockFace face) {
 		int width = 0;
-		
+
 		// Go through the blocks next to the clicked block and check if there are any further stairs.
-		for(int i = 1; i <= Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"); i++)
-		{
+		for (int i = 1; i <= Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"); i++) {
 			Block relative = block.getRelative(face, i);
-			
-			if(Survival.allowedBlocks.contains(relative.getType()) && ((Stairs)relative.getState().getData()).getDescendingDirection() == ((Stairs)block.getState().getData()).getDescendingDirection())
+
+			if (Survival.allowedBlocks.contains(relative.getType()) && ((Stairs) relative.getState().getData()).getDescendingDirection() == ((Stairs) block.getState().getData()).getDescendingDirection())
 				width++;
 			else
 				break;
 		}
-		
+
 		return width;
 	}
-	
-	private boolean checkSign(Block block, BlockFace face)
-	{
+
+	private boolean checkSign(Block block, BlockFace face) {
 		// Go through the blocks next to the clicked block and check if are signs on the end.
-		for(int i = 1; true; i++)
-		{
+		for (int i = 1; true; i++) {
 			Block relative = block.getRelative(face, i);
-			if(!(Survival.allowedBlocks.contains(relative.getType())) || (block instanceof Stairs && ((Stairs)relative.getState().getData()).getDescendingDirection() != ((Stairs)block.getState().getData()).getDescendingDirection()))
-			{
-				switch(relative.getType())
-				{
+			if (!(Survival.allowedBlocks.contains(relative.getType())) || (block instanceof Stairs && ((Stairs) relative.getState().getData()).getDescendingDirection() != ((Stairs) block.getState().getData()).getDescendingDirection())) {
+				switch (relative.getType()) {
 					case SIGN:
 					case WALL_SIGN:
 					case ITEM_FRAME:
@@ -287,4 +260,5 @@ public class Chairs implements Listener
 			}
 		}
 	}
+
 }

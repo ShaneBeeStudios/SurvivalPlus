@@ -16,24 +16,18 @@ import com.fattymieo.survival.Survival;
 
 import lib.ParticleEffect;
 
-public class CompassWaypoint implements Listener
-{	
+public class CompassWaypoint implements Listener {
+
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event)
-	{
-		if(event.hasItem())
-		{
+	public void onItemClick(PlayerInteractEvent event) {
+		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
-			if(player.isSneaking())
-			{
-				if(mainItem.getType() == Material.COMPASS || offItem.getType() == Material.COMPASS)
-				{
-					if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
-					{
-						switch(event.getClickedBlock().getType())
-						{
+			if (player.isSneaking()) {
+				if (mainItem.getType() == Material.COMPASS || offItem.getType() == Material.COMPASS) {
+					if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+						switch (event.getClickedBlock().getType()) {
 							case ENCHANTING_TABLE:
 							case ANVIL:
 							case BREWING_STAND:
@@ -69,11 +63,10 @@ public class CompassWaypoint implements Listener
 						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Compass has pointed at") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 						loc.add(0.5, 0.5, 0.5);
 						player.setCompassTarget(loc);
-                        ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0, 25, loc, player);
+						ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0, 25, loc, player);
 					}
 
-					if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-					{
+					if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 						Location loc = player.getLocation().getBlock().getLocation();
 						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Your coordinates is") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
 					}
@@ -81,4 +74,5 @@ public class CompassWaypoint implements Listener
 			}
 		}
 	}
+
 }

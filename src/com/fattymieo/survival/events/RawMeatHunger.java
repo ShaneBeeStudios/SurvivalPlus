@@ -10,16 +10,14 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RawMeatHunger implements Listener
-{
+public class RawMeatHunger implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onConsume(PlayerItemConsumeEvent event) {
+		if (event.isCancelled()) return;
 		Random rand = new Random();
 		Player player = event.getPlayer();
-		switch(event.getItem().getType())
-		{
+		switch (event.getItem().getType()) {
 			case BEEF:
 			case PORKCHOP:
 			case MUTTON:
@@ -28,15 +26,12 @@ public class RawMeatHunger implements Listener
 			case CHICKEN:
 			case ROTTEN_FLESH:
 				int hungerChance = rand.nextInt(10) + 1;
-				if(hungerChance >= 1 && hungerChance <= 8)
-				{
+				if (hungerChance >= 1 && hungerChance <= 8) {
 					int dur = 600;
-					for (PotionEffect effect : player.getActivePotionEffects())
-					{
-						if(effect.getType().equals(PotionEffectType.HUNGER))
-						{
+					for (PotionEffect effect : player.getActivePotionEffects()) {
+						if (effect.getType().equals(PotionEffectType.HUNGER)) {
 							dur += effect.getDuration();
-					        player.removePotionEffect(effect.getType());
+							player.removePotionEffect(effect.getType());
 						}
 					}
 					player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, dur, 0, false));
@@ -45,4 +40,5 @@ public class RawMeatHunger implements Listener
 			default:
 		}
 	}
+
 }

@@ -19,26 +19,21 @@ import org.bukkit.inventory.ItemStack;
 import com.fattymieo.survival.Survival;
 
 
-public class WaterBottleCrafting implements Listener
-{
+public class WaterBottleCrafting implements Listener {
+
 	@EventHandler
-	public void onCraft(CraftItemEvent e)
-	{
+	public void onCraft(CraftItemEvent e) {
 		final Player player = (Player) e.getWhoClicked();
 		final CraftingInventory inv = e.getInventory();
-		
+
 		ItemStack[] bottles = inv.getMatrix();
 		ItemStack result = inv.getResult();
-		
-		if(result != null && result.getType() != Material.GLASS_BOTTLE)
-		{
-			for(int i = 0; i < bottles.length; i++)
-			{
-				if(bottles[i] == null) continue;
-				if(bottles[i].getType() == Material.POTION)
-				{
-					if(checkWaterBottle(bottles[i]))
-					{
+
+		if (result != null && result.getType() != Material.GLASS_BOTTLE) {
+			for (int i = 0; i < bottles.length; i++) {
+				if (bottles[i] == null) continue;
+				if (bottles[i].getType() == Material.POTION) {
+					if (checkWaterBottle(bottles[i])) {
 						final int slot = i + 1;
 						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
 							inv.setItem(slot, new ItemStack(Material.GLASS_BOTTLE));
@@ -48,14 +43,11 @@ public class WaterBottleCrafting implements Listener
 				}
 			}
 		}
-		
-		if(result != null && result.getType() != Material.BOWL)
-		{
-			for(int i = 0; i < bottles.length; i++)
-			{
-				if(bottles[i] == null) continue;
-				if(bottles[i].getType() == Material.BEETROOT_SOUP)
-				{
+
+		if (result != null && result.getType() != Material.BOWL) {
+			for (int i = 0; i < bottles.length; i++) {
+				if (bottles[i] == null) continue;
+				if (bottles[i].getType() == Material.BEETROOT_SOUP) {
 					final int slot = i + 1;
 					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
 						inv.setItem(slot, new ItemStack(Material.BOWL));
@@ -65,25 +57,20 @@ public class WaterBottleCrafting implements Listener
 			}
 		}
 	}
-	
+
 	@EventHandler
-	public void onPrepareCraft(PrepareItemCraftEvent e)
-	{
+	public void onPrepareCraft(PrepareItemCraftEvent e) {
 		CraftingInventory inv = e.getInventory();
 		ItemStack result = inv.getResult();
-		if(result != null && result.getType() != Material.GLASS_BOTTLE)
-		{
+		if (result != null && result.getType() != Material.GLASS_BOTTLE) {
 			List<ItemStack> bottles = Arrays.asList(inv.getMatrix());
 			Iterator<ItemStack> it = bottles.iterator();
-			
-			while(it.hasNext())
-			{
+
+			while (it.hasNext()) {
 				ItemStack bottle = it.next();
-				if(bottle == null) continue;
-				if(bottle.getType().equals(Material.POTION))
-				{
-					if(!checkWaterBottle(bottle))
-					{
+				if (bottle == null) continue;
+				if (bottle.getType().equals(Material.POTION)) {
+					if (!checkWaterBottle(bottle)) {
 						inv.setResult(null);
 						return;
 					}
@@ -91,15 +78,14 @@ public class WaterBottleCrafting implements Listener
 			}
 		}
 	}
-	
-	private boolean checkWaterBottle(ItemStack bottle)
-	{
+
+	private boolean checkWaterBottle(ItemStack bottle) {
 		net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
-        NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
-        if (compound_bottle != null)
-        {
-        	return (compound_bottle.getString("Potion").equals("minecraft:water"));
-        }
-        return false;
+		NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
+		if (compound_bottle != null) {
+			return (compound_bottle.getString("Potion").equals("minecraft:water"));
+		}
+		return false;
 	}
+
 }

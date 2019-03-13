@@ -13,34 +13,30 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import lib.ParticleEffect;
 
-public class Clownfish implements Listener
-{
+public class Clownfish implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onConsume(PlayerItemConsumeEvent event) {
+		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
-		if(event.getItem().getType() == Material.PUFFERFISH)
-		{
+		if (event.getItem().getType() == Material.PUFFERFISH) {
 			Random rand = new Random();
 			Location originLoc = player.getLocation();
-            ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.5f, 10, originLoc, 64);
+			ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.5f, 10, originLoc, 64);
 			player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-			
-			if(player.getCompassTarget() != null)
-			{
+
+			if (player.getCompassTarget() != null) {
 				Location teleportLoc = player.getCompassTarget();
 				player.teleport(teleportLoc);
-	            ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 1, 200, teleportLoc, 64);
+				ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 1, 200, teleportLoc, 64);
 				player.getLocation().getWorld().playSound(teleportLoc, Sound.BLOCK_PORTAL_TRAVEL, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-			}
-			else
-			{
+			} else {
 				Location teleportLoc = player.getWorld().getSpawnLocation();
 				player.teleport(teleportLoc);
-	            ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 1, 200, teleportLoc, 64);
+				ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 1, 200, teleportLoc, 64);
 				player.getLocation().getWorld().playSound(teleportLoc, Sound.BLOCK_PORTAL_TRAVEL, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 			}
 		}
 	}
+
 }

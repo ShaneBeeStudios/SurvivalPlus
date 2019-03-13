@@ -12,44 +12,35 @@ import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
 
-public class NoAnvil implements Listener
-{
+public class NoAnvil implements Listener {
+
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e)
-	{
+	public void onInventoryClick(InventoryClickEvent e) {
 		Inventory inv = e.getInventory();
-			 
-		if(inv instanceof AnvilInventory)
-		{
-			AnvilInventory anvil = (AnvilInventory)inv;
+
+		if (inv instanceof AnvilInventory) {
+			AnvilInventory anvil = (AnvilInventory) inv;
 			InventoryView view = e.getView();
 			int rawSlot = e.getRawSlot();
-			 
+
 			// compare raw slot to the inventory view to make sure we are in the upper inventory
-			if(rawSlot == view.convertSlot(rawSlot))
-			{
+			if (rawSlot == view.convertSlot(rawSlot)) {
 				// 2 = result slot
-				if(rawSlot == 2)
-				{
+				if (rawSlot == 2) {
 					// item in the left slot
 					ItemStack item = anvil.getContents()[0];
-					
-					if(item != null)
-					{
-						if
-						(
-							item.getType() == Material.GOLDEN_AXE
-							|| item.getType() == Material.GOLDEN_PICKAXE
-							|| item.getType() == Material.GOLDEN_SHOVEL
-							|| item.getType() == Material.GOLDEN_HOE
-							|| item.getType() == Material.GOLDEN_SWORD
-							|| item.getType() == Material.WOODEN_AXE
-							|| item.getType() == Material.WOODEN_PICKAXE
-							|| item.getType() == Material.WOODEN_SHOVEL
-							|| item.getType() == Material.WOODEN_HOE
-							|| item.getType() == Material.WOODEN_SWORD
-						)
-						{
+
+					if (item != null) {
+						if (item.getType() == Material.GOLDEN_AXE
+								|| item.getType() == Material.GOLDEN_PICKAXE
+								|| item.getType() == Material.GOLDEN_SHOVEL
+								|| item.getType() == Material.GOLDEN_HOE
+								|| item.getType() == Material.GOLDEN_SWORD
+								|| item.getType() == Material.WOODEN_AXE
+								|| item.getType() == Material.WOODEN_PICKAXE
+								|| item.getType() == Material.WOODEN_SHOVEL
+								|| item.getType() == Material.WOODEN_HOE
+								|| item.getType() == Material.WOODEN_SWORD) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
 							e.getWhoClicked().sendMessage(ChatColor.RED + Survival.Words.get("You cannot rename or repair ") + item.getItemMeta().getDisplayName() + ChatColor.RED + Survival.Words.get("period"));
@@ -59,4 +50,5 @@ public class NoAnvil implements Listener
 			}
 		}
 	}
+
 }
