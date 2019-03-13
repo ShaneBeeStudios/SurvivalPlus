@@ -1,9 +1,9 @@
 package com.fattymieo.survival;
 
-import com.fattymieo.survival.managers.ScoreBoardManager;
-import com.fattymieo.survival.managers.recipeManager;
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
+import com.fattymieo.survival.managers.ScoreBoardManager;
+import com.fattymieo.survival.managers.recipeManager;
 import lib.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -12,7 +12,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
@@ -21,7 +20,6 @@ import org.bukkit.scoreboard.*;
 
 import java.io.File;
 import java.util.*;
-import java.util.logging.Logger;
 
 //Special thanks to DarkBlade12 for ParticleEffect Library
 
@@ -40,7 +38,6 @@ public class Survival extends JavaPlugin {
     public static boolean snowGenOption = true;
     private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
 
-    @SuppressWarnings({"deprecation"})
     public void onEnable() {
         String Version = this.getDescription().getVersion();
         String Language;
@@ -49,16 +46,12 @@ public class Survival extends JavaPlugin {
 
         settings = getConfig();
         settings.options().copyDefaults(true);
-
         saveConfig();
-
 
         if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
             settings.set("Version", Version);
             saveConfig();
         }
-
-
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
@@ -161,11 +154,11 @@ public class Survival extends JavaPlugin {
     }
 
     public void onDisable() {
-        PluginDescriptionFile pdfFile = getDescription();
-        Logger logger = getLogger();
+        sendColoredConsoleMsg(prefix + "&eShutting down");
         getServer().getScheduler().cancelTasks(this);
         getServer().resetRecipes();
         usingPlayers = new ArrayList<>();
+
         //Avoid WorkbenchShare glitch
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.hasMetadata("shared_workbench")) {
@@ -176,15 +169,12 @@ public class Survival extends JavaPlugin {
                         workbench.removeMetadata("shared_players", Survival.instance);
                     else
                         p.getOpenInventory().getTopInventory().clear();
-
                     p.closeInventory();
                 }
-
                 p.removeMetadata("shared_workbench", Survival.instance);
             }
         }
-
-        logger.info(pdfFile.getName() + " has been disabled.");
+        sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
     }
 
     private static HashMap<String, String> copyToStringValueMap(Map<String, Object> input) {
