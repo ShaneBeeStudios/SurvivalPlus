@@ -18,14 +18,14 @@ import org.bukkit.material.Wool;
 
 import java.util.*;
 
-public class recipeManager {
+public class RecipeManager {
 
     public Map<String, String> Words;
     private NamespacedKey key;
     public FileConfiguration settings;
     private Survival survival;
 
-    public recipeManager(Survival survival, FileConfiguration settings, NamespacedKey key, Map<String, String> words) {
+    public RecipeManager(Survival survival, FileConfiguration settings, NamespacedKey key, Map<String, String> words) {
         this.survival = survival;
         this.Words = words;
         this.settings = settings;
@@ -978,7 +978,7 @@ public class recipeManager {
         ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
 
         ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-        recurveBowMeta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")));
+        recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")));
         recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
         i_recurveBow.setItemMeta(recurveBowMeta);
 
@@ -1727,8 +1727,7 @@ public class recipeManager {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public void removeRecipes() {
+    private void removeRecipes() {
         List<Recipe> backup = new ArrayList<>();
 
         Iterator<Recipe> a = survival.getServer().recipeIterator();
