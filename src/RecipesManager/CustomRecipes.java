@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,8 +16,7 @@ import org.bukkit.material.Coal;
 import org.bukkit.material.Dye;
 import org.bukkit.material.Wool;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 public class CustomRecipes {
 
@@ -35,6 +35,7 @@ public class CustomRecipes {
 
     @SuppressWarnings("deprecation")
     public void loadCustomRecipes() {
+        removeRecipes();
         //Hatchet
         ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
         ItemMeta hatchetMeta = i_hatchet.getItemMeta();
@@ -1723,6 +1724,135 @@ public class CustomRecipes {
         if (settings.getBoolean("Mechanics.RecurveBow")) {
             survival.getServer().addRecipe(recurveBow1);
             survival.getServer().addRecipe(recurveBow2);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public void removeRecipes() {
+        List<Recipe> backup = new ArrayList<>();
+
+        Iterator<Recipe> a = survival.getServer().recipeIterator();
+
+        while (a.hasNext()) {
+            Recipe recipe = a.next();
+            backup.add(recipe);
+        }
+
+        Iterator<Recipe> it = backup.iterator();
+
+        while (it.hasNext()) {
+            Recipe recipe = it.next();
+            if (recipe != null) {
+                switch (recipe.getResult().getType()) {
+                    case WOODEN_HOE:
+                    case WOODEN_AXE:
+                    case WOODEN_PICKAXE:
+                    case WOODEN_SHOVEL:
+                    case WOODEN_SWORD:
+                    case FURNACE:
+                    case CRAFTING_TABLE:
+                    case CHEST:
+                    case BEETROOT_SOUP:
+                        if (settings.getBoolean("Survival.Enabled"))
+                            it.remove();
+                        break;
+                    case TORCH:
+                        if (settings.getBoolean("Survival.Enabled") && settings.getBoolean("Survival.Torch"))
+                            it.remove();
+                        break;
+
+                    case GOLDEN_HOE:
+                        if (settings.getBoolean("LegendaryItems.GiantBlade"))
+                            it.remove();
+                        break;
+                    case GOLDEN_AXE:
+                        if (settings.getBoolean("LegendaryItems.ValkyrieAxe"))
+                            it.remove();
+                        break;
+                    case GOLDEN_PICKAXE:
+                        if (settings.getBoolean("LegendaryItems.QuartzPickaxe"))
+                            it.remove();
+                        break;
+                    case GOLDEN_SHOVEL:
+                        if (settings.getBoolean("LegendaryItems.ObsidianMace"))
+                            it.remove();
+                        break;
+                    case GOLDEN_SWORD:
+                        if (settings.getBoolean("LegendaryItems.BlazeSword"))
+                            it.remove();
+                        break;
+
+                    case GOLDEN_BOOTS:
+                    case GOLDEN_CHESTPLATE:
+                    case GOLDEN_HELMET:
+                    case GOLDEN_LEGGINGS:
+                        if (settings.getBoolean("LegendaryItems.GoldArmorBuff"))
+                            it.remove();
+                        break;
+
+                    case IRON_BOOTS:
+                    case IRON_CHESTPLATE:
+                    case IRON_HELMET:
+                    case IRON_LEGGINGS:
+                    case DIAMOND_BOOTS:
+                    case DIAMOND_CHESTPLATE:
+                    case DIAMOND_HELMET:
+                    case DIAMOND_LEGGINGS:
+                        if (settings.getBoolean("Mechanics.SlowArmor"))
+                            it.remove();
+                        break;
+
+                    case FISHING_ROD:
+                        if (settings.getBoolean("Recipes.FishingRod"))
+                            it.remove();
+                        break;
+
+                    case IRON_NUGGET:
+                    case IRON_INGOT:
+                        if (settings.getBoolean("Mechanics.ReducedIronNugget"))
+                            it.remove();
+                        break;
+
+                    case GOLD_NUGGET:
+                    case GOLD_INGOT:
+                        if (settings.getBoolean("Mechanics.ReducedGoldNugget"))
+                            it.remove();
+                        break;
+
+                    case BREAD:
+                        if (settings.getBoolean("Mechanics.FarmingProducts.Bread"))
+                            it.remove();
+                        break;
+                    case COOKIE:
+                        if (settings.getBoolean("Mechanics.FarmingProducts.Cookie"))
+                            it.remove();
+                        break;
+                    case POLISHED_ANDESITE:
+                        if (settings.getBoolean("Recipes.Andesite"))
+                            it.remove();
+                        break;
+                    case POLISHED_DIORITE:
+                        if (settings.getBoolean("Recipes.Diorite"))
+                            it.remove();
+                        break;
+                    case POLISHED_GRANITE:
+                        if (settings.getBoolean("Recipes.Granite"))
+                            it.remove();
+                        break;
+                    case SNOW:
+                    case SNOW_BLOCK:
+                        if (settings.getBoolean("Mechanics.SnowballRevamp"))
+                            it.remove();
+                        break;
+                    default:
+                }
+            }
+        }
+
+        survival.getServer().clearRecipes();
+
+        for (Recipe r : backup) {
+            survival.getServer().addRecipe(r);
         }
     }
 }
