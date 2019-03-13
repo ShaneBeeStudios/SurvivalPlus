@@ -15,7 +15,7 @@ import com.fattymieo.survival.events.SnowGeneration;
 
 public class SnowGen implements CommandExecutor {
 
-	String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+	private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 1) {
