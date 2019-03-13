@@ -3,7 +3,8 @@ package com.fattymieo.survival;
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 import com.fattymieo.survival.managers.ScoreBoardManager;
-import com.fattymieo.survival.managers.recipeManager;
+import com.fattymieo.survival.managers.RecipeManager;
+import com.fattymieo.survival.util.NoPos;
 import lib.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -127,7 +128,7 @@ public class Survival extends JavaPlugin {
         registerEvents();
 
         // Load custom recipes
-        recipeManager recipes = new recipeManager(this, settings, key, Words);
+        RecipeManager recipes = new RecipeManager(this, settings, key, Words);
         recipes.loadCustomRecipes();
         Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Custom recipes loaded");
 
