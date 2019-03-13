@@ -3,6 +3,7 @@ package com.fattymieo.survival;
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 import com.fattymieo.survival.events.BedFatigueTEST;
+import RecipesManager.CustomRecipes;
 import lib.ParticleEffect;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ import java.util.logging.Logger;
 
 public class Survival extends JavaPlugin {
 	public static Survival instance;
-	private static NamespacedKey key;
+	public static NamespacedKey key;
 	public static ScoreboardManager manager;
 	public static Scoreboard board;
 	public static Scoreboard mainBoard;
@@ -146,7 +147,6 @@ public class Survival extends JavaPlugin {
 
 		Words = copyToStringValueMap(lang_data);
 
-		//logger.info("Selected Language: " + Language);
 		Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
 		manager = Bukkit.getScoreboardManager();
@@ -202,7 +202,10 @@ public class Survival extends JavaPlugin {
 		registerCommands();
 		registerEvents();
 		removeRecipes();
-		customRecipes();
+
+		// Load custom recipes
+		CustomRecipes recipes = new CustomRecipes(this, settings, key, Words);
+		recipes.loadCustomRecipes();
 		if (settings.getBoolean("LegendaryItems.BlazeSword"))
 			BlazeSword();
 		if (settings.getBoolean("LegendaryItems.GiantBlade"))
@@ -222,7 +225,6 @@ public class Survival extends JavaPlugin {
 		ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
 		//BackpackCheck(); //Testing Backpack
 
-		//logger.info(pdfFile.getName() + " has been enabled.");
 		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "has been enabled");
 	}
 
@@ -253,7 +255,7 @@ public class Survival extends JavaPlugin {
 		logger.info(pdfFile.getName() + " has been disabled.");
 	}
 
-	public static HashMap<String, String> copyToStringValueMap(Map<String, Object> input) {
+	private static HashMap<String, String> copyToStringValueMap(Map<String, Object> input) {
 		HashMap<String, String> ret = new HashMap<>();
 		for (Map.Entry<String, Object> entry : input.entrySet()) {
 			ret.put(entry.getKey(), (String) entry.getValue());
@@ -295,7 +297,7 @@ public class Survival extends JavaPlugin {
 		return loc;
 	}
 
-	public void registerCommands() {
+	private void registerCommands() {
 		getCommand("recipes").setExecutor(new Recipes());
 		if (LocalChatDist > -1)
 			getCommand("togglechat").setExecutor(new ToggleChat());
@@ -305,7 +307,7 @@ public class Survival extends JavaPlugin {
 			getCommand("snowgen").setExecutor(new SnowGen());
 	}
 
-	public void registerEvents() {
+	private void registerEvents() {
 		PluginManager pm = getServer().getPluginManager();
 
 		if (settings.getBoolean("Survival.Enabled")) {
@@ -378,8 +380,8 @@ public class Survival extends JavaPlugin {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void removeRecipes() {
-		List<Recipe> backup = new ArrayList<Recipe>();
+	private void removeRecipes() {
+		List<Recipe> backup = new ArrayList<>();
 
 		Iterator<Recipe> a = getServer().recipeIterator();
 
@@ -477,22 +479,17 @@ public class Survival extends JavaPlugin {
 						if (settings.getBoolean("Mechanics.FarmingProducts.Cookie"))
 							it.remove();
 						break;
-
-					case STONE:
-						switch (recipe.getResult().getDurability()) {
-							case (short) 1:
-								if (settings.getBoolean("Recipes.Granite"))
-									it.remove();
-								break;
-							case (short) 3:
-								if (settings.getBoolean("Recipes.Diorite"))
-									it.remove();
-								break;
-							case (short) 5:
-								if (settings.getBoolean("Recipes.Andesite"))
-									it.remove();
-								break;
-						}
+					case POLISHED_ANDESITE:
+						if (settings.getBoolean("Recipes.Andesite"))
+							it.remove();
+						break;
+					case POLISHED_DIORITE:
+						if (settings.getBoolean("Recipes.Diorite"))
+							it.remove();
+						break;
+					case POLISHED_GRANITE:
+						if (settings.getBoolean("Recipes.Granite"))
+							it.remove();
 						break;
 					case SNOW:
 					case SNOW_BLOCK:
@@ -512,7 +509,7 @@ public class Survival extends JavaPlugin {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void customRecipes() {
+	private void customRecipes() {
 		//Hatchet
 		ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
 		ItemMeta hatchetMeta = i_hatchet.getItemMeta();
@@ -1455,13 +1452,7 @@ public class Survival extends JavaPlugin {
 		ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
 
 		ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-		recurveBowMeta.setLore
-				(
-						Arrays.asList
-								(
-										ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")
-								)
-				);
+		recurveBowMeta.setLore(Arrays.asList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")));
 		recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
 		i_recurveBow.setItemMeta(recurveBowMeta);
 
@@ -2210,7 +2201,7 @@ public class Survival extends JavaPlugin {
 		}
 	}
 
-	public void BlazeSword() {
+	private void BlazeSword() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				for (Player player : getServer().getOnlinePlayers()) {
@@ -2240,7 +2231,7 @@ public class Survival extends JavaPlugin {
 		}, 1L, 50L);
 	}
 
-	public void GiantBlade() {
+	private void GiantBlade() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				for (Player player : getServer().getOnlinePlayers()) {
@@ -2348,7 +2339,7 @@ public class Survival extends JavaPlugin {
 
 	}
 
-	public void ObsidianMace() {
+	private void ObsidianMace() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				for (Player player : getServer().getOnlinePlayers()) {
@@ -2365,7 +2356,7 @@ public class Survival extends JavaPlugin {
 		}, 1L, 10L);
 	}
 
-	public void Valkyrie() {
+	private void Valkyrie() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				for (Player player : getServer().getOnlinePlayers()) {
@@ -2379,7 +2370,7 @@ public class Survival extends JavaPlugin {
 		}, 1L, 10L);
 	}
 
-	public void QuartzPickaxe() {
+	private void QuartzPickaxe() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				for (Player player : getServer().getOnlinePlayers()) {
@@ -2392,7 +2383,7 @@ public class Survival extends JavaPlugin {
 		}, 1L, 10L);
 	}
 
-	public void PlayerStatus() {
+	private void PlayerStatus() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 					public void run() {
 						for (Player player : getServer().getOnlinePlayers()) {
@@ -2461,7 +2452,7 @@ public class Survival extends JavaPlugin {
 		}
 	}
 
-	public void FoodDiversity() {
+	private void FoodDiversity() {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 					public void run() {
 						for (Player player : getServer().getOnlinePlayers()) {
