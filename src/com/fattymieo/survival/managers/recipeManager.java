@@ -1,4 +1,4 @@
-package RecipesManager;
+package com.fattymieo.survival.managers;
 
 import com.fattymieo.survival.Survival;
 import net.minecraft.server.v1_13_R2.*;
@@ -18,14 +18,14 @@ import org.bukkit.material.Wool;
 
 import java.util.*;
 
-public class CustomRecipes {
+public class recipeManager {
 
     public Map<String, String> Words;
     private NamespacedKey key;
     public FileConfiguration settings;
     private Survival survival;
 
-    public CustomRecipes(Survival survival, FileConfiguration settings, NamespacedKey key, Map<String, String> words) {
+    public recipeManager(Survival survival, FileConfiguration settings, NamespacedKey key, Map<String, String> words) {
         this.survival = survival;
         this.Words = words;
         this.settings = settings;
