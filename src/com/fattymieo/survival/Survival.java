@@ -885,4 +885,8 @@ public class Survival extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    public static String getColoredLang(String msg) {
+        return ChatColor.translateAlternateColorCodes('&', Words.get(msg));
+    }
+
 }
