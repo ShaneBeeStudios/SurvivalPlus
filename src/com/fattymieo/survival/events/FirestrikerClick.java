@@ -50,8 +50,7 @@ public class FirestrikerClick implements Listener {
 						Random rand = new Random();
 						player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE,
-								ChatColor.translateAlternateColorCodes('&', Survival.Words.get("Firestriker")));
+						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Survival.getColoredLang("Firestriker"));
 						player.openInventory(firestriker);
 						firestriker.setItem(1, event.getItem());
 						event.setCancelled(true);
@@ -106,13 +105,13 @@ public class FirestrikerClick implements Listener {
 		}
 	}
 
-	public boolean ignite(Player igniter, Location loc, IgniteCause cause) {
+	private boolean ignite(Player igniter, Location loc, IgniteCause cause) {
 		Random rand = new Random();
 
 		loc.add(0.5, 0.5, 0.5);
 
 		BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(),
-				cause, (org.bukkit.entity.Entity) igniter);
+				cause, igniter);
 		Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
 		if (igniteEvent.isCancelled()) {
 			return false;
@@ -138,8 +137,7 @@ public class FirestrikerClick implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (!event.getInventory().getTitle().equalsIgnoreCase(
-				ChatColor.translateAlternateColorCodes('&',Survival.Words.get("Firestriker")))) {
+		if (!event.getView().getTitle().equalsIgnoreCase(Survival.getColoredLang("Firestriker"))) {
 			return;
 		}
 
@@ -169,6 +167,7 @@ public class FirestrikerClick implements Listener {
 
 									ItemStack i_firecracker = event.getInventory().getItem(1);
 									i_firecracker.setDurability((short) (i_firecracker.getDurability() + 7));
+
 									if (i_firecracker.getDurability() >= 56) {
 										Random rand = new Random();
 										player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
@@ -226,9 +225,7 @@ public class FirestrikerClick implements Listener {
 
 	@EventHandler
 	public void onCloseInventory(InventoryCloseEvent event) {
-		//if(event.getInventory().getTitle() == Survival.Words.get("Firestriker"))
-		if (event.getView().getTitle().equalsIgnoreCase(
-				ChatColor.translateAlternateColorCodes('&',Survival.Words.get("Firestriker")))) // Update due to deprecation
+		if (event.getView().getTitle().equalsIgnoreCase(Survival.getColoredLang("Firestriker"))) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
 			Player player = (Player) event.getPlayer();
