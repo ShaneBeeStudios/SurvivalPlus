@@ -37,7 +37,7 @@ public class BlockBreak implements Listener {
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") &&
 						!(tool.getType() == Material.STONE_SHOVEL || tool.getType() == Material.IRON_SHOVEL
 								|| tool.getType() == Material.DIAMOND_SHOVEL)) {
-					if (material == Material.GRASS
+					if (material == Material.GRASS_BLOCK
 							|| material == Material.DIRT
 							|| material == Material.FARMLAND
 							|| material == Material.SOUL_SAND
