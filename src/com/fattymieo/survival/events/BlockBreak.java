@@ -50,7 +50,7 @@ public class BlockBreak implements Listener {
 					) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Shovel on this task"));
+						player.sendMessage(ChatColor.RED + Survival.getColoredLang("Must use a Shovel on this task"));
 					}
 
 					//Flint
@@ -105,7 +105,7 @@ public class BlockBreak implements Listener {
 							|| material == Material.DAYLIGHT_DETECTOR) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use an Axe on this task"));
+						player.sendMessage(ChatColor.RED + Survival.getColoredLang("Must use an Axe on this task"));
 					}
 
 					//Fix half door glitch
@@ -170,7 +170,7 @@ public class BlockBreak implements Listener {
 							|| Utils.isConcrete(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Pick on this task"));
+						player.sendMessage(ChatColor.RED + Survival.getColoredLang("Must use a Pick on this task"));
 					}
 				}
 
@@ -190,7 +190,7 @@ public class BlockBreak implements Listener {
 							|| material == Material.WHEAT) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Hoe on this task"));
+						player.sendMessage(ChatColor.RED + Survival.getColoredLang("Must use a Hoe on this task"));
 					}
 				}
 
@@ -202,7 +202,7 @@ public class BlockBreak implements Listener {
 								|| material == Material.MUSHROOM_STEM) {
 							event.setCancelled(true);
 							player.updateInventory();
-							player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Shear on this task"));
+							player.sendMessage(ChatColor.RED + Survival.getColoredLang("Must use a Shear on this task"));
 						}
 					}
 
