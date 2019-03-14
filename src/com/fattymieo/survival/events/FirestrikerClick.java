@@ -33,6 +33,7 @@ import javax.rmi.CORBA.Util;
 
 public class FirestrikerClick implements Listener {
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
@@ -49,7 +50,8 @@ public class FirestrikerClick implements Listener {
 						Random rand = new Random();
 						player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Survival.Words.get("Firestriker"));
+						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE,
+								ChatColor.translateAlternateColorCodes('&', Survival.Words.get("Firestriker")));
 						player.openInventory(firestriker);
 						firestriker.setItem(1, event.getItem());
 						event.setCancelled(true);
@@ -133,10 +135,13 @@ public class FirestrikerClick implements Listener {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getInventory().getTitle() != Survival.Words.get("Firestriker"))
+		if (!event.getInventory().getTitle().equalsIgnoreCase(
+				ChatColor.translateAlternateColorCodes('&',Survival.Words.get("Firestriker")))) {
 			return;
+		}
 
 		final Player player = (Player) event.getWhoClicked();
 
@@ -175,10 +180,12 @@ public class FirestrikerClick implements Listener {
 							event.setCursor(event.getInventory().getItem(2));
 							event.getInventory().setItem(2, null);
 						}
-					} else
+					} else {
 						event.setCancelled(true);
-				} else
+					}
+				} else {
 					event.setCancelled(true);
+				}
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, player::updateInventory, 1L);
 				break;
 		}
@@ -220,7 +227,8 @@ public class FirestrikerClick implements Listener {
 	@EventHandler
 	public void onCloseInventory(InventoryCloseEvent event) {
 		//if(event.getInventory().getTitle() == Survival.Words.get("Firestriker"))
-		if (event.getView().getTitle() == Survival.Words.get("Firestriker")) // Update due to deprecation
+		if (event.getView().getTitle().equalsIgnoreCase(
+				ChatColor.translateAlternateColorCodes('&',Survival.Words.get("Firestriker")))) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
 			Player player = (Player) event.getPlayer();
