@@ -1447,7 +1447,7 @@ public class RecipeManager {
         i_firestriker = CraftItemStack.asBukkitCopy(nmsStack_firestriker);
 
         ItemMeta firestrikerMeta = i_firestriker.getItemMeta();
-        firestrikerMeta.setDisplayName(ChatColor.RESET + Words.get("Firestriker"));
+        firestrikerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Words.get("Firestriker")));
         i_firestriker.setItemMeta(firestrikerMeta);
 
         ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), i_firestriker);
