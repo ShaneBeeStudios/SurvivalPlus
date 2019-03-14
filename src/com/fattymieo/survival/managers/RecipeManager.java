@@ -74,7 +74,7 @@ public class RecipeManager {
         i_leatherBoots = CraftItemStack.asBukkitCopy(nmsStack_leatherBoots);
 
         ItemMeta leatherBootsMeta = i_leatherBoots.getItemMeta();
-        leatherBootsMeta.setDisplayName(ChatColor.RESET + Words.get("Reinforced Leather Boots"));
+        leatherBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Boots"));
 
         i_leatherBoots.setItemMeta(leatherBootsMeta);
 
@@ -82,7 +82,7 @@ public class RecipeManager {
         ItemStack i_leatherChestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
 
         ItemMeta leatherChestplateMeta = i_leatherChestplate.getItemMeta();
-        leatherChestplateMeta.setDisplayName(ChatColor.RESET + Words.get("Reinforced Leather Tunic"));
+        leatherChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Tunic"));
 
         i_leatherChestplate.setItemMeta(leatherChestplateMeta);
 
@@ -90,7 +90,7 @@ public class RecipeManager {
         ItemStack i_leatherLeggings = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
 
         ItemMeta leatherLeggingsMeta = i_leatherLeggings.getItemMeta();
-        leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Words.get("Reinforced Leather Trousers"));
+        leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Trousers"));
 
         i_leatherLeggings.setItemMeta(leatherLeggingsMeta);
 
@@ -98,7 +98,7 @@ public class RecipeManager {
         ItemStack i_leatherHelmet = new ItemStack(Material.CHAINMAIL_HELMET, 1);
 
         ItemMeta leatherHelmetMeta = i_leatherHelmet.getItemMeta();
-        leatherHelmetMeta.setDisplayName(ChatColor.RESET + Words.get("Reinforced Leather Hat"));
+        leatherHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Hat"));
 
         i_leatherHelmet.setItemMeta(leatherHelmetMeta);
 
@@ -130,7 +130,7 @@ public class RecipeManager {
         i_goldBoots = CraftItemStack.asBukkitCopy(nmsStack_goldBoots);
 
         ItemMeta goldBootsMeta = i_goldBoots.getItemMeta();
-        goldBootsMeta.setDisplayName(ChatColor.RESET + Words.get("Golden Sabatons"));
+        goldBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Sabatons"));
         goldBootsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_FALL, 4, true);
 
         i_goldBoots.setItemMeta(goldBootsMeta);
@@ -163,7 +163,7 @@ public class RecipeManager {
         i_goldChestplate = CraftItemStack.asBukkitCopy(nmsStack_goldChestplate);
 
         ItemMeta goldChestplateMeta = i_goldChestplate.getItemMeta();
-        goldChestplateMeta.setDisplayName(ChatColor.RESET + Words.get("Golden Guard"));
+        goldChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Guard"));
         goldChestplateMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
 
         i_goldChestplate.setItemMeta(goldChestplateMeta);
@@ -196,7 +196,7 @@ public class RecipeManager {
         i_goldLeggings = CraftItemStack.asBukkitCopy(nmsStack_goldLeggings);
 
         ItemMeta goldLeggingsMeta = i_goldLeggings.getItemMeta();
-        goldLeggingsMeta.setDisplayName(ChatColor.RESET + Words.get("Golden Greaves"));
+        goldLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Greaves"));
         goldLeggingsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
 
         i_goldLeggings.setItemMeta(goldLeggingsMeta);
@@ -229,7 +229,7 @@ public class RecipeManager {
         i_goldHelmet = CraftItemStack.asBukkitCopy(nmsStack_goldHelmet);
 
         ItemMeta goldHelmetMeta = i_goldHelmet.getItemMeta();
-        goldHelmetMeta.setDisplayName(ChatColor.RESET + Words.get("Golden Crown"));
+        goldHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Crown"));
         goldHelmetMeta.addEnchant(org.bukkit.enchantments.Enchantment.MENDING, 1, true);
 
         i_goldHelmet.setItemMeta(goldHelmetMeta);
@@ -546,7 +546,7 @@ public class RecipeManager {
         ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
 
         ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-        recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Words.get("Recurved")));
+        recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Survival.getColoredLang("Recurved")));
         recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
         i_recurveBow.setItemMeta(recurveBowMeta);
 
@@ -579,7 +579,7 @@ public class RecipeManager {
         // Todo   HATCHET RECIPE
         ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
         ItemMeta hatchetMeta = i_hatchet.getItemMeta();
-        hatchetMeta.setDisplayName(ChatColor.RESET + Words.get("Hatchet"));
+        hatchetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hatchet"));
         i_hatchet.setItemMeta(hatchetMeta);
 
         ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(survival, "hatchet1"), i_hatchet);
@@ -601,7 +601,7 @@ public class RecipeManager {
         // Todo   MATTOCK RECIPE
         ItemStack i_mattock = new ItemStack(Material.WOODEN_PICKAXE, 1);
         ItemMeta mattockMeta = i_mattock.getItemMeta();
-        mattockMeta.setDisplayName(ChatColor.RESET + Words.get("Mattock"));
+        mattockMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Mattock"));
         i_mattock.setItemMeta(mattockMeta);
 
         ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), i_mattock);
@@ -688,20 +688,20 @@ public class RecipeManager {
         i_shiv = CraftItemStack.asBukkitCopy(nmsStack_shiv);
 
         ItemMeta shivMeta = i_shiv.getItemMeta();
-        shivMeta.setDisplayName(ChatColor.RESET + Words.get("Shiv"));
+        shivMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Shiv"));
         shivMeta.setLore
                 (
                         Arrays.asList
                                 (
-                                        ChatColor.RESET + "" + Words.get("Poisoned: Poison enemy when hit"),
+                                        ChatColor.RESET + "" + Survival.getColoredLang("Poisoned: Poison enemy when hit"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_dmg + " " + Words.get("Attack Damage"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_dmg + " " + Survival.getColoredLang("Attack Damage"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in off hand:"),
-                                        ChatColor.RESET + "" + " " + Words.get("Poisoning Effect retains"),
-                                        ChatColor.RESET + "" + " " + Words.get("Reduce chance by 50%")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Poisoning Effect retains"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Reduce chance by 50%")
                                 )
                 );
         i_shiv.setItemMeta(shivMeta);
@@ -746,7 +746,7 @@ public class RecipeManager {
         // Todo   HAMMER RECIPE
         ItemStack i_hammer = new ItemStack(Material.WOODEN_SWORD, 1);
         ItemMeta hammerMeta = i_hammer.getItemMeta();
-        hammerMeta.setDisplayName(ChatColor.RESET + Words.get("Hammer"));
+        hammerMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hammer"));
         i_hammer.setItemMeta(hammerMeta);
 
         ShapedRecipe hammer1 = new ShapedRecipe(new NamespacedKey(survival, "hammer1"), i_hammer);
@@ -799,19 +799,19 @@ public class RecipeManager {
         i_gAxe = CraftItemStack.asBukkitCopy(nmsStack_gAxe);
 
         ItemMeta gAxeMeta = i_gAxe.getItemMeta();
-        gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Valkyrie's Axe"));
+        gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Valkyrie's Axe"));
         gAxeMeta.setLore
                 (
                         Arrays.asList
                                 (
-                                        ChatColor.RESET + "" + Words.get("Unable to dual-wield with Valkyrie's Axe"),
+                                        ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Valkyrie's Axe"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_dmg + " " + Words.get("Attack Damage"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Spin: Spin your axe in circle, attack all nearby enemies"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Cooldown: 1 second"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Decreases hunger value")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Spin: Spin your axe in circle, attack all nearby enemies"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 1 second"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value")
                                 )
                 );
         gAxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
@@ -865,16 +865,16 @@ public class RecipeManager {
         i_gPickaxe = CraftItemStack.asBukkitCopy(nmsStack_gPickaxe);
 
         ItemMeta gPickaxeMeta = i_gPickaxe.getItemMeta();
-        gPickaxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Quartz Breaker"));
+        gPickaxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Quartz Breaker"));
         gPickaxeMeta.setLore
                 (
                         Arrays.asList
                                 (
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_dmg + " " + Words.get("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Words.get("Haste")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Haste")
                                 )
                 );
         gPickaxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.SILK_TOUCH, 1, false);
@@ -953,20 +953,20 @@ public class RecipeManager {
         i_gSpade = CraftItemStack.asBukkitCopy(nmsStack_gSpade);
 
         ItemMeta gSpadeMeta = i_gSpade.getItemMeta();
-        gSpadeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Obsidian Mace"));
+        gSpadeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Obsidian Mace"));
         gSpadeMeta.setLore
                 (
                         Arrays.asList
                                 (
-                                        ChatColor.RESET + "" + Words.get("Cripple: Enemies hit become weakened"),
-                                        ChatColor.RESET + "" + Words.get("Drain: Gains 2 hearts per hit"),
+                                        ChatColor.RESET + "" + Survival.getColoredLang("Cripple: Enemies hit become weakened"),
+                                        ChatColor.RESET + "" + Survival.getColoredLang("Drain: Gains 2 hearts per hit"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_dmg + " " + Words.get("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Words.get("Exhausted: Slowness II"),
-                                        ChatColor.RESET + "" + " " + Words.get("Expires after disarming for 5 seconds"),
-                                        ChatColor.RESET + "" + " " + Words.get("+50% Knockback Resistance")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Exhausted: Slowness II"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Expires after disarming for 5 seconds"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("+50% Knockback Resistance")
                                 )
                 );
         gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.KNOCKBACK, 3, true);
@@ -1043,24 +1043,24 @@ public class RecipeManager {
         i_gHoe = CraftItemStack.asBukkitCopy(nmsStack_gHoe);
 
         ItemMeta gHoeMeta = i_gHoe.getItemMeta();
-        gHoeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Ender Giant Blade"));
+        gHoeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Ender Giant Blade"));
         gHoeMeta.setLore
                 (
                         Arrays.asList
                                 (
-                                        ChatColor.RESET + "" + Words.get("Unable to dual-wield with Giant Blade"),
+                                        ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Giant Blade"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_dmg + " " + Words.get("Attack Damage"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + Words.get("Right Click when sprinting:"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Charge: Sprint forward, attack enemies infront"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Cooldown: 5 seconds"),
-                                        ChatColor.RESET + "" + "  " + Words.get("Decreases hunger value"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + Survival.getColoredLang("Right Click when sprinting:"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Charge: Sprint forward, attack enemies infront"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 5 seconds"),
+                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in off hand:"),
-                                        ChatColor.RESET + "" + " " + Words.get("Half-Shield: Gains Resistance II"),
-                                        ChatColor.RESET + "" + " " + Words.get("Reflecting incoming damage by 40%")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Half-Shield: Gains Resistance II"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Reflecting incoming damage by 40%")
                                 )
                 );
         gHoeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
@@ -1138,21 +1138,21 @@ public class RecipeManager {
         i_gSword = CraftItemStack.asBukkitCopy(nmsStack_gSword);
 
         ItemMeta gSwordMeta = i_gSword.getItemMeta();
-        gSwordMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Words.get("Blaze Sword"));
+        gSwordMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Blaze Sword"));
         gSwordMeta.setLore
                 (
                         Arrays.asList
                                 (
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_spd + " " + Words.get("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_dmg + " " + Words.get("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Words.get("Fire Resistance"),
-                                        ChatColor.RESET + "" + " " + Words.get("Fiery: -3 Hearts"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_spd + " " + Survival.getColoredLang("Attack Speed"),
+                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Fire Resistance"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Fiery: -3 Hearts"),
                                         "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Words.get("Right Click when sneaking:"),
-                                        ChatColor.RESET + "" + " " + Words.get("Spread fire on the ground"),
-                                        ChatColor.RESET + "" + " " + Words.get("Costs 1 Durability")
+                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("Right Click when sneaking:"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Spread fire on the ground"),
+                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Costs 1 Durability")
                                 )
                 );
         gSwordMeta.addEnchant(org.bukkit.enchantments.Enchantment.FIRE_ASPECT, 2, true);
@@ -1342,7 +1342,7 @@ public class RecipeManager {
         // Todo WORKBENCH RECIPE
         ItemStack workbench = new ItemStack(Material.CRAFTING_TABLE, 1);
         ItemMeta workbenchMeta = workbench.getItemMeta();
-        workbenchMeta.setDisplayName(ChatColor.RESET + Words.get("Workbench"));
+        workbenchMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Workbench"));
         workbench.setItemMeta(workbenchMeta);
 
         ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), workbench);
@@ -1447,7 +1447,7 @@ public class RecipeManager {
         i_firestriker = CraftItemStack.asBukkitCopy(nmsStack_firestriker);
 
         ItemMeta firestrikerMeta = i_firestriker.getItemMeta();
-        firestrikerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Words.get("Firestriker")));
+        firestrikerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Survival.getColoredLang("Firestriker")));
         i_firestriker.setItemMeta(firestrikerMeta);
 
         ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), i_firestriker);
@@ -1511,7 +1511,7 @@ public class RecipeManager {
         // Todo    FERMENTED SKIN RECIPE
         ItemStack i_fermentedSkin = new ItemStack(Material.RABBIT_HIDE, 1);
         ItemMeta fermentedSkinMeta = i_fermentedSkin.getItemMeta();
-        fermentedSkinMeta.setDisplayName(ChatColor.RESET + Words.get("Fermented Skin"));
+        fermentedSkinMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Fermented Skin"));
         i_fermentedSkin.setItemMeta(fermentedSkinMeta);
 
         ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), i_fermentedSkin);
@@ -1551,7 +1551,7 @@ public class RecipeManager {
         // Todo    MEDIC KIT RECIPE
         ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
         ItemMeta medicKitMeta = i_medicKit.getItemMeta();
-        medicKitMeta.setDisplayName(ChatColor.RESET + Words.get("Medical Kit"));
+        medicKitMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Medical Kit"));
         i_medicKit.setItemMeta(medicKitMeta);
 
         ShapedRecipe medicKit1 = new ShapedRecipe(new NamespacedKey(survival, "medickit1"), i_medicKit);
