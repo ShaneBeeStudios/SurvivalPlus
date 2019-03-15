@@ -21,3 +21,6 @@ commands:
    snowgen:
       description: Regenerates snow layers for all chunks, or toggles real-time snow formation
       usage: /<command> [on|off]
+   giveitem:
+      description: Give a SurvivalPlus item to a player
+      usage: /<command> <player> <item>
