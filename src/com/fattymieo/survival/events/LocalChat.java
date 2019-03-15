@@ -11,48 +11,42 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.fattymieo.survival.Survival;
 
-public class LocalChat implements Listener
-{
-	double maxDist = 64;
+public class LocalChat implements Listener {
+
+	private double maxDist = 64;
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(AsyncPlayerChatEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onChat(AsyncPlayerChatEvent event) {
+		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		String msg = event.getMessage();
-		
-		if(Survival.settings.getBoolean("LegendaryItems.GoldArmorBuff"))
-		{
-			if(player.getInventory().getHelmet() != null)
-			{
-				if(player.getInventory().getHelmet().getType() == Material.GOLD_HELMET)
-				{
+
+		if (Survival.settings.getBoolean("LegendaryItems.GoldArmorBuff")) {
+			if (player.getInventory().getHelmet() != null) {
+				if (player.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET) {
 					event.setCancelled(false);
 					event.setFormat(ChatColor.GOLD + "<%1$s> " + ChatColor.YELLOW + "%2$s");
 					return;
 				}
 			}
 		}
-		
+
 		int channel = Survival.board.getObjective("Chat").getScore(player.getName()).getScore();
-		if(channel > 0)
-		{
+		if (channel > 0) {
 			event.setFormat(ChatColor.GREEN + "<%1$s> " + ChatColor.RESET + "%2$s");
 			return;
 		}
-		
+
 		event.setCancelled(true);
 
 		Bukkit.getConsoleSender().sendMessage("<" + player.getDisplayName() + "> " + msg);
-		for(Player other : Bukkit.getServer().getOnlinePlayers())
-        {
-			if(other.getLocation().getWorld() == player.getLocation().getWorld())
-			{
-	            if(other.getLocation().distance(player.getLocation()) <= maxDist)
-	            {
-	                other.sendMessage(ChatColor.RESET + "<" + player.getDisplayName() + "> " + msg);
-	            }
+		for (Player other : Bukkit.getServer().getOnlinePlayers()) {
+			if (other.getLocation().getWorld() == player.getLocation().getWorld()) {
+				if (other.getLocation().distance(player.getLocation()) <= maxDist) {
+					other.sendMessage(ChatColor.RESET + "<" + player.getDisplayName() + "> " + msg);
+				}
 			}
-        }
+		}
 	}
+
 }

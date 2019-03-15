@@ -15,49 +15,39 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.fattymieo.survival.Survival;
 
-public class WaterBowl implements Listener
-{
+public class WaterBowl implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event)
-	{
-		if(!Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-		{
-			if(event.isCancelled()) return;
-			if(event.getItem().getType() == Material.BEETROOT_SOUP)
-			{
+	public void onConsume(PlayerItemConsumeEvent event) {
+		if (!Survival.settings.getBoolean("Mechanics.Thirst.Enabled")) {
+			if (event.isCancelled()) return;
+			if (event.getItem().getType() == Material.BEETROOT_SOUP) {
 				event.setCancelled(true);
 			}
 		}
 	}
-	
+
 	@EventHandler
-	public void onDrop(ItemSpawnEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onDrop(ItemSpawnEvent event) {
+		if (event.isCancelled()) return;
 		final Item itemDrop = event.getEntity();
-		if(itemDrop.getItemStack().getType() == Material.BOWL)
-		{
-		    final Runnable task = new Runnable()
-		    {
-		    	public void run()
-		    	{
-		    		if(itemDrop.getItemStack().getAmount() != 1) return;
-		    		Location itemLocation = itemDrop.getLocation();
-		    		if(itemLocation.getBlock().getType() == Material.WATER || itemLocation.getBlock().getType() == Material.STATIONARY_WATER)
-		    		{
-		    			itemDrop.remove();
-		    			
-		    	      	ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
-		    	      	ItemMeta beetrootMeta= i_beetroot.getItemMeta();
-		    	      	beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
-		    	      	i_beetroot.setItemMeta(beetrootMeta);
-		    	      	
-		    			itemDrop.getWorld().dropItem(itemLocation, i_beetroot);
-		    		}
-	            }
-		    };
-		    
-		    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, 20L);
+		if (itemDrop.getItemStack().getType() == Material.BOWL) {
+			final Runnable task = () -> {
+				if (itemDrop.getItemStack().getAmount() != 1) return;
+				Location itemLocation = itemDrop.getLocation();
+				if (itemLocation.getBlock().getType() == Material.WATER || itemLocation.getBlock().getType() == Material.WATER) {
+					itemDrop.remove();
+
+					ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
+					ItemMeta beetrootMeta = i_beetroot.getItemMeta();
+					beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
+					i_beetroot.setItemMeta(beetrootMeta);
+
+					itemDrop.getWorld().dropItem(itemLocation, i_beetroot);
+				}
+			};
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, 20L);
 		}
 	}
+
 }

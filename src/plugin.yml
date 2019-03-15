@@ -1,7 +1,8 @@
 name: SurvivalPlus
 main: com.fattymieo.survival.Survival
-author: FattyMieo
-version: "2.1.1"
+authors: [FattyMieo, ShaneBee]
+version: 3.0.0
+api-version: 1.13
 commands:
    reload-survival:
       description: Reload configurations
@@ -20,3 +21,6 @@ commands:
    snowgen:
       description: Regenerates snow layers for all chunks, or toggles real-time snow formation
       usage: /<command> [on|off]
+   giveitem:
+      description: Give a SurvivalPlus item to a player
+      usage: /<command> <player> <item>

@@ -10,23 +10,23 @@ import org.bukkit.entity.Player;
 
 import com.fattymieo.survival.Survival;
 
-public class Reload implements CommandExecutor
-{
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-	{
+public class Reload implements CommandExecutor {
+
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+
+		Survival.instance.reloadConfig();
 		Bukkit.getPluginManager().disablePlugin(Survival.instance);
 		Bukkit.getPluginManager().enablePlugin(Survival.instance);
-		Survival.instance.reloadConfig();
 
-		if(sender instanceof Player)
-		{
-			sender.sendMessage(ChatColor.AQUA + "[SurvivalPlus] " + ChatColor.GREEN + "Reload complete.");
-			sender.getServer().getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.GREEN + "Reload complete.");
-		}
-		else if(sender instanceof ConsoleCommandSender)
-		{
-			sender.sendMessage("[SurvivalPlus] " + ChatColor.GREEN + "Reload complete.");
+
+		if (sender instanceof Player) {
+			sender.sendMessage(prefix + ChatColor.GREEN + "Reload complete.");
+			sender.getServer().getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Reload complete.");
+		} else if (sender instanceof ConsoleCommandSender) {
+			sender.sendMessage(prefix + ChatColor.GREEN + "Reload complete.");
 		}
 		return true;
 	}
+
 }

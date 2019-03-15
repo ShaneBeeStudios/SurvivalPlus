@@ -17,18 +17,17 @@ import org.bukkit.scoreboard.Objective;
 
 import com.fattymieo.survival.Survival;
 
-public class FoodDiversityConsume implements Listener
-{
-	Objective carbon = Survival.mainBoard.getObjective("Carbs");
-	Objective protein = Survival.mainBoard.getObjective("Protein");
-	Objective salts = Survival.mainBoard.getObjective("Salts");
+public class FoodDiversityConsume implements Listener {
+
+	private Objective carbon = Survival.mainBoard.getObjective("Carbs");
+	private Objective protein = Survival.mainBoard.getObjective("Protein");
+	private Objective salts = Survival.mainBoard.getObjective("Salts");
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onConsume(PlayerItemConsumeEvent event) {
+		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
-		switch(event.getItem().getType())
-		{
+		switch (event.getItem().getType()) {
 			case PUMPKIN_PIE:
 				addStats(player, carbon, 300);
 				addStats(player, protein, 50);
@@ -45,7 +44,7 @@ public class FoodDiversityConsume implements Listener
 				addStats(player, salts, 12);
 				break;
 			//case CAKE: (PlayerInteractEvent)
-			case POTATO_ITEM:
+			case POTATO:
 				addStats(player, carbon, 25);
 				addStats(player, protein, 0);
 				addStats(player, salts, 4);
@@ -76,7 +75,7 @@ public class FoodDiversityConsume implements Listener
 				addStats(player, protein, 0);
 				addStats(player, salts, 35);
 				break;
-			case MUSHROOM_SOUP:
+			case MUSHROOM_STEW:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 50);
 				addStats(player, salts, 200);
@@ -96,7 +95,7 @@ public class FoodDiversityConsume implements Listener
 				addStats(player, protein, 0);
 				addStats(player, salts, 35);
 				break;
-			case CARROT_ITEM:
+			case CARROT:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 0);
 				addStats(player, salts, 105);
@@ -106,7 +105,8 @@ public class FoodDiversityConsume implements Listener
 				addStats(player, protein, 0);
 				addStats(player, salts, 25);
 				break;
-			case COOKED_FISH:
+			case COOKED_COD:
+			case COOKED_SALMON:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 225);
 				addStats(player, salts, 0);
@@ -114,21 +114,22 @@ public class FoodDiversityConsume implements Listener
 			case COOKED_BEEF:
 			case COOKED_CHICKEN:
 			case COOKED_MUTTON:
-			case GRILLED_PORK:
+			case COOKED_PORKCHOP:
 			case COOKED_RABBIT:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 200);
 				addStats(player, salts, 0);
 				break;
-			case RAW_FISH:
+			case SALMON:
+			case COD:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 75);
 				addStats(player, salts, 0);
 				break;
-			case RAW_BEEF:
-			case RAW_CHICKEN:
+			case BEEF:
+			case CHICKEN:
 			case MUTTON:
-			case PORK:
+			case PORKCHOP:
 			case RABBIT:
 			case ROTTEN_FLESH:
 				addStats(player, carbon, 0);
@@ -143,19 +144,15 @@ public class FoodDiversityConsume implements Listener
 			default:
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsumeCake(PlayerInteractEvent event)
-	{
-		if(event.isCancelled()) return;
+	public void onConsumeCake(PlayerInteractEvent event) {
+		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
-		if(event.hasBlock() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-		{
+		if (event.hasBlock() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			Block cake = event.getClickedBlock();
-			if(cake.getType().equals(Material.CAKE_BLOCK))
-			{
-				if(player.getFoodLevel() < 20 && (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE))
-				{
+			if (cake.getType().equals(Material.CAKE)) {
+				if (player.getFoodLevel() < 20 && (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)) {
 					addStats(player, carbon, 171);
 					addStats(player, protein, 114);
 					addStats(player, salts, 3);
@@ -163,82 +160,72 @@ public class FoodDiversityConsume implements Listener
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onDamage(EntityDamageEvent e)
-	{
-		if(e.isCancelled()) return;
-		if(e.getEntity() instanceof Player)
-		{
-			Player player = (Player)e.getEntity();
-			
+	public void onDamage(EntityDamageEvent e) {
+		if (e.isCancelled()) return;
+		if (e.getEntity() instanceof Player) {
+			Player player = (Player) e.getEntity();
+
 			e.setDamage(e.getDamage() * addMultiplier(player));
 		}
 	}
-	
+
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event)
-	{
+	public void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		carbon.getScore(player.getName()).setScore(960);
 		protein.getScore(player.getName()).setScore(240);
 		salts.getScore(player.getName()).setScore(360);
 	}
-	
+
 	@EventHandler
-	public void onFirstJoin(PlayerJoinEvent event)
-	{
+	public void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		if(!player.hasPlayedBefore())
-		{
+		if (!player.hasPlayedBefore()) {
 			carbon.getScore(player.getName()).setScore(960);
 			protein.getScore(player.getName()).setScore(240);
 			salts.getScore(player.getName()).setScore(360);
 		}
 	}
-	
-	private void addStats(Player player, Objective nutrient, int point)
-	{
+
+	private void addStats(Player player, Objective nutrient, int point) {
 		nutrient.getScore(player.getName()).setScore(nutrient.getScore(player.getName()).getScore() + point);
 	}
-	
-	private double addMultiplier(Player player)
-	{
+
+	private double addMultiplier(Player player) {
 		double damageMultiplier = 1;
-		
-		if(protein.getScore(player.getName()).getScore() <= 0)
-		{
-			switch(player.getWorld().getDifficulty())
-        	{
-        		case EASY:
-        				damageMultiplier *= 1.25;
-        			break;
-        		case NORMAL:
-        				damageMultiplier *= 1.5;
-        			break;
-        		case HARD:
-        				damageMultiplier *= 2;
-        			break;
-        		default:
-        	}
+
+		if (protein.getScore(player.getName()).getScore() <= 0) {
+			switch (player.getWorld().getDifficulty()) {
+				case EASY:
+					damageMultiplier *= 1.25;
+					break;
+				case NORMAL:
+					damageMultiplier *= 1.5;
+					break;
+				case HARD:
+					damageMultiplier *= 2;
+					break;
+				default:
+			}
 		}
-		if(salts.getScore(player.getName()).getScore() <= 0)
-		{
-			switch(player.getWorld().getDifficulty())
-        	{
-        		case EASY:
-        				damageMultiplier *= 1.25;
-        			break;
-        		case NORMAL:
-        				damageMultiplier *= 1.5;
-        			break;
-        		case HARD:
-        				damageMultiplier *= 2;
-        			break;
-        		default:
-        	}
+		if (salts.getScore(player.getName()).getScore() <= 0) {
+			switch (player.getWorld().getDifficulty()) {
+				case EASY:
+					damageMultiplier *= 1.25;
+					break;
+				case NORMAL:
+					damageMultiplier *= 1.5;
+					break;
+				case HARD:
+					damageMultiplier *= 2;
+					break;
+				default:
+			}
 		}
-		
+
 		return damageMultiplier;
 	}
+
 }

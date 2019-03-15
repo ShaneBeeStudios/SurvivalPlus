@@ -28,199 +28,164 @@ import com.fattymieo.survival.Survival;
 
 import lib.ParticleEffect;
 
-public class GiantBlade implements Listener
-{	
-	int schedule = 0;
-    
-    Objective charge = Survival.board.getObjective("Charge");
-    Objective charging = Survival.board.getObjective("Charging");
-    Objective dualWield = Survival.board.getObjective("DualWield");
-    
+public class GiantBlade implements Listener {
+
+	private Objective charge = Survival.board.getObjective("Charge");
+	private Objective charging = Survival.board.getObjective("Charging");
+	private Objective dualWield = Survival.board.getObjective("DualWield");
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event)
-	{
-		if(event.isCancelled()) return;
-		if(event.getEntity() instanceof Player)
-		{
-			Player player = (Player)event.getEntity();
+	public void onAttack(EntityDamageByEntityEvent event) {
+		if (event.isCancelled()) return;
+		if (event.getEntity() instanceof Player) {
+			Player player = (Player) event.getEntity();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 
-			if(dualWield.getScore(player.getName()).getScore() == 1)
-			{
+			if (dualWield.getScore(player.getName()).getScore() == 1) {
 				event.setCancelled(true);
 				return;
 			}
-			
+
 			Random rand = new Random();
-			
-			if(offItem.getType() == Material.GOLD_HOE)
-			{
-				if(event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK)
-				{
-					LivingEntity enemy = (LivingEntity)event.getDamager();
+
+			if (offItem.getType() == Material.GOLDEN_HOE) {
+				if (event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
+					LivingEntity enemy = (LivingEntity) event.getDamager();
 					enemy.damage(event.getDamage() * 40 / 100, player);
 				}
-				
+
 				int chance_reduceDur = rand.nextInt(10) + 1;
-				switch(chance_reduceDur)
-				{
-					case 1:
-						offItem.setDurability((short)(offItem.getDurability() + 1));
-						break;
-					default:
+				if (chance_reduceDur == 1) {
+					offItem.setDurability((short) (offItem.getDurability() + 1));
 				}
 
-				if(offItem.getDurability() >= 32)
-				{
+				if (offItem.getDurability() >= 32) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInOffHand(null);
 				}
 			}
 		}
 	}
-	
+
 	//To prevent double messages send to player.
-	Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
-	
+	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
+
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event)
-	{
+	public void onItemClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		ItemStack offItem = player.getInventory().getItemInOffHand();
-		
+
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
-		
-		if(mainItem.getType() == Material.GOLD_HOE)
-		{
-			if(dualWield.getScore(player.getName()).getScore() == 0)
-			{
-				if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR)
-				{
-					if(player.isSprinting())
-					{
-						if(charge.getScore(player.getName()).getScore() == 0)
-						{
+
+		if (mainItem.getType() == Material.GOLDEN_HOE) {
+			if (dualWield.getScore(player.getName()).getScore() == 0) {
+				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+					if (player.isSprinting()) {
+						if (charge.getScore(player.getName()).getScore() == 0) {
 							Random rand = new Random();
-							
+
 							ChargeForward(player, 3);
-							
-							if(player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+
+							if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
-							
+
 							int chance_reduceDur = rand.nextInt(10) + 1;
-							switch(chance_reduceDur)
-							{
+							switch (chance_reduceDur) {
 								case 1:
-									mainItem.setDurability((short)(mainItem.getDurability() + 1));
+									mainItem.setDurability((short) (mainItem.getDurability() + 1));
 									break;
 								default:
 							}
-							
-							if(event.getItem().getDurability() >= 32)
-							{
+
+							if (event.getItem().getDurability() >= 32) {
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
 							player.updateInventory();
-						}
-						else
-						{
+						} else {
 							player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to Charge immediately"));
 						}
 					}
 				}
-			}
-			else 
-			{
-				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+			} else {
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
-				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if(score_dualWieldMsg.getScore() >= 2)
-				{
+				if (score_dualWieldMsg.getScore() >= 2) {
 					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
 				}
 			}
-		}
-		else if(offItem.getType() == Material.GOLD_HOE)
-		{
-			if(dualWield.getScore(player.getName()).getScore() != 0)
-			{
-				if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+		} else if (offItem.getType() == Material.GOLDEN_HOE) {
+			if (dualWield.getScore(player.getName()).getScore() != 0) {
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
-				else if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if(score_dualWieldMsg.getScore() >= 2)
-				{
+				if (score_dualWieldMsg.getScore() >= 2) {
 					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
 				}
 			}
 		}
 		score_dualWieldMsg.setScore(0);
 	}
-	
-	private void ChargeForward(Player player, int velocity)
-	{
+
+	private void ChargeForward(Player player, int velocity) {
 		player.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Survival.Words.get("CHARGE!"));
-		
+
 		Score score = charge.getScore(player.getName());
 		score.setScore(1);
-		
-		Location loc = player.getLocation();
-		if(loc.getPitch() < 0)
-			loc.setPitch(0);
-	
-	    Vector vel = loc.getDirection();
-	    
-	    Vector newVel = vel.multiply(velocity);
-	    
-	    player.setVelocity(newVel);
-	    
-	    final Player chargingPlayer = player;
-	    charging.getScore(chargingPlayer.getName()).setScore(8);
-	    
-	    final Runnable task = new Runnable()
-	    {
-			public void run()
-	    	{
-        		damageNearbyEnemies(chargingPlayer, 8);
-        		
-        		Random rand = new Random();
-        	    chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
-        		ParticleEffect.EXPLOSION_NORMAL.display(0, 0, 0, 0, 10, chargingPlayer.getLocation(), 64);
 
-    	    	int times = charging.getScore(chargingPlayer.getName()).getScore();
-        		if(--times > 1)
-        			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 1L);
-        		charging.getScore(chargingPlayer.getName()).setScore(times);
-            }
-	    };
-	    
-	    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1L);
-	    
-	    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable()
-	    {
-			Score score = charge.getScore(chargingPlayer.getName());
-	    	public void run()
-	    	{
-	    		score.setScore(0);
-				chargingPlayer.sendMessage(ChatColor.GREEN + Survival.Words.get("Ready to Charge"));
-            }
-	    },
-	    100L);
+		Location loc = player.getLocation();
+		if (loc.getPitch() < 0)
+			loc.setPitch(0);
+
+		Vector vel = loc.getDirection();
+
+		Vector newVel = vel.multiply(velocity);
+
+		player.setVelocity(newVel);
+
+		final Player chargingPlayer = player;
+		charging.getScore(chargingPlayer.getName()).setScore(8);
+
+		final Runnable task = new Runnable() {
+			public void run() {
+				damageNearbyEnemies(chargingPlayer, 8);
+
+				Random rand = new Random();
+				chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
+				ParticleEffect.EXPLOSION_NORMAL.display(0, 0, 0, 0, 10, chargingPlayer.getLocation(), 64);
+
+				int times = charging.getScore(chargingPlayer.getName()).getScore();
+				if (--times > 1)
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 1L);
+				charging.getScore(chargingPlayer.getName()).setScore(times);
+			}
+		};
+
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1L);
+
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable() {
+					Score score = charge.getScore(chargingPlayer.getName());
+
+					public void run() {
+						score.setScore(0);
+						chargingPlayer.sendMessage(ChatColor.GREEN + Survival.Words.get("Ready to Charge"));
+					}
+				},
+				100L);
 	}
-	
-	private void damageNearbyEnemies(Player player, int dmg)
-	{
+
+	private void damageNearbyEnemies(Player player, int dmg) {
 		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 2, 2, 2);
-	    for(Entity e : enemies)
-	    {
-	    	if(e instanceof LivingEntity && e != (Entity)player)
-	    	{
-	    		LivingEntity enemy = (LivingEntity)e;
-	    		enemy.damage(dmg, (Entity)player);
-	    	}
-	    }
+		for (Entity e : enemies) {
+			if (e instanceof LivingEntity && e != player) {
+				LivingEntity enemy = (LivingEntity) e;
+				enemy.damage(dmg, player);
+			}
+		}
 	}
+
 }

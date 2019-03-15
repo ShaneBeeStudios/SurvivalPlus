@@ -1,30 +1,23 @@
 package com.fattymieo.survival.commands;
 
-import org.bukkit.ChatColor;
+import com.fattymieo.survival.Survival;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Recipes implements CommandExecutor
-{
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-	{
-		if (!(sender instanceof Player))
-		{
-			sender.sendMessage("Works on players only.");
-			return false;
+public class Recipes implements CommandExecutor {
+
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		String prefix = "&7[&3SurvivalPlus&7] ";
+		if (!(sender instanceof Player)) {
+			Survival.sendColoredConsoleMsg(prefix + "&cPlayer only command");
+			return true;
 		}
-		
 		Player player = (Player) sender;
-		String[] helpstring =
-		{
-			ChatColor.AQUA + "Survival Recipes:",
-			"Recipe1 - Do something special!",
-			"Recipe2 - Do something special!"
-		};
-		
-		player.sendMessage(helpstring);
+		Survival.sendColoredMessage(player, prefix + "&6Recipes");
+		Survival.sendColoredMessage(player, "  &7Recipes can be found in your crafting guide in your inventory/crafting table");
 		return true;
 	}
+
 }

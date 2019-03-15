@@ -14,50 +14,43 @@ import org.bukkit.util.Vector;
 
 import com.fattymieo.survival.Survival;
 
-public class RecurvedBow implements Listener
-{
+public class RecurvedBow implements Listener {
+
 	@EventHandler
-	public void onShoot(EntityShootBowEvent event)
-	{
-		if(event.getEntity() instanceof Player)
-		{
-			Player player = (Player)event.getEntity();
+	public void onShoot(EntityShootBowEvent event) {
+		if (event.getEntity() instanceof Player) {
+			Player player = (Player) event.getEntity();
 			ItemStack mainItem = event.getBow();
-			
-			if(mainItem.getItemMeta().getLore() != null)
-			{
+
+			if (mainItem.getItemMeta().getLore() != null) {
 				Random rand = new Random();
-				if(event.getForce() >= 1.0F)
-				{
+				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();
 					final Vector velocity = player.getLocation().getDirection().add(new Vector(0, 0.025, 0)).multiply(4);
 					arrow.setVelocity(velocity);
-		
-		            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-		            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SHULKER_BULLET_HURT, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
-					
-					final Runnable task = new Runnable()
-					{
+
+					player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SHULKER_BULLET_HURT, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
+
+					final Runnable task = new Runnable() {
 						int times = 4;
-						public void run()
-						{								
-							if(!arrow.isOnGround())
-							{
+
+						public void run() {
+							if (!arrow.isOnGround()) {
 								arrow.setVelocity(velocity);
-								if(times-- > 0)
+								if (times-- > 0)
 									Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 5);
 							}
 						}
 					};
-					
+
 					Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1);
-				}
-				else
-				{
+				} else {
 					event.setCancelled(true);
-		            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
+					player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
 				}
 			}
 		}
 	}
+
 }

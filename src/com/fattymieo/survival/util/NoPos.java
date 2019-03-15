@@ -1,4 +1,4 @@
-package com.fattymieo.survival;
+package com.fattymieo.survival.util;
 
 /**
  * Originally by Rolyndev's plugin, NoPos
@@ -24,15 +24,15 @@ public class NoPos implements Listener
 		disableF3(e.getPlayer());
 	}
   
-	public static void disableF3(Player player)
+	private static void disableF3(Player player)
 	{
 		try
 		{
 			Class<?> packetClass = getNMSClass("PacketPlayOutEntityStatus");
-			Constructor<?> packetConstructor = packetClass.getConstructor(new Class[] { getNMSClass("Entity"), Byte.TYPE });
-			Object packet = packetConstructor.newInstance(new Object[] { getHandle(player), Byte.valueOf((byte) 22) });
-			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", new Class[] { getNMSClass("Packet") });
-			sendPacket.invoke(getConnection(player), new Object[] { packet });
+			Constructor<?> packetConstructor = packetClass.getConstructor(getNMSClass("Entity"), Byte.TYPE);
+			Object packet = packetConstructor.newInstance(getHandle(player), (byte) 22);
+			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
+			sendPacket.invoke(getConnection(player), packet);
 		}
 		catch (Exception e)
 		{
@@ -45,10 +45,10 @@ public class NoPos implements Listener
 		try
 		{
 			Class<?> packetClass = getNMSClass("PacketPlayOutEntityStatus");
-			Constructor<?> packetConstructor = packetClass.getConstructor(new Class[] { getNMSClass("Entity"), Byte.TYPE });
-			Object packet = packetConstructor.newInstance(new Object[] { getHandle(player), Byte.valueOf((byte) 23) });
-			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", new Class[] { getNMSClass("Packet") });
-			sendPacket.invoke(getConnection(player), new Object[] { packet });
+			Constructor<?> packetConstructor = packetClass.getConstructor(getNMSClass("Entity"), Byte.TYPE);
+			Object packet = packetConstructor.newInstance(getHandle(player), (byte) 23);
+			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
+			sendPacket.invoke(getConnection(player), packet);
 		}
 		catch (Exception e)
 		{
@@ -74,10 +74,10 @@ public class NoPos implements Listener
 	}
   
 	private static Object getHandle(Player player)
-	throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
+	throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
 	{
-		Method getHandle = player.getClass().getMethod("getHandle", new Class[0]);
-		Object nmsPlayer = getHandle.invoke(player, new Object[0]);
+		Method getHandle = player.getClass().getMethod("getHandle");
+		Object nmsPlayer = getHandle.invoke(player);
 		return nmsPlayer;
 	}
 }

@@ -1,39 +1,27 @@
-package com.fattymieo.survival.events;
+package com.fattymieo.survival.unfinished;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+import com.fattymieo.survival.Survival;
+import com.fattymieo.survival.util.Utils;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.PacketPlayOutAnimation;
+import net.minecraft.server.v1_13_R2.PacketPlayOutBed;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerBedLeaveEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 
-import com.fattymieo.survival.Survival;
+import java.util.HashMap;
+import java.util.Map;
 
-import net.minecraft.server.v1_12_R1.BlockPosition;
-import net.minecraft.server.v1_12_R1.PacketPlayOutAnimation;
-import net.minecraft.server.v1_12_R1.PacketPlayOutBed;
-
-public class BedFatigue implements Listener
+public class BedFatigueTEST implements Listener
 {
-	Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
-	Map<Player, BlockPosition> sleeping = new HashMap<>();
+	private Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
+	private Map<Player, BlockPosition> sleeping = new HashMap<>();
 	//List<Player> sleeping = new ArrayList<>();
 	
 	private void sleepPlayer(Player player, int x, int y, int z)
@@ -80,10 +68,14 @@ public class BedFatigue implements Listener
 		if(event.getAction() == Action.RIGHT_CLICK_BLOCK)
 		{
 			Block clicked = event.getClickedBlock();
-			if(clicked.getType() == Material.BED_BLOCK)
+			if(Utils.isBed(clicked.getType()))
 			{
                 event.setCancelled(true);
-                sleepPlayer(event.getPlayer(), clicked.getX(), clicked.getY(), clicked.getZ());
+                //sleepPlayer(event.getPlayer(), clicked.getX(), clicked.getY(), clicked.getZ());
+				if (event.getPlayer().sleep(clicked.getLocation(), true))
+					Bukkit.broadcastMessage("SLEEPY TIME");
+				else
+					Bukkit.broadcastMessage("NO SLEEPY TIME");
 			}
 		}
 	}
@@ -100,6 +92,7 @@ public class BedFatigue implements Listener
 	public void onBedLeave(PlayerBedLeaveEvent e)
 	{
     	Bukkit.getConsoleSender().sendMessage("GOT IT LEAVE BED");
+    	wakePlayer(e.getPlayer());
 		/*
 		long time = e.getBed().getWorld().getTime();
 		if(time % 24000 == 0)
