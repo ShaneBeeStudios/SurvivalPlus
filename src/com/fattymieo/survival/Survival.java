@@ -8,6 +8,7 @@ import com.fattymieo.survival.util.NoPos;
 import lib.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -40,18 +41,23 @@ public class Survival extends JavaPlugin implements Listener {
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
     public static boolean snowGenOption = true;
-    private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+    private static String Language;
+    private String prefix;
 
     public void onEnable() {
         String Version = this.getDescription().getVersion();
-        String Language;
         instance = this;
-        NamespacedKey key = new NamespacedKey(this, getDescription().getName());
 
+        // LOAD CONFIG
         settings = getConfig();
         settings.options().copyDefaults(true);
         saveConfig();
 
+        // LOAD LANG FILE
+        loadLangFile(Bukkit.getConsoleSender());
+        prefix = getColoredLang("Prefix");
+
+        // SET VERSION IN CONFIG
         if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
             settings.set("Version", Version);
             saveConfig();
@@ -62,6 +68,7 @@ public class Survival extends JavaPlugin implements Listener {
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "NoPos implemented, F3 coordinates are disabled!");
         }
 
+        // LOAD RESOURCE PACK
         String url = settings.getString("MultiWorld.ResourcePackURL");
         boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
         if (resourcePack) {
@@ -97,7 +104,6 @@ public class Survival extends JavaPlugin implements Listener {
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             }
-
         }
 
         for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
@@ -105,32 +111,18 @@ public class Survival extends JavaPlugin implements Listener {
 
         Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
-        Map<String, Object> lang_data;
-
-        File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
-        if (!lang_file.exists()) {
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Unable to locate lang_" + Language + ".yml, using default language (EN).");
-            lang_file = new File(getDataFolder(), "lang_EN.yml");
-            saveResource("lang_EN.yml", true);
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "New lang_EN.yml created");
-        } else {
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "lang_EN.yml loaded");
-        }
-
-        lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
-
-        Words = copyToStringValueMap(lang_data);
-
+        // LOAD SCOREBOARDS
         manager = Bukkit.getScoreboardManager();
         board = manager.getNewScoreboard();
         mainBoard = manager.getMainScoreboard();
         ScoreBoardManager sbm = new ScoreBoardManager();
         sbm.loadScoreboards(board, mainBoard);
 
+        // REGISTER EVENTS & COMMANDS
         registerCommands();
         registerEvents();
 
-        // Load custom recipes
+        // LOAD CUSTOM RECIPES
         RecipeManager recipes = new RecipeManager(this, settings, Words);
         recipes.loadCustomRecipes();
         Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Custom recipes loaded");
@@ -179,6 +171,20 @@ public class Survival extends JavaPlugin implements Listener {
             }
         }
         sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
+    }
+
+    public void loadLangFile(CommandSender sender) {
+        File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
+        if (!lang_file.exists()) {
+            lang_file = new File(getDataFolder(), "lang_EN.yml");
+            saveResource("lang_EN.yml", true);
+            sender.sendMessage(prefix + ChatColor.GREEN + "New lang_EN.yml created");
+        } else {
+            sender.sendMessage(prefix + ChatColor.GREEN + "lang_EN.yml loaded");
+        }
+
+        Map<String, Object> lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
+        Words = copyToStringValueMap(lang_data);
     }
 
     @EventHandler
