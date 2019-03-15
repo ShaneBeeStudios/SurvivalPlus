@@ -16,6 +16,8 @@
 # System Messages
 ####################
 
+"NoPerms": "&cYou do not have permission to perform this command"
+
 "Resource pack accepted": "Successfully loaded resource pack."
 "Resource pack declined": "**Resource pack declined**"
 "Please apply the requested Resource Pack": "Please apply the requested Resource Pack."

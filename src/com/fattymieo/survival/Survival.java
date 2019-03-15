@@ -241,11 +241,17 @@ public class Survival extends JavaPlugin implements Listener {
     private void registerCommands() {
         getCommand("recipes").setExecutor(new Recipes());
         getCommand("togglechat").setExecutor(new ToggleChat());
+        getCommand("togglechat").setPermissionMessage(prefix + getColoredLang("NoPerms"));
         getCommand("status").setExecutor(new Status());
         getCommand("reload-survival").setExecutor(new Reload());
+        getCommand("reload-survival").setPermissionMessage(prefix + getColoredLang("NoPerms"));
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
             getCommand("snowgen").setExecutor(new SnowGen());
+        getCommand("snowgen").setPermissionMessage(prefix + getColoredLang("NoPerms"));
+
+
         getCommand("giveitem").setExecutor(new GiveItem());
+        getCommand("giveitem").setPermissionMessage(prefix + getColoredLang("NoPerms"));
     }
 
     private void registerEvents() {

@@ -7,6 +7,7 @@ commands:
    reload-survival:
       description: Reload configurations
       usage: /<command>
+      permission: survivalplus.reload
    recipes:
       description: Unused
       usage: /<command>
@@ -14,6 +15,7 @@ commands:
       description: Toggling between Global and Local Chat
       usage: /<command> [global|local]
       aliases: [tc]
+      permission: survivalplus.togglechat
    status:
       description: Checking Hunger and Thirst Status
       usage: /<command>
@@ -21,6 +23,8 @@ commands:
    snowgen:
       description: Regenerates snow layers for all chunks, or toggles real-time snow formation
       usage: /<command> [on|off]
+      permission: survivalplus.snowgen
    giveitem:
       description: Give a SurvivalPlus item to a player
       usage: /<command> <player> <item>
+      permission: survivalplus.giveitem
