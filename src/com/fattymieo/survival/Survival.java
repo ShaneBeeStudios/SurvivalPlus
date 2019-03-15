@@ -53,9 +53,10 @@ public class Survival extends JavaPlugin implements Listener {
         settings.options().copyDefaults(true);
         saveConfig();
 
+        Language = settings.getString("Language");
+
         // LOAD LANG FILE
         loadLangFile(Bukkit.getConsoleSender());
-        prefix = getColoredLang("Prefix");
 
         // SET VERSION IN CONFIG
         if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
@@ -81,7 +82,6 @@ public class Survival extends JavaPlugin implements Listener {
             }
         } else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
-        Language = settings.getString("Language");
         LocalChatDist = settings.getInt("LocalChatDist");
 
         AlertInterval = settings.getInt("Mechanics.AlertInterval");
@@ -185,6 +185,7 @@ public class Survival extends JavaPlugin implements Listener {
 
         Map<String, Object> lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
         Words = copyToStringValueMap(lang_data);
+        prefix = getColoredLang("Prefix");
     }
 
     @EventHandler
