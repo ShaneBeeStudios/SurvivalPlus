@@ -18,16 +18,15 @@ import java.util.*;
 
 public class RecipeManager {
 
+
     public Map<String, String> Words;
-    private NamespacedKey key;
     public FileConfiguration settings;
     private Survival survival;
 
-    public RecipeManager(Survival survival, FileConfiguration settings, NamespacedKey key, Map<String, String> words) {
+    public RecipeManager(Survival survival, FileConfiguration settings, Map<String, String> words) {
         this.survival = survival;
         this.Words = words;
         this.settings = settings;
-        this.key = key;
 
     }
 
@@ -35,555 +34,9 @@ public class RecipeManager {
     public void loadCustomRecipes() {
         removeRecipes();
 
-
-
-
-
-
-
-
-
-
-
-
-        //Reinforced Leather Boots
-        ItemStack i_leatherBoots = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_leatherBoots = CraftItemStack.asNMSCopy(i_leatherBoots);
-        NBTTagCompound compound_leatherBoots = nmsStack_leatherBoots.getTag();
-        if (compound_leatherBoots == null) {
-            compound_leatherBoots = new NBTTagCompound();
-            nmsStack_leatherBoots.setTag(compound_leatherBoots);
-            compound_leatherBoots = nmsStack_leatherBoots.getTag();
-        }
-        NBTTagList modifiers_leatherBoots = new NBTTagList();
-        int leatherBoots_armor = 2;
-
-        NBTTagCompound armor_leatherBoots = new NBTTagCompound();
-        armor_leatherBoots.set("Slot", new NBTTagString("feet"));
-        armor_leatherBoots.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_leatherBoots.set("Name", new NBTTagString("generic.armor"));
-        armor_leatherBoots.set("Amount", new NBTTagInt(leatherBoots_armor /*Armour*/));
-        armor_leatherBoots.set("Operation", new NBTTagInt(0));
-        armor_leatherBoots.set("UUIDLeast", new NBTTagInt(32213));
-        armor_leatherBoots.set("UUIDMost", new NBTTagInt(3232));
-        modifiers_leatherBoots.add(armor_leatherBoots);
-
-        compound_leatherBoots.set("AttributeModifiers", modifiers_leatherBoots);
-        nmsStack_leatherBoots.setTag(compound_leatherBoots);
-        i_leatherBoots = CraftItemStack.asBukkitCopy(nmsStack_leatherBoots);
-
-        ItemMeta leatherBootsMeta = i_leatherBoots.getItemMeta();
-        leatherBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Boots"));
-
-        i_leatherBoots.setItemMeta(leatherBootsMeta);
-
-        //Reinforced Leather Tunic
-        ItemStack i_leatherChestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
-
-        ItemMeta leatherChestplateMeta = i_leatherChestplate.getItemMeta();
-        leatherChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Tunic"));
-
-        i_leatherChestplate.setItemMeta(leatherChestplateMeta);
-
-        //Reinforced Leather Trousers
-        ItemStack i_leatherLeggings = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
-
-        ItemMeta leatherLeggingsMeta = i_leatherLeggings.getItemMeta();
-        leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Trousers"));
-
-        i_leatherLeggings.setItemMeta(leatherLeggingsMeta);
-
-        //Reinforced Leather Helmet
-        ItemStack i_leatherHelmet = new ItemStack(Material.CHAINMAIL_HELMET, 1);
-
-        ItemMeta leatherHelmetMeta = i_leatherHelmet.getItemMeta();
-        leatherHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Hat"));
-
-        i_leatherHelmet.setItemMeta(leatherHelmetMeta);
-
-        //Golden Sabatons
-        ItemStack i_goldBoots = new ItemStack(Material.GOLDEN_BOOTS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_goldBoots = CraftItemStack.asNMSCopy(i_goldBoots);
-        NBTTagCompound compound_goldBoots = nmsStack_goldBoots.getTag();
-        if (compound_goldBoots == null) {
-            compound_goldBoots = new NBTTagCompound();
-            nmsStack_goldBoots.setTag(compound_goldBoots);
-            compound_goldBoots = nmsStack_goldBoots.getTag();
-        }
-        NBTTagList modifiers_goldBoots = new NBTTagList();
-        int goldBoots_armor = 1;
-
-        NBTTagCompound armor_goldBoots = new NBTTagCompound();
-        armor_goldBoots.set("Slot", new NBTTagString("feet"));
-        armor_goldBoots.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_goldBoots.set("Name", new NBTTagString("generic.armor"));
-        armor_goldBoots.set("Amount", new NBTTagInt(goldBoots_armor /*Armour*/));
-        armor_goldBoots.set("Operation", new NBTTagInt(0));
-        armor_goldBoots.set("UUIDLeast", new NBTTagInt(322453));
-        armor_goldBoots.set("UUIDMost", new NBTTagInt(323));
-        modifiers_goldBoots.add(armor_goldBoots);
-
-        compound_goldBoots.set("AttributeModifiers", modifiers_goldBoots);
-        nmsStack_goldBoots.setTag(compound_goldBoots);
-        i_goldBoots = CraftItemStack.asBukkitCopy(nmsStack_goldBoots);
-
-        ItemMeta goldBootsMeta = i_goldBoots.getItemMeta();
-        goldBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Sabatons"));
-        goldBootsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_FALL, 4, true);
-
-        i_goldBoots.setItemMeta(goldBootsMeta);
-
-        //Golden Guard
-        ItemStack i_goldChestplate = new ItemStack(Material.GOLDEN_CHESTPLATE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_goldChestplate = CraftItemStack.asNMSCopy(i_goldChestplate);
-        NBTTagCompound compound_goldChestplate = nmsStack_goldChestplate.getTag();
-        if (compound_goldChestplate == null) {
-            compound_goldChestplate = new NBTTagCompound();
-            nmsStack_goldChestplate.setTag(compound_goldChestplate);
-            compound_goldChestplate = nmsStack_goldChestplate.getTag();
-        }
-        NBTTagList modifiers_goldChestplate = new NBTTagList();
-        int goldChestplate_armor = 3;
-
-        NBTTagCompound armor_goldChestplate = new NBTTagCompound();
-        armor_goldChestplate.set("Slot", new NBTTagString("chest"));
-        armor_goldChestplate.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_goldChestplate.set("Name", new NBTTagString("generic.armor"));
-        armor_goldChestplate.set("Amount", new NBTTagInt(goldChestplate_armor /*Armour*/));
-        armor_goldChestplate.set("Operation", new NBTTagInt(0));
-        armor_goldChestplate.set("UUIDLeast", new NBTTagInt(322453));
-        armor_goldChestplate.set("UUIDMost", new NBTTagInt(323));
-        modifiers_goldChestplate.add(armor_goldChestplate);
-
-        compound_goldChestplate.set("AttributeModifiers", modifiers_goldChestplate);
-        nmsStack_goldChestplate.setTag(compound_goldChestplate);
-        i_goldChestplate = CraftItemStack.asBukkitCopy(nmsStack_goldChestplate);
-
-        ItemMeta goldChestplateMeta = i_goldChestplate.getItemMeta();
-        goldChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Guard"));
-        goldChestplateMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
-
-        i_goldChestplate.setItemMeta(goldChestplateMeta);
-
-        //Golden Greaves
-        ItemStack i_goldLeggings = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_goldLeggings = CraftItemStack.asNMSCopy(i_goldLeggings);
-        NBTTagCompound compound_goldLeggings = nmsStack_goldLeggings.getTag();
-        if (compound_goldLeggings == null) {
-            compound_goldLeggings = new NBTTagCompound();
-            nmsStack_goldLeggings.setTag(compound_goldLeggings);
-            compound_goldLeggings = nmsStack_goldLeggings.getTag();
-        }
-        NBTTagList modifiers_goldLeggings = new NBTTagList();
-        int goldLeggings_armor = 2;
-
-        NBTTagCompound armor_goldLeggings = new NBTTagCompound();
-        armor_goldLeggings.set("Slot", new NBTTagString("legs"));
-        armor_goldLeggings.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_goldLeggings.set("Name", new NBTTagString("generic.armor"));
-        armor_goldLeggings.set("Amount", new NBTTagInt(goldLeggings_armor /*Armour*/));
-        armor_goldLeggings.set("Operation", new NBTTagInt(0));
-        armor_goldLeggings.set("UUIDLeast", new NBTTagInt(322453));
-        armor_goldLeggings.set("UUIDMost", new NBTTagInt(323));
-        modifiers_goldLeggings.add(armor_goldLeggings);
-
-        compound_goldLeggings.set("AttributeModifiers", modifiers_goldLeggings);
-        nmsStack_goldLeggings.setTag(compound_goldLeggings);
-        i_goldLeggings = CraftItemStack.asBukkitCopy(nmsStack_goldLeggings);
-
-        ItemMeta goldLeggingsMeta = i_goldLeggings.getItemMeta();
-        goldLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Greaves"));
-        goldLeggingsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
-
-        i_goldLeggings.setItemMeta(goldLeggingsMeta);
-
-        //Golden Crown
-        ItemStack i_goldHelmet = new ItemStack(Material.GOLDEN_HELMET, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_goldHelmet = CraftItemStack.asNMSCopy(i_goldHelmet);
-        NBTTagCompound compound_goldHelmet = nmsStack_goldHelmet.getTag();
-        if (compound_goldHelmet == null) {
-            compound_goldHelmet = new NBTTagCompound();
-            nmsStack_goldHelmet.setTag(compound_goldHelmet);
-            compound_goldHelmet = nmsStack_goldHelmet.getTag();
-        }
-        NBTTagList modifiers_goldHelmet = new NBTTagList();
-        int goldHelmet_armor = 1;
-
-        NBTTagCompound armor_goldHelmet = new NBTTagCompound();
-        armor_goldHelmet.set("Slot", new NBTTagString("head"));
-        armor_goldHelmet.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_goldHelmet.set("Name", new NBTTagString("generic.armor"));
-        armor_goldHelmet.set("Amount", new NBTTagInt(goldHelmet_armor /*Armour*/));
-        armor_goldHelmet.set("Operation", new NBTTagInt(0));
-        armor_goldHelmet.set("UUIDLeast", new NBTTagInt(322453));
-        armor_goldHelmet.set("UUIDMost", new NBTTagInt(323));
-        modifiers_goldHelmet.add(armor_goldHelmet);
-
-        compound_goldHelmet.set("AttributeModifiers", modifiers_goldHelmet);
-        nmsStack_goldHelmet.setTag(compound_goldHelmet);
-        i_goldHelmet = CraftItemStack.asBukkitCopy(nmsStack_goldHelmet);
-
-        ItemMeta goldHelmetMeta = i_goldHelmet.getItemMeta();
-        goldHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Crown"));
-        goldHelmetMeta.addEnchant(org.bukkit.enchantments.Enchantment.MENDING, 1, true);
-
-        i_goldHelmet.setItemMeta(goldHelmetMeta);
-
-        //Iron Boots
-        ItemStack i_ironBoots = new ItemStack(Material.IRON_BOOTS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_ironBoots = CraftItemStack.asNMSCopy(i_ironBoots);
-        NBTTagCompound compound_ironBoots = nmsStack_ironBoots.getTag();
-        if (compound_ironBoots == null) {
-            compound_ironBoots = new NBTTagCompound();
-            nmsStack_ironBoots.setTag(compound_ironBoots);
-            compound_ironBoots = nmsStack_ironBoots.getTag();
-        }
-        NBTTagList modifiers_ironBoots = new NBTTagList();
-        int ironBoots_armor = 2;
-        float ironBoots_moveSpd = -0.020f;
-
-        NBTTagCompound armor_ironBoots = new NBTTagCompound();
-        armor_ironBoots.set("Slot", new NBTTagString("feet"));
-        armor_ironBoots.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_ironBoots.set("Name", new NBTTagString("generic.armor"));
-        armor_ironBoots.set("Amount", new NBTTagInt(ironBoots_armor /*Armour*/));
-        armor_ironBoots.set("Operation", new NBTTagInt(0));
-        armor_ironBoots.set("UUIDLeast", new NBTTagInt(322453));
-        armor_ironBoots.set("UUIDMost", new NBTTagInt(323));
-        modifiers_ironBoots.add(armor_ironBoots);
-
-        NBTTagCompound moveSpd_ironBoots = new NBTTagCompound();
-        moveSpd_ironBoots.set("Slot", new NBTTagString("feet"));
-        moveSpd_ironBoots.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironBoots.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironBoots.set("Amount", new NBTTagFloat(ironBoots_moveSpd /*Movement Speed*/));
-        moveSpd_ironBoots.set("Operation", new NBTTagInt(1));
-        moveSpd_ironBoots.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_ironBoots.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_ironBoots.add(moveSpd_ironBoots);
-
-        compound_ironBoots.set("AttributeModifiers", modifiers_ironBoots);
-        nmsStack_ironBoots.setTag(compound_ironBoots);
-        i_ironBoots = CraftItemStack.asBukkitCopy(nmsStack_ironBoots);
-
-        //Iron Chestplate
-        ItemStack i_ironChestplate = new ItemStack(Material.IRON_CHESTPLATE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_ironChestplate = CraftItemStack.asNMSCopy(i_ironChestplate);
-        NBTTagCompound compound_ironChestplate = nmsStack_ironChestplate.getTag();
-        if (compound_ironChestplate == null) {
-            compound_ironChestplate = new NBTTagCompound();
-            nmsStack_ironChestplate.setTag(compound_ironChestplate);
-            compound_ironChestplate = nmsStack_ironChestplate.getTag();
-        }
-        NBTTagList modifiers_ironChestplate = new NBTTagList();
-        int ironChestplate_armor = 6;
-        float ironChestplate_moveSpd = -0.030f;
-
-        NBTTagCompound armor_ironChestplate = new NBTTagCompound();
-        armor_ironChestplate.set("Slot", new NBTTagString("chest"));
-        armor_ironChestplate.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_ironChestplate.set("Name", new NBTTagString("generic.armor"));
-        armor_ironChestplate.set("Amount", new NBTTagInt(ironChestplate_armor /*Armour*/));
-        armor_ironChestplate.set("Operation", new NBTTagInt(0));
-        armor_ironChestplate.set("UUIDLeast", new NBTTagInt(322453));
-        armor_ironChestplate.set("UUIDMost", new NBTTagInt(323));
-        modifiers_ironChestplate.add(armor_ironChestplate);
-
-        NBTTagCompound moveSpd_ironChestplate = new NBTTagCompound();
-        moveSpd_ironChestplate.set("Slot", new NBTTagString("chest"));
-        moveSpd_ironChestplate.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironChestplate.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironChestplate.set("Amount", new NBTTagFloat(ironChestplate_moveSpd /*Movement Speed*/));
-        moveSpd_ironChestplate.set("Operation", new NBTTagInt(1));
-        moveSpd_ironChestplate.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_ironChestplate.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_ironChestplate.add(moveSpd_ironChestplate);
-
-        compound_ironChestplate.set("AttributeModifiers", modifiers_ironChestplate);
-        nmsStack_ironChestplate.setTag(compound_ironChestplate);
-        i_ironChestplate = CraftItemStack.asBukkitCopy(nmsStack_ironChestplate);
-
-        //Iron Leggings
-        ItemStack i_ironLeggings = new ItemStack(Material.IRON_LEGGINGS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_ironLeggings = CraftItemStack.asNMSCopy(i_ironLeggings);
-        NBTTagCompound compound_ironLeggings = nmsStack_ironLeggings.getTag();
-        if (compound_ironLeggings == null) {
-            compound_ironLeggings = new NBTTagCompound();
-            nmsStack_ironLeggings.setTag(compound_ironLeggings);
-            compound_ironLeggings = nmsStack_ironLeggings.getTag();
-        }
-        NBTTagList modifiers_ironLeggings = new NBTTagList();
-        int ironLeggings_armor = 5;
-        float ironLeggings_moveSpd = -0.030f;
-
-        NBTTagCompound armor_ironLeggings = new NBTTagCompound();
-        armor_ironLeggings.set("Slot", new NBTTagString("legs"));
-        armor_ironLeggings.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_ironLeggings.set("Name", new NBTTagString("generic.armor"));
-        armor_ironLeggings.set("Amount", new NBTTagInt(ironLeggings_armor /*Armour*/));
-        armor_ironLeggings.set("Operation", new NBTTagInt(0));
-        armor_ironLeggings.set("UUIDLeast", new NBTTagInt(322453));
-        armor_ironLeggings.set("UUIDMost", new NBTTagInt(323));
-        modifiers_ironLeggings.add(armor_ironLeggings);
-
-        NBTTagCompound moveSpd_ironLeggings = new NBTTagCompound();
-        moveSpd_ironLeggings.set("Slot", new NBTTagString("legs"));
-        moveSpd_ironLeggings.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironLeggings.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironLeggings.set("Amount", new NBTTagFloat(ironLeggings_moveSpd /*Movement Speed*/));
-        moveSpd_ironLeggings.set("Operation", new NBTTagInt(1));
-        moveSpd_ironLeggings.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_ironLeggings.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_ironLeggings.add(moveSpd_ironLeggings);
-
-        compound_ironLeggings.set("AttributeModifiers", modifiers_ironLeggings);
-        nmsStack_ironLeggings.setTag(compound_ironLeggings);
-        i_ironLeggings = CraftItemStack.asBukkitCopy(nmsStack_ironLeggings);
-
-        //Iron Helmet
-        ItemStack i_ironHelmet = new ItemStack(Material.IRON_HELMET, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_ironHelmet = CraftItemStack.asNMSCopy(i_ironHelmet);
-        NBTTagCompound compound_ironHelmet = nmsStack_ironHelmet.getTag();
-        if (compound_ironHelmet == null) {
-            compound_ironHelmet = new NBTTagCompound();
-            nmsStack_ironHelmet.setTag(compound_ironHelmet);
-            compound_ironHelmet = nmsStack_ironHelmet.getTag();
-        }
-        NBTTagList modifiers_ironHelmet = new NBTTagList();
-        int ironHelmet_armor = 2;
-        float ironHelmet_moveSpd = -0.020f;
-
-        NBTTagCompound armor_ironHelmet = new NBTTagCompound();
-        armor_ironHelmet.set("Slot", new NBTTagString("head"));
-        armor_ironHelmet.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_ironHelmet.set("Name", new NBTTagString("generic.armor"));
-        armor_ironHelmet.set("Amount", new NBTTagInt(ironHelmet_armor /*Armour*/));
-        armor_ironHelmet.set("Operation", new NBTTagInt(0));
-        armor_ironHelmet.set("UUIDLeast", new NBTTagInt(322453));
-        armor_ironHelmet.set("UUIDMost", new NBTTagInt(323));
-        modifiers_ironHelmet.add(armor_ironHelmet);
-
-        NBTTagCompound moveSpd_ironHelmet = new NBTTagCompound();
-        moveSpd_ironHelmet.set("Slot", new NBTTagString("head"));
-        moveSpd_ironHelmet.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironHelmet.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_ironHelmet.set("Amount", new NBTTagFloat(ironHelmet_moveSpd /*Movement Speed*/));
-        moveSpd_ironHelmet.set("Operation", new NBTTagInt(1));
-        moveSpd_ironHelmet.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_ironHelmet.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_ironHelmet.add(moveSpd_ironHelmet);
-
-        compound_ironHelmet.set("AttributeModifiers", modifiers_ironHelmet);
-        nmsStack_ironHelmet.setTag(compound_ironHelmet);
-        i_ironHelmet = CraftItemStack.asBukkitCopy(nmsStack_ironHelmet);
-
-        //Diamond Boots
-        ItemStack i_diamondBoots = new ItemStack(Material.DIAMOND_BOOTS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_diamondBoots = CraftItemStack.asNMSCopy(i_diamondBoots);
-        NBTTagCompound compound_diamondBoots = nmsStack_diamondBoots.getTag();
-        if (compound_diamondBoots == null) {
-            compound_diamondBoots = new NBTTagCompound();
-            nmsStack_diamondBoots.setTag(compound_diamondBoots);
-            compound_diamondBoots = nmsStack_diamondBoots.getTag();
-        }
-        NBTTagList modifiers_diamondBoots = new NBTTagList();
-        int diamondBoots_armor = 3;
-        float diamondBoots_moveSpd = -0.020f;
-
-        NBTTagCompound armor_diamondBoots = new NBTTagCompound();
-        armor_diamondBoots.set("Slot", new NBTTagString("feet"));
-        armor_diamondBoots.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_diamondBoots.set("Name", new NBTTagString("generic.armor"));
-        armor_diamondBoots.set("Amount", new NBTTagInt(diamondBoots_armor /*Armour*/));
-        armor_diamondBoots.set("Operation", new NBTTagInt(0));
-        armor_diamondBoots.set("UUIDLeast", new NBTTagInt(322453));
-        armor_diamondBoots.set("UUIDMost", new NBTTagInt(323));
-        modifiers_diamondBoots.add(armor_diamondBoots);
-
-        NBTTagCompound moveSpd_diamondBoots = new NBTTagCompound();
-        moveSpd_diamondBoots.set("Slot", new NBTTagString("feet"));
-        moveSpd_diamondBoots.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondBoots.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondBoots.set("Amount", new NBTTagFloat(diamondBoots_moveSpd /*Movement Speed*/));
-        moveSpd_diamondBoots.set("Operation", new NBTTagInt(1));
-        moveSpd_diamondBoots.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_diamondBoots.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_diamondBoots.add(moveSpd_diamondBoots);
-
-        compound_diamondBoots.set("AttributeModifiers", modifiers_diamondBoots);
-        nmsStack_diamondBoots.setTag(compound_diamondBoots);
-        i_diamondBoots = CraftItemStack.asBukkitCopy(nmsStack_diamondBoots);
-
-        //Diamond Chestplate
-        ItemStack i_diamondChestplate = new ItemStack(Material.DIAMOND_CHESTPLATE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_diamondChestplate = CraftItemStack.asNMSCopy(i_diamondChestplate);
-        NBTTagCompound compound_diamondChestplate = nmsStack_diamondChestplate.getTag();
-        if (compound_diamondChestplate == null) {
-            compound_diamondChestplate = new NBTTagCompound();
-            nmsStack_diamondChestplate.setTag(compound_diamondChestplate);
-            compound_diamondChestplate = nmsStack_diamondChestplate.getTag();
-        }
-        NBTTagList modifiers_diamondChestplate = new NBTTagList();
-        int diamondChestplate_armor = 8;
-        float diamondChestplate_moveSpd = -0.030f;
-
-        NBTTagCompound armor_diamondChestplate = new NBTTagCompound();
-        armor_diamondChestplate.set("Slot", new NBTTagString("chest"));
-        armor_diamondChestplate.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_diamondChestplate.set("Name", new NBTTagString("generic.armor"));
-        armor_diamondChestplate.set("Amount", new NBTTagInt(diamondChestplate_armor /*Armour*/));
-        armor_diamondChestplate.set("Operation", new NBTTagInt(0));
-        armor_diamondChestplate.set("UUIDLeast", new NBTTagInt(322453));
-        armor_diamondChestplate.set("UUIDMost", new NBTTagInt(323));
-        modifiers_diamondChestplate.add(armor_diamondChestplate);
-
-        NBTTagCompound moveSpd_diamondChestplate = new NBTTagCompound();
-        moveSpd_diamondChestplate.set("Slot", new NBTTagString("chest"));
-        moveSpd_diamondChestplate.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondChestplate.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondChestplate.set("Amount", new NBTTagFloat(diamondChestplate_moveSpd /*Movement Speed*/));
-        moveSpd_diamondChestplate.set("Operation", new NBTTagInt(1));
-        moveSpd_diamondChestplate.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_diamondChestplate.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_diamondChestplate.add(moveSpd_diamondChestplate);
-
-        compound_diamondChestplate.set("AttributeModifiers", modifiers_diamondChestplate);
-        nmsStack_diamondChestplate.setTag(compound_diamondChestplate);
-        i_diamondChestplate = CraftItemStack.asBukkitCopy(nmsStack_diamondChestplate);
-
-        //Diamond Leggings
-        ItemStack i_diamondLeggings = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_diamondLeggings = CraftItemStack.asNMSCopy(i_diamondLeggings);
-        NBTTagCompound compound_diamondLeggings = nmsStack_diamondLeggings.getTag();
-        if (compound_diamondLeggings == null) {
-            compound_diamondLeggings = new NBTTagCompound();
-            nmsStack_diamondLeggings.setTag(compound_diamondLeggings);
-            compound_diamondLeggings = nmsStack_diamondLeggings.getTag();
-        }
-        NBTTagList modifiers_diamondLeggings = new NBTTagList();
-        int diamondLeggings_armor = 6;
-        float diamondLeggings_moveSpd = -0.030f;
-
-        NBTTagCompound armor_diamondLeggings = new NBTTagCompound();
-        armor_diamondLeggings.set("Slot", new NBTTagString("legs"));
-        armor_diamondLeggings.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_diamondLeggings.set("Name", new NBTTagString("generic.armor"));
-        armor_diamondLeggings.set("Amount", new NBTTagInt(diamondLeggings_armor /*Armour*/));
-        armor_diamondLeggings.set("Operation", new NBTTagInt(0));
-        armor_diamondLeggings.set("UUIDLeast", new NBTTagInt(322453));
-        armor_diamondLeggings.set("UUIDMost", new NBTTagInt(323));
-        modifiers_diamondLeggings.add(armor_diamondLeggings);
-
-        NBTTagCompound moveSpd_diamondLeggings = new NBTTagCompound();
-        moveSpd_diamondLeggings.set("Slot", new NBTTagString("legs"));
-        moveSpd_diamondLeggings.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondLeggings.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondLeggings.set("Amount", new NBTTagFloat(diamondLeggings_moveSpd /*Movement Speed*/));
-        moveSpd_diamondLeggings.set("Operation", new NBTTagInt(1));
-        moveSpd_diamondLeggings.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_diamondLeggings.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_diamondLeggings.add(moveSpd_diamondLeggings);
-
-        compound_diamondLeggings.set("AttributeModifiers", modifiers_diamondLeggings);
-        nmsStack_diamondLeggings.setTag(compound_diamondLeggings);
-        i_diamondLeggings = CraftItemStack.asBukkitCopy(nmsStack_diamondLeggings);
-
-        //Diamond Helmet
-        ItemStack i_diamondHelmet = new ItemStack(Material.DIAMOND_HELMET, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_diamondHelmet = CraftItemStack.asNMSCopy(i_diamondHelmet);
-        NBTTagCompound compound_diamondHelmet = nmsStack_diamondHelmet.getTag();
-        if (compound_diamondHelmet == null) {
-            compound_diamondHelmet = new NBTTagCompound();
-            nmsStack_diamondHelmet.setTag(compound_diamondHelmet);
-            compound_diamondHelmet = nmsStack_diamondHelmet.getTag();
-        }
-        NBTTagList modifiers_diamondHelmet = new NBTTagList();
-        int diamondHelmet_armor = 3;
-        float diamondHelmet_moveSpd = -0.020f;
-
-        NBTTagCompound armor_diamondHelmet = new NBTTagCompound();
-        armor_diamondHelmet.set("Slot", new NBTTagString("head"));
-        armor_diamondHelmet.set("AttributeName", new NBTTagString("generic.armor"));
-        armor_diamondHelmet.set("Name", new NBTTagString("generic.armor"));
-        armor_diamondHelmet.set("Amount", new NBTTagInt(diamondHelmet_armor /*Armour*/));
-        armor_diamondHelmet.set("Operation", new NBTTagInt(0));
-        armor_diamondHelmet.set("UUIDLeast", new NBTTagInt(322453));
-        armor_diamondHelmet.set("UUIDMost", new NBTTagInt(323));
-        modifiers_diamondHelmet.add(armor_diamondHelmet);
-
-        NBTTagCompound moveSpd_diamondHelmet = new NBTTagCompound();
-        moveSpd_diamondHelmet.set("Slot", new NBTTagString("head"));
-        moveSpd_diamondHelmet.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondHelmet.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_diamondHelmet.set("Amount", new NBTTagFloat(diamondHelmet_moveSpd /*Movement Speed*/));
-        moveSpd_diamondHelmet.set("Operation", new NBTTagInt(1));
-        moveSpd_diamondHelmet.set("UUIDLeast", new NBTTagInt(234345));
-        moveSpd_diamondHelmet.set("UUIDMost", new NBTTagInt(2122));
-        modifiers_diamondHelmet.add(moveSpd_diamondHelmet);
-
-        compound_diamondHelmet.set("AttributeModifiers", modifiers_diamondHelmet);
-        nmsStack_diamondHelmet.setTag(compound_diamondHelmet);
-        i_diamondHelmet = CraftItemStack.asBukkitCopy(nmsStack_diamondHelmet);
-
-
-
-
-
-        //Recurve Bow
-        ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
-
-        ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-        recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Survival.getColoredLang("Recurved")));
-        recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
-        i_recurveBow.setItemMeta(recurveBowMeta);
-
-        //Recipes
-
-
-
-
-
-        ShapedRecipe leatherBoots = new ShapedRecipe(new NamespacedKey(survival, "leatherboots"), i_leatherBoots);
-        ShapedRecipe leatherChestplate = new ShapedRecipe(new NamespacedKey(survival, "leatherchestplate"), i_leatherChestplate);
-        ShapedRecipe leatherLeggings = new ShapedRecipe(new NamespacedKey(survival, "leatherleggings"), i_leatherLeggings);
-        ShapedRecipe leatherHelmet = new ShapedRecipe(new NamespacedKey(survival, "leatherhelmet"), i_leatherHelmet);
-        ShapedRecipe goldBoots = new ShapedRecipe(new NamespacedKey(survival, "goldboots"), i_goldBoots);
-        ShapedRecipe goldChestplate = new ShapedRecipe(new NamespacedKey(survival, "goldchestplate"), i_goldChestplate);
-        ShapedRecipe goldLeggings = new ShapedRecipe(new NamespacedKey(survival, "goldleggings"), i_goldLeggings);
-        ShapedRecipe goldHelmet = new ShapedRecipe(new NamespacedKey(survival, "goldhelmet"), i_goldHelmet);
-        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "ironboots"), i_ironBoots);
-        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "ironchestplate"), i_ironChestplate);
-        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "ironleggings"), i_ironLeggings);
-        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "ironhelmet"), i_ironHelmet);
-        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamondboots"), i_diamondBoots);
-        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamondchestplate"), i_diamondChestplate);
-        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamondleggings"), i_diamondLeggings);
-        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamondhelmet"), i_diamondHelmet);
-
-        ShapedRecipe recurveBow1 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow1"), i_recurveBow);
-        ShapedRecipe recurveBow2 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow2"), i_recurveBow);
-
         // Todo   HATCHET RECIPE
-        ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
-        ItemMeta hatchetMeta = i_hatchet.getItemMeta();
-        hatchetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hatchet"));
-        i_hatchet.setItemMeta(hatchetMeta);
-
-        ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(survival, "hatchet1"), i_hatchet);
-        ShapedRecipe hatchet2 = new ShapedRecipe(new NamespacedKey(survival, "hatchet2"), i_hatchet);
+        ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(survival, "hatchet1"), Items.get(Items.HATCHET));
+        ShapedRecipe hatchet2 = new ShapedRecipe(new NamespacedKey(survival, "hatchet2"), Items.get(Items.HATCHET));
 
         hatchet1.shape("@@", " 1");
 
@@ -599,17 +52,12 @@ public class RecipeManager {
 
 
         // Todo   MATTOCK RECIPE
-        ItemStack i_mattock = new ItemStack(Material.WOODEN_PICKAXE, 1);
-        ItemMeta mattockMeta = i_mattock.getItemMeta();
-        mattockMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Mattock"));
-        i_mattock.setItemMeta(mattockMeta);
-
-        ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), i_mattock);
-        ShapedRecipe mattock2 = new ShapedRecipe(new NamespacedKey(survival, "mattock2"), i_mattock);
-        ShapedRecipe mattock3 = new ShapedRecipe(new NamespacedKey(survival, "mattock3"), i_mattock);
-        ShapedRecipe mattock4 = new ShapedRecipe(new NamespacedKey(survival, "mattock4"), i_mattock);
-        ShapedRecipe mattock5 = new ShapedRecipe(new NamespacedKey(survival, "mattock5"), i_mattock);
-        ShapedRecipe mattock6 = new ShapedRecipe(new NamespacedKey(survival, "mattock6"), i_mattock);
+        ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock2 = new ShapedRecipe(new NamespacedKey(survival, "mattock2"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock3 = new ShapedRecipe(new NamespacedKey(survival, "mattock3"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock4 = new ShapedRecipe(new NamespacedKey(survival, "mattock4"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock5 = new ShapedRecipe(new NamespacedKey(survival, "mattock5"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock6 = new ShapedRecipe(new NamespacedKey(survival, "mattock6"), Items.get(Items.MATTOCK));
 
         mattock1.shape("@-", "1@");
         mattock1.setIngredient('@', Material.FLINT);
@@ -647,69 +95,12 @@ public class RecipeManager {
         mattock6.setIngredient('1', Material.STICK);
         mattock6.setGroup("MATTOCK");
 
+
         // Todo   SHIV RECIPE
-        ItemStack i_shiv = new ItemStack(Material.WOODEN_HOE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_shiv = CraftItemStack.asNMSCopy(i_shiv);
-        NBTTagCompound compound_shiv = nmsStack_shiv.getTag();
-        if (compound_shiv == null) {
-            compound_shiv = new NBTTagCompound();
-            nmsStack_shiv.setTag(compound_shiv);
-            compound_shiv = nmsStack_shiv.getTag();
-        }
-        NBTTagList modifiers_shiv = new NBTTagList();
-        int shiv_dmg = 4;
-        float shiv_spd = 1.8f;
-
-        NBTTagCompound damage_shiv = new NBTTagCompound();
-        damage_shiv.set("Slot", new NBTTagString("mainhand"));
-        damage_shiv.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        damage_shiv.set("Name", new NBTTagString("generic.attackDamage"));
-        damage_shiv.set("Amount", new NBTTagInt(shiv_dmg - 1 /*Attack Damage*/));
-        damage_shiv.set("Operation", new NBTTagInt(0));
-        damage_shiv.set("UUIDLeast", new NBTTagInt(894654));
-        damage_shiv.set("UUIDMost", new NBTTagInt(2872));
-        modifiers_shiv.add(damage_shiv);
-
-        NBTTagCompound atkSpd_shiv = new NBTTagCompound();
-        atkSpd_shiv.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_shiv.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_shiv.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_shiv.set("Amount", new NBTTagFloat(shiv_spd - 4 /*Attack Speed*/));
-        atkSpd_shiv.set("Operation", new NBTTagInt(0));
-        atkSpd_shiv.set("UUIDLeast", new NBTTagInt(675696));
-        atkSpd_shiv.set("UUIDMost", new NBTTagInt(34216));
-        modifiers_shiv.add(atkSpd_shiv);
-
-        compound_shiv.setInt("HideFlags", 2);
-
-        compound_shiv.set("AttributeModifiers", modifiers_shiv);
-        nmsStack_shiv.setTag(compound_shiv);
-        i_shiv = CraftItemStack.asBukkitCopy(nmsStack_shiv);
-
-        ItemMeta shivMeta = i_shiv.getItemMeta();
-        shivMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Shiv"));
-        shivMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        ChatColor.RESET + "" + Survival.getColoredLang("Poisoned: Poison enemy when hit"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Poisoning Effect retains"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Reduce chance by 50%")
-                                )
-                );
-        i_shiv.setItemMeta(shivMeta);
-
-        ShapedRecipe shiv1 = new ShapedRecipe(new NamespacedKey(survival, "shiv1"), i_shiv);
-        ShapedRecipe shiv2 = new ShapedRecipe(new NamespacedKey(survival, "shiv2"), i_shiv);
-        ShapedRecipe shiv3 = new ShapedRecipe(new NamespacedKey(survival, "shiv3"), i_shiv);
-        ShapedRecipe shiv4 = new ShapedRecipe(new NamespacedKey(survival, "shiv4"), i_shiv);
+        ShapedRecipe shiv1 = new ShapedRecipe(new NamespacedKey(survival, "shiv1"), Items.get(Items.SHIV));
+        ShapedRecipe shiv2 = new ShapedRecipe(new NamespacedKey(survival, "shiv2"), Items.get(Items.SHIV));
+        ShapedRecipe shiv3 = new ShapedRecipe(new NamespacedKey(survival, "shiv3"), Items.get(Items.SHIV));
+        ShapedRecipe shiv4 = new ShapedRecipe(new NamespacedKey(survival, "shiv4"), Items.get(Items.SHIV));
 
         shiv1.shape("*@", "1&");
 
@@ -743,14 +134,10 @@ public class RecipeManager {
         shiv4.setIngredient('&', Material.SPIDER_EYE);
         shiv4.setGroup("SHIV");
 
-        // Todo   HAMMER RECIPE
-        ItemStack i_hammer = new ItemStack(Material.WOODEN_SWORD, 1);
-        ItemMeta hammerMeta = i_hammer.getItemMeta();
-        hammerMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hammer"));
-        i_hammer.setItemMeta(hammerMeta);
 
-        ShapedRecipe hammer1 = new ShapedRecipe(new NamespacedKey(survival, "hammer1"), i_hammer);
-        ShapedRecipe hammer2 = new ShapedRecipe(new NamespacedKey(survival, "hammer2"), i_hammer);
+        // Todo   HAMMER RECIPE
+        ShapedRecipe hammer1 = new ShapedRecipe(new NamespacedKey(survival, "hammer1"), Items.get(Items.HAMMER));
+        ShapedRecipe hammer2 = new ShapedRecipe(new NamespacedKey(survival, "hammer2"), Items.get(Items.HAMMER));
 
         hammer1.shape("@ ", "1@");
 
@@ -764,59 +151,14 @@ public class RecipeManager {
         hammer2.setIngredient('1', Material.STICK);
         hammer2.setGroup("HAMMER");
 
+
         // Todo   STRING RECIPE
         ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(survival, "string"), new ItemStack(Material.STRING, 2));
         string.addIngredient(Material.COBWEB);
 
+
         // Todo   VALKYRIE's AXE RECIPE
-        ItemStack i_gAxe = new ItemStack(Material.GOLDEN_AXE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_gAxe = CraftItemStack.asNMSCopy(i_gAxe);
-        NBTTagCompound compound_gAxe = nmsStack_gAxe.getTag();
-        if (compound_gAxe == null) {
-            compound_gAxe = new NBTTagCompound();
-            nmsStack_gAxe.setTag(compound_gAxe);
-            compound_gAxe = nmsStack_gAxe.getTag();
-        }
-        NBTTagList modifiers_gAxe = new NBTTagList();
-        int gAxe_spd = 1;
-        int gAxe_dmg = 8;
-
-        NBTTagCompound atkSpd_gAxe = new NBTTagCompound();
-        atkSpd_gAxe.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_gAxe.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gAxe.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gAxe.set("Amount", new NBTTagFloat(gAxe_spd - 4 /*Attack Speed*/));
-        atkSpd_gAxe.set("Operation", new NBTTagInt(0));
-        atkSpd_gAxe.set("UUIDLeast", new NBTTagInt(11));
-        atkSpd_gAxe.set("UUIDMost", new NBTTagInt(2));
-        modifiers_gAxe.add(atkSpd_gAxe);
-
-        compound_gAxe.setInt("HideFlags", 2);
-
-        compound_gAxe.set("AttributeModifiers", modifiers_gAxe);
-        nmsStack_gAxe.setTag(compound_gAxe);
-        i_gAxe = CraftItemStack.asBukkitCopy(nmsStack_gAxe);
-
-        ItemMeta gAxeMeta = i_gAxe.getItemMeta();
-        gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Valkyrie's Axe"));
-        gAxeMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Valkyrie's Axe"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Spin: Spin your axe in circle, attack all nearby enemies"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 1 second"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value")
-                                )
-                );
-        gAxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
-        i_gAxe.setItemMeta(gAxeMeta);
-        ShapedRecipe gAxe = new ShapedRecipe(new NamespacedKey(survival, "gaxe"), i_gAxe);
+        ShapedRecipe gAxe = new ShapedRecipe(new NamespacedKey(survival, "gaxe"), Items.get(Items.VALKYRIES_AXE));
 
         gAxe.shape("@@@", "@*@", " 1 ");
 
@@ -824,64 +166,10 @@ public class RecipeManager {
         gAxe.setIngredient('*', Material.NETHER_STAR);
         gAxe.setIngredient('1', Material.STICK);
 
+
         // Todo   QUARTZ PICKAXE RECIPE
-        ItemStack i_gPickaxe = new ItemStack(Material.GOLDEN_PICKAXE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_gPickaxe = CraftItemStack.asNMSCopy(i_gPickaxe);
-        NBTTagCompound compound_gPickaxe = nmsStack_gPickaxe.getTag();
-        if (compound_gPickaxe == null) {
-            compound_gPickaxe = new NBTTagCompound();
-            nmsStack_gPickaxe.setTag(compound_gPickaxe);
-            compound_gPickaxe = nmsStack_gPickaxe.getTag();
-        }
-        NBTTagList modifiers_gPickaxe = new NBTTagList();
-        int gPickaxe_dmg = 5;
-        float gPickaxe_spd = 0.8f;
-
-        NBTTagCompound damage_gPickaxe = new NBTTagCompound();
-        damage_gPickaxe.set("Slot", new NBTTagString("mainhand"));
-        damage_gPickaxe.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        damage_gPickaxe.set("Name", new NBTTagString("generic.attackDamage"));
-        damage_gPickaxe.set("Amount", new NBTTagInt(gPickaxe_dmg - 1 /*Attack Damage*/));
-        damage_gPickaxe.set("Operation", new NBTTagInt(0));
-        damage_gPickaxe.set("UUIDLeast", new NBTTagInt(11154));
-        damage_gPickaxe.set("UUIDMost", new NBTTagInt(441));
-        modifiers_gPickaxe.add(damage_gPickaxe);
-
-        NBTTagCompound atkSpd_gPickaxe = new NBTTagCompound();
-        atkSpd_gPickaxe.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_gPickaxe.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gPickaxe.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gPickaxe.set("Amount", new NBTTagFloat(gPickaxe_spd - 4 /*Attack Speed*/));
-        atkSpd_gPickaxe.set("Operation", new NBTTagInt(0));
-        atkSpd_gPickaxe.set("UUIDLeast", new NBTTagInt(11));
-        atkSpd_gPickaxe.set("UUIDMost", new NBTTagInt(2));
-        modifiers_gPickaxe.add(atkSpd_gPickaxe);
-
-        compound_gPickaxe.setInt("HideFlags", 2);
-
-        compound_gPickaxe.set("AttributeModifiers", modifiers_gPickaxe);
-        nmsStack_gPickaxe.setTag(compound_gPickaxe);
-        i_gPickaxe = CraftItemStack.asBukkitCopy(nmsStack_gPickaxe);
-
-        ItemMeta gPickaxeMeta = i_gPickaxe.getItemMeta();
-        gPickaxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Quartz Breaker"));
-        gPickaxeMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Haste")
-                                )
-                );
-        gPickaxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.SILK_TOUCH, 1, false);
-        i_gPickaxe.setItemMeta(gPickaxeMeta);
-
-        ShapedRecipe gPickaxe1 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe1"), i_gPickaxe);
-        ShapedRecipe gPickaxe2 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe2"), i_gPickaxe);
+        ShapedRecipe gPickaxe1 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe1"), Items.get(Items.QUARTZ_PICKAXE));
+        ShapedRecipe gPickaxe2 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe2"), Items.get(Items.QUARTZ_PICKAXE));
         gPickaxe1.shape("@B-", "B# ", "- 1");
 
         gPickaxe1.setIngredient('@', Material.QUARTZ_BLOCK);
@@ -902,79 +190,8 @@ public class RecipeManager {
 
 
         // Todo    OBSIDIAN MACE RECIPE
-        ItemStack i_gSpade = new ItemStack(Material.GOLDEN_SHOVEL, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_gSpade = CraftItemStack.asNMSCopy(i_gSpade);
-        NBTTagCompound compound_gSpade = nmsStack_gSpade.getTag();
-        if (compound_gSpade == null) {
-            compound_gSpade = new NBTTagCompound();
-            nmsStack_gSpade.setTag(compound_gSpade);
-            compound_gSpade = nmsStack_gSpade.getTag();
-        }
-        NBTTagList modifiers_gSpade = new NBTTagList();
-        int gSpade_dmg = 4;
-        float gSpade_spd = 0.8f;
-        float gSpade_knockbackPercent = 0.5f;
-
-        NBTTagCompound damage_gSpade = new NBTTagCompound();
-        damage_gSpade.set("Slot", new NBTTagString("mainhand"));
-        damage_gSpade.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        damage_gSpade.set("Name", new NBTTagString("generic.attackDamage"));
-        damage_gSpade.set("Amount", new NBTTagInt(gSpade_dmg - 1 /*Attack Damage*/));
-        damage_gSpade.set("Operation", new NBTTagInt(0));
-        damage_gSpade.set("UUIDLeast", new NBTTagInt(11154));
-        damage_gSpade.set("UUIDMost", new NBTTagInt(441));
-        modifiers_gSpade.add(damage_gSpade);
-
-        NBTTagCompound atkSpd_gSpade = new NBTTagCompound();
-        atkSpd_gSpade.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_gSpade.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gSpade.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gSpade.set("Amount", new NBTTagFloat(gSpade_spd - 4 /*Attack Speed*/));
-        atkSpd_gSpade.set("Operation", new NBTTagInt(0));
-        atkSpd_gSpade.set("UUIDLeast", new NBTTagInt(11));
-        atkSpd_gSpade.set("UUIDMost", new NBTTagInt(2));
-        modifiers_gSpade.add(atkSpd_gSpade);
-
-        NBTTagCompound knockback_gSpade = new NBTTagCompound();
-        knockback_gSpade.set("Slot", new NBTTagString("mainhand"));
-        knockback_gSpade.set("AttributeName", new NBTTagString("generic.knockbackResistance"));
-        knockback_gSpade.set("Name", new NBTTagString("generic.knockbackResistance"));
-        knockback_gSpade.set("Amount", new NBTTagFloat(gSpade_knockbackPercent /*Knockback Resistance*/));
-        knockback_gSpade.set("Operation", new NBTTagInt(1));
-        knockback_gSpade.set("UUIDLeast", new NBTTagInt(451215));
-        knockback_gSpade.set("UUIDMost", new NBTTagInt(6156));
-        modifiers_gSpade.add(knockback_gSpade);
-
-        compound_gSpade.setInt("HideFlags", 2);
-
-        compound_gSpade.set("AttributeModifiers", modifiers_gSpade);
-        nmsStack_gSpade.setTag(compound_gSpade);
-        i_gSpade = CraftItemStack.asBukkitCopy(nmsStack_gSpade);
-
-        ItemMeta gSpadeMeta = i_gSpade.getItemMeta();
-        gSpadeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Obsidian Mace"));
-        gSpadeMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        ChatColor.RESET + "" + Survival.getColoredLang("Cripple: Enemies hit become weakened"),
-                                        ChatColor.RESET + "" + Survival.getColoredLang("Drain: Gains 2 hearts per hit"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Exhausted: Slowness II"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Expires after disarming for 5 seconds"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("+50% Knockback Resistance")
-                                )
-                );
-        gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.KNOCKBACK, 3, true);
-        gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
-        i_gSpade.setItemMeta(gSpadeMeta);
-
-        ShapedRecipe gSpade1 = new ShapedRecipe(new NamespacedKey(survival, "gspade1"), i_gSpade);
-        ShapedRecipe gSpade2 = new ShapedRecipe(new NamespacedKey(survival, "gspade2"), i_gSpade);
+        ShapedRecipe gSpade1 = new ShapedRecipe(new NamespacedKey(survival, "gspade1"), Items.get(Items.OBSIDIAN_MACE));
+        ShapedRecipe gSpade2 = new ShapedRecipe(new NamespacedKey(survival, "gspade2"), Items.get(Items.OBSIDIAN_MACE));
 
         gSpade1.shape(" @@", " &@", "1  ");
 
@@ -992,82 +209,8 @@ public class RecipeManager {
 
 
         // Todo   ENDER GIANT BLADE RECIPE
-        ItemStack i_gHoe = new ItemStack(Material.GOLDEN_HOE, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_gHoe = CraftItemStack.asNMSCopy(i_gHoe);
-        NBTTagCompound compound_gHoe = nmsStack_gHoe.getTag();
-        if (compound_gHoe == null) {
-            compound_gHoe = new NBTTagCompound();
-            nmsStack_gHoe.setTag(compound_gHoe);
-            compound_gHoe = nmsStack_gHoe.getTag();
-        }
-        NBTTagList modifiers_gHoe = new NBTTagList();
-        int gHoe_dmg = 8;
-        int gHoe_spd = 1;
-        float gHoe_move = -0.5f;
-
-        NBTTagCompound damage_gHoe = new NBTTagCompound();
-        damage_gHoe.set("Slot", new NBTTagString("mainhand"));
-        damage_gHoe.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        damage_gHoe.set("Name", new NBTTagString("generic.attackDamage"));
-        damage_gHoe.set("Amount", new NBTTagInt(gHoe_dmg - 1 /*Attack Damage*/));
-        damage_gHoe.set("Operation", new NBTTagInt(0));
-        damage_gHoe.set("UUIDLeast", new NBTTagInt(485412));
-        damage_gHoe.set("UUIDMost", new NBTTagInt(5544));
-        modifiers_gHoe.add(damage_gHoe);
-
-        NBTTagCompound atkSpd_gHoe = new NBTTagCompound();
-        atkSpd_gHoe.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_gHoe.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gHoe.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gHoe.set("Amount", new NBTTagFloat(gHoe_spd - 4 /*Attack Speed*/));
-        atkSpd_gHoe.set("Operation", new NBTTagInt(0));
-        atkSpd_gHoe.set("UUIDLeast", new NBTTagInt(884654));
-        atkSpd_gHoe.set("UUIDMost", new NBTTagInt(9872));
-        modifiers_gHoe.add(atkSpd_gHoe);
-
-        NBTTagCompound moveSpd_gHoe = new NBTTagCompound();
-        moveSpd_gHoe.set("Slot", new NBTTagString("offhand"));
-        moveSpd_gHoe.set("AttributeName", new NBTTagString("generic.movementSpeed"));
-        moveSpd_gHoe.set("Name", new NBTTagString("generic.movementSpeed"));
-        moveSpd_gHoe.set("Amount", new NBTTagFloat(gHoe_move /*Movement Speed*/));
-        moveSpd_gHoe.set("Operation", new NBTTagInt(1));
-        moveSpd_gHoe.set("UUIDLeast", new NBTTagInt(88454));
-        moveSpd_gHoe.set("UUIDMost", new NBTTagInt(872));
-        modifiers_gHoe.add(moveSpd_gHoe);
-
-        compound_gHoe.setInt("HideFlags", 2);
-
-        compound_gHoe.set("AttributeModifiers", modifiers_gHoe);
-        nmsStack_gHoe.setTag(compound_gHoe);
-        i_gHoe = CraftItemStack.asBukkitCopy(nmsStack_gHoe);
-
-        ItemMeta gHoeMeta = i_gHoe.getItemMeta();
-        gHoeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Ender Giant Blade"));
-        gHoeMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Giant Blade"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + Survival.getColoredLang("Right Click when sprinting:"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Charge: Sprint forward, attack enemies infront"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 5 seconds"),
-                                        ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Half-Shield: Gains Resistance II"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Reflecting incoming damage by 40%")
-                                )
-                );
-        gHoeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
-        i_gHoe.setItemMeta(gHoeMeta);
-
-        ShapedRecipe gHoe1 = new ShapedRecipe(new NamespacedKey(survival, "ghoe1"), i_gHoe);
-        ShapedRecipe gHoe2 = new ShapedRecipe(new NamespacedKey(survival, "ghoe2"), i_gHoe);
+        ShapedRecipe gHoe1 = new ShapedRecipe(new NamespacedKey(survival, "ghoe1"), Items.get(Items.ENDER_GIANT_BLADE));
+        ShapedRecipe gHoe2 = new ShapedRecipe(new NamespacedKey(survival, "ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
 
         gHoe1.shape(" @@", "B*@", "1B ");
 
@@ -1087,78 +230,7 @@ public class RecipeManager {
 
 
         // Todo    BLAZE SWORD RECIPE
-        ItemStack i_gSword = new ItemStack(Material.GOLDEN_SWORD, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_gSword = CraftItemStack.asNMSCopy(i_gSword);
-        NBTTagCompound compound_gSword = nmsStack_gSword.getTag();
-        if (compound_gSword == null) {
-            compound_gSword = new NBTTagCompound();
-            nmsStack_gSword.setTag(compound_gSword);
-            compound_gSword = nmsStack_gSword.getTag();
-        }
-        NBTTagList modifiers_gSword = new NBTTagList();
-        int gSword_dmg = 6;
-        float gSword_spd = 1.6f;
-        int gSword_health = -6;
-
-        NBTTagCompound damage_gSword = new NBTTagCompound();
-        damage_gSword.set("Slot", new NBTTagString("mainhand"));
-        damage_gSword.set("AttributeName", new NBTTagString("generic.attackDamage"));
-        damage_gSword.set("Name", new NBTTagString("generic.attackDamage"));
-        damage_gSword.set("Amount", new NBTTagInt(gSword_dmg - 1 /*Attack Damage*/));
-        damage_gSword.set("Operation", new NBTTagInt(0));
-        damage_gSword.set("UUIDLeast", new NBTTagInt(11154));
-        damage_gSword.set("UUIDMost", new NBTTagInt(441));
-        modifiers_gSword.add(damage_gSword);
-
-        NBTTagCompound atkSpd_gSword = new NBTTagCompound();
-        atkSpd_gSword.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_gSword.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gSword.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_gSword.set("Amount", new NBTTagFloat(gSword_spd - 4 /*Attack Speed*/));
-        atkSpd_gSword.set("Operation", new NBTTagInt(0));
-        atkSpd_gSword.set("UUIDLeast", new NBTTagInt(11));
-        atkSpd_gSword.set("UUIDMost", new NBTTagInt(2));
-        modifiers_gSword.add(atkSpd_gSword);
-
-        NBTTagCompound health_gSword = new NBTTagCompound();
-        health_gSword.set("Slot", new NBTTagString("mainhand"));
-        health_gSword.set("AttributeName", new NBTTagString("generic.maxHealth"));
-        health_gSword.set("Name", new NBTTagString("generic.maxHealth"));
-        health_gSword.set("Amount", new NBTTagFloat(gSword_health /*Health*/));
-        health_gSword.set("Operation", new NBTTagInt(0));
-        health_gSword.set("UUIDLeast", new NBTTagInt(574145));
-        health_gSword.set("UUIDMost", new NBTTagInt(54));
-        modifiers_gSword.add(health_gSword);
-
-        compound_gSword.setInt("HideFlags", 2);
-
-        compound_gSword.set("AttributeModifiers", modifiers_gSword);
-        nmsStack_gSword.setTag(compound_gSword);
-        i_gSword = CraftItemStack.asBukkitCopy(nmsStack_gSword);
-
-        ItemMeta gSwordMeta = i_gSword.getItemMeta();
-        gSwordMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Blaze Sword"));
-        gSwordMeta.setLore
-                (
-                        Arrays.asList
-                                (
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                        ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Fire Resistance"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Fiery: -3 Hearts"),
-                                        "",
-                                        ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("Right Click when sneaking:"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Spread fire on the ground"),
-                                        ChatColor.RESET + "" + " " + Survival.getColoredLang("Costs 1 Durability")
-                                )
-                );
-        gSwordMeta.addEnchant(org.bukkit.enchantments.Enchantment.FIRE_ASPECT, 2, true);
-        i_gSword.setItemMeta(gSwordMeta);
-
-        ShapedRecipe gSword = new ShapedRecipe(new NamespacedKey(survival, "gsword"), i_gSword);
+        ShapedRecipe gSword = new ShapedRecipe(new NamespacedKey(survival, "gsword"), Items.get(Items.BLAZE_SWORD));
         gSword.shape("*@*", "*@*", "*1*");
 
         gSword.setIngredient('@', Material.GOLD_INGOT);
@@ -1305,13 +377,13 @@ public class RecipeManager {
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gSword = new ShapelessRecipe(new NamespacedKey(survival, "repair_gsword"), i_gSword);
+        ShapelessRecipe repair_gSword = new ShapelessRecipe(new NamespacedKey(survival, "repair_gsword"), Items.get(Items.BLAZE_SWORD));
         repair_gSword.addIngredient(Material.GOLDEN_SWORD);
         repair_gSword.addIngredient(2, Material.BLAZE_POWDER);
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gHoe = new ShapelessRecipe(new NamespacedKey(survival, "repair_ghoe"), i_gHoe);
+        ShapelessRecipe repair_gHoe = new ShapelessRecipe(new NamespacedKey(survival, "repair_ghoe"), Items.get(Items.ENDER_GIANT_BLADE));
 
         repair_gHoe.addIngredient(Material.GOLDEN_HOE);
         repair_gHoe.addIngredient(Material.ENDER_PEARL);
@@ -1319,7 +391,7 @@ public class RecipeManager {
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gPickaxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gpickaxe"), i_gPickaxe);
+        ShapelessRecipe repair_gPickaxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gpickaxe"), Items.get(Items.QUARTZ_PICKAXE));
 
         repair_gPickaxe.addIngredient(Material.GOLDEN_PICKAXE);
         repair_gPickaxe.addIngredient(1, Material.QUARTZ_BLOCK);
@@ -1327,25 +399,20 @@ public class RecipeManager {
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gAxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gaxe"), i_gAxe);
+        ShapelessRecipe repair_gAxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gaxe"), Items.get(Items.VALKYRIES_AXE));
 
         repair_gAxe.addIngredient(Material.GOLDEN_AXE);
         repair_gAxe.addIngredient(Material.NETHER_STAR);
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gSpade = new ShapelessRecipe(new NamespacedKey(survival, "repair_gspade"), i_gSpade);
+        ShapelessRecipe repair_gSpade = new ShapelessRecipe(new NamespacedKey(survival, "repair_gspade"), Items.get(Items.OBSIDIAN_MACE));
         repair_gSpade.addIngredient(Material.GOLDEN_SHOVEL, -1);
         repair_gSpade.addIngredient(1, Material.END_CRYSTAL);
 
 
         // Todo WORKBENCH RECIPE
-        ItemStack workbench = new ItemStack(Material.CRAFTING_TABLE, 1);
-        ItemMeta workbenchMeta = workbench.getItemMeta();
-        workbenchMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Workbench"));
-        workbench.setItemMeta(workbenchMeta);
-
-        ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), workbench);
+        ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), Items.get(Items.WORKBENCH));
 
         workbench1.addIngredient(Material.OAK_LOG);
         workbench1.addIngredient(Material.LEATHER);
@@ -1418,40 +485,8 @@ public class RecipeManager {
 
 
         // Todo    FIRESSTRIKER RECIPE
-        ItemStack i_firestriker = new ItemStack(Material.WOODEN_SHOVEL, 1);
-
-        net.minecraft.server.v1_13_R2.ItemStack nmsStack_firestriker = CraftItemStack.asNMSCopy(i_firestriker);
-        NBTTagCompound compound_firestriker = nmsStack_firestriker.getTag();
-        if (compound_firestriker == null) {
-            compound_firestriker = new NBTTagCompound();
-            nmsStack_firestriker.setTag(compound_firestriker);
-            compound_firestriker = nmsStack_firestriker.getTag();
-        }
-        NBTTagList modifiers_firestriker = new NBTTagList();
-        float firestriker_spd = 4f;
-
-        NBTTagCompound atkSpd_firestriker = new NBTTagCompound();
-        atkSpd_firestriker.set("Slot", new NBTTagString("mainhand"));
-        atkSpd_firestriker.set("AttributeName", new NBTTagString("generic.attackSpeed"));
-        atkSpd_firestriker.set("Name", new NBTTagString("generic.attackSpeed"));
-        atkSpd_firestriker.set("Amount", new NBTTagFloat(firestriker_spd - 4 /*Attack Speed*/));
-        atkSpd_firestriker.set("Operation", new NBTTagInt(0));
-        atkSpd_firestriker.set("UUIDLeast", new NBTTagInt(312465));
-        atkSpd_firestriker.set("UUIDMost", new NBTTagInt(4124));
-        modifiers_firestriker.add(atkSpd_firestriker);
-
-        compound_firestriker.setInt("HideFlags", 2);
-
-        compound_firestriker.set("AttributeModifiers", modifiers_firestriker);
-        nmsStack_firestriker.setTag(compound_firestriker);
-        i_firestriker = CraftItemStack.asBukkitCopy(nmsStack_firestriker);
-
-        ItemMeta firestrikerMeta = i_firestriker.getItemMeta();
-        firestrikerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Survival.getColoredLang("Firestriker")));
-        i_firestriker.setItemMeta(firestrikerMeta);
-
-        ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), i_firestriker);
-        ShapelessRecipe firestriker2 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker2"), i_firestriker);
+        ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), Items.get(Items.FIRESTRIKER));
+        ShapelessRecipe firestriker2 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker2"), Items.get(Items.FIRESTRIKER));
 
         firestriker1.addIngredient(Material.FLINT);
         firestriker1.addIngredient(Material.COAL);
@@ -1468,19 +503,19 @@ public class RecipeManager {
         ShapedRecipe torch3 = new ShapedRecipe(new NamespacedKey(survival, "torch3"), new ItemStack(Material.TORCH, 16));
 
         torch1.shape("AAA", "ABA", "AAA");
-        torch1.setIngredient('B', new RecipeChoice.ExactChoice(i_firestriker));
+        torch1.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch1.setIngredient('A', Material.STICK);
         torch1.setGroup("TORCH");
 
         torch2.shape("ACA", "ABA", "AAA");
         torch2.setIngredient('C', Material.COAL);
-        torch2.setIngredient('B', new RecipeChoice.ExactChoice(i_firestriker));
+        torch2.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch2.setIngredient('A', Material.STICK);
         torch2.setGroup("TORCH");
 
         torch3.shape("ACA", "ABA", "AAA");
         torch3.setIngredient('C', Material.CHARCOAL);
-        torch3.setIngredient('B', new RecipeChoice.ExactChoice(i_firestriker));
+        torch3.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch3.setIngredient('A', Material.STICK);
         torch3.setGroup("TORCH");
 
@@ -1509,13 +544,8 @@ public class RecipeManager {
 
 
         // Todo    FERMENTED SKIN RECIPE
-        ItemStack i_fermentedSkin = new ItemStack(Material.RABBIT_HIDE, 1);
-        ItemMeta fermentedSkinMeta = i_fermentedSkin.getItemMeta();
-        fermentedSkinMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Fermented Skin"));
-        i_fermentedSkin.setItemMeta(fermentedSkinMeta);
-
-        ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), i_fermentedSkin);
-        ShapelessRecipe fermentedSkin2 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin2"), i_fermentedSkin);
+        ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), Items.get(Items.FERMENTED_SKIN));
+        ShapelessRecipe fermentedSkin2 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin2"), Items.get(Items.FERMENTED_SKIN));
 
         fermentedSkin1.addIngredient(Material.ROTTEN_FLESH);
         fermentedSkin1.addIngredient(Material.SUGAR);
@@ -1549,17 +579,12 @@ public class RecipeManager {
 
 
         // Todo    MEDIC KIT RECIPE
-        ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
-        ItemMeta medicKitMeta = i_medicKit.getItemMeta();
-        medicKitMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Medical Kit"));
-        i_medicKit.setItemMeta(medicKitMeta);
-
-        ShapedRecipe medicKit1 = new ShapedRecipe(new NamespacedKey(survival, "medickit1"), i_medicKit);
-        ShapedRecipe medicKit2 = new ShapedRecipe(new NamespacedKey(survival, "medickit2"), i_medicKit);
-        ShapedRecipe medicKit3 = new ShapedRecipe(new NamespacedKey(survival, "medickit3"), i_medicKit);
-        ShapedRecipe medicKit4 = new ShapedRecipe(new NamespacedKey(survival, "medickit4"), i_medicKit);
-        ShapedRecipe medicKit5 = new ShapedRecipe(new NamespacedKey(survival, "medickit5"), i_medicKit);
-        ShapedRecipe medicKit6 = new ShapedRecipe(new NamespacedKey(survival, "medickit6"), i_medicKit);
+        ShapedRecipe medicKit1 = new ShapedRecipe(new NamespacedKey(survival, "medickit1"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medicKit2 = new ShapedRecipe(new NamespacedKey(survival, "medickit2"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medicKit3 = new ShapedRecipe(new NamespacedKey(survival, "medickit3"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medicKit4 = new ShapedRecipe(new NamespacedKey(survival, "medickit4"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medicKit5 = new ShapedRecipe(new NamespacedKey(survival, "medickit5"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medicKit6 = new ShapedRecipe(new NamespacedKey(survival, "medickit6"), Items.get(Items.MEDIC_KIT));
 
         medicKit1.shape(" @ ", "ABC", " @ ");
 
@@ -1720,78 +745,129 @@ public class RecipeManager {
         sapling6.setGroup("STICK");
 
 
-
+        // Todo REINFORCED LEATHER BOOTS RECIPE
+        ShapedRecipe leatherBoots = new ShapedRecipe(new NamespacedKey(survival, "leatherboots"), Items.get(Items.REINFORCED_LEATHER_BOOTS));
         leatherBoots.shape("@*@");
 
         leatherBoots.setIngredient('@', Material.IRON_INGOT);
         leatherBoots.setIngredient('*', Material.LEATHER_BOOTS);
 
+
+        // Todo REINFORCED LEATHER TUNIC RECIPE
+        ShapedRecipe leatherChestplate = new ShapedRecipe(new NamespacedKey(survival, "leatherchestplate"), Items.get(Items.REINFORCED_LEATHER_TUNIC));
         leatherChestplate.shape(" @ ", "@*@", " @ ");
 
         leatherChestplate.setIngredient('@', Material.IRON_INGOT);
         leatherChestplate.setIngredient('*', Material.LEATHER_CHESTPLATE);
 
+
+        // Todo REINFORCED LEATHER TROUSERS RECIPE
+        ShapedRecipe leatherLeggings = new ShapedRecipe(new NamespacedKey(survival, "leatherleggings"), Items.get(Items.REINFORCED_LEATHER_TROUSERS));
         leatherLeggings.shape(" @ ", "@*@", " @ ");
 
         leatherLeggings.setIngredient('@', Material.IRON_INGOT);
         leatherLeggings.setIngredient('*', Material.LEATHER_LEGGINGS);
 
+
+        // Todo REINFORCED LEATHER HELMET RECIPE
+        ShapedRecipe leatherHelmet = new ShapedRecipe(new NamespacedKey(survival, "leatherhelmet"), Items.get(Items.REINFORCED_LEATHER_HELMET));
         leatherHelmet.shape("@*@");
 
         leatherHelmet.setIngredient('@', Material.IRON_INGOT);
         leatherHelmet.setIngredient('*', Material.LEATHER_HELMET);
 
+
+        // Todo GOLDEN SABATONS RECIPE
+        ShapedRecipe goldBoots = new ShapedRecipe(new NamespacedKey(survival, "goldboots"), Items.get(Items.GOLDEN_SABATONS));
         goldBoots.shape("@ @", "@ @");
 
         goldBoots.setIngredient('@', Material.GOLD_INGOT);
 
+
+        // Todo GOLDEN GUARD RECIPE
+        ShapedRecipe goldChestplate = new ShapedRecipe(new NamespacedKey(survival, "goldchestplate"), Items.get(Items.GOLDEN_GUARD));
         goldChestplate.shape("@ @", "@@@", "@@@");
 
         goldChestplate.setIngredient('@', Material.GOLD_INGOT);
 
+
+        // Todo GOLDEN GREAVES RECIPE
+        ShapedRecipe goldLeggings = new ShapedRecipe(new NamespacedKey(survival, "goldleggings"), Items.get(Items.GOLDEN_GREAVES));
         goldLeggings.shape("@@@", "@ @", "@ @");
 
         goldLeggings.setIngredient('@', Material.GOLD_INGOT);
 
+
+        // Todo GOLDEN CROWN RECIPE
+        ShapedRecipe goldHelmet = new ShapedRecipe(new NamespacedKey(survival, "goldhelmet"), Items.get(Items.GOLDEN_CROWN));
         goldHelmet.shape("@*@", "@@@");
 
         goldHelmet.setIngredient('@', Material.GOLD_INGOT);
         goldHelmet.setIngredient('*', Material.EMERALD);
 
+
+        // Todo IRON BOOTS RECIPE
+        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "ironboots"), Items.get(Items.IRON_BOOTS));
         ironBoots.shape("@ @", "@ @");
 
         ironBoots.setIngredient('@', Material.IRON_INGOT);
 
+
+        // Todo IRON CHESTPLATE RECIPE
+        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "ironchestplate"), Items.get(Items.IRON_CHESTPLATE));
         ironChestplate.shape("@ @", "@@@", "@@@");
 
         ironChestplate.setIngredient('@', Material.IRON_INGOT);
 
+
+        // Todo IRON LEGGINGS RECIPE
+        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "ironleggings"), Items.get(Items.IRON_LEGGINGS));
         ironLeggings.shape("@@@", "@ @", "@ @");
 
         ironLeggings.setIngredient('@', Material.IRON_INGOT);
 
+
+        // Todo IRON HELMET RECIPE
+        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "ironhelmet"), Items.get(Items.IRON_HELMET));
         ironHelmet.shape("@@@", "@ @");
 
         ironHelmet.setIngredient('@', Material.IRON_INGOT);
 
+
+        // Todo DIAMOND BOOTS RECIPE
+        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamondboots"), Items.get(Items.DIAMOND_BOOTS));
         diamondBoots.shape("@ @", "@ @");
 
         diamondBoots.setIngredient('@', Material.DIAMOND);
 
+
+        // Todo DIAMOND CHESTPLATE RECIPE
+        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamondchestplate"), Items.get(Items.DIAMOND_CHESTPLATE));
         diamondChestplate.shape("@ @", "@@@", "@@@");
 
         diamondChestplate.setIngredient('@', Material.DIAMOND);
 
+
+        // Todo DIAMOND LEGGINGS RECIPE
+        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamondleggings"), Items.get(Items.DIAMOND_LEGGINGS));
         diamondLeggings.shape("@@@", "@ @", "@ @");
 
         diamondLeggings.setIngredient('@', Material.DIAMOND);
 
+
+        // Todo DIAMOND HELMET RECIPE
+        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamondhelmet"), Items.get(Items.DIAMOND_HELMET));
         diamondHelmet.shape("@@@", "@ @");
 
         diamondHelmet.setIngredient('@', Material.DIAMOND);
 
-        recurveBow1.shape(" @1", "#^1", " @1");
 
+
+        // Todo RECURVE BOW RECIPE
+        ShapedRecipe recurveBow1 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow1"), Items.get(Items.RECURVE_BOW));
+        ShapedRecipe recurveBow2 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow2"), Items.get(Items.RECURVE_BOW));
+
+        recurveBow1.shape(" @1", "#^1", " @1");
         recurveBow1.setIngredient('^', Material.BOW);
         recurveBow1.setIngredient('#', Material.PISTON);
         recurveBow1.setIngredient('@', Material.IRON_INGOT);
@@ -1803,6 +879,9 @@ public class RecipeManager {
         recurveBow2.setIngredient('#', Material.OAK_LOG);
         recurveBow2.setIngredient('@', Material.IRON_INGOT);
         recurveBow2.setIngredient('1', Material.STRING);
+
+
+
 
         //Add recipes
         if (settings.getBoolean("Survival.Enabled")) {
