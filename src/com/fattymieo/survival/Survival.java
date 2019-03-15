@@ -58,6 +58,7 @@ public class Survival extends JavaPlugin implements Listener {
 
         // LOAD LANG FILE
         loadLangFile(Bukkit.getConsoleSender());
+        //Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
         // SET VERSION IN CONFIG
         if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
@@ -67,7 +68,7 @@ public class Survival extends JavaPlugin implements Listener {
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "NoPos implemented, F3 coordinates are disabled!");
+            sendColoredConsoleMsg(prefix + "&6NoPos implemented, F3 coordinates are disabled!");
         }
 
         // LOAD RESOURCE PACK
@@ -75,11 +76,11 @@ public class Survival extends JavaPlugin implements Listener {
         boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
         if (resourcePack) {
             if (url.isEmpty()) {
-                Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Resource Pack is not set! Plugin disabled.");
+                sendColoredConsoleMsg(prefix + "&cResource Pack is not set! Plugin disabling");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             } else {
-                Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Resource Pack enabled");
+                sendColoredConsoleMsg(prefix + "&7Resouce pack &aenabled");
             }
         } else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
@@ -110,7 +111,7 @@ public class Survival extends JavaPlugin implements Listener {
         for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
             allowedBlocks.add(Material.getMaterial(type));
 
-        Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
+
 
         // LOAD SCOREBOARDS
         manager = Bukkit.getScoreboardManager();
@@ -126,7 +127,7 @@ public class Survival extends JavaPlugin implements Listener {
         // LOAD CUSTOM RECIPES
         RecipeManager recipes = new RecipeManager(this, settings, Words);
         recipes.loadCustomRecipes();
-        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Custom recipes loaded");
+        sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
         if (settings.getBoolean("LegendaryItems.BlazeSword"))
             BlazeSword();
@@ -184,18 +185,21 @@ public class Survival extends JavaPlugin implements Listener {
     }
 
     public void loadLangFile(CommandSender sender) {
+        String loaded;
         File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
         if (!lang_file.exists()) {
             lang_file = new File(getDataFolder(), "lang_EN.yml");
             saveResource("lang_EN.yml", true);
-            sender.sendMessage(prefix + ChatColor.GREEN + "New lang_EN.yml created");
+            loaded = "&aNew lang_EN.yml created";
         } else {
-            sender.sendMessage(prefix + ChatColor.GREEN + "lang_EN.yml loaded");
+
+            loaded = "&7lang_EN.yml &aloaded";
         }
 
         Map<String, Object> lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
         Words = copyToStringValueMap(lang_data);
         prefix = getColoredLang("Prefix");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
     }
 
     @EventHandler
