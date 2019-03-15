@@ -484,7 +484,7 @@ public enum Items {
                 i_firestriker = CraftItemStack.asBukkitCopy(nmsStack_firestriker);
 
                 ItemMeta firestrikerMeta = i_firestriker.getItemMeta();
-                firestrikerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Survival.getColoredLang("Firestriker")));
+                firestrikerMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Firestriker"));
                 i_firestriker.setItemMeta(firestrikerMeta);
                 return i_firestriker;
             case FERMENTED_SKIN:
