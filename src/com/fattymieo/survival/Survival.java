@@ -11,6 +11,9 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
@@ -24,7 +27,7 @@ import java.util.*;
 
 //Special thanks to DarkBlade12 for ParticleEffect Library
 
-public class Survival extends JavaPlugin {
+public class Survival extends JavaPlugin implements Listener {
     public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -128,7 +131,7 @@ public class Survival extends JavaPlugin {
         registerEvents();
 
         // Load custom recipes
-        RecipeManager recipes = new RecipeManager(this, settings, key, Words);
+        RecipeManager recipes = new RecipeManager(this, settings, Words);
         recipes.loadCustomRecipes();
         Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Custom recipes loaded");
 
@@ -176,6 +179,21 @@ public class Survival extends JavaPlugin {
             }
         }
         sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
+    }
+
+    @EventHandler
+    public void onServerReload(ServerLoadEvent e) {
+        if (e.getType() == ServerLoadEvent.LoadType.RELOAD) {
+            for (Player player : getServer().getOnlinePlayers()) {
+                sendColoredMessage(player, prefix + "&cDETECTED SERVER RELOAD");
+                sendColoredMessage(player, "    &6Recipes may have been impacted");
+                sendColoredMessage(player, "    &6Relog to update your recipes");
+            }
+            sendColoredConsoleMsg(prefix + "&cDETECTED SERVER RELOAD");
+            sendColoredConsoleMsg("    &7- &6Server reloads will impact recipes");
+            sendColoredConsoleMsg("    &7- &6Players will need to relog to re-enable custom recipes");
+            sendColoredConsoleMsg("    &7- &6A warning has been sent to each player that is online right now");
+        }
     }
 
     private static HashMap<String, String> copyToStringValueMap(Map<String, Object> input) {
@@ -227,10 +245,12 @@ public class Survival extends JavaPlugin {
         getCommand("reload-survival").setExecutor(new Reload());
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
             getCommand("snowgen").setExecutor(new SnowGen());
+        getCommand("giveitem").setExecutor(new GiveItem());
     }
 
     private void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(this, this);
 
         if (settings.getBoolean("Survival.Enabled")) {
             pm.registerEvents(new BlockBreak(), this);
