@@ -147,6 +147,11 @@ public class Survival extends JavaPlugin implements Listener {
         //BackpackCheck(); //Testing Backpack
 
         Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Successfully enabled");
+        if (Version.contains("Beta")) {
+            //sendColoredConsoleMsg(prefix + "&7[&cWARN&7] - &eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
+            getLogger().warning(ChatColor.translateAlternateColorCodes('&',
+                    "&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!"));
+        }
     }
 
     public void onDisable() {

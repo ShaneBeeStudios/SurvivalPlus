@@ -1,7 +1,7 @@
 name: SurvivalPlus
 main: com.fattymieo.survival.Survival
 authors: [FattyMieo, ShaneBee]
-version: 3.0.0
+version: 3.0.0-Beta1
 api-version: 1.13
 commands:
    reload-survival:
