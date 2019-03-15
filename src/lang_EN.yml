@@ -16,6 +16,7 @@
 # System Messages
 ####################
 
+"Prefix": "&7[&3SurvivalPlus&7] "
 "NoPerms": "&cYou do not have permission to perform this command"
 
 "Resource pack accepted": "Successfully loaded resource pack."
