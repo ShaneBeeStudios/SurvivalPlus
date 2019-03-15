@@ -12,7 +12,7 @@ public class Reload implements CommandExecutor {
 		String prefix = Survival.getColoredLang("Prefix");
 
 		Survival.instance.reloadConfig();
-		sender.sendMessage(prefix + ChatColor.GREEN + "Config loaded");
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&7Config &aloaded"));
 
 		Survival.instance.loadLangFile(sender);
 		sender.sendMessage(prefix + ChatColor.GREEN + "Reload complete");
