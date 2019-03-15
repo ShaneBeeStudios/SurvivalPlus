@@ -119,10 +119,10 @@ public class Metrics {
         logFailedRequests = config.getBoolean("logFailedRequests", false);
         logSentData = config.getBoolean("logSentData", false);
         logResponseStatusText = config.getBoolean("logResponseStatusText", false);
+        String prefix = Survival.getColoredLang("Prefix");
 
         if (enabled) {
-            String prefix = Survival.getColoredLang("Prefix");
-            Survival.sendColoredConsoleMsg(prefix + "&aMetrics enabled");
+            Survival.sendColoredConsoleMsg(prefix + "&7Metrics &aenabled");
             boolean found = false;
             // Search for all other bStats Metrics classes to see if we are the first one
             for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
@@ -138,6 +138,8 @@ public class Metrics {
                 // We are the first!
                 startSubmitting();
             }
+        } else {
+            Survival.sendColoredConsoleMsg(prefix + "&7Metrics &cdisabled");
         }
     }
 
