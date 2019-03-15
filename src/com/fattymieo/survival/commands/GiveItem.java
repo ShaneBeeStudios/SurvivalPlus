@@ -5,6 +5,7 @@ import com.fattymieo.survival.managers.Items;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -32,7 +33,9 @@ public class GiveItem implements CommandExecutor, TabCompleter {
             try {
                 itemName = Items.valueOf(args[1].toUpperCase());
                 ItemStack item = new ItemStack(Items.get(itemName));
-                Bukkit.getWorld(((Player) player).getWorld().getName()).dropItem(((Player) player).getLocation(), item);
+                Location loc = ((Player) player).getLocation();
+                loc.setY(loc.getY() + 1);
+                Bukkit.getWorld(((Player) player).getWorld().getName()).dropItem(loc, item);
 
                 if (sender instanceof Player) {
                     Survival.sendColoredMessage((Player) sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
