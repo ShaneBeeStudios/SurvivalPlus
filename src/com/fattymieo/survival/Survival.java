@@ -4,6 +4,7 @@ import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
 import com.fattymieo.survival.managers.ScoreBoardManager;
 import com.fattymieo.survival.managers.RecipeManager;
+import com.fattymieo.survival.metrics.Metrics;
 import com.fattymieo.survival.util.NoPos;
 import lib.ParticleEffect;
 import org.bukkit.*;
@@ -145,6 +146,10 @@ public class Survival extends JavaPlugin implements Listener {
             FoodDiversity();
         ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
         //BackpackCheck(); //Testing Backpack
+
+        // Load metrics
+        @SuppressWarnings("unused")
+        Metrics metrics = new Metrics(this);
 
         Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Successfully enabled");
         if (Version.contains("Beta")) {
