@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import com.fattymieo.survival.managers.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -239,6 +240,10 @@ public class WorkbenchShare implements Listener
 	{
 		if(e.isCancelled()) return;
 		Block workbench = e.getBlock();
+		if (e.getBlock().getType() == Material.CRAFTING_TABLE) {
+			e.setDropItems(false);
+			workbench.getWorld().dropItem(workbench.getLocation(), new ItemStack(Items.get(Items.WORKBENCH)));
+		}
 
 		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			return;
@@ -281,6 +286,7 @@ public class WorkbenchShare implements Listener
 			if(item != null)
 				workbench.getWorld().dropItem(workbench.getLocation(), item);
 		}
+
 		
 		workbench.removeMetadata("shared_players", Survival.instance);
 	}
