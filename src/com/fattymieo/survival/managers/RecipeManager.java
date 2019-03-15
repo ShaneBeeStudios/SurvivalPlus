@@ -1,20 +1,17 @@
 package com.fattymieo.survival.managers;
 
 import com.fattymieo.survival.Survival;
-import net.minecraft.server.v1_13_R2.*;
-import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.*;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class RecipeManager {
 
@@ -862,7 +859,6 @@ public class RecipeManager {
         diamondHelmet.setIngredient('@', Material.DIAMOND);
 
 
-
         // Todo RECURVE BOW RECIPE
         ShapedRecipe recurveBow1 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow1"), Items.get(Items.RECURVE_BOW));
         ShapedRecipe recurveBow2 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow2"), Items.get(Items.RECURVE_BOW));
@@ -879,8 +875,6 @@ public class RecipeManager {
         recurveBow2.setIngredient('#', Material.OAK_LOG);
         recurveBow2.setIngredient('@', Material.IRON_INGOT);
         recurveBow2.setIngredient('1', Material.STRING);
-
-
 
 
         //Add recipes
@@ -1202,4 +1196,5 @@ public class RecipeManager {
             survival.getServer().addRecipe(r);
         }
     }
+
 }
