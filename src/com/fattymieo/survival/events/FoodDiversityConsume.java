@@ -61,6 +61,7 @@ public class FoodDiversityConsume implements Listener {
 				break;
 			case APPLE:
 			case GOLDEN_APPLE:
+			case ENCHANTED_GOLDEN_APPLE:
 				addStats(player, carbon, 50);
 				addStats(player, protein, 0);
 				addStats(player, salts, 70);
@@ -76,6 +77,7 @@ public class FoodDiversityConsume implements Listener {
 				addStats(player, salts, 35);
 				break;
 			case MUSHROOM_STEW:
+			case BEETROOT_SOUP:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 50);
 				addStats(player, salts, 200);
@@ -122,6 +124,8 @@ public class FoodDiversityConsume implements Listener {
 				break;
 			case SALMON:
 			case COD:
+			case PUFFERFISH:
+			case TROPICAL_FISH:
 				addStats(player, carbon, 0);
 				addStats(player, protein, 75);
 				addStats(player, salts, 0);
@@ -141,6 +145,10 @@ public class FoodDiversityConsume implements Listener {
 				addStats(player, protein, 50);
 				addStats(player, salts, 0);
 				break;
+			case DRIED_KELP:
+				addStats(player, carbon, 15);
+				addStats(player, protein, 50);
+				addStats(player, salts, 50);
 			default:
 		}
 	}
@@ -174,9 +182,24 @@ public class FoodDiversityConsume implements Listener {
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		carbon.getScore(player.getName()).setScore(960);
-		protein.getScore(player.getName()).setScore(240);
-		salts.getScore(player.getName()).setScore(360);
+		switch (player.getWorld().getDifficulty()) {
+			case PEACEFUL:
+			case EASY:
+				carbon.getScore(player.getName()).setScore(960);
+				protein.getScore(player.getName()).setScore(240);
+				salts.getScore(player.getName()).setScore(360);
+				break;
+			case NORMAL:
+				carbon.getScore(player.getName()).setScore(480);
+				protein.getScore(player.getName()).setScore(120);
+				salts.getScore(player.getName()).setScore(180);
+				break;
+			case HARD:
+				carbon.getScore(player.getName()).setScore(96);
+				protein.getScore(player.getName()).setScore(24);
+				salts.getScore(player.getName()).setScore(36);
+				break;
+		}
 	}
 
 	@EventHandler
@@ -196,7 +219,7 @@ public class FoodDiversityConsume implements Listener {
 	private double addMultiplier(Player player) {
 		double damageMultiplier = 1;
 
-		if (protein.getScore(player.getName()).getScore() <= 0) {
+		if (protein.getScore(player.getName()).getScore() <= 75) {
 			switch (player.getWorld().getDifficulty()) {
 				case EASY:
 					damageMultiplier *= 1.25;
@@ -210,7 +233,7 @@ public class FoodDiversityConsume implements Listener {
 				default:
 			}
 		}
-		if (salts.getScore(player.getName()).getScore() <= 0) {
+		if (salts.getScore(player.getName()).getScore() <= 100) {
 			switch (player.getWorld().getDifficulty()) {
 				case EASY:
 					damageMultiplier *= 1.25;
@@ -224,7 +247,6 @@ public class FoodDiversityConsume implements Listener {
 				default:
 			}
 		}
-
 		return damageMultiplier;
 	}
 
