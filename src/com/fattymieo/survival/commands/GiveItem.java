@@ -19,10 +19,12 @@ import java.util.List;
 
 public class GiveItem implements CommandExecutor, TabCompleter {
 
-    private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+    //private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        String prefix = Survival.getColoredLang("Prefix");
         if (args.length != 2) return true;
         OfflinePlayer player = Bukkit.getPlayer(args[0]);
         Items itemName;
@@ -57,12 +59,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length == 0 || args.length >= 3) {
             return ImmutableList.of();
         }
-        StringBuilder builder = new StringBuilder();
-        for (String arg : args) {
-            builder.append(arg + " ");
-        }
         if (args.length <= 1) return null;
-        String arg = builder.toString().trim();
         ArrayList<String> matches = new ArrayList<>();
         for (Items name : Items.values()) {
             if (StringUtil.startsWithIgnoreCase(name.toString(), args[1])) {
