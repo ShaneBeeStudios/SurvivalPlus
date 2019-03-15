@@ -5,6 +5,7 @@ version: 3.0.0
 api-version: 1.13
 commands:
    reload-survival:
+      aliases: [survival-reload]
       description: Reload configurations
       usage: /<command>
       permission: survivalplus.reload
@@ -28,3 +29,4 @@ commands:
       description: Give a SurvivalPlus item to a player
       usage: /<command> <player> <item>
       permission: survivalplus.giveitem
+      aliases: [survivalitem, itemgive]
