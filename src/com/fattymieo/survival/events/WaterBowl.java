@@ -1,5 +1,6 @@
 package com.fattymieo.survival.events;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,7 +41,7 @@ public class WaterBowl implements Listener {
 
 					ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
 					ItemMeta beetrootMeta = i_beetroot.getItemMeta();
-					beetrootMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Water Bowl"));
+					beetrootMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.water_bowl));
 					i_beetroot.setItemMeta(beetrootMeta);
 
 					itemDrop.getWorld().dropItem(itemLocation, i_beetroot);

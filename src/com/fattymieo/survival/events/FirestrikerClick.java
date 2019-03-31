@@ -50,7 +50,7 @@ public class FirestrikerClick implements Listener {
 						Random rand = new Random();
 						player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Survival.getColoredLang("Firestriker"));
+						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Utils.getColoredString(Survival.lang.firestriker));
 						player.openInventory(firestriker);
 						firestriker.setItem(1, event.getItem());
 						event.setCancelled(true);
@@ -137,7 +137,7 @@ public class FirestrikerClick implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (!event.getView().getTitle().equalsIgnoreCase(Survival.getColoredLang("Firestriker"))) {
+		if (!event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) {
 			return;
 		}
 
@@ -225,7 +225,7 @@ public class FirestrikerClick implements Listener {
 
 	@EventHandler
 	public void onCloseInventory(InventoryCloseEvent event) {
-		if (event.getView().getTitle().equalsIgnoreCase(Survival.getColoredLang("Firestriker"))) // Update due to deprecation
+		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
 			Player player = (Player) event.getPlayer();

@@ -1,7 +1,11 @@
 package com.fattymieo.survival.util;
 
+import net.md_5.bungee.api.ChatMessageType;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Tag;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class Utils {
 
@@ -218,6 +222,14 @@ public class Utils {
                 return true;
         }
         return false;
+    }
+
+    public static void sendColoredMsg(CommandSender player, String msg) {
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+    }
+
+    public static String getColoredString(String string) {
+        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
 }

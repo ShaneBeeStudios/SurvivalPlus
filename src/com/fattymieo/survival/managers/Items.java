@@ -1,6 +1,8 @@
 package com.fattymieo.survival.managers;
 
 import com.fattymieo.survival.Survival;
+import com.fattymieo.survival.util.Utils;
+import com.lmax.disruptor.util.Util;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -50,13 +52,13 @@ public enum Items {
             case HATCHET:
                 ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
                 ItemMeta hatchetMeta = i_hatchet.getItemMeta();
-                hatchetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hatchet"));
+                hatchetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.hatchet));
                 i_hatchet.setItemMeta(hatchetMeta);
                 return i_hatchet;
             case MATTOCK:
                 ItemStack i_mattock = new ItemStack(Material.WOODEN_PICKAXE, 1);
                 ItemMeta mattockMeta = i_mattock.getItemMeta();
-                mattockMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Mattock"));
+                mattockMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.mattock));
                 i_mattock.setItemMeta(mattockMeta);
                 return i_mattock;
             case SHIV:
@@ -100,20 +102,20 @@ public enum Items {
                 i_shiv = CraftItemStack.asBukkitCopy(nmsStack_shiv);
 
                 ItemMeta shivMeta = i_shiv.getItemMeta();
-                shivMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Shiv"));
+                shivMeta.setDisplayName(Utils.getColoredString(Survival.lang.shiv));
                 shivMeta.setLore
                         (
                                 Arrays.asList
                                         (
-                                                ChatColor.RESET + "" + Survival.getColoredLang("Poisoned: Poison enemy when hit"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.poisoned_enemy),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + shiv_dmg + " " + Survival.getColoredLang("Attack Damage"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Poisoning Effect retains"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Reduce chance by 50%")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_off_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.poisoned_retain),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.reduce_50)
                                         )
                         );
                 i_shiv.setItemMeta(shivMeta);
@@ -121,7 +123,7 @@ public enum Items {
             case HAMMER:
                 ItemStack i_hammer = new ItemStack(Material.WOODEN_SWORD, 1);
                 ItemMeta hammerMeta = i_hammer.getItemMeta();
-                hammerMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Hammer"));
+                hammerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.hammer));
                 i_hammer.setItemMeta(hammerMeta);
                 return i_hammer;
             case VALKYRIES_AXE:
@@ -155,19 +157,19 @@ public enum Items {
                 i_gAxe = CraftItemStack.asBukkitCopy(nmsStack_gAxe);
 
                 ItemMeta gAxeMeta = i_gAxe.getItemMeta();
-                gAxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Valkyrie's Axe"));
+                gAxeMeta.setDisplayName(ChatColor.RESET + "" + Utils.getColoredString(Survival.lang.valkyrie_axe));
                 gAxeMeta.setLore
                         (
                                 Arrays.asList
                                         (
-                                                ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Valkyrie's Axe"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.valkyrie_axe_unable_dual),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gAxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Spin: Spin your axe in circle, attack all nearby enemies"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 1 second"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.valkyrie_axe_spin),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.valkyrie_axe_cooldown),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.decrease_hunger_value)
                                         )
                         );
                 gAxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
@@ -214,16 +216,16 @@ public enum Items {
                 i_gPickaxe = CraftItemStack.asBukkitCopy(nmsStack_gPickaxe);
 
                 ItemMeta gPickaxeMeta = i_gPickaxe.getItemMeta();
-                gPickaxeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Quartz Breaker"));
+                gPickaxeMeta.setDisplayName(Utils.getColoredString(Survival.lang.quartz_breaker));
                 gPickaxeMeta.setLore
                         (
                                 Arrays.asList
                                         (
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gPickaxe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Haste")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.haste)
                                         )
                         );
                 gPickaxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.SILK_TOUCH, 1, false);
@@ -281,20 +283,20 @@ public enum Items {
                 i_gSpade = CraftItemStack.asBukkitCopy(nmsStack_gSpade);
 
                 ItemMeta gSpadeMeta = i_gSpade.getItemMeta();
-                gSpadeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Obsidian Mace"));
+                gSpadeMeta.setDisplayName(Utils.getColoredString(Survival.lang.obsidian_mace));
                 gSpadeMeta.setLore
                         (
                                 Arrays.asList
                                         (
-                                                ChatColor.RESET + "" + Survival.getColoredLang("Cripple: Enemies hit become weakened"),
-                                                ChatColor.RESET + "" + Survival.getColoredLang("Drain: Gains 2 hearts per hit"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.cripple_hit),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.drain_hit),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gSpade_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Exhausted: Slowness II"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Expires after disarming for 5 seconds"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("+50% Knockback Resistance")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.exhausted_slow),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.expire_disarm),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.knockback_resistance)
                                         )
                         );
                 gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.KNOCKBACK, 3, true);
@@ -353,24 +355,24 @@ public enum Items {
                 i_gHoe = CraftItemStack.asBukkitCopy(nmsStack_gHoe);
 
                 ItemMeta gHoeMeta = i_gHoe.getItemMeta();
-                gHoeMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Ender Giant Blade"));
+                gHoeMeta.setDisplayName(Utils.getColoredString(Survival.lang.ender_giant_blade));
                 gHoeMeta.setLore
                         (
                                 Arrays.asList
                                         (
-                                                ChatColor.RESET + "" + Survival.getColoredLang("Unable to dual-wield with Giant Blade"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gHoe_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + Survival.getColoredLang("Right Click when sprinting:"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Charge: Sprint forward, attack enemies infront"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Cooldown: 5 seconds"),
-                                                ChatColor.RESET + "" + "  " + Survival.getColoredLang("Decreases hunger value"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.right_click_sprinting),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.ender_giant_blade_charge),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.ender_giant_blade_cooldown),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.decrease_hunger_value),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in off hand:"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Half-Shield: Gains Resistance II"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Reflecting incoming damage by 40%")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_off_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.half_shield_resistance),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.reflecting_coming)
                                         )
                         );
                 gHoeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
@@ -428,21 +430,21 @@ public enum Items {
                 i_gSword = CraftItemStack.asBukkitCopy(nmsStack_gSword);
 
                 ItemMeta gSwordMeta = i_gSword.getItemMeta();
-                gSwordMeta.setDisplayName(ChatColor.RESET + "" + ChatColor.AQUA + Survival.getColoredLang("Blaze Sword"));
+                gSwordMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.blaze_sword));
                 gSwordMeta.setLore
                         (
                                 Arrays.asList
                                         (
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("When in main hand:"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_spd + " " + Survival.getColoredLang("Attack Speed"),
-                                                ChatColor.RESET + "" + ChatColor.GRAY + " " + gSword_dmg + " " + Survival.getColoredLang("Attack Damage"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Fire Resistance"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Fiery: -3 Hearts"),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.in_main_hand),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_speed),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.attack_damage),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.blaze_sword_fire_resistance),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.blaze_sword_fiery),
                                                 "",
-                                                ChatColor.RESET + "" + ChatColor.GRAY + Survival.getColoredLang("Right Click when sneaking:"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Spread fire on the ground"),
-                                                ChatColor.RESET + "" + " " + Survival.getColoredLang("Costs 1 Durability")
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.right_click_sneaking),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.blaze_sword_spread_fire),
+                                                ChatColor.RESET + Utils.getColoredString(Survival.lang.blaze_sword_cost)
                                         )
                         );
                 gSwordMeta.addEnchant(org.bukkit.enchantments.Enchantment.FIRE_ASPECT, 2, true);
@@ -451,7 +453,7 @@ public enum Items {
             case WORKBENCH:
                 ItemStack workbench = new ItemStack(Material.CRAFTING_TABLE, 1);
                 ItemMeta workbenchMeta = workbench.getItemMeta();
-                workbenchMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Workbench"));
+                workbenchMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.workbench));
                 workbench.setItemMeta(workbenchMeta);
                 return workbench;
             case FIRESTRIKER:
@@ -484,19 +486,19 @@ public enum Items {
                 i_firestriker = CraftItemStack.asBukkitCopy(nmsStack_firestriker);
 
                 ItemMeta firestrikerMeta = i_firestriker.getItemMeta();
-                firestrikerMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Firestriker"));
+                firestrikerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.firestriker));
                 i_firestriker.setItemMeta(firestrikerMeta);
                 return i_firestriker;
             case FERMENTED_SKIN:
                 ItemStack i_fermentedSkin = new ItemStack(Material.RABBIT_HIDE, 1);
                 ItemMeta fermentedSkinMeta = i_fermentedSkin.getItemMeta();
-                fermentedSkinMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Fermented Skin"));
+                fermentedSkinMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.fermented_skin));
                 i_fermentedSkin.setItemMeta(fermentedSkinMeta);
                 return i_fermentedSkin;
             case MEDIC_KIT:
                 ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
                 ItemMeta medicKitMeta = i_medicKit.getItemMeta();
-                medicKitMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Medical Kit"));
+                medicKitMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.medical_kit));
                 i_medicKit.setItemMeta(medicKitMeta);
                 return i_medicKit;
             case REINFORCED_LEATHER_BOOTS:
@@ -527,7 +529,7 @@ public enum Items {
                 i_leatherBoots = CraftItemStack.asBukkitCopy(nmsStack_leatherBoots);
 
                 ItemMeta leatherBootsMeta = i_leatherBoots.getItemMeta();
-                leatherBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Boots"));
+                leatherBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_boots));
 
                 i_leatherBoots.setItemMeta(leatherBootsMeta);
                 return i_leatherBoots;
@@ -535,7 +537,7 @@ public enum Items {
                 ItemStack i_leatherChestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
 
                 ItemMeta leatherChestplateMeta = i_leatherChestplate.getItemMeta();
-                leatherChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Tunic"));
+                leatherChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_tunic));
 
                 i_leatherChestplate.setItemMeta(leatherChestplateMeta);
                 return i_leatherChestplate;
@@ -544,7 +546,7 @@ public enum Items {
                 ItemStack i_leatherLeggings = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
 
                 ItemMeta leatherLeggingsMeta = i_leatherLeggings.getItemMeta();
-                leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Trousers"));
+                leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_pants));
 
                 i_leatherLeggings.setItemMeta(leatherLeggingsMeta);
                 return i_leatherLeggings;
@@ -553,7 +555,7 @@ public enum Items {
                 ItemStack i_leatherHelmet = new ItemStack(Material.CHAINMAIL_HELMET, 1);
 
                 ItemMeta leatherHelmetMeta = i_leatherHelmet.getItemMeta();
-                leatherHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Reinforced Leather Hat"));
+                leatherHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_hat));
 
                 i_leatherHelmet.setItemMeta(leatherHelmetMeta);
                 return i_leatherHelmet;
@@ -585,7 +587,7 @@ public enum Items {
                 i_goldBoots = CraftItemStack.asBukkitCopy(nmsStack_goldBoots);
 
                 ItemMeta goldBootsMeta = i_goldBoots.getItemMeta();
-                goldBootsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Sabatons"));
+                goldBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_sabatons));
                 goldBootsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_FALL, 4, true);
 
                 i_goldBoots.setItemMeta(goldBootsMeta);
@@ -618,7 +620,7 @@ public enum Items {
                 i_goldChestplate = CraftItemStack.asBukkitCopy(nmsStack_goldChestplate);
 
                 ItemMeta goldChestplateMeta = i_goldChestplate.getItemMeta();
-                goldChestplateMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Guard"));
+                goldChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_guard));
                 goldChestplateMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
 
                 i_goldChestplate.setItemMeta(goldChestplateMeta);
@@ -651,7 +653,7 @@ public enum Items {
                 i_goldLeggings = CraftItemStack.asBukkitCopy(nmsStack_goldLeggings);
 
                 ItemMeta goldLeggingsMeta = i_goldLeggings.getItemMeta();
-                goldLeggingsMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Greaves"));
+                goldLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_greaves));
                 goldLeggingsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
 
                 i_goldLeggings.setItemMeta(goldLeggingsMeta);
@@ -685,7 +687,7 @@ public enum Items {
                 i_goldHelmet = CraftItemStack.asBukkitCopy(nmsStack_goldHelmet);
 
                 ItemMeta goldHelmetMeta = i_goldHelmet.getItemMeta();
-                goldHelmetMeta.setDisplayName(ChatColor.RESET + Survival.getColoredLang("Golden Crown"));
+                goldHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_crown));
                 goldHelmetMeta.addEnchant(org.bukkit.enchantments.Enchantment.MENDING, 1, true);
 
                 i_goldHelmet.setItemMeta(goldHelmetMeta);
@@ -1004,7 +1006,8 @@ public enum Items {
                 ItemStack i_recurveBow = new ItemStack(Material.BOW, 1);
 
                 ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-                recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE + Survival.getColoredLang("Recurved")));
+                recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
+                        Utils.getColoredString(Survival.lang.recurved)));
                 recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
                 i_recurveBow.setItemMeta(recurveBowMeta);
                 return i_recurveBow;

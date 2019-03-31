@@ -3,6 +3,7 @@ package com.fattymieo.survival.events;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fattymieo.survival.util.Utils;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -60,7 +61,7 @@ public class CauldronWaterBottle implements Listener {
 								if (fire != null && fire.getType() == Material.FIRE) {
 									List<String> lore = Arrays.asList
 											(
-													ChatColor.RESET + "" + ChatColor.GRAY + Survival.Words.get("Purified")
+													ChatColor.RESET + Utils.getColoredString("&7" + Survival.lang.purified_water)
 											);
 									meta.setLore(lore);
 								}

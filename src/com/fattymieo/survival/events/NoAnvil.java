@@ -1,5 +1,6 @@
 package com.fattymieo.survival.events;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -43,7 +44,7 @@ public class NoAnvil implements Listener {
 								|| item.getType() == Material.WOODEN_SWORD) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
-							e.getWhoClicked().sendMessage(ChatColor.RED + Survival.Words.get("You cannot rename or repair ") + item.getItemMeta().getDisplayName() + ChatColor.RED + Survival.Words.get("period"));
+							e.getWhoClicked().sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.no_rename) + item.getItemMeta().getDisplayName() + ChatColor.RED + Utils.getColoredString(Survival.lang.period));
 						}
 					}
 				}

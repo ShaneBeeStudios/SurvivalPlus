@@ -1,5 +1,6 @@
 package com.fattymieo.survival.commands;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,13 +23,13 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 		String prefix = "&7[&3SurvivalPlus&7] ";
 		if (command.getName().equalsIgnoreCase("togglechat")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(Survival.Words.get("Works on players only"));
+				sender.sendMessage(Utils.getColoredString(Survival.lang.players_only));
 				return true;
 			}
 			Player player = (Player) sender;
 			//if (LocalChatDist > -1)
 			if (Survival.LocalChatDist <= -1) {
-				player.sendMessage(Survival.Words.get("Toggled Chat Disabled"));
+				player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_disabled));
 				return true;
 			}
 
@@ -37,12 +38,12 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 				switch (args[0]) {
 					case "local":
 					case "l":
-						player.sendMessage(Survival.Words.get("Toggled to Local Chat"));
+						player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_local));
 						chat.getScore(player.getName()).setScore(0);
 						break;
 					case "global":
 					case "g":
-						player.sendMessage(Survival.Words.get("Toggled to Global Chat"));
+						player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_global));
 						chat.getScore(player.getName()).setScore(1);
 						break;
 					default:
@@ -50,14 +51,14 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 				}
 			} else if (args.length == 0) {
 				if (chat.getScore(player.getName()).getScore() == 0) {
-					player.sendMessage(Survival.Words.get("Toggled to Global Chat"));
+					player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_global));
 					chat.getScore(player.getName()).setScore(1);
 				} else {
-					player.sendMessage(Survival.Words.get("Toggled to Local Chat"));
+					player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_local));
 					chat.getScore(player.getName()).setScore(0);
 				}
 			} else {
-				sender.sendMessage(ChatColor.RED + Survival.Words.get("Invalid Arguments"));
+				sender.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.invalid_arg));
 				return false;
 			}
 

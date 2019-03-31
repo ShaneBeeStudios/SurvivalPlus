@@ -2,6 +2,7 @@ package com.fattymieo.survival.commands;
 
 import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.managers.Items;
+import com.fattymieo.survival.util.Utils;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,12 +21,9 @@ import java.util.List;
 
 public class GiveItem implements CommandExecutor, TabCompleter {
 
-    //private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
-
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        String prefix = Survival.getColoredLang("Prefix");
+        String prefix = Utils.getColoredString(Survival.lang.prefix);
         if (args.length != 2) return true;
         OfflinePlayer player = Bukkit.getPlayer(args[0]);
         Items itemName;
@@ -38,21 +36,16 @@ public class GiveItem implements CommandExecutor, TabCompleter {
                 Bukkit.getWorld(((Player) player).getWorld().getName()).dropItem(loc, item);
 
                 if (sender instanceof Player) {
-                    Survival.sendColoredMessage((Player) sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
+
+                    Utils.sendColoredMsg(sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
                 } else {
-                    Survival.sendColoredConsoleMsg(prefix + "&6CONSOLE gave &b" + itemName + " &6to &b" + player.getName());
+                    Utils.sendColoredMsg(sender, prefix + "&6CONSOLE gave &b" + itemName + " &6to &b" + player.getName());
                 }
             } catch (IllegalArgumentException ignore) {
-                if (sender instanceof Player)
-                    Survival.sendColoredMessage((Player) sender, prefix + "&b" + args[1] + "&c is not an item");
-                else
-                    Survival.sendColoredConsoleMsg(prefix + "&b" + args[1] + "&c is not an item");
+                Utils.sendColoredMsg(sender, prefix + "&b" + args[1] + "&c is not an item");
             }
         } else {
-            if (sender instanceof Player)
-                Survival.sendColoredMessage((Player) sender, prefix + "&b" + args[0] + " &cis not online");
-            else
-                Survival.sendColoredConsoleMsg(prefix + "&b" + args[0] + " &cis not online");
+            Utils.sendColoredMsg(sender, prefix + "&b" + args[0] + " &cis not online");
         }
         return true;
     }

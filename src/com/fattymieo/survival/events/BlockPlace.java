@@ -60,7 +60,7 @@ public class BlockPlace implements Listener {
 					} else {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Hammer on this task"));
+						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_hammer));
 					}
 				}
 			}

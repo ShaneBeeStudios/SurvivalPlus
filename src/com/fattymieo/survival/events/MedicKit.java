@@ -2,6 +2,7 @@ package com.fattymieo.survival.events;
 
 import java.util.Random;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -53,8 +54,8 @@ public class MedicKit implements Listener {
 								healing.getScore(player.getName()).setScore(1);
 								healing.getScore(healed.getName()).setScore(1);
 								healed.teleport(Survival.lookAt(healed.getLocation(), player.getLocation()));
-								player.sendMessage(Survival.Words.get("�aHealing ") + ChatColor.RESET + healed.getDisplayName() + Survival.Words.get("�a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("�a on hand"));
-								healed.sendMessage(Survival.Words.get("�aYou are being healed by ") + ChatColor.RESET + player.getDisplayName() + Survival.Words.get("�a, stay still"));
+								player.sendMessage(Utils.getColoredString(Survival.lang.healing) + ChatColor.RESET + healed.getDisplayName() + Utils.getColoredString(Survival.lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.medical_kit) + Utils.getColoredString(Survival.lang.on_hand));
+								healed.sendMessage(Utils.getColoredString(Survival.lang.being_healed) + ChatColor.RESET + player.getDisplayName() + Utils.getColoredString(Survival.lang.stay_still));
 
 								healTimes.getScore(player.getName()).setScore(5);
 								final Runnable task = new Runnable() {
@@ -84,8 +85,8 @@ public class MedicKit implements Listener {
 												healing.getScore(player.getName()).setScore(0);
 												healing.getScore(healed.getName()).setScore(0);
 
-												player.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
-												healed.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
+												player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
+												healed.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
 
 												player.getInventory().removeItem(i_MedicKit());
 											}
@@ -93,8 +94,8 @@ public class MedicKit implements Listener {
 											healing.getScore(player.getName()).setScore(0);
 											healing.getScore(healed.getName()).setScore(0);
 
-											player.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
-											healed.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
+											player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
+											healed.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
 
 											player.getInventory().removeItem(i_MedicKit());
 										}
@@ -118,7 +119,7 @@ public class MedicKit implements Listener {
 				if (healing.getScore(player.getName()).getScore() <= 0) {
 					if (player.isSneaking()) {
 						healing.getScore(player.getName()).setScore(1);
-						player.sendMessage(Survival.Words.get("�aHealing �ryourself") + Survival.Words.get("�a, keep ") + ChatColor.DARK_GREEN + Survival.Words.get("Medical Kit") + Survival.Words.get("�a on hand"));
+						player.sendMessage(Utils.getColoredString(Survival.lang.healing_self) + Utils.getColoredString(Survival.lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.medical_kit) + Utils.getColoredString(Survival.lang.on_hand));
 
 						healTimes.getScore(player.getName()).setScore(5);
 						final Runnable task = new Runnable() {
@@ -145,14 +146,14 @@ public class MedicKit implements Listener {
 									} else {
 										healing.getScore(player.getName()).setScore(0);
 
-										player.sendMessage(ChatColor.DARK_GREEN + Survival.Words.get("Healing complete"));
+										player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
 
 										player.getInventory().removeItem(i_MedicKit());
 									}
 								} else {
 									healing.getScore(player.getName()).setScore(0);
 
-									player.sendMessage(ChatColor.DARK_RED + Survival.Words.get("Healing interrupted"));
+									player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
 
 									player.getInventory().removeItem(i_MedicKit());
 								}

@@ -60,7 +60,7 @@ public class CompassWaypoint implements Listener {
 						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
 
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Compass has pointed at") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(Survival.lang.compass_pointed) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 						loc.add(0.5, 0.5, 0.5);
 						player.setCompassTarget(loc);
 						ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0, 25, loc, player);
@@ -68,7 +68,7 @@ public class CompassWaypoint implements Listener {
 
 					if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 						Location loc = player.getLocation().getBlock().getLocation();
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Survival.Words.get("Your coordinates is") + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(Survival.lang.compass_coords) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
 					}
 				}
 			}

@@ -3,6 +3,7 @@ package com.fattymieo.survival.events;
 import java.util.Collection;
 import java.util.Random;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -75,7 +76,7 @@ public class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Survival.Words.get("Lack of energy, unable to spin"));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.lack_of_energy));
 						}
 					}
 				}
@@ -85,7 +86,7 @@ public class Valkyrie implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() == 2) {
-					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Valkyrie's Axe"));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.valkyrie_axe_unable_dual));
 				}
 			}
 		}
@@ -124,7 +125,7 @@ public class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Survival.Words.get("Lack of energy, unable to spin"));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.lack_of_energy));
 						}
 					}
 				}

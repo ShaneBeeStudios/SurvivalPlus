@@ -2,6 +2,7 @@ package com.fattymieo.survival.events;
 
 import java.util.List;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -88,12 +89,12 @@ public class GrapplingHook implements Listener {
 				}
 			} else {
 				event.setCancelled(true);
-				p.sendMessage(ChatColor.RED + Survival.Words.get("Must use a fishing hook with empty off hand"));
+				p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.fishing_off_hand));
 				p.updateInventory();
 			}
 		} else {
 			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + Survival.Words.get("Must use a fishing hook with main hand"));
+			p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.fishing_main_hand));
 			p.updateInventory();
 		}
 	}

@@ -1,6 +1,7 @@
 package com.fattymieo.survival.commands;
 
 import com.fattymieo.survival.Survival;
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +25,7 @@ public class Status implements CommandExecutor, TabCompleter {
 		String prefix = "&7[&3SurvivalPlus&7] ";
 		if (command.getName().equalsIgnoreCase("status")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(Survival.Words.get("Works on players only"));
+				sender.sendMessage(Utils.getColoredString(Survival.lang.players_only));
 				return false;
 			}
 

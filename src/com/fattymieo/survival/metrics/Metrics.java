@@ -2,6 +2,7 @@ package com.fattymieo.survival.metrics;
 
 
 import com.fattymieo.survival.Survival;
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -119,7 +120,7 @@ public class Metrics {
         logFailedRequests = config.getBoolean("logFailedRequests", false);
         logSentData = config.getBoolean("logSentData", false);
         logResponseStatusText = config.getBoolean("logResponseStatusText", false);
-        String prefix = Survival.getColoredLang("Prefix");
+        String prefix = Utils.getColoredString(Survival.lang.prefix);
 
         if (enabled) {
             Survival.sendColoredConsoleMsg(prefix + "&7Metrics &aenabled");

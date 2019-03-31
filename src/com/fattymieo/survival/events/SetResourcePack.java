@@ -1,5 +1,6 @@
 package com.fattymieo.survival.events;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -58,11 +59,11 @@ public class SetResourcePack implements Listener {
 		if (Survival.settings.getBoolean("MultiWorld.NotifyMessage"))
 			if (e.getStatus() == Status.DECLINED) {
 				player.sendMessage(" ");
-				player.sendMessage(prefix + ChatColor.RED + Survival.Words.get("Resource pack declined"));
-				player.sendMessage("   " + ChatColor.GOLD+ Survival.Words.get("Please apply the requested Resource Pack"));
-				player.sendMessage("   " + ChatColor.GOLD + Survival.Words.get("The resource pack is required for visual effects"));
+				player.sendMessage(prefix + ChatColor.RED + Utils.getColoredString(Survival.lang.resource_pack_declined));
+				player.sendMessage("   " + ChatColor.GOLD+ Utils.getColoredString(Survival.lang.resource_pack_apply));
+				player.sendMessage("   " + ChatColor.GOLD + Utils.getColoredString(Survival.lang.resource_pack_required));
 			} else if (e.getStatus() == Status.ACCEPTED) {
-				player.sendMessage(prefix + ChatColor.GREEN + Survival.Words.get("Resource pack accepted"));
+				player.sendMessage(prefix + ChatColor.GREEN + Utils.getColoredString(Survival.lang.resource_pack_accepted));
 
 		}
 

@@ -11,18 +11,15 @@ import org.bukkit.material.Wool;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class RecipeManager {
 
 
-    public Map<String, String> Words;
     public FileConfiguration settings;
     private Survival survival;
 
-    public RecipeManager(Survival survival, FileConfiguration settings, Map<String, String> words) {
+    public RecipeManager(Survival survival, FileConfiguration settings) {
         this.survival = survival;
-        this.Words = words;
         this.settings = settings;
 
     }

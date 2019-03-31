@@ -2,14 +2,15 @@ package com.fattymieo.survival;
 
 import com.fattymieo.survival.commands.*;
 import com.fattymieo.survival.events.*;
-import com.fattymieo.survival.managers.ScoreBoardManager;
 import com.fattymieo.survival.managers.RecipeManager;
+import com.fattymieo.survival.managers.ScoreBoardManager;
 import com.fattymieo.survival.metrics.Metrics;
+import com.fattymieo.survival.util.Lang;
 import com.fattymieo.survival.util.NoPos;
+import com.fattymieo.survival.util.Utils;
 import lib.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -24,7 +25,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 
-import java.io.File;
 import java.util.*;
 
 //Special thanks to DarkBlade12 for ParticleEffect Library
@@ -38,11 +38,12 @@ public class Survival extends JavaPlugin implements Listener {
     public static int LocalChatDist = 64;
     private static int AlertInterval = 20;
     private static List<Double> Rates = new ArrayList<>();
-    public static Map<String, String> Words;
+    //public static Map<String, String> Words;
+    public static Lang lang;
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
     public static boolean snowGenOption = true;
-    private static String Language;
+    private static String Language; // TODO probably used in the future
     private String prefix;
 
     public void onEnable() {
@@ -57,7 +58,9 @@ public class Survival extends JavaPlugin implements Listener {
         Language = settings.getString("Language");
 
         // LOAD LANG FILE
-        loadLangFile(Bukkit.getConsoleSender());
+        lang = new Lang(this);
+        lang.loadLangFile(Bukkit.getConsoleSender());
+        prefix = lang.prefix;
         //Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
 
         // SET VERSION IN CONFIG
@@ -68,7 +71,7 @@ public class Survival extends JavaPlugin implements Listener {
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
-            sendColoredConsoleMsg(prefix + "&6NoPos implemented, F3 coordinates are disabled!");
+            sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
         }
 
         // LOAD RESOURCE PACK
@@ -125,7 +128,7 @@ public class Survival extends JavaPlugin implements Listener {
         registerEvents();
 
         // LOAD CUSTOM RECIPES
-        RecipeManager recipes = new RecipeManager(this, settings, Words);
+        RecipeManager recipes = new RecipeManager(this, settings);
         recipes.loadCustomRecipes();
         sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
@@ -152,7 +155,7 @@ public class Survival extends JavaPlugin implements Listener {
         @SuppressWarnings("unused")
         Metrics metrics = new Metrics(this);
 
-        Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + "Successfully enabled");
+        Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded");
         if (Version.contains("Beta")) {
             //sendColoredConsoleMsg(prefix + "&7[&cWARN&7] - &eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
             getLogger().warning(ChatColor.translateAlternateColorCodes('&',
@@ -182,24 +185,6 @@ public class Survival extends JavaPlugin implements Listener {
             }
         }
         sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
-    }
-
-    public void loadLangFile(CommandSender sender) {
-        String loaded;
-        File lang_file = new File(getDataFolder(), "lang_" + Language + ".yml");
-        if (!lang_file.exists()) {
-            lang_file = new File(getDataFolder(), "lang_EN.yml");
-            saveResource("lang_EN.yml", true);
-            loaded = "&aNew lang_EN.yml created";
-        } else {
-
-            loaded = "&7lang_EN.yml &aloaded";
-        }
-
-        Map<String, Object> lang_data = YamlConfiguration.loadConfiguration(lang_file).getValues(true);
-        Words = copyToStringValueMap(lang_data);
-        prefix = getColoredLang("Prefix");
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
     }
 
     @EventHandler
@@ -262,17 +247,17 @@ public class Survival extends JavaPlugin implements Listener {
     private void registerCommands() {
         getCommand("recipes").setExecutor(new Recipes());
         getCommand("togglechat").setExecutor(new ToggleChat());
-        getCommand("togglechat").setPermissionMessage(prefix + getColoredLang("NoPerms"));
+        getCommand("togglechat").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
         getCommand("status").setExecutor(new Status());
         getCommand("reload-survival").setExecutor(new Reload());
-        getCommand("reload-survival").setPermissionMessage(prefix + getColoredLang("NoPerms"));
+        getCommand("reload-survival").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
             getCommand("snowgen").setExecutor(new SnowGen());
-        getCommand("snowgen").setPermissionMessage(prefix + getColoredLang("NoPerms"));
+        getCommand("snowgen").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
 
 
         getCommand("giveitem").setExecutor(new GiveItem());
-        getCommand("giveitem").setPermissionMessage(prefix + getColoredLang("NoPerms"));
+        getCommand("giveitem").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
     }
 
     private void registerEvents() {
@@ -356,7 +341,8 @@ public class Survival extends JavaPlugin implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    ParticleEffect.FLAME.display(0.5f, 0.5f, 0.5f, 0, 10, particleLoc, 64);
+                    particleLoc.getWorld().spawnParticle(Particle.FLAME, particleLoc, 10, 0.5, 0.5, 0.5);
+
                     player.setFireTicks(20);
                     if (player.getHealth() > 14)
                         player.setHealth(14);
@@ -567,12 +553,12 @@ public class Survival extends JavaPlugin implements Listener {
                             if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
                                 int hunger = player.getFoodLevel();
                                 if (hunger <= 6) {
-                                    player.sendMessage(ChatColor.GOLD + Words.get("Starved, eat some food"));
+                                    player.sendMessage(ChatColor.GOLD + lang.starved_eat);
                                 }
 
                                 Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
                                 if (thirst.getScore() <= 6) {
-                                    player.sendMessage(ChatColor.AQUA + Words.get("Dehydrated, drink some water"));
+                                    player.sendMessage(ChatColor.AQUA + lang.dehydrated_drink);
                                 }
                             }
                         }
@@ -667,15 +653,15 @@ public class Survival extends JavaPlugin implements Listener {
                                 Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
 
                                 if (carbon.getScore() <= 480) {
-                                    player.sendMessage(ChatColor.DARK_GREEN + Words.get("Lack of carbohydrates, please intake grains and sugar!"));
+                                    player.sendMessage(ChatColor.DARK_GREEN + lang.carbohydrates_lack);
                                 }
 
                                 if (salts.getScore() <= 180) {
-                                    player.sendMessage(ChatColor.BLUE + Words.get("Lack of vitamins and salts, please intake vegetables and fruits!"));
+                                    player.sendMessage(ChatColor.BLUE + lang.vitamins_lack);
                                 }
 
                                 if (protein.getScore() <= 120) {
-                                    player.sendMessage(ChatColor.DARK_RED + Words.get("Lack of protein, please intake meat, poultry and dairies!"));
+                                    player.sendMessage(ChatColor.DARK_RED + lang.protein_lack);
                                 }
                             }
                         }
@@ -701,7 +687,7 @@ public class Survival extends JavaPlugin implements Listener {
         else
             thirstBar.insert(0, ChatColor.AQUA);
 
-        return Arrays.asList(ChatColor.AQUA + Words.get("Thirst"), (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)), thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
+        return Arrays.asList(ChatColor.AQUA + lang.thirst, (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)), thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
     }
 
     public static List<String> ShowHunger(Player player) {
@@ -726,7 +712,7 @@ public class Survival extends JavaPlugin implements Listener {
         else
             hungerBar.insert(0, ChatColor.GOLD);
 
-        return Arrays.asList(ChatColor.GOLD + Words.get("Hunger"), hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
+        return Arrays.asList(ChatColor.GOLD + lang.hunger, hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
     }
 
     public static List<String> ShowNutrients(Player player) {
@@ -740,21 +726,21 @@ public class Survival extends JavaPlugin implements Listener {
             showCarbon = ChatColor.GREEN + showCarbon;
         else
             showCarbon = ChatColor.RED + showCarbon;
-        nutrients.add(showCarbon + " " + ChatColor.DARK_GREEN + Words.get("Carbohydrates"));
+        nutrients.add(showCarbon + " " + ChatColor.DARK_GREEN + lang.carbohydrates);
 
         String showProtein = Integer.toString(protein);
         if (protein >= 120)
             showProtein = ChatColor.GREEN + showProtein;
         else
             showProtein = ChatColor.RED + showProtein;
-        nutrients.add(showProtein + " " + ChatColor.DARK_RED + Words.get("Protein"));
+        nutrients.add(showProtein + " " + ChatColor.DARK_RED + lang.protein);
 
         String showSalts = Integer.toString(salts);
         if (salts >= 180)
             showSalts = ChatColor.GREEN + showSalts;
         else
             showSalts = ChatColor.RED + showSalts;
-        nutrients.add(showSalts + " " + ChatColor.BLUE + Words.get("Vitamins and Salts"));
+        nutrients.add(showSalts + " " + ChatColor.BLUE + lang.vitamins);
 
         return nutrients;
     }
@@ -763,14 +749,14 @@ public class Survival extends JavaPlugin implements Listener {
         int fatigue = mainBoard.getObjective("Fatigue").getScore(player.getName()).getScore();
 
         if (fatigue <= 0)
-            return ChatColor.YELLOW + Words.get("Energized");
+            return ChatColor.YELLOW + lang.energized;
         else if (fatigue == 1)
-            return ChatColor.LIGHT_PURPLE + Words.get("Sleepy");
+            return ChatColor.LIGHT_PURPLE + lang.sleepy;
         else if (fatigue == 2)
-            return ChatColor.RED + Words.get("Overworked");
+            return ChatColor.RED + lang.overworked;
         else if (fatigue == 3)
-            return ChatColor.WHITE + Words.get("Distressed");
-        else return ChatColor.DARK_GRAY + Words.get("Collapsed");
+            return ChatColor.WHITE + lang.distressed;
+        else return ChatColor.DARK_GRAY + lang.collapsed_1;
     }
 
     private void DaysNoSleep() {
@@ -800,13 +786,13 @@ public class Survival extends JavaPlugin implements Listener {
                         fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
 
                         if (fatigue.getScore(player.getName()).getScore() == 1)
-                            player.sendMessage(Survival.Words.get("You felt your eyelids heavy, perhaps you should get some sleep"));
+                            Utils.sendColoredMsg(player, lang.feeling_sleepy_1);
                         else if (fatigue.getScore(player.getName()).getScore() == 2)
-                            player.sendMessage(Survival.Words.get("You felt your vision blurred, you should get some sleep fast"));
+                            Utils.sendColoredMsg(player, lang.feeling_sleepy_2);
                         else if (fatigue.getScore(player.getName()).getScore() == 3)
-                            player.sendMessage(Survival.Words.get("You felt being enveloped by darkness, you must get to sleep"));
+                            Utils.sendColoredMsg(player, lang.feeling_sleepy_3);
                         else if (fatigue.getScore(player.getName()).getScore() >= 4)
-                            player.sendMessage(Survival.Words.get("You collapsed on the ground"));
+                            Utils.sendColoredMsg(player, lang.collapsed_2);
                     }
                 }
             }
@@ -895,10 +881,10 @@ public class Survival extends JavaPlugin implements Listener {
         ItemStack lockedSlot = new ItemStack(Material.BARRIER);
         ItemMeta meta = lockedSlot.getItemMeta();
 
-        meta.setDisplayName(ChatColor.RESET + Survival.Words.get("Locked"));
+        meta.setDisplayName(ChatColor.RESET + lang.locked);
 
         List<String> lore = Collections.singletonList(
-                ChatColor.RESET + "" + ChatColor.GRAY + Survival.Words.get("Missing Component")
+                ChatColor.RESET + "" + ChatColor.GRAY + lang.missing_component
         );
         meta.setLore(lore);
 
@@ -912,10 +898,10 @@ public class Survival extends JavaPlugin implements Listener {
         ItemStack backpackSlot = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = backpackSlot.getItemMeta();
 
-        meta.setDisplayName(ChatColor.RESET + Survival.Words.get(" "));
+        meta.setDisplayName(ChatColor.RESET + " ");
 
         List<String> lore = Collections.singletonList(
-                ChatColor.RESET + "" + ChatColor.GRAY + Survival.Words.get("Backpack Slot")
+                ChatColor.RESET + "" + ChatColor.GRAY + "backpack"
         );
         meta.setLore(lore);
 
@@ -932,8 +918,5 @@ public class Survival extends JavaPlugin implements Listener {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
-    public static String getColoredLang(String msg) {
-        return ChatColor.translateAlternateColorCodes('&', Words.get(msg));
-    }
 
 }

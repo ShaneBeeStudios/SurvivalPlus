@@ -1,5 +1,6 @@
 package com.fattymieo.survival.events;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,12 +23,12 @@ public class Bow implements Listener {
 					event.setCancelled(false);
 				} else {
 					event.setCancelled(true);
-					player.sendMessage(ChatColor.RED + Survival.Words.get("Must load Arrows on off hand"));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.arrows_off_hand));
 					player.updateInventory();
 				}
 			} else {
 				event.setCancelled(true);
-				player.sendMessage(ChatColor.RED + Survival.Words.get("Must use a Bow with main hand"));
+				player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.bow_main_hand));
 				player.updateInventory();
 			}
 		}

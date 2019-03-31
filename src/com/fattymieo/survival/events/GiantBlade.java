@@ -3,6 +3,7 @@ package com.fattymieo.survival.events;
 import java.util.Collection;
 import java.util.Random;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -104,7 +105,7 @@ public class GiantBlade implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to Charge immediately"));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.charge_unable));
 						}
 					}
 				}
@@ -114,7 +115,7 @@ public class GiantBlade implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() >= 2) {
-					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
 				}
 			}
 		} else if (offItem.getType() == Material.GOLDEN_HOE) {
@@ -124,7 +125,7 @@ public class GiantBlade implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() >= 2) {
-					player.sendMessage(ChatColor.RED + Survival.Words.get("Unable to dual-wield with Giant Blade"));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
 				}
 			}
 		}
@@ -132,7 +133,7 @@ public class GiantBlade implements Listener {
 	}
 
 	private void ChargeForward(Player player, int velocity) {
-		player.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + Survival.Words.get("CHARGE!"));
+		player.sendMessage(ChatColor.BLUE + Utils.getColoredString(Survival.lang.charge));
 
 		Score score = charge.getScore(player.getName());
 		score.setScore(1);
@@ -172,7 +173,7 @@ public class GiantBlade implements Listener {
 
 					public void run() {
 						score.setScore(0);
-						chargingPlayer.sendMessage(ChatColor.GREEN + Survival.Words.get("Ready to Charge"));
+						chargingPlayer.sendMessage(ChatColor.GREEN + Utils.getColoredString(Survival.lang.charge_ready));
 					}
 				},
 				100L);

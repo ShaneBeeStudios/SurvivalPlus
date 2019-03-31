@@ -1,7 +1,7 @@
 package com.fattymieo.survival.commands;
 
 import com.fattymieo.survival.Survival;
-import org.bukkit.ChatColor;
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,13 +9,13 @@ import org.bukkit.command.CommandSender;
 public class Reload implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String prefix = Survival.getColoredLang("Prefix");
+		String prefix = Survival.lang.prefix;
 
 		Survival.instance.reloadConfig();
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&7Config &aloaded"));
+		Utils.sendColoredMsg(sender, prefix + "&7Config &aloaded");
 
-		Survival.instance.loadLangFile(sender);
-		sender.sendMessage(prefix + ChatColor.GREEN + "Reload complete");
+		Survival.lang.loadLangFile(sender);
+		Utils.sendColoredMsg(sender, prefix + "&aReload complete");
 		return true;
 	}
 
