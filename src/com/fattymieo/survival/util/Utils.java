@@ -1,11 +1,12 @@
 package com.fattymieo.survival.util;
 
 import net.md_5.bungee.api.ChatMessageType;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.Tag;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Utils {
 
@@ -230,6 +231,24 @@ public class Utils {
 
     public static String getColoredString(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
+    public static void spawnParticle(Location location, Particle particle, int amount, double offsetX, double offsetY, double offsetZ) {
+        location.getWorld().spawnParticle(particle, location, amount, offsetX, offsetY, offsetZ);
+    }
+
+    public static void spawnParticle(Location location, Particle particle, int amount, double offsetX, double offsetY, double offsetZ, Player player) {
+        player.spawnParticle(particle, location, amount, offsetX, offsetY, offsetZ);
+    }
+
+    public static void setDurability(ItemStack item, int durability) {
+        ItemMeta meta = item.getItemMeta();
+        ((Damageable) meta).setDamage(durability);
+        item.setItemMeta(meta);
+    }
+
+    public static int getDurability(ItemStack item) {
+        return ((Damageable) item.getItemMeta()).getDamage();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.fattymieo.survival.events;
 
-import java.util.Random;
-
+import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -11,11 +10,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Sandstone;
+import org.bukkit.inventory.meta.Damageable;
 
-import com.fattymieo.survival.Survival;
-
-import javax.rmi.CORBA.Util;
+import java.util.Random;
 
 public class BlockPlace implements Listener {
 
@@ -36,24 +33,21 @@ public class BlockPlace implements Listener {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
 						if (chance_reduceDur == 1) {
-							offTool.setDurability((short) (offTool.getDurability() + 1));
+							Utils.setDurability(offTool, Utils.getDurability(offTool) + 1);
 						}
 
-						if (offTool.getDurability() >= 59) {
+						if (Utils.getDurability(offTool) >= 59) {
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInOffHand(null);
 						}
 					} else if (mainTool.getType() == Material.WOODEN_SWORD) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
-						switch (chance_reduceDur) {
-							case 1:
-								mainTool.setDurability((short) (mainTool.getDurability() + 1));
-								break;
-							default:
+						if (chance_reduceDur == 1) {
+							Utils.setDurability(mainTool, ((Damageable) mainTool.getItemMeta()).getDamage() + 1);
 						}
 
-						if (mainTool.getDurability() >= 59) {
+						if (Utils.getDurability(mainTool) >= 59) {
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInOffHand(null);
 						}
@@ -69,7 +63,7 @@ public class BlockPlace implements Listener {
 
 	private boolean checkArtifact(Block block) {
 		Material material = block.getType();
-		if (Tag.DOORS.isTagged(material)
+		return Tag.DOORS.isTagged(material)
 
 				|| material == Material.CHEST
 				|| material == Material.TRAPPED_CHEST
@@ -131,10 +125,7 @@ public class BlockPlace implements Listener {
 				|| material == Material.COMPARATOR
 				|| material == Material.TRIPWIRE_HOOK
 				|| material == Material.BEACON
-				|| material == Material.IRON_BARS)
-			return true;
-		else
-			return false;
+				|| material == Material.IRON_BARS;
 	}
 
 }
