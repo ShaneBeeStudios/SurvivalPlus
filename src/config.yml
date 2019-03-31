@@ -81,20 +81,23 @@ Mechanics:
     Enabled: true
     MaxChairWidth: 2
     AllowedBlocks:
-      - WOOD_STAIRS
-      - SPRUCE_WOOD_STAIRS
-      - JUNGLE_WOOD_STAIRS
-      - BIRCH_WOOD_STAIRS
+      - OAK_STAIRS
+      - SPRUCE_STAIRS
+      - JUNGLE_STAIRS
+      - BIRCH_STAIRS
+      - ACACIA_STAIRS
+      - DARK_OAK_STAIRS
       - SANDSTONE_STAIRS
       - COBBLESTONE_STAIRS
       - BRICK_STAIRS
-      - SMOOTH_STAIRS
+      - STONE_BRICK_STAIRS
       - NETHER_BRICK_STAIRS
       - QUARTZ_STAIRS
-      - ACACIA_STAIRS
-      - DARK_OAK_STAIRS
       - RED_SANDSTONE_STAIRS
       - PURPUR_STAIRS
+      - PRISMARINE_STAIRS
+      - PRISMARINE_BRICK_STAIRS
+      - DARK_PRISMARINE_STAIRS
 
 Recipes:
   Saddle: true
