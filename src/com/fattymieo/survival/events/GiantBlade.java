@@ -4,12 +4,7 @@ import java.util.Collection;
 import java.util.Random;
 
 import com.fattymieo.survival.util.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,8 +21,6 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.util.Vector;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class GiantBlade implements Listener {
 
@@ -157,7 +150,7 @@ public class GiantBlade implements Listener {
 
 				Random rand = new Random();
 				chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
-				ParticleEffect.EXPLOSION_NORMAL.display(0, 0, 0, 0, 10, chargingPlayer.getLocation(), 64);
+				Utils.spawnParticle(chargingPlayer.getLocation(), Particle.EXPLOSION_NORMAL, 10, 0,0,0);
 
 				int times = charging.getScore(chargingPlayer.getName()).getScore();
 				if (--times > 1)

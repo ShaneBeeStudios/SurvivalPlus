@@ -4,12 +4,7 @@ import java.util.Collection;
 import java.util.Random;
 
 import com.fattymieo.survival.util.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,8 +21,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class Valkyrie implements Listener {
 
@@ -140,9 +133,9 @@ public class Valkyrie implements Listener {
 		Score score = spin.getScore(player.getName());
 		score.setScore(1);
 
-		particleCircle(player, 50, 2.5f, ParticleEffect.CRIT);
-		particleCircle(player, 25, 2f, ParticleEffect.CRIT);
-		particleCircle(player, 10, 2.5f, ParticleEffect.CRIT_MAGIC);
+		particleCircle(player, 50, 2.5f, Particle.CRIT);
+		particleCircle(player, 25, 2f, Particle.CRIT);
+		particleCircle(player, 10, 2.5f, Particle.CRIT_MAGIC);
 
 		Random rand = new Random();
 		player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
@@ -159,7 +152,7 @@ public class Valkyrie implements Listener {
 				20L);
 	}
 
-	private void particleCircle(Player player, int particles, float radius, ParticleEffect particle) {
+	private void particleCircle(Player player, int particles, float radius, Particle particle) {
 		Location location = player.getEyeLocation();
 		for (int i = 0; i < particles; i++) {
 			double angle, x, z;
@@ -167,7 +160,7 @@ public class Valkyrie implements Listener {
 			x = Math.cos(angle) * radius;
 			z = Math.sin(angle) * radius;
 			location.add(x, -0.3, z);
-			particle.display(0.05f, 0.05f, 0.05f, 0, 1, location, 64);
+			Utils.spawnParticle(location, particle, 1, 0.5, 0.5, 0.5);
 			location.subtract(x, -0.3, z);
 		}
 	}

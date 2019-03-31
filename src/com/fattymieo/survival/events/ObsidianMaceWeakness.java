@@ -1,7 +1,9 @@
 package com.fattymieo.survival.events;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +14,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import lib.ParticleEffect;
 
 public class ObsidianMaceWeakness implements Listener {
 
@@ -31,7 +31,7 @@ public class ObsidianMaceWeakness implements Listener {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 2);
-				ParticleEffect.HEART.display(0.5f, 0, 0.5f, 1, 2, particleLoc, 64);
+				Utils.spawnParticle(particleLoc, Particle.HEART, 2, 0.5, 0.5, 0.5);
 			}
 		}
 	}

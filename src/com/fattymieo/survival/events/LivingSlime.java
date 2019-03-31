@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.fattymieo.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
@@ -16,8 +18,6 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class LivingSlime implements Listener {
 
@@ -68,7 +68,7 @@ public class LivingSlime implements Listener {
 					Slime slime = (Slime) f_i.getWorld().spawnEntity(slimeBlock.getLocation(), EntityType.SLIME);
 					slime.setSize(2);
 
-					ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0.1f, 20, slimeBlock.getLocation().add(0.5, 0.5, 0.5), 64);
+					Utils.spawnParticle(slimeBlock.getLocation().add(0.5, 0.5, 0.5), Particle.CLOUD, 20, 0.5, 0.5, 0.5);
 					break;
 				}
 			}

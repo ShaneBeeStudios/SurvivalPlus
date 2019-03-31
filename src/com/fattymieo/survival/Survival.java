@@ -8,7 +8,6 @@ import com.fattymieo.survival.metrics.Metrics;
 import com.fattymieo.survival.util.Lang;
 import com.fattymieo.survival.util.NoPos;
 import com.fattymieo.survival.util.Utils;
-import lib.ParticleEffect;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -368,7 +367,8 @@ public class Survival extends JavaPlugin implements Listener {
                 if (mainItem.getType() == Material.GOLDEN_HOE) {
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
+                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
+                    //ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
                 }
 
                 if (offItem.getType() == Material.GOLDEN_HOE) {
@@ -376,7 +376,8 @@ public class Survival extends JavaPlugin implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
+                    //ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
+                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
                 }
 
                 Score dualWield = board.getObjective("DualWield").getScore(player.getName());
@@ -474,8 +475,8 @@ public class Survival extends JavaPlugin implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    ParticleEffect.CRIT.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
-                    ParticleEffect.PORTAL.display(0.5f, 0.5f, 0.5f, 0.5f, 20, particleLoc, 64);
+                    particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
+                    particleLoc.getWorld().spawnParticle(Particle.PORTAL, particleLoc, 20, 0.5, 0.5, 0.5);
                 }
             }
         }, 1L, 10L);
@@ -487,7 +488,7 @@ public class Survival extends JavaPlugin implements Listener {
                 if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
+                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
                 }
             }
         }, 1L, 10L);

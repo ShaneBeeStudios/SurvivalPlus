@@ -3,11 +3,7 @@ package com.fattymieo.survival.events;
 import java.util.Random;
 
 import com.fattymieo.survival.util.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,8 +18,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class MedicKit implements Listener {
 
@@ -77,7 +71,7 @@ public class MedicKit implements Listener {
 
 												Location particleLoc = healed.getLocation();
 												particleLoc.setY(particleLoc.getY() + 1);
-												ParticleEffect.VILLAGER_HAPPY.display(0.5f, 0.5f, 0.5f, 0, 10, particleLoc, 64);
+												Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
 
 												Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
 												healTimes.getScore(player.getName()).setScore(times);
@@ -139,7 +133,7 @@ public class MedicKit implements Listener {
 
 										Location particleLoc = player.getLocation();
 										particleLoc.setY(particleLoc.getY() + 1);
-										ParticleEffect.VILLAGER_HAPPY.display(0.5f, 0.5f, 0.5f, 0, 10, particleLoc, 64);
+										Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
 
 										Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
 										healTimes.getScore(player.getName()).setScore(times);

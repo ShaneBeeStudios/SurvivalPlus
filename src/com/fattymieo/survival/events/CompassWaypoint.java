@@ -1,10 +1,7 @@
 package com.fattymieo.survival.events;
 
 import com.fattymieo.survival.util.Utils;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Tag;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,8 +10,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.fattymieo.survival.Survival;
-
-import lib.ParticleEffect;
 
 public class CompassWaypoint implements Listener {
 
@@ -63,7 +58,7 @@ public class CompassWaypoint implements Listener {
 						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(Survival.lang.compass_pointed) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 						loc.add(0.5, 0.5, 0.5);
 						player.setCompassTarget(loc);
-						ParticleEffect.CLOUD.display(0.5f, 0.5f, 0.5f, 0, 25, loc, player);
+						Utils.spawnParticle(loc, Particle.CLOUD, 25, 0.5, 0.5, 0.5, player);
 					}
 
 					if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
