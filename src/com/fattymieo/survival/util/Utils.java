@@ -1,12 +1,15 @@
 package com.fattymieo.survival.util;
 
-import net.md_5.bungee.api.ChatMessageType;
+import com.fattymieo.survival.managers.Items;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 
@@ -250,5 +253,26 @@ public class Utils {
     public static int getDurability(ItemStack item) {
         return ((Damageable) item.getItemMeta()).getDamage();
     }
+
+    public static List<ItemStack> getItemStackDura(Items item, int maxDurability) {
+        List<ItemStack> itemStacks = new ArrayList<>();
+        for (int i = 0; i < maxDurability; i++) {
+            ItemStack stack = Items.get(item);
+            ItemMeta meta = stack.getItemMeta();
+            ((Damageable) meta).setDamage(i);
+            stack.setItemMeta(meta);
+            itemStacks.add(stack);
+        }
+        return itemStacks;
+    }
+
+    /*
+    List<ItemStack> gHoeItems = new ArrayList<>();
+        for (int i = 0; i < 32; i++){
+            ItemStack iTest = Items.get(Items.ENDER_GIANT_BLADE);
+            iTest.setDurability((((short) i)));
+            gHoeItems.add(iTest);
+        }
+     */
 
 }
