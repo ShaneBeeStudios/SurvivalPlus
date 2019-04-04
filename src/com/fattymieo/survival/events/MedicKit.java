@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
@@ -163,9 +164,9 @@ public class MedicKit implements Listener {
 
 	private ItemStack i_MedicKit() {
 		ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
-		//ItemMeta medicKitMeta= i_medicKit.getItemMeta();
-		//medicKitMeta.setDisplayName(ChatColor.RESET + Survival.Words.get("Medical Kit"));
-		//i_medicKit.setItemMeta(medicKitMeta);
+		ItemMeta medicKitMeta = i_medicKit.getItemMeta();
+		medicKitMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.medical_kit));
+		i_medicKit.setItemMeta(medicKitMeta);
 
 		return i_medicKit;
 	}
