@@ -1,11 +1,16 @@
 package com.fattymieo.survival.managers;
 
 import com.fattymieo.survival.Survival;
+import com.fattymieo.survival.util.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
 import java.util.ArrayList;
@@ -371,38 +376,44 @@ public class RecipeManager {
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gSword = new ShapelessRecipe(new NamespacedKey(survival, "repair_gsword"), Items.get(Items.BLAZE_SWORD));
-        repair_gSword.addIngredient(Material.GOLDEN_SWORD);
-        repair_gSword.addIngredient(2, Material.BLAZE_POWDER);
+        ShapedRecipe repair_gSword = new ShapedRecipe(new NamespacedKey(survival, "repair_gsword"), Items.get(Items.BLAZE_SWORD));
+        repair_gSword.shape("123");
 
+        repair_gSword.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 31)));
+        repair_gSword.setIngredient('2', Material.BLAZE_POWDER);
+        repair_gSword.setIngredient('3', Material.BLAZE_POWDER);
+        repair_gSword.setGroup("blaze sword");
 
-        // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gHoe = new ShapelessRecipe(new NamespacedKey(survival, "repair_ghoe"), Items.get(Items.ENDER_GIANT_BLADE));
-
-        repair_gHoe.addIngredient(Material.GOLDEN_HOE);
-        repair_gHoe.addIngredient(Material.ENDER_PEARL);
-        repair_gHoe.addIngredient(Material.DIAMOND_BLOCK);
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gPickaxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gpickaxe"), Items.get(Items.QUARTZ_PICKAXE));
-
-        repair_gPickaxe.addIngredient(Material.GOLDEN_PICKAXE);
-        repair_gPickaxe.addIngredient(1, Material.QUARTZ_BLOCK);
-        repair_gPickaxe.addIngredient(1, Material.DIAMOND_BLOCK);
-
-
-        // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gAxe = new ShapelessRecipe(new NamespacedKey(survival, "repair_gaxe"), Items.get(Items.VALKYRIES_AXE));
-
-        repair_gAxe.addIngredient(Material.GOLDEN_AXE);
-        repair_gAxe.addIngredient(Material.NETHER_STAR);
+        ShapedRecipe repair_gHoe = new ShapedRecipe(new NamespacedKey(survival, "repair_ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
+        repair_gHoe.shape("123");
+        repair_gHoe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
+        repair_gHoe.setIngredient('2', Material.ENDER_PEARL);
+        repair_gHoe.setIngredient('3', Material.DIAMOND_BLOCK);
 
 
         // Todo    REPAIR RECIPE
-        ShapelessRecipe repair_gSpade = new ShapelessRecipe(new NamespacedKey(survival, "repair_gspade"), Items.get(Items.OBSIDIAN_MACE));
-        repair_gSpade.addIngredient(Material.GOLDEN_SHOVEL, -1);
-        repair_gSpade.addIngredient(1, Material.END_CRYSTAL);
+        ShapedRecipe repair_gPickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gpickaxe"), Items.get(Items.QUARTZ_PICKAXE));
+        repair_gPickaxe.shape("123");
+        repair_gPickaxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
+        repair_gPickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
+        repair_gPickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
+
+
+        // Todo    REPAIR RECIPE
+        ShapedRecipe repair_gAxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gaxe"), Items.get(Items.VALKYRIES_AXE));
+        repair_gAxe.shape("12 ");
+        repair_gAxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
+        repair_gAxe.setIngredient('2', Material.NETHER_STAR);
+
+
+        // Todo    REPAIR RECIPE
+        ShapedRecipe repair_gSpade = new ShapedRecipe(new NamespacedKey(survival, "repair_gspade"), Items.get(Items.OBSIDIAN_MACE));
+        repair_gSpade.shape("12 ");
+        repair_gSpade.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
+        repair_gSpade.setIngredient('2', Material.END_CRYSTAL);
 
 
         // Todo WORKBENCH RECIPE
@@ -1182,6 +1193,9 @@ public class RecipeManager {
                         if (settings.getBoolean("Mechanics.SnowballRevamp"))
                             it.remove();
                         break;
+                    case CLOCK:
+                        if (settings.getBoolean("Mechanics.MedicalKit"))
+                            it.remove();
                     default:
                 }
             }
@@ -1190,7 +1204,8 @@ public class RecipeManager {
         survival.getServer().clearRecipes();
 
         for (Recipe r : backup) {
-            survival.getServer().addRecipe(r);
+            if (r.getResult().getType() != Material.AIR)
+                survival.getServer().addRecipe(r);
         }
     }
 
