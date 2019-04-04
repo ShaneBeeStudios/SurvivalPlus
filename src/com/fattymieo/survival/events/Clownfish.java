@@ -18,7 +18,7 @@ public class Clownfish implements Listener {
 	public void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
-		if (event.getItem().getType() == Material.PUFFERFISH) {
+		if (event.getItem().getType() == Material.TROPICAL_FISH) {
 			Random rand = new Random();
 			Location originLoc = player.getLocation();
 			originLoc.getWorld().spawnParticle(Particle.PORTAL, originLoc, 200, 0.5, 0.5, 0.5);
