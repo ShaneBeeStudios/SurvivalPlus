@@ -2,15 +2,11 @@ package com.fattymieo.survival.managers;
 
 import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.util.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.*;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
 import java.util.ArrayList;
