@@ -4,11 +4,16 @@ import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.util.Utils;
 import net.minecraft.server.v1_13_R2.*;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,7 +49,8 @@ public enum Items {
     DIAMOND_CHESTPLATE,
     DIAMOND_HELMET,
     DIAMOND_LEGGINGS,
-    RECURVE_BOW;
+    RECURVE_BOW,
+    PURIFIED_WATER;
 
     public static ItemStack get(Items item) {
         switch (item) {
@@ -995,6 +1001,16 @@ public enum Items {
                 recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
                 i_recurveBow.setItemMeta(recurveBowMeta);
                 return i_recurveBow;
+            case PURIFIED_WATER:
+                ItemStack purified_water = new ItemStack(Material.POTION);
+                ItemMeta meta = purified_water.getItemMeta();
+                ((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) meta).setColor(Color.AQUA);
+                meta.setDisplayName(ChatColor.AQUA + "Water Bottle");
+                meta.setLore(Collections.singletonList(ChatColor.GRAY + "Purified"));
+                meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                purified_water.setItemMeta(meta);
+                return purified_water;
 
             default:
                 return new ItemStack(Material.AIR);
