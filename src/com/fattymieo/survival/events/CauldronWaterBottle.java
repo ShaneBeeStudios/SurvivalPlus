@@ -1,28 +1,27 @@
 package com.fattymieo.survival.events;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.util.Utils;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Levelled;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.material.Cauldron;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
-import com.fattymieo.survival.Survival;
+import java.util.Collections;
+import java.util.List;
 
 public class CauldronWaterBottle implements Listener {
 
@@ -42,30 +41,24 @@ public class CauldronWaterBottle implements Listener {
 								event.setCancelled(true);
 
 								event.getClickedBlock().getState().setData(new Cauldron());
-								//event.getClickedBlock().setData((byte)((int)event.getClickedBlock().getData() - 1));
-								cauldron.setLevel(cauldron.getLevel() + 1);
-								event.getClickedBlock().setBlockData(cauldron); // TODO not sure if this will work, def needs testing
+								cauldron.setLevel(cauldron.getLevel() - 1);
+								event.getClickedBlock().setBlockData(cauldron);
 
-
-								ItemStack waterBottle = new ItemStack(Material.POTION, 1);
-
-								net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(waterBottle);
-								NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
-								compound_bottle.setString("Potion", "minecraft:water");
-								compound_bottle.setInt("HideFlags", 32);
-								nmsStack_bottle.setTag(compound_bottle);
-								waterBottle = CraftItemStack.asBukkitCopy(nmsStack_bottle);
-
+								ItemStack waterBottle = new ItemStack(Material.POTION);
 								ItemMeta meta = waterBottle.getItemMeta();
 
 								if (fire != null && fire.getType() == Material.FIRE) {
-									List<String> lore = Arrays.asList
-											(
-													ChatColor.RESET + Utils.getColoredString("&7" + Survival.lang.purified_water)
-											);
+									List<String> lore = Collections.singletonList(
+											ChatColor.RESET + Utils.getColoredString("&7" + Survival.lang.purified_water)
+									);
 									meta.setLore(lore);
 								}
+								((PotionMeta) meta).setColor(Color.AQUA);
+								((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
+								meta.setDisplayName(ChatColor.AQUA + "Water Bottle");
+								meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 								waterBottle.setItemMeta(meta);
+								player.playSound(event.getClickedBlock().getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
 
 								if (mainItem.getAmount() > 1) {
 									mainItem.setAmount(mainItem.getAmount() - 1);

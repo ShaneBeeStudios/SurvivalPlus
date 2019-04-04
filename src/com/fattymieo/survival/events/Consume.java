@@ -1,10 +1,8 @@
 package com.fattymieo.survival.events;
 
 import com.fattymieo.survival.Survival;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +11,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
@@ -34,7 +33,7 @@ public class Consume implements Listener {
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(event.getItem())) {
 						List<String> lore = event.getItem().getItemMeta().getLore();
-						if (lore == null) {
+						if (!lore.toString().contains(Survival.lang.purified_water)) {
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 6) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
@@ -96,21 +95,15 @@ public class Consume implements Listener {
 	}
 
 	private boolean checkWaterBottle(ItemStack bottle) {
-		net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
-		NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
-		if (compound_bottle != null) {
-			switch (compound_bottle.getString("Potion")) {
-				case "minecraft:water":
-				case "minecraft:mundane":
-				case "minecraft:thick":
-				case "minecraft:awkward":
-				case "minecraft:empty":
-					return true;
-				default:
-					return false;
-			}
+		switch (((PotionMeta) bottle.getItemMeta()).getBasePotionData().getType()) {
+			case WATER:
+			case MUNDANE:
+			case THICK:
+			case AWKWARD:
+				return true;
+			default:
+				return false;
 		}
-		return false;
 	}
 
 }
