@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.util.Vector;
@@ -50,10 +51,10 @@ public class GiantBlade implements Listener {
 
 				int chance_reduceDur = rand.nextInt(10) + 1;
 				if (chance_reduceDur == 1) {
-					offItem.setDurability((short) (offItem.getDurability() + 1));
+					((Damageable) offItem.getItemMeta()).setDamage(((Damageable) offItem.getItemMeta()).getDamage() + 1);
 				}
 
-				if (offItem.getDurability() >= 32) {
+				if (((Damageable) offItem.getItemMeta()).getDamage() >= 32) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInOffHand(null);
 				}
@@ -79,20 +80,17 @@ public class GiantBlade implements Listener {
 						if (charge.getScore(player.getName()).getScore() == 0) {
 							Random rand = new Random();
 
-							ChargeForward(player, 3);
+							ChargeForward(player);
 
 							if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
-							switch (chance_reduceDur) {
-								case 1:
-									mainItem.setDurability((short) (mainItem.getDurability() + 1));
-									break;
-								default:
+							if (chance_reduceDur == 1) {
+								((Damageable) mainItem.getItemMeta()).setDamage(((Damageable) mainItem.getItemMeta()).getDamage() + 1);
 							}
 
-							if (event.getItem().getDurability() >= 32) {
+							if (((Damageable) event.getItem().getItemMeta()).getDamage() >= 32) {
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -125,7 +123,7 @@ public class GiantBlade implements Listener {
 		score_dualWieldMsg.setScore(0);
 	}
 
-	private void ChargeForward(Player player, int velocity) {
+	private void ChargeForward(Player player) {
 		player.sendMessage(ChatColor.BLUE + Utils.getColoredString(Survival.lang.charge));
 
 		Score score = charge.getScore(player.getName());
@@ -137,7 +135,7 @@ public class GiantBlade implements Listener {
 
 		Vector vel = loc.getDirection();
 
-		Vector newVel = vel.multiply(velocity);
+		Vector newVel = vel.multiply(3);
 
 		player.setVelocity(newVel);
 
@@ -146,7 +144,7 @@ public class GiantBlade implements Listener {
 
 		final Runnable task = new Runnable() {
 			public void run() {
-				damageNearbyEnemies(chargingPlayer, 8);
+				damageNearbyEnemies(chargingPlayer);
 
 				Random rand = new Random();
 				chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
@@ -172,12 +170,12 @@ public class GiantBlade implements Listener {
 				100L);
 	}
 
-	private void damageNearbyEnemies(Player player, int dmg) {
+	private void damageNearbyEnemies(Player player) {
 		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 2, 2, 2);
 		for (Entity e : enemies) {
 			if (e instanceof LivingEntity && e != player) {
 				LivingEntity enemy = (LivingEntity) e;
-				enemy.damage(dmg, player);
+				enemy.damage(8, player);
 			}
 		}
 	}
