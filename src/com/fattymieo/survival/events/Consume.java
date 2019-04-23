@@ -33,6 +33,7 @@ public class Consume implements Listener {
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(event.getItem())) {
 						List<String> lore = event.getItem().getItemMeta().getLore();
+						assert lore != null;
 						if (!lore.toString().contains(Survival.lang.purified_water)) {
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 6) {

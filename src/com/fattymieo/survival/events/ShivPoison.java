@@ -19,7 +19,6 @@ import java.util.Random;
 
 public class ShivPoison implements Listener {
 
-	//@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;

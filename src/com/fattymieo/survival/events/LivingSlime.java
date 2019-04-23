@@ -34,7 +34,7 @@ public class LivingSlime implements Listener {
 	private Runnable initRunnable(Item i) {
 		final Item f_i = i;
 		return () -> {
-			List<Block> slimeBlocks = new ArrayList<Block>();
+			List<Block> slimeBlocks = new ArrayList<>();
 			slimeBlocks.add(f_i.getLocation().add(0, -1, 0).getBlock());
 			slimeBlocks.add(f_i.getLocation().add(0, -1, 1).getBlock());
 			slimeBlocks.add(f_i.getLocation().add(0, -1, -1).getBlock());
@@ -51,7 +51,7 @@ public class LivingSlime implements Listener {
 
 			ItemStack i_f_i = f_i.getItemStack();
 			Iterator<Block> it = slimeBlocks.iterator();
-			Block slimeBlock = null;
+			Block slimeBlock;
 			while (it.hasNext()) {
 				slimeBlock = it.next();
 				if (slimeBlock != null && slimeBlock.getType() == Material.SLIME_BLOCK && f_i.isOnGround()) {

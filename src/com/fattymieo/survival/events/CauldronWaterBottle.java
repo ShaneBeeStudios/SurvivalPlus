@@ -47,7 +47,7 @@ public class CauldronWaterBottle implements Listener {
 								ItemStack waterBottle = new ItemStack(Material.POTION);
 								ItemMeta meta = waterBottle.getItemMeta();
 
-								if (fire != null && fire.getType() == Material.FIRE) {
+								if (fire.getType() == Material.FIRE) {
 									List<String> lore = Collections.singletonList(
 											ChatColor.RESET + Utils.getColoredString("&7" + Survival.lang.purified_water)
 									);

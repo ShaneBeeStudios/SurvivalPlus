@@ -1,13 +1,8 @@
 package com.fattymieo.survival.events;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import com.fattymieo.survival.Survival;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,8 +10,13 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionType;
 
-import com.fattymieo.survival.Survival;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 
 public class WaterBottleCrafting implements Listener {
@@ -80,12 +80,9 @@ public class WaterBottleCrafting implements Listener {
 	}
 
 	private boolean checkWaterBottle(ItemStack bottle) {
-		net.minecraft.server.v1_13_R2.ItemStack nmsStack_bottle = CraftItemStack.asNMSCopy(bottle);
-		NBTTagCompound compound_bottle = nmsStack_bottle.getTag();
-		if (compound_bottle != null) {
-			return (compound_bottle.getString("Potion").equals("minecraft:water"));
-		}
-		return false;
+
+		return ((PotionMeta) Objects.requireNonNull(bottle.getItemMeta())).getBasePotionData().getType() == PotionType.WATER;
+
 	}
 
 }

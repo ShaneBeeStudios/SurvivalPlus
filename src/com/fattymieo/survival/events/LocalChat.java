@@ -13,8 +13,6 @@ import com.fattymieo.survival.Survival;
 
 public class LocalChat implements Listener {
 
-	private double maxDist = 64;
-
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent event) {
 		if (event.isCancelled()) return;
@@ -42,6 +40,7 @@ public class LocalChat implements Listener {
 		Bukkit.getConsoleSender().sendMessage("<" + player.getDisplayName() + "> " + msg);
 		for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 			if (other.getLocation().getWorld() == player.getLocation().getWorld()) {
+				double maxDist = 64;
 				if (other.getLocation().distance(player.getLocation()) <= maxDist) {
 					other.sendMessage(ChatColor.RESET + "<" + player.getDisplayName() + "> " + msg);
 				}

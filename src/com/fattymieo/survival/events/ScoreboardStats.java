@@ -37,7 +37,7 @@ public class ScoreboardStats implements Listener {
 		player.setScoreboard(stats);
 
 		Runnable run = new Runnable() {
-			Objective status = stats.registerNewObjective("Status", "dummy");
+			Objective status = stats.registerNewObjective("Status", "dummy", "Status");
 
 			Objective boardHunger = Survival.mainBoard.getObjective("BoardHunger");
 			Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
@@ -46,7 +46,7 @@ public class ScoreboardStats implements Listener {
 
 			public void run() {
 				status.unregister();
-				status = stats.registerNewObjective("Status", "dummy");
+				status = stats.registerNewObjective("Status", "dummy", "Status");
 				status.setDisplaySlot(DisplaySlot.SIDEBAR);
 				status.setDisplayName("Status");
 

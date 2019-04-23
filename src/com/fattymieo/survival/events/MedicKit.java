@@ -39,7 +39,7 @@ public class MedicKit implements Listener {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
-		if ((mainItem != null && mainItem.getType() == Material.CLOCK)) {
+		if (mainItem.getType() == Material.CLOCK) {
 			if (healing.getScore(player.getName()).getScore() <= 0) {
 				if (!player.isSneaking()) {
 					if (event.getRightClicked() instanceof Player) {
@@ -110,7 +110,7 @@ public class MedicKit implements Listener {
 		if (event.hasItem() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 			final Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if (mainItem != null && mainItem.getType() == Material.CLOCK) {
+			if (mainItem.getType() == Material.CLOCK) {
 				if (healing.getScore(player.getName()).getScore() <= 0) {
 					if (player.isSneaking()) {
 						healing.getScore(player.getName()).setScore(1);

@@ -52,15 +52,10 @@ public class Valkyrie implements Listener {
 								player.setFoodLevel(player.getFoodLevel() - 1);
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
-							switch (chance_reduceDur) {
-								case 1:
-									//mainItem.setDurability((short)(mainItem.getDurability() + 1));
-									// in favor of new item meta based durability
-									ItemMeta meta = mainItem.getItemMeta();
-									((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
-									mainItem.setItemMeta(meta);
-									break;
-								default:
+							if (chance_reduceDur == 1) {
+								ItemMeta meta = mainItem.getItemMeta();
+								((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+								mainItem.setItemMeta(meta);
 							}
 
 							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
@@ -105,14 +100,13 @@ public class Valkyrie implements Listener {
 								player.setFoodLevel(player.getFoodLevel() - 1);
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
-							switch (chance_reduceDur) {
-								case 1:
-									mainItem.setDurability((short) (mainItem.getDurability() + 1));
-									break;
-								default:
+							if (chance_reduceDur == 1) {
+								ItemMeta meta = mainItem.getItemMeta();
+								((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+								mainItem.setItemMeta(meta);
 							}
 
-							if (mainItem.getDurability() >= 32) {
+							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -124,7 +118,6 @@ public class Valkyrie implements Listener {
 				}
 			} else {
 				event.setCancelled(true);
-				return;
 			}
 		}
 	}

@@ -24,7 +24,8 @@ public class GrapplingHook implements Listener {
 		Player p = event.getPlayer();
 
 		if (p.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
-			if (p.getInventory().getItemInOffHand() == null || p.getInventory().getItemInOffHand().getType() == Material.AIR) {
+			p.getInventory().getItemInOffHand();
+			if (p.getInventory().getItemInOffHand().getType() == Material.AIR) {
 				if (event.getState() == State.IN_GROUND) {
 					List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
 
