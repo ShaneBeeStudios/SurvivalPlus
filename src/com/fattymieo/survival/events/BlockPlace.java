@@ -89,8 +89,7 @@ public class BlockPlace implements Listener {
 				|| material == Material.BOOKSHELF
 				|| material == Material.NOTE_BLOCK
 				|| material == Material.LADDER
-				|| material == Material.SIGN
-				|| material == Material.WALL_SIGN
+				|| Tag.SIGNS.isTagged(material)
 				|| Tag.BANNERS.isTagged(material)
 				|| material == Material.IRON_TRAPDOOR
 				|| material == Material.BRICK
