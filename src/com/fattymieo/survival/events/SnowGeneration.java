@@ -22,8 +22,7 @@ public class SnowGeneration implements Listener
 			}
 		}
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	public void checkChunk(final Chunk chunk)
 	{
 		final ChunkSnapshot chunkSnap = chunk.getChunkSnapshot(true, false, false);
@@ -33,8 +32,7 @@ public class SnowGeneration implements Listener
 			for(int z = 0; z < 16; z++)
 			{
 				final int y = chunkSnap.getHighestBlockYAt(x, z);
-				
-				//if(chunkSnap.getBlockTypeId(x, y, z) == Material.SNOW.getId())
+
 				if (chunkSnap.getBlockType(x, y, z) == Material.SNOW)
 
 					placeSnow(chunk, chunkSnap, x, y, z);
@@ -62,7 +60,6 @@ public class SnowGeneration implements Listener
 		placeSnow(chunk, chunk.getChunkSnapshot(true, false, false), Math.abs((chunk.getX() * 16) - loc.getBlockX()), loc.getBlockY(), Math.abs((chunk.getZ() * 16) - loc.getBlockZ()));
 	}
 
-	@SuppressWarnings("deprecation")
 	private void placeSnow(final Chunk chunk, final ChunkSnapshot chunkSnap, final int x, int y, final int z)
 	{
 		if(y <= 1)
@@ -94,7 +91,7 @@ public class SnowGeneration implements Listener
 					if(lastType == Material.AIR)
 					{
 						try{chunk.getBlock(x, y + 1, z).setType(Material.SNOW);}
-						catch(Exception e){}
+						catch(Exception ignore){}
 					}
 					
 					break;
@@ -174,7 +171,7 @@ public class SnowGeneration implements Listener
 		if (mat == Material.AIR) {
 			try {
 				chunk.getBlock(x, y + 1, z).setType(Material.SNOW);
-			} catch (Exception e) { }
+			} catch (Exception ignore) { }
 		}
 
 	}
