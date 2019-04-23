@@ -54,24 +54,28 @@ public enum Items {
     RECURVE_BOW,
     PURIFIED_WATER;
 
+
     public static ItemStack get(Items item) {
         switch (item) {
             case HATCHET:
                 ItemStack i_hatchet = new ItemStack(Material.WOODEN_AXE, 1);
                 ItemMeta hatchetMeta = i_hatchet.getItemMeta();
                 hatchetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.hatchet));
+                hatchetMeta.setCustomModelData(1);
                 i_hatchet.setItemMeta(hatchetMeta);
                 return i_hatchet;
             case MATTOCK:
                 ItemStack i_mattock = new ItemStack(Material.WOODEN_PICKAXE, 1);
                 ItemMeta mattockMeta = i_mattock.getItemMeta();
                 mattockMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.mattock));
+                mattockMeta.setCustomModelData(1);
                 i_mattock.setItemMeta(mattockMeta);
                 return i_mattock;
 
             case SHIV:
                 ItemStack i_shiv = new ItemStack(Material.WOODEN_HOE, 1);
                 ItemMeta i_shivMeta = i_shiv.getItemMeta();
+                i_shivMeta.setCustomModelData(1);
 
                 int shiv_dmg = 4;
                 float shiv_spd = 1.8f;
@@ -106,12 +110,14 @@ public enum Items {
                 ItemStack i_hammer = new ItemStack(Material.WOODEN_SWORD, 1);
                 ItemMeta hammerMeta = i_hammer.getItemMeta();
                 hammerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.hammer));
+                hammerMeta.setCustomModelData(1);
                 i_hammer.setItemMeta(hammerMeta);
                 return i_hammer;
 
             case VALKYRIES_AXE:
                 ItemStack i_gAxe = new ItemStack(Material.GOLDEN_AXE, 1);
                 ItemMeta i_gAxeMeta = i_gAxe.getItemMeta();
+                i_gAxeMeta.setCustomModelData(1);
 
                 int gAxe_spd = 1;
                 int gAxe_dmg = 8;
@@ -141,6 +147,7 @@ public enum Items {
             case QUARTZ_PICKAXE:
                 ItemStack i_gPickaxe = new ItemStack(Material.GOLDEN_PICKAXE, 1);
                 ItemMeta i_gPickaxeMeta = i_gPickaxe.getItemMeta();
+                i_gPickaxeMeta.setCustomModelData(1);
 
                 int gPickaxe_dmg = 5;
                 float gPickaxe_spd = 0.8f;
@@ -171,6 +178,7 @@ public enum Items {
             case OBSIDIAN_MACE:
                 ItemStack i_gSpade = new ItemStack(Material.GOLDEN_SHOVEL, 1);
                 ItemMeta i_gSpadeMeta = i_gSpade.getItemMeta();
+                i_gSpadeMeta.setCustomModelData(1);
 
                 int gSpade_dmg = 4;
                 float gSpade_spd = 0.8f;
@@ -211,6 +219,8 @@ public enum Items {
             case ENDER_GIANT_BLADE:
                 ItemStack i_gHoe = new ItemStack(Material.GOLDEN_HOE, 1);
                 ItemMeta i_gHoeMeta = i_gHoe.getItemMeta();
+                i_gHoeMeta.setCustomModelData(1);
+
                 int gHoe_dmg = 8;
                 int gHoe_spd = 1;
                 float gHoe_move = -0.5f;
@@ -253,6 +263,7 @@ public enum Items {
             case BLAZE_SWORD:
                 ItemStack i_gSword = new ItemStack(Material.GOLDEN_SWORD, 1);
                 ItemMeta i_gSwordMeta = i_gSword.getItemMeta();
+                i_gSwordMeta.setCustomModelData(1);
 
                 int gSword_dmg = 6;
                 float gSword_spd = 1.6f;
@@ -300,6 +311,7 @@ public enum Items {
             case FIRESTRIKER:
                 ItemStack i_firestriker = new ItemStack(Material.WOODEN_SHOVEL, 1);
                 ItemMeta i_firestrikerMeta = i_firestriker.getItemMeta();
+                i_firestrikerMeta.setCustomModelData(1);
 
                 float firestriker_spd = 4f;
 
@@ -323,6 +335,7 @@ public enum Items {
             case MEDIC_KIT:
                 ItemStack i_medicKit = new ItemStack(Material.CLOCK, 1);
                 ItemMeta medicKitMeta = i_medicKit.getItemMeta();
+                medicKitMeta.setCustomModelData(1);
                 medicKitMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.medical_kit));
                 i_medicKit.setItemMeta(medicKitMeta);
                 return i_medicKit;
@@ -330,6 +343,7 @@ public enum Items {
             case REINFORCED_LEATHER_BOOTS:
                 ItemStack i_leatherBoots = new ItemStack(Material.CHAINMAIL_BOOTS, 1);
                 ItemMeta i_leatherBootsMeta = i_leatherBoots.getItemMeta();
+                i_leatherBootsMeta.setCustomModelData(1);
 
                 AttributeModifier i_leatherBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
                         2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
@@ -344,6 +358,7 @@ public enum Items {
                 ItemStack i_leatherChestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1);
 
                 ItemMeta leatherChestplateMeta = i_leatherChestplate.getItemMeta();
+                leatherChestplateMeta.setCustomModelData(1);
                 leatherChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_tunic));
 
                 i_leatherChestplate.setItemMeta(leatherChestplateMeta);
@@ -353,6 +368,7 @@ public enum Items {
                 ItemStack i_leatherLeggings = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
 
                 ItemMeta leatherLeggingsMeta = i_leatherLeggings.getItemMeta();
+                leatherLeggingsMeta.setCustomModelData(1);
                 leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_pants));
 
                 i_leatherLeggings.setItemMeta(leatherLeggingsMeta);
@@ -363,6 +379,7 @@ public enum Items {
                 ItemStack i_leatherHelmet = new ItemStack(Material.CHAINMAIL_HELMET, 1);
 
                 ItemMeta leatherHelmetMeta = i_leatherHelmet.getItemMeta();
+                leatherHelmetMeta.setCustomModelData(1);
                 leatherHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_hat));
 
                 i_leatherHelmet.setItemMeta(leatherHelmetMeta);
@@ -371,6 +388,7 @@ public enum Items {
             case GOLDEN_SABATONS:
                 ItemStack i_goldBoots = new ItemStack(Material.GOLDEN_BOOTS, 1);
                 ItemMeta i_goldBootsMeta = i_goldBoots.getItemMeta();
+                i_goldBootsMeta.setCustomModelData(1);
 
                 AttributeModifier i_goldBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
                         1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
