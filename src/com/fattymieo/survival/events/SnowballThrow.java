@@ -42,7 +42,7 @@ public class SnowballThrow implements Listener
 				case SNOW:
 				case TALL_GRASS:
 				case DANDELION:
-				case ROSE_RED:
+				case ROSE_BUSH:
 				case DEAD_BUSH:
 			 		actual.setType(Material.SNOW);
 					break;
@@ -75,10 +75,12 @@ public class SnowballThrow implements Listener
 				case IRON_SHOVEL:
 					Block block = e.getBlock();
 					ItemMeta meta = mainItem.getItemMeta();
+					assert meta != null;
 					switch(block.getType())
 					{
 						case SNOW:
 							e.setCancelled(true);
+
 
 							((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
 							mainItem.setItemMeta(meta);
