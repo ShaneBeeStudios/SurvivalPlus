@@ -19,6 +19,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class BlazeSword implements Listener {
 
@@ -68,17 +70,19 @@ public class BlazeSword implements Listener {
 								default:
 							}
 							Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-							ignite(player, loc, IgniteCause.FLINT_AND_STEEL);
+							ignite(player, loc);
 						}
 
 						if (event.getAction() == Action.RIGHT_CLICK_AIR) {
 							Location loc = player.getLocation();
 							loc.add(-0.5, -0.5, -0.5);
-							ignite(player, loc, IgniteCause.FLINT_AND_STEEL);
+							ignite(player, loc);
 						}
 
-						mainItem.setDurability((short) (mainItem.getDurability() + 1));
-						if (mainItem.getDurability() >= 32) {
+						ItemMeta meta = mainItem.getItemMeta();
+						((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+						mainItem.setItemMeta(meta);
+						if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInMainHand(null);
@@ -90,19 +94,19 @@ public class BlazeSword implements Listener {
 		}
 	}
 
-	private void ignite(Player igniter, Location loc, IgniteCause cause) {
+	private void ignite(Player igniter, Location loc) {
 		Random rand = new Random();
 
 		loc.add(0.5, 0.5, 0.5);
 
 		BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(),
-				cause, igniter);
+				IgniteCause.FLINT_AND_STEEL, igniter);
 		Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
 		if (igniteEvent.isCancelled()) {
 			return;
 		}
 
-		List<Location> locations = new ArrayList<Location>();
+		List<Location> locations = new ArrayList<>();
 
 		for (double x = loc.getX() - 2; x <= loc.getX() + 2; x++) {
 			for (double y = loc.getY() - 1; y <= loc.getY() + 1; y++) {
@@ -114,7 +118,7 @@ public class BlazeSword implements Listener {
 
 		for (Location l : locations) {
 			BlockIgniteEvent igniteEvent2 = new BlockIgniteEvent(l.getBlock(),
-					cause, igniter);
+					IgniteCause.FLINT_AND_STEEL, igniter);
 			Bukkit.getServer().getPluginManager().callEvent(igniteEvent2);
 			if (igniteEvent2.isCancelled()) {
 				continue;
@@ -129,7 +133,7 @@ public class BlazeSword implements Listener {
 				continue;
 			}
 
-			if (l.getBlock() == null || l.getBlock().getType() == Material.AIR)
+			if (l.getBlock().getType() == Material.AIR)
 				l.getBlock().setType(Material.FIRE);
 		}
 
