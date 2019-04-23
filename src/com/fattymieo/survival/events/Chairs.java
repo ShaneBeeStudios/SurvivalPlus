@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
@@ -39,7 +40,7 @@ public class Chairs implements Listener {
 				int chairwidth = 1;
 
 				// Check if block beneath chair is solid.
-				if (block.getRelative(BlockFace.DOWN).getType() == Material.AIR || block.getRelative(BlockFace.DOWN) == null)
+				if (block.getRelative(BlockFace.DOWN).getType() == Material.AIR)
 					return;
 
 				// Check if player is sitting.
@@ -64,7 +65,7 @@ public class Chairs implements Listener {
 					sign2 = checkSign(block, BlockFace.SOUTH);
 				}
 
-				if (!(sign1 == true && sign2 == true))
+				if (!(sign1 && sign2))
 					return;
 
 				// Check for maximal chair width.
@@ -142,7 +143,7 @@ public class Chairs implements Listener {
 			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
 
 			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
-				if (e != null && e instanceof ArmorStand && e.getCustomName() == "Chair")
+				if (e instanceof ArmorStand && e.getCustomName().equals("Chair"))
 					e.remove();
 			}
 
@@ -155,7 +156,7 @@ public class Chairs implements Listener {
 		Entity vehicle = event.getPlayer().getVehicle();
 
 		// Let players stand up when leaving the server.
-		if (vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
+		if (vehicle instanceof ArmorStand && vehicle.getCustomName().equals("Chair"))
 			vehicle.remove();
 	}
 
@@ -163,13 +164,13 @@ public class Chairs implements Listener {
 	public void onHit(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
 		Entity hitTarget = event.getEntity();
-		if (hitTarget != null && hitTarget instanceof ArmorStand && hitTarget.getCustomName() == "Chair")
+		if (hitTarget instanceof ArmorStand && hitTarget.getCustomName().equals("Chair"))
 			// Chair entity is immune to damage.
 			event.setCancelled(true);
-		else if (hitTarget != null && hitTarget instanceof Player && hitTarget.getVehicle() != null) {
+		else if (hitTarget instanceof Player && hitTarget.getVehicle() != null) {
 			// Let players stand up if receiving damage.
 			Entity vehicle = hitTarget.getVehicle();
-			if (vehicle != null && vehicle instanceof ArmorStand && vehicle.getCustomName() == "Chair")
+			if (vehicle instanceof ArmorStand && vehicle.getCustomName().equals("Chair"))
 				vehicle.remove();
 		}
 	}
@@ -202,11 +203,11 @@ public class Chairs implements Listener {
 	}
 
 	private List<ArmorStand> checkChair(ArmorStand drop) {
-		List<ArmorStand> drops = new ArrayList<ArmorStand>();
+		List<ArmorStand> drops = new ArrayList<>();
 
 		// Check for already existing chair items.
 		for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
-			if (e != null && e instanceof ArmorStand && e.getCustomName() == "Chair") {
+			if (e instanceof ArmorStand && e.getCustomName().equals("Chair")) {
 				if (e.getPassengers().isEmpty())
 					e.remove();
 				else
@@ -241,9 +242,8 @@ public class Chairs implements Listener {
 		for (int i = 1; true; i++) {
 			Block relative = block.getRelative(face, i);
 			if (!(Survival.allowedBlocks.contains(relative.getType())) || (block instanceof Stairs && ((Stairs) relative.getState().getData()).getDescendingDirection() != ((Stairs) block.getState().getData()).getDescendingDirection())) {
+				if (Tag.SIGNS.isTagged(relative.getType())) return true;
 				switch (relative.getType()) {
-					case SIGN:
-					case WALL_SIGN:
 					case ITEM_FRAME:
 					case PAINTING:
 					case ACACIA_TRAPDOOR:
