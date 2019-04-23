@@ -1,7 +1,6 @@
 package com.fattymieo.survival.events;
 
-import java.util.Random;
-
+import com.fattymieo.survival.Survival;
 import com.fattymieo.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.block.BlockState;
@@ -24,16 +23,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import com.fattymieo.survival.Survival;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import javax.rmi.CORBA.Util;
+import java.util.Random;
 
 public class FirestrikerClick implements Listener {
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
@@ -85,12 +81,14 @@ public class FirestrikerClick implements Listener {
 						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
 
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-						if (ignite(player, loc, IgniteCause.FLINT_AND_STEEL)) {
+						if (ignite(player, loc)) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-							event.getItem().setDurability((short) (event.getItem().getDurability() + 7));
-							if (event.getItem().getDurability() >= 56) {
+							ItemMeta meta = event.getItem().getItemMeta();
+							((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 7);
+							event.getItem().setItemMeta(meta);
+							if (((Damageable) event.getItem().getItemMeta()).getDamage() >= 56) {
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								if (player.getInventory().getItemInMainHand().getType() == event.getItem().getType())
 									player.getInventory().setItemInMainHand(null);
@@ -105,13 +103,13 @@ public class FirestrikerClick implements Listener {
 		}
 	}
 
-	private boolean ignite(Player igniter, Location loc, IgniteCause cause) {
+	private boolean ignite(Player igniter, Location loc) {
 		Random rand = new Random();
 
 		loc.add(0.5, 0.5, 0.5);
 
 		BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(),
-				cause, igniter);
+				IgniteCause.FLINT_AND_STEEL, igniter);
 		Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
 		if (igniteEvent.isCancelled()) {
 			return false;
@@ -134,7 +132,6 @@ public class FirestrikerClick implements Listener {
 		return true;
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (!event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) {
@@ -166,9 +163,11 @@ public class FirestrikerClick implements Listener {
 									event.getInventory().setItem(0, i_smelt);
 
 									ItemStack i_firecracker = event.getInventory().getItem(1);
-									i_firecracker.setDurability((short) (i_firecracker.getDurability() + 7));
+									ItemMeta meta = i_firecracker.getItemMeta();
+									((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 7);
+									i_firecracker.setItemMeta(meta);
 
-									if (i_firecracker.getDurability() >= 56) {
+									if (((Damageable) i_firecracker.getItemMeta()).getDamage() >= 56) {
 										Random rand = new Random();
 										player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 										event.getInventory().setItem(1, null);
@@ -176,7 +175,7 @@ public class FirestrikerClick implements Listener {
 								}
 							}
 						} else {
-							event.setCursor(event.getInventory().getItem(2));
+							event.getView().setCursor(new ItemStack(event.getInventory().getItem(2)));
 							event.getInventory().setItem(2, null);
 						}
 					} else {
