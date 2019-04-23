@@ -4,7 +4,6 @@ package com.fattymieo.survival.events;
 import java.util.Random;
 
 import com.fattymieo.survival.util.Utils;
-import com.lmax.disruptor.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -85,8 +84,6 @@ public class BlockBreak implements Listener {
 							|| material == Material.DARK_OAK_STAIRS
 							|| material == Material.ACACIA_STAIRS
 							|| Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
-							|| material == Material.SIGN
-							|| material == Material.WALL_SIGN
 							|| material == Material.OAK_FENCE
 							|| material == Material.BIRCH_FENCE
 							|| material == Material.JUNGLE_FENCE
@@ -102,7 +99,8 @@ public class BlockBreak implements Listener {
 							|| Tag.BANNERS.isTagged(material)
 							|| material == Material.JUKEBOX
 							|| material == Material.NOTE_BLOCK
-							|| material == Material.DAYLIGHT_DETECTOR) {
+							|| material == Material.DAYLIGHT_DETECTOR
+							|| Tag.SIGNS.isTagged(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_axe));
