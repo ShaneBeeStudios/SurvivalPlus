@@ -1,7 +1,5 @@
 package com.fattymieo.survival.events;
 
-import java.util.Random;
-
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
@@ -17,9 +15,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Random;
+
 public class ShivPoison implements Listener {
 
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
@@ -33,7 +33,7 @@ public class ShivPoison implements Listener {
 
 			if (mainItem.getType() == Material.WOODEN_HOE) {
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false));
-				if (mainItem.getDurability() >= 59) {
+				if (((Damageable) mainItem.getItemMeta()).getDamage() >= 59) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInMainHand(null);
 				}
@@ -48,8 +48,10 @@ public class ShivPoison implements Listener {
 						break;
 					default:
 				}
-				offItem.setDurability((short) (offItem.getDurability() + 1));
-				if (offItem.getDurability() >= 59) {
+				ItemMeta meta = offItem.getItemMeta();
+				((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+				offItem.setItemMeta(meta);
+				if (((Damageable) offItem.getItemMeta()).getDamage() >= 59) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInOffHand(null);
 				}
