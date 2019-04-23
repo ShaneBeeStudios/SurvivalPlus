@@ -4,6 +4,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.type.Snow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
@@ -12,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BlockIterator;
 
 public class SnowballThrow implements Listener
@@ -32,7 +35,8 @@ public class SnowballThrow implements Listener
 				if (actual.getState().getType() != Material.AIR)
 					break;
 			}
-		    
+
+			assert actual != null;
 			switch(actual.getType())
 			{
 				case SNOW:
@@ -46,12 +50,8 @@ public class SnowballThrow implements Listener
 					if(actual.getType().isSolid())
 					{
 						Block aboveHit = actual.getRelative(BlockFace.UP);
-						switch(aboveHit.getType())
-						{
-							case AIR:
-								aboveHit.setType(Material.SNOW);
-								break;
-							default:
+						if (aboveHit.getType() == Material.AIR) {
+							aboveHit.setType(Material.SNOW);
 						}
 					}
 			}
@@ -74,21 +74,25 @@ public class SnowballThrow implements Listener
 				case DIAMOND_SHOVEL:
 				case IRON_SHOVEL:
 					Block block = e.getBlock();
+					ItemMeta meta = mainItem.getItemMeta();
 					switch(block.getType())
 					{
 						case SNOW:
 							e.setCancelled(true);
-							mainItem.setDurability((short) (mainItem.getDurability() + 1));
-							if(mainItem.getDurability() >= mainItem.getType().getMaxDurability() + 1)
+
+							((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+							mainItem.setItemMeta(meta);
+							if(((Damageable) meta).getDamage() >= mainItem.getType().getMaxDurability() + 1)
 								player.getInventory().setItemInMainHand(null);
 				            player.updateInventory();
-				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, (int)(block.getState().getRawData()) + 1));
+				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, (((Snow) block.getState()).getLayers()) + 1));
 				            block.setType(Material.AIR);
 							break;
 						case SNOW_BLOCK:
 							e.setCancelled(true);
-							mainItem.setDurability((short) (mainItem.getDurability() + 1));
-							if(mainItem.getDurability() >= mainItem.getType().getMaxDurability() + 1)
+							((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
+							mainItem.setItemMeta(meta);
+							if(((Damageable) meta).getDamage() >= mainItem.getType().getMaxDurability() + 1)
 								player.getInventory().setItemInMainHand(null);
 				            player.updateInventory();
 				            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, 8));
