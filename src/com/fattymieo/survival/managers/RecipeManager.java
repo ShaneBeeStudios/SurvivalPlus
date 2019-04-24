@@ -880,6 +880,15 @@ public class RecipeManager {
         recurveBow2.setIngredient('@', Material.IRON_INGOT);
         recurveBow2.setIngredient('1', Material.STRING);
 
+        // Todo NEW CAMPFIRE RECIPE
+        ShapedRecipe camp1 = new ShapedRecipe(new NamespacedKey(survival, "camp1"), Items.get(Items.CAMPFIRE));
+
+        camp1.shape(" 1 ", "121", "333");
+        camp1.setIngredient('1', Material.STICK);
+        camp1.setIngredient('2', new RecipeChoice.MaterialChoice(Material.COAL, Material.CHARCOAL));
+        camp1.setIngredient('3', new RecipeChoice.MaterialChoice(Material.OAK_LOG, Material.SPRUCE_LOG, Material.ACACIA_LOG, Material.BIRCH_LOG,
+                Material.DARK_OAK_LOG, Material.JUNGLE_LOG));
+
 
         //Add recipes
         if (settings.getBoolean("Survival.Enabled")) {
@@ -903,6 +912,7 @@ public class RecipeManager {
             survival.getServer().addRecipe(furnace);
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
+            survival.getServer().addRecipe(camp1);
         }
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);
@@ -1098,6 +1108,7 @@ public class RecipeManager {
                     case CRAFTING_TABLE:
                     case CHEST:
                     case BEETROOT_SOUP:
+                    case CAMPFIRE:
                         if (settings.getBoolean("Survival.Enabled"))
                             it.remove();
                         break;
@@ -1200,8 +1211,9 @@ public class RecipeManager {
         survival.getServer().clearRecipes();
 
         for (Recipe r : backup) {
-            if (r.getResult().getType() != Material.AIR)
+            if (r.getResult().getType() != Material.AIR) {
                 survival.getServer().addRecipe(r);
+            }
         }
     }
 
