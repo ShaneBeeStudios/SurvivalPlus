@@ -1,7 +1,7 @@
 package tk.shanebee.survival;
 
-import com.fattymieo.survival.commands.*;
-import com.fattymieo.survival.events.*;
+import tk.shanebee.survival.commands.*;
+import tk.shanebee.survival.events.*;
 import tk.shanebee.survival.managers.RecipeManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
 import tk.shanebee.survival.metrics.Metrics;
@@ -23,8 +23,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
-import tk.shanebee.survival.commands.*;
-import tk.shanebee.survival.events.*;
 
 import java.util.*;
 
