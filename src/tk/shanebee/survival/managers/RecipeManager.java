@@ -29,7 +29,7 @@ public class RecipeManager {
     public void loadCustomRecipes() {
         removeRecipes();
 
-        // Todo   HATCHET RECIPE
+        // HATCHET RECIPE
         ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(survival, "hatchet1"), Items.get(Items.HATCHET));
         ShapedRecipe hatchet2 = new ShapedRecipe(new NamespacedKey(survival, "hatchet2"), Items.get(Items.HATCHET));
 
@@ -46,7 +46,7 @@ public class RecipeManager {
         hatchet2.setGroup("HATCHET");
 
 
-        // Todo   MATTOCK RECIPE
+        // MATTOCK RECIPE
         ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), Items.get(Items.MATTOCK));
 
         mattock1.shape("@-", "1@");
@@ -57,7 +57,7 @@ public class RecipeManager {
 
 
 
-        // Todo   SHIV RECIPE
+        // SHIV RECIPE
         ShapedRecipe shiv1 = new ShapedRecipe(new NamespacedKey(survival, "shiv1"), Items.get(Items.SHIV));
         ShapedRecipe shiv2 = new ShapedRecipe(new NamespacedKey(survival, "shiv2"), Items.get(Items.SHIV));
         ShapedRecipe shiv3 = new ShapedRecipe(new NamespacedKey(survival, "shiv3"), Items.get(Items.SHIV));
@@ -96,7 +96,7 @@ public class RecipeManager {
         shiv4.setGroup("SHIV");
 
 
-        // Todo   HAMMER RECIPE
+        // HAMMER RECIPE
         ShapedRecipe hammer1 = new ShapedRecipe(new NamespacedKey(survival, "hammer1"), Items.get(Items.HAMMER));
         ShapedRecipe hammer2 = new ShapedRecipe(new NamespacedKey(survival, "hammer2"), Items.get(Items.HAMMER));
 
@@ -113,12 +113,12 @@ public class RecipeManager {
         hammer2.setGroup("HAMMER");
 
 
-        // Todo   STRING RECIPE
+        // STRING RECIPE
         ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(survival, "string"), new ItemStack(Material.STRING, 2));
         string.addIngredient(Material.COBWEB);
 
 
-        // Todo   VALKYRIE's AXE RECIPE
+        // VALKYRIE's AXE RECIPE
         ShapedRecipe gAxe = new ShapedRecipe(new NamespacedKey(survival, "gaxe"), Items.get(Items.VALKYRIES_AXE));
 
         gAxe.shape("@@@", "@*@", " 1 ");
@@ -128,7 +128,7 @@ public class RecipeManager {
         gAxe.setIngredient('1', Material.STICK);
 
 
-        // Todo   QUARTZ PICKAXE RECIPE
+        // QUARTZ PICKAXE RECIPE
         ShapedRecipe gPickaxe1 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe1"), Items.get(Items.QUARTZ_PICKAXE));
         ShapedRecipe gPickaxe2 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe2"), Items.get(Items.QUARTZ_PICKAXE));
         gPickaxe1.shape("@B-", "B# ", "- 1");
@@ -150,7 +150,7 @@ public class RecipeManager {
         gPickaxe2.setGroup("QUARTZ PICKAXE");
 
 
-        // Todo    OBSIDIAN MACE RECIPE
+        //  OBSIDIAN MACE RECIPE
         ShapedRecipe gSpade1 = new ShapedRecipe(new NamespacedKey(survival, "gspade1"), Items.get(Items.OBSIDIAN_MACE));
         ShapedRecipe gSpade2 = new ShapedRecipe(new NamespacedKey(survival, "gspade2"), Items.get(Items.OBSIDIAN_MACE));
 
@@ -169,7 +169,7 @@ public class RecipeManager {
         gSpade2.setGroup("OBSIDIAN MACE");
 
 
-        // Todo   ENDER GIANT BLADE RECIPE
+        // ENDER GIANT BLADE RECIPE
         ShapedRecipe gHoe1 = new ShapedRecipe(new NamespacedKey(survival, "ghoe1"), Items.get(Items.ENDER_GIANT_BLADE));
         ShapedRecipe gHoe2 = new ShapedRecipe(new NamespacedKey(survival, "ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
 
@@ -192,7 +192,7 @@ public class RecipeManager {
         gHoe2.setGroup("ENDER GIANT BLADE");
 
 
-        // Todo    BLAZE SWORD RECIPE
+        //  BLAZE SWORD RECIPE
         ShapedRecipe gSword = new ShapedRecipe(new NamespacedKey(survival, "gsword"), Items.get(Items.BLAZE_SWORD));
         gSword.shape("*@*", "*@*", "*1*");
 
@@ -201,7 +201,7 @@ public class RecipeManager {
         gSword.setIngredient('*', Material.BLAZE_POWDER);
 
 
-        // Todo    NOTCH APPLE RECIPE
+        //  NOTCH APPLE RECIPE
         ShapedRecipe notchApple = new ShapedRecipe(new NamespacedKey(survival, "notchapple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1));
         notchApple.shape("@@@", "@*@", "@@@");
 
@@ -209,7 +209,7 @@ public class RecipeManager {
         notchApple.setIngredient('*', Material.APPLE);
 
 
-        // Todo    SADDLE RECIPE
+        //  SADDLE RECIPE
         ShapedRecipe saddle = new ShapedRecipe(new NamespacedKey(survival, "saddle"), new ItemStack(Material.SADDLE, 1));
 
         saddle.shape("@@@", "*-*", "= =");
@@ -220,7 +220,7 @@ public class RecipeManager {
         saddle.setIngredient('=', Material.IRON_NUGGET);
 
 
-        // Todo    NAMETAG RECIPE
+        //  NAMETAG RECIPE
         ShapedRecipe nametag1 = new ShapedRecipe(new NamespacedKey(survival, "nametag1"), new ItemStack(Material.NAME_TAG, 1));
         ShapedRecipe nametag2 = new ShapedRecipe(new NamespacedKey(survival, "nametag2"), new ItemStack(Material.NAME_TAG, 1));
 
@@ -239,7 +239,7 @@ public class RecipeManager {
         nametag2.setGroup("NAMETAG");
 
 
-        // Todo    PACKED ICE RECIPE
+        //  PACKED ICE RECIPE
         ShapedRecipe packedIce1 = new ShapedRecipe(new NamespacedKey(survival, "packedice1"), new ItemStack(Material.PACKED_ICE, 1));
         ShapelessRecipe packedIce2 = new ShapelessRecipe(new NamespacedKey(survival, "packedice2"), new ItemStack(Material.ICE, 4));
 
@@ -249,7 +249,7 @@ public class RecipeManager {
 
         packedIce2.addIngredient(Material.PACKED_ICE);
 
-        // Todo    ICE RECIPE
+        //  ICE RECIPE
         ShapedRecipe ice = new ShapedRecipe(new NamespacedKey(survival, "ice"), new ItemStack(Material.ICE, 1));
 
         ice.shape("@@@", "@*@", "@@@");
@@ -258,7 +258,7 @@ public class RecipeManager {
         ice.setIngredient('*', Material.WATER_BUCKET);
 
 
-        // Todo    IRON HORSE ARMOR RECIPE
+        //  IRON HORSE ARMOR RECIPE
         ShapedRecipe ironHorse1 = new ShapedRecipe(new NamespacedKey(survival, "ironhorse1"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
         ShapedRecipe ironHorse2 = new ShapedRecipe(new NamespacedKey(survival, "ironhorse2"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
 
@@ -279,7 +279,7 @@ public class RecipeManager {
         ironHorse2.setGroup("IRON HORSE ARMOR");
 
 
-        // Todo    GOLD HORSE ARMOR RECIPE
+        //  GOLD HORSE ARMOR RECIPE
         ShapedRecipe goldHorse1 = new ShapedRecipe(new NamespacedKey(survival, "goldhorse1"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
         ShapedRecipe goldHorse2 = new ShapedRecipe(new NamespacedKey(survival, "goldhorse2"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
 
@@ -300,7 +300,7 @@ public class RecipeManager {
         goldHorse2.setGroup("GOLD HORSE ARMOR");
 
 
-        // Todo    DIAMOND HORSE ARMOR RECIPE
+        //  DIAMOND HORSE ARMOR RECIPE
         ShapedRecipe diamondHorse1 = new ShapedRecipe(new NamespacedKey(survival, "diamondhorse1"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
         ShapedRecipe diamondHorse2 = new ShapedRecipe(new NamespacedKey(survival, "diamondhorse2"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
 
@@ -321,25 +321,25 @@ public class RecipeManager {
         diamondHorse2.setGroup("DIAMOND HORSE ARMOR");
 
 
-        // Todo    CLAY BRICK RECIPE
+        //  CLAY BRICK RECIPE
         ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(survival, "claybrick"), new ItemStack(Material.BRICK, 4));
 
         clayBrick.addIngredient(Material.BRICK);
 
 
-        // Todo    QUARTZ BLOCK RECIPE
+        //  QUARTZ BLOCK RECIPE
         ShapelessRecipe quartz = new ShapelessRecipe(new NamespacedKey(survival, "quartz"), new ItemStack(Material.QUARTZ, 4));
 
         quartz.addIngredient(Material.QUARTZ_BLOCK);
 
 
-        // Todo    STRING RECIPE
+        //  STRING RECIPE
         ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(survival, "woolstring"), new ItemStack(Material.STRING, 4));
 
         woolString.addIngredient(new Wool(DyeColor.WHITE));
 
 
-        // Todo    REPAIR RECIPE
+        //  REPAIR RECIPE
         ShapedRecipe repair_gSword = new ShapedRecipe(new NamespacedKey(survival, "repair_gsword"), Items.get(Items.BLAZE_SWORD));
         repair_gSword.shape("123");
 
@@ -350,7 +350,7 @@ public class RecipeManager {
 
 
 
-        // Todo    REPAIR RECIPE
+        //  REPAIR RECIPE
         ShapedRecipe repair_gHoe = new ShapedRecipe(new NamespacedKey(survival, "repair_ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
         repair_gHoe.shape("123");
         repair_gHoe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
@@ -358,7 +358,7 @@ public class RecipeManager {
         repair_gHoe.setIngredient('3', Material.DIAMOND_BLOCK);
 
 
-        // Todo    REPAIR RECIPE
+        //  REPAIR RECIPE
         ShapedRecipe repair_gPickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gpickaxe"), Items.get(Items.QUARTZ_PICKAXE));
         repair_gPickaxe.shape("123");
         repair_gPickaxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
@@ -366,21 +366,21 @@ public class RecipeManager {
         repair_gPickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
 
 
-        // Todo    REPAIR RECIPE
+        //  REPAIR RECIPE
         ShapedRecipe repair_gAxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gaxe"), Items.get(Items.VALKYRIES_AXE));
         repair_gAxe.shape("12 ");
         repair_gAxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
         repair_gAxe.setIngredient('2', Material.NETHER_STAR);
 
 
-        // Todo    REPAIR RECIPE
+        //  REPAIR RECIPE
         ShapedRecipe repair_gSpade = new ShapedRecipe(new NamespacedKey(survival, "repair_gspade"), Items.get(Items.OBSIDIAN_MACE));
         repair_gSpade.shape("12 ");
         repair_gSpade.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
         repair_gSpade.setIngredient('2', Material.END_CRYSTAL);
 
 
-        // Todo WORKBENCH RECIPE
+        // WORKBENCH RECIPE
         ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), Items.get(Items.WORKBENCH));
 
         workbench1.addIngredient(new RecipeChoice.MaterialChoice(Material.OAK_LOG, Material.BIRCH_LOG, Material.SPRUCE_LOG,
@@ -391,7 +391,7 @@ public class RecipeManager {
         workbench1.addIngredient(new RecipeChoice.ExactChoice(Items.get(Items.HAMMER)));
 
 
-        // Todo    FURNACE RECIPE
+        //  FURNACE RECIPE
         ShapedRecipe furnace = new ShapedRecipe(new NamespacedKey(survival, "furnace"), new ItemStack(Material.FURNACE, 1));
 
         furnace.shape("@@@", "@*@", "@@@");
@@ -400,7 +400,7 @@ public class RecipeManager {
         furnace.setIngredient('*', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
 
 
-        // Todo    CHEST RECIPE
+        //  CHEST RECIPE
         ShapedRecipe chest = new ShapedRecipe(new NamespacedKey(survival, "chest"), new ItemStack(Material.CHEST, 1));
 
         chest.shape("@@@", "@#@", "@@@");
@@ -411,7 +411,7 @@ public class RecipeManager {
         chest.setIngredient('#', Material.IRON_INGOT);
 
 
-        // Todo    CLAY RECIPE
+        //  CLAY RECIPE
         ShapelessRecipe clay = new ShapelessRecipe(new NamespacedKey(survival, "clay"), new ItemStack(Material.CLAY, 1));
 
         clay.addIngredient(Material.DIRT);
@@ -419,28 +419,28 @@ public class RecipeManager {
         clay.addIngredient(Material.BEETROOT_SOUP);
 
 
-        // Todo    DIORITE RECIPE
+        //  DIORITE RECIPE
         ShapelessRecipe diorite = new ShapelessRecipe(new NamespacedKey(survival, "diorite"), new ItemStack(Material.DIORITE, 1));
 
         diorite.addIngredient(new RecipeChoice.MaterialChoice(Material.BONE_MEAL, Material.WHITE_DYE));
         diorite.addIngredient(Material.COBBLESTONE);
 
 
-        // Todo    GRANITE RECIPE
+        //  GRANITE RECIPE
         ShapelessRecipe granite = new ShapelessRecipe(new NamespacedKey(survival, "granite"), new ItemStack(Material.GRANITE, 1));
 
         granite.addIngredient(Material.NETHERRACK);
         granite.addIngredient(Material.COBBLESTONE);
 
 
-        // Todo    ANDESITE RECIPE
+        //  ANDESITE RECIPE
         ShapelessRecipe andesite = new ShapelessRecipe(new NamespacedKey(survival, "andesite"), new ItemStack(Material.ANDESITE, 1));
 
         andesite.addIngredient(Material.GRAVEL);
         andesite.addIngredient(Material.COBBLESTONE);
 
 
-        // Todo    GRAVEL RECIPE
+        //  GRAVEL RECIPE
         ShapedRecipe gravel1 = new ShapedRecipe(new NamespacedKey(survival, "gravel1"), new ItemStack(Material.GRAVEL, 2));
         ShapedRecipe gravel2 = new ShapedRecipe(new NamespacedKey(survival, "gravel2"), new ItemStack(Material.GRAVEL, 2));
 
@@ -457,14 +457,14 @@ public class RecipeManager {
         gravel2.setGroup("GRAVEL");
 
 
-        // Todo    FIRESTRIKER RECIPE
+        //  FIRESTRIKER RECIPE
         ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), Items.get(Items.FIRESTRIKER));
 
         firestriker1.addIngredient(Material.FLINT);
         firestriker1.addIngredient(new RecipeChoice.MaterialChoice(Material.COAL, Material.CHARCOAL));
 
 
-        // Todo    TORCH RECIPE
+        //  TORCH RECIPE
         ShapedRecipe torch1 = new ShapedRecipe(new NamespacedKey(survival, "torch1"), new ItemStack(Material.TORCH, 8));
         ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(survival, "torch2"), new ItemStack(Material.TORCH, 16));
 
@@ -481,13 +481,13 @@ public class RecipeManager {
         //torch2.setGroup("TORCH");
 
 
-        // Todo    FLINT RECIPE
+        //  FLINT RECIPE
         ShapelessRecipe flint = new ShapelessRecipe(new NamespacedKey(survival, "flint"), new ItemStack(Material.FLINT, 1));
 
         flint.addIngredient(Material.GRAVEL);
 
 
-        // Todo    FERMENTED SPIDER EYE RECIPE
+        //  FERMENTED SPIDER EYE RECIPE
         ShapelessRecipe fermentedSpiderEye1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedspidereye1"),
                 new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
 
@@ -496,7 +496,7 @@ public class RecipeManager {
         fermentedSpiderEye1.addIngredient(new RecipeChoice.MaterialChoice(Material.RED_MUSHROOM, Material.BROWN_MUSHROOM));
 
 
-        // Todo    FERMENTED SKIN RECIPE
+        //  FERMENTED SKIN RECIPE
         ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), Items.get(Items.FERMENTED_SKIN));
 
         fermentedSkin1.addIngredient(Material.ROTTEN_FLESH);
@@ -504,7 +504,7 @@ public class RecipeManager {
         fermentedSkin1.addIngredient(new RecipeChoice.MaterialChoice(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM));
 
 
-        // Todo    POISONOUS POTATO RECIPE
+        //  POISONOUS POTATO RECIPE
         ShapelessRecipe poisonousPotato = new ShapelessRecipe(new NamespacedKey(survival, "poisonouspotato"),
                 new ItemStack(Material.POISONOUS_POTATO, 1));
 
@@ -512,19 +512,19 @@ public class RecipeManager {
         poisonousPotato.addIngredient(new RecipeChoice.MaterialChoice(Material.BONE_MEAL, Material.WHITE_DYE));
 
 
-        // Todo    GLASS BOTTLE RECIPE
+        //  GLASS BOTTLE RECIPE
         ShapelessRecipe glassBottle = new ShapelessRecipe(new NamespacedKey(survival, "glassbottle"), new ItemStack(Material.GLASS_BOTTLE, 1));
 
         glassBottle.addIngredient(Material.POTION);
 
 
-        // Todo    BOWL RECIPE
+        //  BOWL RECIPE
         ShapelessRecipe bowl = new ShapelessRecipe(new NamespacedKey(survival, "bowl"), new ItemStack(Material.BOWL, 1));
 
         bowl.addIngredient(Material.BEETROOT_SOUP);
 
 
-        // Todo    MEDIC KIT RECIPE
+        //  MEDIC KIT RECIPE
         ShapedRecipe medicKit1 = new ShapedRecipe(new NamespacedKey(survival, "medickit1"), Items.get(Items.MEDIC_KIT));
         ShapedRecipe medicKit2 = new ShapedRecipe(new NamespacedKey(survival, "medickit2"), Items.get(Items.MEDIC_KIT));
         ShapedRecipe medicKit3 = new ShapedRecipe(new NamespacedKey(survival, "medickit3"), Items.get(Items.MEDIC_KIT));
@@ -581,7 +581,7 @@ public class RecipeManager {
         medicKit6.setGroup("MEDIC KIT");
 
 
-        // Todo    FISHING ROD RECIPE
+        //  FISHING ROD RECIPE
         ShapedRecipe fishingRod1 = new ShapedRecipe(new NamespacedKey(survival, "fishingrod1"), new ItemStack(Material.FISHING_ROD, 1));
         ShapedRecipe fishingRod2 = new ShapedRecipe(new NamespacedKey(survival, "fishingrod2"), new ItemStack(Material.FISHING_ROD, 1));
 
@@ -602,40 +602,40 @@ public class RecipeManager {
         fishingRod2.setGroup("FISHING ROD");
 
 
-        // Todo    IRON INGOT RECIPE
+        //  IRON INGOT RECIPE
         ShapedRecipe ironIngot = new ShapedRecipe(new NamespacedKey(survival, "ironingot"), new ItemStack(Material.IRON_INGOT, 1));
         ironIngot.shape("@@", "@@");
         ironIngot.setIngredient('@', Material.IRON_NUGGET);
 
-        // Todo    IRON NUGGET RECIPE
+        //  IRON NUGGET RECIPE
         ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(survival, "ironnugget"), new ItemStack(Material.IRON_NUGGET, 4));
         ironNugget.addIngredient(Material.IRON_INGOT);
 
-        // Todo    IRON BLOCK RECIPE
+        //  IRON BLOCK RECIPE
         ShapelessRecipe ironBlock = new ShapelessRecipe(new NamespacedKey(survival, "ironblock"), new ItemStack(Material.IRON_INGOT, 9));
         ironBlock.addIngredient(Material.IRON_BLOCK);
 
-        // Todo    GOLD INGOT RECIPE
+        //  GOLD INGOT RECIPE
         ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(survival, "goldingot"), new ItemStack(Material.GOLD_INGOT, 1));
         goldIngot.shape("@@", "@@");
         goldIngot.setIngredient('@', Material.GOLD_NUGGET);
 
-        // Todo    GOLD NUGGET RECIPE
+        //  GOLD NUGGET RECIPE
         ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(survival, "goldnugget"), new ItemStack(Material.GOLD_NUGGET, 4));
         goldNugget.addIngredient(Material.GOLD_INGOT);
 
-        // Todo    GOLD BLOCK RECIPE
+        //  GOLD BLOCK RECIPE
         ShapelessRecipe goldBlock = new ShapelessRecipe(new NamespacedKey(survival, "goldblock"), new ItemStack(Material.GOLD_INGOT, 9));
         goldBlock.addIngredient(Material.GOLD_BLOCK);
 
-        // Todo    SMELTING RECIPES (what the ferk, why is this even here?)
+        //  SMELTING RECIPES (what the ferk, why is this even here?)
         org.bukkit.inventory.FurnaceRecipe smelt_ironIngot = new org.bukkit.inventory.FurnaceRecipe(
                 new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE);
         org.bukkit.inventory.FurnaceRecipe smelt_goldIngot = new org.bukkit.inventory.FurnaceRecipe(
                 new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE);
 
 
-        // Todo    BREAD RECIPE
+        //  BREAD RECIPE
         ShapedRecipe bread = new ShapedRecipe(new NamespacedKey(survival, "bread"), new ItemStack(Material.BREAD, 2));
 
         bread.shape(" E ", "WWW");
@@ -644,7 +644,7 @@ public class RecipeManager {
         bread.setIngredient('W', Material.WHEAT);
 
 
-        // Todo    COOKIE RECIPE
+        //  COOKIE RECIPE
         ShapedRecipe cookie = new ShapedRecipe(new NamespacedKey(survival, "cookie"), new ItemStack(Material.COOKIE, 8));
 
         cookie.shape(" E ", "WCW", " S ");
@@ -655,28 +655,28 @@ public class RecipeManager {
         cookie.setIngredient('C', Material.COCOA_BEANS);
 
 
-        // Todo    SLIME BALL RECIPE
+        //  SLIME BALL RECIPE
         ShapelessRecipe slimeball = new ShapelessRecipe(new NamespacedKey(survival, "slimeball"), new ItemStack(Material.SLIME_BALL, 1));
 
         slimeball.addIngredient(Material.MILK_BUCKET);
         slimeball.addIngredient(8, Material.VINE);
 
 
-        // Todo    COBWEB RECIPE
+        //  COBWEB RECIPE
         ShapelessRecipe cobweb = new ShapelessRecipe(new NamespacedKey(survival, "cobweb"), new ItemStack(Material.COBWEB, 1));
 
         cobweb.addIngredient(Material.SLIME_BALL);
         cobweb.addIngredient(2, Material.STRING);
 
 
-        // Todo    SAPLING RECIPE
+        //  SAPLING RECIPE
         ShapelessRecipe sapling1 = new ShapelessRecipe(new NamespacedKey(survival, "sapling1"), new ItemStack(Material.STICK, 4));
 
         sapling1.addIngredient(new RecipeChoice.MaterialChoice(Material.OAK_SAPLING, Material.BIRCH_SAPLING, Material.SPRUCE_SAPLING,
                 Material.JUNGLE_SAPLING, Material.DARK_OAK_SAPLING, Material.ACACIA_SAPLING));
 
 
-        // Todo REINFORCED LEATHER BOOTS RECIPE
+        // REINFORCED LEATHER BOOTS RECIPE
         ShapedRecipe leatherBoots = new ShapedRecipe(new NamespacedKey(survival, "leatherboots"), Items.get(Items.REINFORCED_LEATHER_BOOTS));
         leatherBoots.shape("@*@");
 
@@ -684,7 +684,7 @@ public class RecipeManager {
         leatherBoots.setIngredient('*', Material.LEATHER_BOOTS);
 
 
-        // Todo REINFORCED LEATHER TUNIC RECIPE
+        // REINFORCED LEATHER TUNIC RECIPE
         ShapedRecipe leatherChestplate = new ShapedRecipe(new NamespacedKey(survival, "leatherchestplate"), Items.get(Items.REINFORCED_LEATHER_TUNIC));
         leatherChestplate.shape(" @ ", "@*@", " @ ");
 
@@ -692,7 +692,7 @@ public class RecipeManager {
         leatherChestplate.setIngredient('*', Material.LEATHER_CHESTPLATE);
 
 
-        // Todo REINFORCED LEATHER TROUSERS RECIPE
+        // REINFORCED LEATHER TROUSERS RECIPE
         ShapedRecipe leatherLeggings = new ShapedRecipe(new NamespacedKey(survival, "leatherleggings"), Items.get(Items.REINFORCED_LEATHER_TROUSERS));
         leatherLeggings.shape(" @ ", "@*@", " @ ");
 
@@ -700,7 +700,7 @@ public class RecipeManager {
         leatherLeggings.setIngredient('*', Material.LEATHER_LEGGINGS);
 
 
-        // Todo REINFORCED LEATHER HELMET RECIPE
+        // REINFORCED LEATHER HELMET RECIPE
         ShapedRecipe leatherHelmet = new ShapedRecipe(new NamespacedKey(survival, "leatherhelmet"), Items.get(Items.REINFORCED_LEATHER_HELMET));
         leatherHelmet.shape("@*@");
 
@@ -708,28 +708,28 @@ public class RecipeManager {
         leatherHelmet.setIngredient('*', Material.LEATHER_HELMET);
 
 
-        // Todo GOLDEN SABATONS RECIPE
+        // GOLDEN SABATONS RECIPE
         ShapedRecipe goldBoots = new ShapedRecipe(new NamespacedKey(survival, "goldboots"), Items.get(Items.GOLDEN_SABATONS));
         goldBoots.shape("@ @", "@ @");
 
         goldBoots.setIngredient('@', Material.GOLD_INGOT);
 
 
-        // Todo GOLDEN GUARD RECIPE
+        // GOLDEN GUARD RECIPE
         ShapedRecipe goldChestplate = new ShapedRecipe(new NamespacedKey(survival, "goldchestplate"), Items.get(Items.GOLDEN_GUARD));
         goldChestplate.shape("@ @", "@@@", "@@@");
 
         goldChestplate.setIngredient('@', Material.GOLD_INGOT);
 
 
-        // Todo GOLDEN GREAVES RECIPE
+        // GOLDEN GREAVES RECIPE
         ShapedRecipe goldLeggings = new ShapedRecipe(new NamespacedKey(survival, "goldleggings"), Items.get(Items.GOLDEN_GREAVES));
         goldLeggings.shape("@@@", "@ @", "@ @");
 
         goldLeggings.setIngredient('@', Material.GOLD_INGOT);
 
 
-        // Todo GOLDEN CROWN RECIPE
+        // GOLDEN CROWN RECIPE
         ShapedRecipe goldHelmet = new ShapedRecipe(new NamespacedKey(survival, "goldhelmet"), Items.get(Items.GOLDEN_CROWN));
         goldHelmet.shape("@*@", "@@@");
 
@@ -737,63 +737,63 @@ public class RecipeManager {
         goldHelmet.setIngredient('*', Material.EMERALD);
 
 
-        // Todo IRON BOOTS RECIPE
+        // IRON BOOTS RECIPE
         ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "ironboots"), Items.get(Items.IRON_BOOTS));
         ironBoots.shape("@ @", "@ @");
 
         ironBoots.setIngredient('@', Material.IRON_INGOT);
 
 
-        // Todo IRON CHESTPLATE RECIPE
+        // IRON CHESTPLATE RECIPE
         ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "ironchestplate"), Items.get(Items.IRON_CHESTPLATE));
         ironChestplate.shape("@ @", "@@@", "@@@");
 
         ironChestplate.setIngredient('@', Material.IRON_INGOT);
 
 
-        // Todo IRON LEGGINGS RECIPE
+        // IRON LEGGINGS RECIPE
         ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "ironleggings"), Items.get(Items.IRON_LEGGINGS));
         ironLeggings.shape("@@@", "@ @", "@ @");
 
         ironLeggings.setIngredient('@', Material.IRON_INGOT);
 
 
-        // Todo IRON HELMET RECIPE
+        // IRON HELMET RECIPE
         ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "ironhelmet"), Items.get(Items.IRON_HELMET));
         ironHelmet.shape("@@@", "@ @");
 
         ironHelmet.setIngredient('@', Material.IRON_INGOT);
 
 
-        // Todo DIAMOND BOOTS RECIPE
+        // DIAMOND BOOTS RECIPE
         ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamondboots"), Items.get(Items.DIAMOND_BOOTS));
         diamondBoots.shape("@ @", "@ @");
 
         diamondBoots.setIngredient('@', Material.DIAMOND);
 
 
-        // Todo DIAMOND CHESTPLATE RECIPE
+        // DIAMOND CHESTPLATE RECIPE
         ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamondchestplate"), Items.get(Items.DIAMOND_CHESTPLATE));
         diamondChestplate.shape("@ @", "@@@", "@@@");
 
         diamondChestplate.setIngredient('@', Material.DIAMOND);
 
 
-        // Todo DIAMOND LEGGINGS RECIPE
+        // DIAMOND LEGGINGS RECIPE
         ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamondleggings"), Items.get(Items.DIAMOND_LEGGINGS));
         diamondLeggings.shape("@@@", "@ @", "@ @");
 
         diamondLeggings.setIngredient('@', Material.DIAMOND);
 
 
-        // Todo DIAMOND HELMET RECIPE
+        // DIAMOND HELMET RECIPE
         ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamondhelmet"), Items.get(Items.DIAMOND_HELMET));
         diamondHelmet.shape("@@@", "@ @");
 
         diamondHelmet.setIngredient('@', Material.DIAMOND);
 
 
-        // Todo RECURVE BOW RECIPE
+        // RECURVE BOW RECIPE
         ShapedRecipe recurveBow1 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow1"), Items.get(Items.RECURVE_BOW));
         ShapedRecipe recurveBow2 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow2"), Items.get(Items.RECURVE_BOW));
 
@@ -810,7 +810,7 @@ public class RecipeManager {
         recurveBow2.setIngredient('@', Material.IRON_INGOT);
         recurveBow2.setIngredient('1', Material.STRING);
 
-        // Todo NEW CAMPFIRE RECIPE
+        // NEW CAMPFIRE RECIPE
         ShapedRecipe camp1 = new ShapedRecipe(new NamespacedKey(survival, "camp1"), Items.get(Items.CAMPFIRE));
 
         camp1.shape(" 1 ", "121", "333");
