@@ -48,47 +48,13 @@ public class RecipeManager {
 
         // Todo   MATTOCK RECIPE
         ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), Items.get(Items.MATTOCK));
-        ShapedRecipe mattock2 = new ShapedRecipe(new NamespacedKey(survival, "mattock2"), Items.get(Items.MATTOCK));
-        ShapedRecipe mattock3 = new ShapedRecipe(new NamespacedKey(survival, "mattock3"), Items.get(Items.MATTOCK));
-        ShapedRecipe mattock4 = new ShapedRecipe(new NamespacedKey(survival, "mattock4"), Items.get(Items.MATTOCK));
-        ShapedRecipe mattock5 = new ShapedRecipe(new NamespacedKey(survival, "mattock5"), Items.get(Items.MATTOCK));
-        ShapedRecipe mattock6 = new ShapedRecipe(new NamespacedKey(survival, "mattock6"), Items.get(Items.MATTOCK));
 
         mattock1.shape("@-", "1@");
         mattock1.setIngredient('@', Material.FLINT);
-        mattock1.setIngredient('-', Material.OAK_PLANKS);
+        mattock1.setIngredient('-', new RecipeChoice.MaterialChoice(Material.OAK_PLANKS, Material.BIRCH_PLANKS, Material.SPRUCE_PLANKS,
+                Material.JUNGLE_PLANKS, Material.ACACIA_PLANKS, Material.DARK_OAK_PLANKS));
         mattock1.setIngredient('1', Material.STICK);
-        mattock1.setGroup("MATTOCK");
 
-        mattock2.shape("@-", "1@");
-        mattock2.setIngredient('@', Material.FLINT);
-        mattock2.setIngredient('-', Material.BIRCH_PLANKS);
-        mattock2.setIngredient('1', Material.STICK);
-        mattock2.setGroup("MATTOCK");
-
-        mattock3.shape("@-", "1@");
-        mattock3.setIngredient('@', Material.FLINT);
-        mattock3.setIngredient('-', Material.SPRUCE_PLANKS);
-        mattock3.setIngredient('1', Material.STICK);
-        mattock3.setGroup("MATTOCK");
-
-        mattock4.shape("@-", "1@");
-        mattock4.setIngredient('@', Material.FLINT);
-        mattock4.setIngredient('-', Material.JUNGLE_PLANKS);
-        mattock4.setIngredient('1', Material.STICK);
-        mattock4.setGroup("MATTOCK");
-
-        mattock5.shape("@-", "1@");
-        mattock5.setIngredient('@', Material.FLINT);
-        mattock5.setIngredient('-', Material.ACACIA_PLANKS);
-        mattock5.setIngredient('1', Material.STICK);
-        mattock5.setGroup("MATTOCK");
-
-        mattock6.shape("@-", "1@");
-        mattock6.setIngredient('@', Material.FLINT);
-        mattock6.setIngredient('-', Material.DARK_OAK_PLANKS);
-        mattock6.setIngredient('1', Material.STICK);
-        mattock6.setGroup("MATTOCK");
 
 
         // Todo   SHIV RECIPE
@@ -212,7 +178,8 @@ public class RecipeManager {
         gHoe1.setIngredient('*', Material.ENDER_EYE);
         gHoe1.setIngredient('@', Material.DIAMOND);
         gHoe1.setIngredient('B', Material.DIAMOND_BLOCK);
-        gHoe1.setIngredient('1', Material.OAK_PLANKS);
+        gHoe1.setIngredient('1', new RecipeChoice.MaterialChoice(Material.OAK_PLANKS, Material.DARK_OAK_PLANKS, Material.ACACIA_PLANKS,
+                Material.JUNGLE_PLANKS, Material.SPRUCE_PLANKS, Material.BIRCH_PLANKS));
         gHoe1.setGroup("ENDER GIANT BLADE");
 
         gHoe2.shape("@@ ", "@*B", " B1");
@@ -220,7 +187,8 @@ public class RecipeManager {
         gHoe2.setIngredient('*', Material.ENDER_EYE);
         gHoe2.setIngredient('@', Material.DIAMOND);
         gHoe2.setIngredient('B', Material.DIAMOND_BLOCK);
-        gHoe2.setIngredient('1', Material.OAK_PLANKS);
+        gHoe2.setIngredient('1', new RecipeChoice.MaterialChoice(Material.OAK_PLANKS, Material.DARK_OAK_PLANKS, Material.ACACIA_PLANKS,
+                Material.JUNGLE_PLANKS, Material.SPRUCE_PLANKS, Material.BIRCH_PLANKS));
         gHoe2.setGroup("ENDER GIANT BLADE");
 
 
@@ -415,10 +383,12 @@ public class RecipeManager {
         // Todo WORKBENCH RECIPE
         ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), Items.get(Items.WORKBENCH));
 
-        workbench1.addIngredient(Material.OAK_LOG);
+        workbench1.addIngredient(new RecipeChoice.MaterialChoice(Material.OAK_LOG, Material.BIRCH_LOG, Material.SPRUCE_LOG,
+                Material.JUNGLE_LOG, Material.DARK_OAK_LOG, Material.ACACIA_LOG, Material.OAK_WOOD, Material.BIRCH_WOOD, Material.SPRUCE_WOOD,
+                Material.JUNGLE_WOOD, Material.DARK_OAK_WOOD, Material.ACACIA_WOOD));
         workbench1.addIngredient(Material.LEATHER);
         workbench1.addIngredient(Material.STRING);
-        workbench1.addIngredient(Material.WOODEN_SWORD);
+        workbench1.addIngredient(new RecipeChoice.ExactChoice(Items.get(Items.HAMMER)));
 
 
         // Todo    FURNACE RECIPE
@@ -427,7 +397,7 @@ public class RecipeManager {
         furnace.shape("@@@", "@*@", "@@@");
 
         furnace.setIngredient('@', Material.BRICK);
-        furnace.setIngredient('*', Material.WOODEN_SHOVEL);
+        furnace.setIngredient('*', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
 
 
         // Todo    CHEST RECIPE
@@ -435,7 +405,9 @@ public class RecipeManager {
 
         chest.shape("@@@", "@#@", "@@@");
 
-        chest.setIngredient('@', Material.OAK_LOG);
+        chest.setIngredient('@', new RecipeChoice.MaterialChoice(Material.OAK_LOG, Material.BIRCH_LOG, Material.SPRUCE_LOG,
+                Material.JUNGLE_LOG, Material.DARK_OAK_LOG, Material.ACACIA_LOG, Material.OAK_WOOD, Material.BIRCH_WOOD, Material.SPRUCE_WOOD,
+                Material.JUNGLE_WOOD, Material.DARK_OAK_WOOD, Material.ACACIA_WOOD));
         chest.setIngredient('#', Material.IRON_INGOT);
 
 
@@ -450,7 +422,7 @@ public class RecipeManager {
         // Todo    DIORITE RECIPE
         ShapelessRecipe diorite = new ShapelessRecipe(new NamespacedKey(survival, "diorite"), new ItemStack(Material.DIORITE, 1));
 
-        diorite.addIngredient(Material.BONE_MEAL); // TODO Change in 1.14 -> WHITE_DYE
+        diorite.addIngredient(new RecipeChoice.MaterialChoice(Material.BONE_MEAL, Material.WHITE_DYE));
         diorite.addIngredient(Material.COBBLESTONE);
 
 
@@ -485,40 +457,28 @@ public class RecipeManager {
         gravel2.setGroup("GRAVEL");
 
 
-        // Todo    FIRESSTRIKER RECIPE
+        // Todo    FIRESTRIKER RECIPE
         ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), Items.get(Items.FIRESTRIKER));
-        ShapelessRecipe firestriker2 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker2"), Items.get(Items.FIRESTRIKER));
 
         firestriker1.addIngredient(Material.FLINT);
-        firestriker1.addIngredient(Material.COAL);
-        firestriker1.setGroup("FIRESTRIKER");
-
-        firestriker2.addIngredient(Material.FLINT);
-        firestriker2.addIngredient(Material.CHARCOAL);
-        firestriker2.setGroup("FIRESTRIKER");
+        firestriker1.addIngredient(new RecipeChoice.MaterialChoice(Material.COAL, Material.CHARCOAL));
 
 
         // Todo    TORCH RECIPE
         ShapedRecipe torch1 = new ShapedRecipe(new NamespacedKey(survival, "torch1"), new ItemStack(Material.TORCH, 8));
         ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(survival, "torch2"), new ItemStack(Material.TORCH, 16));
-        ShapedRecipe torch3 = new ShapedRecipe(new NamespacedKey(survival, "torch3"), new ItemStack(Material.TORCH, 16));
 
         torch1.shape("AAA", "ABA", "AAA");
-        torch1.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
+        ItemStack test = Items.get(Items.FIRESTRIKER);
+        torch1.setIngredient('B', new RecipeChoice.ExactChoice(test));
         torch1.setIngredient('A', Material.STICK);
-        torch1.setGroup("TORCH");
+        //torch1.setGroup("TORCH");
 
         torch2.shape("ACA", "ABA", "AAA");
-        torch2.setIngredient('C', Material.COAL);
+        torch2.setIngredient('C', new RecipeChoice.MaterialChoice(Material.COAL, Material.CHARCOAL));
         torch2.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch2.setIngredient('A', Material.STICK);
-        torch2.setGroup("TORCH");
-
-        torch3.shape("ACA", "ABA", "AAA");
-        torch3.setIngredient('C', Material.CHARCOAL);
-        torch3.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
-        torch3.setIngredient('A', Material.STICK);
-        torch3.setGroup("TORCH");
+        //torch2.setGroup("TORCH");
 
 
         // Todo    FLINT RECIPE
@@ -530,33 +490,18 @@ public class RecipeManager {
         // Todo    FERMENTED SPIDER EYE RECIPE
         ShapelessRecipe fermentedSpiderEye1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedspidereye1"),
                 new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
-        ShapelessRecipe fermentedSpiderEye2 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedspidereye2"),
-                new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
 
         fermentedSpiderEye1.addIngredient(Material.SPIDER_EYE);
         fermentedSpiderEye1.addIngredient(Material.SUGAR);
-        fermentedSpiderEye1.addIngredient(Material.RED_MUSHROOM);
-        fermentedSpiderEye1.setGroup("FERMENTED SPIDER EYE");
-
-        fermentedSpiderEye2.addIngredient(Material.SPIDER_EYE);
-        fermentedSpiderEye2.addIngredient(Material.SUGAR);
-        fermentedSpiderEye2.addIngredient(Material.RED_MUSHROOM);
-        fermentedSpiderEye2.setGroup("FERMENTED SPIDER EYE");
+        fermentedSpiderEye1.addIngredient(new RecipeChoice.MaterialChoice(Material.RED_MUSHROOM, Material.BROWN_MUSHROOM));
 
 
         // Todo    FERMENTED SKIN RECIPE
         ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), Items.get(Items.FERMENTED_SKIN));
-        ShapelessRecipe fermentedSkin2 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin2"), Items.get(Items.FERMENTED_SKIN));
 
         fermentedSkin1.addIngredient(Material.ROTTEN_FLESH);
         fermentedSkin1.addIngredient(Material.SUGAR);
-        fermentedSkin1.addIngredient(Material.BROWN_MUSHROOM);
-        fermentedSkin1.setGroup("FERMENTED SKIN");
-
-        fermentedSkin2.addIngredient(Material.ROTTEN_FLESH);
-        fermentedSkin2.addIngredient(Material.SUGAR);
-        fermentedSkin2.addIngredient(Material.RED_MUSHROOM);
-        fermentedSkin2.setGroup("FERMENTED SKIN");
+        fermentedSkin1.addIngredient(new RecipeChoice.MaterialChoice(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM));
 
 
         // Todo    POISONOUS POTATO RECIPE
@@ -564,7 +509,7 @@ public class RecipeManager {
                 new ItemStack(Material.POISONOUS_POTATO, 1));
 
         poisonousPotato.addIngredient(Material.POTATO);
-        poisonousPotato.addIngredient(Material.BONE_MEAL); // TODO Add WHITE_DYE recipe in 1.14
+        poisonousPotato.addIngredient(new RecipeChoice.MaterialChoice(Material.BONE_MEAL, Material.WHITE_DYE));
 
 
         // Todo    GLASS BOTTLE RECIPE
@@ -726,24 +671,9 @@ public class RecipeManager {
 
         // Todo    SAPLING RECIPE
         ShapelessRecipe sapling1 = new ShapelessRecipe(new NamespacedKey(survival, "sapling1"), new ItemStack(Material.STICK, 4));
-        ShapelessRecipe sapling2 = new ShapelessRecipe(new NamespacedKey(survival, "sapling2"), new ItemStack(Material.STICK, 4));
-        ShapelessRecipe sapling3 = new ShapelessRecipe(new NamespacedKey(survival, "sapling3"), new ItemStack(Material.STICK, 4));
-        ShapelessRecipe sapling4 = new ShapelessRecipe(new NamespacedKey(survival, "sapling4"), new ItemStack(Material.STICK, 4));
-        ShapelessRecipe sapling5 = new ShapelessRecipe(new NamespacedKey(survival, "sapling5"), new ItemStack(Material.STICK, 4));
-        ShapelessRecipe sapling6 = new ShapelessRecipe(new NamespacedKey(survival, "sapling6"), new ItemStack(Material.STICK, 4));
 
-        sapling1.addIngredient(Material.OAK_SAPLING);
-        sapling1.setGroup("STICK");
-        sapling2.addIngredient(Material.BIRCH_SAPLING);
-        sapling2.setGroup("STICK");
-        sapling3.addIngredient(Material.SPRUCE_SAPLING);
-        sapling3.setGroup("STICK");
-        sapling4.addIngredient(Material.JUNGLE_SAPLING);
-        sapling4.setGroup("STICK");
-        sapling5.addIngredient(Material.ACACIA_SAPLING);
-        sapling5.setGroup("STICK");
-        sapling6.addIngredient(Material.DARK_OAK_SAPLING);
-        sapling6.setGroup("STICK");
+        sapling1.addIngredient(new RecipeChoice.MaterialChoice(Material.OAK_SAPLING, Material.BIRCH_SAPLING, Material.SPRUCE_SAPLING,
+                Material.JUNGLE_SAPLING, Material.DARK_OAK_SAPLING, Material.ACACIA_SAPLING));
 
 
         // Todo REINFORCED LEATHER BOOTS RECIPE
@@ -895,11 +825,6 @@ public class RecipeManager {
             survival.getServer().addRecipe(hatchet1);
             survival.getServer().addRecipe(hatchet2);
             survival.getServer().addRecipe(mattock1);
-            survival.getServer().addRecipe(mattock2);
-            survival.getServer().addRecipe(mattock3);
-            survival.getServer().addRecipe(mattock4);
-            survival.getServer().addRecipe(mattock5);
-            survival.getServer().addRecipe(mattock6);
             survival.getServer().addRecipe(shiv1);
             survival.getServer().addRecipe(shiv2);
             survival.getServer().addRecipe(shiv3);
@@ -907,7 +832,6 @@ public class RecipeManager {
             survival.getServer().addRecipe(hammer1);
             survival.getServer().addRecipe(hammer2);
             survival.getServer().addRecipe(firestriker1);
-            survival.getServer().addRecipe(firestriker2);
             survival.getServer().addRecipe(workbench1);
             survival.getServer().addRecipe(furnace);
             survival.getServer().addRecipe(chest);
@@ -917,17 +841,11 @@ public class RecipeManager {
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);
             survival.getServer().addRecipe(torch2);
-            survival.getServer().addRecipe(torch3);
         }
         if (settings.getBoolean("Recipes.WebString"))
             survival.getServer().addRecipe(string);
         if (settings.getBoolean("Recipes.SaplingToSticks")) {
             survival.getServer().addRecipe(sapling1);
-            survival.getServer().addRecipe(sapling2);
-            survival.getServer().addRecipe(sapling3);
-            survival.getServer().addRecipe(sapling4);
-            survival.getServer().addRecipe(sapling5);
-            survival.getServer().addRecipe(sapling6);
         }
 
         if (settings.getBoolean("LegendaryItems.ValkyrieAxe")) {
@@ -1004,12 +922,9 @@ public class RecipeManager {
         }
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
             survival.getServer().addRecipe(fermentedSpiderEye1);
-            survival.getServer().addRecipe(fermentedSpiderEye2);
         }
         if (settings.getBoolean("Mechanics.FermentedSkin")) {
             survival.getServer().addRecipe(fermentedSkin1);
-            if (settings.getBoolean("Mechanics.RedMushroomFermentation"))
-                survival.getServer().addRecipe(fermentedSkin2);
         }
         if (settings.getBoolean("Mechanics.PoisonousPotato"))
             survival.getServer().addRecipe(poisonousPotato);
