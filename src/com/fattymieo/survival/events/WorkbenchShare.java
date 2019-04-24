@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.fattymieo.survival.managers.Items;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -239,6 +240,7 @@ public class WorkbenchShare implements Listener
 	public void onBreakWorkbench(BlockBreakEvent e)
 	{
 		if(e.isCancelled()) return;
+		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		Block workbench = e.getBlock();
 		if (e.getBlock().getType() == Material.CRAFTING_TABLE) {
 			e.setDropItems(false);
