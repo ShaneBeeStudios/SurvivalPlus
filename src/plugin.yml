@@ -1,5 +1,5 @@
 name: SurvivalPlus
-main: com.fattymieo.survival.Survival
+main: tk.shanebee.survival.Survival
 authors: [FattyMieo, ShaneBee]
 version: 3.0.0-Beta2
 api-version: 1.13
