@@ -89,12 +89,12 @@ public enum Items {
                 int shiv_dmg = 4;
                 float shiv_spd = 1.8f;
 
-                AttributeModifier i_shivDamage = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",
-                        shiv_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_shivDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c56"),
+                        "generic.attackDamage", shiv_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_shivMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_shivDamage);
 
-                AttributeModifier i_shivSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        shiv_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_shivSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c57"),
+                        "generic.attackSpeed", shiv_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_shivMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_shivSpeed);
 
                 i_shivMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -131,8 +131,8 @@ public enum Items {
                 int gAxe_spd = 1;
                 int gAxe_dmg = 8;
 
-                AttributeModifier i_gAxeSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        gAxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gAxeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c58"),
+                        "generic.attackSpeed", gAxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gAxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gAxeSpeed);
 
                 i_gAxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -161,12 +161,12 @@ public enum Items {
                 int gPickaxe_dmg = 5;
                 float gPickaxe_spd = 0.8f;
 
-                AttributeModifier i_gPickDamage = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",
-                        gPickaxe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gPickDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c59"),
+                        "generic.attackDamage", gPickaxe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gPickaxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gPickDamage);
 
-                AttributeModifier i_gPickSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        gPickaxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gPickSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c60"),
+                        "generic.attackSpeed", gPickaxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gPickaxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gPickSpeed);
 
                 i_gPickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -193,16 +193,16 @@ public enum Items {
                 float gSpade_spd = 0.8f;
                 float gSpade_knockbackPercent = 0.5f;
 
-                AttributeModifier i_gSpadeDamage = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",
-                        gSpade_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gSpadeDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c61"),
+                        "generic.attackDamage", gSpade_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gSpadeDamage);
 
-                AttributeModifier i_gSpadeSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        gSpade_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gSpadeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c62"),
+                        "generic.attackSpeed", gSpade_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gSpadeSpeed);
 
-                AttributeModifier i_gSpadeKnock = new AttributeModifier(UUID.randomUUID(), "generic.knockbackResistance",
-                        gSpade_knockbackPercent, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND);
+                AttributeModifier i_gSpadeKnock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c63"),
+                        "generic.knockbackResistance", gSpade_knockbackPercent, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND);
                 i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, i_gSpadeKnock);
 
                 i_gSpadeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -234,16 +234,16 @@ public enum Items {
                 int gHoe_spd = 1;
                 float gHoe_move = -0.5f;
 
-                AttributeModifier i_gHoeDamage = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",
-                        gHoe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gHoeDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c64"),
+                        "generic.attackDamage", gHoe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gHoeDamage);
 
-                AttributeModifier i_gHoeSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        gHoe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gHoeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c65"),
+                        "generic.attackSpeed", gHoe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gHoeSpeed);
 
-                AttributeModifier i_gHoeMove = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        gHoe_move, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.OFF_HAND);
+                AttributeModifier i_gHoeMove = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c66"),
+                        "generic.movementSpeed", gHoe_move, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.OFF_HAND);
                 i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_gHoeMove);
 
                 i_gHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -278,16 +278,16 @@ public enum Items {
                 float gSword_spd = 1.6f;
                 int gSword_health = -6;
 
-                AttributeModifier i_gSwordDamage = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",
-                        gSword_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gSwordDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c67"),
+                        "generic.attackDamage", gSword_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gSwordDamage);
 
-                AttributeModifier i_gSwordSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
-                        gSword_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gSwordSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c68"),
+                        "generic.attackSpeed", gSword_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gSwordSpeed);
 
-                AttributeModifier i_gSwordHealth = new AttributeModifier(UUID.randomUUID(), "generic.maxHealth",
-                        gSword_health, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                AttributeModifier i_gSwordHealth = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c69"),
+                        "generic.maxHealth", gSword_health, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
                 i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, i_gSwordHealth);
 
                 i_gSwordMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -324,7 +324,8 @@ public enum Items {
 
                 float firestriker_spd = 4f;
 
-                AttributeModifier i_firestrikerSpeed = new AttributeModifier(UUID.randomUUID(), "generic.attackSpeed",
+                AttributeModifier i_firestrikerSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c55"),
+                        "generic.attackSpeed",
                         firestriker_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 
                 i_firestrikerMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_firestrikerSpeed);
@@ -354,8 +355,8 @@ public enum Items {
                 ItemMeta i_leatherBootsMeta = i_leatherBoots.getItemMeta();
                 i_leatherBootsMeta.setCustomModelData(REINFORCED_LEATHER_BOOTS.modelData);
 
-                AttributeModifier i_leatherBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+                AttributeModifier i_leatherBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c70"),
+                        "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
                 i_leatherBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_leatherBootsArmor);
 
                 i_leatherBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.reinforced_boots));
@@ -398,8 +399,8 @@ public enum Items {
                 ItemStack i_goldBoots = new ItemStack(GOLDEN_SABATONS.materialType, 1);
                 ItemMeta i_goldBootsMeta = i_goldBoots.getItemMeta();
 
-                AttributeModifier i_goldBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+                AttributeModifier i_goldBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c71"),
+                        "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
                 i_goldBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldBootsArmor);
 
                 i_goldBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_sabatons));
@@ -412,8 +413,8 @@ public enum Items {
                 ItemStack i_goldChestplate = new ItemStack(GOLDEN_GUARD.materialType, 1);
                 ItemMeta i_goldChestplateMeta = i_goldChestplate.getItemMeta();
 
-                AttributeModifier i_goldChestArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+                AttributeModifier i_goldChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c72"),
+                        "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
                 i_goldChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldChestArmor);
 
                 i_goldChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_guard));
@@ -426,8 +427,8 @@ public enum Items {
                 ItemStack i_goldLeggings = new ItemStack(GOLDEN_GREAVES.materialType, 1);
                 ItemMeta i_goldLeggingsMeta = i_goldLeggings.getItemMeta();
 
-                AttributeModifier i_goldLeggingsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+                AttributeModifier i_goldLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c73"),
+                        "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
                 i_goldLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldLeggingsArmor);
 
                 i_goldLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_greaves));
@@ -440,8 +441,8 @@ public enum Items {
                 ItemStack i_goldHelmet = new ItemStack(GOLDEN_CROWN.materialType, 1);
                 ItemMeta i_goldHelmetMeta = i_goldHelmet.getItemMeta();
 
-                AttributeModifier i_goldHelmetArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+                AttributeModifier i_goldHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c74"),
+                        "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
                 i_goldHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldHelmetArmor);
 
                 i_goldHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.golden_crown));
@@ -454,11 +455,11 @@ public enum Items {
                 ItemStack i_ironBoots = new ItemStack(IRON_BOOTS.materialType, 1);
                 ItemMeta i_ironBootsMeta = i_ironBoots.getItemMeta();
 
-                AttributeModifier i_ironBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+                AttributeModifier i_ironBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c75"),
+                        "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
                 i_ironBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironBootsArmor);
-                AttributeModifier i_ironBootsSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+                AttributeModifier i_ironBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c76"),
+                        "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
                 i_ironBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironBootsSpeed);
 
                 i_ironBoots.setItemMeta(i_ironBootsMeta);
@@ -468,12 +469,12 @@ public enum Items {
                 ItemStack i_ironChestplate = new ItemStack(IRON_CHESTPLATE.materialType, 1);
                 ItemMeta i_ironChestplateMeta = i_ironChestplate.getItemMeta();
 
-                AttributeModifier i_ironChestMove = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+                AttributeModifier i_ironChestMove = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c77"),
+                        "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
                 i_ironChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironChestMove);
 
-                AttributeModifier i_ironChestArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+                AttributeModifier i_ironChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c78"),
+                        "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
                 i_ironChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironChestArmor);
 
                 i_ironChestplate.setItemMeta(i_ironChestplateMeta);
@@ -483,12 +484,12 @@ public enum Items {
                 ItemStack i_ironLeggings = new ItemStack(IRON_LEGGINGS.materialType, 1);
                 ItemMeta i_ironLeggingsMeta = i_ironLeggings.getItemMeta();
 
-                AttributeModifier i_ironLeggingsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+                AttributeModifier i_ironLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c79"),
+                        "generic.armor", 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
                 i_ironLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironLeggingsArmor);
 
-                AttributeModifier i_ironLeggingsSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+                AttributeModifier i_ironLeggingsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c80"),
+                        "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
                 i_ironLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironLeggingsSpeed);
 
                 i_ironLeggings.setItemMeta(i_ironLeggingsMeta);
@@ -498,12 +499,12 @@ public enum Items {
                 ItemStack i_ironHelmet = new ItemStack(IRON_HELMET.materialType, 1);
                 ItemMeta i_ironHelmetMeta = i_ironHelmet.getItemMeta();
 
-                AttributeModifier i_ironHelmetArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+                AttributeModifier i_ironHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c81"),
+                        "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
                 i_ironHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironHelmetArmor);
 
-                AttributeModifier i_ironHelmetSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+                AttributeModifier i_ironHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c82"),
+                        "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
                 i_ironHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironHelmetSpeed);
 
                 i_ironHelmet.setItemMeta(i_ironHelmetMeta);
@@ -513,12 +514,12 @@ public enum Items {
                 ItemStack i_diamondBoots = new ItemStack(DIAMOND_BOOTS.materialType, 1);
                 ItemMeta i_diamondBootsMeta = i_diamondBoots.getItemMeta();
 
-                AttributeModifier i_diamondBootsArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+                AttributeModifier i_diamondBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c83"),
+                        "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
                 i_diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondBootsArmor);
 
-                AttributeModifier i_diamondBootsSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+                AttributeModifier i_diamondBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c84"),
+                        "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
                 i_diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondBootsSpeed);
 
                 i_diamondBoots.setItemMeta(i_diamondBootsMeta);
@@ -528,12 +529,12 @@ public enum Items {
                 ItemStack i_diamondChestplate = new ItemStack(DIAMOND_CHESTPLATE.materialType, 1);
                 ItemMeta i_diamondChestplateMeta = i_diamondChestplate.getItemMeta();
 
-                AttributeModifier i_diamondChestArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+                AttributeModifier i_diamondChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c85"),
+                        "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
                 i_diamondChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondChestArmor);
 
-                AttributeModifier i_diamondChestSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+                AttributeModifier i_diamondChestSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c86"),
+                        "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
                 i_diamondChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondChestSpeed);
 
                 i_diamondChestplate.setItemMeta(i_diamondChestplateMeta);
@@ -543,12 +544,12 @@ public enum Items {
                 ItemStack i_diamondLeggings = new ItemStack(DIAMOND_LEGGINGS.materialType, 1);
                 ItemMeta i_diamondLeggingsMeta = i_diamondLeggings.getItemMeta();
 
-                AttributeModifier i_diamondLegArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+                AttributeModifier i_diamondLegArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c87"),
+                        "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
                 i_diamondLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondLegArmor);
 
-                AttributeModifier i_diamondLegSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+                AttributeModifier i_diamondLegSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c88"),
+                        "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
                 i_diamondLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondLegSpeed);
 
                 i_diamondLeggings.setItemMeta(i_diamondLeggingsMeta);
@@ -558,12 +559,12 @@ public enum Items {
                 ItemStack i_diamondHelmet = new ItemStack(DIAMOND_HELMET.materialType, 1);
                 ItemMeta i_diamondHelmetMeta = i_diamondHelmet.getItemMeta();
 
-                AttributeModifier i_diamondHelmetArmor = new AttributeModifier(UUID.randomUUID(), "generic.armor",
-                        3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+                AttributeModifier i_diamondHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c89"),
+                        "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
                 i_diamondHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondHelmetArmor);
 
-                AttributeModifier i_diamondHelmetSpeed = new AttributeModifier(UUID.randomUUID(), "generic.movementSpeed",
-                        -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+                AttributeModifier i_diamondHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c90"),
+                        "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
                 i_diamondHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondHelmetSpeed);
 
                 i_diamondHelmet.setItemMeta(i_diamondHelmetMeta);
@@ -604,7 +605,7 @@ public enum Items {
 
     public static boolean compare(ItemStack itemStack, Items type) {
         if (itemStack.getType() == type.materialType) {
-            if (itemStack.getItemMeta().hasCustomModelData()) {
+            if (itemStack.getItemMeta() != null && itemStack.getItemMeta().hasCustomModelData()) {
                 return itemStack.getItemMeta().getCustomModelData() == type.modelData;
             } else {
                 return type.modelData == 0;
