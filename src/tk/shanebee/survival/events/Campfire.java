@@ -1,17 +1,21 @@
 package tk.shanebee.survival.events;
 
-import tk.shanebee.survival.managers.Items;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Lightable;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCookEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.Items;
 
 import java.util.Random;
 
@@ -21,13 +25,13 @@ public class Campfire implements Listener {
     @EventHandler
     public void onPlaceCampfire(BlockPlaceEvent e) {
         if (e.getBlockPlaced().getType() != Material.CAMPFIRE) return;
-        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
         if (Items.compare(e.getItemInHand(), Items.CAMPFIRE)) {
-            Block block = e.getBlock();
-            Lightable camp = ((Lightable) block.getBlockData());
+            Lightable camp = ((Lightable) e.getBlock().getBlockData());
             camp.setLit(false);
-            block.setBlockData(camp);
+            e.getBlock().setBlockData(camp);
+
         } else {
+            if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
             e.setCancelled(true);
         }
     }
@@ -35,21 +39,34 @@ public class Campfire implements Listener {
     // Hit an unlit campfire with a stick to light it
     @EventHandler
     public void lightFire(PlayerInteractEvent e) {
-        if (e.getClickedBlock() == null || e.getClickedBlock().getType() != Material.CAMPFIRE) return;
-        if (e.getItem() != null && e.getItem().getType() == Material.STICK) {
-            Block block = e.getClickedBlock();
-            Lightable camp = ((Lightable) block.getBlockData());
-            if (camp.isLit()) return;
-            e.setCancelled(true);
+        if (e.getClickedBlock() == null) return;
+        if (e.getClickedBlock().getType() == Material.CAMPFIRE) {
+            if (e.getItem() != null && e.getItem().getType() == Material.STICK) {
+                Block block = e.getClickedBlock();
+                Lightable camp = ((Lightable) block.getBlockData());
+                if (camp.isLit()) return;
+                e.setCancelled(true);
+                int i = new Random().nextInt(20);
+                if (i == 10) {
+                    camp.setLit(true);
+                    block.setBlockData(camp);
+                    ItemStack tool = e.getItem();
+                    tool.setAmount(tool.getAmount() - 1);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () ->
+                            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_BURN, 1, 1), 1);
 
-            int i = new Random().nextInt(20);
-            if (i == 10) {
-                camp.setLit(true);
-                block.setBlockData(camp);
+                }
+            } else if (e.getItem() != null && e.getItem().getType() == Material.POTION) {
+                Lightable camp = ((Lightable) e.getClickedBlock().getBlockData());
+                if (!camp.isLit()) return;
+                camp.setLit(false);
+                e.getClickedBlock().setBlockData(camp);
+                Player p = e.getPlayer();
+                if (e.getHand() == EquipmentSlot.HAND) p.getInventory().setItemInMainHand(new ItemStack(Material.GLASS_BOTTLE));
+                if (e.getHand() == EquipmentSlot.OFF_HAND) p.getInventory().setItemInOffHand(new ItemStack(Material.GLASS_BOTTLE));
+                p.playSound(e.getPlayer().getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 1);
 
-                ItemStack tool = e.getItem();
-                tool.setAmount(tool.getAmount() - 1);
-                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
             }
         }
     }
