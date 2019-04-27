@@ -102,6 +102,7 @@ Recipes:
   Saddle: true
   Nametag: true
   PackedIce: true
+  LeatherBard: true
   IronBard: true
   GoldBard: true
   DiamondBard: true
