@@ -1,5 +1,6 @@
 package tk.shanebee.survival.events;
 
+import org.bukkit.block.data.Lightable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -79,7 +80,12 @@ public class FirestrikerClick implements Listener {
 						if (Utils.isBed(event.getClickedBlock().getType())) return;
 						if (Utils.isWoodGate(event.getClickedBlock().getType())) return;
 						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
-
+						if (event.getClickedBlock().getType() == Material.CAMPFIRE) {
+							Lightable camp = ((Lightable) event.getClickedBlock().getBlockData());
+							if (camp.isLit()) return;
+							camp.setLit(true);
+							event.getClickedBlock().setBlockData(camp);
+						}
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
 						if (ignite(player, loc)) {
 							Random rand = new Random();
