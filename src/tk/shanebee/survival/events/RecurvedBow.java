@@ -1,7 +1,5 @@
 package tk.shanebee.survival.events;
 
-import java.util.Random;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -11,8 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.Items;
+
+import java.util.Random;
 
 public class RecurvedBow implements Listener {
 
@@ -22,7 +22,8 @@ public class RecurvedBow implements Listener {
 			Player player = (Player) event.getEntity();
 			ItemStack mainItem = event.getBow();
 
-			if (mainItem.getItemMeta().getLore() != null) {
+			assert mainItem != null;
+			if (Items.compare(mainItem, Items.RECURVE_BOW)) {
 				Random rand = new Random();
 				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();
@@ -47,6 +48,7 @@ public class RecurvedBow implements Listener {
 					Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1);
 				} else {
 					event.setCancelled(true);
+					player.updateInventory();
 					player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
 				}
 			}
