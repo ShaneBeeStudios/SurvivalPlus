@@ -788,6 +788,24 @@ public class RecipeManager {
         camp1.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
         camp1.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
+        // NEW STONE SICKLE RECIPE
+        ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(survival, "stone_sickle"), Items.get(Items.STONE_SICKLE));
+
+        stone_sickle.shape(" 1 ", " 2 ", " 3 ");
+        stone_sickle.setIngredient('1', Material.COBBLESTONE);
+        stone_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+        stone_sickle.setIngredient('3', Material.STICK);
+
+        // NEW IRON SICKLE RECIPE
+        ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(survival, "iron_sickle"), Items.get(Items.IRON_SICKLE));
+
+        iron_sickle.shape(" 1 ", " 2 ", " 3 ");
+        iron_sickle.setIngredient('1', Material.IRON_NUGGET);
+        iron_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.STONE_SICKLE)));
+        iron_sickle.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+
+
+
 
         //Add recipes
         if (settings.getBoolean("Survival.Enabled")) {
@@ -806,6 +824,8 @@ public class RecipeManager {
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(camp1);
+            survival.getServer().addRecipe(stone_sickle);
+            survival.getServer().addRecipe(iron_sickle);
         }
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);

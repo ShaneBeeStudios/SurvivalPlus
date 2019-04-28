@@ -1,7 +1,5 @@
 package tk.shanebee.survival.managers;
 
-import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -15,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,7 +53,10 @@ public enum Items {
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, 0),
     RECURVE_BOW(Material.BOW, 0),
     PURIFIED_WATER(Material.POTION, 0),
-    CAMPFIRE(Material.CAMPFIRE, 1);
+    CAMPFIRE(Material.CAMPFIRE, 1),
+
+    STONE_SICKLE(Material.WOODEN_HOE, 2),
+    IRON_SICKLE(Material.WOODEN_HOE, 3);
 
     private final Material materialType;
     private final int modelData;
@@ -595,8 +598,25 @@ public enum Items {
                 campfireMeta.setCustomModelData(1);
                 campfire.setItemMeta(campfireMeta);
 
-
                 return campfire;
+
+            case STONE_SICKLE:
+                ItemStack stone_sickle = new ItemStack(STONE_SICKLE.materialType);
+                ItemMeta stone_sickleMeta = stone_sickle.getItemMeta();
+                stone_sickleMeta.setCustomModelData(STONE_SICKLE.modelData);
+                stone_sickleMeta.setDisplayName(Utils.getColoredString(Survival.lang.stone_sickle));
+                stone_sickle.setItemMeta(stone_sickleMeta);
+
+                return stone_sickle;
+
+            case IRON_SICKLE:
+                ItemStack iron_sickle = new ItemStack(IRON_SICKLE.materialType);
+                ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
+                iron_sickleMeta.setCustomModelData(IRON_SICKLE.modelData);
+                iron_sickleMeta.setDisplayName(Utils.getColoredString(Survival.lang.iron_sickle));
+                iron_sickle.setItemMeta(iron_sickleMeta);
+
+                return iron_sickle;
 
             default:
                 return new ItemStack(Material.AIR);
