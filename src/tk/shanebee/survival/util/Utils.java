@@ -135,6 +135,16 @@ public class Utils {
         return false;
     }
 
+    public static boolean isCookingBlock(Material material) {
+        switch (material) {
+            case FURNACE:
+            case BLAST_FURNACE:
+            case SMOKER:
+                return true;
+        }
+        return false;
+    }
+
     public static boolean isStoneTypeBlock(Material material) {
         switch (material) {
             case STONE:
@@ -150,11 +160,26 @@ public class Utils {
             case BRICK:
             case NETHER_BRICK:
             case SANDSTONE:
+            case CHISELED_SANDSTONE:
+            case SMOOTH_SANDSTONE:
+            case CUT_SANDSTONE:
             case RED_SANDSTONE:
+            case CHISELED_RED_SANDSTONE:
+            case CUT_RED_SANDSTONE:
+            case SMOOTH_RED_SANDSTONE:
             case PRISMARINE:
             case NETHERRACK:
+            case END_STONE:
+            case END_STONE_BRICKS:
+            case PURPUR_BLOCK:
+            case PURPUR_PILLAR:
                 return true;
+                default:
         }
+        if (isSlabNotWood(material)) return true;
+        if (isStairsNotWood(material)) return true;
+        if (Tag.STONE_BRICKS.isTagged(material)
+        || Tag.WALLS.isTagged(material)) return true;
         return false;
     }
 
@@ -168,19 +193,6 @@ public class Utils {
 
     public static boolean isStairsNotWood(Material material) {
         return (Tag.STAIRS.isTagged(material) && !Tag.WOODEN_STAIRS.isTagged(material));
-    }
-
-    public static boolean isWoodFence(Material material) {
-        switch (material) {
-            case ACACIA_FENCE:
-            case BIRCH_FENCE:
-            case DARK_OAK_FENCE:
-            case JUNGLE_FENCE:
-            case OAK_FENCE:
-            case SPRUCE_FENCE:
-                return true;
-        }
-        return false;
     }
 
     public static boolean isWoodGate(Material material) {
@@ -265,14 +277,5 @@ public class Utils {
         }
         return itemStacks;
     }
-
-    /*
-    List<ItemStack> gHoeItems = new ArrayList<>();
-        for (int i = 0; i < 32; i++){
-            ItemStack iTest = Items.get(Items.ENDER_GIANT_BLADE);
-            iTest.setDurability((((short) i)));
-            gHoeItems.add(iTest);
-        }
-     */
 
 }

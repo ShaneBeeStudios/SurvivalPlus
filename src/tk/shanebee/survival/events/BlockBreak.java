@@ -1,9 +1,6 @@
 
 package tk.shanebee.survival.events;
 
-import java.util.Random;
-
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -16,8 +13,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Utils;
+
+import java.util.Random;
 
 public class BlockBreak implements Listener {
 
@@ -38,14 +37,19 @@ public class BlockBreak implements Listener {
 								|| tool.getType() == Material.DIAMOND_SHOVEL)) {
 					if (material == Material.GRASS_BLOCK
 							|| material == Material.DIRT
+							|| material == Material.PODZOL
+							|| material == Material.COARSE_DIRT
+							|| material == Material.GRASS_PATH
 							|| material == Material.FARMLAND
 							|| material == Material.SOUL_SAND
 							|| material == Material.SAND
+							|| material == Material.RED_SAND
 							|| material == Material.CLAY
 							|| material == Material.MYCELIUM
 							|| material == Material.SNOW
 							|| material == Material.SNOW_BLOCK
-							|| material == Material.GRASS_PATH
+							|| Utils.isConcretePowder(material)
+
 					) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -74,28 +78,15 @@ public class BlockBreak implements Listener {
 							|| material == Material.CHEST
 							|| material == Material.TRAPPED_CHEST
 							|| material == Material.CRAFTING_TABLE
-
 							|| Tag.PLANKS.isTagged(material)
 							|| Tag.LOGS.isTagged(material)
 							|| Tag.STAIRS.isTagged(material)
 							|| Tag.SLABS.isTagged(material)
 							|| material == Material.BOOKSHELF
 							|| material == Material.LADDER
-							|| material == Material.DARK_OAK_STAIRS
-							|| material == Material.ACACIA_STAIRS
 							|| Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
-							|| material == Material.OAK_FENCE
-							|| material == Material.BIRCH_FENCE
-							|| material == Material.JUNGLE_FENCE
-							|| material == Material.SPRUCE_FENCE
-							|| material == Material.DARK_OAK_FENCE
-							|| material == Material.ACACIA_FENCE
-							|| material == Material.OAK_FENCE_GATE
-							|| material == Material.BIRCH_FENCE_GATE
-							|| material == Material.JUNGLE_FENCE_GATE
-							|| material == Material.SPRUCE_FENCE_GATE
-							|| material == Material.DARK_OAK_FENCE_GATE
-							|| material == Material.ACACIA_FENCE_GATE
+							|| Tag.WOODEN_FENCES.isTagged(material)
+							|| Utils.isWoodGate(material)
 							|| Tag.BANNERS.isTagged(material)
 							|| material == Material.JUKEBOX
 							|| material == Material.NOTE_BLOCK
@@ -119,37 +110,43 @@ public class BlockBreak implements Listener {
 				}
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Pickaxe") &&
 						!(tool.getType() == Material.WOODEN_PICKAXE
+								|| tool.getType() == Material.GOLDEN_PICKAXE
 								|| tool.getType() == Material.STONE_PICKAXE
 								|| tool.getType() == Material.IRON_PICKAXE
 								|| tool.getType() == Material.DIAMOND_PICKAXE)) {
 					if (material == Material.OBSIDIAN
 							|| Utils.isOreBlock(material)
 							|| Utils.isNaturalOreBlock(material)
-
 							|| Utils.isDoorNotWood(material)
-
 							|| Utils.isSlabNotWood(material)
 							|| Utils.isStairsNotWood(material)
 
-							|| Utils.isStoneTypeBlock(material)
+							|| Utils.isTerracotta(material)
+							|| Utils.isGlazedTerracotta(material)
+							|| Utils.isConcrete(material)
 
+							|| Utils.isStoneTypeBlock(material)
+							|| Utils.isCookingBlock(material)
+
+
+							|| Tag.WALLS.isTagged(material)
+							|| Tag.ICE.isTagged(material)
+							|| Tag.CORAL_BLOCKS.isTagged(material)
+
+							|| material == Material.NETHER_BRICK_FENCE
 							|| material == Material.SPAWNER
 
-							|| material == Material.COBBLESTONE_WALL
-							|| material == Material.NETHER_BRICK_FENCE
-
-							|| material == Material.CLAY
-							|| material == Material.ICE
-							|| material == Material.PACKED_ICE
 							|| material == Material.SEA_LANTERN
 							|| material == Material.GLOWSTONE
-							|| material == Material.PURPUR_BLOCK
-							|| material == Material.PURPUR_PILLAR
 							|| material == Material.END_ROD
-							|| material == Material.FROSTED_ICE
 							|| material == Material.DISPENSER
 							|| material == Material.DROPPER
-							|| material == Material.FURNACE
+							|| material == Material.OBSERVER
+							|| material == Material.PISTON
+							|| material == Material.PISTON_HEAD
+							|| material == Material.STICKY_PISTON
+							|| material == Material.MOVING_PISTON
+							|| material == Material.DAYLIGHT_DETECTOR
 							|| material == Material.ENCHANTING_TABLE
 							|| material == Material.ANVIL
 							|| material == Material.ENDER_CHEST
@@ -162,16 +159,14 @@ public class BlockBreak implements Listener {
 
 							|| material == Material.BEACON
 
-							|| Tag.RAILS.isTagged(material)
-							|| Utils.isTerracotta(material)
-							|| Utils.isGlazedTerracotta(material)
-							|| Utils.isConcrete(material)) {
+							|| Tag.RAILS.isTagged(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_pick));
 					}
 				}
 
+				// TODO change this up for sickle (coming soon)
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Hoe") &&
 						!(tool.getType() == Material.STONE_HOE
 								|| tool.getType() == Material.IRON_HOE
@@ -216,11 +211,6 @@ public class BlockBreak implements Listener {
 			} else {
 				if (Utils.isOreBlock(material) || Utils.isNaturalOreBlock(material)) {
 					event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(material));
-				}
-
-				//Special Case
-				if (material == Material.REDSTONE_ORE) {
-					event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.REDSTONE_ORE));
 				}
 			}
 		}
