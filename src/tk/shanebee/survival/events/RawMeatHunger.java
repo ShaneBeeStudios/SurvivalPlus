@@ -21,6 +21,7 @@ public class RawMeatHunger implements Listener {
 			case BEEF:
 			case PORKCHOP:
 			case MUTTON:
+			case RABBIT:
 			case SALMON:
 			case COD:
 			case CHICKEN:
