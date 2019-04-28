@@ -20,8 +20,8 @@ Survival:
     Axe: true
     Pickaxe: true
     Shovel: true
-    Hoe: true
     Shears: true
+    Sickle: true
     
   PlaceOnlyWith:
     Hammer: true

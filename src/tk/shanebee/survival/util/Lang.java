@@ -22,7 +22,7 @@ public class Lang {
     public String task_must_use_shovel;
     public String task_must_use_axe;
     public String task_must_use_pick;
-    public String task_must_use_hoe;
+    public String task_must_use_sickle;
     public String task_must_use_shear;
     public String task_must_use_hammer;
 
@@ -161,7 +161,7 @@ public class Lang {
         task_must_use_shovel = lang.getString("task-must-use-shovel");
         task_must_use_axe = lang.getString("task-must-use-axe");
         task_must_use_pick = lang.getString("task-must-use-pick");
-        task_must_use_hoe = lang.getString("task-must-use-hoe");
+        task_must_use_sickle = lang.getString("task-must-use-sickle");
         task_must_use_shear = lang.getString("task-must-use-shear");
         task_must_use_hammer = lang.getString("task-must-use-hammer");
         no_rename = lang.getString("no-rename");
