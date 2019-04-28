@@ -1,5 +1,6 @@
 package tk.shanebee.survival.events;
 
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -32,16 +33,12 @@ public class NoAnvil implements Listener {
 					ItemStack item = anvil.getContents()[0];
 
 					if (item != null) {
-						if (item.getType() == Material.GOLDEN_AXE
-								|| item.getType() == Material.GOLDEN_PICKAXE
-								|| item.getType() == Material.GOLDEN_SHOVEL
-								|| item.getType() == Material.GOLDEN_HOE
-								|| item.getType() == Material.GOLDEN_SWORD
-								|| item.getType() == Material.WOODEN_AXE
-								|| item.getType() == Material.WOODEN_PICKAXE
-								|| item.getType() == Material.WOODEN_SHOVEL
-								|| item.getType() == Material.WOODEN_HOE
-								|| item.getType() == Material.WOODEN_SWORD) {
+						if (Items.compare(item, Items.VALKYRIES_AXE)
+								|| Items.compare(item, Items.QUARTZ_PICKAXE) || Items.compare(item, Items.OBSIDIAN_MACE)
+								|| Items.compare(item, Items.ENDER_GIANT_BLADE) || Items.compare(item, Items.BLAZE_SWORD)
+								|| Items.compare(item, Items.HATCHET) || Items.compare(item, Items.MATTOCK)
+								|| Items.compare(item, Items.FIRESTRIKER) || Items.compare(item, Items.SHIV)
+								|| Items.compare(item, Items.HAMMER)) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
 							e.getWhoClicked().sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.no_rename) + item.getItemMeta().getDisplayName() + ChatColor.RED + Utils.getColoredString(Survival.lang.period));
