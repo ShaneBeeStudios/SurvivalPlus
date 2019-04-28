@@ -240,6 +240,37 @@ public class Utils {
         return false;
     }
 
+    public static Material getDrops(Material material, Boolean grown) {
+        switch (material) {
+            case PUMPKIN:
+                return Material.PUMPKIN;
+            case JACK_O_LANTERN:
+                return Material.JACK_O_LANTERN;
+            case MELON_STEM:
+                return Material.MELON_SEEDS;
+            case PUMPKIN_STEM:
+                return Material.PUMPKIN_SEEDS;
+            case CHORUS_FLOWER:
+                return Material.CHORUS_FLOWER;
+            case CARROTS:
+                return Material.CARROT;
+            case POTATOES:
+                return Material.POTATO;
+            case BEETROOTS:
+                if (grown) return Material.BEETROOT;
+                else return Material.BEETROOT_SEEDS;
+            case WHEAT:
+                if (grown) return Material.WHEAT;
+                else return Material.WHEAT_SEEDS;
+            case SWEET_BERRY_BUSH:
+                return Material.SWEET_BERRIES;
+
+                default:
+                    return Material.AIR;
+
+        }
+    }
+
     public static void sendColoredMsg(CommandSender player, String msg) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
