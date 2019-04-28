@@ -1,12 +1,10 @@
 
 package tk.shanebee.survival.events;
 
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Tag;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -166,24 +165,51 @@ public class BlockBreak implements Listener {
 					}
 				}
 
-				// TODO change this up for sickle (coming soon)
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Hoe") &&
-						!(tool.getType() == Material.STONE_HOE
-								|| tool.getType() == Material.IRON_HOE
-								|| tool.getType() == Material.DIAMOND_HOE)) {
+				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
 					if (material == Material.MELON
-							|| material == Material.PUMPKIN
-							|| material == Material.JACK_O_LANTERN
-							|| material == Material.MELON_STEM
-							|| material == Material.PUMPKIN_STEM
-							|| material == Material.CHORUS_FLOWER
-							|| material == Material.CARROT
-							|| material == Material.POTATO
-							|| material == Material.BEETROOT
-							|| material == Material.WHEAT) {
-						event.setCancelled(true);
-						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_hoe));
+							|| material == Material.PUMPKIN || material == Material.JACK_O_LANTERN
+							|| material == Material.MELON_STEM || material == Material.PUMPKIN_STEM
+							|| material == Material.CHORUS_FLOWER || material == Material.CARROTS
+							|| material == Material.POTATOES || material == Material.BEETROOTS
+							|| material == Material.WHEAT || material == Material.SWEET_BERRY_BUSH) {
+
+						if (!Items.compare(tool, Items.IRON_SICKLE) && !Items.compare(tool, Items.STONE_SICKLE)) {
+							event.setCancelled(true);
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
+						} else {
+							event.setDropItems(false);
+							Location loc = event.getBlock().getLocation();
+							int random = 1;
+							int multiplier = 1;
+							boolean grown = true;
+							Material drop = Utils.getDrops(material, grown);
+
+							if (event.getBlock().getBlockData() instanceof Ageable) {
+								Ageable crop = ((Ageable) event.getBlock().getBlockData());
+								grown = crop.getAge() == crop.getMaximumAge();
+							}
+
+							// Stone sickle drops a chance of 0-1 items (not grown) or 1-2 (grown)
+							if (Items.compare(tool, Items.STONE_SICKLE)) {
+								multiplier = 3;
+								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+
+							// Iron sickle drops a chance of 1 (not grown) or 2-4 items (grown)
+							} else if (Items.compare(tool, Items.IRON_SICKLE)) {
+								random = grown ? new Random().nextInt(3) + 2 : 1;
+							}
+
+							if (drop != Material.AIR && random != 0) {
+								loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
+							}
+							if (tool.getType().getMaxDurability() < Utils.getDurability(tool) + multiplier) {
+								player.getInventory().setItemInMainHand(null);
+								player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+								return;
+							}
+							Utils.setDurability(tool, Utils.getDurability(tool) + multiplier);
+							player.updateInventory();
+						}
 					}
 				}
 
