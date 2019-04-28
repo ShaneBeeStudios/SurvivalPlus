@@ -160,6 +160,7 @@ public class Utils {
             case NOTE_BLOCK:
             case BREWING_STAND:
             case CAULDRON:
+            case COMPOSTER:
                 return true;
         }
         return false;
