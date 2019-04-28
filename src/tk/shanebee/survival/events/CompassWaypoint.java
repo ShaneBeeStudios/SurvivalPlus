@@ -50,7 +50,7 @@ public class CompassWaypoint implements Listener {
 								return;
 							default:
 						}
-						if (Utils.isBed(event.getClickedBlock().getType())) return;
+						if (Tag.BEDS.isTagged(event.getClickedBlock().getType())) return;
 						if (Utils.isWoodGate(event.getClickedBlock().getType())) return;
 						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
 
