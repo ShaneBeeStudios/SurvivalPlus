@@ -1,5 +1,6 @@
 package tk.shanebee.survival.events;
 
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,7 +26,7 @@ public class ObsidianMaceWeakness implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 
-			if (mainItem.getType() == Material.GOLDEN_SHOVEL) {
+			if (Items.compare(mainItem, Items.OBSIDIAN_MACE)) {
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));
 				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
