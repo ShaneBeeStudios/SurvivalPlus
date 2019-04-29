@@ -29,6 +29,7 @@ public class Consume implements Listener {
 		final Player player = event.getPlayer();
 		switch (event.getItem().getType()) {
 			case POTION:
+				// TODO add in new water items (purified/clean)
 				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(event.getItem())) {
@@ -45,15 +46,17 @@ public class Consume implements Listener {
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
-				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				event.setCancelled(true);
-				player.getInventory().remove(event.getItem());
-				player.getInventory().addItem(new ItemStack(Material.BOWL));
-				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
-					Random rand = new Random();
-					if (rand.nextInt(10) + 1 <= 6) {
-						player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
-						player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+				if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BEETROOT_SOUP) {
+					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
+					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
+
+					if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
+						Random rand = new Random();
+						if (rand.nextInt(10) + 1 <= 6) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
+							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+						}
 					}
 				}
 				break;
