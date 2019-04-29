@@ -51,7 +51,7 @@ public enum Items {
     DIAMOND_CHESTPLATE(Material.DIAMOND_CHESTPLATE, 0),
     DIAMOND_HELMET(Material.DIAMOND_HELMET, 0),
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, 0),
-    RECURVE_BOW(Material.BOW, 0),
+    RECURVE_BOW(Material.BOW, 1),
     PURIFIED_WATER(Material.POTION, 0),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
@@ -577,6 +577,7 @@ public enum Items {
                 ItemStack i_recurveBow = new ItemStack(RECURVE_BOW.materialType, 1);
 
                 ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
+                recurveBowMeta.setCustomModelData(1);
                 recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
                         Utils.getColoredString(Survival.lang.recurved)));
                 recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
