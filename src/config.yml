@@ -6,7 +6,7 @@ Language: EN
 
 MultiWorld:
   EnableResourcePack: true
-  ResourcePackURL: https://www.dropbox.com/s/3jgd7fpn8nxgzrh/testtest.zip?dl=1
+  ResourcePackURL: https://www.dropbox.com/s/l4n1vecrqux6sf6/SP-1.14.zip?dl=1
   NotifyMessage: true
 
 LocalChatDist: -1
