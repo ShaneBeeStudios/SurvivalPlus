@@ -2,6 +2,7 @@ package tk.shanebee.survival;
 
 import tk.shanebee.survival.commands.*;
 import tk.shanebee.survival.events.*;
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.RecipeManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
 import tk.shanebee.survival.metrics.Metrics;
@@ -26,6 +27,7 @@ import org.bukkit.scoreboard.*;
 
 import java.util.*;
 
+@SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
     public static Survival instance;
     public static ScoreboardManager manager;
@@ -39,7 +41,7 @@ public class Survival extends JavaPlugin implements Listener {
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
     public static boolean snowGenOption = true;
-    private static String Language; // TODO probably used in the future
+    //private static String Language; // TODO probably used in the future
     private String prefix;
 
     public void onEnable() {
@@ -51,7 +53,7 @@ public class Survival extends JavaPlugin implements Listener {
         settings.options().copyDefaults(true);
         saveConfig();
 
-        Language = settings.getString("Language");
+        //Language = settings.getString("Language");
 
         // LOAD LANG FILE
         lang = new Lang(this);
@@ -200,14 +202,6 @@ public class Survival extends JavaPlugin implements Listener {
         }
     }
 
-    private static HashMap<String, String> copyToStringValueMap(Map<String, Object> input) {
-        HashMap<String, String> ret = new HashMap<>();
-        for (Map.Entry<String, Object> entry : input.entrySet()) {
-            ret.put(entry.getKey(), (String) entry.getValue());
-        }
-        return ret;
-    }
-
     public static Location lookAt(Location loc, Location lookat) {
         //Clone the loc to prevent applied changes to the input loc
         loc = loc.clone();
@@ -335,11 +329,12 @@ public class Survival extends JavaPlugin implements Listener {
     private void BlazeSword() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_SWORD) {
+                if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
                     player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
+                    assert particleLoc.getWorld() != null;
                     particleLoc.getWorld().spawnParticle(Particle.FLAME, particleLoc, 10, 0.5, 0.5, 0.5);
 
                     player.setFireTicks(20);
@@ -351,8 +346,9 @@ public class Survival extends JavaPlugin implements Listener {
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_SWORD) {
+                if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
                     Random rand = new Random();
+                    assert player.getLocation().getWorld() != null;
                     player.getLocation().getWorld().playSound(
                             player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
                 }
@@ -365,96 +361,56 @@ public class Survival extends JavaPlugin implements Listener {
             for (Player player : getServer().getOnlinePlayers()) {
                 ItemStack mainItem = player.getInventory().getItemInMainHand();
                 ItemStack offItem = player.getInventory().getItemInOffHand();
-                if (mainItem.getType() == Material.GOLDEN_HOE) {
+                if (Items.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
+                    assert particleLoc.getWorld() != null;
                     particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
-                    //ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
                 }
 
-                if (offItem.getType() == Material.GOLDEN_HOE) {
+                if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
                     player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
-                    //ParticleEffect.CRIT_MAGIC.display(0.5f, 0.5f, 0.5f, 0.5f, 10, particleLoc, 64);
+                    assert particleLoc.getWorld() != null;
                     particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
                 }
 
                 Score dualWield = board.getObjective("DualWield").getScore(player.getName());
 
-                if
-                (
-                        (
-                                (
-                                        mainItem.getType() == Material.GOLDEN_HOE
-                                                || mainItem.getType() == Material.GOLDEN_AXE
-                                )
-                                        && (
-                                        offItem.getType() == Material.WOODEN_AXE
-                                                || offItem.getType() == Material.WOODEN_SWORD
-                                                || offItem.getType() == Material.WOODEN_PICKAXE
-                                                || offItem.getType() == Material.WOODEN_SHOVEL
-                                                || offItem.getType() == Material.WOODEN_HOE
-                                                || offItem.getType() == Material.STONE_AXE
-                                                || offItem.getType() == Material.STONE_SWORD
-                                                || offItem.getType() == Material.STONE_PICKAXE
-                                                || offItem.getType() == Material.STONE_SHOVEL
-                                                || offItem.getType() == Material.STONE_HOE
-                                                || offItem.getType() == Material.IRON_AXE
-                                                || offItem.getType() == Material.IRON_SWORD
-                                                || offItem.getType() == Material.IRON_PICKAXE
-                                                || offItem.getType() == Material.IRON_SHOVEL
-                                                || offItem.getType() == Material.IRON_HOE
-                                                || offItem.getType() == Material.GOLDEN_AXE
-                                                || offItem.getType() == Material.GOLDEN_SWORD
-                                                || offItem.getType() == Material.GOLDEN_PICKAXE
-                                                || offItem.getType() == Material.GOLDEN_SHOVEL
-                                                || offItem.getType() == Material.GOLDEN_HOE
-                                                || offItem.getType() == Material.DIAMOND_AXE
-                                                || offItem.getType() == Material.DIAMOND_SWORD
-                                                || offItem.getType() == Material.DIAMOND_PICKAXE
-                                                || offItem.getType() == Material.DIAMOND_SHOVEL
-                                                || offItem.getType() == Material.DIAMOND_HOE
-                                                || offItem.getType() == Material.BOW
-                                )
-                        )
-                                ||
-                                (
-                                        (
-                                                offItem.getType() == Material.GOLDEN_HOE
-                                                        || offItem.getType() == Material.GOLDEN_AXE
-                                        )
-                                                && (
-                                                mainItem.getType() == Material.WOODEN_AXE
-                                                        || mainItem.getType() == Material.WOODEN_SWORD
-                                                        || mainItem.getType() == Material.WOODEN_PICKAXE
-                                                        || mainItem.getType() == Material.WOODEN_SHOVEL
-                                                        || mainItem.getType() == Material.WOODEN_HOE
-                                                        || mainItem.getType() == Material.STONE_AXE
-                                                        || mainItem.getType() == Material.STONE_SWORD
-                                                        || mainItem.getType() == Material.STONE_PICKAXE
-                                                        || mainItem.getType() == Material.STONE_SHOVEL
-                                                        || mainItem.getType() == Material.STONE_HOE
-                                                        || mainItem.getType() == Material.IRON_AXE
-                                                        || mainItem.getType() == Material.IRON_SWORD
-                                                        || mainItem.getType() == Material.IRON_PICKAXE
-                                                        || mainItem.getType() == Material.IRON_SHOVEL
-                                                        || mainItem.getType() == Material.IRON_HOE
-                                                        || mainItem.getType() == Material.GOLDEN_AXE
-                                                        || mainItem.getType() == Material.GOLDEN_SWORD
-                                                        || mainItem.getType() == Material.GOLDEN_PICKAXE
-                                                        || mainItem.getType() == Material.GOLDEN_SHOVEL
-                                                        || mainItem.getType() == Material.GOLDEN_HOE
-                                                        || mainItem.getType() == Material.DIAMOND_AXE
-                                                        || mainItem.getType() == Material.DIAMOND_SWORD
-                                                        || mainItem.getType() == Material.DIAMOND_PICKAXE
-                                                        || mainItem.getType() == Material.DIAMOND_SHOVEL
-                                                        || mainItem.getType() == Material.DIAMOND_HOE
-                                                        || mainItem.getType() == Material.BOW
-                                        )
-                                )
-                ) {
+                // TODO need to figure out whats going on here
+                if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
+                        && (offItem.getType() == Material.WOODEN_AXE
+                        || offItem.getType() == Material.WOODEN_SWORD || offItem.getType() == Material.WOODEN_PICKAXE
+                        || offItem.getType() == Material.WOODEN_SHOVEL || offItem.getType() == Material.WOODEN_HOE
+                        || offItem.getType() == Material.STONE_AXE || offItem.getType() == Material.STONE_SWORD
+                        || offItem.getType() == Material.STONE_PICKAXE || offItem.getType() == Material.STONE_SHOVEL
+                        || offItem.getType() == Material.STONE_HOE || offItem.getType() == Material.IRON_AXE
+                        || offItem.getType() == Material.IRON_SWORD || offItem.getType() == Material.IRON_PICKAXE
+                        || offItem.getType() == Material.IRON_SHOVEL || offItem.getType() == Material.IRON_HOE
+                        || offItem.getType() == Material.GOLDEN_AXE || offItem.getType() == Material.GOLDEN_SWORD
+                        || offItem.getType() == Material.GOLDEN_PICKAXE || offItem.getType() == Material.GOLDEN_SHOVEL
+                        || offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.DIAMOND_AXE
+                        || offItem.getType() == Material.DIAMOND_SWORD || offItem.getType() == Material.DIAMOND_PICKAXE
+                        || offItem.getType() == Material.DIAMOND_SHOVEL || offItem.getType() == Material.DIAMOND_HOE
+                        || offItem.getType() == Material.BOW))
+                        ||
+                        ((offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.GOLDEN_AXE)
+                        && (mainItem.getType() == Material.WOODEN_AXE
+                        || mainItem.getType() == Material.WOODEN_SWORD || mainItem.getType() == Material.WOODEN_PICKAXE
+                        || mainItem.getType() == Material.WOODEN_SHOVEL || mainItem.getType() == Material.WOODEN_HOE
+                        || mainItem.getType() == Material.STONE_AXE || mainItem.getType() == Material.STONE_SWORD
+                        || mainItem.getType() == Material.STONE_PICKAXE || mainItem.getType() == Material.STONE_SHOVEL
+                        || mainItem.getType() == Material.STONE_HOE || mainItem.getType() == Material.IRON_AXE
+                        || mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.IRON_PICKAXE
+                        || mainItem.getType() == Material.IRON_SHOVEL || mainItem.getType() == Material.IRON_HOE
+                        || mainItem.getType() == Material.GOLDEN_AXE || mainItem.getType() == Material.GOLDEN_SWORD
+                        || mainItem.getType() == Material.GOLDEN_PICKAXE || mainItem.getType() == Material.GOLDEN_SHOVEL
+                        || mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.DIAMOND_AXE
+                        || mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.DIAMOND_PICKAXE
+                        || mainItem.getType() == Material.DIAMOND_SHOVEL || mainItem.getType() == Material.DIAMOND_HOE
+                        || mainItem.getType() == Material.BOW))) {
                     player.removePotionEffect(PotionEffectType.SLOW);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
                     player.removePotionEffect(PotionEffectType.JUMP);
@@ -471,11 +427,12 @@ public class Survival extends JavaPlugin implements Listener {
     private void ObsidianMace() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_SHOVEL) {
+                if (Items.compare(player.getInventory().getItemInMainHand(), Items.OBSIDIAN_MACE)) {
                     player.removePotionEffect(PotionEffectType.SLOW);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
+                    assert particleLoc.getWorld() != null;
                     particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
                     particleLoc.getWorld().spawnParticle(Particle.PORTAL, particleLoc, 20, 0.5, 0.5, 0.5);
                 }
@@ -486,9 +443,10 @@ public class Survival extends JavaPlugin implements Listener {
     private void Valkyrie() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_AXE) {
+                if (Items.compare(player.getInventory().getItemInMainHand(), Items.VALKYRIES_AXE)) {
                     Location particleLoc = player.getLocation();
                     particleLoc.setY(particleLoc.getY() + 1);
+                    assert particleLoc.getWorld() != null;
                     particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
                 }
             }
@@ -498,7 +456,7 @@ public class Survival extends JavaPlugin implements Listener {
     private void QuartzPickaxe() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_PICKAXE) {
+                if (Items.compare(player.getInventory().getItemInMainHand(), Items.QUARTZ_PICKAXE)) {
                     player.removePotionEffect(PotionEffectType.FAST_DIGGING);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, 9, false));
                 }
@@ -520,8 +478,7 @@ public class Survival extends JavaPlugin implements Listener {
                             }
                         }
                     }
-                },
-                -1L, 1L);
+                }, -1L, 1L);
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
                     for (Player player : getServer().getOnlinePlayers()) {
@@ -546,8 +503,7 @@ public class Survival extends JavaPlugin implements Listener {
                             }
                         }
                     }
-                },
-                -1L, 320L);
+                }, -1L, 320L);
 
         if (!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0) {
             getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
@@ -564,8 +520,7 @@ public class Survival extends JavaPlugin implements Listener {
                                 }
                             }
                         }
-                    },
-                    -1L, AlertInterval * 20);
+                    }, -1L, AlertInterval * 20);
         }
     }
 
