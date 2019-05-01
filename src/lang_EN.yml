@@ -39,8 +39,9 @@ charge-unable: "Unable to Charge immediately."
 
 lack-of-energy: "Lack of energy, unable to spin."
 
-arrows-off-hand: "Must load Arrows on off hand."
-bow-main-hand: "Must use a Bow with main hand."
+arrows-off-hand: "&cMust load Arrows from your off hand."
+arrows-off-hand-crossbow: "&cYou need arrows in your off hand to load your crossbow"
+bow-main-hand: "&cMust use a Bow with main hand."
 recurved: "Recurved"
 
 fishing-off-hand: "Must use a fishing hook with empty off hand"

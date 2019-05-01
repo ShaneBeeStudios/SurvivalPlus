@@ -34,6 +34,7 @@ public class Lang {
 
     public String lack_of_energy;
     public String arrows_off_hand;
+    public String arrows_off_hand_crossbow;
     public String bow_main_hand;
     public String recurved;
 
@@ -171,6 +172,7 @@ public class Lang {
         charge_unable = lang.getString("charge-unable");
         lack_of_energy = lang.getString("lack-of-energy");
         arrows_off_hand = lang.getString("arrows-off-hand");
+        arrows_off_hand_crossbow = lang.getString("arrows-off-hand-crossbow");
         bow_main_hand = lang.getString("bow-main-hand");
         recurved = lang.getString("recurved");
         fishing_off_hand = lang.getString("fishing-off-hand");
