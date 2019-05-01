@@ -763,22 +763,24 @@ public class RecipeManager {
         diamondHelmet.setIngredient('@', Material.DIAMOND);
 
 
-        // RECURVE BOW RECIPE
-        ShapedRecipe recurveBow1 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow1"), Items.get(Items.RECURVE_BOW));
-        ShapedRecipe recurveBow2 = new ShapedRecipe(new NamespacedKey(survival, "recurvebow2"), Items.get(Items.RECURVE_BOW));
+        // RECURVED BOW RECIPE
+        ShapedRecipe recurvedBow = new ShapedRecipe(new NamespacedKey(survival, "recurved_bow"), Items.get(Items.RECURVE_BOW));
 
-        recurveBow1.shape(" @1", "#^1", " @1");
-        recurveBow1.setIngredient('^', Material.BOW);
-        recurveBow1.setIngredient('#', Material.PISTON);
-        recurveBow1.setIngredient('@', Material.IRON_INGOT);
-        recurveBow1.setIngredient('1', Material.STRING);
+        recurvedBow.shape(" @1", "#^1", " @1");
+        recurvedBow.setIngredient('^', Material.BOW);
+        recurvedBow.setIngredient('#', Material.PISTON);
+        recurvedBow.setIngredient('@', Material.IRON_INGOT);
+        recurvedBow.setIngredient('1', Material.STRING);
 
-        recurveBow2.shape("1@ ", "1^#", "1@ ");
 
-        recurveBow2.setIngredient('^', Material.BOW);
-        recurveBow2.setIngredient('#', new RecipeChoice.MaterialChoice(Tag.LOGS));
-        recurveBow2.setIngredient('@', Material.IRON_INGOT);
-        recurveBow2.setIngredient('1', Material.STRING);
+        // RECURVED CROSSBOW
+        ShapedRecipe recurvedCrossbow = new ShapedRecipe(new NamespacedKey(survival, "recurved_crossbow"), Items.get(Items.RECURVE_CROSSBOW));
+
+        recurvedCrossbow.shape(" 12", "342", " 12");
+        recurvedCrossbow.setIngredient('1', Material.DIAMOND);
+        recurvedCrossbow.setIngredient('2', Material.PHANTOM_MEMBRANE);
+        recurvedCrossbow.setIngredient('3', Material.PISTON);
+        recurvedCrossbow.setIngredient('4', Material.CROSSBOW);
 
         // NEW CAMPFIRE RECIPE
         ShapedRecipe camp1 = new ShapedRecipe(new NamespacedKey(survival, "camp1"), Items.get(Items.CAMPFIRE));
@@ -983,8 +985,8 @@ public class RecipeManager {
         if (settings.getBoolean("Recipes.Cobweb"))
             survival.getServer().addRecipe(cobweb);
         if (settings.getBoolean("Mechanics.RecurveBow")) {
-            survival.getServer().addRecipe(recurveBow1);
-            survival.getServer().addRecipe(recurveBow2);
+            survival.getServer().addRecipe(recurvedBow);
+            survival.getServer().addRecipe(recurvedCrossbow);
         }
     }
 
