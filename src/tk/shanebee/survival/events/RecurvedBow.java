@@ -23,7 +23,7 @@ public class RecurvedBow implements Listener {
 			ItemStack mainItem = event.getBow();
 
 			assert mainItem != null;
-			if (Items.compare(mainItem, Items.RECURVE_BOW)) {
+			if (Items.compare(mainItem, Items.RECURVE_BOW) || Items.compare(mainItem, Items.RECURVE_CROSSBOW)) {
 				Random rand = new Random();
 				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();
@@ -32,7 +32,6 @@ public class RecurvedBow implements Listener {
 
 					player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_SHULKER_BULLET_HURT, 0.5F, rand.nextFloat() * 0.4F + 0.8F);
-
 					final Runnable task = new Runnable() {
 						int times = 4;
 
