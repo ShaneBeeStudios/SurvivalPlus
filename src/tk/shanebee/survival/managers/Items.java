@@ -608,11 +608,12 @@ public enum Items {
             case CAMPFIRE:
                 ItemStack campfire = new ItemStack(CAMPFIRE.materialType);
                 ItemMeta campfireMeta = campfire.getItemMeta();
+                campfireMeta.setDisplayName(Utils.getColoredString(Survival.lang.campfire_name));
+                campfireMeta.setLore(Arrays.asList(Utils.getColoredString(Survival.lang.campfire_lore).split("\\|\\|")));
                 campfireMeta.setCustomModelData(1);
                 campfire.setItemMeta(campfireMeta);
 
                 return campfire;
-
             case STONE_SICKLE:
                 ItemStack stone_sickle = new ItemStack(STONE_SICKLE.materialType);
                 ItemMeta stone_sickleMeta = stone_sickle.getItemMeta();

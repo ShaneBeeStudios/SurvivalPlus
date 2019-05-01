@@ -161,3 +161,6 @@ purified-water: "Purified"
 
 stone_sickle: "&7Stone Sickle"
 iron_sickle: "&bIron Sickle"
+
+campfire-name: "&aCampfire"
+campfire-lore: "&bUnlit||&7Hit with a stick a few times||&7to light the campfire"

@@ -136,6 +136,8 @@ public class Lang {
 
     public String stone_sickle;
     public String iron_sickle;
+    public String campfire_name;
+    public String campfire_lore;
 
 
 
@@ -273,6 +275,8 @@ public class Lang {
 
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
+        campfire_name = lang.getString("campfire-name");
+        campfire_lore = lang.getString("campfire-lore");
 
 
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
