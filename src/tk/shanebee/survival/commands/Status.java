@@ -71,9 +71,21 @@ public class Status implements CommandExecutor, TabCompleter {
 							}
 						} else {
 							boardHunger.getScore(player.getName()).setScore(0);
-							boardThirst.getScore(player.getName()).setScore(0);
-							boardFatigue.getScore(player.getName()).setScore(0);
-							boardNutrients.getScore(player.getName()).setScore(0);
+							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
+								boardThirst.getScore(player.getName()).setScore(0);
+							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
+								boardFatigue.getScore(player.getName()).setScore(0);
+							if (Survival.settings.getBoolean("Mechanics.FoodDiversity"))
+								boardNutrients.getScore(player.getName()).setScore(0);
+						}
+						break;
+					case "none":
+					case "off":
+						if (Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
+							boardHunger.getScore(player.getName()).setScore(1);
+							boardThirst.getScore(player.getName()).setScore(1);
+							boardFatigue.getScore(player.getName()).setScore(1);
+							boardNutrients.getScore(player.getName()).setScore(1);
 						}
 						break;
 					case "hunger":
@@ -117,6 +129,7 @@ public class Status implements CommandExecutor, TabCompleter {
 						sendColoredMessage(player, "  &b/stat hunger &7- Turn on/off hunger");
 						sendColoredMessage(player, "  &b/stat thirst &7- Turn on/off thirst");
 						sendColoredMessage(player, "  &b/stat fatigue &7- Turn on/off fatigue");
+						sendColoredMessage(player, "  &b/stat none &7- Turn off your entire health board");
 						sendColoredMessage(player, "  &b/stat nutrients &7- Turn on/off nutrients");
 				}
 			}
@@ -143,7 +156,7 @@ public class Status implements CommandExecutor, TabCompleter {
 		for (String arg : args) {
 			builder.append(arg).append(" ");
 		}
-		String[] list = {"all", "hunger", "thirst", "fatigue", "nutrients", "help"};
+		String[] list = {"all", "hunger", "thirst", "fatigue", "nutrients", "none", "help"};
 
 		String arg = builder.toString().trim();
 		ArrayList<String> matches = new ArrayList<>();

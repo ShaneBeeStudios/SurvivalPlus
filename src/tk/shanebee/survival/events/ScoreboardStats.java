@@ -1,9 +1,11 @@
 package tk.shanebee.survival.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -29,6 +31,22 @@ public class ScoreboardStats implements Listener {
 			boardNutrients.getScore(player.getName()).setScore(1);
 		}
 		SetupScorebard(player);
+	}
+
+	@EventHandler
+	public void onPlayerChangeGamemode(PlayerGameModeChangeEvent e) {
+		Player player = e.getPlayer();
+		if (e.getNewGameMode() != GameMode.SURVIVAL && e.getNewGameMode() != GameMode.ADVENTURE) {
+			boardHunger.getScore(player.getName()).setScore(1);
+			boardThirst.getScore(player.getName()).setScore(1);
+			boardFatigue.getScore(player.getName()).setScore(1);
+			boardNutrients.getScore(player.getName()).setScore(1);
+		} else {
+			boardHunger.getScore(player.getName()).setScore(0);
+			boardThirst.getScore(player.getName()).setScore(0);
+			boardFatigue.getScore(player.getName()).setScore(1);
+			boardNutrients.getScore(player.getName()).setScore(1);
+		}
 	}
 
 	public static void SetupScorebard(Player p) {
