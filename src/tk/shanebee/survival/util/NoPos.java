@@ -11,17 +11,30 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class NoPos implements Listener
 {
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e)
-	{
-		disableF3(e.getPlayer());
+	public void onJoin(PlayerJoinEvent e) {
+		Player player = e.getPlayer();
+		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+			disableF3(player);
+	}
+
+	@EventHandler
+	public void onGamemodeChange(PlayerGameModeChangeEvent e) {
+		Player player = e.getPlayer();
+		if (e.getNewGameMode() == GameMode.ADVENTURE || e.getNewGameMode() == GameMode.SURVIVAL) {
+			disableF3(player);
+		} else {
+			enableF3(player);
+		}
 	}
   
 	private static void disableF3(Player player)
@@ -40,7 +53,7 @@ public class NoPos implements Listener
 		}
 	}
   
-	public static void enableF3(Player player)
+	private static void enableF3(Player player)
 	{
 		try
 		{
@@ -61,23 +74,20 @@ public class NoPos implements Listener
 	{
 		String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
 		String name = "net.minecraft.server." + version + nmsClassString;
-		Class<?> nmsClass = Class.forName(name);
-		return nmsClass;
+		return Class.forName(name);
 	}
   
 	private static Object getConnection(Player player)
 	throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
 	{
 		Field conField = getHandle(player).getClass().getField("playerConnection");
-		Object con = conField.get(getHandle(player));
-		return con;
+		return conField.get(getHandle(player));
 	}
   
 	private static Object getHandle(Player player)
 	throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
 	{
 		Method getHandle = player.getClass().getMethod("getHandle");
-		Object nmsPlayer = getHandle.invoke(player);
-		return nmsPlayer;
+		return getHandle.invoke(player);
 	}
 }
