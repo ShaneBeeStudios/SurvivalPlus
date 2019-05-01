@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
+@SuppressWarnings("ConstantConditions")
 public enum Items {
 
     HATCHET(Material.WOODEN_AXE, 1),
@@ -52,6 +53,7 @@ public enum Items {
     DIAMOND_HELMET(Material.DIAMOND_HELMET, 0),
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, 0),
     RECURVE_BOW(Material.BOW, 1),
+    RECURVE_CROSSBOW(Material.CROSSBOW, 1),
     PURIFIED_WATER(Material.POTION, 0),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
@@ -578,11 +580,21 @@ public enum Items {
 
                 ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
                 recurveBowMeta.setCustomModelData(1);
+                recurveBowMeta.setDisplayName(Utils.getColoredString(Survival.lang.recurved_bow));
                 recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
                         Utils.getColoredString(Survival.lang.recurved)));
                 recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
                 i_recurveBow.setItemMeta(recurveBowMeta);
                 return i_recurveBow;
+            case RECURVE_CROSSBOW:
+                ItemStack recurveCrossbow = new ItemStack(Material.CROSSBOW, 1);
+                ItemMeta recurveCrossbowMeta = recurveCrossbow.getItemMeta();
+                recurveCrossbowMeta.setCustomModelData(1);
+                recurveCrossbowMeta.setDisplayName(Utils.getColoredString(Survival.lang.recurved_crossbow));
+                recurveCrossbowMeta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.recurved)));
+                recurveCrossbowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
+                recurveCrossbow.setItemMeta(recurveCrossbowMeta);
+                return recurveCrossbow;
             case PURIFIED_WATER:
                 ItemStack purified_water = new ItemStack(PURIFIED_WATER.materialType);
                 ItemMeta meta = purified_water.getItemMeta();
