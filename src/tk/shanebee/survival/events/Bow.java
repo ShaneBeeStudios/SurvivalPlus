@@ -58,8 +58,12 @@ public class Bow implements Listener {
 	}
 
 	private boolean isArrowOffHand(Player player){
-		Material itemType = player.getInventory().getItemInOffHand().getType();
-		return itemType == Material.ARROW || itemType == Material.SPECTRAL_ARROW || itemType == Material.TIPPED_ARROW;
+		Material mainHand = player.getInventory().getItemInMainHand().getType();
+		Material offHand = player.getInventory().getItemInOffHand().getType();
+		if (mainHand == Material.CROSSBOW)
+			return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW
+					|| offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
+		return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW || offHand == Material.TIPPED_ARROW;
 	}
 
 }
