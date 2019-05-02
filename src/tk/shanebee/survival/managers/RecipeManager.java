@@ -7,6 +7,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,10 +15,10 @@ public class RecipeManager {
 
 
     public FileConfiguration settings;
-    private Survival survival;
+    public static Survival survival;
 
     public RecipeManager(Survival survival, FileConfiguration settings) {
-        this.survival = survival;
+        RecipeManager.survival = survival;
         this.settings = settings;
     }
 
@@ -43,159 +44,91 @@ public class RecipeManager {
 
 
         // MATTOCK RECIPE
-        ShapedRecipe mattock1 = new ShapedRecipe(new NamespacedKey(survival, "mattock1"), Items.get(Items.MATTOCK));
+        ShapedRecipe mattock = new ShapedRecipe(new NamespacedKey(survival, "mattock"), Items.get(Items.MATTOCK));
 
-        mattock1.shape("@-", "1@");
-        mattock1.setIngredient('@', Material.FLINT);
-        mattock1.setIngredient('-', new RecipeChoice.MaterialChoice(Tag.PLANKS));
-        mattock1.setIngredient('1', Material.STICK);
+        mattock.shape("@-", "1@");
+        mattock.setIngredient('@', Material.FLINT);
+        mattock.setIngredient('-', new RecipeChoice.MaterialChoice(Tag.PLANKS));
+        mattock.setIngredient('1', Material.STICK);
 
 
 
         // SHIV RECIPE
-        ShapedRecipe shiv1 = new ShapedRecipe(new NamespacedKey(survival, "shiv1"), Items.get(Items.SHIV));
-        ShapedRecipe shiv2 = new ShapedRecipe(new NamespacedKey(survival, "shiv2"), Items.get(Items.SHIV));
-        ShapedRecipe shiv3 = new ShapedRecipe(new NamespacedKey(survival, "shiv3"), Items.get(Items.SHIV));
-        ShapedRecipe shiv4 = new ShapedRecipe(new NamespacedKey(survival, "shiv4"), Items.get(Items.SHIV));
+        ShapedRecipe shiv = new ShapedRecipe(new NamespacedKey(survival, "shiv"), Items.get(Items.SHIV));
 
-        shiv1.shape("*@", "1&");
+        shiv.shape("*@", "1&");
 
-        shiv1.setIngredient('@', Material.FLINT);
-        shiv1.setIngredient('1', Material.STICK);
-        shiv1.setIngredient('*', Material.STRING);
-        shiv1.setIngredient('&', Material.SPIDER_EYE);
-        shiv1.setGroup("SHIV");
-
-        shiv2.shape("@*", "&1");
-
-        shiv2.setIngredient('@', Material.FLINT);
-        shiv2.setIngredient('1', Material.STICK);
-        shiv2.setIngredient('*', Material.STRING);
-        shiv2.setIngredient('&', Material.SPIDER_EYE);
-        shiv2.setGroup("SHIV");
-
-        shiv3.shape("&@", "1*");
-
-        shiv3.setIngredient('@', Material.FLINT);
-        shiv3.setIngredient('1', Material.STICK);
-        shiv3.setIngredient('*', Material.STRING);
-        shiv3.setIngredient('&', Material.SPIDER_EYE);
-        shiv3.setGroup("SHIV");
-
-        shiv4.shape("@&", "*1");
-
-        shiv4.setIngredient('@', Material.FLINT);
-        shiv4.setIngredient('1', Material.STICK);
-        shiv4.setIngredient('*', Material.STRING);
-        shiv4.setIngredient('&', Material.SPIDER_EYE);
-        shiv4.setGroup("SHIV");
+        shiv.setIngredient('@', Material.FLINT);
+        shiv.setIngredient('1', Material.STICK);
+        shiv.setIngredient('*', Material.STRING);
+        shiv.setIngredient('&', Material.SPIDER_EYE);
 
 
         // HAMMER RECIPE
-        ShapedRecipe hammer1 = new ShapedRecipe(new NamespacedKey(survival, "hammer1"), Items.get(Items.HAMMER));
-        ShapedRecipe hammer2 = new ShapedRecipe(new NamespacedKey(survival, "hammer2"), Items.get(Items.HAMMER));
+        ShapedRecipe hammer = new ShapedRecipe(new NamespacedKey(survival, "hammer"), Items.get(Items.HAMMER));
 
-        hammer1.shape("@ ", "1@");
+        hammer.shape("@ ", "1@");
 
-        hammer1.setIngredient('@', Material.COBBLESTONE);
-        hammer1.setIngredient('1', Material.STICK);
-        hammer1.setGroup("HAMMER");
-
-        hammer2.shape(" @", "@1");
-
-        hammer2.setIngredient('@', Material.COBBLESTONE);
-        hammer2.setIngredient('1', Material.STICK);
-        hammer2.setGroup("HAMMER");
+        hammer.setIngredient('@', Material.COBBLESTONE);
+        hammer.setIngredient('1', Material.STICK);
 
 
-        // STRING RECIPE
-        ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(survival, "string"), new ItemStack(Material.STRING, 2));
-        string.addIngredient(Material.COBWEB);
+
 
 
         // VALKYRIE's AXE RECIPE
-        ShapedRecipe gAxe = new ShapedRecipe(new NamespacedKey(survival, "gaxe"), Items.get(Items.VALKYRIES_AXE));
+        ShapedRecipe valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "valkyrie_axe"), Items.get(Items.VALKYRIES_AXE));
 
-        gAxe.shape("@@@", "@*@", " 1 ");
+        valkyries_axe.shape("@@@", "@*@", " 1 ");
 
-        gAxe.setIngredient('@', Material.DIAMOND);
-        gAxe.setIngredient('*', Material.NETHER_STAR);
-        gAxe.setIngredient('1', Material.STICK);
+        valkyries_axe.setIngredient('@', Material.DIAMOND);
+        valkyries_axe.setIngredient('*', Material.NETHER_STAR);
+        valkyries_axe.setIngredient('1', Material.STICK);
 
 
         // QUARTZ PICKAXE RECIPE
-        ShapedRecipe gPickaxe1 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe1"), Items.get(Items.QUARTZ_PICKAXE));
-        ShapedRecipe gPickaxe2 = new ShapedRecipe(new NamespacedKey(survival, "gpickaxe2"), Items.get(Items.QUARTZ_PICKAXE));
-        gPickaxe1.shape("@B-", "B# ", "- 1");
+        ShapedRecipe quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "quartz_pickaxe"), Items.get(Items.QUARTZ_PICKAXE));
+        quartz_pickaxe.shape("@B-", "B# ", "- 1");
 
-        gPickaxe1.setIngredient('@', Material.QUARTZ_BLOCK);
-        gPickaxe1.setIngredient('-', Material.DIAMOND);
-        gPickaxe1.setIngredient('B', Material.DIAMOND_BLOCK);
-        gPickaxe1.setIngredient('1', Material.STICK);
-        gPickaxe1.setIngredient('#', Material.DRAGON_EGG);
-        gPickaxe1.setGroup("QUARTZ PICKAXE");
-
-        gPickaxe2.shape("-B@", " #B", "1 -");
-
-        gPickaxe2.setIngredient('@', Material.QUARTZ_BLOCK);
-        gPickaxe2.setIngredient('-', Material.DIAMOND);
-        gPickaxe2.setIngredient('B', Material.DIAMOND_BLOCK);
-        gPickaxe2.setIngredient('1', Material.STICK);
-        gPickaxe2.setIngredient('#', Material.DRAGON_EGG);
-        gPickaxe2.setGroup("QUARTZ PICKAXE");
+        quartz_pickaxe.setIngredient('@', Material.QUARTZ_BLOCK);
+        quartz_pickaxe.setIngredient('-', Material.DIAMOND);
+        quartz_pickaxe.setIngredient('B', Material.DIAMOND_BLOCK);
+        quartz_pickaxe.setIngredient('1', Material.STICK);
+        quartz_pickaxe.setIngredient('#', Material.DRAGON_EGG);
 
 
         //  OBSIDIAN MACE RECIPE
-        ShapedRecipe gSpade1 = new ShapedRecipe(new NamespacedKey(survival, "gspade1"), Items.get(Items.OBSIDIAN_MACE));
-        ShapedRecipe gSpade2 = new ShapedRecipe(new NamespacedKey(survival, "gspade2"), Items.get(Items.OBSIDIAN_MACE));
+        ShapedRecipe obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "obsidian_mace"), Items.get(Items.OBSIDIAN_MACE));
 
-        gSpade1.shape(" @@", " &@", "1  ");
+        obsidian_mace.shape(" @@", " &@", "1  ");
 
-        gSpade1.setIngredient('@', Material.OBSIDIAN);
-        gSpade1.setIngredient('&', Material.END_CRYSTAL);
-        gSpade1.setIngredient('1', Material.STICK);
-        gSpade1.setGroup("OBSIDIAN MACE");
-
-        gSpade2.shape("@@ ", "@& ", "  1");
-
-        gSpade2.setIngredient('@', Material.OBSIDIAN);
-        gSpade2.setIngredient('&', Material.END_CRYSTAL);
-        gSpade2.setIngredient('1', Material.STICK);
-        gSpade2.setGroup("OBSIDIAN MACE");
+        obsidian_mace.setIngredient('@', Material.OBSIDIAN);
+        obsidian_mace.setIngredient('&', Material.END_CRYSTAL);
+        obsidian_mace.setIngredient('1', Material.STICK);
 
 
         // ENDER GIANT BLADE RECIPE
-        ShapedRecipe gHoe1 = new ShapedRecipe(new NamespacedKey(survival, "ghoe1"), Items.get(Items.ENDER_GIANT_BLADE));
-        ShapedRecipe gHoe2 = new ShapedRecipe(new NamespacedKey(survival, "ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
+        ShapedRecipe ender_giant_blade = new ShapedRecipe(new NamespacedKey(survival, "ender_giant_blade"), Items.get(Items.ENDER_GIANT_BLADE));
 
-        gHoe1.shape(" @@", "B*@", "1B ");
+        ender_giant_blade.shape(" @@", "B*@", "1B ");
 
-        gHoe1.setIngredient('*', Material.ENDER_EYE);
-        gHoe1.setIngredient('@', Material.DIAMOND);
-        gHoe1.setIngredient('B', Material.DIAMOND_BLOCK);
-        gHoe1.setIngredient('1', new RecipeChoice.MaterialChoice(Tag.PLANKS));
-        gHoe1.setGroup("ENDER GIANT BLADE");
-
-        gHoe2.shape("@@ ", "@*B", " B1");
-
-        gHoe2.setIngredient('*', Material.ENDER_EYE);
-        gHoe2.setIngredient('@', Material.DIAMOND);
-        gHoe2.setIngredient('B', Material.DIAMOND_BLOCK);
-        gHoe2.setIngredient('1', new RecipeChoice.MaterialChoice(Tag.PLANKS));
-        gHoe2.setGroup("ENDER GIANT BLADE");
+        ender_giant_blade.setIngredient('*', Material.ENDER_EYE);
+        ender_giant_blade.setIngredient('@', Material.DIAMOND);
+        ender_giant_blade.setIngredient('B', Material.DIAMOND_BLOCK);
+        ender_giant_blade.setIngredient('1', new RecipeChoice.MaterialChoice(Tag.PLANKS));
 
 
         //  BLAZE SWORD RECIPE
-        ShapedRecipe gSword = new ShapedRecipe(new NamespacedKey(survival, "gsword"), Items.get(Items.BLAZE_SWORD));
-        gSword.shape("*@*", "*@*", "*1*");
+        ShapedRecipe blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "blaze_sword"), Items.get(Items.BLAZE_SWORD));
+        blaze_sword.shape("*@*", "*@*", "*1*");
 
-        gSword.setIngredient('@', Material.GOLD_INGOT);
-        gSword.setIngredient('1', Material.BLAZE_ROD);
-        gSword.setIngredient('*', Material.BLAZE_POWDER);
+        blaze_sword.setIngredient('@', Material.GOLD_INGOT);
+        blaze_sword.setIngredient('1', Material.BLAZE_ROD);
+        blaze_sword.setIngredient('*', Material.BLAZE_POWDER);
 
 
         //  NOTCH APPLE RECIPE
-        ShapedRecipe notchApple = new ShapedRecipe(new NamespacedKey(survival, "notchapple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1));
+        ShapedRecipe notchApple = new ShapedRecipe(new NamespacedKey(survival, "enchanted_golden_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1));
         notchApple.shape("@@@", "@*@", "@@@");
 
         notchApple.setIngredient('@', Material.GOLD_BLOCK);
@@ -214,66 +147,48 @@ public class RecipeManager {
 
 
         //  NAMETAG RECIPE
-        ShapedRecipe nametag1 = new ShapedRecipe(new NamespacedKey(survival, "nametag1"), new ItemStack(Material.NAME_TAG, 1));
-        ShapedRecipe nametag2 = new ShapedRecipe(new NamespacedKey(survival, "nametag2"), new ItemStack(Material.NAME_TAG, 1));
+        ShapedRecipe nametag = new ShapedRecipe(new NamespacedKey(survival, "nametag"), new ItemStack(Material.NAME_TAG, 1));
 
-        nametag1.shape(" -@", " *-", "*  ");
+        nametag.shape(" -@", " *-", "*  ");
 
-        nametag1.setIngredient('@', Material.STRING);
-        nametag1.setIngredient('-', Material.IRON_INGOT);
-        nametag1.setIngredient('*', Material.PAPER);
-        nametag1.setGroup("NAMETAG");
+        nametag.setIngredient('@', Material.STRING);
+        nametag.setIngredient('-', Material.IRON_INGOT);
+        nametag.setIngredient('*', Material.PAPER);
 
-        nametag2.shape("@- ", "-* ", "  *");
-
-        nametag2.setIngredient('@', Material.STRING);
-        nametag2.setIngredient('-', Material.IRON_INGOT);
-        nametag2.setIngredient('*', Material.PAPER);
-        nametag2.setGroup("NAMETAG");
 
 
         //  PACKED ICE RECIPE
-        ShapedRecipe packedIce1 = new ShapedRecipe(new NamespacedKey(survival, "packedice1"), new ItemStack(Material.PACKED_ICE, 1));
-        ShapelessRecipe packedIce2 = new ShapelessRecipe(new NamespacedKey(survival, "packedice2"), new ItemStack(Material.ICE, 4));
+        ShapedRecipe packedIce1 = new ShapedRecipe(new NamespacedKey(survival, "packed_ice"), new ItemStack(Material.PACKED_ICE, 1));
 
         packedIce1.shape("@@ ", "@@ ");
         packedIce1.setIngredient('@', Material.ICE);
 
-        packedIce2.addIngredient(Material.PACKED_ICE);
 
         //  ICE RECIPE
-        ShapedRecipe ice = new ShapedRecipe(new NamespacedKey(survival, "ice"), new ItemStack(Material.ICE, 1));
+        ShapedRecipe ice = new ShapedRecipe(new NamespacedKey(survival, "ice1"), new ItemStack(Material.ICE, 1));
+        ShapelessRecipe ice2 = new ShapelessRecipe(new NamespacedKey(survival, "ice2"), new ItemStack(Material.ICE, 4));
 
         ice.shape("@@@", "@*@", "@@@");
 
         ice.setIngredient('@', Material.SNOWBALL);
         ice.setIngredient('*', Material.WATER_BUCKET);
 
+        ice2.addIngredient(Material.PACKED_ICE);
+
 
         //  IRON HORSE ARMOR RECIPE
-        ShapedRecipe ironHorse1 = new ShapedRecipe(new NamespacedKey(survival, "ironhorse1"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
-        ShapedRecipe ironHorse2 = new ShapedRecipe(new NamespacedKey(survival, "ironhorse2"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
+        ShapedRecipe iron_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "iron_horse_armor"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
 
-        ironHorse1.shape("  @", "#-#", "= =");
+        iron_horse_armor.shape("  @", "#-#", "= =");
 
-        ironHorse1.setIngredient('#', Material.IRON_BLOCK);
-        ironHorse1.setIngredient('@', Material.IRON_INGOT);
-        ironHorse1.setIngredient('-', Material.LEATHER_HORSE_ARMOR);
-        ironHorse1.setIngredient('=', Material.IRON_NUGGET);
-        ironHorse1.setGroup("IRON HORSE ARMOR");
-
-        ironHorse2.shape("@  ", "#-#", "= =");
-
-        ironHorse2.setIngredient('#', Material.IRON_BLOCK);
-        ironHorse2.setIngredient('@', Material.IRON_INGOT);
-        ironHorse2.setIngredient('-', Material.LEATHER_HORSE_ARMOR);
-        ironHorse2.setIngredient('=', Material.IRON_NUGGET);
-        ironHorse2.setGroup("IRON HORSE ARMOR");
+        iron_horse_armor.setIngredient('#', Material.IRON_BLOCK);
+        iron_horse_armor.setIngredient('@', Material.IRON_INGOT);
+        iron_horse_armor.setIngredient('-', Material.LEATHER_HORSE_ARMOR);
+        iron_horse_armor.setIngredient('=', Material.IRON_NUGGET);
 
 
         //  GOLD HORSE ARMOR RECIPE
-        ShapedRecipe goldHorse1 = new ShapedRecipe(new NamespacedKey(survival, "goldhorse1"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
-        ShapedRecipe goldHorse2 = new ShapedRecipe(new NamespacedKey(survival, "goldhorse2"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
+        ShapedRecipe goldHorse1 = new ShapedRecipe(new NamespacedKey(survival, "gold_horse_armor"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
 
         goldHorse1.shape("  @", "#-#", "= =");
 
@@ -281,59 +196,31 @@ public class RecipeManager {
         goldHorse1.setIngredient('@', Material.GOLD_INGOT);
         goldHorse1.setIngredient('-', Material.LEATHER_HORSE_ARMOR);
         goldHorse1.setIngredient('=', Material.GOLD_NUGGET);
-        goldHorse1.setGroup("GOLD HORSE ARMOR");
-
-        goldHorse2.shape("@  ", "#-#", "= =");
-
-        goldHorse2.setIngredient('#', Material.GOLD_BLOCK);
-        goldHorse2.setIngredient('@', Material.GOLD_INGOT);
-        goldHorse2.setIngredient('-', Material.LEATHER_HORSE_ARMOR);
-        goldHorse2.setIngredient('=', Material.GOLD_NUGGET);
-        goldHorse2.setGroup("GOLD HORSE ARMOR");
 
 
         //  DIAMOND HORSE ARMOR RECIPE
-        ShapedRecipe diamondHorse1 = new ShapedRecipe(new NamespacedKey(survival, "diamondhorse1"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
-        ShapedRecipe diamondHorse2 = new ShapedRecipe(new NamespacedKey(survival, "diamondhorse2"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
+        ShapedRecipe diamond_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "diamond_horse_armor"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
 
-        diamondHorse1.shape("  H", "@-@", "B B");
+        diamond_horse_armor.shape("  H", "@-@", "B B");
 
-        diamondHorse1.setIngredient('@', Material.DIAMOND);
-        diamondHorse1.setIngredient('-', Material.IRON_HORSE_ARMOR);
-        diamondHorse1.setIngredient('H', Material.DIAMOND_HELMET);
-        diamondHorse1.setIngredient('B', Material.DIAMOND_BOOTS);
-        diamondHorse1.setGroup("DIAMOND HORSE ARMOR");
-
-        diamondHorse2.shape("H  ", "@-@", "B B");
-
-        diamondHorse2.setIngredient('@', Material.DIAMOND);
-        diamondHorse2.setIngredient('-', Material.IRON_HORSE_ARMOR);
-        diamondHorse2.setIngredient('H', Material.DIAMOND_HELMET);
-        diamondHorse2.setIngredient('B', Material.DIAMOND_BOOTS);
-        diamondHorse2.setGroup("DIAMOND HORSE ARMOR");
+        diamond_horse_armor.setIngredient('@', Material.DIAMOND);
+        diamond_horse_armor.setIngredient('-', Material.IRON_HORSE_ARMOR);
+        diamond_horse_armor.setIngredient('H', Material.DIAMOND_HELMET);
+        diamond_horse_armor.setIngredient('B', Material.DIAMOND_BOOTS);
 
 
         // LEATHER HORSE ARMOR RECIPE
-        ShapedRecipe leatherHorse1 = new ShapedRecipe(new NamespacedKey(survival, "leatherhorse1"), new ItemStack(Material.LEATHER_HORSE_ARMOR, 1));
-        ShapedRecipe leatherHorse2 = new ShapedRecipe(new NamespacedKey(survival, "leatherhorse2"), new ItemStack(Material.LEATHER_HORSE_ARMOR, 1));
+        ShapedRecipe leather_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "leather_horse_armor"), new ItemStack(Material.LEATHER_HORSE_ARMOR, 1));
 
-        leatherHorse1.shape("  C", "ABA", "A A");
+        leather_horse_armor.shape("  C", "ABA", "A A");
 
-        leatherHorse1.setIngredient('A', Material.LEATHER);
-        leatherHorse1.setIngredient('B', Material.SADDLE);
-        leatherHorse1.setIngredient('C', Material.LEATHER_HELMET);
-        leatherHorse1.setGroup("LEATHER HORSE ARMOR");
-
-        leatherHorse2.shape("C  ", "ABA", "A A");
-
-        leatherHorse2.setIngredient('A', Material.LEATHER);
-        leatherHorse2.setIngredient('B', Material.SADDLE);
-        leatherHorse2.setIngredient('C', Material.LEATHER_HELMET);
-        leatherHorse2.setGroup("LEATHER HORSE ARMOR");
+        leather_horse_armor.setIngredient('A', Material.LEATHER);
+        leather_horse_armor.setIngredient('B', Material.SADDLE);
+        leather_horse_armor.setIngredient('C', Material.LEATHER_HELMET);
 
 
         //  CLAY BRICK RECIPE
-        ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(survival, "claybrick"), new ItemStack(Material.BRICK, 4));
+        ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(survival, "clay_brick"), new ItemStack(Material.BRICK, 4));
 
         clayBrick.addIngredient(Material.BRICK);
 
@@ -345,59 +232,61 @@ public class RecipeManager {
 
 
         //  STRING RECIPE
-        ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(survival, "woolstring"), new ItemStack(Material.STRING, 4));
+        ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(survival, "string1"), new ItemStack(Material.STRING, 4));
+        ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(survival, "string2"), new ItemStack(Material.STRING, 2));
 
         woolString.addIngredient(new RecipeChoice.MaterialChoice(Tag.WOOL));
 
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_gSword = new ShapedRecipe(new NamespacedKey(survival, "repair_gsword"), Items.get(Items.BLAZE_SWORD));
-        repair_gSword.shape("123");
-
-        repair_gSword.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 31)));
-        repair_gSword.setIngredient('2', Material.BLAZE_POWDER);
-        repair_gSword.setIngredient('3', Material.BLAZE_POWDER);
-        repair_gSword.setGroup("blaze sword");
-
+        string.addIngredient(Material.COBWEB);
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_gHoe = new ShapedRecipe(new NamespacedKey(survival, "repair_ghoe2"), Items.get(Items.ENDER_GIANT_BLADE));
-        repair_gHoe.shape("123");
-        repair_gHoe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
-        repair_gHoe.setIngredient('2', Material.ENDER_PEARL);
-        repair_gHoe.setIngredient('3', Material.DIAMOND_BLOCK);
+        ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "repair_blaze_sword"), Items.get(Items.BLAZE_SWORD));
+        repair_blaze_sword.shape("123");
 
+        repair_blaze_sword.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 31)));
+        repair_blaze_sword.setIngredient('2', Material.BLAZE_POWDER);
+        repair_blaze_sword.setIngredient('3', Material.BLAZE_POWDER);
 
-        //  REPAIR RECIPE
-        ShapedRecipe repair_gPickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gpickaxe"), Items.get(Items.QUARTZ_PICKAXE));
-        repair_gPickaxe.shape("123");
-        repair_gPickaxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
-        repair_gPickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
-        repair_gPickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_gAxe = new ShapedRecipe(new NamespacedKey(survival, "repair_gaxe"), Items.get(Items.VALKYRIES_AXE));
-        repair_gAxe.shape("12 ");
-        repair_gAxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
-        repair_gAxe.setIngredient('2', Material.NETHER_STAR);
+        ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(survival, "repair_ender_giant_blaze"), Items.get(Items.ENDER_GIANT_BLADE));
+        repair_ender_giant_blaze.shape("123");
+        repair_ender_giant_blaze.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
+        repair_ender_giant_blaze.setIngredient('2', Material.ENDER_PEARL);
+        repair_ender_giant_blaze.setIngredient('3', Material.DIAMOND_BLOCK);
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_gSpade = new ShapedRecipe(new NamespacedKey(survival, "repair_gspade"), Items.get(Items.OBSIDIAN_MACE));
-        repair_gSpade.shape("12 ");
-        repair_gSpade.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
-        repair_gSpade.setIngredient('2', Material.END_CRYSTAL);
+        ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_quartz_pickaxe"), Items.get(Items.QUARTZ_PICKAXE));
+        repair_quartz_pickaxe.shape("123");
+        repair_quartz_pickaxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
+        repair_quartz_pickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
+        repair_quartz_pickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
+
+
+        //  REPAIR RECIPE
+        ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "repair_valkyries_axe"), Items.get(Items.VALKYRIES_AXE));
+        repair_valkyries_axe.shape("12 ");
+        repair_valkyries_axe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
+        repair_valkyries_axe.setIngredient('2', Material.NETHER_STAR);
+
+
+        //  REPAIR RECIPE
+        ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "repair_obsidian_mace"), Items.get(Items.OBSIDIAN_MACE));
+        repair_obsidian_mace.shape("12 ");
+        repair_obsidian_mace.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
+        repair_obsidian_mace.setIngredient('2', Material.END_CRYSTAL);
 
 
         // WORKBENCH RECIPE
-        ShapelessRecipe workbench1 = new ShapelessRecipe(new NamespacedKey(survival, "workbench1"), Items.get(Items.WORKBENCH));
+        ShapelessRecipe workbench = new ShapelessRecipe(new NamespacedKey(survival, "workbench"), Items.get(Items.WORKBENCH));
 
-        workbench1.addIngredient(new RecipeChoice.MaterialChoice(Tag.LOGS));
-        workbench1.addIngredient(Material.LEATHER);
-        workbench1.addIngredient(Material.STRING);
-        workbench1.addIngredient(new RecipeChoice.ExactChoice(Items.get(Items.HAMMER)));
+        workbench.addIngredient(new RecipeChoice.MaterialChoice(Tag.LOGS));
+        workbench.addIngredient(Material.LEATHER);
+        workbench.addIngredient(Material.STRING);
+        workbench.addIngredient(new RecipeChoice.ExactChoice(Items.get(Items.HAMMER)));
 
 
         //  FURNACE RECIPE
@@ -448,27 +337,19 @@ public class RecipeManager {
 
 
         //  GRAVEL RECIPE
-        ShapedRecipe gravel1 = new ShapedRecipe(new NamespacedKey(survival, "gravel1"), new ItemStack(Material.GRAVEL, 2));
-        ShapedRecipe gravel2 = new ShapedRecipe(new NamespacedKey(survival, "gravel2"), new ItemStack(Material.GRAVEL, 2));
+        ShapedRecipe gravel = new ShapedRecipe(new NamespacedKey(survival, "gravel"), new ItemStack(Material.GRAVEL, 2));
 
-        gravel1.shape("@B", "B@");
+        gravel.shape("@B", "B@");
 
-        gravel1.setIngredient('@', Material.SAND);
-        gravel1.setIngredient('B', Material.COBBLESTONE);
-        gravel1.setGroup("GRAVEL");
-
-        gravel2.shape("B@", "@B");
-
-        gravel2.setIngredient('@', Material.SAND);
-        gravel2.setIngredient('B', Material.COBBLESTONE);
-        gravel2.setGroup("GRAVEL");
+        gravel.setIngredient('@', Material.SAND);
+        gravel.setIngredient('B', Material.COBBLESTONE);
 
 
         //  FIRESTRIKER RECIPE
-        ShapelessRecipe firestriker1 = new ShapelessRecipe(new NamespacedKey(survival, "firestriker1"), Items.get(Items.FIRESTRIKER));
+        ShapelessRecipe firestriker = new ShapelessRecipe(new NamespacedKey(survival, "firestriker"), Items.get(Items.FIRESTRIKER));
 
-        firestriker1.addIngredient(Material.FLINT);
-        firestriker1.addIngredient(new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
+        firestriker.addIngredient(Material.FLINT);
+        firestriker.addIngredient(new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
 
 
         //  TORCH RECIPE
@@ -476,8 +357,7 @@ public class RecipeManager {
         ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(survival, "torch2"), new ItemStack(Material.TORCH, 16));
 
         torch1.shape("AAA", "ABA", "AAA");
-        ItemStack test = Items.get(Items.FIRESTRIKER);
-        torch1.setIngredient('B', new RecipeChoice.ExactChoice(test));
+        torch1.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch1.setIngredient('A', Material.STICK);
         //torch1.setGroup("TORCH");
 
@@ -495,24 +375,24 @@ public class RecipeManager {
 
 
         //  FERMENTED SPIDER EYE RECIPE
-        ShapelessRecipe fermentedSpiderEye1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedspidereye1"),
+        ShapelessRecipe fermented_spider_eye = new ShapelessRecipe(new NamespacedKey(survival, "fermented_spider_eye"),
                 new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
 
-        fermentedSpiderEye1.addIngredient(Material.SPIDER_EYE);
-        fermentedSpiderEye1.addIngredient(Material.SUGAR);
-        fermentedSpiderEye1.addIngredient(new RecipeChoice.MaterialChoice(Material.RED_MUSHROOM, Material.BROWN_MUSHROOM));
+        fermented_spider_eye.addIngredient(Material.SPIDER_EYE);
+        fermented_spider_eye.addIngredient(Material.SUGAR);
+        fermented_spider_eye.addIngredient(new RecipeChoice.MaterialChoice(Material.RED_MUSHROOM, Material.BROWN_MUSHROOM));
 
 
         //  FERMENTED SKIN RECIPE
-        ShapelessRecipe fermentedSkin1 = new ShapelessRecipe(new NamespacedKey(survival, "fermentedskin1"), Items.get(Items.FERMENTED_SKIN));
+        ShapelessRecipe fermented_skin = new ShapelessRecipe(new NamespacedKey(survival, "fermented_skin"), Items.get(Items.FERMENTED_SKIN));
 
-        fermentedSkin1.addIngredient(Material.ROTTEN_FLESH);
-        fermentedSkin1.addIngredient(Material.SUGAR);
-        fermentedSkin1.addIngredient(new RecipeChoice.MaterialChoice(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM));
+        fermented_skin.addIngredient(Material.ROTTEN_FLESH);
+        fermented_skin.addIngredient(Material.SUGAR);
+        fermented_skin.addIngredient(new RecipeChoice.MaterialChoice(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM));
 
 
         //  POISONOUS POTATO RECIPE
-        ShapelessRecipe poisonousPotato = new ShapelessRecipe(new NamespacedKey(survival, "poisonouspotato"),
+        ShapelessRecipe poisonousPotato = new ShapelessRecipe(new NamespacedKey(survival, "poisonous_potato"),
                 new ItemStack(Material.POISONOUS_POTATO, 1));
 
         poisonousPotato.addIngredient(Material.POTATO);
@@ -520,7 +400,7 @@ public class RecipeManager {
 
 
         //  GLASS BOTTLE RECIPE
-        ShapelessRecipe glassBottle = new ShapelessRecipe(new NamespacedKey(survival, "glassbottle"), new ItemStack(Material.GLASS_BOTTLE, 1));
+        ShapelessRecipe glassBottle = new ShapelessRecipe(new NamespacedKey(survival, "glass_bottle"), new ItemStack(Material.GLASS_BOTTLE, 1));
 
         glassBottle.addIngredient(Material.POTION);
 
@@ -532,73 +412,62 @@ public class RecipeManager {
 
 
         //  MEDIC KIT RECIPE
-        ShapedRecipe medicKit1 = new ShapedRecipe(new NamespacedKey(survival, "medickit1"), Items.get(Items.MEDIC_KIT));
+        ShapedRecipe medic_kit = new ShapedRecipe(new NamespacedKey(survival, "medic_kit"), Items.get(Items.MEDIC_KIT));
 
+        medic_kit.shape(" @ ", "ABC", " @ ");
 
-        medicKit1.shape(" @ ", "ABC", " @ ");
-
-        medicKit1.setIngredient('@', Material.GOLD_INGOT);
-        medicKit1.setIngredient('A', Material.FEATHER);
-        medicKit1.setIngredient('B', Material.GLISTERING_MELON_SLICE);
-        medicKit1.setIngredient('C', Material.PAPER);
+        medic_kit.setIngredient('@', Material.GOLD_INGOT);
+        medic_kit.setIngredient('A', Material.FEATHER);
+        medic_kit.setIngredient('B', Material.GLISTERING_MELON_SLICE);
+        medic_kit.setIngredient('C', Material.PAPER);
 
 
 
         //  FISHING ROD RECIPE
-        ShapedRecipe fishingRod1 = new ShapedRecipe(new NamespacedKey(survival, "fishingrod1"), new ItemStack(Material.FISHING_ROD, 1));
-        ShapedRecipe fishingRod2 = new ShapedRecipe(new NamespacedKey(survival, "fishingrod2"), new ItemStack(Material.FISHING_ROD, 1));
+        ShapedRecipe fishing_rod = new ShapedRecipe(new NamespacedKey(survival, "fishing_rod"), new ItemStack(Material.FISHING_ROD, 1));
 
-        fishingRod1.shape("1- ", "1 -", "1@*");
+        fishing_rod.shape("1- ", "1 -", "1@*");
 
-        fishingRod1.setIngredient('1', Material.STICK);
-        fishingRod1.setIngredient('@', Material.IRON_INGOT);
-        fishingRod1.setIngredient('-', Material.STRING);
-        fishingRod1.setIngredient('*', Material.FEATHER);
-        fishingRod1.setGroup("FISHING ROD");
-
-        fishingRod2.shape(" -1", "- 1", "*@1");
-
-        fishingRod2.setIngredient('1', Material.STICK);
-        fishingRod2.setIngredient('@', Material.IRON_INGOT);
-        fishingRod2.setIngredient('-', Material.STRING);
-        fishingRod2.setIngredient('*', Material.FEATHER);
-        fishingRod2.setGroup("FISHING ROD");
+        fishing_rod.setIngredient('1', Material.STICK);
+        fishing_rod.setIngredient('@', Material.IRON_INGOT);
+        fishing_rod.setIngredient('-', Material.STRING);
+        fishing_rod.setIngredient('*', Material.FEATHER);
 
 
         //  IRON INGOT RECIPE
-        ShapedRecipe ironIngot = new ShapedRecipe(new NamespacedKey(survival, "ironingot"), new ItemStack(Material.IRON_INGOT, 1));
+        ShapedRecipe ironIngot = new ShapedRecipe(new NamespacedKey(survival, "iron_ingot"), new ItemStack(Material.IRON_INGOT, 1));
         ironIngot.shape("@@", "@@");
         ironIngot.setIngredient('@', Material.IRON_NUGGET);
 
         //  IRON NUGGET RECIPE
-        ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(survival, "ironnugget"), new ItemStack(Material.IRON_NUGGET, 4));
+        ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(survival, "iron_nugget"), new ItemStack(Material.IRON_NUGGET, 4));
         ironNugget.addIngredient(Material.IRON_INGOT);
 
         //  IRON BLOCK RECIPE
-        ShapelessRecipe ironBlock = new ShapelessRecipe(new NamespacedKey(survival, "ironblock"), new ItemStack(Material.IRON_INGOT, 9));
+        ShapelessRecipe ironBlock = new ShapelessRecipe(new NamespacedKey(survival, "iron_block"), new ItemStack(Material.IRON_INGOT, 9));
         ironBlock.addIngredient(Material.IRON_BLOCK);
 
         //  GOLD INGOT RECIPE
-        ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(survival, "goldingot"), new ItemStack(Material.GOLD_INGOT, 1));
+        ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(survival, "gold_ingot"), new ItemStack(Material.GOLD_INGOT, 1));
         goldIngot.shape("@@", "@@");
         goldIngot.setIngredient('@', Material.GOLD_NUGGET);
 
         //  GOLD NUGGET RECIPE
-        ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(survival, "goldnugget"), new ItemStack(Material.GOLD_NUGGET, 4));
+        ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(survival, "gold_nugget"), new ItemStack(Material.GOLD_NUGGET, 4));
         goldNugget.addIngredient(Material.GOLD_INGOT);
 
         //  GOLD BLOCK RECIPE
-        ShapelessRecipe goldBlock = new ShapelessRecipe(new NamespacedKey(survival, "goldblock"), new ItemStack(Material.GOLD_INGOT, 9));
+        ShapelessRecipe goldBlock = new ShapelessRecipe(new NamespacedKey(survival, "gold_block"), new ItemStack(Material.GOLD_INGOT, 9));
         goldBlock.addIngredient(Material.GOLD_BLOCK);
 
         //  SMELTING RECIPES
-        FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_ironingot"),
+        FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_iron_ingot"),
                 new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE, 1, 400);
-        FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_goldingot"),
+        FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_gold_ingot"),
                 new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE, 1, 400);
-        BlastingRecipe blast_ironIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_ironingot"),
+        BlastingRecipe blast_ironIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_iron_ingot"),
                 new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE, 1, 100);
-        BlastingRecipe blast_goldIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_goldingot"),
+        BlastingRecipe blast_goldIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_gold_ingot"),
                 new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE, 1, 100);
 
 
@@ -637,123 +506,127 @@ public class RecipeManager {
 
 
         //  SAPLING RECIPE
-        ShapelessRecipe sapling1 = new ShapelessRecipe(new NamespacedKey(survival, "sapling1"), new ItemStack(Material.STICK, 4));
+        ShapelessRecipe stick = new ShapelessRecipe(new NamespacedKey(survival, "stick"), new ItemStack(Material.STICK, 4));
 
-        sapling1.addIngredient(new RecipeChoice.MaterialChoice(Tag.SAPLINGS));
+        stick.addIngredient(new RecipeChoice.MaterialChoice(Tag.SAPLINGS));
 
 
         // REINFORCED LEATHER BOOTS RECIPE
-        ShapedRecipe leatherBoots = new ShapedRecipe(new NamespacedKey(survival, "leatherboots"), Items.get(Items.REINFORCED_LEATHER_BOOTS));
-        leatherBoots.shape("@*@");
+        ShapedRecipe reinforced_leather_boots = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_boots"),
+                Items.get(Items.REINFORCED_LEATHER_BOOTS));
+        reinforced_leather_boots.shape("@*@");
 
-        leatherBoots.setIngredient('@', Material.IRON_INGOT);
-        leatherBoots.setIngredient('*', Material.LEATHER_BOOTS);
+        reinforced_leather_boots.setIngredient('@', Material.IRON_INGOT);
+        reinforced_leather_boots.setIngredient('*', Material.LEATHER_BOOTS);
 
 
         // REINFORCED LEATHER TUNIC RECIPE
-        ShapedRecipe leatherChestplate = new ShapedRecipe(new NamespacedKey(survival, "leatherchestplate"), Items.get(Items.REINFORCED_LEATHER_TUNIC));
-        leatherChestplate.shape(" @ ", "@*@", " @ ");
+        ShapedRecipe reinforced_leather_chestplate = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_chestplate"),
+                Items.get(Items.REINFORCED_LEATHER_TUNIC));
+        reinforced_leather_chestplate.shape(" @ ", "@*@", " @ ");
 
-        leatherChestplate.setIngredient('@', Material.IRON_INGOT);
-        leatherChestplate.setIngredient('*', Material.LEATHER_CHESTPLATE);
+        reinforced_leather_chestplate.setIngredient('@', Material.IRON_INGOT);
+        reinforced_leather_chestplate.setIngredient('*', Material.LEATHER_CHESTPLATE);
 
 
         // REINFORCED LEATHER TROUSERS RECIPE
-        ShapedRecipe leatherLeggings = new ShapedRecipe(new NamespacedKey(survival, "leatherleggings"), Items.get(Items.REINFORCED_LEATHER_TROUSERS));
-        leatherLeggings.shape(" @ ", "@*@", " @ ");
+        ShapedRecipe reinforced_leather_leggings = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_leggings"),
+                Items.get(Items.REINFORCED_LEATHER_TROUSERS));
+        reinforced_leather_leggings.shape(" @ ", "@*@", " @ ");
 
-        leatherLeggings.setIngredient('@', Material.IRON_INGOT);
-        leatherLeggings.setIngredient('*', Material.LEATHER_LEGGINGS);
+        reinforced_leather_leggings.setIngredient('@', Material.IRON_INGOT);
+        reinforced_leather_leggings.setIngredient('*', Material.LEATHER_LEGGINGS);
 
 
         // REINFORCED LEATHER HELMET RECIPE
-        ShapedRecipe leatherHelmet = new ShapedRecipe(new NamespacedKey(survival, "leatherhelmet"), Items.get(Items.REINFORCED_LEATHER_HELMET));
-        leatherHelmet.shape("@*@");
+        ShapedRecipe reinforced_leather_helmet = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_helmet"),
+                Items.get(Items.REINFORCED_LEATHER_HELMET));
+        reinforced_leather_helmet.shape("@*@");
 
-        leatherHelmet.setIngredient('@', Material.IRON_INGOT);
-        leatherHelmet.setIngredient('*', Material.LEATHER_HELMET);
+        reinforced_leather_helmet.setIngredient('@', Material.IRON_INGOT);
+        reinforced_leather_helmet.setIngredient('*', Material.LEATHER_HELMET);
 
 
         // GOLDEN SABATONS RECIPE
-        ShapedRecipe goldBoots = new ShapedRecipe(new NamespacedKey(survival, "goldboots"), Items.get(Items.GOLDEN_SABATONS));
-        goldBoots.shape("@ @", "@ @");
+        ShapedRecipe gold_sabatons = new ShapedRecipe(new NamespacedKey(survival, "gold_sabatons"), Items.get(Items.GOLDEN_SABATONS));
+        gold_sabatons.shape("@ @", "@ @");
 
-        goldBoots.setIngredient('@', Material.GOLD_INGOT);
+        gold_sabatons.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN GUARD RECIPE
-        ShapedRecipe goldChestplate = new ShapedRecipe(new NamespacedKey(survival, "goldchestplate"), Items.get(Items.GOLDEN_GUARD));
-        goldChestplate.shape("@ @", "@@@", "@@@");
+        ShapedRecipe gold_guard = new ShapedRecipe(new NamespacedKey(survival, "gold_guard"), Items.get(Items.GOLDEN_GUARD));
+        gold_guard.shape("@ @", "@@@", "@@@");
 
-        goldChestplate.setIngredient('@', Material.GOLD_INGOT);
+        gold_guard.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN GREAVES RECIPE
-        ShapedRecipe goldLeggings = new ShapedRecipe(new NamespacedKey(survival, "goldleggings"), Items.get(Items.GOLDEN_GREAVES));
-        goldLeggings.shape("@@@", "@ @", "@ @");
+        ShapedRecipe gold_greaves = new ShapedRecipe(new NamespacedKey(survival, "gold_greaves"), Items.get(Items.GOLDEN_GREAVES));
+        gold_greaves.shape("@@@", "@ @", "@ @");
 
-        goldLeggings.setIngredient('@', Material.GOLD_INGOT);
+        gold_greaves.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN CROWN RECIPE
-        ShapedRecipe goldHelmet = new ShapedRecipe(new NamespacedKey(survival, "goldhelmet"), Items.get(Items.GOLDEN_CROWN));
-        goldHelmet.shape("@*@", "@@@");
+        ShapedRecipe gold_crown = new ShapedRecipe(new NamespacedKey(survival, "gold_crown"), Items.get(Items.GOLDEN_CROWN));
+        gold_crown.shape("@*@", "@@@");
 
-        goldHelmet.setIngredient('@', Material.GOLD_INGOT);
-        goldHelmet.setIngredient('*', Material.EMERALD);
+        gold_crown.setIngredient('@', Material.GOLD_INGOT);
+        gold_crown.setIngredient('*', Material.EMERALD);
 
 
         // IRON BOOTS RECIPE
-        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "ironboots"), Items.get(Items.IRON_BOOTS));
+        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "iron_boots"), Items.get(Items.IRON_BOOTS));
         ironBoots.shape("@ @", "@ @");
 
         ironBoots.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON CHESTPLATE RECIPE
-        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "ironchestplate"), Items.get(Items.IRON_CHESTPLATE));
+        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "iron_chestplate"), Items.get(Items.IRON_CHESTPLATE));
         ironChestplate.shape("@ @", "@@@", "@@@");
 
         ironChestplate.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON LEGGINGS RECIPE
-        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "ironleggings"), Items.get(Items.IRON_LEGGINGS));
+        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "iron_leggings"), Items.get(Items.IRON_LEGGINGS));
         ironLeggings.shape("@@@", "@ @", "@ @");
 
         ironLeggings.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON HELMET RECIPE
-        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "ironhelmet"), Items.get(Items.IRON_HELMET));
+        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "iron_helmet"), Items.get(Items.IRON_HELMET));
         ironHelmet.shape("@@@", "@ @");
 
         ironHelmet.setIngredient('@', Material.IRON_INGOT);
 
 
         // DIAMOND BOOTS RECIPE
-        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamondboots"), Items.get(Items.DIAMOND_BOOTS));
+        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamond_boots"), Items.get(Items.DIAMOND_BOOTS));
         diamondBoots.shape("@ @", "@ @");
 
         diamondBoots.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND CHESTPLATE RECIPE
-        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamondchestplate"), Items.get(Items.DIAMOND_CHESTPLATE));
+        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamond_chestplate"), Items.get(Items.DIAMOND_CHESTPLATE));
         diamondChestplate.shape("@ @", "@@@", "@@@");
 
         diamondChestplate.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND LEGGINGS RECIPE
-        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamondleggings"), Items.get(Items.DIAMOND_LEGGINGS));
+        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamond_leggings"), Items.get(Items.DIAMOND_LEGGINGS));
         diamondLeggings.shape("@@@", "@ @", "@ @");
 
         diamondLeggings.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND HELMET RECIPE
-        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamondhelmet"), Items.get(Items.DIAMOND_HELMET));
+        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamond_helmet"), Items.get(Items.DIAMOND_HELMET));
         diamondHelmet.shape("@@@", "@ @");
 
         diamondHelmet.setIngredient('@', Material.DIAMOND);
@@ -779,12 +652,12 @@ public class RecipeManager {
         recurvedCrossbow.setIngredient('4', Material.CROSSBOW);
 
         // NEW CAMPFIRE RECIPE
-        ShapedRecipe camp1 = new ShapedRecipe(new NamespacedKey(survival, "camp1"), Items.get(Items.CAMPFIRE));
+        ShapedRecipe unlit_campfire = new ShapedRecipe(new NamespacedKey(survival, "unlit_campfire"), Items.get(Items.CAMPFIRE));
 
-        camp1.shape(" 1 ", "121", "333");
-        camp1.setIngredient('1', Material.STICK);
-        camp1.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
-        camp1.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
+        unlit_campfire.shape(" 1 ", "121", "333");
+        unlit_campfire.setIngredient('1', Material.STICK);
+        unlit_campfire.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
+        unlit_campfire.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
         // NEW STONE SICKLE RECIPE
         ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(survival, "stone_sickle"), Items.get(Items.STONE_SICKLE));
@@ -809,19 +682,15 @@ public class RecipeManager {
         if (settings.getBoolean("Survival.Enabled")) {
             survival.getServer().addRecipe(hatchet1);
             survival.getServer().addRecipe(hatchet2);
-            survival.getServer().addRecipe(mattock1);
-            survival.getServer().addRecipe(shiv1);
-            survival.getServer().addRecipe(shiv2);
-            survival.getServer().addRecipe(shiv3);
-            survival.getServer().addRecipe(shiv4);
-            survival.getServer().addRecipe(hammer1);
-            survival.getServer().addRecipe(hammer2);
-            survival.getServer().addRecipe(firestriker1);
-            survival.getServer().addRecipe(workbench1);
+            survival.getServer().addRecipe(mattock);
+            survival.getServer().addRecipe(shiv);
+            survival.getServer().addRecipe(hammer);
+            survival.getServer().addRecipe(firestriker);
+            survival.getServer().addRecipe(workbench);
             survival.getServer().addRecipe(furnace);
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
-            survival.getServer().addRecipe(camp1);
+            survival.getServer().addRecipe(unlit_campfire);
             survival.getServer().addRecipe(stone_sickle);
             survival.getServer().addRecipe(iron_sickle);
         }
@@ -832,64 +701,56 @@ public class RecipeManager {
         if (settings.getBoolean("Recipes.WebString"))
             survival.getServer().addRecipe(string);
         if (settings.getBoolean("Recipes.SaplingToSticks")) {
-            survival.getServer().addRecipe(sapling1);
+            survival.getServer().addRecipe(stick);
         }
 
         if (settings.getBoolean("LegendaryItems.ValkyrieAxe")) {
-            survival.getServer().addRecipe(gAxe);
+            survival.getServer().addRecipe(valkyries_axe);
             if (settings.getBoolean("LegendaryItems.CanRepair"))
-                survival.getServer().addRecipe(repair_gAxe);
+                survival.getServer().addRecipe(repair_valkyries_axe);
         }
         if (settings.getBoolean("LegendaryItems.QuartzPickaxe")) {
-            survival.getServer().addRecipe(gPickaxe1);
-            survival.getServer().addRecipe(gPickaxe2);
+            survival.getServer().addRecipe(quartz_pickaxe);
             if (settings.getBoolean("LegendaryItems.CanRepair"))
-                survival.getServer().addRecipe(repair_gPickaxe);
+                survival.getServer().addRecipe(repair_quartz_pickaxe);
         }
         if (settings.getBoolean("LegendaryItems.ObsidianMace")) {
-            survival.getServer().addRecipe(gSpade1);
-            survival.getServer().addRecipe(gSpade2);
+            survival.getServer().addRecipe(obsidian_mace);
             if (settings.getBoolean("LegendaryItems.CanRepair"))
-                survival.getServer().addRecipe(repair_gSpade);
+                survival.getServer().addRecipe(repair_obsidian_mace);
         }
         if (settings.getBoolean("LegendaryItems.GiantBlade")) {
-            survival.getServer().addRecipe(gHoe1);
-            survival.getServer().addRecipe(gHoe2);
+            survival.getServer().addRecipe(ender_giant_blade);
             if (settings.getBoolean("LegendaryItems.CanRepair"))
-                survival.getServer().addRecipe(repair_gHoe);
+                survival.getServer().addRecipe(repair_ender_giant_blaze);
         }
         if (settings.getBoolean("LegendaryItems.BlazeSword")) {
-            survival.getServer().addRecipe(gSword);
+            survival.getServer().addRecipe(blaze_sword);
             if (settings.getBoolean("LegendaryItems.CanRepair"))
-                survival.getServer().addRecipe(repair_gSword);
+                survival.getServer().addRecipe(repair_blaze_sword);
         }
         if (settings.getBoolean("LegendaryItems.NotchApple"))
             survival.getServer().addRecipe(notchApple);
         if (settings.getBoolean("Recipes.Saddle"))
             survival.getServer().addRecipe(saddle);
         if (settings.getBoolean("Recipes.Nametag")) {
-            survival.getServer().addRecipe(nametag1);
-            survival.getServer().addRecipe(nametag2);
+            survival.getServer().addRecipe(nametag);
         }
         if (settings.getBoolean("Recipes.PackedIce")) {
             survival.getServer().addRecipe(packedIce1);
-            survival.getServer().addRecipe(packedIce2);
+            survival.getServer().addRecipe(ice2);
         }
         if (settings.getBoolean("Recipes.IronBard")) {
-            survival.getServer().addRecipe(ironHorse1);
-            survival.getServer().addRecipe(ironHorse2);
+            survival.getServer().addRecipe(iron_horse_armor);
         }
         if (settings.getBoolean("Recipes.GoldBard")) {
             survival.getServer().addRecipe(goldHorse1);
-            survival.getServer().addRecipe(goldHorse2);
         }
         if (settings.getBoolean("Recipes.DiamondBard")) {
-            survival.getServer().addRecipe(diamondHorse1);
-            survival.getServer().addRecipe(diamondHorse2);
+            survival.getServer().addRecipe(diamond_horse_armor);
         }
         if (settings.getBoolean("Recipes.LeatherBard")) {
-            survival.getServer().addRecipe(leatherHorse1);
-            survival.getServer().addRecipe(leatherHorse2);
+            survival.getServer().addRecipe(leather_horse_armor);
         }
         if (settings.getBoolean("Recipes.ClayBrick"))
             survival.getServer().addRecipe(clayBrick);
@@ -908,14 +769,13 @@ public class RecipeManager {
         if (settings.getBoolean("Recipes.Andesite"))
             survival.getServer().addRecipe(andesite);
         if (settings.getBoolean("Recipes.Gravel")) {
-            survival.getServer().addRecipe(gravel1);
-            survival.getServer().addRecipe(gravel2);
+            survival.getServer().addRecipe(gravel);
         }
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
-            survival.getServer().addRecipe(fermentedSpiderEye1);
+            survival.getServer().addRecipe(fermented_spider_eye);
         }
         if (settings.getBoolean("Mechanics.FermentedSkin")) {
-            survival.getServer().addRecipe(fermentedSkin1);
+            survival.getServer().addRecipe(fermented_skin);
         }
         if (settings.getBoolean("Mechanics.PoisonousPotato"))
             survival.getServer().addRecipe(poisonousPotato);
@@ -924,16 +784,16 @@ public class RecipeManager {
             survival.getServer().addRecipe(bowl);
         }
         if (settings.getBoolean("Mechanics.ReinforcedLeatherArmor")) {
-            survival.getServer().addRecipe(leatherBoots);
-            survival.getServer().addRecipe(leatherChestplate);
-            survival.getServer().addRecipe(leatherLeggings);
-            survival.getServer().addRecipe(leatherHelmet);
+            survival.getServer().addRecipe(reinforced_leather_boots);
+            survival.getServer().addRecipe(reinforced_leather_chestplate);
+            survival.getServer().addRecipe(reinforced_leather_leggings);
+            survival.getServer().addRecipe(reinforced_leather_helmet);
         }
         if (settings.getBoolean("LegendaryItems.GoldArmorBuff")) {
-            survival.getServer().addRecipe(goldBoots);
-            survival.getServer().addRecipe(goldChestplate);
-            survival.getServer().addRecipe(goldLeggings);
-            survival.getServer().addRecipe(goldHelmet);
+            survival.getServer().addRecipe(gold_sabatons);
+            survival.getServer().addRecipe(gold_guard);
+            survival.getServer().addRecipe(gold_greaves);
+            survival.getServer().addRecipe(gold_crown);
         }
 
         if (settings.getBoolean("Mechanics.SlowArmor")) {
@@ -948,12 +808,11 @@ public class RecipeManager {
         }
 
         if (settings.getBoolean("Mechanics.MedicalKit")) {
-            survival.getServer().addRecipe(medicKit1);
+            survival.getServer().addRecipe(medic_kit);
         }
 
         if (settings.getBoolean("Recipes.FishingRod")) {
-            survival.getServer().addRecipe(fishingRod1);
-            survival.getServer().addRecipe(fishingRod2);
+            survival.getServer().addRecipe(fishing_rod);
         }
 
         if (settings.getBoolean("Mechanics.ReducedIronNugget")) {
@@ -1110,15 +969,6 @@ public class RecipeManager {
                     case LEATHER_HORSE_ARMOR:
                         if (settings.getBoolean("Recipes.LeatherBard"))
                             it.remove();
-                    case AIR:
-                        if (recipe instanceof ShapedRecipe)
-                            sendMsg(((ShapedRecipe) recipe).getKey().toString());
-                        else if (recipe instanceof ShapelessRecipe)
-                            sendMsg(((ShapelessRecipe) recipe).getKey().toString());
-                        else if (recipe instanceof CookingRecipe)
-                            sendMsg(((CookingRecipe) recipe).getKey().toString());
-                        else if (recipe instanceof StonecuttingRecipe)
-                            sendMsg(((StonecuttingRecipe) recipe).getKey().toString());
                     default:
                 }
             }
@@ -1133,8 +983,112 @@ public class RecipeManager {
         }
     }
 
-    private void sendMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + msg);
+    public enum Recipes {
+        // CUSTOM TOOLS
+        HATCHET("hatchet1", "hatchet2"),
+        MATTOCK("mattock"),
+        SHIV("shiv"),
+        HAMMER("hammer"),
+        VALKYRIES_AXE("valkyrie_axe"),
+        QUARTZ_PICKAXE("quartz_pickaxe"),
+        OBSIDIAN_MACE("obsidian_mace"),
+        ENDER_GIANT_BLADE("ender_giant_blade"),
+        BLAZE_SWORD("blaze_sword"),
+        FIRESTRIKER("firestriker"),
+        WORKBENCH("workbench"),
+        FERMENTED_SKIN("fermented_skin"),
+        MEDIC_KIT("medic_kit"),
+        REINFORCED_LEATHER_BOOTS("reinforced_leather_boots"),
+        REINFORCED_LEATHER_CHESTPLATE("reinforced_leather_chestplate"),
+        REINFORCED_LEATHER_LEGGINGS("reinforced_leather_leggings"),
+        REINFORCED_LEATHER_HELMET("reinforced_leather_helmet"),
+        GOLD_SABATONS("gold_sabatons"),
+        GOLD_GUARD("gold_guard"),
+        GOLD_GREAVES("gold_greaves"),
+        GOLD_CROWN("gold_crown"),
+        RECURVED_BOW("recurved_bow"),
+        RECURVED_CROSSBOW("recurved_crossbow"),
+        UNLIT_CAMPFIRE("unlit_campfire"),
+        STONE_SICKLE("stone_sickle"),
+        IRON_SICKLE("iron_sickle"),
+
+        // VANILLA ITEMS
+        ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),
+        SADDLE("saddle"),
+        NAMETAG("nametag"),
+        STRING("string1", "string2"),
+        IRON_HORSE_ARMOR("iron_horse_armor"),
+        GOLD_HORSE_ARMOR("gold_horse_armor"),
+        DIAMOND_HORSE_ARMOR("diamond_horse_armor"),
+        LEATHER_HORSE_ARMOR("leather_horse_armor"),
+        TORCH("torch1", "torch2"),
+        FLINT("flint"),
+        FERMENTED_SPIDER_EYE("fermented_spider_eye"),
+        POISONOUS_POTATO("poisonous_potato"),
+        GLASS_BOTTLE("glass_bottle"),
+        BOWL("bowl"),
+        FISHING_ROD("fishing_rod"),
+        IRON_INGOT("iron_ingot"),
+        IRON_NUGGET("iron_nugget"),
+        GOLD_INGOT("gold_ingot"),
+        GOLD_NUGGET("gold_nugget"),
+        BREAD("break"),
+        COOKIE("cookie"),
+        SLIMEBALL("slimeball"),
+        COBWEB("cobweb"),
+        STICK("stick"),
+        IRON_BOOTS("iron_boots"),
+        IRON_LEGGINGS("iron_leggings"),
+        IRON_CHESTPLATE("iron_chestplate"),
+        IRON_HELMET("iron_helmet"),
+        DIAMOND_BOOTS("diamond_boots"),
+        DIAMOND_LEGGINGS("diamond_leggings"),
+        DIAMOND_CHESTPLATE("diamond_chestplate"),
+        DIAMOND_HELMET("diamond_helmet"),
+
+        // VANILLA BLOCKS
+        CLAY_BRICK("clay_brick"),
+        QUARTZ("quartz"),
+        FURNACE("furnace"),
+        CHEST("chest"),
+        CLAY("clay"),
+        DIORITE("diorite"),
+        ANDESITE("andesite"),
+        GRANITE("granite"),
+        GRAVEL("gravel"),
+        ICE("ice1", "ice2"),
+        PACKED_ICE("packed_ice"),
+        IRON_BLOCK("iron_block"),
+        GOLD_BLOCK("gold_block"),
+
+        // REPAIR RECIPES
+        REPAIR_BLAZE_SWORD("repair_blaze_sword"),
+        REPAIR_ENDER_GIANT_BLADE("repair_ender_giant_blaze"),
+        REPAIR_QUARTZ_PICKAXE("repair_quartz_pickaxe"),
+        REPAIR_VALKYRIES_AXE("repair_valkyries_axe"),
+        REPAIR_OBSIDIAN_MACE("repair_obsidian_mace"),
+
+        // SMELTING RECIPES
+        FURNACE_IRON_INGOT("furnace_iron_ingot"),
+        FURNACE_GOLD_INGOT("furnace_gold_ingot"),
+        BLAST_IRON_INGOT("blast_iron_ingot"),
+        BLAST_GOLD_INGOT("blast_gold_ingot");
+
+        private final Collection<NamespacedKey> keys;
+
+        Recipes(String... keys) {
+            ArrayList<NamespacedKey> list = new ArrayList<>();
+            for(String key : keys) {
+                assert false;
+                list.add(new NamespacedKey(survival, key));
+            }
+            this.keys = list;
+        }
+
+        public Collection<NamespacedKey> getKeys() {
+            return this.keys;
+
+        }
     }
 
 }
