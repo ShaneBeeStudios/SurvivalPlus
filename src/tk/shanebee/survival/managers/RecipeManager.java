@@ -1,12 +1,8 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.DyeColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Tag;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.*;
-import org.bukkit.material.Wool;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 
@@ -351,7 +347,7 @@ public class RecipeManager {
         //  STRING RECIPE
         ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(survival, "woolstring"), new ItemStack(Material.STRING, 4));
 
-        woolString.addIngredient(new Wool(DyeColor.WHITE));
+        woolString.addIngredient(new RecipeChoice.MaterialChoice(Tag.WOOL));
 
 
         //  REPAIR RECIPE
@@ -1114,6 +1110,15 @@ public class RecipeManager {
                     case LEATHER_HORSE_ARMOR:
                         if (settings.getBoolean("Recipes.LeatherBard"))
                             it.remove();
+                    case AIR:
+                        if (recipe instanceof ShapedRecipe)
+                            sendMsg(((ShapedRecipe) recipe).getKey().toString());
+                        else if (recipe instanceof ShapelessRecipe)
+                            sendMsg(((ShapelessRecipe) recipe).getKey().toString());
+                        else if (recipe instanceof CookingRecipe)
+                            sendMsg(((CookingRecipe) recipe).getKey().toString());
+                        else if (recipe instanceof StonecuttingRecipe)
+                            sendMsg(((StonecuttingRecipe) recipe).getKey().toString());
                     default:
                 }
             }
@@ -1126,6 +1131,10 @@ public class RecipeManager {
                 survival.getServer().addRecipe(r);
             }
         }
+    }
+
+    private void sendMsg(String msg) {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + msg);
     }
 
 }
