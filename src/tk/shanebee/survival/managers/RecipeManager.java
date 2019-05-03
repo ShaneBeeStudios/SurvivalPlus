@@ -977,9 +977,7 @@ public class RecipeManager {
         survival.getServer().clearRecipes();
 
         for (Recipe r : backup) {
-            if (r.getResult().getType() != Material.AIR) {
-                survival.getServer().addRecipe(r);
-            }
+            survival.getServer().addRecipe(r);
         }
     }
 
