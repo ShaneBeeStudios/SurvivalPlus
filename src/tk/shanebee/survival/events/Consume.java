@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
+import tk.shanebee.survival.managers.Items;
 
 import java.util.List;
 import java.util.Random;
@@ -47,7 +48,7 @@ public class Consume implements Listener {
 				break;
 			case BEETROOT_SOUP: //Water Bowl
 				event.setCancelled(true);
-				if (event.getPlayer().getInventory().getItemInMainHand().getType() == Material.BEETROOT_SOUP) {
+				if (Items.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
 					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 

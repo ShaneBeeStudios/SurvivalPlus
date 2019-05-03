@@ -304,11 +304,12 @@ public class RecipeManager {
 
 
         //  CLAY RECIPE
-        ShapelessRecipe clay = new ShapelessRecipe(new NamespacedKey(survival, "clay"), new ItemStack(Material.CLAY, 1));
+        ShapedRecipe clay = new ShapedRecipe(new NamespacedKey(survival, "clay"), new ItemStack(Material.CLAY, 1));
 
-        clay.addIngredient(Material.DIRT);
-        clay.addIngredient(Material.SAND);
-        clay.addIngredient(Material.BEETROOT_SOUP);
+        clay.shape("   ", "123", "   ");
+        clay.setIngredient('1', Material.DIRT);
+        clay.setIngredient('2', Material.SAND);
+        clay.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.WATER_BOWL)));
 
 
         //  DIORITE RECIPE
@@ -402,9 +403,10 @@ public class RecipeManager {
 
 
         //  BOWL RECIPE
-        ShapelessRecipe bowl = new ShapelessRecipe(new NamespacedKey(survival, "bowl"), new ItemStack(Material.BOWL, 1));
+        ShapedRecipe bowl = new ShapedRecipe(new NamespacedKey(survival, "bowl"), new ItemStack(Material.BOWL, 1));
 
-        bowl.addIngredient(Material.BEETROOT_SOUP);
+        bowl.shape("  ", " 1");
+        bowl.setIngredient('1', new RecipeChoice.ExactChoice(Items.get(Items.WATER_BOWL)));
 
 
         //  MEDIC KIT RECIPE
@@ -865,16 +867,18 @@ public class RecipeManager {
                     case FURNACE:
                     case CRAFTING_TABLE:
                     case CHEST:
-                    case BEETROOT_SOUP:
                     case CAMPFIRE:
                         if (settings.getBoolean("Survival.Enabled"))
+                            it.remove();
+                        break;
+                    case BEETROOT_SOUP:
+                        if (settings.getBoolean("Mechanics.Thirst.Enabled"))
                             it.remove();
                         break;
                     case TORCH:
                         if (settings.getBoolean("Survival.Enabled") && settings.getBoolean("Survival.Torch"))
                             it.remove();
                         break;
-
                     case GOLDEN_HOE:
                         if (settings.getBoolean("LegendaryItems.GiantBlade"))
                             it.remove();

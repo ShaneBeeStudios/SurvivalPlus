@@ -1,5 +1,6 @@
 package tk.shanebee.survival.events;
 
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,20 +32,15 @@ public class WaterBowl implements Listener {
 	@EventHandler
 	public void onDrop(ItemSpawnEvent event) {
 		if (event.isCancelled()) return;
+		if (!Survival.settings.getBoolean("Mechanics.Thirst.Enabled")) return;
 		final Item itemDrop = event.getEntity();
 		if (itemDrop.getItemStack().getType() == Material.BOWL) {
 			final Runnable task = () -> {
 				if (itemDrop.getItemStack().getAmount() != 1) return;
 				Location itemLocation = itemDrop.getLocation();
-				if (itemLocation.getBlock().getType() == Material.WATER || itemLocation.getBlock().getType() == Material.WATER) {
+				if (itemLocation.getBlock().getType() == Material.WATER) {
 					itemDrop.remove();
-
-					ItemStack i_beetroot = new ItemStack(Material.BEETROOT_SOUP, 1);
-					ItemMeta beetrootMeta = i_beetroot.getItemMeta();
-					beetrootMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.water_bowl));
-					i_beetroot.setItemMeta(beetrootMeta);
-
-					itemDrop.getWorld().dropItem(itemLocation, i_beetroot);
+					itemDrop.getWorld().dropItem(itemLocation, Items.get(Items.WATER_BOWL));
 				}
 			};
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, 20L);

@@ -55,6 +55,7 @@ public enum Items {
     RECURVE_BOW(Material.BOW, 1),
     RECURVE_CROSSBOW(Material.CROSSBOW, 1),
     PURIFIED_WATER(Material.POTION, 0),
+    WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
     STONE_SICKLE(Material.WOODEN_HOE, 2),
@@ -600,11 +601,18 @@ public enum Items {
                 ItemMeta meta = purified_water.getItemMeta();
                 ((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
                 ((PotionMeta) meta).setColor(Color.AQUA);
-                meta.setDisplayName(ChatColor.AQUA + "Water Bottle");
-                meta.setLore(Collections.singletonList(ChatColor.GRAY + "Purified"));
+                meta.setDisplayName(Utils.getColoredString(Survival.lang.purified_water));
+                meta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.purified_water_lore)));
                 meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
                 purified_water.setItemMeta(meta);
                 return purified_water;
+            case WATER_BOWL:
+                ItemStack water_bowl = new ItemStack(WATER_BOWL.materialType);
+                ItemMeta water_bowlMeta = water_bowl.getItemMeta();
+                water_bowlMeta.setCustomModelData(1);
+                water_bowlMeta.setDisplayName(Utils.getColoredString(Survival.lang.water_bowl));
+                water_bowl.setItemMeta(water_bowlMeta);
+                return water_bowl;
             case CAMPFIRE:
                 ItemStack campfire = new ItemStack(CAMPFIRE.materialType);
                 ItemMeta campfireMeta = campfire.getItemMeta();

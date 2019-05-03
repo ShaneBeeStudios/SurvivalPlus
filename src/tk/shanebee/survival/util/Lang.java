@@ -133,6 +133,7 @@ public class Lang {
     public String medical_kit;
     public String water_bowl;
     public String purified_water;
+    public String purified_water_lore;
 
     public String stone_sickle;
     public String iron_sickle;
@@ -272,6 +273,7 @@ public class Lang {
         medical_kit = lang.getString("medical-kit");
         water_bowl = lang.getString("water-bowl");
         purified_water = lang.getString("purified-water");
+        purified_water_lore = lang.getString("purified-water-lore");
 
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");

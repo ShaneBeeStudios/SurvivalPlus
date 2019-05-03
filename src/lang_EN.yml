@@ -156,8 +156,9 @@ golden-crown: "Golden Crown"
 
 fermented-skin: "Fermented Skin"
 medical-kit: "Medical Kit"
-water-bowl: "Water Bowl"
-purified-water: "Purified"
+water-bowl: "&bWater Bowl"
+purified-water: "&bWater Bottle"
+purified-water-lore: "&7Purified"
 
 stone_sickle: "&7Stone Sickle"
 iron_sickle: "&bIron Sickle"

@@ -126,7 +126,7 @@ public class RecipeDiscovery implements Listener {
                 player.discoverRecipes(Recipes.COOKIE.getKeys());
                 RecipeDiscovered.EGG.setDiscovered(player);
             }
-        } else if (item == Material.BEETROOT_SOUP) {
+        } else if (Items.compare(e.getItem().getItemStack(), Items.WATER_BOWL)) {
             if (!RecipeDiscovered.BOWL.hasDiscovered(player)) {
                 player.discoverRecipes(Recipes.BOWL.getKeys());
                 RecipeDiscovered.BOWL.setDiscovered(player);
