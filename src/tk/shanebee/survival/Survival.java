@@ -72,6 +72,12 @@ public class Survival extends JavaPlugin implements Listener {
             sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
         }
 
+        if (settings.getBoolean("Survival.LimitedCrafting")) {
+            for (World world : getServer().getWorlds()) {
+                world.setGameRule(GameRule.DO_LIMITED_CRAFTING, true);
+            }
+        }
+
         // LOAD RESOURCE PACK
         String url = settings.getString("MultiWorld.ResourcePackURL");
         boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
@@ -255,6 +261,7 @@ public class Survival extends JavaPlugin implements Listener {
     private void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(this, this);
+        pm.registerEvents(new RecipeDiscovery(), this);
 
         if (settings.getBoolean("Survival.Enabled")) {
             pm.registerEvents(new BlockBreak(), this);
