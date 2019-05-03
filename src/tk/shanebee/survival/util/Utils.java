@@ -234,9 +234,8 @@ public class Utils {
         }
         if (isSlabNotWood(material)) return true;
         if (isStairsNotWood(material)) return true;
-        if (Tag.STONE_BRICKS.isTagged(material)
-        || Tag.WALLS.isTagged(material)) return true;
-        return false;
+        return Tag.STONE_BRICKS.isTagged(material)
+                || Tag.WALLS.isTagged(material);
     }
 
     public static boolean isDoorNotWood(Material material) {
@@ -305,6 +304,7 @@ public class Utils {
     }
 
     public static void spawnParticle(Location location, Particle particle, int amount, double offsetX, double offsetY, double offsetZ) {
+        assert location.getWorld() != null;
         location.getWorld().spawnParticle(particle, location, amount, offsetX, offsetY, offsetZ);
     }
 
@@ -314,11 +314,13 @@ public class Utils {
 
     public static void setDurability(ItemStack item, int durability) {
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         ((Damageable) meta).setDamage(durability);
         item.setItemMeta(meta);
     }
 
     public static int getDurability(ItemStack item) {
+        assert item.getItemMeta() != null;
         return ((Damageable) item.getItemMeta()).getDamage();
     }
 
@@ -327,11 +329,61 @@ public class Utils {
         for (int i = 0; i < maxDurability; i++) {
             ItemStack stack = Items.get(item);
             ItemMeta meta = stack.getItemMeta();
+            assert meta != null;
             ((Damageable) meta).setDamage(i);
             stack.setItemMeta(meta);
             itemStacks.add(stack);
         }
         return itemStacks;
+    }
+
+    public enum RecipeDiscovered {
+        DIAMONDS("diamonds"),
+        IRON("iron"),
+        GOLD("gold"),
+        LOGS("logs"),
+        FIRESTRIKER("firestriker"),
+        FURNACE("furnace"),
+        OBSIDIAN("obsidian"),
+        ICE("ice"),
+        GRAVEL("gravel"),
+        COBBLESTONE("cobblestone"),
+        BRICK("brick"),
+        DIRT("dirt"),
+        BLAST_FURNACE("blast-furnace"),
+        FLINT("flint"),
+        EGG("egg"),
+        BOWL("bowl"),
+        VINE("vine"),
+        QUARTZ("quartz"),
+        PAPER("paper"),
+        STRING("string"),
+        FEATHER("feather"),
+        SPIDER_EYE("spider-eye"),
+        ROTTEN_FLESH("rotten-flesh"),
+        POTATO("potato"),
+        BLAZE("blaze"),
+        BLAZE_SWORD("blaze-sword"),
+        ENDER_GIANT_BLADE("ender_giant_blade"),
+        QUARTZ_PICKAXE("quartz_pickaxe"),
+        VALKYRIES_AXE("valkyries_axe"),
+        LEATHER("leather"),
+        LEATHER_ARMOR("leather-armor"),
+        CROSSBOW("crossbow");
+
+        private final String type;
+
+        RecipeDiscovered(String type) {
+            this.type = type;
+        }
+
+        public boolean hasDiscovered(Player player) {
+            return player.getScoreboardTags().contains("survival-recipetype-" + type);
+        }
+
+        public void setDiscovered(Player player) {
+            player.addScoreboardTag("survival-recipetype-" + type);
+        }
     }
 
 }
