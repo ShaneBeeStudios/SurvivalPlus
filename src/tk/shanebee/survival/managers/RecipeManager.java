@@ -73,9 +73,6 @@ public class RecipeManager {
         hammer.setIngredient('1', Material.STICK);
 
 
-
-
-
         // VALKYRIE's AXE RECIPE
         ShapedRecipe valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "valkyrie_axe"), Items.get(Items.VALKYRIES_AXE));
 
@@ -154,7 +151,6 @@ public class RecipeManager {
         nametag.setIngredient('@', Material.STRING);
         nametag.setIngredient('-', Material.IRON_INGOT);
         nametag.setIngredient('*', Material.PAPER);
-
 
 
         //  PACKED ICE RECIPE
@@ -989,13 +985,13 @@ public class RecipeManager {
         MATTOCK("mattock"),
         SHIV("shiv"),
         HAMMER("hammer"),
+        WORKBENCH("workbench"),
+        FIRESTRIKER("firestriker"),
         VALKYRIES_AXE("valkyrie_axe"),
         QUARTZ_PICKAXE("quartz_pickaxe"),
         OBSIDIAN_MACE("obsidian_mace"),
         ENDER_GIANT_BLADE("ender_giant_blade"),
         BLAZE_SWORD("blaze_sword"),
-        FIRESTRIKER("firestriker"),
-        WORKBENCH("workbench"),
         FERMENTED_SKIN("fermented_skin"),
         MEDIC_KIT("medic_kit"),
         REINFORCED_LEATHER_BOOTS("reinforced_leather_boots"),
@@ -1063,7 +1059,7 @@ public class RecipeManager {
 
         // REPAIR RECIPES
         REPAIR_BLAZE_SWORD("repair_blaze_sword"),
-        REPAIR_ENDER_GIANT_BLADE("repair_ender_giant_blaze"),
+        REPAIR_ENDER_GIANT_BLADE("repair_ender_giant_blade"),
         REPAIR_QUARTZ_PICKAXE("repair_quartz_pickaxe"),
         REPAIR_VALKYRIES_AXE("repair_valkyries_axe"),
         REPAIR_OBSIDIAN_MACE("repair_obsidian_mace"),
