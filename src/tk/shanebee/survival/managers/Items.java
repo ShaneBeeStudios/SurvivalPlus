@@ -105,7 +105,7 @@ public enum Items {
 
                 i_shivMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-                i_shivMeta.setDisplayName(Utils.getColoredString(Survival.lang.shiv));
+                i_shivMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.shiv));
                 i_shivMeta.setLore(Arrays.asList(
                         ChatColor.RESET + Utils.getColoredString(Survival.lang.poisoned_enemy),
                         "",
@@ -177,7 +177,7 @@ public enum Items {
 
                 i_gPickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-                i_gPickaxeMeta.setDisplayName(Utils.getColoredString(Survival.lang.quartz_breaker));
+                i_gPickaxeMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.quartz_breaker));
                 i_gPickaxeMeta.setLore(Arrays.asList(
                         "",
                         ChatColor.GRAY + Utils.getColoredString(Survival.lang.in_main_hand),
@@ -213,7 +213,7 @@ public enum Items {
 
                 i_gSpadeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-                i_gSpadeMeta.setDisplayName(Utils.getColoredString(Survival.lang.obsidian_mace));
+                i_gSpadeMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.obsidian_mace));
                 i_gSpadeMeta.setLore(Arrays.asList(
                         ChatColor.RESET + Utils.getColoredString(Survival.lang.cripple_hit),
                         ChatColor.RESET + Utils.getColoredString(Survival.lang.drain_hit),
@@ -254,7 +254,7 @@ public enum Items {
 
                 i_gHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-                i_gHoeMeta.setDisplayName(Utils.getColoredString(Survival.lang.ender_giant_blade));
+                i_gHoeMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.ender_giant_blade));
                 i_gHoeMeta.setLore(Arrays.asList(
                         ChatColor.RESET + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel),
                         "",
@@ -581,7 +581,7 @@ public enum Items {
 
                 ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
                 recurveBowMeta.setCustomModelData(1);
-                recurveBowMeta.setDisplayName(Utils.getColoredString(Survival.lang.recurved_bow));
+                recurveBowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.recurved_bow));
                 recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
                         Utils.getColoredString(Survival.lang.recurved)));
                 recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
@@ -591,7 +591,7 @@ public enum Items {
                 ItemStack recurveCrossbow = new ItemStack(Material.CROSSBOW, 1);
                 ItemMeta recurveCrossbowMeta = recurveCrossbow.getItemMeta();
                 recurveCrossbowMeta.setCustomModelData(1);
-                recurveCrossbowMeta.setDisplayName(Utils.getColoredString(Survival.lang.recurved_crossbow));
+                recurveCrossbowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.recurved_crossbow));
                 recurveCrossbowMeta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.recurved)));
                 recurveCrossbowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
                 recurveCrossbow.setItemMeta(recurveCrossbowMeta);
@@ -601,7 +601,7 @@ public enum Items {
                 ItemMeta meta = purified_water.getItemMeta();
                 ((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
                 ((PotionMeta) meta).setColor(Color.AQUA);
-                meta.setDisplayName(Utils.getColoredString(Survival.lang.purified_water));
+                meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.purified_water));
                 meta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.purified_water_lore)));
                 meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
                 purified_water.setItemMeta(meta);
@@ -610,13 +610,13 @@ public enum Items {
                 ItemStack water_bowl = new ItemStack(WATER_BOWL.materialType);
                 ItemMeta water_bowlMeta = water_bowl.getItemMeta();
                 water_bowlMeta.setCustomModelData(1);
-                water_bowlMeta.setDisplayName(Utils.getColoredString(Survival.lang.water_bowl));
+                water_bowlMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.water_bowl));
                 water_bowl.setItemMeta(water_bowlMeta);
                 return water_bowl;
             case CAMPFIRE:
                 ItemStack campfire = new ItemStack(CAMPFIRE.materialType);
                 ItemMeta campfireMeta = campfire.getItemMeta();
-                campfireMeta.setDisplayName(Utils.getColoredString(Survival.lang.campfire_name));
+                campfireMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.campfire_name));
                 campfireMeta.setLore(Arrays.asList(Utils.getColoredString(Survival.lang.campfire_lore).split("\\|\\|")));
                 campfireMeta.setCustomModelData(1);
                 campfire.setItemMeta(campfireMeta);
@@ -626,7 +626,7 @@ public enum Items {
                 ItemStack stone_sickle = new ItemStack(STONE_SICKLE.materialType);
                 ItemMeta stone_sickleMeta = stone_sickle.getItemMeta();
                 stone_sickleMeta.setCustomModelData(STONE_SICKLE.modelData);
-                stone_sickleMeta.setDisplayName(Utils.getColoredString(Survival.lang.stone_sickle));
+                stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.stone_sickle));
                 stone_sickle.setItemMeta(stone_sickleMeta);
 
                 return stone_sickle;
@@ -635,7 +635,7 @@ public enum Items {
                 ItemStack iron_sickle = new ItemStack(IRON_SICKLE.materialType);
                 ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
                 iron_sickleMeta.setCustomModelData(IRON_SICKLE.modelData);
-                iron_sickleMeta.setDisplayName(Utils.getColoredString(Survival.lang.iron_sickle));
+                iron_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
                 iron_sickle.setItemMeta(iron_sickleMeta);
 
                 return iron_sickle;
