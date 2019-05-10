@@ -112,6 +112,7 @@ shiv: "Shiv"
 poisoned-enemy: "&2Poisoned: Poison enemy when hit"
 poisoned-retain: "&2Poisoning Effect &7retains"
 reduce-50: "&7> Reduce chance by 50%"
+grappling-hook: "Grappling Hook"
 
 hammer: "Hammer"
 workbench: "Workbench"

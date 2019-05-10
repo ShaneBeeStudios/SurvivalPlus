@@ -59,7 +59,8 @@ public enum Items {
     CAMPFIRE(Material.CAMPFIRE, 1),
 
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    IRON_SICKLE(Material.WOODEN_HOE, 3);
+    IRON_SICKLE(Material.WOODEN_HOE, 3),
+    GRAPPLING_HOOK(Material.FISHING_ROD, 1);
 
     private final Material materialType;
     private final int modelData;
@@ -639,6 +640,15 @@ public enum Items {
                 iron_sickle.setItemMeta(iron_sickleMeta);
 
                 return iron_sickle;
+
+            case GRAPPLING_HOOK:
+                ItemStack grappling_hook = new ItemStack(GRAPPLING_HOOK.materialType);
+                ItemMeta grappling_meta = grappling_hook.getItemMeta();
+                grappling_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.grappling_hook));
+                grappling_meta.setCustomModelData(GRAPPLING_HOOK.modelData);
+                grappling_hook.setItemMeta(grappling_meta);
+
+                return grappling_hook;
 
             default:
                 return new ItemStack(Material.AIR);

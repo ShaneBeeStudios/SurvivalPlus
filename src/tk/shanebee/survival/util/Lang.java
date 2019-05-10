@@ -96,6 +96,7 @@ public class Lang {
     public String poisoned_enemy;
     public String poisoned_retain;
     public String reduce_50;
+    public String grappling_hook;
     public String hammer;
     public String workbench;
     public String valkyrie_axe;
@@ -236,6 +237,7 @@ public class Lang {
         poisoned_enemy = lang.getString("poisoned-enemy");
         poisoned_retain = lang.getString("poisoned-retain");
         reduce_50 = lang.getString("reduce-50");
+        grappling_hook = lang.getString("grappling-hook");
         hammer = lang.getString("hammer");
         workbench = lang.getString("workbench");
         valkyrie_axe = lang.getString("valkyrie-axe");
