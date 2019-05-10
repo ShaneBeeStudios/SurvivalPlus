@@ -369,7 +369,8 @@ public class Utils {
         VALKYRIES_AXE("valkyries_axe"),
         LEATHER("leather"),
         LEATHER_ARMOR("leather-armor"),
-        CROSSBOW("crossbow");
+        CROSSBOW("crossbow"),
+        FISHING_ROD("fishing_rod");
 
         private final String type;
 

@@ -275,6 +275,11 @@ public class RecipeDiscovery implements Listener {
                 player.discoverRecipes(Recipes.REPAIR_VALKYRIES_AXE.getKeys());
                 RecipeDiscovered.VALKYRIES_AXE.setDiscovered(player);
             }
+        } else if (result.getType() == Material.FISHING_ROD) {
+            if (!RecipeDiscovered.FISHING_ROD.hasDiscovered(player)) {
+                player.discoverRecipes(Recipes.GRAPPLING_HOOK.getKeys());
+                RecipeDiscovered.FISHING_ROD.setDiscovered(player);
+            }
         }
     }
 
