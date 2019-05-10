@@ -673,6 +673,14 @@ public class RecipeManager {
         iron_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.STONE_SICKLE)));
         iron_sickle.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
 
+        // NEW GRAPPLING HOOK RECIPE
+        ShapedRecipe grappling_hook = new ShapedRecipe(new NamespacedKey(survival, "grappling_hook"), Items.get(Items.GRAPPLING_HOOK));
+
+        grappling_hook.shape(" 3 ", "121", " 3 ");
+        grappling_hook.setIngredient('1', Material.FISHING_ROD);
+        grappling_hook.setIngredient('2', Material.STRING);
+        grappling_hook.setIngredient('3', Material.IRON_INGOT);
+
 
 
 
@@ -841,6 +849,8 @@ public class RecipeManager {
             survival.getServer().addRecipe(recurvedBow);
             survival.getServer().addRecipe(recurvedCrossbow);
         }
+        if (settings.getBoolean("Mechanics.GrapplingHook"))
+            survival.getServer().addRecipe(grappling_hook);
     }
 
     private void removeRecipes() {
@@ -1009,6 +1019,7 @@ public class RecipeManager {
         UNLIT_CAMPFIRE("unlit_campfire"),
         STONE_SICKLE("stone_sickle"),
         IRON_SICKLE("iron_sickle"),
+        GRAPPLING_HOOK("grappling_hook"),
 
         // VANILLA ITEMS
         ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),
