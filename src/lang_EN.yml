@@ -48,6 +48,8 @@ recurved: "&7Recurved"
 
 fishing-off-hand: "Must use a fishing hook with empty off hand"
 fishing-main-hand: "Must use a fishing hook with main hand"
+grappling-off-hand: "Must use a grappling hook with empty off hand"
+grappling-main-hand: "Must use a grappling hook with main hand"
 
 compass-pointed: "Compass has pointed at"
 compass-coords: "Your coordinates is"

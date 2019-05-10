@@ -42,6 +42,8 @@ public class Lang {
 
     public String fishing_off_hand;
     public String fishing_main_hand;
+    public String grappling_off_hand;
+    public String grappling_main_hand;
     public String compass_pointed;
     public String compass_coords;
     public String players_only;
@@ -185,6 +187,8 @@ public class Lang {
         recurved = lang.getString("recurved");
         fishing_off_hand = lang.getString("fishing-off-hand");
         fishing_main_hand = lang.getString("fishing-main-hand");
+        grappling_off_hand = lang.getString("grappling-off-hand");
+        grappling_main_hand = lang.getString("grappling-main-hand");
         compass_pointed = lang.getString("compass-pointed");
         compass_coords = lang.getString("compass-coords");
         players_only = lang.getString("players-only");
