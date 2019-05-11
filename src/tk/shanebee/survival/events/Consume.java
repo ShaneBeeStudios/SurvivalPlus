@@ -28,33 +28,45 @@ public class Consume implements Listener {
 	public void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
+		ItemStack item = event.getItem();
 		switch (event.getItem().getType()) {
 			case POTION:
 				// TODO add in new water items (purified/clean)
-				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
-					if (checkWaterBottle(event.getItem())) {
-						List<String> lore = event.getItem().getItemMeta().getLore();
-						assert lore != null;
-						if (!lore.toString().contains(Survival.lang.purified_water)) {
+					if (checkWaterBottle(item)) {
+
+						if (Items.compare(item, Items.DIRTY_WATER)) {
+							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 13);
 							Random rand = new Random();
-							if (rand.nextInt(10) + 1 <= 6) {
+							if (rand.nextInt(10) + 1 <= 5) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
+						} else if (Items.compare(item, Items.CLEAN_WATER)) {
+							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
+							Random rand = new Random();
+							if (rand.nextInt(10) + 1 <= 2) {
+								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
+								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+							}
+
+						} else if (Items.compare(item, Items.PURIFIED_WATER)) {
+							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 23);
 						}
 					}
+				} else {
+					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
 				event.setCancelled(true);
 				if (Items.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
-					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
+					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 10);
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
 					if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 						Random rand = new Random();
-						if (rand.nextInt(10) + 1 <= 6) {
+						if (rand.nextInt(10) + 1 <= 8) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 						}
