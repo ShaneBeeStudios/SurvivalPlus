@@ -1,6 +1,5 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -55,9 +54,9 @@ public enum Items {
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, 0),
     RECURVE_BOW(Material.BOW, 1),
     RECURVE_CROSSBOW(Material.CROSSBOW, 1),
-    DIRTY_WATER(Material.POTION, 0),
-    CLEAN_WATER(Material.POTION, 1),
-    PURIFIED_WATER(Material.POTION, 2),
+    DIRTY_WATER(Material.POTION, 1),
+    CLEAN_WATER(Material.POTION, 2),
+    PURIFIED_WATER(Material.POTION, 3),
     WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
@@ -603,6 +602,7 @@ public enum Items {
             case DIRTY_WATER:
                 ItemStack dirty_water = new ItemStack(CLEAN_WATER.materialType);
                 ItemMeta dirtyMeta = dirty_water.getItemMeta();
+                dirtyMeta.setCustomModelData(DIRTY_WATER.modelData);
                 ((PotionMeta) dirtyMeta).setBasePotionData(new PotionData(PotionType.WATER));
                 ((PotionMeta) dirtyMeta).setColor(Color.fromRGB(Survival.lang.dirty_water_color));
                 dirtyMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.dirty_water));
@@ -613,6 +613,7 @@ public enum Items {
             case CLEAN_WATER:
                 ItemStack clean_water = new ItemStack(CLEAN_WATER.materialType);
                 ItemMeta cleanMeta = clean_water.getItemMeta();
+                cleanMeta.setCustomModelData(CLEAN_WATER.modelData);
                 ((PotionMeta) cleanMeta).setBasePotionData(new PotionData(PotionType.WATER));
                 ((PotionMeta) cleanMeta).setColor(Color.fromRGB(Survival.lang.clean_water_color));
                 cleanMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.clean_water));
@@ -623,6 +624,7 @@ public enum Items {
             case PURIFIED_WATER:
                 ItemStack purified_water = new ItemStack(PURIFIED_WATER.materialType);
                 ItemMeta meta = purified_water.getItemMeta();
+                meta.setCustomModelData(PURIFIED_WATER.modelData);
                 ((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
                 ((PotionMeta) meta).setColor(Color.fromRGB(Survival.lang.purified_water_color));
                 meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.purified_water));
