@@ -9,7 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.Items;
@@ -200,6 +202,7 @@ public class BlockBreak implements Listener {
 							}
 
 							if (drop != Material.AIR && random != 0) {
+								assert loc.getWorld() != null;
 								loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
 							}
 							if (tool.getType().getMaxDurability() < Utils.getDurability(tool) + multiplier) {
@@ -237,6 +240,71 @@ public class BlockBreak implements Listener {
 			} else {
 				if (Utils.isOreBlock(material) || Utils.isNaturalOreBlock(material)) {
 					event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(material));
+				}
+			}
+		}
+	}
+
+	@EventHandler
+	public void onHarvest(PlayerInteractEvent e) {
+		if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
+				|| e.getAction() == Action.LEFT_CLICK_BLOCK) return;
+		Player player = e.getPlayer();
+		Block block = e.getClickedBlock();
+		ItemStack tool = player.getInventory().getItemInMainHand();
+		assert block != null;
+		if (block.getType() == Material.SWEET_BERRY_BUSH) {
+			Ageable bush = ((Ageable) block.getBlockData());
+			if (e.getItem() != null && e.getItem().getType() == Material.BONE_MEAL) {
+				if (bush.getAge() == 3) {
+					e.setCancelled(true);
+					return;
+				} else return;
+			}
+			if (!Items.compare(tool, Items.IRON_SICKLE) && !Items.compare(tool, Items.STONE_SICKLE)) {
+				e.setCancelled(true);
+				player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
+			} else {
+				if (bush.getAge() >= 2) {
+					int berries = 0;
+					Location loc = block.getLocation();
+					assert loc.getWorld() != null;
+					int multiplier = 1;
+					e.setCancelled(true);
+					int random = new Random().nextInt(5) + 1;
+
+					if (Items.compare(tool, Items.STONE_SICKLE)) {
+						if (bush.getAge() == 2) {
+							if (random <= 2)
+								berries = 1;
+						} else if (bush.getAge() == 3) {
+							if (random <= 4)
+								berries = 1;
+							else
+								berries = 2;
+						}
+						multiplier = 3;
+					} else if (Items.compare(tool, Items.IRON_SICKLE)) {
+						if (bush.getAge() == 2) {
+							if (random <= 3)
+								berries = 1;
+							else
+								berries = 2;
+						} else if (bush.getAge() == 3) {
+							if (random <= 4)
+								berries = 2;
+							else
+								berries = 4;
+						}
+					}
+					if (berries != 0)
+						loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.SWEET_BERRIES, berries));
+
+					bush.setAge(1);
+					block.setBlockData(bush);
+					Utils.setDurability(tool, Utils.getDurability(tool) + multiplier);
+					player.playSound(loc, Sound.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, 1, 1);
 				}
 			}
 		}
