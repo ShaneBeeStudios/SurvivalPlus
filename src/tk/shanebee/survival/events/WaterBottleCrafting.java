@@ -78,6 +78,7 @@ public class WaterBottleCrafting implements Listener {
 
 	@EventHandler
 	public void onFillWaterBottle(PlayerInteractEvent e) {
+		if (!Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) return;
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
