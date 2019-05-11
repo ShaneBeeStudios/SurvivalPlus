@@ -34,6 +34,7 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.STICK.getKeys());
             player.discoverRecipes(Recipes.BREAD.getKeys());
             player.discoverRecipes(Recipes.STRING.getKeys());
+            player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
         }, 200);
     }
 
