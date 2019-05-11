@@ -1,5 +1,6 @@
 package tk.shanebee.survival.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -54,7 +55,9 @@ public enum Items {
     DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, 0),
     RECURVE_BOW(Material.BOW, 1),
     RECURVE_CROSSBOW(Material.CROSSBOW, 1),
-    PURIFIED_WATER(Material.POTION, 0),
+    DIRTY_WATER(Material.POTION, 0),
+    CLEAN_WATER(Material.POTION, 1),
+    PURIFIED_WATER(Material.POTION, 2),
     WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
@@ -597,11 +600,31 @@ public enum Items {
                 recurveCrossbowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
                 recurveCrossbow.setItemMeta(recurveCrossbowMeta);
                 return recurveCrossbow;
+            case DIRTY_WATER:
+                ItemStack dirty_water = new ItemStack(CLEAN_WATER.materialType);
+                ItemMeta dirtyMeta = dirty_water.getItemMeta();
+                ((PotionMeta) dirtyMeta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) dirtyMeta).setColor(Color.fromRGB(Survival.lang.dirty_water_color));
+                dirtyMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.dirty_water));
+                dirtyMeta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.dirty_water_lore)));
+                dirtyMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                dirty_water.setItemMeta(dirtyMeta);
+                return dirty_water;
+            case CLEAN_WATER:
+                ItemStack clean_water = new ItemStack(CLEAN_WATER.materialType);
+                ItemMeta cleanMeta = clean_water.getItemMeta();
+                ((PotionMeta) cleanMeta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) cleanMeta).setColor(Color.fromRGB(Survival.lang.clean_water_color));
+                cleanMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.clean_water));
+                cleanMeta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.clean_water_lore)));
+                cleanMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                clean_water.setItemMeta(cleanMeta);
+                return clean_water;
             case PURIFIED_WATER:
                 ItemStack purified_water = new ItemStack(PURIFIED_WATER.materialType);
                 ItemMeta meta = purified_water.getItemMeta();
                 ((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
-                ((PotionMeta) meta).setColor(Color.AQUA);
+                ((PotionMeta) meta).setColor(Color.fromRGB(Survival.lang.purified_water_color));
                 meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.purified_water));
                 meta.setLore(Collections.singletonList(Utils.getColoredString(Survival.lang.purified_water_lore)));
                 meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);

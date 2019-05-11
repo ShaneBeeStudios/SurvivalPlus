@@ -160,8 +160,19 @@ golden-crown: "Golden Crown"
 fermented-skin: "Fermented Skin"
 medical-kit: "Medical Kit"
 water-bowl: "&bWater Bowl"
+
+# Water bottle names, lore and color
+# I used this site to get the RGB color codes:
+# http://minecraft.tools/en/potion.php
+dirty-water: "Water Bottle"
+dirty-water-lore: "&7Dirty"
+dirty-water-color: 12769874
+clean-water: "&bWater Bottle"
+clean-water-lore: "&7Clean"
+clean-water-color: 1213666
 purified-water: "&bWater Bottle"
 purified-water-lore: "&7Purified"
+purified-water-color: 0x00FFFF
 
 stone_sickle: "&7Stone Sickle"
 iron_sickle: "&bIron Sickle"

@@ -134,8 +134,15 @@ public class Lang {
     public String fermented_skin;
     public String medical_kit;
     public String water_bowl;
+    public String dirty_water;
+    public String dirty_water_lore;
+    public int dirty_water_color;
+    public String clean_water;
+    public String clean_water_lore;
+    public int clean_water_color;
     public String purified_water;
     public String purified_water_lore;
+    public int purified_water_color;
 
     public String stone_sickle;
     public String iron_sickle;
@@ -276,8 +283,15 @@ public class Lang {
         fermented_skin = lang.getString("fermented-skin");
         medical_kit = lang.getString("medical-kit");
         water_bowl = lang.getString("water-bowl");
+        dirty_water = lang.getString("dirty-water");
+        dirty_water_lore = lang.getString("dirty-water-lore");
+        dirty_water_color = lang.getInt("dirty-water-color");
+        clean_water = lang.getString("clean-water");
+        clean_water_lore = lang.getString("clean-water-lore");
+        clean_water_color = lang.getInt("clean-water-color");
         purified_water = lang.getString("purified-water");
         purified_water_lore = lang.getString("purified-water-lore");
+        purified_water_color = lang.getInt("purified-water-color");
 
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
