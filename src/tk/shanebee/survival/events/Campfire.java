@@ -58,6 +58,7 @@ public class Campfire implements Listener {
 
                 }
             } else if (e.getItem() != null && e.getItem().getType() == Material.POTION) {
+                if (!e.getPlayer().isSneaking()) return;
                 Lightable camp = ((Lightable) e.getClickedBlock().getBlockData());
                 if (!camp.isLit()) return;
                 camp.setLit(false);
