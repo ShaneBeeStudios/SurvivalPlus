@@ -408,6 +408,16 @@ public class RecipeManager {
         bowl.shape("  ", " 1");
         bowl.setIngredient('1', new RecipeChoice.ExactChoice(Items.get(Items.WATER_BOWL)));
 
+        // CLEAN WATER RECIPES
+        FurnaceRecipe clean_water_furnace = new FurnaceRecipe(new NamespacedKey(survival, "clean_water_furnace"),
+                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 600);
+
+        SmokingRecipe clean_water_smoker = new SmokingRecipe(new NamespacedKey(survival, "clean_water_smoker"),
+                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 300);
+
+        CampfireRecipe clean_water_camp = new CampfireRecipe(new NamespacedKey(survival, "clean_water_campfire"),
+                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 2400);
+
 
         //  MEDIC KIT RECIPE
         ShapedRecipe medic_kit = new ShapedRecipe(new NamespacedKey(survival, "medic_kit"), Items.get(Items.MEDIC_KIT));
@@ -851,6 +861,11 @@ public class RecipeManager {
         }
         if (settings.getBoolean("Mechanics.GrapplingHook"))
             survival.getServer().addRecipe(grappling_hook);
+        if (settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
+            survival.getServer().addRecipe(clean_water_furnace);
+            survival.getServer().addRecipe(clean_water_smoker);
+            survival.getServer().addRecipe(clean_water_camp);
+        }
     }
 
     private void removeRecipes() {
@@ -1020,6 +1035,7 @@ public class RecipeManager {
         STONE_SICKLE("stone_sickle"),
         IRON_SICKLE("iron_sickle"),
         GRAPPLING_HOOK("grappling_hook"),
+        WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire" ),
 
         // VANILLA ITEMS
         ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),
