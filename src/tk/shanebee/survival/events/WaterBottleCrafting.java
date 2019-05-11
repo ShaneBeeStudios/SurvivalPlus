@@ -84,9 +84,16 @@ public class WaterBottleCrafting implements Listener {
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
 			if (player.getTargetBlock(null, 5).getType() == Material.WATER) {
 				e.setCancelled(true);
-				player.getInventory().addItem(Items.get(Items.DIRTY_WATER));
-				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
-					e.getItem().setAmount(e.getItem().getAmount() - 1);
+				if (item.getAmount() > 1) {
+					player.getInventory().addItem(Items.get(Items.DIRTY_WATER));
+					if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+						item.setAmount(item.getAmount() - 1);
+				} else {
+					if (player.getInventory().getItemInMainHand().getType() == item.getType())
+						player.getInventory().setItemInMainHand(Items.get(Items.DIRTY_WATER));
+					else if (player.getInventory().getItemInOffHand().getType() == item.getType())
+						player.getInventory().setItemInOffHand(Items.get(Items.DIRTY_WATER));
+				}
 			}
 		}
 	}
