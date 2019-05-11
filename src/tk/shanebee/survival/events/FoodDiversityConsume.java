@@ -29,126 +29,84 @@ public class FoodDiversityConsume implements Listener {
 		Player player = event.getPlayer();
 		switch (event.getItem().getType()) {
 			case PUMPKIN_PIE:
-				addStats(player, carbon, 300);
-				addStats(player, protein, 50);
-				addStats(player, salts, 60);
+				addStats(player, 300, 50, 60);
 				break;
 			case RABBIT_STEW:
-				addStats(player, carbon, 200);
-				addStats(player, protein, 225);
-				addStats(player, salts, 240);
+				addStats(player, 200, 225, 240);
 				break;
 			case BREAD:
-				addStats(player, carbon, 300);
-				addStats(player, protein, 25);
-				addStats(player, salts, 12);
+				addStats(player, 300, 25, 12);
 				break;
 			//case CAKE: (PlayerInteractEvent)
 			case POTATO:
-				addStats(player, carbon, 25);
-				addStats(player, protein, 0);
-				addStats(player, salts, 4);
+				addStats(player, 25, 0, 10);
 				break;
 			case BAKED_POTATO:
-				addStats(player, carbon, 200);
-				addStats(player, protein, 0);
-				addStats(player, salts, 35);
+				addStats(player, 200, 0, 60);
 				break;
 			case POISONOUS_POTATO:
-				addStats(player, carbon, 50);
-				addStats(player, protein, 0);
-				addStats(player, salts, 8);
+				addStats(player, 50, 0, 8);
 				break;
 			case APPLE:
 			case GOLDEN_APPLE:
 			case ENCHANTED_GOLDEN_APPLE:
-				addStats(player, carbon, 50);
-				addStats(player, protein, 0);
-				addStats(player, salts, 70);
+				addStats(player, 50, 0, 70);
 				break;
+			case SWEET_BERRIES:
+				addStats(player, 40, 0, 60);
 			case CHORUS_FRUIT:
-				addStats(player, carbon, 25);
-				addStats(player, protein, 0);
-				addStats(player, salts, 35);
-				break;
 			case MELON:
-				addStats(player, carbon, 25);
-				addStats(player, protein, 0);
-				addStats(player, salts, 35);
+				addStats(player, 25, 0, 35);
 				break;
 			case MUSHROOM_STEW:
 			case BEETROOT_SOUP:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 50);
-				addStats(player, salts, 200);
+				addStats(player, 0, 50, 200);
 				break;
 			case COOKIE:
-				addStats(player, carbon, 107);
-				addStats(player, protein, 11);
-				addStats(player, salts, 3);
+				addStats(player, 107, 11, 3);
 				break;
 			case MILK_BUCKET:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 250);
-				addStats(player, salts, 0);
+				addStats(player, 0, 250, 0);
 				break;
 			case BEETROOT:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 0);
-				addStats(player, salts, 35);
+				addStats(player, 0, 0, 35);
 				break;
 			case CARROT:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 0);
-				addStats(player, salts, 105);
+				addStats(player, 0, 0, 105);
 				break;
 			case GOLDEN_CARROT:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 0);
-				addStats(player, salts, 25);
+				addStats(player, 0, 0, 25);
 				break;
 			case COOKED_COD:
 			case COOKED_SALMON:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 225);
-				addStats(player, salts, 0);
+				addStats(player, 0, 225, 0);
 				break;
 			case COOKED_BEEF:
 			case COOKED_CHICKEN:
 			case COOKED_MUTTON:
 			case COOKED_PORKCHOP:
 			case COOKED_RABBIT:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 200);
-				addStats(player, salts, 0);
+				addStats(player, 0, 200, 0);
 				break;
 			case SALMON:
 			case COD:
 			case PUFFERFISH:
 			case TROPICAL_FISH:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 75);
-				addStats(player, salts, 0);
+				addStats(player, 0, 75, 0);
 				break;
 			case BEEF:
 			case CHICKEN:
 			case MUTTON:
 			case PORKCHOP:
 			case RABBIT:
-			case ROTTEN_FLESH:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 50);
-				addStats(player, salts, 0);
-				break;
 			case SPIDER_EYE:
-				addStats(player, carbon, 0);
-				addStats(player, protein, 50);
-				addStats(player, salts, 0);
+				addStats(player, 0, 50, 0);
+				break;
+			case ROTTEN_FLESH:
+				addStats(player, 0, 25, 25);
 				break;
 			case DRIED_KELP:
-				addStats(player, carbon, 15);
-				addStats(player, protein, 50);
-				addStats(player, salts, 50);
+				addStats(player, 15, 50, 50);
 			default:
 		}
 	}
@@ -161,9 +119,7 @@ public class FoodDiversityConsume implements Listener {
 			Block cake = event.getClickedBlock();
 			if (cake.getType().equals(Material.CAKE)) {
 				if (player.getFoodLevel() < 20 && (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)) {
-					addStats(player, carbon, 171);
-					addStats(player, protein, 114);
-					addStats(player, salts, 3);
+					addStats(player, 171, 114, 3);
 				}
 			}
 		}
@@ -214,6 +170,12 @@ public class FoodDiversityConsume implements Listener {
 
 	private void addStats(Player player, Objective nutrient, int point) {
 		nutrient.getScore(player.getName()).setScore(nutrient.getScore(player.getName()).getScore() + point);
+	}
+
+	private void addStats(Player player, int carbs, int proteins, int salts) {
+		addStats(player, this.carbon, carbs);
+		addStats(player, this.protein, proteins);
+		addStats(player, this.salts, salts);
 	}
 
 	private double addMultiplier(Player player) {
