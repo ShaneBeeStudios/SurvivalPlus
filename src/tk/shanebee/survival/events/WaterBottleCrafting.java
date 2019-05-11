@@ -1,21 +1,21 @@
 package tk.shanebee.survival.events;
 
-import tk.shanebee.survival.Survival;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.Items;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -63,11 +63,8 @@ public class WaterBottleCrafting implements Listener {
 		CraftingInventory inv = e.getInventory();
 		ItemStack result = inv.getResult();
 		if (result != null && result.getType() != Material.GLASS_BOTTLE) {
-			List<ItemStack> bottles = Arrays.asList(inv.getMatrix());
-			Iterator<ItemStack> it = bottles.iterator();
-
-			while (it.hasNext()) {
-				ItemStack bottle = it.next();
+			ItemStack[] bottles = inv.getMatrix();
+			for (ItemStack bottle : bottles) {
 				if (bottle == null) continue;
 				if (bottle.getType().equals(Material.POTION)) {
 					if (!checkWaterBottle(bottle)) {
@@ -75,6 +72,20 @@ public class WaterBottleCrafting implements Listener {
 						return;
 					}
 				}
+			}
+		}
+	}
+
+	@EventHandler
+	public void onFillWaterBottle(PlayerInteractEvent e) {
+		Player player = e.getPlayer();
+		ItemStack item = e.getItem();
+		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
+			if (player.getTargetBlock(null, 5).getType() == Material.WATER) {
+				e.setCancelled(true);
+				player.getInventory().addItem(Items.get(Items.DIRTY_WATER));
+				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
+					e.getItem().setAmount(e.getItem().getAmount() - 1);
 			}
 		}
 	}
