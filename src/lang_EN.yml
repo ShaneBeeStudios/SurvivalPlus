@@ -80,7 +80,7 @@ stay-still: "&a, stay still."
 healing-complete: "Healing complete."
 healing-interrupted: "Healing interrupted."
 
-fatigure-level: "Fatigue Level"
+# Fatigue Level
 energized: "Energized"
 sleepy: "Sleepy"
 overworked: "Overworked"

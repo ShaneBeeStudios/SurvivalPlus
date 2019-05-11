@@ -71,7 +71,6 @@ public class Lang {
     public String stay_still;
     public String healing_complete;
     public String healing_interrupted;
-    public String fatigue_level;
     public String energized;
     public String sleepy;
     public String overworked;
@@ -214,7 +213,6 @@ public class Lang {
         stay_still = lang.getString("stay-still");
         healing_complete = lang.getString("healing-complete");
         healing_interrupted = lang.getString("healing-interrupted");
-        fatigue_level = lang.getString("fatigure-level");
         energized = lang.getString("energized");
         sleepy = lang.getString("sleepy");
         overworked = lang.getString("overworked");
