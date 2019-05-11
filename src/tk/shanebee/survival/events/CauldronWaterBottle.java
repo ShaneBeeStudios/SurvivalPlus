@@ -1,8 +1,8 @@
 package tk.shanebee.survival.events;
 
-import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Utils;
-import org.bukkit.*;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Levelled;
@@ -12,19 +12,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.material.Cauldron;
-import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionType;
-
-import java.util.Collections;
-import java.util.List;
+import tk.shanebee.survival.managers.Items;
 
 public class CauldronWaterBottle implements Listener {
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(PlayerInteractEvent event) {
 		if (event.isCancelled()) return;
@@ -44,20 +38,11 @@ public class CauldronWaterBottle implements Listener {
 								cauldron.setLevel(cauldron.getLevel() - 1);
 								event.getClickedBlock().setBlockData(cauldron);
 
-								ItemStack waterBottle = new ItemStack(Material.POTION);
-								ItemMeta meta = waterBottle.getItemMeta();
+								ItemStack waterBottle = Items.get(Items.DIRTY_WATER);
 
 								if (fire.getType() == Material.FIRE) {
-									List<String> lore = Collections.singletonList(
-											ChatColor.RESET + Utils.getColoredString("&7" + Survival.lang.purified_water)
-									);
-									meta.setLore(lore);
+									waterBottle = Items.get(Items.PURIFIED_WATER);
 								}
-								((PotionMeta) meta).setColor(Color.AQUA);
-								((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
-								meta.setDisplayName(ChatColor.AQUA + "Water Bottle");
-								meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-								waterBottle.setItemMeta(meta);
 								player.playSound(event.getClickedBlock().getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
 
 								if (mainItem.getAmount() > 1) {
