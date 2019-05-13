@@ -6,7 +6,7 @@ Language: EN
 
 MultiWorld:
   EnableResourcePack: true
-  ResourcePackURL: https://www.dropbox.com/s/q0e51zxtyv03q1j/SR-1.14-Beta5.zip?dl=1
+  ResourcePackURL: https://bitbucket.org/ShaneBeeStudios/survivalplus/raw/668cb9290baefddf9e1644928ddd9045901e1ea2/resource_pack/SP-1.14-3.0.0.zip
   NotifyMessage: true
 
 LocalChatDist: -1
