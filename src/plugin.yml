@@ -1,7 +1,7 @@
 name: SurvivalPlus
 main: tk.shanebee.survival.Survival
 authors: [FattyMieo, ShaneBee]
-version: 3.0.0-Beta6
+version: 3.0.0
 api-version: 1.14
 commands:
    reload-survival:
