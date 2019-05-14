@@ -58,6 +58,7 @@ Mechanics:
   FoodDiversity: true
   Thirst:
     Enabled: true
+    Starting-Amount: 30
     PurifyWater: true
     MeltSnow: true
     DrainRate: 1.0
@@ -71,8 +72,6 @@ Mechanics:
   
   SnowballRevamp: true
   SnowGenerationRevamp: false
-  
-  FishingRod: true
   
   FarmingProducts:
     Bread: true
@@ -121,6 +120,7 @@ Recipes:
   Slimeball: true
   Cobweb: true
   SaplingToSticks: true
+  FishingRod: true
 
 LegendaryItems:
   CanRepair: true

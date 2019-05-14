@@ -1,6 +1,5 @@
 package tk.shanebee.survival.events;
 
-import tk.shanebee.survival.Survival;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,9 +14,9 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
+import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.Items;
 
-import java.util.List;
 import java.util.Random;
 
 public class Consume implements Listener {
@@ -107,7 +106,8 @@ public class Consume implements Listener {
 	public void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
-			thirst.getScore(player.getName()).setScore(30);
+			int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");
+			thirst.getScore(player.getName()).setScore(amt <= 40 ? amt : 40);
 		}
 	}
 
