@@ -220,7 +220,7 @@ public class FirestrikerClick implements Listener {
 		else if (item.getType() == Material.SAND)
 			inv.setItem(2, new ItemStack(Material.GLASS));
 		else if (item.getType() == Material.CLAY_BALL)
-			inv.setItem(2, new ItemStack(Material.BRICKS));
+			inv.setItem(2, new ItemStack(Material.BRICK));
 		else if (Tag.LOGS.isTagged(item.getType()))
 			inv.setItem(2, new ItemStack(Material.CHARCOAL));
 		else
