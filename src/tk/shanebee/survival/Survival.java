@@ -110,7 +110,8 @@ public class Survival extends JavaPlugin implements Listener {
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             } else if (i > 1) {
-                Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
+                Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED +
+                        "Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             }
@@ -747,7 +748,8 @@ public class Survival extends JavaPlugin implements Listener {
                     //}
                     World overworld = player.getWorld();
 
-                    if (overworld.getTime() >= 22000 && overworld.getTime() < 22100) {
+                    if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
+                            player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000) {
                         fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
 
                         if (fatigue.getScore(player.getName()).getScore() == 1)
@@ -762,6 +764,23 @@ public class Survival extends JavaPlugin implements Listener {
                 }
             }
         }, -1, 100);
+
+        int refreshTime = settings.getInt("Mechanics.BedFatigueRefreshTime");
+
+        if (refreshTime >= 1) {
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+                for (Player player : getServer().getOnlinePlayers()) {
+                    if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                        if (player.isSleeping()) {
+                            if (fatigue.getScore(player.getName()).getScore() >= 1) {
+                                fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() - 1);
+                                Utils.sendColoredMsg(player, Utils.getColoredString(Survival.lang.energy_rising));
+                            }
+                        }
+                    }
+                }
+            }, -1, 20 * refreshTime);
+        }
     }
 
     private void ResetStatusScoreboard(boolean enabled) {

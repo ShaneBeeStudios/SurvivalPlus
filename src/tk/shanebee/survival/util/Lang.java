@@ -80,6 +80,7 @@ public class Lang {
     public String feeling_sleepy_1;
     public String feeling_sleepy_2;
     public String feeling_sleepy_3;
+    public String energy_rising;
     public String locked;
     public String missing_component;
     public String in_main_hand;
@@ -229,6 +230,7 @@ public class Lang {
         feeling_sleepy_1 = lang.getString("feeling-sleepy-1");
         feeling_sleepy_2 = lang.getString("feeling-sleepy-2");
         feeling_sleepy_3 = lang.getString("feeling-sleepy-3");
+        energy_rising = lang.getString("energy-rising");
         locked = lang.getString("locked");
         missing_component = lang.getString("missing-component");
         in_main_hand = lang.getString("in-main-hand");

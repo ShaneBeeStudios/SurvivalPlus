@@ -38,6 +38,7 @@ Mechanics:
   SharedWorkbench: true
   
   BedFatigueLevel: true
+  BedFatigueRefreshTime: 30
   
   SlowArmor: true
   ReinforcedLeatherArmor: true
