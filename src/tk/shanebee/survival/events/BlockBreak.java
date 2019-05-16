@@ -81,8 +81,8 @@ public class BlockBreak implements Listener {
 							|| material == Material.CRAFTING_TABLE
 							|| Tag.PLANKS.isTagged(material)
 							|| Tag.LOGS.isTagged(material)
-							|| Tag.STAIRS.isTagged(material)
-							|| Tag.SLABS.isTagged(material)
+							|| Tag.WOODEN_STAIRS.isTagged(material)
+							|| Tag.WOODEN_SLABS.isTagged(material)
 							|| material == Material.BOOKSHELF
 							|| material == Material.LADDER
 							|| Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
