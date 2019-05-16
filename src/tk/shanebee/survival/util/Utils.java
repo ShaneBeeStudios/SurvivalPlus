@@ -337,6 +337,11 @@ public class Utils {
         return itemStacks;
     }
 
+    public static int getMinutesPlayed(Player player) {
+        int played = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+        return Math.round(played / 1200);
+    }
+
     public enum RecipeDiscovered {
         FIRST_JOIN("first_join"),
         DIAMONDS("diamonds"),
