@@ -1,12 +1,12 @@
 package tk.shanebee.survival.util;
 
-import tk.shanebee.survival.managers.Items;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.managers.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -338,6 +338,7 @@ public class Utils {
     }
 
     public enum RecipeDiscovered {
+        FIRST_JOIN("first_join"),
         DIAMONDS("diamonds"),
         IRON("iron"),
         GOLD("gold"),
@@ -370,7 +371,8 @@ public class Utils {
         LEATHER("leather"),
         LEATHER_ARMOR("leather-armor"),
         CROSSBOW("crossbow"),
-        FISHING_ROD("fishing_rod");
+        FISHING_ROD("fishing_rod"),
+        GLASS_BOTTLE("glass_bottle");
 
         private final String type;
 

@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,7 +31,6 @@ public class Consume implements Listener {
 		ItemStack item = event.getItem();
 		switch (event.getItem().getType()) {
 			case POTION:
-				// TODO add in new water items (purified/clean)
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(item)) {
 
@@ -48,8 +48,7 @@ public class Consume implements Listener {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
-
-						} else if (Items.compare(item, Items.PURIFIED_WATER)) {
+						} else if (Items.compare(item, Items.PURIFIED_WATER) || Items.compare(item, Items.COFFEE)) {
 							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 23);
 						}
 					}
@@ -112,7 +111,9 @@ public class Consume implements Listener {
 	}
 
 	private boolean checkWaterBottle(ItemStack bottle) {
-		switch (((PotionMeta) bottle.getItemMeta()).getBasePotionData().getType()) {
+		ItemMeta meta = bottle.getItemMeta();
+		assert meta != null;
+		switch (((PotionMeta) meta).getBasePotionData().getType()) {
 			case WATER:
 			case MUNDANE:
 			case THICK:

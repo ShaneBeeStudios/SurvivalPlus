@@ -23,7 +23,7 @@ public class RecipeDiscovery implements Listener {
     @EventHandler
     public void onFirstJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        if (player.hasPlayedBefore()) return;
+        if (RecipeDiscovered.FIRST_JOIN.hasDiscovered(player)) return;
         Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
             player.discoverRecipes(Recipes.HATCHET.getKeys());
             player.discoverRecipes(Recipes.MATTOCK.getKeys());
@@ -35,6 +35,7 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.BREAD.getKeys());
             player.discoverRecipes(Recipes.STRING.getKeys());
             player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
+            RecipeDiscovered.FIRST_JOIN.setDiscovered(player);
         }, 200);
     }
 
@@ -280,6 +281,14 @@ public class RecipeDiscovery implements Listener {
             if (!RecipeDiscovered.FISHING_ROD.hasDiscovered(player)) {
                 player.discoverRecipes(Recipes.GRAPPLING_HOOK.getKeys());
                 RecipeDiscovered.FISHING_ROD.setDiscovered(player);
+            }
+        } else if (result.getType() == Material.GLASS_BOTTLE) {
+            if (!RecipeDiscovered.GLASS_BOTTLE.hasDiscovered(player)) {
+                player.discoverRecipes(Recipes.COFFEE.getKeys());
+                player.discoverRecipes(Recipes.COFFEE_BEAN.getKeys());
+                player.discoverRecipes(Recipes.HOT_MILK.getKeys());
+                player.discoverRecipes(Recipes.COLD_MILK.getKeys());
+                RecipeDiscovered.GLASS_BOTTLE.setDiscovered(player);
             }
         }
     }

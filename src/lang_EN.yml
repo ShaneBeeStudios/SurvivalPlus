@@ -175,6 +175,14 @@ purified-water: "&bWater Bottle"
 purified-water-lore: "&7Purified"
 purified-water-color: 0x00FFFF
 
+coffee-bean-name: "Coffee Bean"
+coffee-name: "&3Coffee"
+coffee-color: 9461779
+cold-milk-name: "&bCold Milk"
+cold-milk-color: 16250871
+hot-milk-name: "&cHot Milk"
+hot-milk-color: 15456977
+
 stone_sickle: "&7Stone Sickle"
 iron_sickle: "&bIron Sickle"
 

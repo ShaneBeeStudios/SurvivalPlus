@@ -57,6 +57,10 @@ public enum Items {
     DIRTY_WATER(Material.POTION, 1),
     CLEAN_WATER(Material.POTION, 2),
     PURIFIED_WATER(Material.POTION, 3),
+    COFFEE(Material.POTION, 4),
+    HOT_MILK(Material.POTION, 5),
+    COLD_MILK(Material.POTION, 6),
+    COFFEE_BEAN(Material.COCOA_BEANS, 1),
     WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
@@ -646,7 +650,6 @@ public enum Items {
                 campfireMeta.setLore(Arrays.asList(Utils.getColoredString(Survival.lang.campfire_lore).split("\\|\\|")));
                 campfireMeta.setCustomModelData(1);
                 campfire.setItemMeta(campfireMeta);
-
                 return campfire;
             case STONE_SICKLE:
                 ItemStack stone_sickle = new ItemStack(STONE_SICKLE.materialType);
@@ -654,26 +657,59 @@ public enum Items {
                 stone_sickleMeta.setCustomModelData(STONE_SICKLE.modelData);
                 stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.stone_sickle));
                 stone_sickle.setItemMeta(stone_sickleMeta);
-
                 return stone_sickle;
-
             case IRON_SICKLE:
                 ItemStack iron_sickle = new ItemStack(IRON_SICKLE.materialType);
                 ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
                 iron_sickleMeta.setCustomModelData(IRON_SICKLE.modelData);
                 iron_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
                 iron_sickle.setItemMeta(iron_sickleMeta);
-
                 return iron_sickle;
-
             case GRAPPLING_HOOK:
                 ItemStack grappling_hook = new ItemStack(GRAPPLING_HOOK.materialType);
                 ItemMeta grappling_meta = grappling_hook.getItemMeta();
                 grappling_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.grappling_hook));
                 grappling_meta.setCustomModelData(GRAPPLING_HOOK.modelData);
                 grappling_hook.setItemMeta(grappling_meta);
-
                 return grappling_hook;
+            case COFFEE:
+                // TODO proper lore/color/name in lang file
+                ItemStack coffee = new ItemStack(COFFEE.materialType);
+                ItemMeta coffee_meta = coffee.getItemMeta();
+                coffee_meta.setCustomModelData(COFFEE.modelData);
+                ((PotionMeta) coffee_meta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) coffee_meta).setColor(Color.fromRGB(Survival.lang.coffee_color));
+                coffee_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.coffee_name));
+                coffee_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                coffee.setItemMeta(coffee_meta);
+                return coffee;
+            case HOT_MILK:
+                ItemStack hot_milk = new ItemStack(HOT_MILK.materialType);
+                ItemMeta hot_milk_meta = hot_milk.getItemMeta();
+                hot_milk_meta.setCustomModelData(HOT_MILK.modelData);
+                ((PotionMeta) hot_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) hot_milk_meta).setColor(Color.fromRGB(Survival.lang.hot_milk_color));
+                hot_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.hot_milk_name));
+                hot_milk_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                hot_milk.setItemMeta(hot_milk_meta);
+                return hot_milk;
+            case COLD_MILK:
+                ItemStack cold_milk = new ItemStack(COLD_MILK.materialType);
+                ItemMeta cold_milk_meta = cold_milk.getItemMeta();
+                cold_milk_meta.setCustomModelData(COLD_MILK.modelData);
+                ((PotionMeta) cold_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
+                ((PotionMeta) cold_milk_meta).setColor(Color.fromRGB(Survival.lang.cold_milk_color));
+                cold_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.cold_milk_name));
+                cold_milk_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                cold_milk.setItemMeta(cold_milk_meta);
+                return cold_milk;
+            case COFFEE_BEAN:
+                ItemStack coffee_bean = new ItemStack(COFFEE_BEAN.materialType);
+                ItemMeta coffee_bean_meta = coffee_bean.getItemMeta();
+                coffee_bean_meta.setCustomModelData(COFFEE_BEAN.modelData);
+                coffee_bean_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.coffee_bean_name));
+                coffee_bean.setItemMeta(coffee_bean_meta);
+                return coffee_bean;
 
             default:
                 return new ItemStack(Material.AIR);

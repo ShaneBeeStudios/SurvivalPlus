@@ -1,12 +1,14 @@
 package tk.shanebee.survival.util;
 
-import tk.shanebee.survival.Survival;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import tk.shanebee.survival.Survival;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Lang {
 
@@ -144,6 +146,13 @@ public class Lang {
     public String purified_water;
     public String purified_water_lore;
     public int purified_water_color;
+    public String coffee_bean_name;
+    public String coffee_name;
+    public int coffee_color;
+    public String cold_milk_name;
+    public int cold_milk_color;
+    public String hot_milk_name;
+    public int hot_milk_color;
 
     public String stone_sickle;
     public String iron_sickle;
@@ -165,6 +174,7 @@ public class Lang {
             loaded = "&aNew lang_EN.yml created";
         } else {
             loaded = "&7lang_EN.yml &aloaded";
+            updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
         }
         lang = YamlConfiguration.loadConfiguration(lang_file);
 
@@ -294,6 +304,13 @@ public class Lang {
         purified_water = lang.getString("purified-water");
         purified_water_lore = lang.getString("purified-water-lore");
         purified_water_color = lang.getInt("purified-water-color");
+        coffee_bean_name = lang.getString("coffee-bean-name");
+        coffee_name = lang.getString("coffee-name");
+        coffee_color = lang.getInt("coffee-color");
+        cold_milk_name = lang.getString("cold-milk-name");
+        cold_milk_color = lang.getInt("cold-milk-color");
+        hot_milk_name = lang.getString("hot-milk-name");
+        hot_milk_color = lang.getInt("hot-milk-color");
 
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
@@ -302,6 +319,31 @@ public class Lang {
 
 
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
+    }
+
+    private void updateLang(YamlConfiguration lang, File file) {
+        // Coffee update - 3.2.0
+        if (!lang.isSet("coffee-bean-name")) {
+            lang.set("energy-rising", "Your energy is rising");
+            lang.set("coffee-bean-name", "Coffee Bean");
+            lang.set("coffee-name", "&3Coffee");
+            lang.set("coffee-color", 9461779);
+            lang.set("cold-milk-name", "&bCold Milk");
+            lang.set("cold-milk-color", 16250871);
+            lang.set("hot-milk-name", "&cHot Milk");
+            lang.set("hot-milk-color", 15456977);
+            saveLang(lang, file);
+        }
+    }
+
+    private void saveLang(YamlConfiguration lang, File file) {
+        try {
+            lang.save(file);
+            String prefix = lang.getString("prefix");
+            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7lang_EN.yml &aUpdated");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

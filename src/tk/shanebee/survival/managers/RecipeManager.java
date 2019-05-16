@@ -1,6 +1,8 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Tag;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.*;
 import tk.shanebee.survival.Survival;
@@ -691,6 +693,30 @@ public class RecipeManager {
         grappling_hook.setIngredient('2', Material.STRING);
         grappling_hook.setIngredient('3', Material.IRON_INGOT);
 
+        // NEW COFFEE RECIPES
+        SmokingRecipe coffee_bean = new SmokingRecipe(new NamespacedKey(survival, "coffee_bean"), Items.get(Items.COFFEE_BEAN),
+                Material.COCOA_BEANS, 0, 200);
+
+        SmokingRecipe hot_milk = new SmokingRecipe(new NamespacedKey(survival, "hot_milk"), Items.get(Items.HOT_MILK),
+                new RecipeChoice.ExactChoice(Items.get(Items.COLD_MILK)), 0, 200);
+
+        ItemStack COFFEE = Items.get(Items.COFFEE);
+        COFFEE.setAmount(2);
+        ShapedRecipe coffee = new ShapedRecipe(new NamespacedKey(survival, "coffee"), COFFEE);
+
+        coffee.shape("   ", "12 ", "34 ");
+        coffee.setIngredient('1', new RecipeChoice.ExactChoice(Items.get(Items.COFFEE_BEAN)));
+        coffee.setIngredient('2', Material.COCOA_BEANS);
+        coffee.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HOT_MILK)));
+        coffee.setIngredient('4', new RecipeChoice.ExactChoice(Items.get(Items.PURIFIED_WATER)));
+
+        ShapedRecipe cold_milk = new ShapedRecipe(new NamespacedKey(survival, "cold_milk"), Items.get(Items.COLD_MILK));
+
+        cold_milk.shape("   ", "12 ", "   ");
+        cold_milk.setIngredient('1', Material.MILK_BUCKET);
+        cold_milk.setIngredient('2', Material.GLASS_BOTTLE);
+
+
 
 
 
@@ -866,6 +892,12 @@ public class RecipeManager {
             survival.getServer().addRecipe(clean_water_smoker);
             survival.getServer().addRecipe(clean_water_camp);
         }
+        if (settings.getBoolean("Mechanics.Coffee")) {
+            survival.getServer().addRecipe(coffee_bean);
+            survival.getServer().addRecipe(cold_milk);
+            survival.getServer().addRecipe(hot_milk);
+            survival.getServer().addRecipe(coffee);
+        }
     }
 
     private void removeRecipes() {
@@ -1007,7 +1039,7 @@ public class RecipeManager {
     }
 
     public enum Recipes {
-        // CUSTOM TOOLS
+        // CUSTOM TOOLS/ITEMS
         HATCHET("hatchet1", "hatchet2"),
         MATTOCK("mattock"),
         SHIV("shiv"),
@@ -1036,6 +1068,10 @@ public class RecipeManager {
         IRON_SICKLE("iron_sickle"),
         GRAPPLING_HOOK("grappling_hook"),
         WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire" ),
+        COFFEE_BEAN("coffee_bean"),
+        COLD_MILK("cold_milk"),
+        HOT_MILK("hot_milk"),
+        COFFEE("coffee"),
 
         // VANILLA ITEMS
         ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),
