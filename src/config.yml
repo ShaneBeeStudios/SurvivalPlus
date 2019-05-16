@@ -39,6 +39,8 @@ Mechanics:
   
   BedFatigueLevel: true
   BedFatigueRefreshTime: 30
+  FatigueLevelIncreaseChance: 70
+  Coffee: true
   
   SlowArmor: true
   ReinforcedLeatherArmor: true

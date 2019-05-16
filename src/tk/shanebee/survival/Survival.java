@@ -748,8 +748,11 @@ public class Survival extends JavaPlugin implements Listener {
                     //}
                     World overworld = player.getWorld();
 
+                    int fatigueLevel = settings.getInt("Mechanics.FatigueLevelIncreaseChance");
+                    int random = new Random().nextInt(100) + 1;
+
                     if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
-                            player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000) {
+                            player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000 && random >= fatigueLevel) {
                         fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
 
                         if (fatigue.getScore(player.getName()).getScore() == 1)
