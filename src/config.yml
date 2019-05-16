@@ -6,7 +6,7 @@ Language: EN
 
 MultiWorld:
   EnableResourcePack: true
-  ResourcePackURL: https://bitbucket.org/ShaneBeeStudios/survivalplus/raw/668cb9290baefddf9e1644928ddd9045901e1ea2/resource_pack/SP-1.14-3.0.0.zip
+  ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14.zip
   NotifyMessage: true
 
 LocalChatDist: -1
