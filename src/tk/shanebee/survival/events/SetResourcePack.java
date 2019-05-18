@@ -26,11 +26,13 @@ public class SetResourcePack implements Listener {
 			applyResourcePack(event.getPlayer());
 	}
 
+	/* Not sure why this was added, leaving here for now just in case its actually needed
 	@EventHandler
 	public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
 		if (resourcePack)
 			applyResourcePack(event.getPlayer());
 	}
+	 */
 
 	@EventHandler
 	public void onPlayerLeave(PlayerQuitEvent event) {
@@ -60,13 +62,11 @@ public class SetResourcePack implements Listener {
 			if (e.getStatus() == Status.DECLINED) {
 				player.sendMessage(" ");
 				player.sendMessage(prefix + ChatColor.RED + Utils.getColoredString(Survival.lang.resource_pack_declined));
-				player.sendMessage("   " + ChatColor.GOLD+ Utils.getColoredString(Survival.lang.resource_pack_apply));
+				player.sendMessage("   " + ChatColor.GOLD + Utils.getColoredString(Survival.lang.resource_pack_apply));
 				player.sendMessage("   " + ChatColor.GOLD + Utils.getColoredString(Survival.lang.resource_pack_required));
 			} else if (e.getStatus() == Status.ACCEPTED) {
 				player.sendMessage(prefix + ChatColor.GREEN + Utils.getColoredString(Survival.lang.resource_pack_accepted));
-
-		}
-
+			}
 	}
 
 }
