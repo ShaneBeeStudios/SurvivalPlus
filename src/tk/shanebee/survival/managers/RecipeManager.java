@@ -1093,7 +1093,7 @@ public class RecipeManager {
         IRON_NUGGET("iron_nugget"),
         GOLD_INGOT("gold_ingot"),
         GOLD_NUGGET("gold_nugget"),
-        BREAD("break"),
+        BREAD("bread"),
         COOKIE("cookie"),
         SLIMEBALL("slimeball"),
         COBWEB("cobweb"),
