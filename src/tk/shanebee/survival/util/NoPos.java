@@ -5,18 +5,21 @@ package tk.shanebee.survival.util;
  * Modified and implemented by FattyMieo
  * Thanks to Rolyndev for allowing implementation!
 **/
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class NoPos implements Listener
 {
@@ -34,6 +37,14 @@ public class NoPos implements Listener
 			disableF3(player);
 		} else {
 			enableF3(player);
+		}
+	}
+
+	@EventHandler
+	public void onWorldChange(PlayerChangedWorldEvent e) {
+		Player player = e.getPlayer();
+		if (player.getGameMode() == GameMode.ADVENTURE || player.getGameMode() == GameMode.SURVIVAL) {
+			disableF3(player);
 		}
 	}
   
