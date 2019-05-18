@@ -35,7 +35,7 @@ Survival:
   Torch: true
 
 Mechanics:
-  SharedWorkbench: true
+  SharedWorkbench: false
   
   BedFatigueLevel: true
   BedFatigueRefreshTime: 30
