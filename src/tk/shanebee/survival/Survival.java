@@ -175,6 +175,11 @@ public class Survival extends JavaPlugin implements Listener {
         getServer().resetRecipes();
         usingPlayers = new ArrayList<>();
 
+        // Remove limited crafting when server shuts down (import if server removes this plugin)
+        for (World world : getServer().getWorlds()) {
+            world.setGameRule(GameRule.DO_LIMITED_CRAFTING, false);
+        }
+
         //Avoid WorkbenchShare glitch
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.hasMetadata("shared_workbench")) {
