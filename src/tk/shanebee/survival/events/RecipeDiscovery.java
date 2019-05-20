@@ -2,6 +2,7 @@ package tk.shanebee.survival.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +36,7 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.BREAD.getKeys());
             player.discoverRecipes(Recipes.STRING.getKeys());
             player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
+            player.discoverRecipe(NamespacedKey.minecraft("bowl"));
             RecipeDiscovered.FIRST_JOIN.setDiscovered(player);
         }, 200);
     }
