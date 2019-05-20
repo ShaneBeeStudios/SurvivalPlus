@@ -337,6 +337,8 @@ public class Survival extends JavaPlugin implements Listener {
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
             pm.registerEvents(new SnowGeneration(), this);
         pm.registerEvents(new ChickenSpawn(), this);
+        if (settings.getBoolean("WelcomeGuide.Enabled"))
+            pm.registerEvents(new Guide(), this);
     }
 
     private void BlazeSword() {

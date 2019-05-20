@@ -16,6 +16,11 @@ public class Lang {
 
     public String prefix;
     public String no_perm;
+    public String survival_guide_msg;
+    public String survival_guide_click_msg;
+    public String survival_guide_hover_msg;
+    public String survival_guide_link;
+
     public String resource_pack_accepted;
     public String resource_pack_declined;
     public String resource_pack_apply;
@@ -180,6 +185,10 @@ public class Lang {
 
         prefix = lang.getString("prefix");
         no_perm = lang.getString("no-perm");
+        survival_guide_msg = lang.getString("survival-guide-msg");
+        survival_guide_click_msg = lang.getString("survival-guide-click-msg");
+        survival_guide_hover_msg = lang.getString("survival-guide-hover-msg");
+        survival_guide_link = lang.getString("survival-guide-link");
         resource_pack_accepted = lang.getString("resource-pack-accepted");
         resource_pack_declined = lang.getString("resource-pack-declined");
         resource_pack_apply = lang.getString("resource-pack-apply");
@@ -317,7 +326,6 @@ public class Lang {
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
 
-
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
     }
 
@@ -332,6 +340,14 @@ public class Lang {
             lang.set("cold-milk-color", 16250871);
             lang.set("hot-milk-name", "&cHot Milk");
             lang.set("hot-milk-color", 15456977);
+            saveLang(lang, file);
+        }
+        // Guide update - 3.2.3
+        if (!lang.isSet("survival-guide-msg")) {
+            lang.set("survival-guide-msg", "&6To see our survival guide ");
+            lang.set("survival-guide-click-msg", "&bClick Here");
+            lang.set("survival-guide-hover-msg", "Click for Guide");
+            lang.set("survival-guide-link", "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started");
             saveLang(lang, file);
         }
     }

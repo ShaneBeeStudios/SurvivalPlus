@@ -17,6 +17,13 @@
 prefix: "&7[&3Survival&bPlus&7] "
 no-perm: "&cYou do not have permission to perform this command"
 
+# When a player joins, they will see this message which links them to a guide to help get them started
+# IF you want, you can create your own guide and change the link
+survival-guide-msg: "&6Our server changes a bunch of vanilla Minecraft mechanics, &6To see our survival guide "
+survival-guide-click-msg: "&bClick Here"
+survival-guide-hover-msg: "Click for Guide"
+survival-guide-link: "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started"
+
 resource-pack-accepted: "Successfully loaded resource pack."
 resource-pack-declined: "**Resource pack declined**"
 resource-pack-apply: "Please apply the requested Resource Pack."

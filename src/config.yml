@@ -13,6 +13,11 @@ LocalChatDist: -1
 
 NoPos: true
 
+WelcomeGuide:
+  Enabled: true
+  NewPlayersOnly: false
+  Delay: 5
+
 Survival:
   Enabled: true
 
