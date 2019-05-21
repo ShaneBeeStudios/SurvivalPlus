@@ -172,7 +172,7 @@ public class Survival extends JavaPlugin implements Listener {
     public void onDisable() {
         sendColoredConsoleMsg(prefix + "&eShutting down");
         getServer().getScheduler().cancelTasks(this);
-        getServer().resetRecipes();
+        //getServer().resetRecipes(); TODO why is this even here?
         usingPlayers = new ArrayList<>();
 
         // Remove limited crafting when server shuts down (import if server removes this plugin)
@@ -181,19 +181,21 @@ public class Survival extends JavaPlugin implements Listener {
         }
 
         //Avoid WorkbenchShare glitch
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.hasMetadata("shared_workbench")) {
-                Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)
-                        p.getMetadata("shared_workbench").get(0).value() : null;
+        if (settings.getBoolean("Mechanics.SharedWorkbench")) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (p.hasMetadata("shared_workbench")) {
+                    Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)
+                            p.getMetadata("shared_workbench").get(0).value() : null;
 
-                if (workbench != null && workbench.getType() == Material.CRAFTING_TABLE) {
-                    if (workbench.hasMetadata("shared_players"))
-                        workbench.removeMetadata("shared_players", Survival.instance);
-                    else
-                        p.getOpenInventory().getTopInventory().clear();
-                    p.closeInventory();
+                    if (workbench != null && workbench.getType() == Material.CRAFTING_TABLE) {
+                        if (workbench.hasMetadata("shared_players"))
+                            workbench.removeMetadata("shared_players", Survival.instance);
+                        else
+                            p.getOpenInventory().getTopInventory().clear();
+                        p.closeInventory();
+                    }
+                    p.removeMetadata("shared_workbench", Survival.instance);
                 }
-                p.removeMetadata("shared_workbench", Survival.instance);
             }
         }
         sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
