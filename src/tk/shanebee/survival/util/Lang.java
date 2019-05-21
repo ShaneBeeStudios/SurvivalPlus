@@ -342,7 +342,7 @@ public class Lang {
             lang.set("hot-milk-color", 15456977);
             saveLang(lang, file);
         }
-        // Guide update - 3.2.3
+        // Guide update - 3.3.0
         if (!lang.isSet("survival-guide-msg")) {
             lang.set("survival-guide-msg", "&6To see our survival guide ");
             lang.set("survival-guide-click-msg", "&bClick Here");
