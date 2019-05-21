@@ -72,10 +72,8 @@ public class Survival extends JavaPlugin implements Listener {
             sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
         }
 
-        if (settings.getBoolean("Survival.LimitedCrafting")) {
-            for (World world : getServer().getWorlds()) {
-                world.setGameRule(GameRule.DO_LIMITED_CRAFTING, true);
-            }
+        for (World world : getServer().getWorlds()) {
+            world.setGameRule(GameRule.DO_LIMITED_CRAFTING, settings.getBoolean("Survival.LimitedCrafting"));
         }
 
         // LOAD RESOURCE PACK
