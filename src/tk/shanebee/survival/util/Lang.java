@@ -100,6 +100,7 @@ public class Lang {
     public String hatchet;
     public String mattock;
     public String firestriker;
+    public String firestriker_lore;
     public String firestriker_damaged;
     public String shiv;
     public String poisoned_enemy;
@@ -262,6 +263,7 @@ public class Lang {
         hatchet = lang.getString("hatchet");
         mattock = lang.getString("mattock");
         firestriker = lang.getString("firestriker");
+        firestriker_lore = lang.getString("firestriker-lore");
         firestriker_damaged = lang.getString("firestriker-damaged");
         shiv = lang.getString("shiv");
         poisoned_enemy = lang.getString("poisoned-enemy");
@@ -348,6 +350,10 @@ public class Lang {
             lang.set("survival-guide-click-msg", "&bClick Here");
             lang.set("survival-guide-hover-msg", "Click for Guide");
             lang.set("survival-guide-link", "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started");
+            saveLang(lang, file);
+        }
+        if (!lang.isSet("firestriker-lore")) {
+            lang.set("firestriker-lore", "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter||&7 -Put smeltable into input slot||&7 -Click output slot to smelt");
             saveLang(lang, file);
         }
     }

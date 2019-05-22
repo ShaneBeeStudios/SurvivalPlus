@@ -66,7 +66,10 @@ public enum Items {
 
     STONE_SICKLE(Material.WOODEN_HOE, 2),
     IRON_SICKLE(Material.WOODEN_HOE, 3),
-    GRAPPLING_HOOK(Material.FISHING_ROD, 1);
+    GRAPPLING_HOOK(Material.FISHING_ROD, 1),
+
+    // TODO Experimental
+    PERSISTENT_TORCH(Material.TORCH, 1);
 
     private final Material materialType;
     private final int modelData;
@@ -343,8 +346,9 @@ public enum Items {
 
                 i_firestrikerMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_firestrikerSpeed);
                 i_firestrikerMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-
                 i_firestrikerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.firestriker));
+                String lore = Utils.getColoredString(Survival.lang.firestriker_lore);
+                i_firestrikerMeta.setLore(Arrays.asList(lore.split("\\|\\|")));
                 i_firestriker.setItemMeta(i_firestrikerMeta);
                 return i_firestriker;
 
@@ -710,6 +714,14 @@ public enum Items {
                 coffee_bean_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.coffee_bean_name));
                 coffee_bean.setItemMeta(coffee_bean_meta);
                 return coffee_bean;
+            case PERSISTENT_TORCH:
+                // TODO Experimental
+                ItemStack persistent_torch = new ItemStack(PERSISTENT_TORCH.materialType);
+                ItemMeta p_torch_meta = persistent_torch.getItemMeta();
+                p_torch_meta.setCustomModelData(PERSISTENT_TORCH.modelData);
+                p_torch_meta.setLore(Collections.singletonList(ChatColor.AQUA + "Persistent"));
+                persistent_torch.setItemMeta(p_torch_meta);
+                return persistent_torch;
 
             default:
                 return new ItemStack(Material.AIR);
