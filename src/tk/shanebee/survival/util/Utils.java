@@ -386,40 +386,145 @@ public class Utils {
      *
      */
     public enum RecipeDiscovered {
+        /**
+         * Recipes given when a player first joins
+         */
         FIRST_JOIN("first_join"),
+        /**
+         * Recipes given when a player picks up a diamond
+         */
         DIAMONDS("diamonds"),
+        /**
+         * Recipes given when a player smelts an iron ingot
+         */
         IRON("iron"),
+        /**
+         * Recipes given when a player smelts a gold ingot
+         */
         GOLD("gold"),
+        /**
+         * Recipes given when a player breaks a log
+         */
         LOGS("logs"),
+        /**
+         * Recipes given when a player crafts a firestriker
+         */
         FIRESTRIKER("firestriker"),
+        /**
+         * Recipes given when a player crafts a furnace
+         */
         FURNACE("furnace"),
+        /**
+         * Recipes given when a player breaks obsidian
+         */
         OBSIDIAN("obsidian"),
+        /**
+         * Recipes given when a player breaks ice
+         */
         ICE("ice"),
+        /**
+         * Recipes given when a player picks up gravel
+         */
         GRAVEL("gravel"),
+        /**
+         * Recipes given when a player picks up cobblestone
+         */
         COBBLESTONE("cobblestone"),
+        /**
+         * Recipes given when a player crafts a brick
+         */
         BRICK("brick"),
+        /**
+         * Recipes given when a player picks up dirt
+         */
         DIRT("dirt"),
+        /**
+         * Recipes given when a player crafts a blast furnace
+         */
         BLAST_FURNACE("blast-furnace"),
+        /**
+         * Recipes given when a player picks up flint
+         */
         FLINT("flint"),
+        /**
+         * Recipes given when a player picks up an egg
+         */
         EGG("egg"),
+        /**
+         * Recipes given when a player picks up a water bowl
+         */
         BOWL("bowl"),
+        /**
+         * Recipes given when a player picks up a vine
+         */
         VINE("vine"),
+        /**
+         * Recipes given when a player picks up quartz
+         */
         QUARTZ("quartz"),
+        /**
+         * Recipes given when a player crafts paper
+         */
         PAPER("paper"),
+        /**
+         * Recipes given when a player picks up string or crafts string
+         */
         STRING("string"),
+        /**
+         * Recipes given when a player picks up a feather
+         */
         FEATHER("feather"),
+        /**
+         * Recipes given when a player picks up a spider eye
+         */
         SPIDER_EYE("spider-eye"),
+        /**
+         * Recipes given when a player picks up rotten flesh
+         */
         ROTTEN_FLESH("rotten-flesh"),
+        /**
+         * Recipes given when a player picks up a potato
+         */
         POTATO("potato"),
+        /**
+         * Recipes given when a player picks up a blaze rod or blaze powder
+         */
         BLAZE("blaze"),
+        /**
+         * Recipes given when a player crafts a Blaze Sword
+         */
         BLAZE_SWORD("blaze-sword"),
+        /**
+         * Recipes given when a player crafts an Ender Giant Blade
+         */
         ENDER_GIANT_BLADE("ender_giant_blade"),
+        /**
+         * Recipes given when a player crafts a Quartz Pickaxe
+         */
         QUARTZ_PICKAXE("quartz_pickaxe"),
+        /**
+         * Recipes given when a player crafts Valkyries Axe
+         */
         VALKYRIES_AXE("valkyries_axe"),
+        /**
+         * Recipes given when a player picks up leather
+         */
         LEATHER("leather"),
+        /**
+         * Recipes given when a player crafts any piece of leather armor
+         */
         LEATHER_ARMOR("leather-armor"),
+        /**
+         * Recipes given when a player crafts a crossbow
+         */
         CROSSBOW("crossbow"),
+        /**
+         * Recipes given when a player crafts a fishing rod
+         */
         FISHING_ROD("fishing_rod"),
+        /**
+         * Recipes given when a player crafts a glass bottle
+         */
         GLASS_BOTTLE("glass_bottle");
 
         private final String type;
