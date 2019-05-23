@@ -1,14 +1,5 @@
 package tk.shanebee.survival;
 
-import tk.shanebee.survival.commands.*;
-import tk.shanebee.survival.events.*;
-import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.managers.RecipeManager;
-import tk.shanebee.survival.managers.ScoreBoardManager;
-import tk.shanebee.survival.metrics.Metrics;
-import tk.shanebee.survival.util.Lang;
-import tk.shanebee.survival.util.NoPos;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,11 +15,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
+import tk.shanebee.survival.commands.*;
+import tk.shanebee.survival.events.*;
+import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.RecipeManager;
+import tk.shanebee.survival.managers.ScoreBoardManager;
+import tk.shanebee.survival.metrics.Metrics;
+import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.util.NoPos;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
+    /**
+     * Instance of this plugin
+     */
     public static Survival instance;
     public static ScoreboardManager manager;
     public static Scoreboard board;
@@ -37,6 +40,9 @@ public class Survival extends JavaPlugin implements Listener {
     public static int LocalChatDist = 64;
     private static int AlertInterval = 20;
     private static List<Double> Rates = new ArrayList<>();
+    /**
+     *  Instance of the language file
+     */
     public static Lang lang;
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
@@ -339,6 +345,9 @@ public class Survival extends JavaPlugin implements Listener {
         pm.registerEvents(new ChickenSpawn(), this);
         if (settings.getBoolean("WelcomeGuide.Enabled"))
             pm.registerEvents(new Guide(), this);
+
+        // TODO Experimental
+        //pm.registerEvents(new BurnoutTorches(this), this);
     }
 
     private void BlazeSword() {
@@ -804,10 +813,10 @@ public class Survival extends JavaPlugin implements Listener {
     }
 
     @SuppressWarnings("unused")
-    public void BackpackCheck() {
+    private void BackpackCheck() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             for (Player player : getServer().getOnlinePlayers()) {
-                ItemStack[] backpacks = new ItemStack[3];
+                @SuppressWarnings("MismatchedReadAndWriteOfArray") ItemStack[] backpacks = new ItemStack[3];
                 backpacks[0] = player.getInventory().getItem(19);
                 backpacks[1] = player.getInventory().getItem(22);
                 backpacks[2] = player.getInventory().getItem(25);
@@ -872,7 +881,8 @@ public class Survival extends JavaPlugin implements Listener {
         return false;
     }
 
-    private static ItemStack GetLockedSlotItem() {
+    @SuppressWarnings("WeakerAccess")
+    static ItemStack GetLockedSlotItem() {
         ItemStack lockedSlot = new ItemStack(Material.BARRIER);
         ItemMeta meta = lockedSlot.getItemMeta();
 

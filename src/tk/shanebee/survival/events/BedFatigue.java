@@ -20,7 +20,7 @@ public class BedFatigue implements Listener {
 	private Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
 
 	@EventHandler
-	public void onBedLeave(PlayerBedLeaveEvent e) {
+	private void onBedLeave(PlayerBedLeaveEvent e) {
 		long time = e.getBed().getWorld().getTime();
 		if (time % 24000 == 0) {
 			Player player = e.getPlayer();
@@ -29,13 +29,13 @@ public class BedFatigue implements Listener {
 	}
 
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event) {
+	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		fatigue.getScore(player.getName()).setScore(0);
 	}
 
 	@EventHandler
-	public void onFirstJoin(PlayerJoinEvent event) {
+	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
 			fatigue.getScore(player.getName()).setScore(0);
@@ -43,7 +43,7 @@ public class BedFatigue implements Listener {
 	}
 
 	@EventHandler
-	public void onDrinkCoffee(PlayerItemConsumeEvent e) {
+	private void onDrinkCoffee(PlayerItemConsumeEvent e) {
 		ItemStack item = e.getItem();
 		if (Items.compare(item, Items.COFFEE)) {
 			final Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
@@ -54,7 +54,7 @@ public class BedFatigue implements Listener {
 
 	// Removes empty water bottles from crafting grid when brewing coffee
 	@EventHandler
-	public void onCraftCoffee(CraftItemEvent e) {
+	private void onCraftCoffee(CraftItemEvent e) {
 		if (Items.compare(e.getRecipe().getResult(), Items.COFFEE)) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> e.getInventory().remove(Material.GLASS_BOTTLE), 2);
 		}

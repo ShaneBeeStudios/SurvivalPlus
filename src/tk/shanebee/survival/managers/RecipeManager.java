@@ -16,14 +16,17 @@ import java.util.List;
 public class RecipeManager {
 
 
-    public FileConfiguration settings;
-    public static Survival survival;
+    private FileConfiguration settings;
+    private static Survival survival;
 
     public RecipeManager(Survival survival, FileConfiguration settings) {
         RecipeManager.survival = survival;
         this.settings = settings;
     }
 
+    /**
+     *  Load all custom server recipes
+     */
     @SuppressWarnings("deprecation")
     public void loadCustomRecipes() {
         removeRecipes();
@@ -1038,6 +1041,9 @@ public class RecipeManager {
         }
     }
 
+    /** Enums of all custom recipes
+     *
+     */
     public enum Recipes {
         // CUSTOM TOOLS/ITEMS
         HATCHET("hatchet1", "hatchet2"),
@@ -1148,7 +1154,6 @@ public class RecipeManager {
 
         public Collection<NamespacedKey> getKeys() {
             return this.keys;
-
         }
     }
 

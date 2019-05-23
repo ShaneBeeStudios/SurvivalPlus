@@ -24,14 +24,14 @@ import java.lang.reflect.Method;
 public class NoPos implements Listener
 {
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
+	private void onJoin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 			disableF3(player);
 	}
 
 	@EventHandler
-	public void onGamemodeChange(PlayerGameModeChangeEvent e) {
+	private void onGamemodeChange(PlayerGameModeChangeEvent e) {
 		Player player = e.getPlayer();
 		if (e.getNewGameMode() == GameMode.ADVENTURE || e.getNewGameMode() == GameMode.SURVIVAL) {
 			disableF3(player);
@@ -41,14 +41,18 @@ public class NoPos implements Listener
 	}
 
 	@EventHandler
-	public void onWorldChange(PlayerChangedWorldEvent e) {
+	private void onWorldChange(PlayerChangedWorldEvent e) {
 		Player player = e.getPlayer();
 		if (player.getGameMode() == GameMode.ADVENTURE || player.getGameMode() == GameMode.SURVIVAL) {
 			disableF3(player);
 		}
 	}
-  
-	private static void disableF3(Player player)
+
+	/** Disable a player's coordinates in their Minecraft Debug screen
+	 * @param player The player to disable coords for
+	 */
+	@SuppressWarnings("WeakerAccess")
+	public static void disableF3(Player player)
 	{
 		try
 		{
@@ -63,8 +67,12 @@ public class NoPos implements Listener
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + e.getMessage());
 		}
 	}
-  
-	private static void enableF3(Player player)
+
+	/** Enable a player's coordinates in their Minecraft Debug screen
+	 * @param player The player to enable coords for
+	 */
+	@SuppressWarnings("WeakerAccess")
+	public static void enableF3(Player player)
 	{
 		try
 		{

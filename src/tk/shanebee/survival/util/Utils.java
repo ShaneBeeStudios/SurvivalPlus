@@ -232,21 +232,21 @@ public class Utils {
                 return true;
                 default:
         }
-        if (isSlabNotWood(material)) return true;
-        if (isStairsNotWood(material)) return true;
+        if (isNonWoodSlab(material)) return true;
+        if (isNonWoodStairs(material)) return true;
         return Tag.STONE_BRICKS.isTagged(material)
                 || Tag.WALLS.isTagged(material);
     }
 
-    public static boolean isDoorNotWood(Material material) {
+    public static boolean isNonWoodDoor(Material material) {
         return (Tag.DOORS.isTagged(material) && !Tag.WOODEN_DOORS.isTagged(material));
     }
 
-    public static boolean isSlabNotWood(Material material) {
+    public static boolean isNonWoodSlab(Material material) {
         return (Tag.SLABS.isTagged(material) && !Tag.WOODEN_SLABS.isTagged(material));
     }
 
-    public static boolean isStairsNotWood(Material material) {
+    public static boolean isNonWoodStairs(Material material) {
         return (Tag.STAIRS.isTagged(material) && !Tag.WOODEN_STAIRS.isTagged(material));
     }
 
@@ -295,23 +295,55 @@ public class Utils {
         }
     }
 
+    /** Send a colored string to a Player
+     * <p>
+     *     Does not require ChatColor methods
+     * </p>
+     * @param player The player to send a colored string to
+     * @param msg The string to send including color codes
+     */
     public static void sendColoredMsg(CommandSender player, String msg) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    /** Gets a colored string
+     * @param string The string including color codes
+     * @return Returns a formatted string
+     */
     public static String getColoredString(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
+    /** Spawn a particle at a location for all players
+     * @param location The location to spawn a particle at
+     * @param particle The particle to spawn
+     * @param amount The amount of particles
+     * @param offsetX Offset by x
+     * @param offsetY Offset by y
+     * @param offsetZ Offset by z
+     */
     public static void spawnParticle(Location location, Particle particle, int amount, double offsetX, double offsetY, double offsetZ) {
         assert location.getWorld() != null;
         location.getWorld().spawnParticle(particle, location, amount, offsetX, offsetY, offsetZ);
     }
 
+    /** Spawn a particle at a location for a player
+     * @param location The location to spawn a particle at
+     * @param particle The particle to spawn
+     * @param amount The amount of particles
+     * @param offsetX Offset by x
+     * @param offsetY Offset by y
+     * @param offsetZ Offset by z
+     * @param player The player to spawn a particle for
+     */
     public static void spawnParticle(Location location, Particle particle, int amount, double offsetX, double offsetY, double offsetZ, Player player) {
         player.spawnParticle(particle, location, amount, offsetX, offsetY, offsetZ);
     }
 
+    /** Set the durability of an ItemStack
+     * @param item The ItemStack to set
+     * @param durability The durability to set
+     */
     public static void setDurability(ItemStack item, int durability) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
@@ -319,6 +351,10 @@ public class Utils {
         item.setItemMeta(meta);
     }
 
+    /** Check the durability of an ItemStack
+     * @param item The ItemStack to check
+     * @return The durability of the ItemStack
+     */
     public static int getDurability(ItemStack item) {
         assert item.getItemMeta() != null;
         return ((Damageable) item.getItemMeta()).getDamage();
@@ -337,11 +373,18 @@ public class Utils {
         return itemStacks;
     }
 
+    /** Gets the minutes a player has played on the server
+     * @param player The player to check
+     * @return The number of minutes they have played on the server
+     */
     public static int getMinutesPlayed(Player player) {
         int played = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         return Math.round(played / 1200);
     }
 
+    /** Recipe discovery enums for different discovery events
+     *
+     */
     public enum RecipeDiscovered {
         FIRST_JOIN("first_join"),
         DIAMONDS("diamonds"),
@@ -385,10 +428,17 @@ public class Utils {
             this.type = type;
         }
 
+        /** Check if a player has discovered a group of recipes
+         * @param player The player to check
+         * @return If the player has discovered this group of recipes
+         */
         public boolean hasDiscovered(Player player) {
             return player.getScoreboardTags().contains("survival-recipetype-" + type);
         }
 
+        /** Set a recipe group as discovered for a player
+         * @param player The player to set the group as discovered
+         */
         public void setDiscovered(Player player) {
             player.addScoreboardTag("survival-recipetype-" + type);
         }

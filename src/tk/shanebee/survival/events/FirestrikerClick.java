@@ -76,6 +76,8 @@ public class FirestrikerClick implements Listener {
 							case CRAFTING_TABLE:
 							case DROPPER:
 							case DISPENSER:
+							case REDSTONE_WALL_TORCH:
+							case REDSTONE_TORCH:
 								return;
 							default:
 						}

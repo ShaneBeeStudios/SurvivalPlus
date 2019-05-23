@@ -23,7 +23,7 @@ public class Campfire implements Listener {
 
     // When placing a campfire, turn it off (Requiring a player to light it manually)
     @EventHandler
-    public void onPlaceCampfire(BlockPlaceEvent e) {
+    private void onPlaceCampfire(BlockPlaceEvent e) {
         if (e.getBlockPlaced().getType() != Material.CAMPFIRE) return;
         if (Items.compare(e.getItemInHand(), Items.CAMPFIRE)) {
             Lightable camp = ((Lightable) e.getBlock().getBlockData());
@@ -38,7 +38,7 @@ public class Campfire implements Listener {
 
     // Hit an unlit campfire with a stick to light it
     @EventHandler
-    public void lightFire(PlayerInteractEvent e) {
+    private void lightFire(PlayerInteractEvent e) {
         if (e.getClickedBlock() == null) return;
         if (e.getClickedBlock().getType() == Material.CAMPFIRE) {
             if (e.getItem() != null && e.getItem().getType() == Material.STICK) {
@@ -74,7 +74,7 @@ public class Campfire implements Listener {
 
     // Randomly put out the fire when cooking food
     @EventHandler
-    public void fireFinishedCooking(BlockCookEvent e) {
+    private void fireFinishedCooking(BlockCookEvent e) {
         if (e.getBlock().getType() != Material.CAMPFIRE) return;
         int i = new Random().nextInt(8);
 

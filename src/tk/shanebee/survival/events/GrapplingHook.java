@@ -22,7 +22,7 @@ import tk.shanebee.survival.Survival;
 public class GrapplingHook implements Listener {
 
 	@EventHandler
-	public void onPlayerFish(PlayerFishEvent event) {
+	private void onPlayerFish(PlayerFishEvent event) {
 		Player p = event.getPlayer();
 		ItemStack mainHand = p.getInventory().getItemInMainHand();
 		ItemStack offHand = p.getInventory().getItemInOffHand();

@@ -15,7 +15,7 @@ import tk.shanebee.survival.util.Utils;
 public class Guide implements Listener {
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    private void onJoin(PlayerJoinEvent e) {
         if (e.getPlayer().hasPlayedBefore() && Survival.settings.getBoolean("WelcomeGuide.NewPlayersOnly")) return;
         int delay = Survival.settings.getInt("WelcomeGuide.Delay");
         Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {

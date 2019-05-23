@@ -18,7 +18,7 @@ import java.util.Random;
 public class BlockPlace implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBlockPlace(BlockPlaceEvent event) {
+	private void onBlockPlace(BlockPlaceEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 

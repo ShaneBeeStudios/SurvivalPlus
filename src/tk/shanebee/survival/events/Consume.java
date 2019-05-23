@@ -25,7 +25,7 @@ public class Consume implements Listener {
 	private Objective thirst = Survival.mainBoard.getObjective("Thirst");
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		ItemStack item = event.getItem();
@@ -96,13 +96,13 @@ public class Consume implements Listener {
 	}
 
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event) {
+	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		thirst.getScore(player.getName()).setScore(30);
 	}
 
 	@EventHandler
-	public void onFirstJoin(PlayerJoinEvent event) {
+	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
 			int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");

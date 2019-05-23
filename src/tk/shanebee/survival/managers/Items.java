@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
+/**
+ * Custom SurvivalPlus items
+ */
 @SuppressWarnings("ConstantConditions")
 public enum Items {
 
@@ -80,6 +83,10 @@ public enum Items {
     }
 
 
+    /** Get a custom SurvivalPlus item
+     * @param item The item you would like to get
+     * @return An ItemStack from a custom item enum
+     */
     public static ItemStack get(Items item) {
         switch (item) {
             case HATCHET:
@@ -728,6 +735,14 @@ public enum Items {
         }
     }
 
+    /** Compare an ItemStack with a custom Item
+     * <p>
+     *     <b>NOTE:</b> Will only compare a custom item's Material and CustomModelData tag
+     * </p>
+     * @param itemStack The ItemStack to check
+     * @param type The custom item enum to check
+     * @return Whether these two items match or not
+     */
     public static boolean compare(ItemStack itemStack, Items type) {
         if (itemStack.getType() == type.materialType) {
             if (itemStack.getItemMeta() != null && itemStack.getItemMeta().hasCustomModelData()) {

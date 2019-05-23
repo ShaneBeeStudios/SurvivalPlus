@@ -22,7 +22,7 @@ public class ScoreboardStats implements Listener {
 	private Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
 
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
+	private void onPlayerJoin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 		if (!player.hasPlayedBefore()) {
 			boardHunger.getScore(player.getName()).setScore(0);
@@ -34,7 +34,7 @@ public class ScoreboardStats implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerChangeGamemode(PlayerGameModeChangeEvent e) {
+	private void onPlayerChangeGamemode(PlayerGameModeChangeEvent e) {
 		Player player = e.getPlayer();
 		if (e.getNewGameMode() != GameMode.SURVIVAL && e.getNewGameMode() != GameMode.ADVENTURE) {
 			boardHunger.getScore(player.getName()).setScore(1);
@@ -49,6 +49,12 @@ public class ScoreboardStats implements Listener {
 		}
 	}
 
+	/** Sets up a scoreboard for a player
+	 * <p>
+	 *     This is generally used internally
+	 * </p>
+	 * @param p The player to setup a scoreboard for
+	 */
 	public static void SetupScorebard(Player p) {
 		final Player player = p;
 		final Scoreboard stats = Survival.manager.getNewScoreboard();

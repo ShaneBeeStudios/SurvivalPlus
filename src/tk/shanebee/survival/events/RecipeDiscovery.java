@@ -22,7 +22,7 @@ public class RecipeDiscovery implements Listener {
 
     // When a player first joins, give them a few recipes after 10 seconds
     @EventHandler
-    public void onFirstJoin(PlayerJoinEvent e) {
+    private void onFirstJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         if (RecipeDiscovered.FIRST_JOIN.hasDiscovered(player)) return;
         Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
@@ -43,7 +43,7 @@ public class RecipeDiscovery implements Listener {
 
     // When a player picks up items, unlock different item based recipes
     @EventHandler
-    public void onPickupItems(EntityPickupItemEvent e) {
+    private void onPickupItems(EntityPickupItemEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
         Player player = ((Player) e.getEntity());
         Material item = e.getItem().getItemStack().getType();
@@ -145,7 +145,7 @@ public class RecipeDiscovery implements Listener {
 
     // When a player smelts items, unlock different item based recipes
     @EventHandler
-    public void onFurnaceExtract(FurnaceExtractEvent event) {
+    private void onFurnaceExtract(FurnaceExtractEvent event) {
         Player player = event.getPlayer();
         if (event.getItemType() == Material.IRON_INGOT) {
             if (!RecipeDiscovered.IRON.hasDiscovered(player)) {
@@ -178,7 +178,7 @@ public class RecipeDiscovery implements Listener {
 
     // When a player breaks a block, unlock different item based recipes
     @EventHandler
-    public void onPlayerBreakBlock(BlockBreakEvent e) {
+    private void onPlayerBreakBlock(BlockBreakEvent e) {
         Player player = e.getPlayer();
         Material item = e.getBlock().getType();
         if (e.isCancelled()) return;
@@ -206,7 +206,7 @@ public class RecipeDiscovery implements Listener {
 
     // When a player crafts an item, unlock different item based recipes
     @EventHandler
-    public void onCraft(CraftItemEvent e) {
+    private void onCraft(CraftItemEvent e) {
         if (!(e.getWhoClicked() instanceof Player)) return;
         Player player = ((Player) e.getWhoClicked());
         ItemStack result = e.getRecipe().getResult();

@@ -22,7 +22,7 @@ import java.util.Random;
 public class BlockBreak implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBlockBreak(BlockBreakEvent event) {
+	private void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 
@@ -118,9 +118,9 @@ public class BlockBreak implements Listener {
 					if (material == Material.OBSIDIAN
 							|| Utils.isOreBlock(material)
 							|| Utils.isNaturalOreBlock(material)
-							|| Utils.isDoorNotWood(material)
-							|| Utils.isSlabNotWood(material)
-							|| Utils.isStairsNotWood(material)
+							|| Utils.isNonWoodDoor(material)
+							|| Utils.isNonWoodSlab(material)
+							|| Utils.isNonWoodStairs(material)
 
 							|| Utils.isTerracotta(material)
 							|| Utils.isGlazedTerracotta(material)
@@ -246,7 +246,7 @@ public class BlockBreak implements Listener {
 	}
 
 	@EventHandler
-	public void onHarvest(PlayerInteractEvent e) {
+	private void onHarvest(PlayerInteractEvent e) {
 		if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK) return;

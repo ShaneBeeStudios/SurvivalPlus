@@ -16,7 +16,7 @@ import tk.shanebee.survival.util.Utils;
 public class Bow implements Listener {
 
 	@EventHandler
-	public void onShootWithoutArrows(EntityShootBowEvent event) {
+	private void onShootWithoutArrows(EntityShootBowEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			ItemStack mainHand = player.getInventory().getItemInMainHand();
@@ -39,7 +39,7 @@ public class Bow implements Listener {
 	}
 
 	@EventHandler
-	public void onLoadCrossbow(PlayerInteractEvent event) {
+	private void onLoadCrossbow(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack mainHand = player.getInventory().getItemInMainHand();
 		ItemStack offHand = player.getInventory().getItemInOffHand();
@@ -57,7 +57,12 @@ public class Bow implements Listener {
 		}
 	}
 
-	private boolean isArrowOffHand(Player player){
+	/** Check if player is holding arrows in their offhand
+	 * @param player The player to check
+	 * @return Whether or not the player has arrows in their offhand
+	 */
+	@SuppressWarnings("WeakerAccess")
+	public boolean isArrowOffHand(Player player){
 		Material mainHand = player.getInventory().getItemInMainHand().getType();
 		Material offHand = player.getInventory().getItemInOffHand().getType();
 		if (mainHand == Material.CROSSBOW)
