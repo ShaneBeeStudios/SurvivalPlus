@@ -33,7 +33,7 @@ public class StatusManager {
      */
     public static void setThirst(Player player, int level) {
         Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
-        thirst.setScore(level);
+        thirst.setScore(level <= 40 ? level : 40);
     }
 
     /** Get the thirst level of a player
@@ -65,16 +65,20 @@ public class StatusManager {
 
     /** Set the fatigue level of a player
      * @param player The player to set fatigue for
-     * @param level The level to set for the player
+     * @param level The level to set for the player (0 - 5)
      */
     public static void setFatigue(Player player, int level) {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
+        if (level > 4)
+            level = 4;
+        if (level < 0)
+            level = 0;
         fatigue.setScore(level);
     }
 
     /** Get the fatigue level of a player
      * @param player The player to get a fatigue level for
-     * @return The fatigue level of this player
+     * @return The fatigue level of this player (0 - 5)
      */
     public static int getFatigue(Player player) {
         return Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName()).getScore();
@@ -88,14 +92,9 @@ public class StatusManager {
      * @param level The level to set for the player
      */
     public static void setHunger(Player player, int level) {
-        int hunger = player.getFoodLevel();
-        int saturation = Math.round(player.getSaturation());
-        if (level > 0) {
-            player.setFoodLevel(level <= 20 ? level : 20);
-        }
-        if (level >= 21) {
-            player.setSaturation(level - 20);
-        }
+        level = level <= 40 ? level : 40;
+        player.setFoodLevel(level <= 20 ? level : 20);
+        player.setSaturation(level >= 21 ? level - 20 : 0);
     }
 
     /** Get the hunger level of a player
