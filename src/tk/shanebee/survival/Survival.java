@@ -347,7 +347,8 @@ public class Survival extends JavaPlugin implements Listener {
             pm.registerEvents(new Guide(), this);
 
         // TODO Experimental
-        //pm.registerEvents(new BurnoutTorches(this), this);
+        if (settings.getBoolean("Mechanics.BurnoutTorches."))
+            pm.registerEvents(new BurnoutTorches(this), this);
     }
 
     private void BlazeSword() {

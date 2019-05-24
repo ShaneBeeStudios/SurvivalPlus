@@ -107,6 +107,11 @@ Mechanics:
       - PRISMARINE_BRICK_STAIRS
       - DARK_PRISMARINE_STAIRS
 
+  BurnoutTorches:
+    Enabled: false
+    BurnoutTime: 60
+    Relightable: true
+
 Recipes:
   Saddle: true
   Nametag: true

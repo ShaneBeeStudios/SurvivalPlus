@@ -24,17 +24,21 @@ import tk.shanebee.survival.util.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-/** Burnout torches after a given amount of time
+/** <b>Burnout torches after a given amount of time</b>
  *  <p>
- *  When torches are placed, they will burn out after x amount of seconds
+ *  When torches are placed, they will burn out after x amount of seconds <br>
  *  When you break one of the burnt out torches it will drop a stick
  *  </p>
  */
 public class BurnoutTorches implements Listener {
 
     // TODO Experimental Feature
+
+    private int seconds = Survival.settings.getInt("Mechanics.BurnoutTorches.BurnoutTime");
+    private boolean relightable = Survival.settings.getBoolean("Mechanics.BurnoutTorches.Relightable");
 
     private FileConfiguration data;
     private File data_file;
@@ -43,6 +47,7 @@ public class BurnoutTorches implements Listener {
     public BurnoutTorches(Survival main) {
         this.main = main;
         loadDataFile(main.getServer().getConsoleSender());
+        toBurnout();
     }
 
     @EventHandler
@@ -57,6 +62,7 @@ public class BurnoutTorches implements Listener {
 
     @EventHandler
     private void onRelight(PlayerInteractEvent e) {
+        if (!relightable) return;
         Player player = e.getPlayer();
         ItemStack tool = player.getInventory().getItemInMainHand();
         Block block = e.getClickedBlock();
@@ -92,11 +98,11 @@ public class BurnoutTorches implements Listener {
     private void onPlaceTorch(BlockPlaceEvent e) {
         Block block = e.getBlock();
         ItemStack mainHand = e.getItemInHand();
+        // TODO add check for creative mode (don't burnout creative torches?!?!)
         if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (!Items.compare(mainHand, Items.PERSISTENT_TORCH)) {
                 burnoutTorch(block);
-            } else {
-                setPersistent(block);
+                setNonPersistent(block);
             }
         }
     }
@@ -107,26 +113,31 @@ public class BurnoutTorches implements Listener {
         Block block = e.getBlock();
         Location loc = e.getBlock().getLocation();
         assert loc.getWorld() != null;
-        if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) return;
+        if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) {
+            if (isNonPersistent(block)) {
+                unsetNonPersistent(block);
+            }
+            return;
+        }
         if (block.getType() == Material.REDSTONE_WALL_TORCH || block.getType() == Material.REDSTONE_TORCH) {
             if (((Lightable) block.getBlockData()).isLit()) return;
             e.setDropItems(false);
             loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
-            if (isPersistent(block)) {
+            if (!isNonPersistent(block)) {
                 e.setDropItems(false);
                 loc.getWorld().dropItemNaturally(loc, Items.get(Items.PERSISTENT_TORCH));
-                unsetPersistent(block);
+            } else {
+                unsetNonPersistent(block);
             }
         }
     }
 
     private void burnoutTorch(Block block) {
-        int burnout = 5; //TODO use config here
-        burnoutTorch(block, burnout);
+        burnoutTorch(block, seconds);
     }
 
-    /** Sets a torch to burn out after x time
+    /** Sets a torch to burn out after x seconds
      *
      * @param seconds The time to wait for burnout in seconds
      * @param block The torch to burn out
@@ -147,6 +158,7 @@ public class BurnoutTorches implements Listener {
             Lightable torch = ((Lightable) block.getBlockData());
             torch.setLit(false);
             block.setBlockData(torch);
+            unsetNonPersistent(block);
         }, 20 * seconds);
     }
 
@@ -163,15 +175,17 @@ public class BurnoutTorches implements Listener {
         Utils.sendColoredMsg(sender, Survival.lang.prefix + loaded);
     }
 
-    /** Adds a persistent torch to the data.yml file
+    /** Adds a non persistent torch to the data.yml file
      *
-     * @param block The torch to make persistent
+     * @param block The torch to make non persistent
      */
     @SuppressWarnings("WeakerAccess")
-    public void setPersistent(Block block) {
-        List<String> list = data.getStringList("Persistent Torches");
-        list.add(locToString(block.getLocation()));
-        data.set("Persistent Torches", list);
+    public void setNonPersistent(Block block) {
+        List<String> list = data.getStringList("NonPersistent Torches");
+        long time = System.currentTimeMillis();
+        time = time + (1000 * seconds);
+        list.add(locToString(block.getLocation()) + " time:" + time);
+        data.set("NonPersistent Torches", list);
         try {
             data.save(data_file);
         } catch (IOException e) {
@@ -179,15 +193,19 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    /** Removes a persistent torch from the data.yml file
+    /** Removes a non persistent torch from the data.yml file
      *
-     * @param block The torch to remove as persistent
+     * @param block The torch to remove as non persistent
      */
     @SuppressWarnings("WeakerAccess")
-    public void unsetPersistent(Block block) {
-        List<String> list = data.getStringList("Persistent Torches");
-        list.remove(locToString(block.getLocation()));
-        data.set("Persistent Torches", list);
+    public void unsetNonPersistent(Block block) {
+        List<String> list = data.getStringList("NonPersistent Torches");
+        for (Object string : list.toArray()) {
+            if (stringMatchLoc(((String) string), block.getLocation())) {
+                list.remove(string);
+            }
+        }
+        data.set("NonPersistent Torches", list);
         try {
             data.save(data_file);
         } catch (IOException e) {
@@ -195,24 +213,66 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    /** Checks if a torch is persistent
+    /** Checks if a torch is non persistent
      *
      * @param block The torch to check
      * @return Whether its persistent or not
      */
     @SuppressWarnings("WeakerAccess")
-    public boolean isPersistent(Block block) {
+    public boolean isNonPersistent(Block block) {
         return containsLoc(block.getLocation());
     }
 
     private String locToString(Location loc) {
         assert loc.getWorld() != null;
-        return "world:" + loc.getWorld().getName() + " x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ();
+        return ("world:" + loc.getWorld().getName() + " x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ())
+                .replace(".0", "");
+    }
+
+    private boolean stringMatchLoc(String string, Location location) {
+        String[] loc = string.split(" ");
+        assert location.getWorld() != null;
+        String world = location.getWorld().getName();
+        String x = String.valueOf(location.getX()).replace(".0", "");
+        String y = String.valueOf(location.getY()).replace(".0", "");
+        String z = String.valueOf(location.getZ()).replace(".0", "");
+        if (loc[0].equalsIgnoreCase("world:" + world)) {
+            if (loc[1].equalsIgnoreCase("x:" + x)) {
+                if (loc[2].equalsIgnoreCase("y:" + y)) {
+                    return loc[3].equalsIgnoreCase("z:" + z);
+                }
+            }
+        }
+        return false;
     }
 
     private boolean containsLoc(Location loc) {
-        List<String> list = data.getStringList("Persistent Torches");
-        return list.contains(locToString(loc));
+        List<String> list = data.getStringList("NonPersistent Torches");
+        for (String torch : list) {
+            if (stringMatchLoc(torch, loc))
+                return true;
+        }
+        return false;
+    }
+
+    private void toBurnout() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(main, () -> {
+            List<String> list = data.getStringList("NonPersistent Torches");
+            for (String string : list) {
+                String[] loc = string.split(" ");
+                long time = Long.valueOf(loc[4].replace("time:", ""));
+                if (time < System.currentTimeMillis()) {
+                    String world = loc[0].replace("world:", "");
+                    int x = Integer.valueOf(loc[1].replace("x:", ""));
+                    int y = Integer.valueOf(loc[2].replace("y:", ""));
+                    int z = Integer.valueOf(loc[3].replace("z:", ""));
+                    Block block = Objects.requireNonNull(Bukkit.getServer().getWorld(world)).getBlockAt(x, y, z);
+                    if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
+                        burnoutTorch(block, 20);
+                    }
+                }
+            }
+        }, 20 * 60, 20 * 60);
     }
 
 }
