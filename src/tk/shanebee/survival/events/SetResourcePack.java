@@ -16,14 +16,14 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent.Status;
 
 public class SetResourcePack implements Listener {
 
-	private final String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
+	private static String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
 	private boolean resourcePack = Survival.settings.getBoolean("MultiWorld.EnableResourcePack");
 	private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
 
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event) {
+	private void onPlayerJoin(PlayerJoinEvent event) {
 		if (resourcePack)
-			applyResourcePack(event.getPlayer());
+			applyResourcePack(event.getPlayer(), 20);
 	}
 
 	/* Not sure why this was added, leaving here for now just in case its actually needed
@@ -35,12 +35,16 @@ public class SetResourcePack implements Listener {
 	 */
 
 	@EventHandler
-	public void onPlayerLeave(PlayerQuitEvent event) {
+	private void onPlayerLeave(PlayerQuitEvent event) {
 		Survival.usingPlayers.remove(event.getPlayer());
 	}
 
-	@SuppressWarnings("deprecation")
-	private void applyResourcePack(Player player) {
+	/** Apply SurvivalPlus' resource pack to a player
+	 * @param player The player to apply the resource pack to
+	 * @param delay A delay in ticks
+	 */
+	@SuppressWarnings({"WeakerAccess"})
+	public static void applyResourcePack(Player player, int delay) {
 		if (url != null) {
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
 				try {
@@ -51,12 +55,12 @@ public class SetResourcePack implements Listener {
 					return;
 				}
 				Survival.usingPlayers.add(player);
-			}, 20L);
+			}, delay);
 		}
 	}
 
 	@EventHandler
-	public void resourcePackEvent(PlayerResourcePackStatusEvent e) {
+	private void resourcePackEvent(PlayerResourcePackStatusEvent e) {
 		Player player = e.getPlayer();
 		if (Survival.settings.getBoolean("MultiWorld.NotifyMessage"))
 			if (e.getStatus() == Status.DECLINED) {

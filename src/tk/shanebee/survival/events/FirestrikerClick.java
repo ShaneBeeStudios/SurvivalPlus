@@ -33,7 +33,7 @@ import java.util.Random;
 public class FirestrikerClick implements Listener {
 
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			if (event.getClickedBlock() == null) return;
@@ -144,7 +144,7 @@ public class FirestrikerClick implements Listener {
 	}
 
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent event) {
+	private void onInventoryClick(InventoryClickEvent event) {
 		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) {
 			final Player player = (Player) event.getWhoClicked();
 
@@ -232,7 +232,7 @@ public class FirestrikerClick implements Listener {
 	}
 
 	@EventHandler
-	public void onCloseInventory(InventoryCloseEvent event) {
+	private void onCloseInventory(InventoryCloseEvent event) {
 		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
@@ -245,7 +245,7 @@ public class FirestrikerClick implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event) {
+	private void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 			Player player = (Player) event.getDamager();

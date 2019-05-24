@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 public class Clownfish implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if (event.getItem().getType() == Material.TROPICAL_FISH) {

@@ -20,7 +20,7 @@ public class CauldronWaterBottle implements Listener {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		if (event.isCancelled()) return;
 		if (event.hasItem()) {
 			Player player = event.getPlayer();

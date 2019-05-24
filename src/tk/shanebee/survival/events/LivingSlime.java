@@ -22,7 +22,7 @@ import tk.shanebee.survival.Survival;
 public class LivingSlime implements Listener {
 
 	@EventHandler
-	public void onGhastTearSlimeBlock(ItemSpawnEvent e) {
+	private void onGhastTearSlimeBlock(ItemSpawnEvent e) {
 		if (e.getEntityType() == EntityType.DROPPED_ITEM) {
 			Item i = e.getEntity();
 			if (i.getItemStack().getType() == Material.GHAST_TEAR) {

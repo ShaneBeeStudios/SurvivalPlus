@@ -17,7 +17,7 @@ import java.util.Random;
 public class RecurvedBow implements Listener {
 
 	@EventHandler
-	public void onShoot(EntityShootBowEvent event) {
+	private void onShoot(EntityShootBowEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			ItemStack mainItem = event.getBow();

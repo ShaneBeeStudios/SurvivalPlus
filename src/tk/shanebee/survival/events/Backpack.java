@@ -16,7 +16,7 @@ import tk.shanebee.survival.Survival;
 public class Backpack implements Listener
 {
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent event)
+	private void onInventoryClick(InventoryClickEvent event)
 	{
 		//if(true) return;
 		
@@ -104,7 +104,7 @@ public class Backpack implements Listener
 	}
 	
 	@EventHandler
-	public void onPickupItem(EntityPickupItemEvent event)
+	private void onPickupItem(EntityPickupItemEvent event)
 	{
 		/*
 		if(!(event.getEntity() instanceof Player))

@@ -33,7 +33,7 @@ public class Valkyrie implements Listener {
 	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 
@@ -59,6 +59,7 @@ public class Valkyrie implements Listener {
 							}
 
 							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
+								assert player.getLocation().getWorld()  != null;
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -82,7 +83,7 @@ public class Valkyrie implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event) {
+	private void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
@@ -107,6 +108,7 @@ public class Valkyrie implements Listener {
 							}
 
 							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
+								assert player.getLocation().getWorld()  != null;
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -131,6 +133,7 @@ public class Valkyrie implements Listener {
 		particleCircle(player, 10, 2.5f, Particle.CRIT_MAGIC);
 
 		Random rand = new Random();
+		assert player.getLocation().getWorld()  != null;
 		player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
 
 		damageNearbyEnemies(player, 8);
@@ -159,11 +162,12 @@ public class Valkyrie implements Listener {
 	}
 
 	private void damageNearbyEnemies(Player player, int dmg) {
+		assert player.getLocation().getWorld()  != null;
 		Collection<Entity> enemies = player.getLocation().getWorld().getNearbyEntities(player.getLocation().add(0, 0.5, 0), 3.5f, 1.5f, 3.5f);
 		for (Entity e : enemies) {
-			if (e instanceof LivingEntity && e != (Entity) player) {
+			if (e instanceof LivingEntity && e != player) {
 				LivingEntity enemy = (LivingEntity) e;
-				enemy.damage(dmg, (Entity) player);
+				enemy.damage(dmg, player);
 			}
 		}
 	}

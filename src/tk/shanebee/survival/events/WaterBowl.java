@@ -20,7 +20,7 @@ import tk.shanebee.survival.Survival;
 public class WaterBowl implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (!Survival.settings.getBoolean("Mechanics.Thirst.Enabled")) {
 			if (event.isCancelled()) return;
 			if (event.getItem().getType() == Material.BEETROOT_SOUP) {
@@ -30,7 +30,7 @@ public class WaterBowl implements Listener {
 	}
 
 	@EventHandler
-	public void onDrop(ItemSpawnEvent event) {
+	private void onDrop(ItemSpawnEvent event) {
 		if (event.isCancelled()) return;
 		if (!Survival.settings.getBoolean("Mechanics.Thirst.Enabled")) return;
 		final Item itemDrop = event.getEntity();

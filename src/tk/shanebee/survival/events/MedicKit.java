@@ -27,7 +27,7 @@ public class MedicKit implements Listener {
 	private Objective healTimes = Survival.board.getObjective("HealTimes");
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onDamaged(EntityDamageByEntityEvent event) {
+	private void onDamaged(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
@@ -36,7 +36,7 @@ public class MedicKit implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onClickEntity(PlayerInteractEntityEvent event) {
+	private void onClickEntity(PlayerInteractEntityEvent event) {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
@@ -107,7 +107,7 @@ public class MedicKit implements Listener {
 	}
 
 	@EventHandler
-	public void onSelfClick(PlayerInteractEvent event) {
+	private void onSelfClick(PlayerInteractEvent event) {
 		if (event.hasItem() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 			final Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();

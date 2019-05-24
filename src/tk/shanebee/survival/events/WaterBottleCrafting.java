@@ -22,7 +22,7 @@ import java.util.Objects;
 public class WaterBottleCrafting implements Listener {
 
 	@EventHandler
-	public void onCraft(CraftItemEvent e) {
+	private void onCraft(CraftItemEvent e) {
 		final Player player = (Player) e.getWhoClicked();
 		final CraftingInventory inv = e.getInventory();
 
@@ -59,7 +59,7 @@ public class WaterBottleCrafting implements Listener {
 	}
 
 	@EventHandler
-	public void onPrepareCraft(PrepareItemCraftEvent e) {
+	private void onPrepareCraft(PrepareItemCraftEvent e) {
 		CraftingInventory inv = e.getInventory();
 		ItemStack result = inv.getResult();
 		if (result != null && result.getType() != Material.GLASS_BOTTLE) {
@@ -77,7 +77,7 @@ public class WaterBottleCrafting implements Listener {
 	}
 
 	@EventHandler
-	public void onFillWaterBottle(PlayerInteractEvent e) {
+	private void onFillWaterBottle(PlayerInteractEvent e) {
 		if (!Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) return;
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();

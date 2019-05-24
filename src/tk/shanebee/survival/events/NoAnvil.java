@@ -17,7 +17,7 @@ import tk.shanebee.survival.Survival;
 public class NoAnvil implements Listener {
 
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent e) {
+	private void onInventoryClick(InventoryClickEvent e) {
 		Inventory inv = e.getInventory();
 
 		if (inv instanceof AnvilInventory) {

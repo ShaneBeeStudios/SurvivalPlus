@@ -26,7 +26,7 @@ import tk.shanebee.survival.managers.Items;
 public class BlazeSword implements Listener {
 
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();

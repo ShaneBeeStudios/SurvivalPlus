@@ -24,7 +24,7 @@ public class FoodDiversityConsume implements Listener {
 	private Objective salts = Survival.mainBoard.getObjective("Salts");
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		switch (event.getItem().getType()) {
@@ -112,7 +112,7 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsumeCake(PlayerInteractEvent event) {
+	private void onConsumeCake(PlayerInteractEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if (event.hasBlock() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -126,7 +126,7 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onDamage(EntityDamageEvent e) {
+	private void onDamage(EntityDamageEvent e) {
 		if (e.isCancelled()) return;
 		if (e.getEntity() instanceof Player) {
 			Player player = (Player) e.getEntity();
@@ -136,7 +136,7 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event) {
+	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
 		switch (player.getWorld().getDifficulty()) {
 			case PEACEFUL:
@@ -159,7 +159,7 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler
-	public void onFirstJoin(PlayerJoinEvent event) {
+	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
 			carbon.getScore(player.getName()).setScore(960);

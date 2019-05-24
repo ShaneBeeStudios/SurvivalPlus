@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 public class PoisonousPotato implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if (event.getItem().getType() == Material.POISONOUS_POTATO) {

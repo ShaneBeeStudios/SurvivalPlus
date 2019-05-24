@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 public class StarBattleaxeWither implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event) {
+	private void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 			Player player = (Player) event.getDamager();

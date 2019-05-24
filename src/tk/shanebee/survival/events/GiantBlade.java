@@ -31,7 +31,7 @@ public class GiantBlade implements Listener {
 	private Objective dualWield = Survival.board.getObjective("DualWield");
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onAttack(EntityDamageByEntityEvent event) {
+	private void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
@@ -67,7 +67,7 @@ public class GiantBlade implements Listener {
 	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		ItemStack offItem = player.getInventory().getItemInOffHand();

@@ -23,9 +23,10 @@ import tk.shanebee.survival.managers.Items;
 import java.util.*;
 
 public class WorkbenchShare implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	@SuppressWarnings("deprecation")
-	public void onPlayerInteract(PlayerInteractEvent e) {
+	private void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.isCancelled()) return;
 		final Player p = e.getPlayer();
 		final Block block = e.getClickedBlock();
@@ -77,12 +78,12 @@ public class WorkbenchShare implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onInventoryClick(InventoryClickEvent e) {
+	private void onInventoryClick(InventoryClickEvent e) {
 		onInventoryInteract(e);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onInventoryDrag(InventoryDragEvent e) {
+	private void onInventoryDrag(InventoryDragEvent e) {
 		onInventoryInteract(e);
 	}
 
@@ -153,7 +154,7 @@ public class WorkbenchShare implements Listener {
 	}
 
 	@EventHandler
-	public void onInventoryClose(InventoryCloseEvent e) {
+	private void onInventoryClose(InventoryCloseEvent e) {
 		if (!(e.getPlayer() instanceof Player))
 			return;
 		final Player p = (Player) e.getPlayer();
@@ -187,7 +188,7 @@ public class WorkbenchShare implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent e) {
+	private void onPlayerQuit(PlayerQuitEvent e) {
 		final Player p = e.getPlayer();
 
 		if (!p.hasMetadata("shared_workbench"))
@@ -211,7 +212,7 @@ public class WorkbenchShare implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBreakWorkbench(BlockBreakEvent e) {
+	private void onBreakWorkbench(BlockBreakEvent e) {
 		if (e.isCancelled()) return;
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		Block workbench = e.getBlock();

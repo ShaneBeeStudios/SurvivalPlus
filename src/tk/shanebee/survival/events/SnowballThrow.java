@@ -20,7 +20,7 @@ import org.bukkit.util.BlockIterator;
 public class SnowballThrow implements Listener
 {
 	@EventHandler
-	public void onThrowingSnowball(ProjectileHitEvent e) {
+	private void onThrowingSnowball(ProjectileHitEvent e) {
 		if (e.getEntity() instanceof Snowball) {
 			Snowball snowball = (Snowball) e.getEntity();
 
@@ -63,7 +63,7 @@ public class SnowballThrow implements Listener
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBreakSnow(BlockBreakEvent e) {
+	private void onBreakSnow(BlockBreakEvent e) {
 		if (e.isCancelled()) return;
 		Player player = e.getPlayer();
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {

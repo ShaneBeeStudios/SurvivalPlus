@@ -12,7 +12,7 @@ import tk.shanebee.survival.Survival;
 public class SnowGeneration implements Listener
 {	
 	@EventHandler(ignoreCancelled = true)
-	public void chunkLoad(final ChunkLoadEvent event)
+	private void chunkLoad(final ChunkLoadEvent event)
 	{
 		if(Survival.snowGenOption)
 		{
@@ -23,6 +23,9 @@ public class SnowGeneration implements Listener
 		}
 	}
 
+	/** Internal usage, do not use
+	 * @param chunk A chunk
+	 */
 	public void checkChunk(final Chunk chunk)
 	{
 		final ChunkSnapshot chunkSnap = chunk.getChunkSnapshot(true, false, false);
@@ -41,7 +44,7 @@ public class SnowGeneration implements Listener
 	}
 	
 	@EventHandler(ignoreCancelled = true)
-	public void snowForm(final BlockFormEvent event)
+	private void snowForm(final BlockFormEvent event)
 	{
 		if(Survival.snowGenOption)
 		{

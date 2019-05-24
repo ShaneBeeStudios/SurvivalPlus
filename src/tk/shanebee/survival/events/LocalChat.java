@@ -14,7 +14,7 @@ import tk.shanebee.survival.Survival;
 public class LocalChat implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(AsyncPlayerChatEvent event) {
+	private void onChat(AsyncPlayerChatEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
 		String msg = event.getMessage();

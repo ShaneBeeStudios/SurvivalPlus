@@ -10,7 +10,7 @@ import tk.shanebee.survival.Survival;
 public class SpecialItemInteractCancel implements Listener {
 
 	@EventHandler
-	public void onInteractBlock(PlayerInteractEvent event) {
+	private void onInteractBlock(PlayerInteractEvent event) {
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			switch (event.getMaterial()) {
 				case WOODEN_HOE:

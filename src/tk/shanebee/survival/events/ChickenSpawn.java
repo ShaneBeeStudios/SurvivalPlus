@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
 public class ChickenSpawn implements Listener {
 
 	@EventHandler
-	public void onChickenSpawn(CreatureSpawnEvent e) {
+	private void onChickenSpawn(CreatureSpawnEvent e) {
 		if (e.getEntityType() == EntityType.CHICKEN) {
 			if (e.getSpawnReason() == SpawnReason.BREEDING) {
 				e.setCancelled(true);
@@ -29,7 +29,7 @@ public class ChickenSpawn implements Listener {
 	}
 
 	@EventHandler
-	public void onEggThrown(PlayerEggThrowEvent e) {
+	private void onEggThrown(PlayerEggThrowEvent e) {
 		e.setHatching(true);
 		e.setNumHatches((byte) 1);
 	}

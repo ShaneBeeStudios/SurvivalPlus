@@ -30,7 +30,7 @@ import tk.shanebee.survival.Survival;
 public class Chairs implements Listener {
 
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	private void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
 
@@ -137,7 +137,7 @@ public class Chairs implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onBlockBreak(BlockBreakEvent event) {
+	private void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
 		if (Survival.allowedBlocks.contains(event.getBlock().getType())) {
 			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
@@ -152,7 +152,7 @@ public class Chairs implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
+	private void onPlayerQuit(PlayerQuitEvent event) {
 		Entity vehicle = event.getPlayer().getVehicle();
 
 		// Let players stand up when leaving the server.
@@ -161,7 +161,7 @@ public class Chairs implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onHit(EntityDamageEvent event) {
+	private void onHit(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
 		Entity hitTarget = event.getEntity();
 		if (hitTarget instanceof ArmorStand && hitTarget.getCustomName().equals("Chair"))

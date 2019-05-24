@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 public class RawMeatHunger implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onConsume(PlayerItemConsumeEvent event) {
+	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Random rand = new Random();
 		Player player = event.getPlayer();

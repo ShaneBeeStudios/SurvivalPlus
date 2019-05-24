@@ -14,7 +14,7 @@ import tk.shanebee.survival.Survival;
 public class CompassWaypoint implements Listener {
 
 	@EventHandler
-	public void onItemClick(PlayerInteractEvent event) {
+	private void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
@@ -51,6 +51,18 @@ public class CompassWaypoint implements Listener {
 				}
 			}
 		}
+	}
+
+	/** Set the waypoint of a player's compass
+	 * @param player The player to set a waypoint for
+	 * @param location The location of the waypoint
+	 * @param particle If the particles should show at the location a waypoint is set
+	 */
+	@SuppressWarnings("unused")
+	public static void setWaypoint(Player player, Location location, boolean particle) {
+		player.setCompassTarget(location);
+		if (particle)
+			Utils.spawnParticle(location, Particle.CLOUD, 25, 0.5, 0.5, 0.5, player);
 	}
 
 }
