@@ -25,6 +25,7 @@ import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.NoPos;
 import tk.shanebee.survival.util.Utils;
 
+import java.io.File;
 import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
@@ -54,10 +55,12 @@ public class Survival extends JavaPlugin implements Listener {
         String Version = this.getDescription().getVersion();
         instance = this;
 
-        // LOAD CONFIG
-        settings = getConfig();
-        settings.options().copyDefaults(true);
-        saveConfig();
+        File config_file = new File(this.getDataFolder(), "config.yml");
+        if (!config_file.exists()) {
+            this.saveResource("config.yml", true);
+        }
+        settings = YamlConfiguration.loadConfiguration(config_file);
+        updateConfig();
 
         //Language = settings.getString("Language");
 
@@ -65,13 +68,6 @@ public class Survival extends JavaPlugin implements Listener {
         lang = new Lang(this);
         lang.loadLangFile(Bukkit.getConsoleSender());
         prefix = lang.prefix;
-        //Bukkit.getConsoleSender().sendMessage(prefix + "Selected Language: " + Language);
-
-        // SET VERSION IN CONFIG
-        if (!(settings.getString("Version").equalsIgnoreCase(Version))) {
-            settings.set("Version", Version);
-            saveConfig();
-        }
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
@@ -159,7 +155,6 @@ public class Survival extends JavaPlugin implements Listener {
         if (settings.getBoolean("Mechanics.FoodDiversity"))
             FoodDiversity();
         ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
-        //BackpackCheck(); //Testing Backpack
 
         // Load metrics
         @SuppressWarnings("unused")
@@ -167,7 +162,6 @@ public class Survival extends JavaPlugin implements Listener {
 
         Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded");
         if (Version.contains("Beta")) {
-            //sendColoredConsoleMsg(prefix + "&7[&cWARN&7] - &eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
             getLogger().warning(ChatColor.translateAlternateColorCodes('&',
                     "&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!"));
         }
@@ -404,7 +398,6 @@ public class Survival extends JavaPlugin implements Listener {
 
                 Score dualWield = board.getObjective("DualWield").getScore(player.getName());
 
-                // TODO need to figure out whats going on here
                 if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
                         && (offItem.getType() == Material.WOODEN_AXE
                         || offItem.getType() == Material.WOODEN_SWORD || offItem.getType() == Material.WOODEN_PICKAXE
@@ -924,5 +917,12 @@ public class Survival extends JavaPlugin implements Listener {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    private void updateConfig() {
+        if (!settings.isSet("Mechanics.BurnoutTorches.Enabled")) {
+            settings = getConfig();
+            settings.options().copyDefaults(true);
+            saveConfig();
+        }
+    }
 
 }

@@ -1,93 +1,155 @@
 # Settings
 
-Version: 3.0.0
+# Notes in this config are lost on updates if the config file changes
+# If you would like to see the notes, delete this file and it will regenerate with notes
+# (Make sure to backup your config file)
 
+# Currently not used (May be used in the future)
 Language: EN
 
 MultiWorld:
+  # Enable the SurvivalPlus resource pack for players
   EnableResourcePack: true
+  # The link to the pack, you can put a custom link here if need be
   ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14.zip
+  # Notify players when they log in if they deny the resource pack
   NotifyMessage: true
 
+# The distance from the player at which other players will see their chat messages
+# -1 = disabled
 LocalChatDist: -1
 
+# Disable player's coords in the Minecraft debug screen
 NoPos: true
 
+# When a player joins, they will get a link to a simple starter guide
 WelcomeGuide:
   Enabled: true
+  # Only send to players the first time they log in
   NewPlayersOnly: false
+  # Delay in seconds until this message appears
   Delay: 5
 
 Survival:
+  # When enabled, the basic custom SurvivalPlus items will be included in the game
   Enabled: true
 
+  # With this enabled, players will only be able to craft items which they have unlocked recipes for
   LimitedCrafting: true
-  
+
+  # With these enabled, players will only be able to break most blocks with the correct tools
   BreakOnlyWith:
     Axe: true
     Pickaxe: true
     Shovel: true
     Shears: true
     Sickle: true
-    
+
+  # With this enabled, players will need a hammer in their off hand to place most buildable blocks
   PlaceOnlyWith:
     Hammer: true
 
+  # The rates at which items will drop (Value between 0.01 -> 1.0)
   DropRate:
+    # Dropped when breaking gravel
     Flint: 0.5
+    # Dropped when breaking leaves
     Stick: 0.25
 
+  # Enables custom torch recipes
   Torch: true
 
 Mechanics:
+  # This is an experimental feature, I recommend not using it
   SharedWorkbench: false
-  
+
+  # With this enabled, players will need to sleep often or risk losing energy
   BedFatigueLevel: true
+  # Players can sleep in a bed for x seconds and regain energy
   BedFatigueRefreshTime: 30
+  # This is the chance players will lose energy at midnight
   FatigueLevelIncreaseChance: 70
+  # Enables coffee recipes and effects (Drink coffee to regain energy)
   Coffee: true
-  
+
+  # When enabled, players will slow down when wearing heavy armor such as diamond or gold armor
   SlowArmor: true
+  # Enables recipes for reinforced leather armor
   ReinforcedLeatherArmor: true
+
+  # When enabled, players will only be able to shoot a bow/crossbow from their main hand
+  # They will also need to have arrows in their offhand to shoot a bow/load a crossbow
   Bow: true
+  # Enables the recurved bow and crossbow
   RecurveBow: true
+  # Enables grappling hooks
   GrapplingHook: true
+  # Enables the medical kit
   MedicalKit: true
+  # Reduced recipes for iron/gold nuggets
   ReducedIronNugget: true
   ReducedGoldNugget: true
-  
+
+  # Shows the players different status levels in a scoreboard
   StatusScoreboard: true
   AlertInterval: 20
+
+  # Applies hunger to players when eating raw meat
   RawMeatHunger: true
+
+  # Players can empty potions in a workbench
   EmptyPotions: true
+
+  # When consuming poisonous potatoes, apply a few extra effects to the player
   PoisonousPotato: true
+
+  # Eating cookies will boost a player's health
   CookieHealthBoost: true
+
+  # Eating beetboots will boost a player's strength
   BeetrootStrength: true
+
+  # Players will need to eat a different variety of foods to stay nourished
   FoodDiversity: true
+
+  # When enabled, players will need to drink water to replenish their thirst levels
   Thirst:
     Enabled: true
+    # The level of thirst a player starts out with (max = 40)
     Starting-Amount: 30
+    # Enables 3 different levels of water (dirty, clean, purified)
     PurifyWater: true
     MeltSnow: true
+    # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
     DrainRate: 1.0
-  
+
+  # Players can set a waypoint to a location using a compass
   CompassWaypoint: true
+  # Players can eat a tropical fish to teleport to their waypoint
+  # (Clownfish was the old type thats why this is still here)
   Clownfish: true
-  
+
+  # Enables fermented skin recipes
   FermentedSkin: true
-  
+
+  # Enables living slime
   LivingSlime: true
-  
+
+  # When a player throws a snowball it will place a snow layer on the ground
   SnowballRevamp: true
+  # Currently disabled, do not use!!!
   SnowGenerationRevamp: false
   
   FarmingProducts:
     Bread: true
     Cookie: true
-  
+
+  # Enables chairs and the blocks that can be used for chairs
   Chairs:
     Enabled: true
     MaxChairWidth: 2
+    # These must be Bukkit material Enums
+    # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
     AllowedBlocks:
       - OAK_STAIRS
       - SPRUCE_STAIRS
@@ -107,11 +169,20 @@ Mechanics:
       - PRISMARINE_BRICK_STAIRS
       - DARK_PRISMARINE_STAIRS
 
+  # TEMP NOTES
+  # Will be used for wiki but removed from this file
   BurnoutTorches:
     Enabled: false
+    # Time (in seconds) before torch will burn out
     BurnoutTime: 60
+    # If burnout torches can be re-lit
     Relightable: true
+    # If non persistent torches will drop a torch when broken, if disabled will drop a stick
+    DropTorch: true
+    # If persistent torches are enabled
+    PersistentTorches: true
 
+# Enables custom recipes (Overrides vanilla recipes)
 Recipes:
   Saddle: true
   Nametag: true
@@ -135,6 +206,7 @@ Recipes:
   SaplingToSticks: true
   FishingRod: true
 
+# Enables legendary items
 LegendaryItems:
   CanRepair: true
   ValkyrieAxe: true
