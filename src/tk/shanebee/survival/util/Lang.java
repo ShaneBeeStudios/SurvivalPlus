@@ -13,6 +13,8 @@ import java.io.IOException;
 public class Lang {
 
     private Survival main;
+    private String language;
+    private String lang_yml;
 
     public String prefix;
     public String no_perm;
@@ -101,7 +103,6 @@ public class Lang {
     public String mattock;
     public String firestriker;
     public String firestriker_lore;
-    public String firestriker_damaged;
     public String shiv;
     public String poisoned_enemy;
     public String poisoned_retain;
@@ -167,19 +168,21 @@ public class Lang {
 
 
 
-    public Lang(Survival main) {
+    public Lang(Survival main, String language) {
         this.main = main;
+        this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
+        this.language = language;
     }
 
     public void loadLangFile(CommandSender sender) {
         String loaded;
         FileConfiguration lang;
-        File lang_file = new File(main.getDataFolder(), "lang_EN.yml");
+        File lang_file = new File(main.getDataFolder(), lang_yml);
         if (!lang_file.exists()) {
-            main.saveResource("lang_EN.yml", true);
-            loaded = "&aNew lang_EN.yml created";
+            main.saveResource(lang_yml, true);
+            loaded = "&aNew " + lang_yml + " created";
         } else {
-            loaded = "&7lang_EN.yml &aloaded";
+            loaded = "&7" + lang_yml + " &aloaded";
             updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
         }
         lang = YamlConfiguration.loadConfiguration(lang_file);
@@ -264,7 +267,6 @@ public class Lang {
         mattock = lang.getString("mattock");
         firestriker = lang.getString("firestriker");
         firestriker_lore = lang.getString("firestriker-lore");
-        firestriker_damaged = lang.getString("firestriker-damaged");
         shiv = lang.getString("shiv");
         poisoned_enemy = lang.getString("poisoned-enemy");
         poisoned_retain = lang.getString("poisoned-retain");
@@ -332,29 +334,21 @@ public class Lang {
     }
 
     private void updateLang(YamlConfiguration lang, File file) {
-        // Coffee update - 3.2.0
-        if (!lang.isSet("coffee-bean-name")) {
-            lang.set("energy-rising", "Your energy is rising");
-            lang.set("coffee-bean-name", "Coffee Bean");
-            lang.set("coffee-name", "&3Coffee");
-            lang.set("coffee-color", 9461779);
-            lang.set("cold-milk-name", "&bCold Milk");
-            lang.set("cold-milk-color", 16250871);
-            lang.set("hot-milk-name", "&cHot Milk");
-            lang.set("hot-milk-color", 15456977);
-            saveLang(lang, file);
-        }
-        // Guide update - 3.3.0
-        if (!lang.isSet("survival-guide-msg")) {
-            lang.set("survival-guide-msg", "&6To see our survival guide ");
-            lang.set("survival-guide-click-msg", "&bClick Here");
-            lang.set("survival-guide-hover-msg", "Click for Guide");
-            lang.set("survival-guide-link", "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started");
-            saveLang(lang, file);
-        }
-        if (!lang.isSet("firestriker-lore")) {
-            lang.set("firestriker-lore", "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter||&7 -Put smeltable into input slot||&7 -Click output slot to smelt");
-            saveLang(lang, file);
+        if (language.equalsIgnoreCase("EN")) {
+            // Guide update - 3.3.0
+            if (!lang.isSet("survival-guide-msg")) {
+                lang.set("survival-guide-msg", "&6To see our survival guide ");
+                lang.set("survival-guide-click-msg", "&bClick Here");
+                lang.set("survival-guide-hover-msg", "Click for Guide");
+                lang.set("survival-guide-link", "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started");
+                saveLang(lang, file);
+            }
+            // Update - 3.3.2
+            if (!lang.isSet("firestriker-lore")) {
+                lang.set("firestriker-lore", "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter" +
+                        "||&7 -Put smeltable into input slot||&7 -Click output slot to smelt");
+                saveLang(lang, file);
+            }
         }
     }
 
@@ -362,7 +356,7 @@ public class Lang {
         try {
             lang.save(file);
             String prefix = lang.getString("prefix");
-            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7lang_EN.yml &aUpdated");
+            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7" + lang_yml + " &aUpdated");
         } catch (IOException e) {
             e.printStackTrace();
         }

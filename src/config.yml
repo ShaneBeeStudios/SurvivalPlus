@@ -4,7 +4,8 @@
 # If you would like to see the notes, delete this file and it will regenerate with notes
 # (Make sure to backup your config file)
 
-# Currently not used (May be used in the future)
+# Preset language file includes in-game messages, item names, lore, etc.
+# Language options are EN (English) or CN (Chinese)
 Language: EN
 
 MultiWorld:
@@ -169,8 +170,8 @@ Mechanics:
       - PRISMARINE_BRICK_STAIRS
       - DARK_PRISMARINE_STAIRS
 
-  # TEMP NOTES
-  # Will be used for wiki but removed from this file
+  # EXPERIMENTAL FEATURE
+  # DO NOT USE
   BurnoutTorches:
     Enabled: false
     # Time (in seconds) before torch will burn out

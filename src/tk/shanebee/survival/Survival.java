@@ -48,11 +48,9 @@ public class Survival extends JavaPlugin implements Listener {
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
     public static boolean snowGenOption = true;
-    //private static String Language; // TODO probably used in the future
     private String prefix;
 
     public void onEnable() {
-        String Version = this.getDescription().getVersion();
         instance = this;
 
         File config_file = new File(this.getDataFolder(), "config.yml");
@@ -62,10 +60,8 @@ public class Survival extends JavaPlugin implements Listener {
         settings = YamlConfiguration.loadConfiguration(config_file);
         updateConfig();
 
-        //Language = settings.getString("Language");
-
         // LOAD LANG FILE
-        lang = new Lang(this);
+        lang = new Lang(this, settings.getString("Language"));
         lang.loadLangFile(Bukkit.getConsoleSender());
         prefix = lang.prefix;
 
@@ -161,7 +157,7 @@ public class Survival extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this);
 
         Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded");
-        if (Version.contains("Beta")) {
+        if (this.getDescription().getVersion().contains("Beta")) {
             getLogger().warning(ChatColor.translateAlternateColorCodes('&',
                     "&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!"));
         }
@@ -170,7 +166,7 @@ public class Survival extends JavaPlugin implements Listener {
     public void onDisable() {
         sendColoredConsoleMsg(prefix + "&eShutting down");
         getServer().getScheduler().cancelTasks(this);
-        //getServer().resetRecipes(); TODO why is this even here?
+        //getServer().resetRecipes(); <-- why is this even here?
         usingPlayers = new ArrayList<>();
 
         // Remove limited crafting when server shuts down (import if server removes this plugin)
@@ -251,17 +247,17 @@ public class Survival extends JavaPlugin implements Listener {
     private void registerCommands() {
         getCommand("recipes").setExecutor(new Recipes());
         getCommand("togglechat").setExecutor(new ToggleChat());
-        getCommand("togglechat").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
+        getCommand("togglechat").setPermissionMessage(prefix + Utils.getColoredString(lang.no_perm));
         getCommand("status").setExecutor(new Status());
         getCommand("reload-survival").setExecutor(new Reload());
-        getCommand("reload-survival").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
+        getCommand("reload-survival").setPermissionMessage(prefix + Utils.getColoredString(lang.no_perm));
         if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
             getCommand("snowgen").setExecutor(new SnowGen());
-        getCommand("snowgen").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
+        getCommand("snowgen").setPermissionMessage(prefix + Utils.getColoredString(lang.no_perm));
 
 
         getCommand("giveitem").setExecutor(new GiveItem());
-        getCommand("giveitem").setPermissionMessage(prefix + ChatColor.translateAlternateColorCodes('&', lang.no_perm));
+        getCommand("giveitem").setPermissionMessage(prefix + Utils.getColoredString(lang.no_perm));
     }
 
     private void registerEvents() {
@@ -339,9 +335,7 @@ public class Survival extends JavaPlugin implements Listener {
         pm.registerEvents(new ChickenSpawn(), this);
         if (settings.getBoolean("WelcomeGuide.Enabled"))
             pm.registerEvents(new Guide(), this);
-
-        // TODO Experimental
-        if (settings.getBoolean("Mechanics.BurnoutTorches."))
+        if (settings.getBoolean("Mechanics.BurnoutTorches.")) // TODO experimental feature, not 100% sure about this
             pm.registerEvents(new BurnoutTorches(this), this);
     }
 
