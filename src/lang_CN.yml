@@ -1,0 +1,199 @@
+# SurvivalPlus 语言文件
+
+####################
+# Language: Chinese (CN)
+# Authors: FattyMieo, ShaneBee
+# Translator:qsefthuopq
+# Date: 28/4/2016 (Refreshed 13/3/2019)
+####################
+#
+# 随意编辑
+#
+####################
+
+####################
+# 系统消息
+####################
+
+prefix: "&7[&3Survival&bPlus&7] "
+no-perm: "&c你没有权限使用这个指令"
+
+# 玩家加入游戏后会看到以下插件帮助的消息
+# 你可以更改为你想要的帮助链接
+survival-guide-msg: "&6本服更改了大量原版Minecraft的机制, &6想要查看生存指南，请 "
+survival-guide-click-msg: "&b点击这里"
+survival-guide-hover-msg: "点击查看帮助"
+survival-guide-link: "http://mineplugin.org/SurvivalPlus"
+
+resource-pack-accepted: "成功加载资源包."
+resource-pack-declined: "**资源包被拒绝**"
+resource-pack-apply: "请使用指定的资源包."
+resource-pack-required: "资源包用于显示更多物品."
+
+
+task-must-use-shovel: "你需要用铲子来挖掘."
+task-must-use-axe: "你需要用斧头来砍木头."
+task-must-use-pick: "你需要用镐子来挖掘."
+task-must-use-shear: "你需要用剪刀来剪羊毛."
+task-must-use-hammer: "你需要用锤子来建造."
+task-must-use-sickle: "你需要用镰刀来收割."
+
+no-rename: "你不能重命名或修复这件物品 "
+period: "."
+
+charge: "充能!"
+charge-ready: "准备充能!"
+charge-unable: "无法充能."
+
+lack-of-energy: "缺乏能量,无法使用."
+
+arrows-off-hand: "&c你必须副手手持弓箭."
+arrows-off-hand-crossbow: "&c你必须从副手装载弓箭."
+bow-main-hand: "&c你必须右手装备弓."
+recurved-bow: "&3弓"
+recurved-crossbow: "&3十字弓"
+recurved: "&7反曲"
+
+fishing-off-hand: "&c你必须左手手持鱼竿."
+fishing-main-hand: "&c你必须用右手手持钓鱼竿."
+grappling-off-hand: "&c你必须左手手持抓钩."
+grappling-main-hand: "&c你必须用右手使用抓钩."
+
+compass-pointed: "指南针已指向"
+compass-coords: "你的坐标为"
+
+players-only: "只对玩家有效."
+toggle-chat-local: "&b切换至 &a本地&b聊天."
+toggle-chat-global: "&b切换至 &2全局&b聊天."
+toggle-chat-disabled: "&c服务器关闭了聊天模式切换功能."
+invalid-arg: "无效的参数."
+
+starved-eat: "你饿了, 吃点食物吧."
+dehydrated-drink: "你脱水了, 喝点水吧."
+hunger: "饥饿度"
+thirst: "口渴度"
+carbohydrates: "糖类"
+protein: "蛋白质"
+vitamins: "维生素和矿物质"
+carbohydrates-lack: "吃点谷物和糖吧."
+vitamins-lack: "吃点蔬菜和水果吧."
+protein-lack: "吃点肉吧."
+
+healing: "&a治疗中 "
+healing-self: "&a治疗&r你"
+keep: "&a, 保持 "
+on-hand: "&a 手持."
+being-healed: "&a你正被治愈： "
+stay-still: "&a, 别动."
+healing-complete: "完成治疗."
+healing-interrupted: "治疗中断."
+
+# 疲劳等级
+energized: "精力充沛"
+sleepy: "昏昏欲睡"
+overworked: "疲惫不堪"
+distressed: "屈心抑志"
+collapsed-1: "筋疲力竭"
+feeling-sleepy-1: "你快睁不开眼了, 是时候去睡觉了."
+feeling-sleepy-2: "你的视野开始模糊."
+feeling-sleepy-3: "你正被黑暗所吞噬."
+energy-rising: "你来劲了."
+collapsed-2: "你力竭倒地了."
+
+locked: "已上锁"
+missing-component: "缺少成分"
+
+  ####################
+  # 物品细节
+  ####################
+
+in-main-hand: "位于主手时:"
+in-off-hand: "位于副手时:"
+attack-speed: "攻击速度"
+attack-damage: "攻击伤害"
+right-click-sprinting: "冲刺时右击:"
+right-click-sneaking: "潜行时右击:"
+decrease-hunger-value: "&7> 降低饱食度"
+
+hatchet: "短柄斧"
+mattock: "鹤嘴锄"
+firestriker: "打火石"
+firestriker-damaged: "损坏的打火石"
+firestriker-lore: "&7右击点燃物品||&b潜行+右击打开便携式熔炉||&7 -放入可熔炼的物品||&7 -点击熔炼"
+shiv: "Shiv"
+poisoned-enemy: "&2赐毒: 击中时使敌人中毒"
+poisoned-retain: "&2中毒效果 &7持续"
+reduce-50: "&7> 降低 50% 的伤害"
+grappling-hook: "抓钩"
+
+hammer: "锤子"
+workbench: "工作台"
+
+valkyrie-axe: "瓦尔基里之斧"
+valkyrie-axe-unable-dual: "&c无法双持瓦尔基里之斧"
+valkyrie-axe-spin: "&a飞斧: 扔出你的斧头来对附近所有的敌人造成伤害!"
+valkyrie-axe-cooldown: "&7> 冷却: 1 秒"
+
+quartz-breaker: "石英破坏者"
+haste: "&e急迫"
+
+obsidian-mace: "黑曜石锤"
+cripple-hit: "&d致残: 被击中的敌人会被&8虚弱"
+drain-hit: "&a饮血: 每次击中获得 &b2 点血"
+exhausted-slow: "&8疲惫: &c缓慢 II"
+expire-disarm: "&7> 缴械5秒"
+knockback-resistance: "&9+50% 击退距离"
+
+ender-giant-blade: "末影巨刃"
+ender-giant-blade-unable-duel: "&c无法双持末影巨刃"
+ender-giant-blade-charge: "&a充能: 向前冲刺, 攻击路上的敌人"
+ender-giant-blade-cooldown: "&7> 冷却时间: 5 秒"
+half-shield-resistance: "&aHalf-Shield: 获得 &4抗性提升 II"
+reflecting-coming: "&7> 反弹受到40%的伤害"
+
+blaze-sword: "火之高兴"
+blaze-sword-fire-resistance: "&6火焰免疫"
+blaze-sword-fiery: "&c灼伤: -3 生命值"
+blaze-sword-spread-fire: "&6扩散火焰"
+blaze-sword-cost: "&7> 消耗1耐久度"
+
+reinforced-boots: "强化皮革鞋子"
+reinforced-tunic: "强化皮革上衣"
+reinforced-pants: "强化皮革裤子"
+reinforced-hat: "强化皮革帽子"
+
+golden-sabatons: "黄金铠靴"
+golden-guard: "黄金护甲"
+golden-greaves: "黄金护胫"
+golden-crown: "黄金王冠"
+
+fermented-skin: "发酵的皮革"
+medical-kit: "医疗包"
+water-bowl: "&b水碗"
+
+# 水瓶名称、描述和颜色
+# 查看RGB颜色:
+# http://minecraft.tools/en/potion.php
+dirty-water: "水瓶"
+dirty-water-lore: "&7装满了污水"
+dirty-water-color: 12769874
+clean-water: "&b水瓶"
+clean-water-lore: "&7干净的水"
+clean-water-color: 1213666
+purified-water: "&水瓶"
+purified-water-lore: "&7纯净水"
+purified-water-color: 0x00FFFF
+
+coffee-bean-name: "咖啡豆"
+coffee-name: "&3咖啡"
+coffee-color: 9461779
+cold-milk-name: "&b牛奶"
+cold-milk-color: 16250871
+hot-milk-name: "&c热牛奶"
+hot-milk-color: 15456977
+
+stone_sickle: "&7石镰刀"
+iron_sickle: "&b铁镰刀"
+
+campfire-name: "&a篝火"
+campfire-lore: "&b未点燃的篝火||&7用木棍点击几次||&7来点燃篝火"
