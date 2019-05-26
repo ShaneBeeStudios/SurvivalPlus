@@ -18,6 +18,7 @@ import org.bukkit.scoreboard.*;
 import tk.shanebee.survival.commands.*;
 import tk.shanebee.survival.events.*;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.Placeholders;
 import tk.shanebee.survival.managers.RecipeManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
 import tk.shanebee.survival.metrics.Metrics;
@@ -124,6 +125,11 @@ public class Survival extends JavaPlugin implements Listener {
         mainBoard = manager.getMainScoreboard();
         ScoreBoardManager sbm = new ScoreBoardManager();
         sbm.loadScoreboards(board, mainBoard);
+
+        // LOAD PLACEHOLDERS
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders(this).register();
+        }
 
         // REGISTER EVENTS & COMMANDS
         registerCommands();

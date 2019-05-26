@@ -3,6 +3,8 @@ main: tk.shanebee.survival.Survival
 authors: [FattyMieo, ShaneBee]
 version: 3.3.3
 api-version: 1.14
+softdepend:
+   - PlaceholderAPI
 commands:
    reload-survival:
       aliases: [survival-reload]
