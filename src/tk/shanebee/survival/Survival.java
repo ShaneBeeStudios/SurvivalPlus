@@ -129,6 +129,7 @@ public class Survival extends JavaPlugin implements Listener {
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
+            sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
         }
 
         // REGISTER EVENTS & COMMANDS
