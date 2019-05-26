@@ -39,6 +39,8 @@ public class BurnoutTorches implements Listener {
 
     private int seconds = Survival.settings.getInt("Mechanics.BurnoutTorches.BurnoutTime");
     private boolean relightable = Survival.settings.getBoolean("Mechanics.BurnoutTorches.Relightable");
+    private boolean persistentTorches = Survival.settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
+    private boolean dropTorch = Survival.settings.getBoolean("Mechanics.BurnoutTorches.DropTorch");
 
     private FileConfiguration data;
     private File data_file;
@@ -66,7 +68,8 @@ public class BurnoutTorches implements Listener {
         Player player = e.getPlayer();
         ItemStack tool = player.getInventory().getItemInMainHand();
         Block block = e.getClickedBlock();
-        if (block == null || (block.getType() != Material.REDSTONE_TORCH && block.getType() != Material.REDSTONE_WALL_TORCH)) return;
+        if (block == null || (block.getType() != Material.REDSTONE_TORCH && block.getType() != Material.REDSTONE_WALL_TORCH))
+            return;
         if (tool.getType() != Material.FLINT_AND_STEEL && !Items.compare(tool, Items.FIRESTRIKER)) return;
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         e.setCancelled(true);
@@ -85,7 +88,7 @@ public class BurnoutTorches implements Listener {
         loc.getWorld().playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
         if ((Utils.getDurability(tool) + 1) < tool.getType().getMaxDurability())
-            Utils.setDurability(tool,Utils.getDurability(tool) + 1);
+            Utils.setDurability(tool, Utils.getDurability(tool) + 1);
         else {
             player.getInventory().setItemInMainHand(null);
             assert player.getLocation().getWorld() != null;
@@ -124,11 +127,15 @@ public class BurnoutTorches implements Listener {
             e.setDropItems(false);
             loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
-            if (!isNonPersistent(block)) {
+            if (persistentTorches && !isNonPersistent(block)) {
                 e.setDropItems(false);
                 loc.getWorld().dropItemNaturally(loc, Items.get(Items.PERSISTENT_TORCH));
             } else {
                 unsetNonPersistent(block);
+                if (!dropTorch) {
+                    e.setDropItems(false);
+                    loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
+                }
             }
         }
     }
@@ -137,23 +144,27 @@ public class BurnoutTorches implements Listener {
         burnoutTorch(block, seconds);
     }
 
-    /** Sets a torch to burn out after x seconds
+    /**
+     * Sets a torch to burn out after x seconds
      *
      * @param seconds The time to wait for burnout in seconds
-     * @param block The torch to burn out
+     * @param block   The torch to burn out
      */
     @SuppressWarnings("WeakerAccess")
     public void burnoutTorch(Block block, int seconds) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
-            if (block.getType() != Material.TORCH && block.getType() != Material.WALL_TORCH) return;
             if (block.getType() == Material.TORCH)
                 block.setType(Material.REDSTONE_TORCH);
-            else {
+            else if (block.getType() == Material.WALL_TORCH) {
                 BlockFace face = ((Directional) block.getBlockData()).getFacing();
                 block.setType(Material.REDSTONE_WALL_TORCH);
                 Directional dir = ((Directional) block.getBlockData());
                 dir.setFacing(face);
                 block.setBlockData(dir);
+            } else {
+                if (isNonPersistent(block))
+                    unsetNonPersistent(block);
+                return;
             }
             Lightable torch = ((Lightable) block.getBlockData());
             torch.setLit(false);
@@ -175,7 +186,8 @@ public class BurnoutTorches implements Listener {
         Utils.sendColoredMsg(sender, Survival.lang.prefix + loaded);
     }
 
-    /** Adds a non persistent torch to the data.yml file
+    /**
+     * Adds a non persistent torch to the data.yml file
      *
      * @param block The torch to make non persistent
      */
@@ -193,7 +205,8 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    /** Removes a non persistent torch from the data.yml file
+    /**
+     * Removes a non persistent torch from the data.yml file
      *
      * @param block The torch to remove as non persistent
      */
@@ -213,7 +226,8 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    /** Checks if a torch is non persistent
+    /**
+     * Checks if a torch is non persistent
      *
      * @param block The torch to check
      * @return Whether its persistent or not
