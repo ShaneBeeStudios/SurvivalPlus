@@ -27,14 +27,23 @@ public class ObsidianMaceWeakness implements Listener {
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 
 			if (Items.compare(mainItem, Items.OBSIDIAN_MACE)) {
-				enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
-				enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
-				Location particleLoc = player.getLocation();
-				particleLoc.setY(particleLoc.getY() + 2);
-				Utils.spawnParticle(particleLoc, Particle.HEART, 2, 0.5, 0.5, 0.5);
+				applyObsidianMaceEffects(player, enemy);
 			}
 		}
+	}
+
+	/** Apply obsidian mace effects to player and enemy
+	 * @param player Player to apply Regeneration to
+	 * @param enemy Enemy to apply weakness and slowness to
+	 */
+	@SuppressWarnings("WeakerAccess")
+	public static void applyObsidianMaceEffects(Player player, LivingEntity enemy) {
+		enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
+		enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
+		Location particleLoc = player.getLocation();
+		particleLoc.setY(particleLoc.getY() + 2);
+		Utils.spawnParticle(particleLoc, Particle.HEART, 2, 0.5, 0.5, 0.5);
 	}
 
 }

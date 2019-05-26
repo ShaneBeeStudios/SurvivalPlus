@@ -62,7 +62,7 @@ public class Bow implements Listener {
 	 * @return Whether or not the player has arrows in their offhand
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public boolean isArrowOffHand(Player player){
+	public static boolean isArrowOffHand(Player player){
 		Material mainHand = player.getInventory().getItemInMainHand().getType();
 		Material offHand = player.getInventory().getItemInOffHand().getType();
 		if (mainHand == Material.CROSSBOW)
