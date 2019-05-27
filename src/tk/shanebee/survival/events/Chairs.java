@@ -27,6 +27,7 @@ import org.bukkit.util.Vector;
 
 import tk.shanebee.survival.Survival;
 
+@SuppressWarnings("deprecation") // TODO fix deprecated Stairs stuff
 public class Chairs implements Listener {
 
 	@EventHandler
@@ -34,6 +35,7 @@ public class Chairs implements Listener {
 		if (event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
 
+			assert block != null;
 			if (Survival.allowedBlocks.contains(block.getType())) {
 				Player player = event.getPlayer();
 				Stairs stairs = (Stairs) block.getState().getData();
@@ -143,7 +145,7 @@ public class Chairs implements Listener {
 			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
 
 			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
-				if (e instanceof ArmorStand && e.getCustomName().equals("Chair"))
+				if (e instanceof ArmorStand && e.getCustomName() != null && e.getCustomName().equals("Chair"))
 					e.remove();
 			}
 
@@ -156,7 +158,7 @@ public class Chairs implements Listener {
 		Entity vehicle = event.getPlayer().getVehicle();
 
 		// Let players stand up when leaving the server.
-		if (vehicle instanceof ArmorStand && vehicle.getCustomName().equals("Chair"))
+		if (vehicle instanceof ArmorStand && vehicle.getCustomName() != null && vehicle.getCustomName().equals("Chair"))
 			vehicle.remove();
 	}
 
@@ -164,13 +166,13 @@ public class Chairs implements Listener {
 	private void onHit(EntityDamageEvent event) {
 		if (event.isCancelled()) return;
 		Entity hitTarget = event.getEntity();
-		if (hitTarget instanceof ArmorStand && hitTarget.getCustomName().equals("Chair"))
+		if (hitTarget instanceof ArmorStand && hitTarget.getCustomName() != null && hitTarget.getCustomName().equals("Chair"))
 			// Chair entity is immune to damage.
 			event.setCancelled(true);
 		else if (hitTarget instanceof Player && hitTarget.getVehicle() != null) {
 			// Let players stand up if receiving damage.
 			Entity vehicle = hitTarget.getVehicle();
-			if (vehicle instanceof ArmorStand && vehicle.getCustomName().equals("Chair"))
+			if (vehicle instanceof ArmorStand && vehicle.getCustomName() != null && vehicle.getCustomName().equals("Chair"))
 				vehicle.remove();
 		}
 	}
@@ -193,6 +195,7 @@ public class Chairs implements Listener {
 			default:
 		}
 
+		assert location.getWorld() != null;
 		ArmorStand drop = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
 		drop.setCustomName("Chair");
 		drop.setVelocity(new Vector(0, 0, 0));
@@ -207,7 +210,7 @@ public class Chairs implements Listener {
 
 		// Check for already existing chair items.
 		for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
-			if (e instanceof ArmorStand && e.getCustomName().equals("Chair")) {
+			if (e instanceof ArmorStand && e.getCustomName() != null && e.getCustomName().equals("Chair")) {
 				if (e.getPassengers().isEmpty())
 					e.remove();
 				else
