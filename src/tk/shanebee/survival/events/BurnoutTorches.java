@@ -94,6 +94,7 @@ public class BurnoutTorches implements Listener {
             assert player.getLocation().getWorld() != null;
             player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
         }
+        setNonPersistent(block);
         burnoutTorch(block);
     }
 
