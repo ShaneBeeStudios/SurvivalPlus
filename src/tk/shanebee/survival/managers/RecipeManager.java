@@ -672,19 +672,27 @@ public class RecipeManager {
         unlit_campfire.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
         unlit_campfire.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
-        // NEW STONE SICKLE RECIPE
+        // NEW FLINT SICKLE RECIPE
+        ShapedRecipe flint_sickle = new ShapedRecipe(new NamespacedKey(survival, "flint_sickle"), Items.get(Items.FLINT_SICKLE));
+
+        flint_sickle.shape("11 ", " 2 ", " 3 ");
+        flint_sickle.setIngredient('1', Material.FLINT);
+        flint_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+        flint_sickle.setIngredient('3', Material.STICK);
+
+        // STONE SICKLE RECIPE
         ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(survival, "stone_sickle"), Items.get(Items.STONE_SICKLE));
 
-        stone_sickle.shape(" 1 ", " 2 ", " 3 ");
+        stone_sickle.shape("11 ", " 2 ", " 3 ");
         stone_sickle.setIngredient('1', Material.COBBLESTONE);
-        stone_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+        stone_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.FLINT_SICKLE)));
         stone_sickle.setIngredient('3', Material.STICK);
 
         // NEW IRON SICKLE RECIPE
         ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(survival, "iron_sickle"), Items.get(Items.IRON_SICKLE));
 
-        iron_sickle.shape(" 1 ", " 2 ", " 3 ");
-        iron_sickle.setIngredient('1', Material.IRON_NUGGET);
+        iron_sickle.shape("11 ", " 2 ", " 3 ");
+        iron_sickle.setIngredient('1', Material.IRON_INGOT);
         iron_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.STONE_SICKLE)));
         iron_sickle.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
 
@@ -738,6 +746,7 @@ public class RecipeManager {
             survival.getServer().addRecipe(unlit_campfire);
             survival.getServer().addRecipe(stone_sickle);
             survival.getServer().addRecipe(iron_sickle);
+            survival.getServer().addRecipe(flint_sickle);
         }
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);

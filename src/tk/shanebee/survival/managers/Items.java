@@ -68,8 +68,11 @@ public enum Items {
     CAMPFIRE(Material.CAMPFIRE, 1),
 
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    IRON_SICKLE(Material.WOODEN_HOE, 3),
+    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
+
+    IRON_SICKLE(Material.IRON_HOE, 1),
+    FLINT_SICKLE(Material.WOODEN_HOE, 4),
 
     // TODO Experimental
     PERSISTENT_TORCH(Material.TORCH, 1);
@@ -669,13 +672,27 @@ public enum Items {
                 stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.stone_sickle));
                 stone_sickle.setItemMeta(stone_sickleMeta);
                 return stone_sickle;
-            case IRON_SICKLE:
-                ItemStack iron_sickle = new ItemStack(IRON_SICKLE.materialType);
+            case IRON_SICKLE_OLD:
+                ItemStack iron_sickle = new ItemStack(IRON_SICKLE_OLD.materialType);
                 ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
-                iron_sickleMeta.setCustomModelData(IRON_SICKLE.modelData);
+                iron_sickleMeta.setCustomModelData(IRON_SICKLE_OLD.modelData);
                 iron_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
                 iron_sickle.setItemMeta(iron_sickleMeta);
                 return iron_sickle;
+            case IRON_SICKLE:
+                ItemStack iron_sickle_new = new ItemStack(IRON_SICKLE.materialType);
+                ItemMeta iron_sickle_new_meta = iron_sickle_new.getItemMeta();
+                iron_sickle_new_meta.setCustomModelData(IRON_SICKLE.modelData);
+                iron_sickle_new_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
+                iron_sickle_new.setItemMeta(iron_sickle_new_meta);
+                return iron_sickle_new;
+            case FLINT_SICKLE:
+                ItemStack flint_sickle = new ItemStack(FLINT_SICKLE.materialType);
+                ItemMeta flint_sickle_meta = flint_sickle.getItemMeta();
+                flint_sickle_meta.setCustomModelData(FLINT_SICKLE.modelData);
+                flint_sickle_meta.setDisplayName("FLINT SICKLE"); // TODO lang file
+                flint_sickle.setItemMeta(flint_sickle_meta);
+                return flint_sickle;
             case GRAPPLING_HOOK:
                 ItemStack grappling_hook = new ItemStack(GRAPPLING_HOOK.materialType);
                 ItemMeta grappling_meta = grappling_hook.getItemMeta();
@@ -684,7 +701,6 @@ public enum Items {
                 grappling_hook.setItemMeta(grappling_meta);
                 return grappling_hook;
             case COFFEE:
-                // TODO proper lore/color/name in lang file
                 ItemStack coffee = new ItemStack(COFFEE.materialType);
                 ItemMeta coffee_meta = coffee.getItemMeta();
                 coffee_meta.setCustomModelData(COFFEE.modelData);
@@ -752,6 +768,34 @@ public enum Items {
             }
         }
         return false;
+    }
+
+    /** Compare an ItemStack with several custom Items
+     * @param itemStack The ItemStack to check
+     * @param type The custom item enums to check
+     * @return Whether these items match or not
+     */
+    public static boolean compare(ItemStack itemStack, Items... type) {
+        for (Items item : type) {
+            if (compare(itemStack, item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public enum Tags {
+        /**
+         * Any sickle
+         */
+        SICKLES;
+
+        public boolean isTagged(ItemStack item) {
+            if (this == Tags.SICKLES) {
+                return Items.compare(item, Items.FLINT_SICKLE, Items.IRON_SICKLE, Items.STONE_SICKLE);
+            }
+            return false;
+        }
     }
 
 }
