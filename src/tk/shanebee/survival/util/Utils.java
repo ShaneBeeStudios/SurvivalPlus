@@ -272,6 +272,8 @@ public class Utils {
                 return Material.JACK_O_LANTERN;
             case MELON_STEM:
                 return Material.MELON_SEEDS;
+            case MELON:
+                return Material.MELON_SLICE;
             case PUMPKIN_STEM:
                 return Material.PUMPKIN_SEEDS;
             case CHORUS_FLOWER:
