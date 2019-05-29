@@ -342,7 +342,7 @@ public class Survival extends JavaPlugin implements Listener {
         pm.registerEvents(new ChickenSpawn(), this);
         if (settings.getBoolean("WelcomeGuide.Enabled"))
             pm.registerEvents(new Guide(), this);
-        if (settings.getBoolean("Mechanics.BurnoutTorches.")) // TODO experimental feature, not 100% sure about this
+        if (settings.getBoolean("Mechanics.BurnoutTorches.Enabled")) // TODO experimental feature, not 100% sure about this
             pm.registerEvents(new BurnoutTorches(this), this);
     }
 
