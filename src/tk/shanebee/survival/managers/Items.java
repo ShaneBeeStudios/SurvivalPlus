@@ -67,12 +67,14 @@ public enum Items {
     WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
+    FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
     IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
+    IRON_SICKLE(Material.IRON_HOE, 1),
+    DIAMOND_SICKLE(Material.DIAMOND_HOE, 1), // Do we really want this?
+
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
 
-    IRON_SICKLE(Material.IRON_HOE, 1),
-    FLINT_SICKLE(Material.WOODEN_HOE, 4),
 
     // TODO Experimental
     PERSISTENT_TORCH(Material.TORCH, 1);
@@ -690,9 +692,16 @@ public enum Items {
                 ItemStack flint_sickle = new ItemStack(FLINT_SICKLE.materialType);
                 ItemMeta flint_sickle_meta = flint_sickle.getItemMeta();
                 flint_sickle_meta.setCustomModelData(FLINT_SICKLE.modelData);
-                flint_sickle_meta.setDisplayName("FLINT SICKLE"); // TODO lang file
+                flint_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.flint_sickle));
                 flint_sickle.setItemMeta(flint_sickle_meta);
                 return flint_sickle;
+            case DIAMOND_SICKLE:
+                ItemStack diamond_sickle = new ItemStack(DIAMOND_SICKLE.materialType);
+                ItemMeta diamond_sickle_meta = diamond_sickle.getItemMeta();
+                diamond_sickle_meta.setCustomModelData(DIAMOND_SICKLE.modelData);
+                diamond_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.diamond_sickle));
+                diamond_sickle.setItemMeta(diamond_sickle_meta);
+                return diamond_sickle;
             case GRAPPLING_HOOK:
                 ItemStack grappling_hook = new ItemStack(GRAPPLING_HOOK.materialType);
                 ItemMeta grappling_meta = grappling_hook.getItemMeta();

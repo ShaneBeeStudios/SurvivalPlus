@@ -199,10 +199,10 @@ public class BlockBreak implements Listener {
 							if (Items.compare(tool, Items.STONE_SICKLE)) {
 								multiplier = 2;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
-
-							// Iron sickle drops a chance of 1 (not grown) or 2-4 items (grown)
-							} else if (Items.compare(tool, Items.IRON_SICKLE_OLD)) {
-								random = grown ? new Random().nextInt(3) + 2 : 1;
+							}
+							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
+							if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
 							if (drop != Material.AIR && random != 0) {

@@ -697,6 +697,13 @@ public class RecipeManager {
         iron_sickle.setIngredient('2', new ExactChoice(Items.get(Items.STONE_SICKLE)));
         iron_sickle.setIngredient('3', Material.STICK);
 
+        // NEW DIAMOND SICKLE RECIPE
+        ShapedRecipe diamond_sickle = new ShapedRecipe(new NamespacedKey(survival, "diamond_sickle"), Items.get(Items.DIAMOND_SICKLE));
+        diamond_sickle.shape("11 ", " 2 ", " 3 ");
+        diamond_sickle.setIngredient('1', Material.DIAMOND);
+        diamond_sickle.setIngredient('2', new ExactChoice(Items.get(Items.STONE_SICKLE)));
+        diamond_sickle.setIngredient('3', Material.STICK);
+
         // NEW GRAPPLING HOOK RECIPE
         ShapedRecipe grappling_hook = new ShapedRecipe(new NamespacedKey(survival, "grappling_hook"), Items.get(Items.GRAPPLING_HOOK));
 
@@ -745,9 +752,16 @@ public class RecipeManager {
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(unlit_campfire);
-            survival.getServer().addRecipe(stone_sickle);
-            survival.getServer().addRecipe(iron_sickle);
-            survival.getServer().addRecipe(flint_sickle);
+            if (settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
+                if (settings.getBoolean("Survival.Sickles.Flint"))
+                    survival.getServer().addRecipe(flint_sickle);
+                if (settings.getBoolean("Survival.Sickles.Stone"))
+                    survival.getServer().addRecipe(stone_sickle);
+                if (settings.getBoolean("Survival.Sickles.Iron"))
+                    survival.getServer().addRecipe(iron_sickle);
+                if (settings.getBoolean("Survival.Sickles.Diamond"))
+                    survival.getServer().addRecipe(diamond_sickle);
+            }
         }
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);
@@ -1080,8 +1094,10 @@ public class RecipeManager {
         RECURVED_BOW("recurved_bow"),
         RECURVED_CROSSBOW("recurved_crossbow"),
         UNLIT_CAMPFIRE("unlit_campfire"),
+        FLINT_SICKLE("flint_sickle"),
         STONE_SICKLE("stone_sickle"),
         IRON_SICKLE("iron_sickle"),
+        DIAMOND_SICKLE("diamond_sickle"),
         GRAPPLING_HOOK("grappling_hook"),
         WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire" ),
         COFFEE_BEAN("coffee_bean"),

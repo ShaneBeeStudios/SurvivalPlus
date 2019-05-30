@@ -924,6 +924,12 @@ public class Survival extends JavaPlugin implements Listener {
             settings = getConfig();
             settings.options().copyDefaults(true);
             saveConfig();
+            return;
+        }
+        if (!settings.isSet("Survival.Sickles.Flint")) {
+            settings = getConfig();
+            settings.options().copyDefaults(true);
+            saveConfig();
         }
     }
 

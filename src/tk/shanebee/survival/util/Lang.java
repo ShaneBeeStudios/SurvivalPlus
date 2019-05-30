@@ -164,6 +164,7 @@ public class Lang {
     public String flint_sickle;
     public String stone_sickle;
     public String iron_sickle;
+    public String diamond_sickle;
     public String campfire_name;
     public String campfire_lore;
 
@@ -329,6 +330,7 @@ public class Lang {
         flint_sickle = lang.getString("flint_sickle");
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
+        diamond_sickle = lang.getString("diamond_sickle");
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
 
