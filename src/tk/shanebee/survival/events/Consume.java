@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Objective;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
@@ -33,7 +34,6 @@ public class Consume implements Listener {
 			case POTION:
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(item)) {
-
 						if (Items.compare(item, Items.DIRTY_WATER)) {
 							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 13);
 							Random rand = new Random();
@@ -50,6 +50,13 @@ public class Consume implements Listener {
 							}
 						} else if (Items.compare(item, Items.PURIFIED_WATER) || Items.compare(item, Items.COFFEE)) {
 							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 23);
+						} else if (Items.compare(item, Items.COLD_MILK)) {
+							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 15);
+						} else if (Items.compare(item, Items.HOT_MILK)) {
+							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 10);
+							player.damage(2);
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0), true);
+							Utils.sendColoredMsg(player, Survival.lang.hot_milk_drink);
 						}
 					}
 				} else {

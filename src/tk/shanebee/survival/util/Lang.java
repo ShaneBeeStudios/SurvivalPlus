@@ -160,6 +160,7 @@ public class Lang {
     public int cold_milk_color;
     public String hot_milk_name;
     public int hot_milk_color;
+    public String hot_milk_drink;
 
     public String stone_sickle;
     public String iron_sickle;
@@ -324,6 +325,7 @@ public class Lang {
         cold_milk_color = lang.getInt("cold-milk-color");
         hot_milk_name = lang.getString("hot-milk-name");
         hot_milk_color = lang.getInt("hot-milk-color");
+        hot_milk_drink = lang.getString("hot-milk-drink");
 
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
