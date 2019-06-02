@@ -356,12 +356,15 @@ public class Lang {
             // Update - TODO number here
             if (!lang.isSet("flint_sickle")) {
                 lang.set("flint_sickle", "&7Flint Sickle");
+                lang.set("diamond_sickle", "&bDiamond Sickle");
+
             }
         }
         if (language.equalsIgnoreCase("CN")) {
             // Update - TODO number here
             if (!lang.isSet("flint_sickle")) {
                 lang.set("flint_sickle", "&7燧石镰刀");
+                lang.set("diamond_sickle", "&b钻石镰刀");
             }
         }
     }
