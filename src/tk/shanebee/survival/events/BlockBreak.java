@@ -294,7 +294,7 @@ public class BlockBreak implements Listener {
 								berries = 2;
 						}
 						multiplier = 2;
-					} else if (Items.compare(tool, Items.IRON_SICKLE)) {
+					} else if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 3)
 								berries = 1;
