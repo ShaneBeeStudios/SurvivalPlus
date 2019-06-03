@@ -760,7 +760,7 @@ public enum Items {
         }
     }
 
-    /** Compare an ItemStack with a custom Item
+    /** Compare an ItemStack with a custom {@link Items}
      * <p>
      *     <b>NOTE:</b> Will only compare a custom item's Material and CustomModelData tag
      * </p>
@@ -779,7 +779,7 @@ public enum Items {
         return false;
     }
 
-    /** Compare an ItemStack with several custom Items
+    /** Compare an ItemStack with several custom {@link Items}
      * @param itemStack The ItemStack to check
      * @param type The custom item enums to check
      * @return Whether these items match or not
@@ -797,13 +797,39 @@ public enum Items {
         /**
          * Any sickle
          */
-        SICKLES;
+        SICKLES,
+        /**
+         * Any reinforced leather armor
+         */
+        REINFORCED_LEATHER_ARMOR,
+        /**
+         * Any water bottle
+         */
+        WATER_BOTTLE,
+        /**
+         * Any drinkable item
+         */
+        DRINKABLE;
 
+        /** Check if an ItemStack is tagged in a group of custom {@link Items}
+         * @param item ItemStack to check
+         * @return True if item matches tag
+         */
         public boolean isTagged(ItemStack item) {
-            if (this == Tags.SICKLES) {
-                return Items.compare(item, Items.FLINT_SICKLE, Items.IRON_SICKLE, Items.STONE_SICKLE);
+            switch (this) {
+                case SICKLES:
+                    return Items.compare(item, FLINT_SICKLE, STONE_SICKLE, IRON_SICKLE, DIAMOND_SICKLE);
+                case REINFORCED_LEATHER_ARMOR:
+                    return Items.compare(item, REINFORCED_LEATHER_BOOTS, REINFORCED_LEATHER_TROUSERS,
+                            REINFORCED_LEATHER_TUNIC, REINFORCED_LEATHER_HELMET);
+                case WATER_BOTTLE:
+                    return Items.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER);
+                case DRINKABLE:
+                    return Items.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
+                            COLD_MILK, HOT_MILK, COFFEE);
+                default:
+                    return false;
             }
-            return false;
         }
     }
 
