@@ -357,6 +357,7 @@ public class Lang {
             if (!lang.isSet("flint_sickle")) {
                 lang.set("flint_sickle", "&7Flint Sickle");
                 lang.set("diamond_sickle", "&bDiamond Sickle");
+                saveLang(lang, file);
 
             }
         }
@@ -365,6 +366,7 @@ public class Lang {
             if (!lang.isSet("flint_sickle")) {
                 lang.set("flint_sickle", "&7燧石镰刀");
                 lang.set("diamond_sickle", "&b钻石镰刀");
+                saveLang(lang, file);
             }
         }
     }
