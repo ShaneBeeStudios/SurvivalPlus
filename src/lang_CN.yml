@@ -193,8 +193,10 @@ hot-milk-name: "&c热牛奶"
 hot-milk-color: 15456977
 hot-milk-drink: "&c哎哟，那太热了"
 
+flint_sickle: "&8燧石镰刀"
 stone_sickle: "&7石镰刀"
-iron_sickle: "&b铁镰刀"
+iron_sickle: "&3铁镰刀"
+diamond_sickle: "&b钻石镰刀"
 
 campfire-name: "&a篝火"
 campfire-lore: "&b未点燃的篝火||&7用木棍点击几次||&7来点燃篝火"

@@ -162,8 +162,10 @@ public class Lang {
     public int hot_milk_color;
     public String hot_milk_drink;
 
+    public String flint_sickle;
     public String stone_sickle;
     public String iron_sickle;
+    public String diamond_sickle;
     public String campfire_name;
     public String campfire_lore;
 
@@ -327,8 +329,10 @@ public class Lang {
         hot_milk_color = lang.getInt("hot-milk-color");
         hot_milk_drink = lang.getString("hot-milk-drink");
 
+        flint_sickle = lang.getString("flint_sickle");
         stone_sickle = lang.getString("stone_sickle");
         iron_sickle = lang.getString("iron_sickle");
+        diamond_sickle = lang.getString("diamond_sickle");
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
 
@@ -349,6 +353,21 @@ public class Lang {
             if (!lang.isSet("firestriker-lore")) {
                 lang.set("firestriker-lore", "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter" +
                         "||&7 -Put smeltable into input slot||&7 -Click output slot to smelt");
+                saveLang(lang, file);
+            }
+            // Update - TODO number here
+            if (!lang.isSet("flint_sickle")) {
+                lang.set("flint_sickle", "&7Flint Sickle");
+                lang.set("diamond_sickle", "&bDiamond Sickle");
+                saveLang(lang, file);
+
+            }
+        }
+        if (language.equalsIgnoreCase("CN")) {
+            // Update - TODO number here
+            if (!lang.isSet("flint_sickle")) {
+                lang.set("flint_sickle", "&7燧石镰刀");
+                lang.set("diamond_sickle", "&b钻石镰刀");
                 saveLang(lang, file);
             }
         }

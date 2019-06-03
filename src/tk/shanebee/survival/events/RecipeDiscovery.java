@@ -30,7 +30,6 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.MATTOCK.getKeys());
             player.discoverRecipes(Recipes.SHIV.getKeys());
             player.discoverRecipes(Recipes.HAMMER.getKeys());
-            player.discoverRecipes(Recipes.STONE_SICKLE.getKeys());
             player.discoverRecipes(Recipes.GLASS_BOTTLE.getKeys());
             player.discoverRecipes(Recipes.STICK.getKeys());
             player.discoverRecipes(Recipes.BREAD.getKeys());
@@ -57,12 +56,14 @@ public class RecipeDiscovery implements Listener {
                 player.discoverRecipes(Recipes.VALKYRIES_AXE.getKeys());
                 player.discoverRecipes(Recipes.QUARTZ_PICKAXE.getKeys());
                 player.discoverRecipes(Recipes.ENDER_GIANT_BLADE.getKeys());
+                player.discoverRecipes(Recipes.DIAMOND_SICKLE.getKeys());
                 RecipeDiscovered.DIAMONDS.setDiscovered(player);
             }
         } else if (item == Material.FLINT) {
             if (!RecipeDiscovered.FLINT.hasDiscovered(player)) {
                 player.discoverRecipes(Recipes.FIRESTRIKER.getKeys());
                 player.discoverRecipes(Recipes.GRAVEL.getKeys());
+                player.discoverRecipes(Recipes.FLINT_SICKLE.getKeys());
                 RecipeDiscovered.FLINT.setDiscovered(player);
             }
         } else if (item == Material.FEATHER) {
@@ -113,6 +114,7 @@ public class RecipeDiscovery implements Listener {
                 player.discoverRecipes(Recipes.ANDESITE.getKeys());
                 player.discoverRecipes(Recipes.DIORITE.getKeys());
                 player.discoverRecipes(Recipes.GRANITE.getKeys());
+                player.discoverRecipes(Recipes.STONE_SICKLE.getKeys());
                 RecipeDiscovered.COBBLESTONE.setDiscovered(player);
             }
         } else if (item == Material.QUARTZ) {

@@ -175,7 +175,7 @@ public class BlockBreak implements Listener {
 							|| material == Material.POTATOES || material == Material.BEETROOTS
 							|| material == Material.WHEAT || material == Material.SWEET_BERRY_BUSH) {
 
-						if (!Items.compare(tool, Items.IRON_SICKLE) && !Items.compare(tool, Items.STONE_SICKLE)) {
+						if (!Items.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
 							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
 						} else {
@@ -191,14 +191,18 @@ public class BlockBreak implements Listener {
 								grown = crop.getAge() == crop.getMaximumAge();
 							}
 
-							// Stone sickle drops a chance of 0-1 items (not grown) or 1-2 (grown)
-							if (Items.compare(tool, Items.STONE_SICKLE)) {
-								multiplier = 3;
+							// Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
+							if (Items.compare(tool, Items.FLINT_SICKLE)) {
+								multiplier = 4;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
-
-							// Iron sickle drops a chance of 1 (not grown) or 2-4 items (grown)
-							} else if (Items.compare(tool, Items.IRON_SICKLE)) {
-								random = grown ? new Random().nextInt(3) + 2 : 1;
+							}
+							if (Items.compare(tool, Items.STONE_SICKLE)) {
+								multiplier = 2;
+								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+							}
+							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
+							if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
 							if (drop != Material.AIR && random != 0) {
@@ -262,7 +266,7 @@ public class BlockBreak implements Listener {
 					return;
 				} else return;
 			}
-			if (!Items.compare(tool, Items.IRON_SICKLE) && !Items.compare(tool, Items.STONE_SICKLE)) {
+			if (!Items.Tags.SICKLES.isTagged(tool)) {
 				e.setCancelled(true);
 				player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
 			} else {
@@ -274,18 +278,23 @@ public class BlockBreak implements Listener {
 					e.setCancelled(true);
 					int random = new Random().nextInt(5) + 1;
 
-					if (Items.compare(tool, Items.STONE_SICKLE)) {
+					if (Items.compare(tool, Items.FLINT_SICKLE)) {
+						if (bush.getAge() == 3) {
+							berries = 1;
+						}
+						multiplier = 4;
+					} else if (Items.compare(tool, Items.STONE_SICKLE)) {
 						if (bush.getAge() == 2) {
-							if (random <= 2)
+							if (random <= 4)
 								berries = 1;
 						} else if (bush.getAge() == 3) {
-							if (random <= 4)
+							if (random <= 3)
 								berries = 1;
 							else
 								berries = 2;
 						}
-						multiplier = 3;
-					} else if (Items.compare(tool, Items.IRON_SICKLE)) {
+						multiplier = 2;
+					} else if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 3)
 								berries = 1;

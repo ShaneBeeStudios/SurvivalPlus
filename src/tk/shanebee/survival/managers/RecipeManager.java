@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 
@@ -245,7 +246,7 @@ public class RecipeManager {
         ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "repair_blaze_sword"), Items.get(Items.BLAZE_SWORD));
         repair_blaze_sword.shape("123");
 
-        repair_blaze_sword.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 31)));
+        repair_blaze_sword.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 31)));
         repair_blaze_sword.setIngredient('2', Material.BLAZE_POWDER);
         repair_blaze_sword.setIngredient('3', Material.BLAZE_POWDER);
 
@@ -254,7 +255,7 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(survival, "repair_ender_giant_blaze"), Items.get(Items.ENDER_GIANT_BLADE));
         repair_ender_giant_blaze.shape("123");
-        repair_ender_giant_blaze.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
+        repair_ender_giant_blaze.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 31)));
         repair_ender_giant_blaze.setIngredient('2', Material.ENDER_PEARL);
         repair_ender_giant_blaze.setIngredient('3', Material.DIAMOND_BLOCK);
 
@@ -262,7 +263,7 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_quartz_pickaxe"), Items.get(Items.QUARTZ_PICKAXE));
         repair_quartz_pickaxe.shape("123");
-        repair_quartz_pickaxe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
+        repair_quartz_pickaxe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 31)));
         repair_quartz_pickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
         repair_quartz_pickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
 
@@ -270,14 +271,14 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "repair_valkyries_axe"), Items.get(Items.VALKYRIES_AXE));
         repair_valkyries_axe.shape("12 ");
-        repair_valkyries_axe.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
+        repair_valkyries_axe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 31)));
         repair_valkyries_axe.setIngredient('2', Material.NETHER_STAR);
 
 
         //  REPAIR RECIPE
         ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "repair_obsidian_mace"), Items.get(Items.OBSIDIAN_MACE));
         repair_obsidian_mace.shape("12 ");
-        repair_obsidian_mace.setIngredient('1', new RecipeChoice.ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
+        repair_obsidian_mace.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 31)));
         repair_obsidian_mace.setIngredient('2', Material.END_CRYSTAL);
 
 
@@ -287,7 +288,7 @@ public class RecipeManager {
         workbench.addIngredient(new RecipeChoice.MaterialChoice(Tag.LOGS));
         workbench.addIngredient(Material.LEATHER);
         workbench.addIngredient(Material.STRING);
-        workbench.addIngredient(new RecipeChoice.ExactChoice(Items.get(Items.HAMMER)));
+        workbench.addIngredient(new ExactChoice(Items.get(Items.HAMMER)));
 
 
         //  FURNACE RECIPE
@@ -296,7 +297,7 @@ public class RecipeManager {
         furnace.shape("@@@", "@*@", "@@@");
 
         furnace.setIngredient('@', Material.BRICK);
-        furnace.setIngredient('*', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
+        furnace.setIngredient('*', new ExactChoice(Items.get(Items.FIRESTRIKER)));
 
 
         //  CHEST RECIPE
@@ -314,7 +315,7 @@ public class RecipeManager {
         clay.shape("   ", "123", "   ");
         clay.setIngredient('1', Material.DIRT);
         clay.setIngredient('2', Material.SAND);
-        clay.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.WATER_BOWL)));
+        clay.setIngredient('3', new ExactChoice(Items.get(Items.WATER_BOWL)));
 
 
         //  DIORITE RECIPE
@@ -359,13 +360,13 @@ public class RecipeManager {
         ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(survival, "torch2"), new ItemStack(Material.TORCH, 16));
 
         torch1.shape("AAA", "ABA", "AAA");
-        torch1.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
+        torch1.setIngredient('B', new ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch1.setIngredient('A', Material.STICK);
         //torch1.setGroup("TORCH");
 
         torch2.shape("ACA", "ABA", "AAA");
         torch2.setIngredient('C', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
-        torch2.setIngredient('B', new RecipeChoice.ExactChoice(Items.get(Items.FIRESTRIKER)));
+        torch2.setIngredient('B', new ExactChoice(Items.get(Items.FIRESTRIKER)));
         torch2.setIngredient('A', Material.STICK);
         //torch2.setGroup("TORCH");
 
@@ -411,17 +412,17 @@ public class RecipeManager {
         ShapedRecipe bowl = new ShapedRecipe(new NamespacedKey(survival, "bowl"), new ItemStack(Material.BOWL, 1));
 
         bowl.shape("  ", " 1");
-        bowl.setIngredient('1', new RecipeChoice.ExactChoice(Items.get(Items.WATER_BOWL)));
+        bowl.setIngredient('1', new ExactChoice(Items.get(Items.WATER_BOWL)));
 
         // CLEAN WATER RECIPES
         FurnaceRecipe clean_water_furnace = new FurnaceRecipe(new NamespacedKey(survival, "clean_water_furnace"),
-                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 600);
+                Items.get(Items.CLEAN_WATER), new ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 600);
 
         SmokingRecipe clean_water_smoker = new SmokingRecipe(new NamespacedKey(survival, "clean_water_smoker"),
-                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 300);
+                Items.get(Items.CLEAN_WATER), new ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 300);
 
         CampfireRecipe clean_water_camp = new CampfireRecipe(new NamespacedKey(survival, "clean_water_campfire"),
-                Items.get(Items.CLEAN_WATER), new RecipeChoice.ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 2400);
+                Items.get(Items.CLEAN_WATER), new ExactChoice(Items.get(Items.DIRTY_WATER)), 0, 2400);
 
 
         //  MEDIC KIT RECIPE
@@ -672,21 +673,36 @@ public class RecipeManager {
         unlit_campfire.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
         unlit_campfire.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
-        // NEW STONE SICKLE RECIPE
+        // NEW FLINT SICKLE RECIPE
+        ShapedRecipe flint_sickle = new ShapedRecipe(new NamespacedKey(survival, "flint_sickle"), Items.get(Items.FLINT_SICKLE));
+
+        flint_sickle.shape("11 ", " 2 ", " 3 ");
+        flint_sickle.setIngredient('1', Material.FLINT);
+        flint_sickle.setIngredient('2', Material.STICK);
+        flint_sickle.setIngredient('3', Material.STICK);
+
+        // STONE SICKLE RECIPE
         ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(survival, "stone_sickle"), Items.get(Items.STONE_SICKLE));
 
-        stone_sickle.shape(" 1 ", " 2 ", " 3 ");
+        stone_sickle.shape("11 ", " 2 ", " 3 ");
         stone_sickle.setIngredient('1', Material.COBBLESTONE);
-        stone_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+        stone_sickle.setIngredient('2', new ExactChoice(Items.get(Items.HATCHET)));
         stone_sickle.setIngredient('3', Material.STICK);
 
         // NEW IRON SICKLE RECIPE
         ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(survival, "iron_sickle"), Items.get(Items.IRON_SICKLE));
 
-        iron_sickle.shape(" 1 ", " 2 ", " 3 ");
+        iron_sickle.shape("11 ", " 2 ", " 3 ");
         iron_sickle.setIngredient('1', Material.IRON_NUGGET);
-        iron_sickle.setIngredient('2', new RecipeChoice.ExactChoice(Items.get(Items.STONE_SICKLE)));
-        iron_sickle.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HATCHET)));
+        iron_sickle.setIngredient('2', new ExactChoice(Items.get(Items.STONE_SICKLE)));
+        iron_sickle.setIngredient('3', Material.STICK);
+
+        // NEW DIAMOND SICKLE RECIPE
+        ShapedRecipe diamond_sickle = new ShapedRecipe(new NamespacedKey(survival, "diamond_sickle"), Items.get(Items.DIAMOND_SICKLE));
+        diamond_sickle.shape("11 ", " 2 ", " 3 ");
+        diamond_sickle.setIngredient('1', Material.DIAMOND);
+        diamond_sickle.setIngredient('2', new ExactChoice(Items.get(Items.STONE_SICKLE)));
+        diamond_sickle.setIngredient('3', Material.STICK);
 
         // NEW GRAPPLING HOOK RECIPE
         ShapedRecipe grappling_hook = new ShapedRecipe(new NamespacedKey(survival, "grappling_hook"), Items.get(Items.GRAPPLING_HOOK));
@@ -701,17 +717,17 @@ public class RecipeManager {
                 Material.COCOA_BEANS, 0, 200);
 
         SmokingRecipe hot_milk = new SmokingRecipe(new NamespacedKey(survival, "hot_milk"), Items.get(Items.HOT_MILK),
-                new RecipeChoice.ExactChoice(Items.get(Items.COLD_MILK)), 0, 200);
+                new ExactChoice(Items.get(Items.COLD_MILK)), 0, 200);
 
         ItemStack COFFEE = Items.get(Items.COFFEE);
         COFFEE.setAmount(2);
         ShapedRecipe coffee = new ShapedRecipe(new NamespacedKey(survival, "coffee"), COFFEE);
 
         coffee.shape("   ", "12 ", "34 ");
-        coffee.setIngredient('1', new RecipeChoice.ExactChoice(Items.get(Items.COFFEE_BEAN)));
+        coffee.setIngredient('1', new ExactChoice(Items.get(Items.COFFEE_BEAN)));
         coffee.setIngredient('2', Material.COCOA_BEANS);
-        coffee.setIngredient('3', new RecipeChoice.ExactChoice(Items.get(Items.HOT_MILK)));
-        coffee.setIngredient('4', new RecipeChoice.ExactChoice(Items.get(Items.PURIFIED_WATER)));
+        coffee.setIngredient('3', new ExactChoice(Items.get(Items.HOT_MILK)));
+        coffee.setIngredient('4', new ExactChoice(Items.get(Items.PURIFIED_WATER)));
 
         ShapedRecipe cold_milk = new ShapedRecipe(new NamespacedKey(survival, "cold_milk"), Items.get(Items.COLD_MILK));
 
@@ -736,8 +752,16 @@ public class RecipeManager {
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(unlit_campfire);
-            survival.getServer().addRecipe(stone_sickle);
-            survival.getServer().addRecipe(iron_sickle);
+            if (settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
+                if (settings.getBoolean("Survival.Sickles.Flint"))
+                    survival.getServer().addRecipe(flint_sickle);
+                if (settings.getBoolean("Survival.Sickles.Stone"))
+                    survival.getServer().addRecipe(stone_sickle);
+                if (settings.getBoolean("Survival.Sickles.Iron"))
+                    survival.getServer().addRecipe(iron_sickle);
+                if (settings.getBoolean("Survival.Sickles.Diamond"))
+                    survival.getServer().addRecipe(diamond_sickle);
+            }
         }
         if (settings.getBoolean("Survival.Torch")) {
             survival.getServer().addRecipe(torch1);
@@ -1070,8 +1094,10 @@ public class RecipeManager {
         RECURVED_BOW("recurved_bow"),
         RECURVED_CROSSBOW("recurved_crossbow"),
         UNLIT_CAMPFIRE("unlit_campfire"),
+        FLINT_SICKLE("flint_sickle"),
         STONE_SICKLE("stone_sickle"),
         IRON_SICKLE("iron_sickle"),
+        DIAMOND_SICKLE("diamond_sickle"),
         GRAPPLING_HOOK("grappling_hook"),
         WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire" ),
         COFFEE_BEAN("coffee_bean"),

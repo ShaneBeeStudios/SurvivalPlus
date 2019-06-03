@@ -43,7 +43,7 @@ public class Survival extends JavaPlugin implements Listener {
     private static int AlertInterval = 20;
     private static List<Double> Rates = new ArrayList<>();
     /**
-     *  Instance of the language file
+     * Instance of the language file
      */
     public static Lang lang;
     public static List<Material> allowedBlocks = new ArrayList<>();
@@ -116,7 +116,6 @@ public class Survival extends JavaPlugin implements Listener {
 
         for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
             allowedBlocks.add(Material.getMaterial(type));
-
 
 
         // LOAD SCOREBOARDS
@@ -344,6 +343,7 @@ public class Survival extends JavaPlugin implements Listener {
             pm.registerEvents(new Guide(), this);
         if (settings.getBoolean("Mechanics.BurnoutTorches.Enabled")) // TODO experimental feature, not 100% sure about this
             pm.registerEvents(new BurnoutTorches(this), this);
+        pm.registerEvents(new InventoryUpdate(), this);
     }
 
     private void BlazeSword() {
@@ -414,22 +414,21 @@ public class Survival extends JavaPlugin implements Listener {
                         || offItem.getType() == Material.DIAMOND_SWORD || offItem.getType() == Material.DIAMOND_PICKAXE
                         || offItem.getType() == Material.DIAMOND_SHOVEL || offItem.getType() == Material.DIAMOND_HOE
                         || offItem.getType() == Material.BOW))
-                        ||
-                        ((offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.GOLDEN_AXE)
-                        && (mainItem.getType() == Material.WOODEN_AXE
-                        || mainItem.getType() == Material.WOODEN_SWORD || mainItem.getType() == Material.WOODEN_PICKAXE
-                        || mainItem.getType() == Material.WOODEN_SHOVEL || mainItem.getType() == Material.WOODEN_HOE
-                        || mainItem.getType() == Material.STONE_AXE || mainItem.getType() == Material.STONE_SWORD
-                        || mainItem.getType() == Material.STONE_PICKAXE || mainItem.getType() == Material.STONE_SHOVEL
-                        || mainItem.getType() == Material.STONE_HOE || mainItem.getType() == Material.IRON_AXE
-                        || mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.IRON_PICKAXE
-                        || mainItem.getType() == Material.IRON_SHOVEL || mainItem.getType() == Material.IRON_HOE
-                        || mainItem.getType() == Material.GOLDEN_AXE || mainItem.getType() == Material.GOLDEN_SWORD
-                        || mainItem.getType() == Material.GOLDEN_PICKAXE || mainItem.getType() == Material.GOLDEN_SHOVEL
-                        || mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.DIAMOND_AXE
-                        || mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.DIAMOND_PICKAXE
-                        || mainItem.getType() == Material.DIAMOND_SHOVEL || mainItem.getType() == Material.DIAMOND_HOE
-                        || mainItem.getType() == Material.BOW))) {
+                        || ((offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.GOLDEN_AXE)
+                                && (mainItem.getType() == Material.WOODEN_AXE
+                                || mainItem.getType() == Material.WOODEN_SWORD || mainItem.getType() == Material.WOODEN_PICKAXE
+                                || mainItem.getType() == Material.WOODEN_SHOVEL || mainItem.getType() == Material.WOODEN_HOE
+                                || mainItem.getType() == Material.STONE_AXE || mainItem.getType() == Material.STONE_SWORD
+                                || mainItem.getType() == Material.STONE_PICKAXE || mainItem.getType() == Material.STONE_SHOVEL
+                                || mainItem.getType() == Material.STONE_HOE || mainItem.getType() == Material.IRON_AXE
+                                || mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.IRON_PICKAXE
+                                || mainItem.getType() == Material.IRON_SHOVEL || mainItem.getType() == Material.IRON_HOE
+                                || mainItem.getType() == Material.GOLDEN_AXE || mainItem.getType() == Material.GOLDEN_SWORD
+                                || mainItem.getType() == Material.GOLDEN_PICKAXE || mainItem.getType() == Material.GOLDEN_SHOVEL
+                                || mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.DIAMOND_AXE
+                                || mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.DIAMOND_PICKAXE
+                                || mainItem.getType() == Material.DIAMOND_SHOVEL || mainItem.getType() == Material.DIAMOND_HOE
+                                || mainItem.getType() == Material.BOW))) {
                     player.removePotionEffect(PotionEffectType.SLOW);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
                     player.removePotionEffect(PotionEffectType.JUMP);
@@ -485,61 +484,61 @@ public class Survival extends JavaPlugin implements Listener {
 
     private void PlayerStatus() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                    for (Player player : getServer().getOnlinePlayers()) {
-                        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                            Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
-                            if (player.getExhaustion() >= 4) {
-                                Random rand = new Random();
-                                double chance = rand.nextDouble();
-                                thirst.setScore(thirst.getScore() - (chance <= settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0));
-                                if (thirst.getScore() < 0)
-                                    thirst.setScore(0);
-                            }
-                        }
+            for (Player player : getServer().getOnlinePlayers()) {
+                if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                    Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
+                    if (player.getExhaustion() >= 4) {
+                        Random rand = new Random();
+                        double chance = rand.nextDouble();
+                        thirst.setScore(thirst.getScore() - (chance <= settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0));
+                        if (thirst.getScore() < 0)
+                            thirst.setScore(0);
                     }
-                }, -1L, 1L);
+                }
+            }
+        }, -1L, 1L);
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                    for (Player player : getServer().getOnlinePlayers()) {
-                        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                            Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
+            for (Player player : getServer().getOnlinePlayers()) {
+                if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                    Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
 
-                            if (thirst.getScore() <= 0) {
-                                switch (player.getWorld().getDifficulty()) {
-                                    case EASY:
-                                        if (player.getHealth() > 10)
-                                            player.damage(1);
-                                        break;
-                                    case NORMAL:
-                                        if (player.getHealth() > 1)
-                                            player.damage(1);
-                                        break;
-                                    case HARD:
-                                        player.damage(1);
-                                        break;
-                                    default:
-                                }
-                            }
+                    if (thirst.getScore() <= 0) {
+                        switch (player.getWorld().getDifficulty()) {
+                            case EASY:
+                                if (player.getHealth() > 10)
+                                    player.damage(1);
+                                break;
+                            case NORMAL:
+                                if (player.getHealth() > 1)
+                                    player.damage(1);
+                                break;
+                            case HARD:
+                                player.damage(1);
+                                break;
+                            default:
                         }
                     }
-                }, -1L, 320L);
+                }
+            }
+        }, -1L, 320L);
 
         if (!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0) {
             getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                        for (Player player : getServer().getOnlinePlayers()) {
-                            if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                                int hunger = player.getFoodLevel();
-                                if (hunger <= 6) {
-                                    player.sendMessage(ChatColor.GOLD + lang.starved_eat);
-                                }
-
-                                Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
-                                if (thirst.getScore() <= 6) {
-                                    player.sendMessage(ChatColor.AQUA + lang.dehydrated_drink);
-                                }
-                            }
+                for (Player player : getServer().getOnlinePlayers()) {
+                    if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                        int hunger = player.getFoodLevel();
+                        if (hunger <= 6) {
+                            player.sendMessage(ChatColor.GOLD + lang.starved_eat);
                         }
-                    }, -1L, AlertInterval * 20);
+
+                        Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
+                        if (thirst.getScore() <= 6) {
+                            player.sendMessage(ChatColor.AQUA + lang.dehydrated_drink);
+                        }
+                    }
+                }
+            }, -1L, AlertInterval * 20);
         }
     }
 
@@ -919,9 +918,15 @@ public class Survival extends JavaPlugin implements Listener {
     }
 
     private void updateConfig() {
-        if (!settings.isSet("Mechanics.BurnoutTorches.Enabled")) {
+        if (!settings.isSet("Mechanics.BurnoutTorches.Enabled") || !settings.isSet("Survival.Sickles.Flint")) {
             settings = getConfig();
             settings.options().copyDefaults(true);
+            saveConfig();
+        }
+        if (settings.getString("MultiWorld.ResourcePackURL")
+                .equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14.zip")) {
+            settings = getConfig();
+            settings.set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip");
             saveConfig();
         }
     }

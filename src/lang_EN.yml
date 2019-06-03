@@ -192,8 +192,10 @@ hot-milk-name: "&cHot Milk"
 hot-milk-color: 15456977
 hot-milk-drink: "&cOUCH, that was hot!"
 
+flint_sickle: "&8Flint Sickle"
 stone_sickle: "&7Stone Sickle"
-iron_sickle: "&bIron Sickle"
+iron_sickle: "&3Iron Sickle"
+diamond_sickle: "&bDiamond Sickle"
 
 campfire-name: "&aCampfire"
 campfire-lore: "&bUnlit||&7Hit with a stick a few times||&7to light the campfire"

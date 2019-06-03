@@ -67,9 +67,14 @@ public enum Items {
     WATER_BOWL(Material.BEETROOT_SOUP, 1),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
+    FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    IRON_SICKLE(Material.WOODEN_HOE, 3),
+    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
+    IRON_SICKLE(Material.IRON_HOE, 1),
+    DIAMOND_SICKLE(Material.DIAMOND_HOE, 1), // Do we really want this?
+
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
+
 
     // TODO Experimental
     PERSISTENT_TORCH(Material.TORCH, 1);
@@ -669,13 +674,34 @@ public enum Items {
                 stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.stone_sickle));
                 stone_sickle.setItemMeta(stone_sickleMeta);
                 return stone_sickle;
-            case IRON_SICKLE:
-                ItemStack iron_sickle = new ItemStack(IRON_SICKLE.materialType);
+            case IRON_SICKLE_OLD:
+                ItemStack iron_sickle = new ItemStack(IRON_SICKLE_OLD.materialType);
                 ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
-                iron_sickleMeta.setCustomModelData(IRON_SICKLE.modelData);
+                iron_sickleMeta.setCustomModelData(IRON_SICKLE_OLD.modelData);
                 iron_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
                 iron_sickle.setItemMeta(iron_sickleMeta);
                 return iron_sickle;
+            case IRON_SICKLE:
+                ItemStack iron_sickle_new = new ItemStack(IRON_SICKLE.materialType);
+                ItemMeta iron_sickle_new_meta = iron_sickle_new.getItemMeta();
+                iron_sickle_new_meta.setCustomModelData(IRON_SICKLE.modelData);
+                iron_sickle_new_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
+                iron_sickle_new.setItemMeta(iron_sickle_new_meta);
+                return iron_sickle_new;
+            case FLINT_SICKLE:
+                ItemStack flint_sickle = new ItemStack(FLINT_SICKLE.materialType);
+                ItemMeta flint_sickle_meta = flint_sickle.getItemMeta();
+                flint_sickle_meta.setCustomModelData(FLINT_SICKLE.modelData);
+                flint_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.flint_sickle));
+                flint_sickle.setItemMeta(flint_sickle_meta);
+                return flint_sickle;
+            case DIAMOND_SICKLE:
+                ItemStack diamond_sickle = new ItemStack(DIAMOND_SICKLE.materialType);
+                ItemMeta diamond_sickle_meta = diamond_sickle.getItemMeta();
+                diamond_sickle_meta.setCustomModelData(DIAMOND_SICKLE.modelData);
+                diamond_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.diamond_sickle));
+                diamond_sickle.setItemMeta(diamond_sickle_meta);
+                return diamond_sickle;
             case GRAPPLING_HOOK:
                 ItemStack grappling_hook = new ItemStack(GRAPPLING_HOOK.materialType);
                 ItemMeta grappling_meta = grappling_hook.getItemMeta();
@@ -684,7 +710,6 @@ public enum Items {
                 grappling_hook.setItemMeta(grappling_meta);
                 return grappling_hook;
             case COFFEE:
-                // TODO proper lore/color/name in lang file
                 ItemStack coffee = new ItemStack(COFFEE.materialType);
                 ItemMeta coffee_meta = coffee.getItemMeta();
                 coffee_meta.setCustomModelData(COFFEE.modelData);
@@ -735,7 +760,7 @@ public enum Items {
         }
     }
 
-    /** Compare an ItemStack with a custom Item
+    /** Compare an ItemStack with a custom {@link Items}
      * <p>
      *     <b>NOTE:</b> Will only compare a custom item's Material and CustomModelData tag
      * </p>
@@ -752,6 +777,60 @@ public enum Items {
             }
         }
         return false;
+    }
+
+    /** Compare an ItemStack with several custom {@link Items}
+     * @param itemStack The ItemStack to check
+     * @param type The custom item enums to check
+     * @return Whether these items match or not
+     */
+    public static boolean compare(ItemStack itemStack, Items... type) {
+        for (Items item : type) {
+            if (compare(itemStack, item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public enum Tags {
+        /**
+         * Any sickle
+         */
+        SICKLES,
+        /**
+         * Any reinforced leather armor
+         */
+        REINFORCED_LEATHER_ARMOR,
+        /**
+         * Any water bottle
+         */
+        WATER_BOTTLE,
+        /**
+         * Any drinkable item
+         */
+        DRINKABLE;
+
+        /** Check if an ItemStack is tagged in a group of custom {@link Items}
+         * @param item ItemStack to check
+         * @return True if item matches tag
+         */
+        public boolean isTagged(ItemStack item) {
+            switch (this) {
+                case SICKLES:
+                    return Items.compare(item, FLINT_SICKLE, STONE_SICKLE, IRON_SICKLE, DIAMOND_SICKLE);
+                case REINFORCED_LEATHER_ARMOR:
+                    return Items.compare(item, REINFORCED_LEATHER_BOOTS, REINFORCED_LEATHER_TROUSERS,
+                            REINFORCED_LEATHER_TUNIC, REINFORCED_LEATHER_HELMET);
+                case WATER_BOTTLE:
+                    return Items.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER);
+                case DRINKABLE:
+                    return Items.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
+                            COLD_MILK, HOT_MILK, COFFEE);
+                default:
+                    return false;
+            }
+        }
     }
 
 }

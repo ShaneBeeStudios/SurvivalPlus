@@ -12,7 +12,7 @@ MultiWorld:
   # Enable the SurvivalPlus resource pack for players
   EnableResourcePack: true
   # The link to the pack, you can put a custom link here if need be
-  ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14.zip
+  ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip
   # Notify players when they log in if they deny the resource pack
   NotifyMessage: true
 
@@ -45,6 +45,15 @@ Survival:
     Shovel: true
     Shears: true
     Sickle: true
+
+  # Enable each sickle individually
+  # (note: if BreakOnlyWith.Sickle = false or Survival.Enabled = false, these will be ignored)
+  # (note: diamond and iron sickles rely on stone sickles in their recipe, so its best to leave stone enabled if diamond or iron are enabled)
+  Sickles:
+    Flint: true
+    Stone: true
+    Iron: true
+    Diamond: false
 
   # With this enabled, players will need a hammer in their off hand to place most buildable blocks
   PlaceOnlyWith:
