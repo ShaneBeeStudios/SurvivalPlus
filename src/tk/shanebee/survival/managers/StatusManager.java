@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Manage a player's different status levels
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class StatusManager {
 
     /**
@@ -44,6 +44,26 @@ public class StatusManager {
         return Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName()).getScore();
     }
 
+    /** Add to the thirst level of a player
+     * @param player The player to add thirst to
+     * @param level The level of thirst to add
+     */
+    public static void addThirst(Player player, int level) {
+        Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
+        int add = thirst.getScore() + level;
+        thirst.setScore(add <= 40 ? add : 40);
+    }
+
+    /** Remove from the thirst level of a player
+     * @param player The player to remove thirst from
+     * @param level The level of thirst to remove
+     */
+    public static void removeThirst(Player player, int level) {
+        Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
+        int remove = thirst.getScore() - level;
+        thirst.setScore(remove > 0 ? remove : 0);
+    }
+
     /** Set the nutrient levels of a player
      * @param player The player to set nutrients for
      * @param nutrient The nutrient to set
@@ -63,9 +83,30 @@ public class StatusManager {
         return Objects.requireNonNull(Survival.mainBoard.getObjective(nutrient.name)).getScore(player.getName()).getScore();
     }
 
+    /** Add to the nutrient levels of a player
+     * @param player The player to add nutrients for
+     * @param nutrient The nutrient to add to
+     * @param level The level to add
+     */
+    public static void addNutrients(Player player, Nutrients nutrient, int level) {
+        Score nut = Objects.requireNonNull(Survival.mainBoard.getObjective(nutrient.name)).getScore(player.getName());
+        nut.setScore(nut.getScore() + level);
+    }
+
+    /** Remove from the nutrient levels of a player
+     * @param player The player to remove nutrients for
+     * @param nutrient The nutrient to remove from
+     * @param level The level to remove
+     */
+    public static void removeNutrients(Player player, Nutrients nutrient, int level) {
+        Score nut = Objects.requireNonNull(Survival.mainBoard.getObjective(nutrient.name)).getScore(player.getName());
+        int remove = nut.getScore() - level;
+        nut.setScore(remove > 0 ? remove : 0);
+    }
+
     /** Set the fatigue level of a player
      * @param player The player to set fatigue for
-     * @param level The level to set for the player (0 - 5)
+     * @param level The level to set for the player (0 - 4)
      */
     public static void setFatigue(Player player, int level) {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
@@ -82,6 +123,15 @@ public class StatusManager {
      */
     public static int getFatigue(Player player) {
         return Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName()).getScore();
+    }
+
+    /** Increase a player's fatigue level by 1
+     * @param player The player to increase fatigue for
+     */
+    public static void increaseFatigue(Player player) {
+        Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
+        int increase = fatigue.getScore() + 1;
+        fatigue.setScore(increase > 4 ? increase : 4);
     }
 
     /** Set the hunger level of a player
