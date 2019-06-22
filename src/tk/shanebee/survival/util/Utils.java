@@ -308,6 +308,10 @@ public class Utils {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    public static void sendColoredConsoleMsg(String msg) {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+    }
+
     /** Gets a colored string
      * @param string The string including color codes
      * @return Returns a formatted string

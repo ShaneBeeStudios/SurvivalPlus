@@ -123,7 +123,7 @@ public class Metrics {
         String prefix = Utils.getColoredString(Survival.lang.prefix);
 
         if (enabled) {
-            Survival.sendColoredConsoleMsg(prefix + "&7Metrics &aenabled");
+            Utils.sendColoredConsoleMsg(prefix + "&7Metrics &aenabled");
             boolean found = false;
             // Search for all other bStats Metrics classes to see if we are the first one
             for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
@@ -140,7 +140,7 @@ public class Metrics {
                 startSubmitting();
             }
         } else {
-            Survival.sendColoredConsoleMsg(prefix + "&7Metrics &cdisabled");
+            Utils.sendColoredConsoleMsg(prefix + "&7Metrics &cdisabled");
         }
     }
 

@@ -10,17 +10,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import tk.shanebee.survival.commands.*;
-import tk.shanebee.survival.events.*;
-import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.managers.Placeholders;
-import tk.shanebee.survival.managers.RecipeManager;
-import tk.shanebee.survival.managers.ScoreBoardManager;
+import tk.shanebee.survival.listeners.*;
+import tk.shanebee.survival.managers.*;
 import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.NoPos;
@@ -36,6 +32,7 @@ public class Survival extends JavaPlugin implements Listener {
      */
     public static Survival instance;
     public static ScoreboardManager manager;
+
     public static Scoreboard board;
     public static Scoreboard mainBoard;
     public static FileConfiguration settings = new YamlConfiguration();
@@ -50,6 +47,12 @@ public class Survival extends JavaPlugin implements Listener {
     public static List<Player> usingPlayers = new ArrayList<>();
     public static boolean snowGenOption = true;
     private String prefix;
+
+    // Managers
+    private BlockManager blockManager;
+    private EffectManager effectManager;
+	private ScoreBoardManager sbm;
+	private PlayerManager playerManager;
 
     public void onEnable() {
         instance = this;
@@ -68,7 +71,7 @@ public class Survival extends JavaPlugin implements Listener {
 
         if (settings.getBoolean("NoPos")) {
             Bukkit.getPluginManager().registerEvents(new NoPos(), this);
-            sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
+            Utils.sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
         }
 
         for (World world : getServer().getWorlds()) {
@@ -80,11 +83,11 @@ public class Survival extends JavaPlugin implements Listener {
         boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
         if (resourcePack) {
             if (url.isEmpty()) {
-                sendColoredConsoleMsg(prefix + "&cResource Pack is not set! Plugin disabling");
+                Utils.sendColoredConsoleMsg(prefix + "&cResource Pack is not set! Plugin disabling");
                 Bukkit.getPluginManager().disablePlugin(this);
                 return;
             } else {
-                sendColoredConsoleMsg(prefix + "&7Resource pack &aenabled");
+                Utils.sendColoredConsoleMsg(prefix + "&7Resource pack &aenabled");
             }
         } else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
@@ -122,34 +125,30 @@ public class Survival extends JavaPlugin implements Listener {
         manager = Bukkit.getScoreboardManager();
         board = manager.getNewScoreboard();
         mainBoard = manager.getMainScoreboard();
-        ScoreBoardManager sbm = new ScoreBoardManager();
+        sbm = new ScoreBoardManager();
         sbm.loadScoreboards(board, mainBoard);
 
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
-            sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
+            Utils.sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
         }
+
+        // MANAGERS
+        blockManager = new BlockManager(this);
+        effectManager = new EffectManager(this);
+        playerManager = new PlayerManager();
 
         // REGISTER EVENTS & COMMANDS
         registerCommands();
-        registerEvents();
+        EventManager eventManager = new EventManager(this, settings);
+        eventManager.registerEvents();
 
         // LOAD CUSTOM RECIPES
         RecipeManager recipes = new RecipeManager(this, settings);
         recipes.loadCustomRecipes();
-        sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+        Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
-        if (settings.getBoolean("LegendaryItems.BlazeSword"))
-            BlazeSword();
-        if (settings.getBoolean("LegendaryItems.GiantBlade"))
-            GiantBlade();
-        if (settings.getBoolean("LegendaryItems.ObsidianMace"))
-            ObsidianMace();
-        if (settings.getBoolean("LegendaryItems.ValkyrieAxe"))
-            Valkyrie();
-        if (settings.getBoolean("LegendaryItems.QuartzPickaxe"))
-            QuartzPickaxe();
         if (settings.getBoolean("Mechanics.Thirst.Enabled"))
             PlayerStatus();
         if (settings.getBoolean("Mechanics.BedFatigueLevel"))
@@ -170,7 +169,7 @@ public class Survival extends JavaPlugin implements Listener {
     }
 
     public void onDisable() {
-        sendColoredConsoleMsg(prefix + "&eShutting down");
+        Utils.sendColoredConsoleMsg(prefix + "&eShutting down");
         getServer().getScheduler().cancelTasks(this);
         //getServer().resetRecipes(); <-- why is this even here?
         usingPlayers = new ArrayList<>();
@@ -198,21 +197,21 @@ public class Survival extends JavaPlugin implements Listener {
                 }
             }
         }
-        sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
+        Utils.sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
     }
 
     @EventHandler
     public void onServerReload(ServerLoadEvent e) {
         if (e.getType() == ServerLoadEvent.LoadType.RELOAD) {
             for (Player player : getServer().getOnlinePlayers()) {
-                sendColoredMessage(player, prefix + "&cDETECTED SERVER RELOAD");
-                sendColoredMessage(player, "    &6Recipes may have been impacted");
-                sendColoredMessage(player, "    &6Relog to update your recipes");
+                Utils.sendColoredMsg(player, prefix + "&cDETECTED SERVER RELOAD");
+				Utils.sendColoredMsg(player, "    &6Recipes may have been impacted");
+				Utils.sendColoredMsg(player, "    &6Relog to update your recipes");
             }
-            sendColoredConsoleMsg(prefix + "&cDETECTED SERVER RELOAD");
-            sendColoredConsoleMsg("    &7- &6Server reloads will impact recipes");
-            sendColoredConsoleMsg("    &7- &6Players will need to relog to re-enable custom recipes");
-            sendColoredConsoleMsg("    &7- &6A warning has been sent to each player that is online right now");
+            Utils.sendColoredConsoleMsg(prefix + "&cDETECTED SERVER RELOAD");
+            Utils.sendColoredConsoleMsg("    &7- &6Server reloads will impact recipes");
+            Utils.sendColoredConsoleMsg("    &7- &6Players will need to relog to re-enable custom recipes");
+            Utils.sendColoredConsoleMsg("    &7- &6A warning has been sent to each player that is online right now");
         }
     }
 
@@ -266,221 +265,9 @@ public class Survival extends JavaPlugin implements Listener {
         getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
     }
 
-    private void registerEvents() {
-        PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(this, this);
-        pm.registerEvents(new RecipeDiscovery(), this);
 
-        if (settings.getBoolean("Survival.Enabled")) {
-            pm.registerEvents(new BlockBreak(), this);
-            pm.registerEvents(new BlockPlace(), this);
-            pm.registerEvents(new FirestrikerClick(), this);
-            pm.registerEvents(new ShivPoison(), this);
-            pm.registerEvents(new WaterBowl(), this);
-            pm.registerEvents(new Campfire(), this);
-            //pm.registerEvents(new Backpack(), this);
-        }
-        pm.registerEvents(new NoAnvil(), this);
-        if (settings.getBoolean("Mechanics.Bow"))
-            pm.registerEvents(new Bow(), this);
-        if (settings.getBoolean("Mechanics.GrapplingHook"))
-            pm.registerEvents(new GrapplingHook(), this);
-        if (settings.getBoolean("LegendaryItems.ObsidianMace"))
-            pm.registerEvents(new ObsidianMaceWeakness(), this);
-        if (settings.getBoolean("LegendaryItems.ValkyrieAxe"))
-            pm.registerEvents(new Valkyrie(), this);
-        if (settings.getBoolean("LegendaryItems.GiantBlade"))
-            pm.registerEvents(new GiantBlade(), this);
-        if (settings.getBoolean("LegendaryItems.BlazeSword"))
-            pm.registerEvents(new BlazeSword(), this);
-        if (LocalChatDist > -1)
-            pm.registerEvents(new LocalChat(), this);
-        if (settings.getBoolean("Mechanics.CompassWaypoint"))
-            pm.registerEvents(new CompassWaypoint(), this);
-        if (settings.getBoolean("Mechanics.MedicalKit"))
-            pm.registerEvents(new MedicKit(), this);
 
-        pm.registerEvents(new WaterBottleCrafting(), this);
-        pm.registerEvents(new SpecialItemInteractCancel(), this);
 
-        pm.registerEvents(new SetResourcePack(), this);
-
-        if (settings.getBoolean("Mechanics.RawMeatHunger"))
-            pm.registerEvents(new RawMeatHunger(), this);
-        if (settings.getBoolean("Mechanics.Thirst.Enabled")) {
-            pm.registerEvents(new Consume(), this);
-            if (settings.getBoolean("Mechanics.Thirst.PurifyWater"))
-                pm.registerEvents(new CauldronWaterBottle(), this);
-        }
-        if (settings.getBoolean("Mechanics.PoisonousPotato"))
-            pm.registerEvents(new PoisonousPotato(), this);
-        if (settings.getBoolean("Mechanics.SharedWorkbench"))
-            pm.registerEvents(new WorkbenchShare(), this);
-        if (settings.getBoolean("Mechanics.Chairs.Enabled"))
-            pm.registerEvents(new Chairs(), this);
-        if (settings.getBoolean("Mechanics.CookieHealthBoost"))
-            pm.registerEvents(new CookieHealthBoost(), this);
-        if (settings.getBoolean("Mechanics.BeetrootStrength"))
-            pm.registerEvents(new BeetrootStrength(), this);
-        if (settings.getBoolean("Mechanics.Clownfish"))
-            pm.registerEvents(new Clownfish(), this);
-        if (settings.getBoolean("Mechanics.LivingSlime"))
-            pm.registerEvents(new LivingSlime(), this);
-        if (settings.getBoolean("Mechanics.BedFatigueLevel"))
-            pm.registerEvents(new BedFatigue(), this);
-        if (settings.getBoolean("Mechanics.FoodDiversity"))
-            pm.registerEvents(new FoodDiversityConsume(), this);
-        if (settings.getBoolean("Mechanics.RecurveBow"))
-            pm.registerEvents(new RecurvedBow(), this);
-        if (settings.getBoolean("Mechanics.StatusScoreboard"))
-            pm.registerEvents(new ScoreboardStats(), this);
-        if (settings.getBoolean("Mechanics.SnowballRevamp"))
-            pm.registerEvents(new SnowballThrow(), this);
-        if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
-            pm.registerEvents(new SnowGeneration(), this);
-        pm.registerEvents(new ChickenSpawn(), this);
-        if (settings.getBoolean("WelcomeGuide.Enabled"))
-            pm.registerEvents(new Guide(), this);
-        if (settings.getBoolean("Mechanics.BurnoutTorches.Enabled")) // TODO experimental feature, not 100% sure about this
-            pm.registerEvents(new BurnoutTorches(this), this);
-        pm.registerEvents(new InventoryUpdate(), this);
-    }
-
-    private void BlazeSword() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
-                    player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false));
-                    Location particleLoc = player.getLocation();
-                    particleLoc.setY(particleLoc.getY() + 1);
-                    assert particleLoc.getWorld() != null;
-                    particleLoc.getWorld().spawnParticle(Particle.FLAME, particleLoc, 10, 0.5, 0.5, 0.5);
-
-                    player.setFireTicks(20);
-                    if (player.getHealth() > 14)
-                        player.setHealth(14);
-                }
-            }
-        }, 1L, 10L);
-
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
-                    Random rand = new Random();
-                    assert player.getLocation().getWorld() != null;
-                    player.getLocation().getWorld().playSound(
-                            player.getLocation(), Sound.ENTITY_BLAZE_AMBIENT, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-                }
-            }
-        }, 1L, 50L);
-    }
-
-    private void GiantBlade() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                ItemStack mainItem = player.getInventory().getItemInMainHand();
-                ItemStack offItem = player.getInventory().getItemInOffHand();
-                if (Items.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
-                    Location particleLoc = player.getLocation();
-                    particleLoc.setY(particleLoc.getY() + 1);
-                    assert particleLoc.getWorld() != null;
-                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
-                }
-
-                if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
-                    player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false));
-                    Location particleLoc = player.getLocation();
-                    particleLoc.setY(particleLoc.getY() + 1);
-                    assert particleLoc.getWorld() != null;
-                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
-                }
-
-                Score dualWield = board.getObjective("DualWield").getScore(player.getName());
-
-                if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
-                        && (offItem.getType() == Material.WOODEN_AXE
-                        || offItem.getType() == Material.WOODEN_SWORD || offItem.getType() == Material.WOODEN_PICKAXE
-                        || offItem.getType() == Material.WOODEN_SHOVEL || offItem.getType() == Material.WOODEN_HOE
-                        || offItem.getType() == Material.STONE_AXE || offItem.getType() == Material.STONE_SWORD
-                        || offItem.getType() == Material.STONE_PICKAXE || offItem.getType() == Material.STONE_SHOVEL
-                        || offItem.getType() == Material.STONE_HOE || offItem.getType() == Material.IRON_AXE
-                        || offItem.getType() == Material.IRON_SWORD || offItem.getType() == Material.IRON_PICKAXE
-                        || offItem.getType() == Material.IRON_SHOVEL || offItem.getType() == Material.IRON_HOE
-                        || offItem.getType() == Material.GOLDEN_AXE || offItem.getType() == Material.GOLDEN_SWORD
-                        || offItem.getType() == Material.GOLDEN_PICKAXE || offItem.getType() == Material.GOLDEN_SHOVEL
-                        || offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.DIAMOND_AXE
-                        || offItem.getType() == Material.DIAMOND_SWORD || offItem.getType() == Material.DIAMOND_PICKAXE
-                        || offItem.getType() == Material.DIAMOND_SHOVEL || offItem.getType() == Material.DIAMOND_HOE
-                        || offItem.getType() == Material.BOW))
-                        || ((offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.GOLDEN_AXE)
-                                && (mainItem.getType() == Material.WOODEN_AXE
-                                || mainItem.getType() == Material.WOODEN_SWORD || mainItem.getType() == Material.WOODEN_PICKAXE
-                                || mainItem.getType() == Material.WOODEN_SHOVEL || mainItem.getType() == Material.WOODEN_HOE
-                                || mainItem.getType() == Material.STONE_AXE || mainItem.getType() == Material.STONE_SWORD
-                                || mainItem.getType() == Material.STONE_PICKAXE || mainItem.getType() == Material.STONE_SHOVEL
-                                || mainItem.getType() == Material.STONE_HOE || mainItem.getType() == Material.IRON_AXE
-                                || mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.IRON_PICKAXE
-                                || mainItem.getType() == Material.IRON_SHOVEL || mainItem.getType() == Material.IRON_HOE
-                                || mainItem.getType() == Material.GOLDEN_AXE || mainItem.getType() == Material.GOLDEN_SWORD
-                                || mainItem.getType() == Material.GOLDEN_PICKAXE || mainItem.getType() == Material.GOLDEN_SHOVEL
-                                || mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.DIAMOND_AXE
-                                || mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.DIAMOND_PICKAXE
-                                || mainItem.getType() == Material.DIAMOND_SHOVEL || mainItem.getType() == Material.DIAMOND_HOE
-                                || mainItem.getType() == Material.BOW))) {
-                    player.removePotionEffect(PotionEffectType.SLOW);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
-                    player.removePotionEffect(PotionEffectType.JUMP);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true));
-                    dualWield.setScore(1);
-                } else {
-                    dualWield.setScore(0);
-                }
-            }
-        }, 1L, 10L);
-
-    }
-
-    private void ObsidianMace() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (Items.compare(player.getInventory().getItemInMainHand(), Items.OBSIDIAN_MACE)) {
-                    player.removePotionEffect(PotionEffectType.SLOW);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
-                    Location particleLoc = player.getLocation();
-                    particleLoc.setY(particleLoc.getY() + 1);
-                    assert particleLoc.getWorld() != null;
-                    particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
-                    particleLoc.getWorld().spawnParticle(Particle.PORTAL, particleLoc, 20, 0.5, 0.5, 0.5);
-                }
-            }
-        }, 1L, 10L);
-    }
-
-    private void Valkyrie() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (Items.compare(player.getInventory().getItemInMainHand(), Items.VALKYRIES_AXE)) {
-                    Location particleLoc = player.getLocation();
-                    particleLoc.setY(particleLoc.getY() + 1);
-                    assert particleLoc.getWorld() != null;
-                    particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
-                }
-            }
-        }, 1L, 10L);
-    }
-
-    private void QuartzPickaxe() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (Items.compare(player.getInventory().getItemInMainHand(), Items.QUARTZ_PICKAXE)) {
-                    player.removePotionEffect(PotionEffectType.FAST_DIGGING);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, 9, false));
-                }
-            }
-        }, 1L, 10L);
-    }
 
     private void PlayerStatus() {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
@@ -800,7 +587,7 @@ public class Survival extends JavaPlugin implements Listener {
     private void ResetStatusScoreboard(boolean enabled) {
         for (Player player : getServer().getOnlinePlayers()) {
             if (enabled)
-                ScoreboardStats.SetupScorebard(player);
+                sbm.setupScorebard(player);
             else
                 player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         }
@@ -909,14 +696,6 @@ public class Survival extends JavaPlugin implements Listener {
         return backpackSlot;
     }
 
-    public static void sendColoredMessage(Player player, String msg) {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-    }
-
-    public static void sendColoredConsoleMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-    }
-
     private void updateConfig() {
         if (!settings.isSet("Mechanics.BurnoutTorches.Enabled") || !settings.isSet("Survival.Sickles.Flint")) {
             settings = getConfig();
@@ -929,6 +708,25 @@ public class Survival extends JavaPlugin implements Listener {
             settings.set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip");
             saveConfig();
         }
+    }
+
+    /** Get the block manager
+     * @return Instance of the block manager
+     */
+    public BlockManager getBlockManager() {
+        return this.blockManager;
+    }
+
+    public EffectManager getEffectManager() {
+        return this.effectManager;
+    }
+
+    public ScoreBoardManager getScoreboardManager() {
+    	return this.sbm;
+	}
+
+	public PlayerManager getPlayerManager() {
+        return this.playerManager;
     }
 
 }

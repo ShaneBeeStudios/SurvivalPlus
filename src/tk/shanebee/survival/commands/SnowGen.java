@@ -9,9 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.events.SnowGeneration;
+import tk.shanebee.survival.listeners.SnowGeneration;
 
 public class SnowGen implements CommandExecutor {
 
