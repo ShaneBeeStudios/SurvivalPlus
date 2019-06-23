@@ -1,5 +1,6 @@
 package tk.shanebee.survival.listeners;
 
+import tk.shanebee.survival.events.WaterBowlFillEvent;
 import tk.shanebee.survival.managers.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,6 +36,9 @@ class WaterBowl implements Listener {
 				if (itemDrop.getItemStack().getAmount() != 1) return;
 				Location itemLocation = itemDrop.getLocation();
 				if (itemLocation.getBlock().getType() == Material.WATER) {
+					WaterBowlFillEvent bowlFillEvent = new WaterBowlFillEvent(itemDrop.getItemStack());
+					Bukkit.getPluginManager().callEvent(bowlFillEvent);
+					if (bowlFillEvent.isCancelled()) return;
 					itemDrop.remove();
 					itemDrop.getWorld().dropItem(itemLocation, Items.get(Items.WATER_BOWL));
 				}
