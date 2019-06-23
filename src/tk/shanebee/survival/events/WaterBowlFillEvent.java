@@ -5,6 +5,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Called when a player fills a water bowl
+ */
 @SuppressWarnings("unused")
 public class WaterBowlFillEvent extends Event implements Cancellable {
 
@@ -17,6 +20,9 @@ public class WaterBowlFillEvent extends Event implements Cancellable {
 		this.isCancelled = false;
 	}
 
+	/** Get the bowl the player filled
+	 * @return The bowl
+	 */
 	public ItemStack getWaterBowl() {
 		return this.item;
 	}
