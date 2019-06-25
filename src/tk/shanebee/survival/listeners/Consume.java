@@ -24,6 +24,11 @@ import java.util.Random;
 class Consume implements Listener {
 
 	private Objective thirst = Survival.mainBoard.getObjective("Thirst");
+	private Survival plugin;
+
+	Consume(Survival plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {
@@ -96,8 +101,8 @@ class Consume implements Listener {
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
 			if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-				player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " + Survival.ShowHunger(player).get(0).toUpperCase());
-				player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " + Survival.ShowThirst(player).get(0).toUpperCase());
+				player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " + plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
+				player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " + plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 			}
 		}, 1L);
 	}

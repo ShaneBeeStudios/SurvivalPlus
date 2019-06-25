@@ -12,7 +12,7 @@ import tk.shanebee.survival.Survival;
 public class SnowGeneration implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	private void chunkLoad(final ChunkLoadEvent event) {
-		if (Survival.snowGenOption) {
+		if (Survival.instance.snowGenOption) {
 			if (event.isNewChunk()) {
 				Bukkit.getScheduler().runTask(Survival.instance, () -> checkChunk(event.getChunk()));
 			}
@@ -40,7 +40,7 @@ public class SnowGeneration implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	private void snowForm(final BlockFormEvent event) {
-		if (Survival.snowGenOption) {
+		if (Survival.instance.snowGenOption) {
 			if (event.getNewState().getType() != Material.SNOW)
 				return;
 

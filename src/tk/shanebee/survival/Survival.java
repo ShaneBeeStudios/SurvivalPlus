@@ -8,22 +8,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.*;
+import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.commands.*;
-import tk.shanebee.survival.listeners.*;
+import tk.shanebee.survival.listeners.EventManager;
 import tk.shanebee.survival.managers.*;
 import tk.shanebee.survival.metrics.Metrics;
+import tk.shanebee.survival.tasks.TaskManager;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.NoPos;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
@@ -31,13 +29,12 @@ public class Survival extends JavaPlugin implements Listener {
      * Instance of this plugin
      */
     public static Survival instance;
-    public static ScoreboardManager manager;
 
     public static Scoreboard board;
     public static Scoreboard mainBoard;
     public static FileConfiguration settings = new YamlConfiguration();
     public static int LocalChatDist = 64;
-    private static int AlertInterval = 20;
+    private int AlertInterval = 20;
     private static List<Double> Rates = new ArrayList<>();
     /**
      * Instance of the language file
@@ -45,14 +42,15 @@ public class Survival extends JavaPlugin implements Listener {
     public static Lang lang;
     public static List<Material> allowedBlocks = new ArrayList<>();
     public static List<Player> usingPlayers = new ArrayList<>();
-    public static boolean snowGenOption = true;
+    public boolean snowGenOption = true;
     private String prefix;
 
     // Managers
     private BlockManager blockManager;
     private EffectManager effectManager;
-	private ScoreBoardManager sbm;
+	private ScoreBoardManager scoreBoardManager;
 	private PlayerManager playerManager;
+	private TaskManager taskManager;
 
     public void onEnable() {
         instance = this;
@@ -92,7 +90,6 @@ public class Survival extends JavaPlugin implements Listener {
         } else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
         LocalChatDist = settings.getInt("LocalChatDist");
-
         AlertInterval = settings.getInt("Mechanics.AlertInterval");
         if (AlertInterval <= 0) {
             Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "AlertInterval cannot be zero or below! Plugin disabled.");
@@ -122,11 +119,11 @@ public class Survival extends JavaPlugin implements Listener {
 
 
         // LOAD SCOREBOARDS
-        manager = Bukkit.getScoreboardManager();
-        board = manager.getNewScoreboard();
-        mainBoard = manager.getMainScoreboard();
-        sbm = new ScoreBoardManager();
-        sbm.loadScoreboards(board, mainBoard);
+        board = Bukkit.getScoreboardManager().getNewScoreboard();
+        mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
+        scoreBoardManager = new ScoreBoardManager(this);
+        scoreBoardManager.loadScoreboards(board, mainBoard);
+        scoreBoardManager.resetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
 
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -137,7 +134,8 @@ public class Survival extends JavaPlugin implements Listener {
         // MANAGERS
         blockManager = new BlockManager(this);
         effectManager = new EffectManager(this);
-        playerManager = new PlayerManager();
+        playerManager = new PlayerManager(this);
+        taskManager = new TaskManager(this);
 
         // REGISTER EVENTS & COMMANDS
         registerCommands();
@@ -150,12 +148,11 @@ public class Survival extends JavaPlugin implements Listener {
         Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
         if (settings.getBoolean("Mechanics.Thirst.Enabled"))
-            PlayerStatus();
+            taskManager.playerStatus();
         if (settings.getBoolean("Mechanics.BedFatigueLevel"))
-            DaysNoSleep();
+            taskManager.daysNoSleep();
         if (settings.getBoolean("Mechanics.FoodDiversity"))
-            FoodDiversity();
-        ResetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
+            taskManager.foodDiversity();
 
         // Load metrics
         @SuppressWarnings("unused")
@@ -201,7 +198,7 @@ public class Survival extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onServerReload(ServerLoadEvent e) {
+    private void onServerReload(ServerLoadEvent e) {
         if (e.getType() == ServerLoadEvent.LoadType.RELOAD) {
             for (Player player : getServer().getOnlinePlayers()) {
                 Utils.sendColoredMsg(player, prefix + "&cDETECTED SERVER RELOAD");
@@ -215,485 +212,19 @@ public class Survival extends JavaPlugin implements Listener {
         }
     }
 
-    public static Location lookAt(Location loc, Location lookat) {
-        //Clone the loc to prevent applied changes to the input loc
-        loc = loc.clone();
-
-        // Values of change in distance (make it relative)
-        double dx = lookat.getX() - loc.getX();
-        double dy = lookat.getY() - loc.getY();
-        double dz = lookat.getZ() - loc.getZ();
-
-        // Set yaw
-        if (dx != 0) {
-            // Set yaw start value based on dx
-            if (dx < 0)
-                loc.setYaw((float) (1.5 * Math.PI));
-            else
-                loc.setYaw((float) (0.5 * Math.PI));
-
-            loc.setYaw(loc.getYaw() - (float) Math.atan(dz / dx));
-        } else if (dz < 0)
-            loc.setYaw((float) Math.PI);
-
-        // Get the distance from dx/dz
-        double dxz = Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2));
-
-        // Set pitch
-        loc.setPitch((float) -Math.atan(dy / dxz));
-
-        // Set values, convert to degrees (invert the yaw since Bukkit uses a different yaw dimension format)
-        loc.setYaw(-loc.getYaw() * 180f / (float) Math.PI);
-        loc.setPitch(loc.getPitch() * 180f / (float) Math.PI);
-
-        return loc;
-    }
-
     private void registerCommands() {
         getCommand("recipes").setExecutor(new Recipes());
         getCommand("togglechat").setExecutor(new ToggleChat());
         getCommand("togglechat").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
-        getCommand("status").setExecutor(new Status());
+        getCommand("status").setExecutor(new Status(this));
         getCommand("reload-survival").setExecutor(new Reload());
         getCommand("reload-survival").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
-        if (settings.getBoolean("Mechanics.SnowGenerationRevamp"))
+        if (settings.getBoolean("Mechanics.SnowGenerationRevamp")) {
             getCommand("snowgen").setExecutor(new SnowGen());
-        getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
-
-
+            getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+        }
         getCommand("giveitem").setExecutor(new GiveItem());
         getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
-    }
-
-
-
-
-
-    private void PlayerStatus() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                    Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
-                    if (player.getExhaustion() >= 4) {
-                        Random rand = new Random();
-                        double chance = rand.nextDouble();
-                        thirst.setScore(thirst.getScore() - (chance <= settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0));
-                        if (thirst.getScore() < 0)
-                            thirst.setScore(0);
-                    }
-                }
-            }
-        }, -1L, 1L);
-
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                    Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
-
-                    if (thirst.getScore() <= 0) {
-                        switch (player.getWorld().getDifficulty()) {
-                            case EASY:
-                                if (player.getHealth() > 10)
-                                    player.damage(1);
-                                break;
-                            case NORMAL:
-                                if (player.getHealth() > 1)
-                                    player.damage(1);
-                                break;
-                            case HARD:
-                                player.damage(1);
-                                break;
-                            default:
-                        }
-                    }
-                }
-            }
-        }, -1L, 320L);
-
-        if (!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0) {
-            getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                for (Player player : getServer().getOnlinePlayers()) {
-                    if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                        int hunger = player.getFoodLevel();
-                        if (hunger <= 6) {
-                            player.sendMessage(ChatColor.GOLD + lang.starved_eat);
-                        }
-
-                        Score thirst = mainBoard.getObjective("Thirst").getScore(player.getName());
-                        if (thirst.getScore() <= 6) {
-                            player.sendMessage(ChatColor.AQUA + lang.dehydrated_drink);
-                        }
-                    }
-                }
-            }, -1L, AlertInterval * 20);
-        }
-    }
-
-    private void FoodDiversity() {
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                    for (Player player : getServer().getOnlinePlayers()) {
-                        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                            Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
-                            Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
-                            Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
-                            if (player.getExhaustion() >= 4) {
-                                carbon.setScore(carbon.getScore() - 8);
-                                if (carbon.getScore() < 0)
-                                    carbon.setScore(0);
-
-                                protein.setScore(protein.getScore() - 2);
-                                if (protein.getScore() < 0)
-                                    protein.setScore(0);
-
-                                salts.setScore(salts.getScore() - 3);
-                                if (salts.getScore() < 0)
-                                    salts.setScore(0);
-                            }
-                        }
-                    }
-                },
-                -1L, 1L);
-
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                    for (Player player : getServer().getOnlinePlayers()) {
-                        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                            Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
-                            Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
-                            Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
-
-                            if (carbon.getScore() <= 0) {
-                                switch (player.getWorld().getDifficulty()) {
-                                    case EASY:
-                                        player.setExhaustion(player.getExhaustion() + 2);
-                                        break;
-                                    case NORMAL:
-                                        player.setExhaustion(player.getExhaustion() + 4);
-                                        break;
-                                    case HARD:
-                                        player.setExhaustion(player.getExhaustion() + 8);
-                                        break;
-                                    default:
-                                }
-                            }
-
-                            if (salts.getScore() <= 0) {
-                                player.setExhaustion(player.getExhaustion() + 1);
-                                switch (player.getWorld().getDifficulty()) {
-                                    case NORMAL:
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 0), true);
-                                        break;
-                                    case HARD:
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 1), true);
-                                        break;
-                                    default:
-                                }
-                            }
-
-                            if (protein.getScore() <= 0) {
-                                player.setExhaustion(player.getExhaustion() + 1);
-                                switch (player.getWorld().getDifficulty()) {
-                                    case NORMAL:
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 0), true);
-                                        break;
-                                    case HARD:
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 1), true);
-                                        break;
-                                    default:
-                                }
-                            }
-                        }
-                    }
-                },
-                -1L, 320L);
-
-        if (!settings.getBoolean("Mechanics.StatusScoreboard") && AlertInterval > 0) {
-            getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                        for (Player player : getServer().getOnlinePlayers()) {
-                            if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                                Score carbon = mainBoard.getObjective("Carbs").getScore(player.getName());
-                                Score protein = mainBoard.getObjective("Protein").getScore(player.getName());
-                                Score salts = mainBoard.getObjective("Salts").getScore(player.getName());
-
-                                if (carbon.getScore() <= 480) {
-                                    player.sendMessage(ChatColor.DARK_GREEN + lang.carbohydrates_lack);
-                                }
-
-                                if (salts.getScore() <= 180) {
-                                    player.sendMessage(ChatColor.BLUE + lang.vitamins_lack);
-                                }
-
-                                if (protein.getScore() <= 120) {
-                                    player.sendMessage(ChatColor.DARK_RED + lang.protein_lack);
-                                }
-                            }
-                        }
-                    },
-                    -1L, AlertInterval * 20);
-        }
-    }
-
-    public static List<String> ShowThirst(Player player) {
-        Objective thirst = Survival.mainBoard.getObjective("Thirst");
-        StringBuilder thirstBar = new StringBuilder();
-        for (int i = 0; i < thirst.getScore(player.getName()).getScore(); i++) {
-            thirstBar.append("|");
-        }
-        for (int i = thirst.getScore(player.getName()).getScore(); i < 20; i++) {
-            thirstBar.append(".");
-        }
-
-        if (thirst.getScore(player.getName()).getScore() >= 40)
-            thirstBar.insert(0, ChatColor.GREEN);
-        else if (thirst.getScore(player.getName()).getScore() <= 6)
-            thirstBar.insert(0, ChatColor.RED);
-        else
-            thirstBar.insert(0, ChatColor.AQUA);
-
-        return Arrays.asList(ChatColor.AQUA + lang.thirst, (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)),
-                thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
-    }
-
-    public static List<String> ShowHunger(Player player) {
-        int hunger = player.getFoodLevel();
-        int saturation = Math.round(player.getSaturation());
-        StringBuilder hungerBar = new StringBuilder();
-        StringBuilder saturationBar = new StringBuilder(ChatColor.YELLOW + "");
-        for (int i = 0; i < hunger; i++) {
-            hungerBar.append("|");
-        }
-        for (int i = hunger; i < 20; i++) {
-            hungerBar.append(".");
-        }
-        for (int i = 0; i < saturation; i++) {
-            saturationBar.append("|");
-        }
-
-        if (hunger >= 20)
-            hungerBar.insert(0, ChatColor.GREEN);
-        else if (hunger <= 6)
-            hungerBar.insert(0, ChatColor.RED);
-        else
-            hungerBar.insert(0, ChatColor.GOLD);
-
-        return Arrays.asList(ChatColor.GOLD + lang.hunger, hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
-    }
-
-    public static List<String> ShowNutrients(Player player) {
-        List<String> nutrients = new ArrayList<>();
-        int carbon = mainBoard.getObjective("Carbs").getScore(player.getName()).getScore();
-        int protein = mainBoard.getObjective("Protein").getScore(player.getName()).getScore();
-        int salts = mainBoard.getObjective("Salts").getScore(player.getName()).getScore();
-
-        String showCarbon = Integer.toString(carbon);
-        if (carbon >= 480)
-            showCarbon = ChatColor.GREEN + showCarbon;
-        else
-            showCarbon = ChatColor.RED + showCarbon;
-        nutrients.add(showCarbon + " " + ChatColor.DARK_GREEN + lang.carbohydrates);
-
-        String showProtein = Integer.toString(protein);
-        if (protein >= 120)
-            showProtein = ChatColor.GREEN + showProtein;
-        else
-            showProtein = ChatColor.RED + showProtein;
-        nutrients.add(showProtein + " " + ChatColor.DARK_RED + lang.protein);
-
-        String showSalts = Integer.toString(salts);
-        if (salts >= 180)
-            showSalts = ChatColor.GREEN + showSalts;
-        else
-            showSalts = ChatColor.RED + showSalts;
-        nutrients.add(showSalts + " " + ChatColor.BLUE + lang.vitamins);
-
-        return nutrients;
-    }
-
-    public static String ShowFatigue(Player player) {
-        int fatigue = mainBoard.getObjective("Fatigue").getScore(player.getName()).getScore();
-
-        if (fatigue <= 0)
-            return ChatColor.YELLOW + lang.energized;
-        else if (fatigue == 1)
-            return ChatColor.LIGHT_PURPLE + lang.sleepy;
-        else if (fatigue == 2)
-            return ChatColor.RED + lang.overworked;
-        else if (fatigue == 3)
-            return ChatColor.WHITE + lang.distressed;
-        else return ChatColor.DARK_GRAY + lang.collapsed_1;
-    }
-
-    private void DaysNoSleep() {
-        final Objective fatigue = mainBoard.getObjective("Fatigue");
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-
-                    //if(overworld.getTime() >= 14000 && overworld.getTime() < 22000)
-                    //{
-                    if (fatigue.getScore(player.getName()).getScore() == 1)
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0), true);
-                    else if (fatigue.getScore(player.getName()).getScore() == 2) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 50, 0), true);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10, 0), true);
-                    } else if (fatigue.getScore(player.getName()).getScore() == 3) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 0), true);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0), true);
-                    } else if (fatigue.getScore(player.getName()).getScore() >= 4) {
-                        player.damage(100);
-                    }
-                    //}
-                    World overworld = player.getWorld();
-
-                    int fatigueLevel = settings.getInt("Mechanics.FatigueLevelIncreaseChance");
-                    int random = new Random().nextInt(100) + 1;
-
-                    if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
-                            player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000 && random <= fatigueLevel &&
-                            Utils.getMinutesPlayed(player) >= 15) {
-                        fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
-
-                        if (fatigue.getScore(player.getName()).getScore() == 1)
-                            Utils.sendColoredMsg(player, lang.feeling_sleepy_1);
-                        else if (fatigue.getScore(player.getName()).getScore() == 2)
-                            Utils.sendColoredMsg(player, lang.feeling_sleepy_2);
-                        else if (fatigue.getScore(player.getName()).getScore() == 3)
-                            Utils.sendColoredMsg(player, lang.feeling_sleepy_3);
-                        else if (fatigue.getScore(player.getName()).getScore() >= 4)
-                            Utils.sendColoredMsg(player, lang.collapsed_2);
-                    }
-                }
-            }
-        }, -1, 100);
-
-        int refreshTime = settings.getInt("Mechanics.BedFatigueRefreshTime");
-
-        if (refreshTime >= 1) {
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                for (Player player : getServer().getOnlinePlayers()) {
-                    if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                        if (player.isSleeping()) {
-                            if (fatigue.getScore(player.getName()).getScore() >= 1) {
-                                fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() - 1);
-                                Utils.sendColoredMsg(player, Utils.getColoredString(Survival.lang.energy_rising));
-                            }
-                        }
-                    }
-                }
-            }, -1, 20 * refreshTime);
-        }
-    }
-
-    private void ResetStatusScoreboard(boolean enabled) {
-        for (Player player : getServer().getOnlinePlayers()) {
-            if (enabled)
-                sbm.setupScorebard(player);
-            else
-                player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private void BackpackCheck() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            for (Player player : getServer().getOnlinePlayers()) {
-                @SuppressWarnings("MismatchedReadAndWriteOfArray") ItemStack[] backpacks = new ItemStack[3];
-                backpacks[0] = player.getInventory().getItem(19);
-                backpacks[1] = player.getInventory().getItem(22);
-                backpacks[2] = player.getInventory().getItem(25);
-
-                int[] backpackSlots = new int[]{19, 22, 25};
-
-                int[][] collection = new int[][]
-                        {
-                                {9, 10, 11, 18, 20, 27, 28, 29},
-                                {12, 13, 14, 21, 23, 30, 31, 32},
-                                {15, 16, 17, 24, 26, 33, 34, 35}
-                        };
-
-                for (int i = 0; i < 3; i++) {
-                    ItemStack backpackItem = player.getInventory().getItem(backpackSlots[i]);
-
-                    if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-                        if (backpackItem == null || backpackItem.getType() == Material.AIR) {
-                            player.getInventory().setItem(backpackSlots[i], GetLockedSlotItem());
-                        }
-
-                        if (backpackItem != null && backpackItem.getType() == Material.WOODEN_HOE) {
-                            for (int j = 0; j < 8; j++) {
-                                ItemStack item = player.getInventory().getItem(collection[i][j]);
-
-                                if (CheckIfLockedSlot(item)) {
-                                    player.getInventory().clear(collection[i][j]);
-                                }
-                            }
-                        } else {
-                            for (int j = 0; j < 8; j++) {
-                                ItemStack item = player.getInventory().getItem(collection[i][j]);
-                                if (item != null && !CheckIfLockedSlot(item)) {
-                                    player.getWorld().dropItem(player.getLocation(), item);
-                                }
-
-                                player.getInventory().setItem(collection[i][j], GetLockedSlotItem());
-                            }
-                        }
-                    } else {
-                        for (int j = 0; j < 8; j++) {
-                            ItemStack item = player.getInventory().getItem(collection[i][j]);
-
-                            if (CheckIfLockedSlot(item)) {
-                                player.getInventory().clear(collection[i][j]);
-                            }
-                        }
-                    }
-                }
-            }
-        }, -1, 100);
-    }
-
-    public static boolean CheckIfLockedSlot(ItemStack item) {
-        if (item != null && item.getType() == Material.BARRIER) {
-            ItemMeta meta = item.getItemMeta();
-
-            List<String> lore = meta.getLore();
-            return lore != null;
-        }
-
-        return false;
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    static ItemStack GetLockedSlotItem() {
-        ItemStack lockedSlot = new ItemStack(Material.BARRIER);
-        ItemMeta meta = lockedSlot.getItemMeta();
-
-        meta.setDisplayName(ChatColor.RESET + lang.locked);
-
-        List<String> lore = Collections.singletonList(
-                ChatColor.RESET + "" + ChatColor.GRAY + lang.missing_component
-        );
-        meta.setLore(lore);
-
-        lockedSlot.setItemMeta(meta);
-
-        return lockedSlot;
-    }
-
-    @SuppressWarnings("unused")
-    public static ItemStack GetBackpackSlotUIItem() {
-        ItemStack backpackSlot = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemMeta meta = backpackSlot.getItemMeta();
-
-        meta.setDisplayName(ChatColor.RESET + " ");
-
-        List<String> lore = Collections.singletonList(
-                ChatColor.RESET + "" + ChatColor.GRAY + "backpack"
-        );
-        meta.setLore(lore);
-
-        backpackSlot.setItemMeta(meta);
-
-        return backpackSlot;
     }
 
     private void updateConfig() {
@@ -710,6 +241,13 @@ public class Survival extends JavaPlugin implements Listener {
         }
     }
 
+	/** Get instance of this plugin
+	 * @return Instance of this plugin
+	 */
+	public static Survival getInstance() {
+		return instance;
+	}
+
     /** Get the block manager
      * @return Instance of the block manager
      */
@@ -717,16 +255,37 @@ public class Survival extends JavaPlugin implements Listener {
         return this.blockManager;
     }
 
+    /** Get the effect manager
+     * @return Instance of the effect manager
+     */
     public EffectManager getEffectManager() {
         return this.effectManager;
     }
 
+    /** Get the scoreboard manager
+     * @return Instance of the scoreboard manager
+     */
     public ScoreBoardManager getScoreboardManager() {
-    	return this.sbm;
+    	return this.scoreBoardManager;
 	}
 
+    /** Get the player manager
+     * @return Instance of the player manager
+     */
 	public PlayerManager getPlayerManager() {
         return this.playerManager;
+    }
+
+    /** Get the task manager
+     * @return Instance of the task manager
+     */
+    @SuppressWarnings("unused")
+    public TaskManager getTaskManager() {
+	    return this.taskManager;
+    }
+
+    public int getAlertInterval() {
+        return AlertInterval;
     }
 
 }

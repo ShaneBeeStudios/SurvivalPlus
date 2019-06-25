@@ -48,7 +48,7 @@ class MedicKit implements Listener {
 							if (player.getLocation().distance(healed.getLocation()) <= 4) {
 								healing.getScore(player.getName()).setScore(1);
 								healing.getScore(healed.getName()).setScore(1);
-								healed.teleport(Survival.lookAt(healed.getLocation(), player.getLocation()));
+								healed.teleport(Survival.instance.getPlayerManager().lookAt(healed.getLocation(), player.getLocation()));
 								player.sendMessage(Utils.getColoredString(Survival.lang.healing) + ChatColor.RESET + healed.getDisplayName() + Utils.getColoredString(Survival.lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.medical_kit) + Utils.getColoredString(Survival.lang.on_hand));
 								healed.sendMessage(Utils.getColoredString(Survival.lang.being_healed) + ChatColor.RESET + player.getDisplayName() + Utils.getColoredString(Survival.lang.stay_still));
 
@@ -58,7 +58,7 @@ class MedicKit implements Listener {
 										int times = healTimes.getScore(player.getName()).getScore();
 										if (player.getInventory().getItemInMainHand().getType() == Material.CLOCK && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player.getName()).getScore() > 0 && healing.getScore(healed.getName()).getScore() > 0) {
 											if (times-- > 0) {
-												player.teleport(Survival.lookAt(player.getLocation(), healed.getLocation()));
+												player.teleport(Survival.instance.getPlayerManager().lookAt(player.getLocation(), healed.getLocation()));
 
 												Random rand = new Random();
 

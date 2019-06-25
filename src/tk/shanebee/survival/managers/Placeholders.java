@@ -58,11 +58,11 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's hunger bar (hunger part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_1")) {
-            return Survival.ShowHunger(p).get(1);
+            return plugin.getPlayerManager().ShowHunger(p).get(1);
         }
         // Shows player's hunger bar (saturation part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_2")) {
-            return Survival.ShowHunger(p).get(2);
+            return plugin.getPlayerManager().ShowHunger(p).get(2);
         }
         // Shows player's thirst
         if (identifier.equalsIgnoreCase("player_thirst")) {
@@ -70,25 +70,25 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's thirst bar (top part - first half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_1")) {
-            return Survival.ShowThirst(p).get(1);
+            return plugin.getPlayerManager().ShowThirst(p).get(1);
         }
         // Shows player's thirst bar (bottom part - second half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_2")) {
-            return Survival.ShowThirst(p).get(2);
+            return plugin.getPlayerManager().ShowThirst(p).get(2);
         }
         // Shows player's fatigue
         if (identifier.equalsIgnoreCase("player_fatigue")) {
-            return Survival.ShowFatigue(p);
+            return plugin.getPlayerManager().ShowFatigue(p);
         }
         // Shows player's nutrients bars (<amount> <nutrient>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs_bar")) {
-            return Survival.ShowNutrients(p).get(0);
+            return plugin.getPlayerManager().ShowNutrients(p).get(0);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_proteins_bar")) {
-            return Survival.ShowNutrients(p).get(1);
+            return plugin.getPlayerManager().ShowNutrients(p).get(1);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_salts_bar")) {
-            return Survival.ShowNutrients(p).get(2);
+            return plugin.getPlayerManager().ShowNutrients(p).get(2);
         }
         // Shows player's nutrients (just the <amount>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs")) {
@@ -101,7 +101,6 @@ public class Placeholders extends PlaceholderExpansion {
             return String.valueOf(StatusManager.getNutrients(p, StatusManager.Nutrients.SALTS));
         }
         return null;
-
     }
 
 }

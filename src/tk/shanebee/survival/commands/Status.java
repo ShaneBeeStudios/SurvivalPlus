@@ -20,6 +20,11 @@ public class Status implements CommandExecutor, TabCompleter {
 	private Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
 	private Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
 	private Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
+	private Survival plugin;
+
+	public Status(Survival plugin) {
+		this.plugin = plugin;
+	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String prefix = "&7[&3SurvivalPlus&7] ";
@@ -33,11 +38,11 @@ public class Status implements CommandExecutor, TabCompleter {
 
 			if (args.length == 0) {
 				if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-					player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " +
-							Survival.ShowHunger(player).get(0).toUpperCase());
+					player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
+							plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
 					if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-						player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " +
-								Survival.ShowThirst(player).get(0).toUpperCase());
+						player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
+								plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 				} else {
 					//boardHunger.getScore(player.getName()).setScore(0);
 					//boardThirst.getScore(player.getName()).setScore(0);
@@ -58,15 +63,15 @@ public class Status implements CommandExecutor, TabCompleter {
 				switch (args[0]) {
 					case "all":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " +
-									Survival.ShowHunger(player).get(0).toUpperCase());
+							player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
+									plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
 							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-								player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " +
-										Survival.ShowThirst(player).get(0).toUpperCase());
+								player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
+										plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
-								player.sendMessage(Survival.ShowFatigue(player));
+								player.sendMessage(plugin.getPlayerManager().ShowFatigue(player));
 							if (Survival.settings.getBoolean("Mechanics.FoodDiversity")) {
-								for (String s : Survival.ShowNutrients(player))
+								for (String s : plugin.getPlayerManager().ShowNutrients(player))
 									player.sendMessage(s);
 							}
 						} else {
@@ -91,8 +96,8 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "hunger":
 					case "h":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							player.sendMessage(Survival.ShowHunger(player).get(1) + Survival.ShowHunger(player).get(2) + " " +
-									Survival.ShowHunger(player).get(0).toUpperCase());
+							player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
+									plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
 						} else
 							boardHunger.getScore(player.getName()).setScore(Reverse(boardHunger.getScore(player.getName()).getScore()));
 						break;
@@ -100,8 +105,8 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "t":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
 							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-								player.sendMessage(Survival.ShowThirst(player).get(1) + Survival.ShowThirst(player).get(2) + " " +
-										Survival.ShowThirst(player).get(0).toUpperCase());
+								player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
+										plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 						} else
 							boardThirst.getScore(player.getName()).setScore(Reverse(boardThirst.getScore(player.getName()).getScore()));
 						break;
@@ -109,7 +114,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "f":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
 							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
-								player.sendMessage(Survival.ShowFatigue(player));
+								player.sendMessage(plugin.getPlayerManager().ShowFatigue(player));
 						} else
 							boardFatigue.getScore(player.getName()).setScore(Reverse(boardFatigue.getScore(player.getName()).getScore()));
 						break;
@@ -117,7 +122,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "n":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
 							if (Survival.settings.getBoolean("Mechanics.FoodDiversity")) {
-								for (String s : Survival.ShowNutrients(player))
+								for (String s : plugin.getPlayerManager().ShowNutrients(player))
 									player.sendMessage(s);
 							}
 						} else

@@ -20,10 +20,10 @@ public class SnowGen implements CommandExecutor {
 		if (args.length == 1) {
 			switch (args[0].toLowerCase()) {
 				case "on":
-					Survival.snowGenOption = true;
+					Survival.instance.snowGenOption = true;
 					break;
 				case "off":
-					Survival.snowGenOption = false;
+					Survival.instance.snowGenOption = false;
 					break;
 				default:
 					return false;

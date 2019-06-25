@@ -10,6 +10,12 @@ import tk.shanebee.survival.Survival;
 
 public class ScoreBoardManager {
 
+    private Survival plugin;
+
+    public ScoreBoardManager(Survival plugin) {
+        this.plugin = plugin;
+    }
+
     @SuppressWarnings("deprecation")
     public void loadScoreboards(Scoreboard board, Scoreboard mainBoard) {
         board.registerNewObjective("DualWieldMsg", "dummy");
@@ -68,7 +74,7 @@ public class ScoreBoardManager {
      */
     public void setupScorebard(Player p) {
         final Player player = p;
-        final Scoreboard stats = Survival.manager.getNewScoreboard();
+        final Scoreboard stats = Bukkit.getScoreboardManager().getNewScoreboard();
         player.setScoreboard(stats);
 
         Runnable run = new Runnable() {
@@ -86,34 +92,34 @@ public class ScoreBoardManager {
                 status.setDisplayName("Status");
 
                 if (boardHunger.getScore(player.getName()).getScore() <= 0) {
-                    Score hunger0 = status.getScore(Survival.ShowHunger(player).get(0));
+                    Score hunger0 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(0));
                     hunger0.setScore(10);
-                    Score hunger1 = status.getScore(Survival.ShowHunger(player).get(1));
+                    Score hunger1 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(1));
                     hunger1.setScore(9);
-                    Score hunger2 = status.getScore(Survival.ShowHunger(player).get(2));
+                    Score hunger2 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(2));
                     hunger2.setScore(8);
                 }
 
                 if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player.getName()).getScore() <= 0) {
-                    Score thirst0 = status.getScore(Survival.ShowThirst(player).get(0));
+                    Score thirst0 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(0));
                     thirst0.setScore(7);
-                    Score thirst1 = status.getScore(Survival.ShowThirst(player).get(1));
+                    Score thirst1 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(1));
                     thirst1.setScore(6);
-                    Score thirst2 = status.getScore(Survival.ShowThirst(player).get(2));
+                    Score thirst2 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(2));
                     thirst2.setScore(5);
                 }
 
                 if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player.getName()).getScore() <= 0) {
-                    Score fatigue = status.getScore(Survival.ShowFatigue(player));
+                    Score fatigue = status.getScore(plugin.getPlayerManager().ShowFatigue(player));
                     fatigue.setScore(4);
                 }
 
                 if (Survival.settings.getBoolean("Mechanics.FoodDiversity") && boardNutrients.getScore(player.getName()).getScore() <= 0) {
-                    Score carbon = status.getScore(Survival.ShowNutrients(player).get(0));
+                    Score carbon = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(0));
                     carbon.setScore(3);
-                    Score protein = status.getScore(Survival.ShowNutrients(player).get(1));
+                    Score protein = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(1));
                     protein.setScore(2);
-                    Score salts = status.getScore(Survival.ShowNutrients(player).get(2));
+                    Score salts = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(2));
                     salts.setScore(1);
                 }
 
@@ -123,5 +129,14 @@ public class ScoreBoardManager {
         };
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, run, -1);
+    }
+
+    public void resetStatusScoreboard(boolean enabled) {
+        for (Player player : plugin.getServer().getOnlinePlayers()) {
+            if (enabled)
+                setupScorebard(player);
+            else
+                player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+        }
     }
 }

@@ -60,7 +60,7 @@ public class EventManager {
 		if (settings.getBoolean("Mechanics.RawMeatHunger"))
 			pm.registerEvents(new RawMeatHunger(), this.plugin);
 		if (settings.getBoolean("Mechanics.Thirst.Enabled")) {
-			pm.registerEvents(new Consume(), this.plugin);
+			pm.registerEvents(new Consume(this.plugin), this.plugin);
 			if (settings.getBoolean("Mechanics.Thirst.PurifyWater"))
 				pm.registerEvents(new CauldronWaterBottle(), this.plugin);
 		}
