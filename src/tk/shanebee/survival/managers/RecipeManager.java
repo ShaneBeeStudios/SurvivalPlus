@@ -224,7 +224,7 @@ public class RecipeManager {
         //  CLAY BRICK RECIPE
         ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(survival, "clay_brick"), new ItemStack(Material.BRICK, 4));
 
-        clayBrick.addIngredient(Material.BRICK);
+        clayBrick.addIngredient(Material.BRICKS);
 
 
         //  QUARTZ BLOCK RECIPE
