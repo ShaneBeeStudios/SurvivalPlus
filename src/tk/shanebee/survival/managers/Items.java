@@ -39,7 +39,8 @@ public enum Items {
     QUARTZ_PICKAXE(Material.DIAMOND_PICKAXE, 1),
     OBSIDIAN_MACE_OLD(Material.GOLDEN_SHOVEL, 1), // remove in the future
     OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
-    ENDER_GIANT_BLADE(Material.GOLDEN_HOE, 1),
+    ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1), // remove in the future
+	ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
     BLAZE_SWORD(Material.GOLDEN_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
@@ -302,7 +303,7 @@ public enum Items {
                         ChatColor.RESET + " " + Utils.getColoredString(Survival.lang.reflecting_coming)
                         )
                 );
-                i_gHoeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
+                i_gHoeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
                 i_gHoe.setItemMeta(i_gHoeMeta);
                 return i_gHoe;
 
