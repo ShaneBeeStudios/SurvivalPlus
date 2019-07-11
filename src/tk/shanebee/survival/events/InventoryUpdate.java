@@ -40,6 +40,8 @@ public class InventoryUpdate implements Listener {
                 itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
             } else if (Items.compare(item, Items.VALKYRIES_AXE_OLD)) {
                 itemUpdate(inv, i, item, Items.VALKYRIES_AXE);
+            } else if (Items.compare(item, Items.OBSIDIAN_MACE_OLD)) {
+                itemUpdate(inv, i, item, Items.OBSIDIAN_MACE);
             }
         }
     }
@@ -56,7 +58,8 @@ public class InventoryUpdate implements Listener {
     }
 
     private boolean needsUpdate(Inventory inv) {
-        return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE) || inv.contains(Material.GOLDEN_AXE);
+        return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE) || inv.contains(Material.GOLDEN_AXE) ||
+                inv.contains(Material.GOLDEN_SHOVEL);
     }
 
 }
