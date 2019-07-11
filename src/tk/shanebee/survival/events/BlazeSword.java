@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Utils;
 
 public class BlazeSword implements Listener {
 
@@ -34,37 +32,30 @@ public class BlazeSword implements Listener {
 				if (player.isSneaking()) {
 					if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 						if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+							Material mat = event.getClickedBlock().getType();
+							if (Tag.BEDS.isTagged(mat) || Tag.DOORS.isTagged(mat) || Tag.TRAPDOORS.isTagged(mat) || Utils.isWoodGate(mat)) {
+								return;
+							}
 							switch (event.getClickedBlock().getType()) {
 								case ENCHANTING_TABLE:
 								case ANVIL:
 								case BREWING_STAND:
-								case SPRUCE_DOOR:
-								case BIRCH_DOOR:
-								case OAK_DOOR:
-								case JUNGLE_DOOR:
-								case ACACIA_DOOR:
-								case DARK_OAK_DOOR:
-								case IRON_DOOR:
 								case TRAPPED_CHEST:
 								case CHEST:
-								case WHITE_BED:
+								case BARREL:
 								case NOTE_BLOCK:
-								case OAK_FENCE_GATE:
-								case SPRUCE_FENCE_GATE:
-								case BIRCH_FENCE_GATE:
-								case JUNGLE_FENCE_GATE:
-								case DARK_OAK_FENCE_GATE:
-								case ACACIA_FENCE_GATE:
-								case OAK_TRAPDOOR:
-								case BIRCH_TRAPDOOR:
-								case SPRUCE_TRAPDOOR:
-								case JUNGLE_TRAPDOOR:
-								case ACACIA_TRAPDOOR:
-								case DARK_OAK_TRAPDOOR:
-								case IRON_TRAPDOOR:
 								case FURNACE:
+								case BLAST_FURNACE:
+								case SMOKER:
 								case HOPPER:
 								case CRAFTING_TABLE:
+								case SMITHING_TABLE:
+								case FLETCHING_TABLE:
+								case GRINDSTONE:
+								case CARTOGRAPHY_TABLE:
+								case COMPOSTER:
+								case LECTERN:
+								case LOOM:
 								case DROPPER:
 								case DISPENSER:
 									return;
@@ -81,9 +72,10 @@ public class BlazeSword implements Listener {
 						}
 
 						ItemMeta meta = mainItem.getItemMeta();
+						assert meta != null;
 						((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
 						mainItem.setItemMeta(meta);
-						if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
+						if (((Damageable) mainItem.getItemMeta()).getDamage() >= 1561) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInMainHand(null);

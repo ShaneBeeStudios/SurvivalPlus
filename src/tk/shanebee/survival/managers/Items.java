@@ -41,7 +41,8 @@ public enum Items {
     OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
     ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1), // remove in the future
 	ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
-    BLAZE_SWORD(Material.GOLDEN_SWORD, 1),
+    BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1), // remove in the future
+	BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
     FERMENTED_SKIN(Material.RABBIT_HIDE, 0),
@@ -344,7 +345,8 @@ public enum Items {
                         ChatColor.RESET + " " + Utils.getColoredString(Survival.lang.blaze_sword_cost)
                         )
                 );
-                i_gSwordMeta.addEnchant(org.bukkit.enchantments.Enchantment.FIRE_ASPECT, 2, true);
+                i_gSwordMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
+                i_gSwordMeta.addEnchant(Enchantment.DURABILITY, 3, false);
                 i_gSword.setItemMeta(i_gSwordMeta);
                 return i_gSword;
 
