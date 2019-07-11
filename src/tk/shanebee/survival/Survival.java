@@ -234,9 +234,9 @@ public class Survival extends JavaPlugin implements Listener {
 			saveConfig();
 		}
 		if (settings.getString("MultiWorld.ResourcePackURL")
-				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14.zip")) {
+				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip")) {
 			settings = getConfig();
-			settings.set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip");
+			settings.set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip");
 			saveConfig();
 		}
 	}
