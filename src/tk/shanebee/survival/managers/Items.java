@@ -5,10 +5,13 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Campfire;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
@@ -30,11 +33,16 @@ public enum Items {
     MATTOCK(Material.WOODEN_PICKAXE, 1),
     SHIV(Material.WOODEN_HOE, 1),
     HAMMER(Material.WOODEN_SWORD, 1),
-    VALKYRIES_AXE(Material.GOLDEN_AXE, 1),
-    QUARTZ_PICKAXE(Material.GOLDEN_PICKAXE, 1),
-    OBSIDIAN_MACE(Material.GOLDEN_SHOVEL, 1),
-    ENDER_GIANT_BLADE(Material.GOLDEN_HOE, 1),
-    BLAZE_SWORD(Material.GOLDEN_SWORD, 1),
+    VALKYRIES_AXE_OLD(Material.GOLDEN_AXE, 1), // remove in the future
+    VALKYRIES_AXE(Material.DIAMOND_AXE, 1),
+    QUARTZ_PICKAXE_OLD(Material.GOLDEN_PICKAXE, 1), // remove in the future
+    QUARTZ_PICKAXE(Material.DIAMOND_PICKAXE, 1),
+    OBSIDIAN_MACE_OLD(Material.GOLDEN_SHOVEL, 1), // remove in the future
+    OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
+    ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1), // remove in the future
+	ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
+    BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1), // remove in the future
+	BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
     FERMENTED_SKIN(Material.RABBIT_HIDE, 0),
@@ -69,9 +77,9 @@ public enum Items {
 
     FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
+    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3), // remove in the future
     IRON_SICKLE(Material.IRON_HOE, 1),
-    DIAMOND_SICKLE(Material.DIAMOND_HOE, 1), // Do we really want this?
+    DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
 
@@ -177,7 +185,7 @@ public enum Items {
                         ChatColor.RESET + "  " + Utils.getColoredString(Survival.lang.decrease_hunger_value)
                         )
                 );
-                i_gAxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
+                i_gAxeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
                 i_gAxe.setItemMeta(i_gAxeMeta);
                 return i_gAxe;
 
@@ -208,7 +216,9 @@ public enum Items {
                         ChatColor.GRAY + " " + Utils.getColoredString(Survival.lang.haste)
                         )
                 );
-                i_gPickaxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.SILK_TOUCH, 1, false);
+                i_gPickaxeMeta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
+                i_gPickaxeMeta.addEnchant(Enchantment.MENDING, 1, false);
+                i_gPickaxeMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
                 i_gPickaxe.setItemMeta(i_gPickaxeMeta);
                 return i_gPickaxe;
 
@@ -248,8 +258,9 @@ public enum Items {
                         ChatColor.RESET + " " + Utils.getColoredString(Survival.lang.knockback_resistance)
                         )
                 );
-                i_gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.KNOCKBACK, 3, true);
-                i_gSpadeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
+                i_gSpadeMeta.addEnchant(Enchantment.KNOCKBACK, 3, true);
+                i_gSpadeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
+                i_gSpadeMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
                 i_gSpade.setItemMeta(i_gSpadeMeta);
                 return i_gSpade;
 
@@ -293,7 +304,7 @@ public enum Items {
                         ChatColor.RESET + " " + Utils.getColoredString(Survival.lang.reflecting_coming)
                         )
                 );
-                i_gHoeMeta.addEnchant(org.bukkit.enchantments.Enchantment.DURABILITY, 10, true);
+                i_gHoeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
                 i_gHoe.setItemMeta(i_gHoeMeta);
                 return i_gHoe;
 
@@ -334,7 +345,8 @@ public enum Items {
                         ChatColor.RESET + " " + Utils.getColoredString(Survival.lang.blaze_sword_cost)
                         )
                 );
-                i_gSwordMeta.addEnchant(org.bukkit.enchantments.Enchantment.FIRE_ASPECT, 2, true);
+                i_gSwordMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
+                i_gSwordMeta.addEnchant(Enchantment.DURABILITY, 3, false);
                 i_gSword.setItemMeta(i_gSwordMeta);
                 return i_gSword;
 
@@ -665,6 +677,9 @@ public enum Items {
                 campfireMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.campfire_name));
                 campfireMeta.setLore(Arrays.asList(Utils.getColoredString(Survival.lang.campfire_lore).split("\\|\\|")));
                 campfireMeta.setCustomModelData(1);
+                BlockData data = Material.CAMPFIRE.createBlockData();
+                ((Campfire) data).setLit(false);
+                ((BlockDataMeta) campfireMeta).setBlockData(data);
                 campfire.setItemMeta(campfireMeta);
                 return campfire;
             case STONE_SICKLE:

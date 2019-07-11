@@ -32,7 +32,7 @@ class BlockBreak implements Listener {
 		Material material = block.getType();
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (!(tool.getType() == Material.GOLDEN_PICKAXE)) {
+			if (!Items.compare(tool, Items.QUARTZ_PICKAXE)) {
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") &&
 						!(tool.getType() == Material.STONE_SHOVEL || tool.getType() == Material.IRON_SHOVEL
 								|| tool.getType() == Material.DIAMOND_SHOVEL)) {

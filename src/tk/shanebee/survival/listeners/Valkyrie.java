@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -24,9 +25,7 @@ import tk.shanebee.survival.Survival;
 
 class Valkyrie implements Listener {
 
-	int schedule = 0;
-
-	private Objective spin = Survival.board.getObjective("Spin");
+	private Objective spin = Survival.board.getObjective("spin");
 	private Objective dualWield = Survival.board.getObjective("DualWield");
 
 	//To prevent double messages send to player.
@@ -39,14 +38,14 @@ class Valkyrie implements Listener {
 
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 
-		if (mainItem.getType() == Material.GOLDEN_AXE) {
+		if (Items.compare(mainItem, Items.VALKYRIES_AXE)) {
 			if (dualWield.getScore(player.getName()).getScore() == 0) {
 				if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
 					if (spin.getScore(player.getName()).getScore() == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();
 
-							Spin(player);
+							spin(player);
 
 							if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
@@ -59,7 +58,7 @@ class Valkyrie implements Listener {
 							}
 
 							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
-								assert player.getLocation().getWorld()  != null;
+								assert player.getLocation().getWorld() != null;
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -90,12 +89,12 @@ class Valkyrie implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 
 			if (dualWield.getScore(player.getName()).getScore() == 0) {
-				if (mainItem.getType() == Material.GOLDEN_AXE) {
+				if (Items.compare(mainItem, Items.VALKYRIES_AXE)) {
 					if (spin.getScore(player.getName()).getScore() == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();
 
-							Spin(player);
+							spin(player);
 
 							if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 								player.setFoodLevel(player.getFoodLevel() - 1);
@@ -108,7 +107,7 @@ class Valkyrie implements Listener {
 							}
 
 							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
-								assert player.getLocation().getWorld()  != null;
+								assert player.getLocation().getWorld() != null;
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
@@ -124,7 +123,7 @@ class Valkyrie implements Listener {
 		}
 	}
 
-	private void Spin(final Player player) {
+	private void spin(final Player player) {
 		Score score = spin.getScore(player.getName());
 		score.setScore(1);
 

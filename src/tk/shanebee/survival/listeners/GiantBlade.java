@@ -110,7 +110,7 @@ class GiantBlade implements Listener {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
 				}
 			}
-		} else if (offItem.getType() == Material.GOLDEN_HOE) {
+		} else if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
 			if (dualWield.getScore(player.getName()).getScore() != 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
