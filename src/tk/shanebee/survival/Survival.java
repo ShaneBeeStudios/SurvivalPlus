@@ -476,10 +476,10 @@ public class Survival extends JavaPlugin implements Listener {
             for (Player player : getServer().getOnlinePlayers()) {
                 if (Items.compare(player.getInventory().getItemInMainHand(), Items.QUARTZ_PICKAXE)) {
                     player.removePotionEffect(PotionEffectType.FAST_DIGGING);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, 9, false));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 30, 9, false));
                 }
             }
-        }, 1L, 10L);
+        }, 1L, 20L);
     }
 
     private void PlayerStatus() {

@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -14,48 +15,51 @@ import tk.shanebee.survival.managers.Items;
 public class InventoryUpdate implements Listener {
 
     @EventHandler
-    private void onJoinUpdate(PlayerJoinEvent e) { // Update old iron sickles to new iron sickles
+    private void onJoinUpdate(PlayerJoinEvent e) { // Update old items to new items
         Player player = e.getPlayer();
-        if (player.getInventory().contains(Material.WOODEN_HOE)) {
+        if (needsUpdate(player.getInventory())) {
             for (int i = 0; i < player.getInventory().getSize(); i++) {
-                ItemStack item = player.getInventory().getItem(i);
-                if (item == null || item.getType() != Material.WOODEN_HOE) continue;
+                Inventory inv = player.getInventory();
+                ItemStack item = inv.getItem(i);
+                if (item == null) continue;
                 if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
-                    assert item.getItemMeta() != null;
-                    int damage = ((Damageable) item.getItemMeta()).getDamage();
-
-                    ItemStack newSickle = new ItemStack(Items.get(Items.IRON_SICKLE));
-                    ItemMeta meta = newSickle.getItemMeta();
-                    assert meta != null;
-                    ((Damageable) meta).setDamage(damage);
-                    newSickle.setItemMeta(meta);
-
-                    player.getInventory().setItem(i, newSickle);
+                    itemUpdate(inv, i, item, Items.IRON_SICKLE);
+                } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
+                    itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
                 }
             }
         }
     }
 
     @EventHandler
-    private void onInventoryOpenUpdate(InventoryOpenEvent e) { // Update old iron sickles to new iron sickles
-        if (e.getInventory().contains(Material.WOODEN_HOE)) {
+    private void onInventoryOpenUpdate(InventoryOpenEvent e) { // Update old items to new items
+        if (needsUpdate(e.getInventory())) {
             for (int i = 0; i < e.getInventory().getSize(); i++) {
-                ItemStack item = e.getInventory().getItem(i);
-                if (item == null || item.getType() != Material.WOODEN_HOE) continue;
+                Inventory inv = e.getInventory();
+                ItemStack item = inv.getItem(i);
+                if (item == null) continue;
                 if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
-                    assert item.getItemMeta() != null;
-                    int damage = ((Damageable) item.getItemMeta()).getDamage();
-
-                    ItemStack newSickle = new ItemStack(Items.get(Items.IRON_SICKLE));
-                    ItemMeta meta = newSickle.getItemMeta();
-                    assert meta != null;
-                    ((Damageable) meta).setDamage(damage);
-                    newSickle.setItemMeta(meta);
-
-                    e.getInventory().setItem(i, newSickle);
+                    itemUpdate(inv, i, item, Items.IRON_SICKLE);
+                } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
+                    itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
                 }
             }
         }
+    }
+
+    private void itemUpdate(Inventory inv, int slot, ItemStack oldItem, Items newItem) {
+        assert oldItem.getItemMeta() != null;
+        int damage = ((Damageable) oldItem.getItemMeta()).getDamage();
+        ItemStack item = Items.get(newItem);
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        ((Damageable) meta).setDamage(damage);
+        item.setItemMeta(meta);
+        inv.setItem(slot, item);
+    }
+
+    private boolean needsUpdate(Inventory inv) {
+        return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE);
     }
 
 }

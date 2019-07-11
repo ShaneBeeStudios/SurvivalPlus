@@ -34,7 +34,8 @@ public enum Items {
     SHIV(Material.WOODEN_HOE, 1),
     HAMMER(Material.WOODEN_SWORD, 1),
     VALKYRIES_AXE(Material.GOLDEN_AXE, 1),
-    QUARTZ_PICKAXE(Material.GOLDEN_PICKAXE, 1),
+    QUARTZ_PICKAXE_OLD(Material.GOLDEN_PICKAXE, 1),
+    QUARTZ_PICKAXE(Material.DIAMOND_PICKAXE, 1),
     OBSIDIAN_MACE(Material.GOLDEN_SHOVEL, 1),
     ENDER_GIANT_BLADE(Material.GOLDEN_HOE, 1),
     BLAZE_SWORD(Material.GOLDEN_SWORD, 1),
@@ -212,6 +213,8 @@ public enum Items {
                         )
                 );
                 i_gPickaxeMeta.addEnchant(org.bukkit.enchantments.Enchantment.SILK_TOUCH, 1, false);
+                i_gPickaxeMeta.addEnchant(Enchantment.MENDING, 1, false);
+                i_gPickaxeMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
                 i_gPickaxe.setItemMeta(i_gPickaxeMeta);
                 return i_gPickaxe;
 
