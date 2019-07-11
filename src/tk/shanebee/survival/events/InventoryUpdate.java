@@ -16,33 +16,30 @@ public class InventoryUpdate implements Listener {
 
     @EventHandler
     private void onJoinUpdate(PlayerJoinEvent e) { // Update old items to new items
-        Player player = e.getPlayer();
-        if (needsUpdate(player.getInventory())) {
-            for (int i = 0; i < player.getInventory().getSize(); i++) {
-                Inventory inv = player.getInventory();
-                ItemStack item = inv.getItem(i);
-                if (item == null) continue;
-                if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
-                    itemUpdate(inv, i, item, Items.IRON_SICKLE);
-                } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
-                    itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
-                }
-            }
+        Inventory inv = e.getPlayer().getInventory();
+        if (needsUpdate(inv)) {
+            itemCheck(inv);
         }
     }
 
     @EventHandler
     private void onInventoryOpenUpdate(InventoryOpenEvent e) { // Update old items to new items
-        if (needsUpdate(e.getInventory())) {
-            for (int i = 0; i < e.getInventory().getSize(); i++) {
-                Inventory inv = e.getInventory();
-                ItemStack item = inv.getItem(i);
-                if (item == null) continue;
-                if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
-                    itemUpdate(inv, i, item, Items.IRON_SICKLE);
-                } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
-                    itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
-                }
+        Inventory inv = e.getInventory();
+        if (needsUpdate(inv)) {
+            itemCheck(inv);
+        }
+    }
+
+    private void itemCheck(Inventory inv) {
+        for (int i = 0; i < inv.getSize(); i++) {
+            ItemStack item = inv.getItem(i);
+            assert item != null;
+            if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
+                itemUpdate(inv, i, item, Items.IRON_SICKLE);
+            } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
+                itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
+            } else if (Items.compare(item, Items.VALKYRIES_AXE_OLD)) {
+                itemUpdate(inv, i, item, Items.VALKYRIES_AXE);
             }
         }
     }
@@ -59,7 +56,7 @@ public class InventoryUpdate implements Listener {
     }
 
     private boolean needsUpdate(Inventory inv) {
-        return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE);
+        return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE) || inv.contains(Material.GOLDEN_AXE);
     }
 
 }
