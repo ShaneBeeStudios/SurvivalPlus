@@ -18,6 +18,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.*;
@@ -218,7 +219,7 @@ class WorkbenchShare implements Listener {
 		Block workbench = e.getBlock();
 		if (e.getBlock().getType() == Material.CRAFTING_TABLE) {
 			e.setDropItems(false);
-			workbench.getWorld().dropItem(workbench.getLocation(), new ItemStack(Items.get(Items.WORKBENCH)));
+			workbench.getWorld().dropItem(workbench.getLocation(), new ItemStack(ItemManager.get(Items.WORKBENCH)));
 		}
 
 		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)

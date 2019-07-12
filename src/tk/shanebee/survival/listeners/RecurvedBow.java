@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.Random;
@@ -23,7 +24,7 @@ class RecurvedBow implements Listener {
 			ItemStack mainItem = event.getBow();
 
 			assert mainItem != null;
-			if (Items.compare(mainItem, Items.RECURVE_BOW) || Items.compare(mainItem, Items.RECURVE_CROSSBOW)) {
+			if (ItemManager.compare(mainItem, Items.RECURVE_BOW) || ItemManager.compare(mainItem, Items.RECURVE_CROSSBOW)) {
 				Random rand = new Random();
 				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();

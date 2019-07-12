@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
@@ -32,7 +33,7 @@ class BlockBreak implements Listener {
 		Material material = block.getType();
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (!Items.compare(tool, Items.QUARTZ_PICKAXE)) {
+			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") &&
 						!(tool.getType() == Material.STONE_SHOVEL || tool.getType() == Material.IRON_SHOVEL
 								|| tool.getType() == Material.DIAMOND_SHOVEL)) {
@@ -192,16 +193,16 @@ class BlockBreak implements Listener {
 							}
 
 							// Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
-							if (Items.compare(tool, Items.FLINT_SICKLE)) {
+							if (ItemManager.compare(tool, Items.FLINT_SICKLE)) {
 								multiplier = 4;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
 							}
-							if (Items.compare(tool, Items.STONE_SICKLE)) {
+							if (ItemManager.compare(tool, Items.STONE_SICKLE)) {
 								multiplier = 2;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
 							}
 							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
-							if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+							if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
 								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
@@ -278,12 +279,12 @@ class BlockBreak implements Listener {
 					e.setCancelled(true);
 					int random = new Random().nextInt(5) + 1;
 
-					if (Items.compare(tool, Items.FLINT_SICKLE)) {
+					if (ItemManager.compare(tool, Items.FLINT_SICKLE)) {
 						if (bush.getAge() == 3) {
 							berries = 1;
 						}
 						multiplier = 4;
-					} else if (Items.compare(tool, Items.STONE_SICKLE)) {
+					} else if (ItemManager.compare(tool, Items.STONE_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 4)
 								berries = 1;
@@ -294,7 +295,7 @@ class BlockBreak implements Listener {
 								berries = 2;
 						}
 						multiplier = 2;
-					} else if (Items.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+					} else if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 3)
 								berries = 1;

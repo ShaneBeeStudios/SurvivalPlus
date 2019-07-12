@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -38,7 +39,7 @@ class Valkyrie implements Listener {
 
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 
-		if (Items.compare(mainItem, Items.VALKYRIES_AXE)) {
+		if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
 			if (dualWield.getScore(player.getName()).getScore() == 0) {
 				if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
 					if (spin.getScore(player.getName()).getScore() == 0) {
@@ -89,7 +90,7 @@ class Valkyrie implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 
 			if (dualWield.getScore(player.getName()).getScore() == 0) {
-				if (Items.compare(mainItem, Items.VALKYRIES_AXE)) {
+				if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
 					if (spin.getScore(player.getName()).getScore() == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();

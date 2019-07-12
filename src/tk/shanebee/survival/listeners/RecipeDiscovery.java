@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
 
@@ -87,7 +88,7 @@ class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.CLAY.getKeys());
         } else if (item == Material.EGG) {
             player.discoverRecipes(Recipes.COOKIE.getKeys());
-        } else if (Items.compare(e.getItem().getItemStack(), Items.WATER_BOWL)) {
+        } else if (ItemManager.compare(e.getItem().getItemStack(), Items.WATER_BOWL)) {
             player.discoverRecipes(Recipes.BOWL.getKeys());
         } else if (item == Material.VINE) {
             player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
@@ -146,7 +147,7 @@ class RecipeDiscovery implements Listener {
         if (!(e.getWhoClicked() instanceof Player)) return;
         Player player = ((Player) e.getWhoClicked());
         ItemStack result = e.getRecipe().getResult();
-        if (Items.compare(result, Items.FIRESTRIKER)) {
+        if (ItemManager.compare(result, Items.FIRESTRIKER)) {
             player.discoverRecipes(Recipes.TORCH.getKeys());
             player.discoverRecipes(Recipes.FURNACE.getKeys());
         } else if (result.getType() == Material.FURNACE) {
@@ -171,13 +172,13 @@ class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.RECURVED_BOW.getKeys());
         } else if (result.getType() == Material.BRICK || result.getType() == Material.BRICKS) {
             player.discoverRecipes(Recipes.CLAY_BRICK.getKeys());
-        } else if (Items.compare(result, Items.BLAZE_SWORD)) {
+        } else if (ItemManager.compare(result, Items.BLAZE_SWORD)) {
             player.discoverRecipes(Recipes.REPAIR_BLAZE_SWORD.getKeys());
-        } else if (Items.compare(result, Items.ENDER_GIANT_BLADE)) {
+        } else if (ItemManager.compare(result, Items.ENDER_GIANT_BLADE)) {
             player.discoverRecipes(Recipes.REPAIR_ENDER_GIANT_BLADE.getKeys());
-        } else if (Items.compare(result, Items.QUARTZ_PICKAXE)) {
+        } else if (ItemManager.compare(result, Items.QUARTZ_PICKAXE)) {
             player.discoverRecipes(Recipes.REPAIR_QUARTZ_PICKAXE.getKeys());
-        } else if (Items.compare(result, Items.VALKYRIES_AXE)) {
+        } else if (ItemManager.compare(result, Items.VALKYRIES_AXE)) {
             player.discoverRecipes(Recipes.REPAIR_VALKYRIES_AXE.getKeys());
         } else if (result.getType() == Material.FISHING_ROD) {
             player.discoverRecipes(Recipes.GRAPPLING_HOOK.getKeys());

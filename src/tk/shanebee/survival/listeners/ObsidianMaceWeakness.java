@@ -2,6 +2,7 @@ package tk.shanebee.survival.listeners;
 
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.EffectManager;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.Location;
@@ -27,7 +28,7 @@ class ObsidianMaceWeakness implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 
-			if (Items.compare(mainItem, Items.OBSIDIAN_MACE)) {
+			if (ItemManager.compare(mainItem, Items.OBSIDIAN_MACE)) {
 				Survival.instance.getEffectManager().applyObsidianMaceEffects(player, enemy);
 			}
 		}

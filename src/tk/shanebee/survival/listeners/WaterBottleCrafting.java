@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.Objects;
@@ -85,14 +86,14 @@ class WaterBottleCrafting implements Listener {
 			if (player.getTargetBlock(null, 5).getType() == Material.WATER) {
 				e.setCancelled(true);
 				if (item.getAmount() > 1) {
-					player.getInventory().addItem(Items.get(Items.DIRTY_WATER));
+					player.getInventory().addItem(ItemManager.get(Items.DIRTY_WATER));
 					if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 						item.setAmount(item.getAmount() - 1);
 				} else {
 					if (player.getInventory().getItemInMainHand().getType() == item.getType())
-						player.getInventory().setItemInMainHand(Items.get(Items.DIRTY_WATER));
+						player.getInventory().setItemInMainHand(ItemManager.get(Items.DIRTY_WATER));
 					else if (player.getInventory().getItemInOffHand().getType() == item.getType())
-						player.getInventory().setItemInOffHand(Items.get(Items.DIRTY_WATER));
+						player.getInventory().setItemInOffHand(ItemManager.get(Items.DIRTY_WATER));
 				}
 			}
 		}

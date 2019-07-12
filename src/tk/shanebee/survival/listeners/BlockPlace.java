@@ -10,6 +10,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
@@ -30,7 +31,7 @@ class BlockPlace implements Listener {
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (Survival.settings.getBoolean("Survival.PlaceOnlyWith.Hammer")) {
 				if (checkArtifact(block)) {
-					if (Items.compare(offTool, Items.HAMMER)) {
+					if (ItemManager.compare(offTool, Items.HAMMER)) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
 						if (chance_reduceDur == 1) {
@@ -41,7 +42,7 @@ class BlockPlace implements Listener {
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInOffHand(null);
 						}
-					} else if (Items.compare(mainTool, Items.HAMMER)) {
+					} else if (ItemManager.compare(mainTool, Items.HAMMER)) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
 						if (chance_reduceDur == 1) {

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
@@ -36,7 +37,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
             } catch (IllegalArgumentException ignore) {}
             try {
                 itemName = Items.valueOf(args[1].toUpperCase());
-                ItemStack item = Items.get(itemName);
+                ItemStack item = ItemManager.get(itemName);
                 item.setAmount(amount);
 
                 Location loc = player.getLocation();

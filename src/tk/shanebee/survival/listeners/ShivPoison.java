@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.Random;
@@ -30,7 +31,7 @@ class ShivPoison implements Listener {
 
 			Random rand = new Random();
 
-			if (Items.compare(mainItem, Items.SHIV)) {
+			if (ItemManager.compare(mainItem, Items.SHIV)) {
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false));
 				assert mainItem.getItemMeta() != null;
 				if (((Damageable) mainItem.getItemMeta()).getDamage() >= 59) {
@@ -39,7 +40,7 @@ class ShivPoison implements Listener {
 				}
 			}
 
-			if (Items.compare(offItem, Items.SHIV)) {
+			if (ItemManager.compare(offItem, Items.SHIV)) {
 				int chance_poison = rand.nextInt(4) + 1;
 				switch (chance_poison) {
 					case 1:

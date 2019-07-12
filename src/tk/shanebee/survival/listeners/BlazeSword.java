@@ -18,6 +18,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
@@ -28,7 +29,7 @@ class BlazeSword implements Listener {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if (Items.compare(mainItem, Items.BLAZE_SWORD)) {
+			if (ItemManager.compare(mainItem, Items.BLAZE_SWORD)) {
 				if (player.isSneaking()) {
 					if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 						if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {

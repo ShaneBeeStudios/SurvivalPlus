@@ -2,6 +2,7 @@ package tk.shanebee.survival.listeners;
 
 import org.bukkit.block.data.Lightable;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -37,7 +38,7 @@ class FirestrikerClick implements Listener {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			if (event.getClickedBlock() == null) return;
-            if (event.getItem() != null && Items.compare(event.getItem(), Items.FIRESTRIKER)) {
+            if (event.getItem() != null && ItemManager.compare(event.getItem(), Items.FIRESTRIKER)) {
 				if (player.isSneaking()) {
 					if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 						if (player.getInventory().getItemInMainHand().getType() == event.getItem().getType())

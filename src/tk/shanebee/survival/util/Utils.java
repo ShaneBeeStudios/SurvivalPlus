@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.ArrayList;
@@ -369,7 +370,7 @@ public class Utils {
     public static List<ItemStack> getItemStackDura(Items item, int maxDurability) {
         List<ItemStack> itemStacks = new ArrayList<>();
         for (int i = 0; i < maxDurability; i++) {
-            ItemStack stack = Items.get(item);
+            ItemStack stack = ItemManager.get(item);
             ItemMeta meta = stack.getItemMeta();
             assert meta != null;
             ((Damageable) meta).setDamage(i);

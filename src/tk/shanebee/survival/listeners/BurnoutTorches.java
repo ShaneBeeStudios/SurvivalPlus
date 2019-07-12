@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.BlockManager;
 import tk.shanebee.survival.util.Utils;
@@ -56,7 +57,7 @@ class BurnoutTorches implements Listener {
         Block block = e.getClickedBlock();
         if (block == null || (block.getType() != Material.REDSTONE_TORCH && block.getType() != Material.REDSTONE_WALL_TORCH))
             return;
-        if (tool.getType() != Material.FLINT_AND_STEEL && !Items.compare(tool, Items.FIRESTRIKER)) return;
+        if (tool.getType() != Material.FLINT_AND_STEEL && !ItemManager.compare(tool, Items.FIRESTRIKER)) return;
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         e.setCancelled(true);
         if (block.getType() == Material.REDSTONE_WALL_TORCH) {
@@ -90,7 +91,7 @@ class BurnoutTorches implements Listener {
         ItemStack mainHand = e.getItemInHand();
         // TODO add check for creative mode (don't burnout creative torches?!?!)
         if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
-            if (!Items.compare(mainHand, Items.PERSISTENT_TORCH)) {
+            if (!ItemManager.compare(mainHand, Items.PERSISTENT_TORCH)) {
                 torchManager.burnoutTorch(block);
                 torchManager.setNonPersistent(block);
             }
@@ -116,7 +117,7 @@ class BurnoutTorches implements Listener {
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (persistentTorches && !torchManager.isNonPersistent(block)) {
                 e.setDropItems(false);
-                loc.getWorld().dropItemNaturally(loc, Items.get(Items.PERSISTENT_TORCH));
+                loc.getWorld().dropItemNaturally(loc, ItemManager.get(Items.PERSISTENT_TORCH));
             } else {
                 torchManager.unsetNonPersistent(block);
                 if (!dropTorch) {

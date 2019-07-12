@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Objective;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 class BedFatigue implements Listener {
@@ -45,7 +46,7 @@ class BedFatigue implements Listener {
 	@EventHandler
 	private void onDrinkCoffee(PlayerItemConsumeEvent e) {
 		ItemStack item = e.getItem();
-		if (Items.compare(item, Items.COFFEE)) {
+		if (ItemManager.compare(item, Items.COFFEE)) {
 			final Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
 			assert fatigue != null;
 			fatigue.getScore(e.getPlayer().getName()).setScore(0);
@@ -55,7 +56,7 @@ class BedFatigue implements Listener {
 	// Removes empty water bottles from crafting grid when brewing coffee
 	@EventHandler
 	private void onCraftCoffee(CraftItemEvent e) {
-		if (Items.compare(e.getRecipe().getResult(), Items.COFFEE)) {
+		if (ItemManager.compare(e.getRecipe().getResult(), Items.COFFEE)) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> e.getInventory().remove(Material.GLASS_BOTTLE), 2);
 		}
 	}

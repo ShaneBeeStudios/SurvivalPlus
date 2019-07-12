@@ -56,7 +56,7 @@ public class EffectManager {
 	private void BlazeSword() {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
+				if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
 					player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
 					player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false));
 					Location particleLoc = player.getLocation();
@@ -73,7 +73,7 @@ public class EffectManager {
 
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (Items.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
+				if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
 					Random rand = new Random();
 					assert player.getLocation().getWorld() != null;
 					player.getLocation().getWorld().playSound(
@@ -88,14 +88,14 @@ public class EffectManager {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				ItemStack mainItem = player.getInventory().getItemInMainHand();
 				ItemStack offItem = player.getInventory().getItemInOffHand();
-				if (Items.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
+				if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
 					Location particleLoc = player.getLocation();
 					particleLoc.setY(particleLoc.getY() + 1);
 					assert particleLoc.getWorld() != null;
 					particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 				}
 
-				if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
+				if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
 					player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 					player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false));
 					Location particleLoc = player.getLocation();
@@ -152,7 +152,7 @@ public class EffectManager {
 	private void ObsidianMace() {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (Items.compare(player.getInventory().getItemInMainHand(), Items.OBSIDIAN_MACE)) {
+				if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.OBSIDIAN_MACE)) {
 					player.removePotionEffect(PotionEffectType.SLOW);
 					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
 					Location particleLoc = player.getLocation();
@@ -168,7 +168,7 @@ public class EffectManager {
 	private void Valkyrie() {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (Items.compare(player.getInventory().getItemInMainHand(), Items.VALKYRIES_AXE)) {
+				if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.VALKYRIES_AXE)) {
 					Location particleLoc = player.getLocation();
 					particleLoc.setY(particleLoc.getY() + 1);
 					assert particleLoc.getWorld() != null;
@@ -181,7 +181,7 @@ public class EffectManager {
 	private void QuartzPickaxe() {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
-				if (Items.compare(player.getInventory().getItemInMainHand(), Items.QUARTZ_PICKAXE)) {
+				if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.QUARTZ_PICKAXE)) {
 					player.removePotionEffect(PotionEffectType.FAST_DIGGING);
 					player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, 9, false));
 				}

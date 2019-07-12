@@ -1,7 +1,6 @@
 package tk.shanebee.survival.listeners;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -10,8 +9,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
+@SuppressWarnings("deprecation")
 class InventoryUpdate implements Listener {
 
     @EventHandler
@@ -34,17 +35,17 @@ class InventoryUpdate implements Listener {
         for (int i = 0; i < inv.getSize(); i++) {
             ItemStack item = inv.getItem(i);
             assert item != null;
-            if (Items.compare(item, Items.IRON_SICKLE_OLD)) {
+            if (ItemManager.compare(item, Items.IRON_SICKLE_OLD)) {
                 itemUpdate(inv, i, item, Items.IRON_SICKLE);
-            } else if (Items.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
+            } else if (ItemManager.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
                 itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
-            } else if (Items.compare(item, Items.VALKYRIES_AXE_OLD)) {
+            } else if (ItemManager.compare(item, Items.VALKYRIES_AXE_OLD)) {
                 itemUpdate(inv, i, item, Items.VALKYRIES_AXE);
-            } else if (Items.compare(item, Items.OBSIDIAN_MACE_OLD)) {
+            } else if (ItemManager.compare(item, Items.OBSIDIAN_MACE_OLD)) {
                 itemUpdate(inv, i, item, Items.OBSIDIAN_MACE);
-            } else if (Items.compare(item, Items.ENDER_GIANT_BLADE_OLD)) {
+            } else if (ItemManager.compare(item, Items.ENDER_GIANT_BLADE_OLD)) {
             	itemUpdate(inv, i, item, Items.ENDER_GIANT_BLADE);
-			} else if (Items.compare(item, Items.BLAZE_SWORD_OLD)) {
+			} else if (ItemManager.compare(item, Items.BLAZE_SWORD_OLD)) {
                 itemUpdate(inv, i, item, Items.BLAZE_SWORD);
             }
         }
@@ -53,7 +54,7 @@ class InventoryUpdate implements Listener {
     private void itemUpdate(Inventory inv, int slot, ItemStack oldItem, Items newItem) {
         assert oldItem.getItemMeta() != null;
         int damage = ((Damageable) oldItem.getItemMeta()).getDamage();
-        ItemStack item = Items.get(newItem);
+        ItemStack item = ItemManager.get(newItem);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         ((Damageable) meta).setDamage(damage);

@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -44,7 +45,7 @@ class GiantBlade implements Listener {
 
 			Random rand = new Random();
 
-			if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
+			if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
 				if (event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 					LivingEntity enemy = (LivingEntity) event.getDamager();
 					enemy.damage(event.getDamage() * 40 / 100, player);
@@ -74,7 +75,7 @@ class GiantBlade implements Listener {
 
 		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
 
-		if (Items.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
+		if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
 			if (dualWield.getScore(player.getName()).getScore() == 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 					if (player.isSprinting()) {
@@ -110,7 +111,7 @@ class GiantBlade implements Listener {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
 				}
 			}
-		} else if (Items.compare(offItem, Items.ENDER_GIANT_BLADE)) {
+		} else if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
 			if (dualWield.getScore(player.getName()).getScore() != 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
