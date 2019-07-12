@@ -81,10 +81,17 @@ public enum Items {
         this.materialType = mat;
     }
 
+    /** Get the Bukkit Material Enum for this item
+     * @return Bukkit Material Enum
+     */
     public Material getMaterialType() {
         return this.materialType;
     }
 
+    /** Get the custom model data tag for this item
+     * <p>See <b>"custom_model_data"</b> in the <b><a href="https://minecraft.gamepedia.com/Model#Item_tags">Item Tags</a></b> section on the Minecraft wiki</p>
+     * @return Custom model data tag
+     */
     public int getModelData() {
         return this.modelData;
     }
