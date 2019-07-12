@@ -246,7 +246,7 @@ public class RecipeManager {
         ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "repair_blaze_sword"), ItemManager.get(Items.BLAZE_SWORD));
         repair_blaze_sword.shape("123");
 
-        repair_blaze_sword.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 1561)));
+        repair_blaze_sword.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.BLAZE_SWORD, 32))); //TODO this has to stay a low number for now
         repair_blaze_sword.setIngredient('2', Material.BLAZE_POWDER);
         repair_blaze_sword.setIngredient('3', Material.BLAZE_POWDER);
 
@@ -255,7 +255,7 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(survival, "repair_ender_giant_blaze"), ItemManager.get(Items.ENDER_GIANT_BLADE));
         repair_ender_giant_blaze.shape("123");
-        repair_ender_giant_blaze.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 1561)));
+        repair_ender_giant_blaze.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.ENDER_GIANT_BLADE, 32))); //TODO this has to stay a low number for now
         repair_ender_giant_blaze.setIngredient('2', Material.ENDER_PEARL);
         repair_ender_giant_blaze.setIngredient('3', Material.DIAMOND_BLOCK);
 
@@ -263,7 +263,7 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_quartz_pickaxe"), ItemManager.get(Items.QUARTZ_PICKAXE));
         repair_quartz_pickaxe.shape("123");
-        repair_quartz_pickaxe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 1561)));
+        repair_quartz_pickaxe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.QUARTZ_PICKAXE, 32))); //TODO this has to stay a low number for now
         repair_quartz_pickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
         repair_quartz_pickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
 
@@ -271,14 +271,14 @@ public class RecipeManager {
         //  REPAIR RECIPE
         ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "repair_valkyries_axe"), ItemManager.get(Items.VALKYRIES_AXE));
         repair_valkyries_axe.shape("12 ");
-        repair_valkyries_axe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 1561)));
+        repair_valkyries_axe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.VALKYRIES_AXE, 32))); //TODO this has to stay a low number for now
         repair_valkyries_axe.setIngredient('2', Material.NETHER_STAR);
 
 
         //  REPAIR RECIPE
         ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "repair_obsidian_mace"), ItemManager.get(Items.OBSIDIAN_MACE));
         repair_obsidian_mace.shape("12 ");
-        repair_obsidian_mace.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 1561)));
+        repair_obsidian_mace.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Items.OBSIDIAN_MACE, 32))); //TODO this has to stay a low number for now
         repair_obsidian_mace.setIngredient('2', Material.END_CRYSTAL);
 
 
