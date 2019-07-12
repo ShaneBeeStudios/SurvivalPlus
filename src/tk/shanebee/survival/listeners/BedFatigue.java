@@ -11,35 +11,33 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.Objective;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.StatusManager;
 
 class BedFatigue implements Listener {
-
-	private Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
 
 	@EventHandler
 	private void onBedLeave(PlayerBedLeaveEvent e) {
 		long time = e.getBed().getWorld().getTime();
 		if (time % 24000 == 0) {
 			Player player = e.getPlayer();
-			fatigue.getScore(player.getName()).setScore(0);
+			StatusManager.setFatigue(player, 0);
 		}
 	}
 
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		fatigue.getScore(player.getName()).setScore(0);
+		StatusManager.setFatigue(player, 0);
 	}
 
 	@EventHandler
 	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
-			fatigue.getScore(player.getName()).setScore(0);
+			StatusManager.setFatigue(player, 0);
 		}
 	}
 
@@ -47,9 +45,7 @@ class BedFatigue implements Listener {
 	private void onDrinkCoffee(PlayerItemConsumeEvent e) {
 		ItemStack item = e.getItem();
 		if (ItemManager.compare(item, Items.COFFEE)) {
-			final Objective fatigue = Survival.mainBoard.getObjective("Fatigue");
-			assert fatigue != null;
-			fatigue.getScore(e.getPlayer().getName()).setScore(0);
+			StatusManager.setFatigue(e.getPlayer(), 0);
 		}
 	}
 

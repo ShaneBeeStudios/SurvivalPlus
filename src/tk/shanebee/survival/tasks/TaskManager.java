@@ -25,27 +25,21 @@ public class TaskManager {
 	}
 
 	public void daysNoSleep() {
-		final Objective fatigue = mainBoard.getObjective("Fatigue");
-
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 
-					//if(overworld.getTime() >= 14000 && overworld.getTime() < 22000)
-					//{
-					assert fatigue != null;
-					if (fatigue.getScore(player.getName()).getScore() == 1)
+					if (StatusManager.getFatigue(player) == 1)
 						player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0), true);
-					else if (fatigue.getScore(player.getName()).getScore() == 2) {
+					else if (StatusManager.getFatigue(player) == 2) {
 						player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 50, 0), true);
 						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10, 0), true);
-					} else if (fatigue.getScore(player.getName()).getScore() == 3) {
+					} else if (StatusManager.getFatigue(player) == 3) {
 						player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 0), true);
 						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0), true);
-					} else if (fatigue.getScore(player.getName()).getScore() >= 4) {
+					} else if (StatusManager.getFatigue(player) == 4) {
 						player.damage(100);
 					}
-					//}
 					World overworld = player.getWorld();
 
 					int fatigueLevel = Survival.settings.getInt("Mechanics.FatigueLevelIncreaseChance");
@@ -54,15 +48,15 @@ public class TaskManager {
 					if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
 							player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000 && random <= fatigueLevel &&
 							Utils.getMinutesPlayed(player) >= 15) {
-						fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() + 1);
+						StatusManager.increaseFatigue(player);
 
-						if (fatigue.getScore(player.getName()).getScore() == 1)
+						if (StatusManager.getFatigue(player) == 1)
 							Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_1);
-						else if (fatigue.getScore(player.getName()).getScore() == 2)
+						else if (StatusManager.getFatigue(player) == 2)
 							Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_2);
-						else if (fatigue.getScore(player.getName()).getScore() == 3)
+						else if (StatusManager.getFatigue(player) == 3)
 							Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_3);
-						else if (fatigue.getScore(player.getName()).getScore() >= 4)
+						else if (StatusManager.getFatigue(player) == 4)
 							Utils.sendColoredMsg(player, Survival.lang.collapsed_2);
 					}
 				}
@@ -76,9 +70,9 @@ public class TaskManager {
 				for (Player player : plugin.getServer().getOnlinePlayers()) {
 					if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 						if (player.isSleeping()) {
-							assert fatigue != null;
-							if (fatigue.getScore(player.getName()).getScore() >= 1) {
-								fatigue.getScore(player.getName()).setScore(fatigue.getScore(player.getName()).getScore() - 1);
+
+							if (StatusManager.getFatigue(player) >= 1) {
+								StatusManager.setFatigue(player, StatusManager.getFatigue(player) - 1);
 								Utils.sendColoredMsg(player, Utils.getColoredString(Survival.lang.energy_rising));
 							}
 						}

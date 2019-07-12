@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Score;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.FatigueLevelChangeEvent;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 
 import java.util.Objects;
@@ -122,6 +123,7 @@ public class StatusManager {
             level = 4;
         if (level < 0)
             level = 0;
+        Bukkit.getPluginManager().callEvent(new FatigueLevelChangeEvent(player, level, level));
         fatigue.setScore(level);
     }
 
@@ -139,7 +141,9 @@ public class StatusManager {
     public static void increaseFatigue(Player player) {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
         int increase = fatigue.getScore() + 1;
-        fatigue.setScore(increase > 4 ? increase : 4);
+        int newLevel = increase > 4 ? increase : 4;
+        Bukkit.getPluginManager().callEvent(new FatigueLevelChangeEvent(player, increase, newLevel));
+        fatigue.setScore(newLevel);
     }
 
     /** Set the hunger level of a player
