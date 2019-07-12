@@ -26,22 +26,27 @@ import java.util.UUID;
 /**
  * Custom SurvivalPlus items
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "DeprecatedIsStillUsed"})
 public enum Items {
 
     HATCHET(Material.WOODEN_AXE, 1),
     MATTOCK(Material.WOODEN_PICKAXE, 1),
     SHIV(Material.WOODEN_HOE, 1),
     HAMMER(Material.WOODEN_SWORD, 1),
-    VALKYRIES_AXE_OLD(Material.GOLDEN_AXE, 1), // remove in the future
+    @Deprecated // remove in the future
+    VALKYRIES_AXE_OLD(Material.GOLDEN_AXE, 1),
     VALKYRIES_AXE(Material.DIAMOND_AXE, 1),
-    QUARTZ_PICKAXE_OLD(Material.GOLDEN_PICKAXE, 1), // remove in the future
+    @Deprecated // remove in the future
+    QUARTZ_PICKAXE_OLD(Material.GOLDEN_PICKAXE, 1),
     QUARTZ_PICKAXE(Material.DIAMOND_PICKAXE, 1),
-    OBSIDIAN_MACE_OLD(Material.GOLDEN_SHOVEL, 1), // remove in the future
+    @Deprecated // remove in the future
+    OBSIDIAN_MACE_OLD(Material.GOLDEN_SHOVEL, 1),
     OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
-    ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1), // remove in the future
+    @Deprecated // remove in the future
+    ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1),
 	ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
-    BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1), // remove in the future
+    @Deprecated // remove in the future
+    BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1),
 	BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
@@ -77,7 +82,8 @@ public enum Items {
 
     FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3), // remove in the future
+    @Deprecated // remove in the future
+    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
     IRON_SICKLE(Material.IRON_HOE, 1),
     DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 
@@ -689,13 +695,6 @@ public enum Items {
                 stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.stone_sickle));
                 stone_sickle.setItemMeta(stone_sickleMeta);
                 return stone_sickle;
-            case IRON_SICKLE_OLD:
-                ItemStack iron_sickle = new ItemStack(IRON_SICKLE_OLD.materialType);
-                ItemMeta iron_sickleMeta = iron_sickle.getItemMeta();
-                iron_sickleMeta.setCustomModelData(IRON_SICKLE_OLD.modelData);
-                iron_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(Survival.lang.iron_sickle));
-                iron_sickle.setItemMeta(iron_sickleMeta);
-                return iron_sickle;
             case IRON_SICKLE:
                 ItemStack iron_sickle_new = new ItemStack(IRON_SICKLE.materialType);
                 ItemMeta iron_sickle_new_meta = iron_sickle_new.getItemMeta();
