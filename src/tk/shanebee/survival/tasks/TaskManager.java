@@ -8,6 +8,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Objects;
@@ -91,13 +92,10 @@ public class TaskManager {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-					Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
 					if (player.getExhaustion() >= 4) {
 						Random rand = new Random();
 						double chance = rand.nextDouble();
-						thirst.setScore(thirst.getScore() - (chance <= Survival.settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0));
-						if (thirst.getScore() < 0)
-							thirst.setScore(0);
+						StatusManager.removeThirst(player, chance <= Survival.settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0);
 					}
 				}
 			}
@@ -106,9 +104,7 @@ public class TaskManager {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
 				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-					Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
-
-					if (thirst.getScore() <= 0) {
+					if (StatusManager.getThirst(player) <= 0) {
 						switch (player.getWorld().getDifficulty()) {
 							case EASY:
 								if (player.getHealth() > 10)
@@ -136,9 +132,7 @@ public class TaskManager {
 						if (hunger <= 6) {
 							player.sendMessage(ChatColor.GOLD + Survival.lang.starved_eat);
 						}
-
-						Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
-						if (thirst.getScore() <= 6) {
+						if (StatusManager.getThirst(player) <= 6) {
 							player.sendMessage(ChatColor.AQUA + Survival.lang.dehydrated_drink);
 						}
 					}
@@ -169,8 +163,7 @@ public class TaskManager {
 							}
 						}
 					}
-				},
-				-1L, 1L);
+				}, -1L, 1L);
 
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 					for (Player player : plugin.getServer().getOnlinePlayers()) {
@@ -221,8 +214,7 @@ public class TaskManager {
 							}
 						}
 					}
-				},
-				-1L, 320L);
+				}, -1L, 320L);
 
 		if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard") && plugin.getAlertInterval() > 0) {
 			plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
@@ -245,8 +237,7 @@ public class TaskManager {
 								}
 							}
 						}
-					},
-					-1L, plugin.getAlertInterval() * 20);
+					}, -1L, plugin.getAlertInterval() * 20);
 		}
 	}
 

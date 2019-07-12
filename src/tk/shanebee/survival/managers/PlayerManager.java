@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Lang;
@@ -100,18 +99,17 @@ public class PlayerManager {
 	}
 
 	public List<String> ShowThirst(Player player) {
-		Objective thirst = Survival.mainBoard.getObjective("Thirst");
 		StringBuilder thirstBar = new StringBuilder();
-		for (int i = 0; i < thirst.getScore(player.getName()).getScore(); i++) {
+		for (int i = 0; i < StatusManager.getThirst(player); i++) {
 			thirstBar.append("|");
 		}
-		for (int i = thirst.getScore(player.getName()).getScore(); i < 20; i++) {
+		for (int i = StatusManager.getThirst(player); i < 20; i++) {
 			thirstBar.append(".");
 		}
 
-		if (thirst.getScore(player.getName()).getScore() >= 40)
+		if (StatusManager.getThirst(player) >= 40)
 			thirstBar.insert(0, ChatColor.GREEN);
-		else if (thirst.getScore(player.getName()).getScore() <= 6)
+		else if (StatusManager.getThirst(player) <= 6)
 			thirstBar.insert(0, ChatColor.RED);
 		else
 			thirstBar.insert(0, ChatColor.AQUA);
