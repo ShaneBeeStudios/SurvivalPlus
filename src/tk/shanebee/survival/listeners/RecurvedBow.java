@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.ShootRecurvedBowEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
@@ -29,6 +30,20 @@ class RecurvedBow implements Listener {
 				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();
 					final Vector velocity = player.getLocation().getDirection().add(new Vector(0, 0.025, 0)).multiply(4);
+					Items item;
+					if (ItemManager.compare(mainItem, Items.RECURVE_BOW)) {
+						item = Items.RECURVE_BOW;
+					} else {
+						item = Items.RECURVE_CROSSBOW;
+					}
+					// Call new ShootRecurvedBowEvent
+					ShootRecurvedBowEvent shootEvent = new ShootRecurvedBowEvent(player, mainItem, item);
+					Bukkit.getPluginManager().callEvent(shootEvent);
+					if (shootEvent.isCancelled()) {
+						event.setCancelled(true);
+						return;
+					}
+
 					arrow.setVelocity(velocity);
 
 					player.getWorld().playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
