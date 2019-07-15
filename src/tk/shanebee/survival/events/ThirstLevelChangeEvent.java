@@ -61,7 +61,7 @@ public class ThirstLevelChangeEvent extends Event implements Cancellable {
 
 	@Override
 	public void setCancelled(boolean b) {
-		this.isCancelled = true;
+		this.isCancelled = b;
 	}
 
 }

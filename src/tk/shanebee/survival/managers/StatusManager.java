@@ -120,7 +120,6 @@ public class StatusManager {
             level = 4;
         if (level < 0)
             level = 0;
-        Bukkit.getPluginManager().callEvent(new FatigueLevelChangeEvent(player, level, level));
         fatigue.setScore(level);
     }
 
@@ -139,7 +138,6 @@ public class StatusManager {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
         int increase = fatigue.getScore() + 1;
         int newLevel = increase > 4 ? increase : 4;
-        Bukkit.getPluginManager().callEvent(new FatigueLevelChangeEvent(player, increase, newLevel));
         fatigue.setScore(newLevel);
     }
 

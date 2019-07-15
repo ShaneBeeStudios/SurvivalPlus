@@ -7,6 +7,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.FatigueLevelChangeEvent;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
@@ -48,7 +49,11 @@ public class TaskManager {
 					if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
 							player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000 && random <= fatigueLevel &&
 							Utils.getMinutesPlayed(player) >= 15) {
-						StatusManager.increaseFatigue(player);
+						FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, 1, StatusManager.getFatigue(player) + 1);
+						Bukkit.getPluginManager().callEvent(fatigueEvent);
+						if (!fatigueEvent.isCancelled()) {
+							StatusManager.increaseFatigue(player);
+						}
 
 						if (StatusManager.getFatigue(player) == 1)
 							Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_1);
