@@ -42,7 +42,7 @@ public class ThirstLevelChangeEvent extends Event {
 		return this.changed;
 	}
 
-	public static HandlerList getHandlersList() {
+	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 
