@@ -34,7 +34,7 @@ class InventoryUpdate implements Listener {
     private void itemCheck(Inventory inv) {
         for (int i = 0; i < inv.getSize(); i++) {
             ItemStack item = inv.getItem(i);
-            assert item != null;
+            if (item == null) continue;
             if (ItemManager.compare(item, Items.IRON_SICKLE_OLD)) {
                 itemUpdate(inv, i, item, Items.IRON_SICKLE);
             } else if (ItemManager.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
