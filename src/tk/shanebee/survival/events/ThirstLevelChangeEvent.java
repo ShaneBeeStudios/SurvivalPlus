@@ -1,6 +1,7 @@
 package tk.shanebee.survival.events;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -8,17 +9,19 @@ import org.bukkit.event.HandlerList;
  * Called when a player's thirst level changes
  */
 @SuppressWarnings("unused")
-public class ThirstLevelChangeEvent extends Event {
+public class ThirstLevelChangeEvent extends Event implements Cancellable {
 
 	private final static HandlerList handlers = new HandlerList();
 	private Player player;
 	private int thirst;
 	private int changed;
+	private boolean isCancelled;
 
 	public ThirstLevelChangeEvent(Player player, int changed, int thirst) {
 		this.player = player;
 		this.changed = changed;
 		this.thirst = thirst;
+		this.isCancelled = false;
 	}
 
 	/** Get the player involved in this event
@@ -49,6 +52,16 @@ public class ThirstLevelChangeEvent extends Event {
 	@Override
 	public HandlerList getHandlers() {
 		return handlers;
+	}
+
+	@Override
+	public boolean isCancelled() {
+		return this.isCancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean b) {
+		this.isCancelled = true;
 	}
 
 }

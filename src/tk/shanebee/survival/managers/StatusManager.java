@@ -38,7 +38,6 @@ public class StatusManager {
         Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
         int newLevel = level <= 40 ? level : 40;
         thirst.setScore(newLevel);
-        Bukkit.getPluginManager().callEvent(new ThirstLevelChangeEvent(player, newLevel, newLevel));
     }
 
     /** Get the thirst level of a player
@@ -58,7 +57,6 @@ public class StatusManager {
         int add = thirst.getScore() + level;
         int newLevel = add <= 40 ? add : 40;
         thirst.setScore(newLevel);
-        Bukkit.getPluginManager().callEvent(new ThirstLevelChangeEvent(player, level, newLevel));
     }
 
     /** Remove from the thirst level of a player
@@ -70,7 +68,6 @@ public class StatusManager {
         int remove = thirst.getScore() - level;
         int newLevel = remove > 0 ? remove : 0;
         thirst.setScore(remove > 0 ? remove : 0);
-        Bukkit.getPluginManager().callEvent(new ThirstLevelChangeEvent(player, level, newLevel));
     }
 
     /** Set the nutrient levels of a player

@@ -4,10 +4,10 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
 
@@ -88,8 +88,12 @@ public class TaskManager {
 				if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 					if (player.getExhaustion() >= 4) {
 						Random rand = new Random();
-						double chance = rand.nextDouble();
-						StatusManager.removeThirst(player, chance <= Survival.settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0);
+						int change = rand.nextDouble() <= Survival.settings.getDouble("Mechanics.Thirst.DrainRate") ? 1 : 0;
+						ThirstLevelChangeEvent event = new ThirstLevelChangeEvent(player, change, StatusManager.getThirst(player) - change);
+						Bukkit.getPluginManager().callEvent(event);
+						if (!event.isCancelled()) {
+							StatusManager.removeThirst(player, change);
+						}
 					}
 				}
 			}
