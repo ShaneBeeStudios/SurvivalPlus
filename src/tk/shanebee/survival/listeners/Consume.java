@@ -87,7 +87,7 @@ class Consume implements Listener {
 			case MILK_BUCKET:
 				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 30);
 				break;
-			case MELON:
+			case MELON_SLICE:
 				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 6);
 				break;
 			case MUSHROOM_STEW:
