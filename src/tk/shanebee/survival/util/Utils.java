@@ -263,6 +263,26 @@ public class Utils {
         return false;
     }
 
+    public static boolean isFarmable(Material material) {
+        switch (material) {
+            case MELON:
+            case MELON_STEM:
+            case PUMPKIN:
+            case PUMPKIN_STEM:
+            case JACK_O_LANTERN:
+            case CHORUS_FLOWER:
+            case CHORUS_PLANT:
+            case CARROTS:
+            case POTATOES:
+            case BEETROOTS:
+            case WHEAT:
+            case SWEET_BERRY_BUSH:
+            case COCOA:
+                return true;
+            default:
+                return false;
+        }
+    }
 
     public static List<Material> getDrops(Material material, Boolean grown) {
         List<Material> mat = new ArrayList<>();
@@ -307,6 +327,9 @@ public class Utils {
                 break;
             case SWEET_BERRY_BUSH:
                 mat.add(Material.SWEET_BERRIES);
+                break;
+            case COCOA:
+                mat.add(Material.COCOA_BEANS);
                 break;
             default:
                 mat.add(Material.AIR);

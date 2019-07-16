@@ -170,13 +170,7 @@ class BlockBreak implements Listener {
 				}
 
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
-					if (material == Material.MELON
-							|| material == Material.PUMPKIN || material == Material.JACK_O_LANTERN
-							|| material == Material.MELON_STEM || material == Material.PUMPKIN_STEM
-							|| material == Material.CHORUS_FLOWER || material == Material.CARROTS
-							|| material == Material.POTATOES || material == Material.BEETROOTS
-							|| material == Material.WHEAT || material == Material.SWEET_BERRY_BUSH) {
-
+					if (Utils.isFarmable(material)) {
 						if (!Items.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
 							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
