@@ -18,6 +18,7 @@ import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
+import java.util.List;
 import java.util.Random;
 
 class BlockBreak implements Listener {
@@ -185,7 +186,7 @@ class BlockBreak implements Listener {
 							int random = 1;
 							int multiplier = 1;
 							boolean grown = true;
-							Material drop = Utils.getDrops(material, grown);
+							List<Material> drops = Utils.getDrops(material, grown);
 
 							if (event.getBlock().getBlockData() instanceof Ageable) {
 								Ageable crop = ((Ageable) event.getBlock().getBlockData());
@@ -206,9 +207,11 @@ class BlockBreak implements Listener {
 								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
-							if (drop != Material.AIR && random != 0) {
-								assert loc.getWorld() != null;
-								loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
+							for (Material drop : drops) {
+								if (drop != Material.AIR && random != 0) {
+									assert loc.getWorld() != null;
+									loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
+								}
 							}
 							if (tool.getType().getMaxDurability() < Utils.getDurability(tool) + multiplier) {
 								player.getInventory().setItemInMainHand(null);

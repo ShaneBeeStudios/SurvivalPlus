@@ -9,8 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Utils {
 
@@ -265,37 +264,54 @@ public class Utils {
     }
 
 
-    public static Material getDrops(Material material, Boolean grown) {
+    public static List<Material> getDrops(Material material, Boolean grown) {
+        List<Material> mat = new ArrayList<>();
         switch (material) {
             case PUMPKIN:
-                return Material.PUMPKIN;
+                mat.add(Material.PUMPKIN);
+                break;
             case JACK_O_LANTERN:
-                return Material.JACK_O_LANTERN;
+                mat.add(Material.JACK_O_LANTERN);
+                break;
             case MELON_STEM:
-                return Material.MELON_SEEDS;
+                mat.add(Material.MELON_SEEDS);
+                break;
             case MELON:
-                return Material.MELON_SLICE;
+                mat.add(Material.MELON_SLICE);
+                break;
             case PUMPKIN_STEM:
-                return Material.PUMPKIN_SEEDS;
+                mat.add(Material.PUMPKIN_SEEDS);
+                break;
             case CHORUS_FLOWER:
-                return Material.CHORUS_FLOWER;
+                mat.add(Material.CHORUS_FLOWER);
+                break;
             case CARROTS:
-                return Material.CARROT;
+                mat.add(Material.CARROT);
+                break;
             case POTATOES:
-                return Material.POTATO;
+                mat.add(Material.POTATO);
+                break;
             case BEETROOTS:
-                if (grown) return Material.BEETROOT;
-                else return Material.BEETROOT_SEEDS;
+                if (grown) {
+                    mat.add(Material.BEETROOT);
+                    mat.add(Material.BEETROOT_SEEDS);
+                }
+                else mat.add(Material.BEETROOT_SEEDS);
+                break;
             case WHEAT:
-                if (grown) return Material.WHEAT;
-                else return Material.WHEAT_SEEDS;
+                if (grown) {
+                    mat.add(Material.WHEAT);
+                    mat.add(Material.WHEAT_SEEDS);
+                }
+                else mat.add(Material.WHEAT_SEEDS);
+                break;
             case SWEET_BERRY_BUSH:
-                return Material.SWEET_BERRIES;
-
-                default:
-                    return Material.AIR;
-
+                mat.add(Material.SWEET_BERRIES);
+                break;
+            default:
+                mat.add(Material.AIR);
         }
+        return mat;
     }
 
     /** Send a colored string to a Player
