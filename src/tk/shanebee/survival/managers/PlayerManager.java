@@ -1,11 +1,7 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Lang;
@@ -100,18 +96,17 @@ public class PlayerManager {
 	}
 
 	public List<String> ShowThirst(Player player) {
-		Objective thirst = Survival.mainBoard.getObjective("Thirst");
 		StringBuilder thirstBar = new StringBuilder();
-		for (int i = 0; i < thirst.getScore(player.getName()).getScore(); i++) {
+		for (int i = 0; i < StatusManager.getThirst(player); i++) {
 			thirstBar.append("|");
 		}
-		for (int i = thirst.getScore(player.getName()).getScore(); i < 20; i++) {
+		for (int i = StatusManager.getThirst(player); i < 20; i++) {
 			thirstBar.append(".");
 		}
 
-		if (thirst.getScore(player.getName()).getScore() >= 40)
+		if (StatusManager.getThirst(player) >= 40)
 			thirstBar.insert(0, ChatColor.GREEN);
-		else if (thirst.getScore(player.getName()).getScore() <= 6)
+		else if (StatusManager.getThirst(player) <= 6)
 			thirstBar.insert(0, ChatColor.RED);
 		else
 			thirstBar.insert(0, ChatColor.AQUA);
@@ -187,6 +182,19 @@ public class PlayerManager {
 		else if (fatigue == 3)
 			return ChatColor.WHITE + lang.distressed;
 		else return ChatColor.DARK_GRAY + lang.collapsed_1;
+	}
+
+	/** Check if player is holding arrows in their offhand
+	 * @param player The player to check
+	 * @return Whether or not the player has arrows in their offhand
+	 */
+	public boolean isArrowOffHand(Player player){
+		Material mainHand = player.getInventory().getItemInMainHand().getType();
+		Material offHand = player.getInventory().getItemInOffHand().getType();
+		if (mainHand == Material.CROSSBOW)
+			return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW
+					|| offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
+		return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW || offHand == Material.TIPPED_ARROW;
 	}
 
 }

@@ -1,8 +1,11 @@
 package tk.shanebee.survival.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Score;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.FatigueLevelChangeEvent;
+import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 
 import java.util.Objects;
 
@@ -33,7 +36,8 @@ public class StatusManager {
      */
     public static void setThirst(Player player, int level) {
         Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
-        thirst.setScore(level <= 40 ? level : 40);
+        int newLevel = level <= 40 ? level : 40;
+        thirst.setScore(newLevel);
     }
 
     /** Get the thirst level of a player
@@ -51,7 +55,8 @@ public class StatusManager {
     public static void addThirst(Player player, int level) {
         Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
         int add = thirst.getScore() + level;
-        thirst.setScore(add <= 40 ? add : 40);
+        int newLevel = add <= 40 ? add : 40;
+        thirst.setScore(newLevel);
     }
 
     /** Remove from the thirst level of a player
@@ -61,6 +66,7 @@ public class StatusManager {
     public static void removeThirst(Player player, int level) {
         Score thirst = Objects.requireNonNull(Survival.mainBoard.getObjective("Thirst")).getScore(player.getName());
         int remove = thirst.getScore() - level;
+        int newLevel = remove > 0 ? remove : 0;
         thirst.setScore(remove > 0 ? remove : 0);
     }
 
@@ -131,7 +137,8 @@ public class StatusManager {
     public static void increaseFatigue(Player player) {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
         int increase = fatigue.getScore() + 1;
-        fatigue.setScore(increase > 4 ? increase : 4);
+        int newLevel = increase > 4 ? increase : 4;
+        fatigue.setScore(newLevel);
     }
 
     /** Set the hunger level of a player
