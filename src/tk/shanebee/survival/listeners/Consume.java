@@ -14,17 +14,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.Objective;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
 class Consume implements Listener {
 
-	private Objective thirst = Survival.mainBoard.getObjective("Thirst");
 	private Survival plugin;
 
 	Consume(Survival plugin) {
@@ -36,43 +36,44 @@ class Consume implements Listener {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
 		ItemStack item = event.getItem();
+		int change = 0;
 		switch (event.getItem().getType()) {
 			case POTION:
 				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
 					if (checkWaterBottle(item)) {
 						if (ItemManager.compare(item, Items.DIRTY_WATER)) {
-							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 13);
+							change = 13;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 5) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
 						} else if (ItemManager.compare(item, Items.CLEAN_WATER)) {
-							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
+							change = 18;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 2) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
 						} else if (ItemManager.compare(item, Items.PURIFIED_WATER) || ItemManager.compare(item, Items.COFFEE)) {
-							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 23);
+							change = 23;
 						} else if (ItemManager.compare(item, Items.COLD_MILK)) {
-							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 15);
+							change = 15;
 						} else if (ItemManager.compare(item, Items.HOT_MILK)) {
-							thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 10);
+							change = 10;
 							player.damage(2);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0), true);
 							Utils.sendColoredMsg(player, Survival.lang.hot_milk_drink);
 						}
 					}
 				} else {
-					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 18);
+					change = 18;
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
 				event.setCancelled(true);
 				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
-					thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 10);
+					change = 10;
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
 					if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
@@ -85,19 +86,20 @@ class Consume implements Listener {
 				}
 				break;
 			case MILK_BUCKET:
-				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 30);
+				change = 30;
 				break;
 			case MELON_SLICE:
-				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 6);
+				change = 6;
 				break;
 			case MUSHROOM_STEW:
-				thirst.getScore(player.getName()).setScore(thirst.getScore(player.getName()).getScore() + 12);
+				change = 12;
 				break;
 			default:
 		}
-
-		if (thirst.getScore(player.getName()).getScore() > 40) {
-			thirst.getScore(player.getName()).setScore(40);
+		ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, StatusManager.getThirst(player) + change);
+		Bukkit.getPluginManager().callEvent(thirstEvent);
+		if (!thirstEvent.isCancelled()) {
+			StatusManager.addThirst(player, change);
 		}
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
@@ -111,7 +113,8 @@ class Consume implements Listener {
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		thirst.getScore(player.getName()).setScore(30);
+		int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");
+		StatusManager.setThirst(player, amt);
 	}
 
 	@EventHandler
@@ -119,7 +122,7 @@ class Consume implements Listener {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
 			int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");
-			thirst.getScore(player.getName()).setScore(amt <= 40 ? amt : 40);
+			StatusManager.setThirst(player, amt);
 		}
 	}
 
