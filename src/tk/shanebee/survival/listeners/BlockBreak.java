@@ -18,7 +18,6 @@ import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.List;
 import java.util.Random;
 
 class BlockBreak implements Listener {
@@ -69,7 +68,7 @@ class BlockBreak implements Listener {
 					}
 				}
 				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Pickaxe") && !Utils.isPickaxe(tool.getType())) {
-					if (Utils.requiresPickaxe(material)){
+					if (Utils.requiresPickaxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_pick));
@@ -107,8 +106,7 @@ class BlockBreak implements Listener {
 								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
-							List<Material> drops = Utils.getDrops(material, grown);
-							for (Material drop : drops) {
+							for (Material drop : Utils.getDrops(material, grown)) {
 								if (drop != Material.AIR && random != 0) {
 									assert loc.getWorld() != null;
 									loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
