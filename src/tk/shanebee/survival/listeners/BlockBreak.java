@@ -35,34 +35,15 @@ class BlockBreak implements Listener {
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") &&
-						!(tool.getType() == Material.STONE_SHOVEL || tool.getType() == Material.IRON_SHOVEL
-								|| tool.getType() == Material.DIAMOND_SHOVEL)) {
-					if (material == Material.GRASS_BLOCK
-							|| material == Material.DIRT
-							|| material == Material.PODZOL
-							|| material == Material.COARSE_DIRT
-							|| material == Material.GRASS_PATH
-							|| material == Material.FARMLAND
-							|| material == Material.SOUL_SAND
-							|| material == Material.SAND
-							|| material == Material.RED_SAND
-							|| material == Material.CLAY
-							|| material == Material.MYCELIUM
-							|| material == Material.SNOW
-							|| material == Material.SNOW_BLOCK
-							|| Utils.isConcretePowder(material)
-
-					) {
+				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") && !Utils.isShovel(tool.getType())) {
+					if (Utils.requiresShovel(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shovel));
 					}
-
 					//Flint
 					if (material == Material.GRAVEL) {
-						event.setCancelled(true);
-						event.getBlock().setType(Material.AIR);
+						event.setDropItems(false);
 
 						Random rand = new Random();
 						double chance = rand.nextDouble();
@@ -72,97 +53,23 @@ class BlockBreak implements Listener {
 					}
 				}
 
-				if
-				(Survival.settings.getBoolean("Survival.BreakOnlyWith.Axe") &&
-						!(tool.getType() == Material.WOODEN_AXE || tool.getType() == Material.STONE_AXE
-								|| tool.getType() == Material.IRON_AXE || tool.getType() == Material.GOLDEN_AXE
-								|| tool.getType() == Material.DIAMOND_AXE)) {
-					if (Tag.DOORS.isTagged(material)
-							|| material == Material.CHEST
-							|| material == Material.TRAPPED_CHEST
-							|| material == Material.CRAFTING_TABLE
-							|| Tag.PLANKS.isTagged(material)
-							|| Tag.LOGS.isTagged(material)
-							|| Tag.WOODEN_STAIRS.isTagged(material)
-							|| Tag.WOODEN_SLABS.isTagged(material)
-							|| material == Material.BOOKSHELF
-							|| material == Material.LADDER
-							|| Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
-							|| Tag.WOODEN_FENCES.isTagged(material)
-							|| Utils.isWoodGate(material)
-							|| Tag.BANNERS.isTagged(material)
-							|| material == Material.JUKEBOX
-							|| material == Material.NOTE_BLOCK
-							|| material == Material.DAYLIGHT_DETECTOR
-							|| Tag.SIGNS.isTagged(material)) {
+				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Axe") && !Utils.isAxe(tool.getType())) {
+					if (Utils.requiresAxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_axe));
 					}
 
 					//Fix half door glitch
-					if
-					(
-							Tag.DOORS.isTagged(material)
-					) {
+					if (Tag.DOORS.isTagged(material)) {
 						if (block.getRelative(BlockFace.UP).getType() == material)
 							block.getRelative(BlockFace.UP).getState().update(true);
 						if (block.getRelative(BlockFace.DOWN).getType() == material)
 							block.getRelative(BlockFace.DOWN).getState().update(true);
 					}
 				}
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Pickaxe") &&
-						!(tool.getType() == Material.WOODEN_PICKAXE
-								|| tool.getType() == Material.GOLDEN_PICKAXE
-								|| tool.getType() == Material.STONE_PICKAXE
-								|| tool.getType() == Material.IRON_PICKAXE
-								|| tool.getType() == Material.DIAMOND_PICKAXE)) {
-					if (material == Material.OBSIDIAN
-							|| Utils.isOreBlock(material)
-							|| Utils.isNaturalOreBlock(material)
-							|| Utils.isNonWoodDoor(material)
-							|| Utils.isNonWoodSlab(material)
-							|| Utils.isNonWoodStairs(material)
-
-							|| Utils.isTerracotta(material)
-							|| Utils.isGlazedTerracotta(material)
-							|| Utils.isConcrete(material)
-
-							|| Utils.isStoneTypeBlock(material)
-							|| Utils.isCookingBlock(material)
-
-
-							|| Tag.WALLS.isTagged(material)
-							|| Tag.ICE.isTagged(material)
-							|| Tag.CORAL_BLOCKS.isTagged(material)
-
-							|| material == Material.NETHER_BRICK_FENCE
-							|| material == Material.SPAWNER
-
-							|| material == Material.SEA_LANTERN
-							|| material == Material.GLOWSTONE
-							|| material == Material.END_ROD
-							|| material == Material.DISPENSER
-							|| material == Material.DROPPER
-							|| material == Material.OBSERVER
-							|| material == Material.PISTON
-							|| material == Material.PISTON_HEAD
-							|| material == Material.STICKY_PISTON
-							|| material == Material.MOVING_PISTON
-							|| material == Material.DAYLIGHT_DETECTOR
-							|| material == Material.ENCHANTING_TABLE
-							|| material == Material.ANVIL
-							|| material == Material.ENDER_CHEST
-							|| material == Material.HOPPER
-							|| material == Material.CAULDRON
-							|| material == Material.BREWING_STAND
-							|| material == Material.STONE_PRESSURE_PLATE
-							|| material == Material.HEAVY_WEIGHTED_PRESSURE_PLATE
-							|| material == Material.LIGHT_WEIGHTED_PRESSURE_PLATE
-
-							|| material == Material.BEACON
-
-							|| Tag.RAILS.isTagged(material)) {
+				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Pickaxe") && !Utils.isPickaxe(tool.getType())) {
+					if (Utils.requiresPickaxe(material)){
 						event.setCancelled(true);
 						player.updateInventory();
 						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_pick));
@@ -180,7 +87,6 @@ class BlockBreak implements Listener {
 							int random = 1;
 							int multiplier = 1;
 							boolean grown = true;
-							List<Material> drops = Utils.getDrops(material, grown);
 
 							if (event.getBlock().getBlockData() instanceof Ageable) {
 								Ageable crop = ((Ageable) event.getBlock().getBlockData());
@@ -201,6 +107,7 @@ class BlockBreak implements Listener {
 								random = grown ? new Random().nextInt(2) + 2 : 1;
 							}
 
+							List<Material> drops = Utils.getDrops(material, grown);
 							for (Material drop : drops) {
 								if (drop != Material.AIR && random != 0) {
 									assert loc.getWorld() != null;
@@ -220,17 +127,14 @@ class BlockBreak implements Listener {
 
 				if (!(tool.getType() == Material.SHEARS)) {
 					if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shears")) {
-						if (material == Material.COBWEB
-								|| material == Material.TRIPWIRE
-								|| material == Material.TNT
-								|| material == Material.MUSHROOM_STEM) {
+						if (Utils.requiresShears(material)) {
 							event.setCancelled(true);
 							player.updateInventory();
 							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shear));
 						}
 					}
 
-					//Sticks
+					//Sticks - Maybe this should be removed since 1.14+ leaves drop sticks?!?!?
 					if (Tag.LEAVES.isTagged(material)) {
 						Random rand = new Random();
 						double chance = rand.nextDouble();

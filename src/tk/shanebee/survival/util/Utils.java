@@ -11,6 +11,7 @@ import tk.shanebee.survival.managers.Items;
 
 import java.util.*;
 
+@SuppressWarnings("WeakerAccess")
 public class Utils {
 
     public static boolean isConcrete(Material material) {
@@ -278,6 +279,144 @@ public class Utils {
             case WHEAT:
             case SWEET_BERRY_BUSH:
             case COCOA:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean isShovel(Material material) {
+        switch (material) {
+            case STONE_SHOVEL:
+            case IRON_SHOVEL:
+            case DIAMOND_SHOVEL:
+                //GOLD + WOODEN left out for a reason!
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean requiresShovel(Material material) {
+        switch (material) {
+            case GRASS_BLOCK:
+            case DIRT:
+            case PODZOL:
+            case COARSE_DIRT:
+            case GRASS_PATH:
+            case FARMLAND:
+            case SOUL_SAND:
+            case SAND:
+            case RED_SAND:
+            case CLAY:
+            case MYCELIUM:
+            case SNOW:
+            case SNOW_BLOCK:
+                return true;
+        }
+        return Utils.isConcretePowder(material);
+    }
+
+    public static boolean isPickaxe(Material material) {
+        switch (material) {
+            case GOLDEN_PICKAXE:
+            case WOODEN_PICKAXE:
+            case DIAMOND_PICKAXE:
+            case IRON_PICKAXE:
+            case STONE_PICKAXE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean requiresPickaxe(Material material) {
+        switch (material) {
+            case NETHER_BRICK_FENCE:
+            case SPAWNER:
+            case SEA_LANTERN:
+            case GLOWSTONE:
+            case END_ROD:
+            case DISPENSER:
+            case DROPPER:
+            case OBSERVER:
+            case PISTON:
+            case PISTON_HEAD:
+            case STICKY_PISTON:
+            case MOVING_PISTON:
+            case DAYLIGHT_DETECTOR:
+            case ENCHANTING_TABLE:
+            case ANVIL:
+            case ENDER_CHEST:
+            case HOPPER:
+            case CAULDRON:
+            case BREWING_STAND:
+            case STONE_PRESSURE_PLATE:
+            case HEAVY_WEIGHTED_PRESSURE_PLATE:
+            case LIGHT_WEIGHTED_PRESSURE_PLATE:
+            case BEACON:
+            case OBSIDIAN:
+                return true;
+        }
+        if (Utils.isOreBlock(material)) return true;
+        if (Utils.isNaturalOreBlock(material)) return true;
+        if (Utils.isNonWoodDoor(material)) return true;
+        if (Utils.isNonWoodSlab(material)) return true;
+        if (Utils.isNonWoodStairs(material)) return true;
+        if (Utils.isTerracotta(material)) return true;
+        if (Utils.isGlazedTerracotta(material)) return true;
+        if (Utils.isConcrete(material)) return true;
+        if (Utils.isStoneTypeBlock(material)) return true;
+        if (Utils.isCookingBlock(material)) return true;
+        if (Tag.WALLS.isTagged(material)) return true;
+        if (Tag.ICE.isTagged(material)) return true;
+        if (Tag.CORAL_BLOCKS.isTagged(material)) return true;
+        return Tag.RAILS.isTagged(material);
+    }
+
+    public static boolean isAxe(Material material) {
+        switch (material) {
+            case WOODEN_AXE:
+            case STONE_AXE:
+            case GOLDEN_AXE:
+            case IRON_AXE:
+            case DIAMOND_AXE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean requiresAxe(Material material) {
+        switch (material) {
+            case CHEST:
+            case TRAPPED_CHEST:
+            case CRAFTING_TABLE:
+            case BOOKSHELF:
+            case LADDER:
+            case JUKEBOX:
+            case NOTE_BLOCK:
+            case DAYLIGHT_DETECTOR:
+                return true;
+        }
+        if (Tag.DOORS.isTagged(material)) return true;
+        if (Tag.PLANKS.isTagged(material)) return true;
+        if (Tag.LOGS.isTagged(material)) return true;
+        if (Tag.WOODEN_STAIRS.isTagged(material)) return true;
+        if (Tag.WOODEN_SLABS.isTagged(material)) return true;
+        if (Tag.WOODEN_FENCES.isTagged(material)) return true;
+        if (Tag.WOODEN_PRESSURE_PLATES.isTagged(material)) return true;
+        if (Tag.BANNERS.isTagged(material)) return true;
+        if (Tag.SIGNS.isTagged(material)) return true;
+        return Utils.isWoodGate(material);
+    }
+
+    public static boolean requiresShears(Material material) {
+        switch (material) {
+            case COBWEB:
+            case TRIPWIRE:
+            case TNT:
+            case MUSHROOM_STEM:
                 return true;
             default:
                 return false;
