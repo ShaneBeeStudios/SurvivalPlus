@@ -11,6 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
@@ -216,6 +217,44 @@ class BlockBreak implements Listener {
 					player.playSound(loc, Sound.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, 1, 1);
 				}
 			}
+		}
+	}
+
+	@EventHandler
+	private void onWaterBreakCrops(BlockPhysicsEvent event) {
+		if (event.getSourceBlock().getType() == Material.WATER) {
+			if (Utils.isFarmable(event.getBlock().getType())) {
+				if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+				event.getBlock().setType(Material.AIR);
+			}
+		}
+	}
+
+	@EventHandler
+	private void onTrample(PlayerInteractEvent event) {
+		if (event.getAction() == Action.PHYSICAL) {
+			if (event.getClickedBlock() == null) return;
+			if (event.getClickedBlock().getType() == Material.FARMLAND) {
+				if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+				Location loc = event.getClickedBlock().getLocation();
+				assert loc.getWorld() != null;
+				loc.getWorld().playEffect(loc, Effect.STEP_SOUND, event.getClickedBlock().getRelative(BlockFace.UP).getType());
+				event.getClickedBlock().getRelative(BlockFace.UP).setType(Material.AIR);
+			}
+		}
+	}
+
+	@EventHandler
+	private void onBreakBelowFarmable(BlockBreakEvent event) {
+		if (event.isCancelled()) return;
+		if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+		Block block = event.getBlock();
+		Block above = block.getRelative(BlockFace.UP);
+		if (block.getType() == Material.FARMLAND && Utils.isFarmable(above.getType())) {
+			above.setType(Material.AIR);
+		}
+		if (above.getType() == Material.SWEET_BERRY_BUSH) {
+			above.setType(Material.AIR);
 		}
 	}
 
