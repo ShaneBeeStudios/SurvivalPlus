@@ -12,14 +12,14 @@ public class Config {
 	private Survival plugin;
 	private FileConfiguration settings;
 
-	public boolean breakOnlyWithSickle;
-	public boolean breakOnlyWithShovel;
-	public boolean breakOnlyWithAxe;
-	public boolean breakOnlyWithPickaxe;
-	public boolean breakOnlyWithShears;
+	public boolean BREAK_ONLY_WITH_SICKLE;
+	public boolean BREAK_ONLY_WITH_SHOVEL;
+	public boolean BREAK_ONLY_WITH_AXE;
+	public boolean BREAK_ONLY_WITH_PICKAXE;
+	public boolean BREAK_ONLY_WITH_SHEARS;
 
-	public double dropRate_stick;
-	public double dropRate_flint;
+	public double DROP_RATE_STICK;
+	public double DROP_RATE_FLINT;
 
 
 	public Config(Survival plugin, FileConfiguration settings) {
@@ -60,14 +60,14 @@ public class Config {
 	}
 
 	private void loadSettings() {
-		this.breakOnlyWithSickle = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
-		this.breakOnlyWithShovel = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
-		this.breakOnlyWithAxe = settings.getBoolean("Survival.BreakOnlyWith.Axe");
-		this.breakOnlyWithPickaxe = settings.getBoolean("Survival.BreakOnlyWith.Pickaxe");
-		this.breakOnlyWithShears = settings.getBoolean("Survival.BreakOnlyWith.Shears");
+		this.BREAK_ONLY_WITH_SICKLE = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
+		this.BREAK_ONLY_WITH_SHOVEL = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
+		this.BREAK_ONLY_WITH_AXE = settings.getBoolean("Survival.BreakOnlyWith.Axe");
+		this.BREAK_ONLY_WITH_PICKAXE = settings.getBoolean("Survival.BreakOnlyWith.Pickaxe");
+		this.BREAK_ONLY_WITH_SHEARS = settings.getBoolean("Survival.BreakOnlyWith.Shears");
 
-		this.dropRate_stick = settings.getDouble("Survival.DropRate.Stick");
-		this.dropRate_flint = settings.getDouble("Survival.DropRate.Flint");
+		this.DROP_RATE_STICK = settings.getDouble("Survival.DropRate.Stick");
+		this.DROP_RATE_FLINT = settings.getDouble("Survival.DropRate.Flint");
 	}
 
 }

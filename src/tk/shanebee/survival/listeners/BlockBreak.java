@@ -38,7 +38,7 @@ class BlockBreak implements Listener {
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
-				if (settings.breakOnlyWithShovel && !Utils.isShovel(tool.getType())) {
+				if (settings.BREAK_ONLY_WITH_SHOVEL && !Utils.isShovel(tool.getType())) {
 					if (Utils.requiresShovel(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -51,12 +51,12 @@ class BlockBreak implements Listener {
 						Random rand = new Random();
 						double chance = rand.nextDouble();
 
-						if (chance <= settings.dropRate_flint)
+						if (chance <= settings.DROP_RATE_FLINT)
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.FLINT));
 					}
 				}
 
-				if (settings.breakOnlyWithAxe && !Utils.isAxe(tool.getType())) {
+				if (settings.BREAK_ONLY_WITH_AXE && !Utils.isAxe(tool.getType())) {
 					if (Utils.requiresAxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -71,7 +71,7 @@ class BlockBreak implements Listener {
 							block.getRelative(BlockFace.DOWN).getState().update(true);
 					}
 				}
-				if (settings.breakOnlyWithPickaxe && !Utils.isPickaxe(tool.getType())) {
+				if (settings.BREAK_ONLY_WITH_PICKAXE && !Utils.isPickaxe(tool.getType())) {
 					if (Utils.requiresPickaxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -79,7 +79,7 @@ class BlockBreak implements Listener {
 					}
 				}
 
-				if (settings.breakOnlyWithSickle) {
+				if (settings.BREAK_ONLY_WITH_SICKLE) {
 					if (Utils.isFarmable(material)) {
 						if (!Items.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
@@ -128,7 +128,7 @@ class BlockBreak implements Listener {
 				}
 
 				if (!(tool.getType() == Material.SHEARS)) {
-					if (settings.breakOnlyWithShears) {
+					if (settings.BREAK_ONLY_WITH_SHEARS) {
 						if (Utils.requiresShears(material)) {
 							event.setCancelled(true);
 							player.updateInventory();
@@ -141,7 +141,7 @@ class BlockBreak implements Listener {
 						Random rand = new Random();
 						double chance = rand.nextDouble();
 
-						if (chance <= settings.dropRate_stick)
+						if (chance <= settings.DROP_RATE_STICK)
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.STICK));
 					}
 				}
@@ -155,7 +155,7 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onHarvest(PlayerInteractEvent e) {
-		if (!settings.breakOnlyWithSickle) return;
+		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK) return;
 		Player player = e.getPlayer();
@@ -225,7 +225,7 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onWaterBreakCrops(BlockPhysicsEvent event) {
-		if (!settings.breakOnlyWithSickle) return;
+		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (event.getSourceBlock().getType() == Material.WATER) {
 			if (Utils.isFarmable(event.getBlock().getType())) {
 				event.getBlock().setType(Material.AIR);
@@ -235,7 +235,7 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onTrample(PlayerInteractEvent event) {
-		if (!settings.breakOnlyWithSickle) return;
+		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (event.getAction() == Action.PHYSICAL) {
 			if (event.getClickedBlock() == null) return;
 			if (event.getClickedBlock().getType() == Material.FARMLAND) {
@@ -250,7 +250,7 @@ class BlockBreak implements Listener {
 	@EventHandler
 	private void onBreakBelowFarmable(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
-		if (!settings.breakOnlyWithSickle) return;
+		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		Block block = event.getBlock();
 		Block above = block.getRelative(BlockFace.UP);
 		if (block.getType() == Material.FARMLAND && Utils.isFarmable(above.getType())) {
