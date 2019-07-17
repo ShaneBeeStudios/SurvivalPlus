@@ -15,6 +15,7 @@ import tk.shanebee.survival.listeners.EventManager;
 import tk.shanebee.survival.managers.*;
 import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.NoPos;
 import tk.shanebee.survival.util.Utils;
@@ -33,6 +34,7 @@ public class Survival extends JavaPlugin implements Listener {
 	public static Scoreboard board;
 	public static Scoreboard mainBoard;
 	public static FileConfiguration settings = new YamlConfiguration();
+	private Config config;
 	public static int LocalChatDist = 64;
 	private int AlertInterval = 20;
 	private static List<Double> Rates = new ArrayList<>();
@@ -61,6 +63,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 		settings = YamlConfiguration.loadConfiguration(config_file);
 		updateConfig();
+		this.config = new Config(settings);
 
 		// LOAD LANG FILE
 		lang = new Lang(this, settings.getString("Language"));
@@ -282,6 +285,15 @@ public class Survival extends JavaPlugin implements Listener {
 	@SuppressWarnings("unused")
 	public TaskManager getTaskManager() {
 		return this.taskManager;
+	}
+
+	public Config getSettings() {
+		return this.config;
+	}
+
+	public void loadSettings() {
+		reloadConfig();
+		this.config = new Config(settings);
 	}
 
 	public int getAlertInterval() {
