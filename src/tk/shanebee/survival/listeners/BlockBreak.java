@@ -17,11 +17,14 @@ import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
 class BlockBreak implements Listener {
+
+	private Config settings = Survival.getInstance().getSurvivalConfig();
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBlockBreak(BlockBreakEvent event) {
@@ -35,7 +38,7 @@ class BlockBreak implements Listener {
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shovel") && !Utils.isShovel(tool.getType())) {
+				if (settings.breakOnlyWithShovel && !Utils.isShovel(tool.getType())) {
 					if (Utils.requiresShovel(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -48,12 +51,12 @@ class BlockBreak implements Listener {
 						Random rand = new Random();
 						double chance = rand.nextDouble();
 
-						if (chance <= Survival.settings.getDouble("Survival.DropRate.Flint"))
+						if (chance <= settings.dropRate_flint)
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.FLINT));
 					}
 				}
 
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Axe") && !Utils.isAxe(tool.getType())) {
+				if (settings.breakOnlyWithAxe && !Utils.isAxe(tool.getType())) {
 					if (Utils.requiresAxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -68,7 +71,7 @@ class BlockBreak implements Listener {
 							block.getRelative(BlockFace.DOWN).getState().update(true);
 					}
 				}
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Pickaxe") && !Utils.isPickaxe(tool.getType())) {
+				if (settings.breakOnlyWithPickaxe && !Utils.isPickaxe(tool.getType())) {
 					if (Utils.requiresPickaxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
@@ -76,7 +79,7 @@ class BlockBreak implements Listener {
 					}
 				}
 
-				if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
+				if (settings.breakOnlyWithSickle) {
 					if (Utils.isFarmable(material)) {
 						if (!Items.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
@@ -125,7 +128,7 @@ class BlockBreak implements Listener {
 				}
 
 				if (!(tool.getType() == Material.SHEARS)) {
-					if (Survival.settings.getBoolean("Survival.BreakOnlyWith.Shears")) {
+					if (settings.breakOnlyWithShears) {
 						if (Utils.requiresShears(material)) {
 							event.setCancelled(true);
 							player.updateInventory();
@@ -138,7 +141,7 @@ class BlockBreak implements Listener {
 						Random rand = new Random();
 						double chance = rand.nextDouble();
 
-						if (chance <= Survival.settings.getDouble("Survival.DropRate.Stick"))
+						if (chance <= settings.dropRate_stick)
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.STICK));
 					}
 				}
@@ -152,7 +155,7 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onHarvest(PlayerInteractEvent e) {
-		if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+		if (!settings.breakOnlyWithSickle) return;
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK) return;
 		Player player = e.getPlayer();
@@ -222,9 +225,9 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onWaterBreakCrops(BlockPhysicsEvent event) {
+		if (!settings.breakOnlyWithSickle) return;
 		if (event.getSourceBlock().getType() == Material.WATER) {
 			if (Utils.isFarmable(event.getBlock().getType())) {
-				if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
 				event.getBlock().setType(Material.AIR);
 			}
 		}
@@ -232,10 +235,10 @@ class BlockBreak implements Listener {
 
 	@EventHandler
 	private void onTrample(PlayerInteractEvent event) {
+		if (!settings.breakOnlyWithSickle) return;
 		if (event.getAction() == Action.PHYSICAL) {
 			if (event.getClickedBlock() == null) return;
 			if (event.getClickedBlock().getType() == Material.FARMLAND) {
-				if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
 				Location loc = event.getClickedBlock().getLocation();
 				assert loc.getWorld() != null;
 				loc.getWorld().playEffect(loc, Effect.STEP_SOUND, event.getClickedBlock().getRelative(BlockFace.UP).getType());
@@ -247,7 +250,7 @@ class BlockBreak implements Listener {
 	@EventHandler
 	private void onBreakBelowFarmable(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
-		if (!Survival.settings.getBoolean("Survival.BreakOnlyWith.Sickle")) return;
+		if (!settings.breakOnlyWithSickle) return;
 		Block block = event.getBlock();
 		Block above = block.getRelative(BlockFace.UP);
 		if (block.getType() == Material.FARMLAND && Utils.isFarmable(above.getType())) {

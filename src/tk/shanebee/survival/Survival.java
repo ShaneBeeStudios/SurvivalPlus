@@ -20,7 +20,6 @@ import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.NoPos;
 import tk.shanebee.survival.util.Utils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +55,18 @@ public class Survival extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		instance = this;
-
-		File config_file = new File(this.getDataFolder(), "config.yml");
-		if (!config_file.exists()) {
-			this.saveResource("config.yml", true);
+		if (!Utils.isRunningMinecraft(1, 14)) {
+			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
+			getLogger().severe("-----------------------------------------------------------");
+			getLogger().severe("Your version is not supported: " + Utils.getColoredString("&b" + ver));
+			getLogger().severe(Utils.getColoredString("This plugin only works on &b1.14+"));
+			getLogger().severe("-----------------------------------------------------------");
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
 		}
-		settings = YamlConfiguration.loadConfiguration(config_file);
-		updateConfig();
-		this.config = new Config(settings);
+
+		// LOAD MAIN CONFIG FILE
+		loadSettings();
 
 		// LOAD LANG FILE
 		lang = new Lang(this, settings.getString("Language"));
@@ -230,20 +233,6 @@ public class Survival extends JavaPlugin implements Listener {
 		getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 	}
 
-	private void updateConfig() {
-		if (!settings.isSet("Mechanics.BurnoutTorches.Enabled") || !settings.isSet("Survival.Sickles.Flint")) {
-			settings = getConfig();
-			settings.options().copyDefaults(true);
-			saveConfig();
-		}
-		if (settings.getString("MultiWorld.ResourcePackURL")
-				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip")) {
-			settings = getConfig();
-			settings.set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip");
-			saveConfig();
-		}
-	}
-
 	/** Get instance of this plugin
 	 * @return Instance of this plugin
 	 */
@@ -287,13 +276,12 @@ public class Survival extends JavaPlugin implements Listener {
 		return this.taskManager;
 	}
 
-	public Config getSettings() {
+	public Config getSurvivalConfig() {
 		return this.config;
 	}
 
 	public void loadSettings() {
-		reloadConfig();
-		this.config = new Config(settings);
+		this.config = new Config(this, settings);
 	}
 
 	public int getAlertInterval() {

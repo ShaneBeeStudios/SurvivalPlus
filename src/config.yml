@@ -12,7 +12,7 @@ MultiWorld:
   # Enable the SurvivalPlus resource pack for players
   EnableResourcePack: true
   # The link to the pack, you can put a custom link here if need be
-  ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip
+  ResourcePackURL: https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip
   # Notify players when they log in if they deny the resource pack
   NotifyMessage: true
 
