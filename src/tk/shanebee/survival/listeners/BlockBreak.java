@@ -253,11 +253,15 @@ class BlockBreak implements Listener {
 		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		Block block = event.getBlock();
 		Block above = block.getRelative(BlockFace.UP);
-		if (block.getType() == Material.FARMLAND && Utils.isFarmable(above.getType())) {
-			above.setType(Material.AIR);
-		}
-		if (above.getType() == Material.SWEET_BERRY_BUSH) {
-			above.setType(Material.AIR);
+		switch (block.getType()) {
+			case GRASS_BLOCK:
+			case DIRT:
+			case PODZOL:
+			case COARSE_DIRT:
+			case FARMLAND:
+				if (Utils.isFarmable(above.getType())) {
+					above.setType(Material.AIR);
+				}
 		}
 	}
 
