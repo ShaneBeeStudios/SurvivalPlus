@@ -26,7 +26,7 @@ import tk.shanebee.survival.Survival;
 
 class Valkyrie implements Listener {
 
-	private Objective spin = Survival.board.getObjective("spin");
+	private Objective spin = Survival.board.getObjective("Spin");
 	private Objective dualWield = Survival.board.getObjective("DualWield");
 
 	//To prevent double messages send to player.
