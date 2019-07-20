@@ -5,6 +5,7 @@ version: 3.6.4
 api-version: 1.14
 softdepend:
    - PlaceholderAPI
+   - Multiverse-Core
 commands:
    reload-survival:
       aliases: [survival-reload]
