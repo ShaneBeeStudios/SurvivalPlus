@@ -53,14 +53,17 @@ public class Survival extends JavaPlugin implements Listener {
 	private PlayerManager playerManager;
 	private TaskManager taskManager;
 
+	private boolean loaded = true;
+
 	public void onEnable() {
 		instance = this;
 		if (!Utils.isRunningMinecraft(1, 14)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
 			getLogger().severe("-----------------------------------------------------------");
 			getLogger().severe("Your version is not supported: " + Utils.getColoredString("&b" + ver));
-			getLogger().severe(Utils.getColoredString("This plugin only works on &b1.14+"));
+			getLogger().severe(Utils.getColoredString("This plugin only works on Minecraft &b1.14+"));
 			getLogger().severe("-----------------------------------------------------------");
+			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -172,12 +175,13 @@ public class Survival extends JavaPlugin implements Listener {
 	}
 
 	public void onDisable() {
+		if (!loaded) return;
 		Utils.sendColoredConsoleMsg(prefix + "&eShutting down");
 		getServer().getScheduler().cancelTasks(this);
 		//getServer().resetRecipes(); <-- why is this even here?
 		usingPlayers = new ArrayList<>();
 
-		// Remove limited crafting when server shuts down (import if server removes this plugin)
+		// Remove limited crafting when server shuts down (important if server removes this plugin)
 		for (World world : getServer().getWorlds()) {
 			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, false);
 		}
