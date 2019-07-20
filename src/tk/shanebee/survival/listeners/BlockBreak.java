@@ -153,8 +153,10 @@ class BlockBreak implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void onHarvest(PlayerInteractEvent e) {
+		if (e.isCancelled()) return;
 		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK) return;
@@ -233,8 +235,10 @@ class BlockBreak implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void onTrample(PlayerInteractEvent event) {
+		if (event.isCancelled()) return;
 		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (event.getAction() == Action.PHYSICAL) {
 			if (event.getClickedBlock() == null) return;
