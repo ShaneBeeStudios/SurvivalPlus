@@ -127,11 +127,19 @@ Mechanics:
     Enabled: true
     # The level of thirst a player starts out with (max = 40)
     Starting-Amount: 30
+    # The level of thirst a player gets after respawning after death (max = 40)
+    Respawn-Amount: 30
     # Enables 3 different levels of water (dirty, clean, purified)
     PurifyWater: true
     MeltSnow: true
     # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
     DrainRate: 1.0
+
+  Hunger:
+    # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)
+    Starting-Amount: 30
+    # The level of hunger a player will receive after respawning after death (max = 40)
+    Respawn-Amount: 30
 
   # Players can set a waypoint to a location using a compass
   CompassWaypoint: true

@@ -21,6 +21,14 @@ public class Config {
 	public double DROP_RATE_STICK;
 	public double DROP_RATE_FLINT;
 
+	public boolean STATUS_SCOREBOARD;
+
+	public int THIRST_START_AMOUNT;
+	public int THIRST_RESPAWN_AMOUNT;
+	public boolean THIRST_PURIFY_WATER;
+	public int HUNGER_START_AMOUNT;
+	public int HUNGER_RESPAWN_AMOUNT;
+
 
 	public Config(Survival plugin, FileConfiguration settings) {
 		this.plugin = plugin;
@@ -68,6 +76,14 @@ public class Config {
 
 		this.DROP_RATE_STICK = settings.getDouble("Survival.DropRate.Stick");
 		this.DROP_RATE_FLINT = settings.getDouble("Survival.DropRate.Flint");
+
+		this.STATUS_SCOREBOARD = settings.getBoolean("Mechanics.StatusScoreboard");
+
+		this.THIRST_START_AMOUNT = settings.getInt("Mechanics.Thirst.Starting-Amount");
+		this.THIRST_RESPAWN_AMOUNT = settings.getInt("Mechanics.Thirst.Respawn-Amount");
+		this.THIRST_PURIFY_WATER = settings.getBoolean("Mechanics.Thirst.PurifyWater");
+		this.HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
+		this.HUNGER_RESPAWN_AMOUNT = settings.getInt("Mechanics.Hunger.Respawn-Amount");
 	}
 
 }

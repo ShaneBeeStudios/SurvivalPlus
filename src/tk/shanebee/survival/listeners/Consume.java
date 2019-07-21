@@ -39,7 +39,7 @@ class Consume implements Listener {
 		int change = 0;
 		switch (event.getItem().getType()) {
 			case POTION:
-				if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
+				if (Survival.instance.getSurvivalConfig().THIRST_PURIFY_WATER) {
 					if (checkWaterBottle(item)) {
 						if (ItemManager.compare(item, Items.DIRTY_WATER)) {
 							change = 13;
@@ -76,7 +76,7 @@ class Consume implements Listener {
 					change = 10;
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
-					if (Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
+					if (Survival.instance.getSurvivalConfig().THIRST_PURIFY_WATER) {
 						Random rand = new Random();
 						if (rand.nextInt(10) + 1 <= 8) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
@@ -103,7 +103,7 @@ class Consume implements Listener {
 		}
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
-			if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
+			if (!Survival.instance.getSurvivalConfig().STATUS_SCOREBOARD) {
 				player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " + plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
 				player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " + plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 			}
@@ -113,16 +113,21 @@ class Consume implements Listener {
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");
-		StatusManager.setThirst(player, amt);
+		int thirst = Survival.instance.getSurvivalConfig().THIRST_RESPAWN_AMOUNT;
+		StatusManager.setThirst(player, thirst);
+		int hunger = Survival.instance.getSurvivalConfig().HUNGER_RESPAWN_AMOUNT;
+		Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
+
 	}
 
 	@EventHandler
 	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
-			int amt = Survival.settings.getInt("Mechanics.Thirst.Starting-Amount");
-			StatusManager.setThirst(player, amt);
+			int thirst = Survival.instance.getSurvivalConfig().THIRST_START_AMOUNT;
+			StatusManager.setThirst(player, thirst);
+			int hunger = Survival.instance.getSurvivalConfig().HUNGER_START_AMOUNT;
+			Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
 		}
 	}
 
