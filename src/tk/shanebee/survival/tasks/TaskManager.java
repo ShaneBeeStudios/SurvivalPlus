@@ -46,7 +46,7 @@ public class TaskManager {
 					int fatigueLevel = Survival.settings.getInt("Mechanics.FatigueLevelIncreaseChance");
 					int random = new Random().nextInt(100) + 1;
 
-					if (overworld.getTime() >= 18000 && overworld.getTime() < 18100 && !player.isSleeping() &&
+					if (overworld.getTime() >= 18000 && overworld.getTime() < 18150 && !player.isSleeping() &&
 							player.getStatistic(Statistic.TIME_SINCE_REST) >= 5000 && random <= fatigueLevel &&
 							Utils.getMinutesPlayed(player) >= 15) {
 						FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, 1, StatusManager.getFatigue(player) + 1);

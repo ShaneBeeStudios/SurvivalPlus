@@ -137,7 +137,9 @@ public class StatusManager {
     public static void increaseFatigue(Player player) {
         Score fatigue = Objects.requireNonNull(Survival.mainBoard.getObjective("Fatigue")).getScore(player.getName());
         int increase = fatigue.getScore() + 1;
-        int newLevel = increase > 4 ? increase : 4;
+        Bukkit.broadcastMessage("Increase: " + increase);
+        int newLevel = increase < 4 ? increase : 4;
+        Bukkit.broadcastMessage("newLevel: " + newLevel);
         fatigue.setScore(newLevel);
     }
 
