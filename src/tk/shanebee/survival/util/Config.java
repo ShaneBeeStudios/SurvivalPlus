@@ -17,6 +17,7 @@ public class Config {
 	public boolean BREAK_ONLY_WITH_AXE;
 	public boolean BREAK_ONLY_WITH_PICKAXE;
 	public boolean BREAK_ONLY_WITH_SHEARS;
+	public boolean PLACE_ONLY_WITH_HAMMER;
 
 	public double DROP_RATE_STICK;
 	public double DROP_RATE_FLINT;
@@ -73,6 +74,7 @@ public class Config {
 		this.BREAK_ONLY_WITH_AXE = settings.getBoolean("Survival.BreakOnlyWith.Axe");
 		this.BREAK_ONLY_WITH_PICKAXE = settings.getBoolean("Survival.BreakOnlyWith.Pickaxe");
 		this.BREAK_ONLY_WITH_SHEARS = settings.getBoolean("Survival.BreakOnlyWith.Shears");
+		this.PLACE_ONLY_WITH_HAMMER = settings.getBoolean("Survival.PlaceOnlyWith.Hammer");
 
 		this.DROP_RATE_STICK = settings.getDouble("Survival.DropRate.Stick");
 		this.DROP_RATE_FLINT = settings.getDouble("Survival.DropRate.Flint");

@@ -18,6 +18,7 @@ import java.util.Random;
 
 class BlockPlace implements Listener {
 
+	@SuppressWarnings("ConstantConditions")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBlockPlace(BlockPlaceEvent event) {
 		if (event.isCancelled()) return;
@@ -29,8 +30,8 @@ class BlockPlace implements Listener {
 		Block block = event.getBlock();
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (Survival.settings.getBoolean("Survival.PlaceOnlyWith.Hammer")) {
-				if (checkArtifact(block)) {
+			if (Survival.instance.getSurvivalConfig().PLACE_ONLY_WITH_HAMMER) {
+				if (Utils.requiresHammer(block.getType())) {
 					if (ItemManager.compare(offTool, Items.HAMMER)) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
@@ -51,7 +52,7 @@ class BlockPlace implements Listener {
 
 						if (Utils.getDurability(mainTool) >= mainTool.getType().getMaxDurability()) {
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-							player.getInventory().setItemInOffHand(null);
+							player.getInventory().setItemInMainHand(null);
 						}
 					} else {
 						event.setCancelled(true);
@@ -61,58 +62,6 @@ class BlockPlace implements Listener {
 				}
 			}
 		}
-	}
-
-	private boolean checkArtifact(Block block) {
-		Material material = block.getType();
-		return Tag.DOORS.isTagged(material)
-
-				|| Utils.isWoodGate(material)
-				|| Utils.isTerracotta(material)
-				|| Utils.isGlazedTerracotta(material)
-				|| Utils.isConcrete(material)
-				|| Utils.isConcretePowder(material)
-				|| Utils.isStoneTypeBlock(material)
-				|| Utils.isCookingBlock(material)
-				|| Utils.isStorageBlock(material)
-				|| Utils.isUtilityBlock(material)
-				|| Utils.isShulkerBox(material)
-				|| Utils.isOreBlock(material)
-
-				|| Tag.BEDS.isTagged(material)
-				|| Tag.LOGS.isTagged(material)
-				|| Tag.STAIRS.isTagged(material)
-				|| Tag.SLABS.isTagged(material)
-				|| Tag.PLANKS.isTagged(material)
-				|| Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
-				|| Tag.WOODEN_FENCES.isTagged(material)
-				|| Tag.RAILS.isTagged(material)
-				|| Tag.SIGNS.isTagged(material)
-				|| Tag.BANNERS.isTagged(material)
-				|| Tag.FENCES.isTagged(material)
-				|| Tag.FENCES.isTagged(material)
-				|| Tag.SIGNS.isTagged(material)
-
-				|| material == Material.BOOKSHELF
-				|| material == Material.LADDER
-				|| material == Material.SEA_LANTERN
-				|| material == Material.GLOWSTONE
-				|| material == Material.END_ROD
-				|| material == Material.DISPENSER
-				|| material == Material.DROPPER
-				|| material == Material.HOPPER
-				|| material == Material.STONE_PRESSURE_PLATE
-				|| material == Material.LIGHT_WEIGHTED_PRESSURE_PLATE
-				|| material == Material.HEAVY_WEIGHTED_PRESSURE_PLATE
-				|| material == Material.DAYLIGHT_DETECTOR
-				|| material == Material.PISTON
-				|| material == Material.STICKY_PISTON
-				|| material == Material.REDSTONE_LAMP
-				|| material == Material.REPEATER
-				|| material == Material.COMPARATOR
-				|| material == Material.TRIPWIRE_HOOK
-				|| material == Material.BEACON
-				|| material == Material.IRON_BARS;
 	}
 
 }

@@ -9,7 +9,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class Utils {
@@ -214,8 +215,8 @@ public class Utils {
             case POLISHED_DIORITE:
             case GRANITE:
             case POLISHED_GRANITE:
-            case BRICK:
-            case NETHER_BRICK:
+            case BRICKS:
+            case NETHER_BRICKS:
             case SANDSTONE:
             case CHISELED_SANDSTONE:
             case SMOOTH_SANDSTONE:
@@ -333,6 +334,8 @@ public class Utils {
     public static boolean requiresPickaxe(Material material) {
         switch (material) {
             case NETHER_BRICK_FENCE:
+            case NETHER_BRICKS:
+            case RED_NETHER_BRICKS:
             case SPAWNER:
             case SEA_LANTERN:
             case GLOWSTONE:
@@ -347,6 +350,8 @@ public class Utils {
             case DAYLIGHT_DETECTOR:
             case ENCHANTING_TABLE:
             case ANVIL:
+            case GRINDSTONE:
+            case STONECUTTER:
             case ENDER_CHEST:
             case HOPPER:
             case CAULDRON:
@@ -391,12 +396,21 @@ public class Utils {
         switch (material) {
             case CHEST:
             case TRAPPED_CHEST:
+            case BARREL:
             case CRAFTING_TABLE:
+            case CARTOGRAPHY_TABLE:
+            case FLETCHING_TABLE:
+            case SMITHING_TABLE:
+            case LOOM:
+            case LECTERN:
+            case CAMPFIRE:
+            case COMPOSTER:
             case BOOKSHELF:
             case LADDER:
             case JUKEBOX:
             case NOTE_BLOCK:
             case DAYLIGHT_DETECTOR:
+            case SCAFFOLDING:
                 return true;
         }
         if (Tag.WOODEN_DOORS.isTagged(material)) return true;
@@ -421,6 +435,57 @@ public class Utils {
             default:
                 return false;
         }
+    }
+
+    public static boolean requiresHammer(Material material) {
+        switch (material) {
+            case BOOKSHELF:
+            case LADDER:
+            case SEA_LANTERN:
+            case GLOWSTONE:
+            case END_ROD:
+            case DISPENSER:
+            case DROPPER:
+            case HOPPER:
+            case STONE_PRESSURE_PLATE:
+            case LIGHT_WEIGHTED_PRESSURE_PLATE:
+            case HEAVY_WEIGHTED_PRESSURE_PLATE:
+            case DAYLIGHT_DETECTOR:
+            case PISTON:
+            case STICKY_PISTON:
+            case REDSTONE_LAMP:
+            case REPEATER:
+            case COMPARATOR:
+            case TRIPWIRE_HOOK:
+            case BEACON:
+            case IRON_BARS:
+            case SCAFFOLDING:
+                return true;
+        }
+        return Tag.DOORS.isTagged(material)
+
+                || isWoodGate(material)
+                || isTerracotta(material)
+                || isGlazedTerracotta(material)
+                || isConcrete(material)
+                || isStoneTypeBlock(material)
+                || isCookingBlock(material)
+                || isStorageBlock(material)
+                || isUtilityBlock(material)
+                || isShulkerBox(material)
+                || isOreBlock(material)
+
+                || Tag.BEDS.isTagged(material)
+                || Tag.LOGS.isTagged(material)
+                || Tag.STAIRS.isTagged(material)
+                || Tag.SLABS.isTagged(material)
+                || Tag.PLANKS.isTagged(material)
+                || Tag.WOODEN_PRESSURE_PLATES.isTagged(material)
+                || Tag.WOODEN_FENCES.isTagged(material)
+                || Tag.RAILS.isTagged(material)
+                || Tag.BANNERS.isTagged(material)
+                || Tag.FENCES.isTagged(material)
+                || Tag.SIGNS.isTagged(material);
     }
 
     public static List<Material> getDrops(Material material, Boolean grown) {
