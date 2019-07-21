@@ -399,7 +399,7 @@ public class Utils {
             case DAYLIGHT_DETECTOR:
                 return true;
         }
-        if (Tag.DOORS.isTagged(material)) return true;
+        if (Tag.WOODEN_DOORS.isTagged(material)) return true;
         if (Tag.PLANKS.isTagged(material)) return true;
         if (Tag.LOGS.isTagged(material)) return true;
         if (Tag.WOODEN_STAIRS.isTagged(material)) return true;
