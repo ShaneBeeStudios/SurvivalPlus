@@ -21,7 +21,7 @@ class Bow implements Listener {
 			Player player = (Player) event.getEntity();
 			ItemStack mainHand = player.getInventory().getItemInMainHand();
 			if (event.getBow() != null && mainHand.getType() == event.getBow().getType()) {
-				if (!Survival.getInstance().getPlayerManager().isArrowOffHand(player)) {
+				if (Survival.getInstance().getPlayerManager().isArrowOffHand(player)) {
 					event.setCancelled(false);
 				} else {
 					if (mainHand.getType() != Material.CROSSBOW) {
