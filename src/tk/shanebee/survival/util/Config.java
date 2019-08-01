@@ -61,8 +61,9 @@ public class Config {
 
 	private void updateResourcePack() {
 		if (settings.getString("MultiWorld.ResourcePackURL")
-				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip")) {
-			plugin.getConfig().set("MultiWorld.ResourcePackURL", "https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip");
+				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip") || settings.getString("MultiWorld.ResourcePackURL")
+				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip")) {
+			plugin.getConfig().set("MultiWorld.ResourcePackURL", "https://www.dropbox.com/s/hucla3rj6qs93zd/SP-1.14v3.zip?dl=1");
 			plugin.getConfig().options().copyDefaults(true);
 			plugin.saveConfig();
 		}
