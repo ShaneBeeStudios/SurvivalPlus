@@ -38,21 +38,35 @@ class BlockBreak implements Listener {
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
-				if (settings.BREAK_ONLY_WITH_SHOVEL && !Utils.isShovel(tool.getType())) {
-					if (Utils.requiresShovel(material)) {
-						event.setCancelled(true);
-						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shovel));
-					}
-					//Flint
-					if (material == Material.GRAVEL) {
-						event.setDropItems(false);
+				if (settings.BREAK_ONLY_WITH_SHOVEL) {
+					if (!Utils.isShovel(tool.getType())) {
+						if (Utils.requiresShovel(material)) {
+							event.setCancelled(true);
+							player.updateInventory();
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shovel));
+						}
+						//Flint
+						if (material == Material.GRAVEL) {
+							event.setDropItems(false);
 
-						Random rand = new Random();
-						double chance = rand.nextDouble();
+							Random rand = new Random();
+							double chance = rand.nextDouble();
 
-						if (chance <= settings.DROP_RATE_FLINT)
-							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.FLINT));
+							if (chance <= settings.DROP_RATE_FLINT)
+								event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.FLINT));
+						}
+					} else {
+						Block above = block.getRelative(BlockFace.UP);
+						switch (block.getType()) {
+							case GRASS_BLOCK:
+							case DIRT:
+							case PODZOL:
+							case COARSE_DIRT:
+							case FARMLAND:
+								if (Utils.isFarmable(above.getType())) {
+									above.setType(Material.AIR);
+								}
+						}
 					}
 				}
 
@@ -248,24 +262,6 @@ class BlockBreak implements Listener {
 				loc.getWorld().playEffect(loc, Effect.STEP_SOUND, event.getClickedBlock().getRelative(BlockFace.UP).getType());
 				event.getClickedBlock().getRelative(BlockFace.UP).setType(Material.AIR);
 			}
-		}
-	}
-
-	@EventHandler
-	private void onBreakBelowFarmable(BlockBreakEvent event) {
-		if (event.isCancelled()) return;
-		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
-		Block block = event.getBlock();
-		Block above = block.getRelative(BlockFace.UP);
-		switch (block.getType()) {
-			case GRASS_BLOCK:
-			case DIRT:
-			case PODZOL:
-			case COARSE_DIRT:
-			case FARMLAND:
-				if (Utils.isFarmable(above.getType())) {
-					above.setType(Material.AIR);
-				}
 		}
 	}
 
