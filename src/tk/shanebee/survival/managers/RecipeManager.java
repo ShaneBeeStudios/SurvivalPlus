@@ -1,28 +1,41 @@
 package tk.shanebee.survival.managers;
 
+import net.minecraft.server.v1_14_R1.IRecipe;
+import net.minecraft.server.v1_14_R1.MinecraftKey;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.*;
+import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import org.bukkit.craftbukkit.v1_14_R1.CraftServer;
+import org.bukkit.inventory.BlastingRecipe;
+import org.bukkit.inventory.CampfireRecipe;
+import org.bukkit.inventory.FurnaceRecipe;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.SmokingRecipe;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 public class RecipeManager {
 
 
     private FileConfiguration settings;
+    private Config config;
     private static Survival survival;
 
     public RecipeManager(Survival survival, FileConfiguration settings) {
         RecipeManager.survival = survival;
         this.settings = settings;
+        this.config = survival.getSurvivalConfig();
     }
 
     /**
@@ -927,144 +940,6 @@ public class RecipeManager {
         }
     }
 
-    private void removeRecipes() {
-        List<Recipe> backup = new ArrayList<>();
-
-        Iterator<Recipe> a = survival.getServer().recipeIterator();
-
-        while (a.hasNext()) {
-            Recipe recipe = a.next();
-            backup.add(recipe);
-        }
-
-        Iterator<Recipe> it = backup.iterator();
-
-        while (it.hasNext()) {
-            Recipe recipe = it.next();
-            if (recipe != null) {
-                switch (recipe.getResult().getType()) {
-                    case WOODEN_HOE:
-                    case WOODEN_AXE:
-                    case WOODEN_PICKAXE:
-                    case WOODEN_SHOVEL:
-                    case WOODEN_SWORD:
-                    case FURNACE:
-                    case CRAFTING_TABLE:
-                    case CHEST:
-                    case CAMPFIRE:
-                        if (settings.getBoolean("Survival.Enabled"))
-                            it.remove();
-                        break;
-                    case BEETROOT_SOUP:
-                        if (settings.getBoolean("Mechanics.Thirst.Enabled"))
-                            it.remove();
-                        break;
-                    case TORCH:
-                        if (settings.getBoolean("Survival.Enabled") && settings.getBoolean("Survival.Torch"))
-                            it.remove();
-                        break;
-                    case GOLDEN_HOE:
-                        if (settings.getBoolean("LegendaryItems.GiantBlade"))
-                            it.remove();
-                        break;
-                    case GOLDEN_AXE:
-                        if (settings.getBoolean("LegendaryItems.ValkyrieAxe"))
-                            it.remove();
-                        break;
-                    case GOLDEN_PICKAXE:
-                        if (settings.getBoolean("LegendaryItems.QuartzPickaxe"))
-                            it.remove();
-                        break;
-                    case GOLDEN_SHOVEL:
-                        if (settings.getBoolean("LegendaryItems.ObsidianMace"))
-                            it.remove();
-                        break;
-                    case GOLDEN_SWORD:
-                        if (settings.getBoolean("LegendaryItems.BlazeSword"))
-                            it.remove();
-                        break;
-
-                    case GOLDEN_BOOTS:
-                    case GOLDEN_CHESTPLATE:
-                    case GOLDEN_HELMET:
-                    case GOLDEN_LEGGINGS:
-                        if (settings.getBoolean("LegendaryItems.GoldArmorBuff"))
-                            it.remove();
-                        break;
-
-                    case IRON_BOOTS:
-                    case IRON_CHESTPLATE:
-                    case IRON_HELMET:
-                    case IRON_LEGGINGS:
-                    case DIAMOND_BOOTS:
-                    case DIAMOND_CHESTPLATE:
-                    case DIAMOND_HELMET:
-                    case DIAMOND_LEGGINGS:
-                        if (settings.getBoolean("Mechanics.SlowArmor"))
-                            it.remove();
-                        break;
-
-                    case FISHING_ROD:
-                        if (settings.getBoolean("Recipes.FishingRod"))
-                            it.remove();
-                        break;
-
-                    case IRON_NUGGET:
-                    case IRON_INGOT:
-                        if (settings.getBoolean("Mechanics.ReducedIronNugget"))
-                            it.remove();
-                        break;
-
-                    case GOLD_NUGGET:
-                    case GOLD_INGOT:
-                        if (settings.getBoolean("Mechanics.ReducedGoldNugget"))
-                            it.remove();
-                        break;
-
-                    case BREAD:
-                        if (settings.getBoolean("Mechanics.FarmingProducts.Bread"))
-                            it.remove();
-                        break;
-                    case COOKIE:
-                        if (settings.getBoolean("Mechanics.FarmingProducts.Cookie"))
-                            it.remove();
-                        break;
-                    case ANDESITE:
-                        if (settings.getBoolean("Recipes.Andesite"))
-                            it.remove();
-                        break;
-                    case DIORITE:
-                        if (settings.getBoolean("Recipes.Diorite"))
-                            it.remove();
-                        break;
-                    case GRANITE:
-                        if (settings.getBoolean("Recipes.Granite"))
-                            it.remove();
-                        break;
-                    case SNOW:
-                    case SNOW_BLOCK:
-                        if (settings.getBoolean("Mechanics.SnowballRevamp"))
-                            it.remove();
-                        break;
-                    case CLOCK:
-                        if (settings.getBoolean("Mechanics.MedicalKit"))
-                            it.remove();
-                        break;
-                    case LEATHER_HORSE_ARMOR:
-                        if (settings.getBoolean("Recipes.LeatherBard"))
-                            it.remove();
-                    default:
-                }
-            }
-        }
-
-        survival.getServer().clearRecipes();
-
-        for (Recipe r : backup) {
-            survival.getServer().addRecipe(r);
-        }
-    }
-
     /** Enums of all custom recipes
      *
      */
@@ -1180,6 +1055,111 @@ public class RecipeManager {
 
         public Collection<NamespacedKey> getKeys() {
             return this.keys;
+        }
+    }
+
+    private void removeRecipeByKey(String recipeKey) {
+        MinecraftKey key = new MinecraftKey(recipeKey);
+        for (Object2ObjectLinkedOpenHashMap<MinecraftKey, IRecipe<?>> recipes : ((CraftServer) Bukkit.getServer()).getServer().getCraftingManager().recipes.values()) {
+            recipes.remove(key);
+        }
+    }
+
+    private void removeRecipes() {
+        if (config.SURVIVAL_ENABLED) {
+            removeRecipeByKey("furnace");
+            removeRecipeByKey("wooden_sword");
+            removeRecipeByKey("wooden_hoe");
+            removeRecipeByKey("wooden_shovel");
+            removeRecipeByKey("wooden_pickaxe");
+            removeRecipeByKey("wooden_axe");
+            removeRecipeByKey("campfire");
+            removeRecipeByKey("crafting_table");
+            removeRecipeByKey("chest");
+            if (config.SURVIVAL_TORCH) {
+                removeRecipeByKey("torch");
+            }
+        }
+        if (config.MECHANICS_THIRST_ENABLED) {
+            removeRecipeByKey("beetroot_soup");
+        }
+        if (config.MECHANICS_REDUCED_IRON_NUGGET) {
+            removeRecipeByKey("iron_ingot");
+            removeRecipeByKey("iron_ingot_from_nuggets");
+            removeRecipeByKey("iron_ingot_from_iron_block"); //TODO should this really be removed?
+            removeRecipeByKey("iron_ingot_from_blasting"); //TODO maybe remove this?
+            removeRecipeByKey("iron_nugget");
+            removeRecipeByKey("iron_nugget_from_blasting"); //TODO maybe remove this?
+            removeRecipeByKey("iron_nugget_from_smelting"); //TODO maybe remove this?
+        }
+        if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
+            removeRecipeByKey("gold_ingot");
+            removeRecipeByKey("gold_ingot_from_blasting"); //TODO maybe remove this?
+            removeRecipeByKey("gold_ingot_from_gold_block"); //TODO maybe remove this?
+            removeRecipeByKey("gold_ingot_from_nuggets");
+            removeRecipeByKey("gold_nugget");
+            removeRecipeByKey("gold_nugget_from_smelting"); //TODO maybe remove this?
+            removeRecipeByKey("gold_nugget_from_blasting"); //TODO maybe remove this?
+
+        }
+        if (config.MECHANICS_SLOW_ARMOR) {
+            removeRecipeByKey("diamond_helmet");
+            removeRecipeByKey("diamond_chestplate");
+            removeRecipeByKey("diamond_leggings");
+            removeRecipeByKey("diamond_boots");
+            removeRecipeByKey("iron_helmet");
+            removeRecipeByKey("iron_chestplate");
+            removeRecipeByKey("iron_leggings");
+            removeRecipeByKey("iron_boots");
+        }
+        if (config.MECHANICS_SNOWBALL_REVAMP) {
+            removeRecipeByKey("snow");
+            removeRecipeByKey("snow_block");
+        }
+        if (config.MECHANICS_FARMING_PRODUCTS_COOKIE) {
+            removeRecipeByKey("cookie");
+        }
+        if (config.MECHANICS_FARMING_PRODUCTS_BREAD) {
+            removeRecipeByKey("bread");
+        }
+        if (config.MECHANICS_MEDIC_KIT) {
+            removeRecipeByKey("clock");
+        }
+        if (config.LEGENDARY_GOLDARMORBUFF) {
+            removeRecipeByKey("golden_helmet");
+            removeRecipeByKey("golden_chestplate");
+            removeRecipeByKey("golden_boots");
+            removeRecipeByKey("golden_leggings");
+        }
+        if (config.LEGENDARY_BLAZESWORD) {
+            removeRecipeByKey("golden_sword");
+        }
+        if (config.LEGENDARY_GIANTBLADE) {
+            removeRecipeByKey("golden_hoe");
+        }
+        if (config.LEGENDARY_QUARTZPICKAXE) {
+            removeRecipeByKey("golden_pickaxe");
+        }
+        if (config.LEGENDARY_OBSIDIAN_MACE) {
+            removeRecipeByKey("golden_shovel");
+        }
+        if (config.LEGENDARY_VALKYRIE) {
+            removeRecipeByKey("golden_axe");
+        }
+        if (config.RECIPES_GRANITE) {
+            removeRecipeByKey("granite");
+        }
+        if (config.RECIPES_ANDESITE) {
+            removeRecipeByKey("andesite");
+        }
+        if (config.RECIPES_DIORITE) {
+            removeRecipeByKey("diorite");
+        }
+        if (config.RECIPES_LEATHER_BARD) {
+            removeRecipeByKey("leather_horse_armor");
+        }
+        if (config.RECIPES_FISHING_ROD) {
+            removeRecipeByKey("fishing_rod");
         }
     }
 
