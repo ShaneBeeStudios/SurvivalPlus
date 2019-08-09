@@ -12,6 +12,9 @@ public class Config {
 	private Survival plugin;
 	private FileConfiguration settings;
 
+	public boolean SURVIVAL_ENABLED;
+	public boolean SURVIVAL_TORCH;
+
 	public boolean BREAK_ONLY_WITH_SICKLE;
 	public boolean BREAK_ONLY_WITH_SHOVEL;
 	public boolean BREAK_ONLY_WITH_AXE;
@@ -24,11 +27,33 @@ public class Config {
 
 	public boolean STATUS_SCOREBOARD;
 
+	public boolean MECHANICS_THIRST_ENABLED;
 	public int THIRST_START_AMOUNT;
 	public int THIRST_RESPAWN_AMOUNT;
 	public boolean THIRST_PURIFY_WATER;
 	public int HUNGER_START_AMOUNT;
 	public int HUNGER_RESPAWN_AMOUNT;
+	public boolean MECHANICS_REDUCED_IRON_NUGGET;
+	public boolean MECHANICS_REDUCED_GOLD_NUGGET;
+	public boolean MECHANICS_SLOW_ARMOR;
+	public boolean MECHANICS_SNOWBALL_REVAMP;
+	public boolean MECHANICS_MEDIC_KIT;
+
+	public boolean MECHANICS_FARMING_PRODUCTS_COOKIE;
+	public boolean MECHANICS_FARMING_PRODUCTS_BREAD;
+
+	public boolean RECIPES_FISHING_ROD;
+	public boolean RECIPES_GRANITE;
+	public boolean RECIPES_ANDESITE;
+	public boolean RECIPES_DIORITE;
+	public boolean RECIPES_LEATHER_BARD;
+
+	public boolean LEGENDARY_GOLDARMORBUFF;
+	public boolean LEGENDARY_BLAZESWORD;
+	public boolean LEGENDARY_GIANTBLADE;
+	public boolean LEGENDARY_QUARTZPICKAXE;
+	public boolean LEGENDARY_VALKYRIE;
+	public boolean LEGENDARY_OBSIDIAN_MACE;
 
 
 	public Config(Survival plugin, FileConfiguration settings) {
@@ -70,6 +95,9 @@ public class Config {
 	}
 
 	private void loadSettings() {
+		this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
+		this.SURVIVAL_TORCH = settings.getBoolean("Survival.Torch");
+
 		this.BREAK_ONLY_WITH_SICKLE = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
 		this.BREAK_ONLY_WITH_SHOVEL = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
 		this.BREAK_ONLY_WITH_AXE = settings.getBoolean("Survival.BreakOnlyWith.Axe");
@@ -82,11 +110,33 @@ public class Config {
 
 		this.STATUS_SCOREBOARD = settings.getBoolean("Mechanics.StatusScoreboard");
 
+		this.MECHANICS_THIRST_ENABLED = settings.getBoolean("Mechanics.Thirst.Enabled");
 		this.THIRST_START_AMOUNT = settings.getInt("Mechanics.Thirst.Starting-Amount");
 		this.THIRST_RESPAWN_AMOUNT = settings.getInt("Mechanics.Thirst.Respawn-Amount");
 		this.THIRST_PURIFY_WATER = settings.getBoolean("Mechanics.Thirst.PurifyWater");
 		this.HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
 		this.HUNGER_RESPAWN_AMOUNT = settings.getInt("Mechanics.Hunger.Respawn-Amount");
+		this.MECHANICS_REDUCED_IRON_NUGGET = settings.getBoolean("Mechanics.ReducedIronNugget");
+		this.MECHANICS_REDUCED_GOLD_NUGGET = settings.getBoolean("Mechanics.ReducedGoldNugget");
+		this.MECHANICS_SLOW_ARMOR = settings.getBoolean("Mechanics.SlowArmor");
+		this.MECHANICS_SNOWBALL_REVAMP = settings.getBoolean("Mechanics.SnowballRevamp");
+		this.MECHANICS_MEDIC_KIT = settings.getBoolean("Mechanics.MedicalKit");
+
+		this.MECHANICS_FARMING_PRODUCTS_COOKIE = settings.getBoolean("Mechanics.FarmingProducts.Cookie");
+		this.MECHANICS_FARMING_PRODUCTS_BREAD = settings.getBoolean("Mechanics.FarmingProducts.Bread");
+
+		this.RECIPES_FISHING_ROD = settings.getBoolean("Recipes.FishingRod");
+		this.RECIPES_GRANITE = settings.getBoolean("Recipes.Granite");
+		this.RECIPES_ANDESITE = settings.getBoolean("Recipes.Andesite");
+		this.RECIPES_DIORITE = settings.getBoolean("Recipes.Diorite");
+		this.RECIPES_LEATHER_BARD = settings.getBoolean("Recipes.LeatherBard");
+
+		this.LEGENDARY_GOLDARMORBUFF = settings.getBoolean("LegendaryItems.GoldArmorBuff");
+		this.LEGENDARY_BLAZESWORD = settings.getBoolean("LegendaryItems.BlazeSword");
+		this.LEGENDARY_GIANTBLADE = settings.getBoolean("LegendaryItems.GiantBlade");
+		this.LEGENDARY_QUARTZPICKAXE = settings.getBoolean("LegendaryItems.QuartzPickaxe");
+		this.LEGENDARY_VALKYRIE = settings.getBoolean("LegendaryItems.ValkyrieAxe");
+		this.LEGENDARY_OBSIDIAN_MACE = settings.getBoolean("LegendaryItems.ObsidianMace");
 	}
 
 }
