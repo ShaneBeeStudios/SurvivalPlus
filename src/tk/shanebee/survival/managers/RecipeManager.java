@@ -470,10 +470,6 @@ public class RecipeManager {
         ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(survival, "iron_nugget"), new ItemStack(Material.IRON_NUGGET, 4));
         ironNugget.addIngredient(Material.IRON_INGOT);
 
-        //  IRON BLOCK RECIPE
-        ShapelessRecipe ironBlock = new ShapelessRecipe(new NamespacedKey(survival, "iron_block"), new ItemStack(Material.IRON_INGOT, 9));
-        ironBlock.addIngredient(Material.IRON_BLOCK);
-
         //  GOLD INGOT RECIPE
         ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(survival, "gold_ingot"), new ItemStack(Material.GOLD_INGOT, 1));
         goldIngot.shape("@@", "@@");
@@ -482,10 +478,6 @@ public class RecipeManager {
         //  GOLD NUGGET RECIPE
         ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(survival, "gold_nugget"), new ItemStack(Material.GOLD_NUGGET, 4));
         goldNugget.addIngredient(Material.GOLD_INGOT);
-
-        //  GOLD BLOCK RECIPE
-        ShapelessRecipe goldBlock = new ShapelessRecipe(new NamespacedKey(survival, "gold_block"), new ItemStack(Material.GOLD_INGOT, 9));
-        goldBlock.addIngredient(Material.GOLD_BLOCK);
 
         //  SMELTING RECIPES
         FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_iron_ingot"),
@@ -900,7 +892,6 @@ public class RecipeManager {
         if (settings.getBoolean("Mechanics.ReducedIronNugget")) {
             survival.getServer().addRecipe(ironNugget);
             survival.getServer().addRecipe(ironIngot);
-            survival.getServer().addRecipe(ironBlock);
             survival.getServer().addRecipe(smelt_ironIngot);
             survival.getServer().addRecipe(blast_ironIngot);
         }
@@ -908,7 +899,6 @@ public class RecipeManager {
         if (settings.getBoolean("Mechanics.ReducedGoldNugget")) {
             survival.getServer().addRecipe(goldNugget);
             survival.getServer().addRecipe(goldIngot);
-            survival.getServer().addRecipe(goldBlock);
             survival.getServer().addRecipe(smelt_goldIngot);
             survival.getServer().addRecipe(blast_goldIngot);
         }
@@ -1026,8 +1016,6 @@ public class RecipeManager {
         GRAVEL("gravel"),
         ICE("ice1", "ice2"),
         PACKED_ICE("packed_ice"),
-        IRON_BLOCK("iron_block"),
-        GOLD_BLOCK("gold_block"),
 
         // REPAIR RECIPES
         REPAIR_BLAZE_SWORD("repair_blaze_sword"),
@@ -1086,7 +1074,6 @@ public class RecipeManager {
         if (config.MECHANICS_REDUCED_IRON_NUGGET) {
             removeRecipeByKey("iron_ingot");
             removeRecipeByKey("iron_ingot_from_nuggets");
-            removeRecipeByKey("iron_ingot_from_iron_block"); //TODO should this really be removed?
             removeRecipeByKey("iron_ingot_from_blasting"); //TODO maybe remove this?
             removeRecipeByKey("iron_nugget");
             removeRecipeByKey("iron_nugget_from_blasting"); //TODO maybe remove this?
@@ -1095,7 +1082,6 @@ public class RecipeManager {
         if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
             removeRecipeByKey("gold_ingot");
             removeRecipeByKey("gold_ingot_from_blasting"); //TODO maybe remove this?
-            removeRecipeByKey("gold_ingot_from_gold_block"); //TODO maybe remove this?
             removeRecipeByKey("gold_ingot_from_nuggets");
             removeRecipeByKey("gold_nugget");
             removeRecipeByKey("gold_nugget_from_smelting"); //TODO maybe remove this?

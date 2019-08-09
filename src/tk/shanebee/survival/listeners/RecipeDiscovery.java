@@ -100,7 +100,6 @@ class RecipeDiscovery implements Listener {
     private void onFurnaceExtract(FurnaceExtractEvent event) {
         Player player = event.getPlayer();
         if (event.getItemType() == Material.IRON_INGOT) {
-            player.discoverRecipes(Recipes.IRON_BLOCK.getKeys());
             player.discoverRecipes(Recipes.IRON_BOOTS.getKeys());
             player.discoverRecipes(Recipes.IRON_CHESTPLATE.getKeys());
             player.discoverRecipes(Recipes.IRON_HELMET.getKeys());
@@ -110,7 +109,6 @@ class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.IRON_SICKLE.getKeys());
             player.discoverRecipes(Recipes.IRON_NUGGET.getKeys());
         } else if (event.getItemType() == Material.GOLD_INGOT) {
-            player.discoverRecipes(Recipes.GOLD_BLOCK.getKeys());
             player.discoverRecipes(Recipes.GOLD_NUGGET.getKeys());
             player.discoverRecipes(Recipes.GOLD_INGOT.getKeys());
             player.discoverRecipes(Recipes.GOLD_CROWN.getKeys());
