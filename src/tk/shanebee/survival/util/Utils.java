@@ -291,7 +291,8 @@ public class Utils {
             case STONE_SHOVEL:
             case IRON_SHOVEL:
             case DIAMOND_SHOVEL:
-                //GOLD + WOODEN left out for a reason!
+            case GOLDEN_SHOVEL:
+            case WOODEN_SHOVEL:
                 return true;
             default:
                 return false;
