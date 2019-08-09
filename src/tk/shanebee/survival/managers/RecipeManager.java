@@ -1076,16 +1076,14 @@ public class RecipeManager {
             removeRecipeByKey("iron_ingot_from_nuggets");
             removeRecipeByKey("iron_ingot_from_blasting"); //TODO maybe remove this?
             removeRecipeByKey("iron_nugget");
-            removeRecipeByKey("iron_nugget_from_blasting"); //TODO maybe remove this?
-            removeRecipeByKey("iron_nugget_from_smelting"); //TODO maybe remove this?
+            removeRecipeByKey("iron_nugget_from_smelting");
         }
         if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
             removeRecipeByKey("gold_ingot");
             removeRecipeByKey("gold_ingot_from_blasting"); //TODO maybe remove this?
             removeRecipeByKey("gold_ingot_from_nuggets");
             removeRecipeByKey("gold_nugget");
-            removeRecipeByKey("gold_nugget_from_smelting"); //TODO maybe remove this?
-            removeRecipeByKey("gold_nugget_from_blasting"); //TODO maybe remove this?
+            removeRecipeByKey("gold_nugget_from_smelting");
 
         }
         if (config.MECHANICS_SLOW_ARMOR) {
