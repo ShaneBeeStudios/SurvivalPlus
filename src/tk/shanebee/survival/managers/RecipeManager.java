@@ -753,7 +753,6 @@ public class RecipeManager {
             survival.getServer().addRecipe(hammer);
             survival.getServer().addRecipe(firestriker);
             survival.getServer().addRecipe(workbench);
-            survival.getServer().addRecipe(furnace);
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(unlit_campfire);
@@ -844,6 +843,9 @@ public class RecipeManager {
             survival.getServer().addRecipe(andesite);
         if (settings.getBoolean("Recipes.Gravel")) {
             survival.getServer().addRecipe(gravel);
+        }
+        if (config.RECIPES_FURNACE) {
+            survival.getServer().addRecipe(furnace);
         }
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
             survival.getServer().addRecipe(fermented_spider_eye);
@@ -1055,7 +1057,6 @@ public class RecipeManager {
 
     private void removeRecipes() {
         if (config.SURVIVAL_ENABLED) {
-            removeRecipeByKey("furnace");
             removeRecipeByKey("wooden_sword");
             removeRecipeByKey("wooden_hoe");
             removeRecipeByKey("wooden_shovel");
@@ -1144,6 +1145,9 @@ public class RecipeManager {
         }
         if (config.RECIPES_FISHING_ROD) {
             removeRecipeByKey("fishing_rod");
+        }
+        if (config.RECIPES_FURNACE) {
+            removeRecipeByKey("furnace");
         }
     }
 

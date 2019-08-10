@@ -223,6 +223,7 @@ Recipes:
   Cobweb: true
   SaplingToSticks: true
   FishingRod: true
+  Furnace: true
 
 # Enables legendary items
 LegendaryItems:

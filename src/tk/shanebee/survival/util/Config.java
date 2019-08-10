@@ -47,6 +47,7 @@ public class Config {
 	public boolean RECIPES_ANDESITE;
 	public boolean RECIPES_DIORITE;
 	public boolean RECIPES_LEATHER_BARD;
+	public boolean RECIPES_FURNACE;
 
 	public boolean LEGENDARY_GOLDARMORBUFF;
 	public boolean LEGENDARY_BLAZESWORD;
@@ -130,6 +131,7 @@ public class Config {
 		this.RECIPES_ANDESITE = settings.getBoolean("Recipes.Andesite");
 		this.RECIPES_DIORITE = settings.getBoolean("Recipes.Diorite");
 		this.RECIPES_LEATHER_BARD = settings.getBoolean("Recipes.LeatherBard");
+		this.RECIPES_FURNACE = settings.getBoolean("Recipes.Furnace");
 
 		this.LEGENDARY_GOLDARMORBUFF = settings.getBoolean("LegendaryItems.GoldArmorBuff");
 		this.LEGENDARY_BLAZESWORD = settings.getBoolean("LegendaryItems.BlazeSword");
