@@ -752,7 +752,6 @@ public class RecipeManager {
             survival.getServer().addRecipe(shiv);
             survival.getServer().addRecipe(hammer);
             survival.getServer().addRecipe(firestriker);
-            survival.getServer().addRecipe(workbench);
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(unlit_campfire);
@@ -765,6 +764,12 @@ public class RecipeManager {
                     survival.getServer().addRecipe(iron_sickle);
                 if (settings.getBoolean("Survival.Sickles.Diamond"))
                     survival.getServer().addRecipe(diamond_sickle);
+                if (config.RECIPES_WORKBENCH) {
+                    survival.getServer().addRecipe(workbench);
+                }
+                if (config.RECIPES_FURNACE) {
+                    survival.getServer().addRecipe(furnace);
+                }
             }
         }
         if (settings.getBoolean("Survival.Torch")) {
@@ -843,9 +848,6 @@ public class RecipeManager {
             survival.getServer().addRecipe(andesite);
         if (settings.getBoolean("Recipes.Gravel")) {
             survival.getServer().addRecipe(gravel);
-        }
-        if (config.RECIPES_FURNACE) {
-            survival.getServer().addRecipe(furnace);
         }
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
             survival.getServer().addRecipe(fermented_spider_eye);
@@ -1063,10 +1065,15 @@ public class RecipeManager {
             removeRecipeByKey("wooden_pickaxe");
             removeRecipeByKey("wooden_axe");
             removeRecipeByKey("campfire");
-            removeRecipeByKey("crafting_table");
             removeRecipeByKey("chest");
             if (config.SURVIVAL_TORCH) {
                 removeRecipeByKey("torch");
+            }
+            if (config.RECIPES_FURNACE) {
+                removeRecipeByKey("furnace");
+            }
+            if (config.RECIPES_WORKBENCH) {
+                removeRecipeByKey("crafting_table");
             }
         }
         if (config.MECHANICS_THIRST_ENABLED) {
@@ -1145,9 +1152,6 @@ public class RecipeManager {
         }
         if (config.RECIPES_FISHING_ROD) {
             removeRecipeByKey("fishing_rod");
-        }
-        if (config.RECIPES_FURNACE) {
-            removeRecipeByKey("furnace");
         }
     }
 

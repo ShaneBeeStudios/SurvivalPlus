@@ -224,6 +224,7 @@ Recipes:
   SaplingToSticks: true
   FishingRod: true
   Furnace: true
+  Workbench: true
 
 # Enables legendary items
 LegendaryItems:
