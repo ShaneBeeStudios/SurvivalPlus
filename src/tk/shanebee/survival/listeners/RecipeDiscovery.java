@@ -128,6 +128,7 @@ class RecipeDiscovery implements Listener {
         if (e.isCancelled()) return;
         if (Tag.LOGS.isTagged(item)) {
             player.discoverRecipes(Recipes.WORKBENCH.getKeys());
+            player.discoverRecipe(NamespacedKey.minecraft("crafting_table")); //unlocks vanilla recipe if custom workbench recipe is set to false
             player.discoverRecipes(Recipes.CHEST.getKeys());
             player.discoverRecipes(Recipes.UNLIT_CAMPFIRE.getKeys());
         } else if (item == Material.OBSIDIAN) {
@@ -136,6 +137,8 @@ class RecipeDiscovery implements Listener {
         } else if (item == Material.ICE || item == Material.BLUE_ICE || item == Material.FROSTED_ICE || item == Material.PACKED_ICE) {
             player.discoverRecipes(Recipes.ICE.getKeys());
             player.discoverRecipes(Recipes.PACKED_ICE.getKeys());
+        } else if (item == Material.STONE) {
+            player.discoverRecipe(NamespacedKey.minecraft("furnace")); //unlocks vanilla recipe if custom furnace recipe is set to false
         }
     }
 
