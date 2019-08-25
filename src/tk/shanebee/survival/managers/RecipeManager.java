@@ -764,12 +764,12 @@ public class RecipeManager {
                     survival.getServer().addRecipe(iron_sickle);
                 if (settings.getBoolean("Survival.Sickles.Diamond"))
                     survival.getServer().addRecipe(diamond_sickle);
-                if (config.RECIPES_WORKBENCH) {
-                    survival.getServer().addRecipe(workbench);
-                }
-                if (config.RECIPES_FURNACE) {
-                    survival.getServer().addRecipe(furnace);
-                }
+            }
+            if (config.RECIPES_WORKBENCH) {
+                survival.getServer().addRecipe(workbench);
+            }
+            if (config.RECIPES_FURNACE) {
+                survival.getServer().addRecipe(furnace);
             }
         }
         if (settings.getBoolean("Survival.Torch")) {
