@@ -318,7 +318,7 @@ public class RecipeManager {
 
         chest.shape("@@@", "@#@", "@@@");
 
-        chest.setIngredient('@', new RecipeChoice.MaterialChoice(Tag.LOGS));
+        chest.setIngredient('@', new RecipeChoice.MaterialChoice(Tag.PLANKS));
         chest.setIngredient('#', Material.IRON_INGOT);
 
 
