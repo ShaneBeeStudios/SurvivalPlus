@@ -156,13 +156,6 @@ public class Survival extends JavaPlugin implements Listener {
 		recipes.loadCustomRecipes();
 		Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
-		if (settings.getBoolean("Mechanics.Thirst.Enabled"))
-			taskManager.playerStatus();
-		if (settings.getBoolean("Mechanics.BedFatigueLevel"))
-			taskManager.daysNoSleep();
-		if (settings.getBoolean("Mechanics.FoodDiversity"))
-			taskManager.foodDiversity();
-
 		// Load metrics
 		@SuppressWarnings("unused")
 		Metrics metrics = new Metrics(this);
