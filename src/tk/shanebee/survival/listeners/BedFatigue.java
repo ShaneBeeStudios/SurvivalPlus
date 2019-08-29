@@ -22,7 +22,7 @@ class BedFatigue implements Listener {
 	@EventHandler
 	private void onBedLeave(PlayerBedLeaveEvent e) {
 		long time = e.getBed().getWorld().getTime();
-		if (time % 24000 == 0) {
+		if (time < 1100) {
 			Player player = e.getPlayer();
 			FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, StatusManager.getFatigue(player), 0);
 			Bukkit.getPluginManager().callEvent(fatigueEvent);
