@@ -348,7 +348,6 @@ public class Utils {
             case PISTON_HEAD:
             case STICKY_PISTON:
             case MOVING_PISTON:
-            case DAYLIGHT_DETECTOR:
             case ENCHANTING_TABLE:
             case ANVIL:
             case GRINDSTONE:
