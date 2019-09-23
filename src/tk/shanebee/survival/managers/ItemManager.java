@@ -29,7 +29,9 @@ import java.util.UUID;
 @SuppressWarnings("ConstantConditions")
 public class ItemManager {
 
-	/** Get a custom SurvivalPlus item
+	/**
+	 * Get a custom SurvivalPlus item
+	 *
 	 * @param item The item you would like to get
 	 * @return An ItemStack from a custom item enum
 	 */
@@ -701,12 +703,14 @@ public class ItemManager {
 		}
 	}
 
-	/** Compare an ItemStack with a custom {@link Items}
+	/**
+	 * Compare an ItemStack with a custom {@link Items}
 	 * <p>
-	 *     <b>NOTE:</b> Will only compare a custom item's {@link Material} and CustomModelData tag
+	 * <b>NOTE:</b> Will only compare a custom item's {@link Material} and CustomModelData tag
 	 * </p>
+	 *
 	 * @param itemStack The ItemStack to check
-	 * @param type The custom item enum to check
+	 * @param type      The custom item enum to check
 	 * @return Whether these two items match or not
 	 */
 	public static boolean compare(ItemStack itemStack, Items type) {
@@ -720,9 +724,11 @@ public class ItemManager {
 		return false;
 	}
 
-	/** Compare an ItemStack with several custom {@link Items}
+	/**
+	 * Compare an ItemStack with several custom {@link Items}
+	 *
 	 * @param itemStack The ItemStack to check
-	 * @param type The custom item enums to check
+	 * @param type      The custom item enums to check
 	 * @return Whether these items match or not
 	 */
 	public static boolean compare(ItemStack itemStack, Items... type) {
@@ -733,4 +739,5 @@ public class ItemManager {
 		}
 		return false;
 	}
+
 }
