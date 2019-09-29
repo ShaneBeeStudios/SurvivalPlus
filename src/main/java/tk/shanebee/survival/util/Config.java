@@ -70,6 +70,10 @@ public class Config {
 	public boolean LEGENDARY_VALKYRIE;
 	public boolean LEGENDARY_OBSIDIAN_MACE;
 
+	public boolean ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED;
+	public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
+	public double ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
+
 
 	public Config(Survival plugin, FileConfiguration settings) {
 		this.plugin = plugin;
@@ -166,6 +170,10 @@ public class Config {
 		this.LEGENDARY_QUARTZPICKAXE = settings.getBoolean("LegendaryItems.QuartzPickaxe");
 		this.LEGENDARY_VALKYRIE = settings.getBoolean("LegendaryItems.ValkyrieAxe");
 		this.LEGENDARY_OBSIDIAN_MACE = settings.getBoolean("LegendaryItems.ObsidianMace");
+
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.pigmen-chests.enabled");
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.pigmen-chests.distance");
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.pigmen-chests.speed-modifier");
 	}
 
 }

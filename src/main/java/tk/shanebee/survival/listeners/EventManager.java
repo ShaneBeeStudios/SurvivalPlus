@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 /**
  * Internal use only
@@ -12,10 +13,12 @@ public class EventManager {
 	private Survival plugin;
 	private FileConfiguration settings;
 	private int localChat = Survival.LocalChatDist;
+	private final Config CONFIG;
 
 	public EventManager(Survival plugin, FileConfiguration settings) {
 		this.plugin = plugin;
 		this.settings = settings;
+		this.CONFIG = plugin.getSurvivalConfig();
 	}
 
 	public void registerEvents() {
@@ -96,6 +99,9 @@ public class EventManager {
 		if (settings.getBoolean("Mechanics.BurnoutTorches.Enabled")) // TODO experimental feature, not 100% sure about this
 			pm.registerEvents(new BurnoutTorches(this.plugin), this.plugin);
 		pm.registerEvents(new InventoryUpdate(), this.plugin);
+
+		if (CONFIG.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
+			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 	}
 
 }

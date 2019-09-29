@@ -200,6 +200,16 @@ Mechanics:
     # If persistent torches are enabled
     PersistentTorches: true
 
+# Mechanics that flow around entities
+Entity-Mechanics:
+  # When a player opens a chest in the nether, and it contains gold items, zombie pigmen will attack the player
+  pigmen-chests:
+    enabled: false
+    # Max radius to check for zombie pigmen around chests
+    distance: 24
+    # Speeds up the pigmen when they are triggered (1.0 = no increase in speed)
+    speed-modifier: 1.3
+
 # Enables custom recipes (Overrides vanilla recipes)
 Recipes:
   Saddle: true
