@@ -7,13 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Utils {
 
     private static final ImmutableSet<Material> CONCRETE_BLOCKS = ImmutableSet.<Material>builder()
@@ -554,6 +555,10 @@ public class Utils {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+	public static void log(String msg) {
+		sendColoredConsoleMsg(Survival.lang.prefix + msg);
+	}
+
     /** Gets a colored string
      * @param string The string including color codes
      * @return Returns a formatted string
@@ -625,7 +630,8 @@ public class Utils {
      * @param player The player to check
      * @return The number of minutes they have played on the server
      */
-    public static int getMinutesPlayed(Player player) {
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
+	public static int getMinutesPlayed(Player player) {
         int played = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         return Math.round(played / 1200);
     }
@@ -657,5 +663,33 @@ public class Utils {
         }
         return maj >= major && min >= minor && rev >= revision;
     }
+
+	/** Check if a class exists
+	 * @param className The {@link Class#getCanonicalName() canonical name} of the class
+	 * @return True if the class exists
+	 */
+    public static boolean classExists(final String className) {
+    	try {
+    		Class.forName(className);
+    		return true;
+		} catch (ClassNotFoundException ex) {
+    		return false;
+		}
+	}
+
+	/** Check if a method exists
+	 * @param c Class the method belongs to
+	 * @param methodName Name of method
+	 * @param parameterTypes Parameter types for this method
+	 * @return True if the method exists
+	 */
+	public static boolean methodExists(final Class<?> c, final String methodName, final Class<?>... parameterTypes) {
+    	try {
+    		c.getDeclaredMethod(methodName, parameterTypes);
+			return true;
+		} catch (NoSuchMethodException ex) {
+			return false;
+		}
+	}
 
 }

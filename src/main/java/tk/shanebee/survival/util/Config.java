@@ -1,17 +1,21 @@
 package tk.shanebee.survival.util;
 
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Config {
 
 	private Survival plugin;
 	private FileConfiguration settings;
+	private File configFile;
+	private String prefix;
 
+	@SuppressWarnings("WeakerAccess")
 	public String RESOURCE_PACK_URL;
 
 	public boolean SURVIVAL_ENABLED;
@@ -75,42 +79,58 @@ public class Config {
 	public double ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
 
 
-	public Config(Survival plugin, FileConfiguration settings) {
+	public Config(Survival plugin) {
 		this.plugin = plugin;
-		this.settings = settings;
+		this.prefix = "&7[&3Survival&bPlus&7] "; //temp prefix used before lang.yml loads
 		loadDefaultSettings();
 	}
 
 	private void loadDefaultSettings() {
-		plugin.saveDefaultConfig();
-		settings = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
-		boolean change = false;
-		Configuration defaults = plugin.getConfig().getDefaults();
-		assert defaults != null;
-		for (String defaultKey : defaults.getKeys(true)) {
-			if (!settings.contains(defaultKey)) {
-				settings.set(defaultKey, defaults.get(defaultKey));
-				change = true;
-			}
+		if (configFile == null) {
+			configFile = new File(plugin.getDataFolder(), "config.yml");
 		}
-		if (change) {
-			plugin.getConfig().options().copyDefaults(true);
-			plugin.saveConfig();
+		if (!configFile.exists()) {
+			plugin.saveResource("config.yml", false);
+			settings = YamlConfiguration.loadConfiguration(configFile);
+			Utils.sendColoredConsoleMsg(prefix + "new config.yml created");
+		} else {
+			settings = YamlConfiguration.loadConfiguration(configFile);
 		}
-		updateResourcePack();
-		settings = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "config.yml"));
+		matchConfig(settings, configFile);
 		loadSettings();
-		Survival.settings = settings;
+		Utils.sendColoredConsoleMsg(prefix + "&7config.yml &aloaded");
 	}
 
-	private void updateResourcePack() {
-		if (settings.getString("MultiWorld.ResourcePackURL")
-				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v2.zip") || settings.getString("MultiWorld.ResourcePackURL")
-				.equalsIgnoreCase("https://shanebee.tk/survivalplus/resource-pack/SP-1.14v3.zip")) {
-			plugin.getConfig().set("MultiWorld.ResourcePackURL", "https://www.dropbox.com/s/hucla3rj6qs93zd/SP-1.14v3.zip?dl=1");
-			plugin.getConfig().options().copyDefaults(true);
-			plugin.saveConfig();
+	// Used to update config
+	@SuppressWarnings("ConstantConditions")
+	private void matchConfig(FileConfiguration config, File file) {
+		try {
+			boolean hasUpdated = false;
+			InputStream is = plugin.getResource(file.getName());
+			assert is != null;
+			InputStreamReader isr = new InputStreamReader(is);
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(isr);
+			for (String key : defConfig.getConfigurationSection("").getKeys(true)) {
+				if (!config.contains(key)) {
+					config.set(key, defConfig.get(key));
+					hasUpdated = true;
+				}
+			}
+			for (String key : config.getConfigurationSection("").getKeys(true)) {
+				if (!defConfig.contains(key)) {
+					config.set(key, null);
+					hasUpdated = true;
+				}
+			}
+			if (hasUpdated)
+				config.save(file);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	public FileConfiguration getSettings() {
+		return this.settings;
 	}
 
 	private void loadSettings() {

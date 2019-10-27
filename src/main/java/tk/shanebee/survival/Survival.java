@@ -32,7 +32,7 @@ public class Survival extends JavaPlugin implements Listener {
 
 	public static Scoreboard board;
 	public static Scoreboard mainBoard;
-	public static FileConfiguration settings = new YamlConfiguration();
+	public static FileConfiguration settings;
 	private Config config;
 	public static int LocalChatDist = 64;
 	private int AlertInterval = 20;
@@ -278,7 +278,8 @@ public class Survival extends JavaPlugin implements Listener {
 	}
 
 	public void loadSettings() {
-		this.config = new Config(this, settings);
+		this.config = new Config(this);
+		settings = config.getSettings();
 	}
 
 	public int getAlertInterval() {
