@@ -54,6 +54,23 @@ public class Config {
 	public double MECHANICS_THIRST_DRAIN_RATE;
 
 	public boolean MECHANICS_FOOD_DIVERSITY;
+	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY;
+	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM;
+	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD;
+	public int MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP;
+	public String MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_EFFECT;
+	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_AMP;
+	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_DURATION;
+	public String MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_EFFECT;
+	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP;
+	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION;
+	public int MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP;
+	public String MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT;
+	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_AMP;
+	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_DURATION;
+	public String MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_EFFECT;
+	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP;
+	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION;
 
 	public boolean MECHANICS_FATIGUE_LEVEL;
 	public int MECHANICS_FATIGUE_INCREASE_CHANCE;
@@ -170,7 +187,25 @@ public class Config {
 		this.MECHANICS_THIRST_ENABLED = settings.getBoolean("Mechanics.Thirst.Enabled");
 		this.MECHANICS_THIRST_DRAIN_RATE = settings.getDouble("Mechanics.Thirst.DrainRate");
 
-		this.MECHANICS_FOOD_DIVERSITY = settings.getBoolean("Mechanics.FoodDiversity");
+		this.MECHANICS_FOOD_DIVERSITY = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
+		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
+		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.exhaustion-amplifier");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.salts.status-effects.normal.effect");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.normal.amplifier");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.normal.duration");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.salts.status-effects.hard.effect");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.hard.amplifier");
+		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.hard.duration");
+
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.exhaustion-amplifier");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.effect");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.amplifier");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.duration");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.effect");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.amplifier");
+		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.duration");
 
 		this.MECHANICS_FATIGUE_LEVEL = settings.getBoolean("Mechanics.BedFatigueLevel");
 		this.MECHANICS_FATIGUE_INCREASE_CHANCE = settings.getInt("Mechanics.FatigueLevelIncreaseChance");

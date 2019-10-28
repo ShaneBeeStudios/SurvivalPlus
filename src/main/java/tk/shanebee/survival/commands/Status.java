@@ -1,6 +1,7 @@
 package tk.shanebee.survival.commands;
 
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,9 +22,11 @@ public class Status implements CommandExecutor, TabCompleter {
 	private Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
 	private Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
 	private Survival plugin;
+	private Config config;
 
 	public Status(Survival plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -70,7 +73,7 @@ public class Status implements CommandExecutor, TabCompleter {
 										plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
 								player.sendMessage(plugin.getPlayerManager().ShowFatigue(player));
-							if (Survival.settings.getBoolean("Mechanics.FoodDiversity")) {
+							if (config.MECHANICS_FOOD_DIVERSITY) {
 								for (String s : plugin.getPlayerManager().ShowNutrients(player))
 									player.sendMessage(s);
 							}
@@ -80,7 +83,7 @@ public class Status implements CommandExecutor, TabCompleter {
 								boardThirst.getScore(player.getName()).setScore(0);
 							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
 								boardFatigue.getScore(player.getName()).setScore(0);
-							if (Survival.settings.getBoolean("Mechanics.FoodDiversity"))
+							if (config.MECHANICS_FOOD_DIVERSITY)
 								boardNutrients.getScore(player.getName()).setScore(0);
 						}
 						break;
@@ -121,7 +124,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "nutrients":
 					case "n":
 						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (Survival.settings.getBoolean("Mechanics.FoodDiversity")) {
+							if (config.MECHANICS_FOOD_DIVERSITY) {
 								for (String s : plugin.getPlayerManager().ShowNutrients(player))
 									player.sendMessage(s);
 							}

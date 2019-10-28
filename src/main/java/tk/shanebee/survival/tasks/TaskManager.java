@@ -1,7 +1,9 @@
 package tk.shanebee.survival.tasks;
 
+import com.mysql.jdbc.Util;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Utils;
 
 /**
  * Internal task manager
@@ -24,11 +26,14 @@ public class TaskManager {
 			}
 		}
 		if (config.MECHANICS_FOOD_DIVERSITY) {
+			Utils.log("&aFOOD diversity enabled");
 			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
 			if (!config.MECHANICS_SCOREBOARD && plugin.getAlertInterval() > 0) {
 				new NutrientsAlert(plugin);
 			}
+		} else {
+			Utils.log("&cFOOD diversity disabled");
 		}
 	}
 

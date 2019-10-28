@@ -8,12 +8,22 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.StatusManager;
+import tk.shanebee.survival.util.Config;
 
 class NutrientsEffect extends BukkitRunnable {
 
+	private Config config;
+	private PotionEffect SALTS_NORMAL = null;
+	private PotionEffect SALTS_HARD = null;
+	private PotionEffect PROTEIN_NORMAL = null;
+	private PotionEffect PROTEIN_HARD = null;
+
 	NutrientsEffect(Survival plugin) {
+		this.config = plugin.getSurvivalConfig();
+		loadEffects();
 		this.runTaskTimer(plugin, -1, 320);
 	}
+
 	@Override
 	public void run() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -22,44 +32,88 @@ class NutrientsEffect extends BukkitRunnable {
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.CARBS) <= 0) {
 					switch (player.getWorld().getDifficulty()) {
 						case EASY:
-							player.setExhaustion(player.getExhaustion() + 2);
+							player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY, 0));
 							break;
 						case NORMAL:
-							player.setExhaustion(player.getExhaustion() + 4);
+							player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM, 0));
 							break;
 						case HARD:
-							player.setExhaustion(player.getExhaustion() + 8);
+							player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD, 0));
 							break;
 						default:
 					}
 				}
 
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.SALTS) <= 0) {
-					player.setExhaustion(player.getExhaustion() + 1);
+					player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP, 0));
 					switch (player.getWorld().getDifficulty()) {
 						case NORMAL:
-							player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 0), true);
+							if (SALTS_NORMAL != null) {
+								player.addPotionEffect(SALTS_NORMAL, true);
+							}
 							break;
 						case HARD:
-							player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 1), true);
+							if (SALTS_HARD != null) {
+								player.addPotionEffect(SALTS_HARD, true);
+							}
 							break;
 						default:
 					}
 				}
 
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.PROTEIN) <= 0) {
-					player.setExhaustion(player.getExhaustion() + 1);
+					player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP, 0));
 					switch (player.getWorld().getDifficulty()) {
 						case NORMAL:
-							player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 0), true);
+							if (PROTEIN_NORMAL != null) {
+								player.addPotionEffect(PROTEIN_NORMAL, true);
+							}
 							break;
 						case HARD:
-							player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 1), true);
+							if (PROTEIN_HARD != null) {
+								player.addPotionEffect(PROTEIN_HARD, true);
+							}
 							break;
 						default:
 					}
 				}
 			}
+		}
+	}
+
+	private void loadEffects() {
+		PotionEffectType s_normal_type = getType(config.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_EFFECT);
+		if (s_normal_type != null) {
+			int s_normal_amp = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_AMP;
+			int s_normal_dur = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_DURATION;
+			SALTS_NORMAL = new PotionEffect(s_normal_type, s_normal_dur * 20, s_normal_amp);
+		}
+		PotionEffectType s_hard_type = getType(config.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_EFFECT);
+		if (s_hard_type != null) {
+			int s_hard_amp = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP;
+			int s_hard_dur = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION;
+			SALTS_NORMAL = new PotionEffect(s_hard_type, s_hard_dur * 20, s_hard_amp);
+		}
+
+		PotionEffectType p_normal_type = getType(config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT);
+		if (p_normal_type != null) {
+			int p_normal_amp = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_AMP;
+			int p_normal_dur = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_DURATION;
+			PROTEIN_NORMAL = new PotionEffect(p_normal_type, p_normal_dur * 20, p_normal_amp);
+		}
+		PotionEffectType p_hard_type = getType(config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_EFFECT);
+		if (p_hard_type != null) {
+			int p_hard_amp = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP;
+			int p_hard_dur = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION;
+			PROTEIN_NORMAL = new PotionEffect(p_hard_type, p_hard_dur * 20, p_hard_amp);
+		}
+	}
+
+	private PotionEffectType getType(String potionType) {
+		try {
+			return PotionEffectType.getByName(potionType);
+		} catch (IllegalArgumentException ex) {
+			return null;
 		}
 	}
 

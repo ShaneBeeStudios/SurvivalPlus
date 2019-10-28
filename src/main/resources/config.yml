@@ -120,7 +120,44 @@ Mechanics:
   BeetrootStrength: true
 
   # Players will need to eat a different variety of foods to stay nourished
-  FoodDiversity: true
+  FoodDiversity:
+    enabled: true
+    # Each nutrition section has different effects when player's levels are too low
+    effects:
+      carbs:
+        # Exhaustion amplifier will differ based on server difficulty level
+        exhaustion-amplifier:
+          easy: 2
+          normal: 4
+          hard: 8
+      salts:
+        exhaustion-amplifier: 1
+        # Status effects/amplifiers can differ based on server difficulty level
+        status-effects:
+          normal:
+            # The effect (uses Bukkit PotionEffectTypes)
+            # You can find these effects here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
+            effect: WEAKNESS
+            # The amplifying level (0 = tier 1, 1 = tier 2)
+            amplifier: 0
+            # The time in seconds this effect will last for
+            duration: 20
+          hard:
+            effect: WEAKNESS
+            amplifier: 1
+            duration: 20
+      proteins:
+        exhaustion-amplifier: 1
+        # Status effects/amplifiers can differ based on server difficulty level
+        status-effects:
+          normal:
+            effect: WEAKNESS
+            amplifier: 0
+            duration: 20
+          hard:
+            effect: WEAKNESS
+            amplifier: 1
+            duration: 20
 
   # When enabled, players will need to drink water to replenish their thirst levels
   Thirst:

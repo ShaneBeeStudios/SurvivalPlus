@@ -7,13 +7,16 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 public class ScoreBoardManager {
 
     private Survival plugin;
+    private Config config;
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
+        this.config = plugin.getSurvivalConfig();
     }
 
     @SuppressWarnings("deprecation")
@@ -114,7 +117,7 @@ public class ScoreBoardManager {
                     fatigue.setScore(4);
                 }
 
-                if (Survival.settings.getBoolean("Mechanics.FoodDiversity") && boardNutrients.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_FOOD_DIVERSITY && boardNutrients.getScore(player.getName()).getScore() <= 0) {
                     Score carbon = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(0));
                     carbon.setScore(3);
                     Score protein = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(1));
