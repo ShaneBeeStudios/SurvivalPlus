@@ -1,6 +1,5 @@
 package tk.shanebee.survival.listeners;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,14 +53,14 @@ class SetResourcePack implements Listener {
 	@EventHandler
 	private void resourcePackEvent(PlayerResourcePackStatusEvent e) {
 		Player player = e.getPlayer();
-		if (config.RESOURCE_PACK_NOTIFY)
+		if (config.RESOURCE_PACK_ENABLED && config.RESOURCE_PACK_NOTIFY)
 			if (e.getStatus() == Status.DECLINED) {
-				player.sendMessage(" ");
-				player.sendMessage(prefix + ChatColor.RED + Utils.getColoredString(lang.resource_pack_declined));
-				player.sendMessage("   " + ChatColor.GOLD + Utils.getColoredString(lang.resource_pack_apply));
-				player.sendMessage("   " + ChatColor.GOLD + Utils.getColoredString(lang.resource_pack_required));
+				Utils.sendColoredMsg(player, " ");
+				Utils.sendColoredMsg(player, prefix + "&c" + lang.resource_pack_declined);
+				Utils.sendColoredMsg(player, "   &6" + lang.resource_pack_apply);
+				Utils.sendColoredMsg(player, "   &6" + lang.resource_pack_required);
 			} else if (e.getStatus() == Status.ACCEPTED) {
-				player.sendMessage(prefix + ChatColor.GREEN + Utils.getColoredString(lang.resource_pack_accepted));
+				Utils.sendColoredMsg(player, prefix + "&a" + lang.resource_pack_accepted);
 			}
 	}
 
