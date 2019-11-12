@@ -13,13 +13,16 @@ import java.util.List;
 
 public class PlayerManager {
 
-	private static String url = Survival.settings.getString("MultiWorld.ResourcePackURL");
+	private String url;
 	private Scoreboard mainBoard;
 	private Lang lang;
+	private Survival plugin;
 
 	public PlayerManager(Survival plugin) {
-		this.mainBoard = Survival.mainBoard;
-		this.lang = Survival.lang;
+		this.plugin = plugin;
+		this.mainBoard = plugin.getMainBoard();
+		this.lang = plugin.getLang();
+		this.url = plugin.getSettings().getString("MultiWorld.ResourcePackURL");
 	}
 
 	/** Set the waypoint of a player's compass to their location
@@ -48,15 +51,15 @@ public class PlayerManager {
 	 */
 	public void applyResourcePack(Player player, int delay) {
 		if (url != null) {
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 				try {
 					player.setResourcePack(url);
 				} catch (Exception e) {
 					Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
-					Bukkit.getPluginManager().disablePlugin(Survival.instance);
+					Bukkit.getPluginManager().disablePlugin(plugin);
 					return;
 				}
-				Survival.usingPlayers.add(player);
+				plugin.getUsingPlayers().add(player);
 			}, delay);
 		}
 	}
@@ -111,7 +114,7 @@ public class PlayerManager {
 		else
 			thirstBar.insert(0, ChatColor.AQUA);
 
-		return Arrays.asList(ChatColor.AQUA + Survival.lang.thirst, (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)),
+		return Arrays.asList(ChatColor.AQUA + lang.thirst, (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)),
 				thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
 	}
 
@@ -137,7 +140,7 @@ public class PlayerManager {
 		else
 			hungerBar.insert(0, ChatColor.GOLD);
 
-		return Arrays.asList(ChatColor.GOLD + Survival.lang.hunger, hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
+		return Arrays.asList(ChatColor.GOLD + lang.hunger, hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
 	}
 
 	public List<String> ShowNutrients(Player player) {

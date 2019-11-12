@@ -6,13 +6,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.StatusManager;
+import tk.shanebee.survival.util.Lang;
 
 class ThirstAlert extends BukkitRunnable {
 
 	private Survival plugin;
+	private Lang lang;
 
 	ThirstAlert(Survival plugin) {
 		this.plugin = plugin;
+		this.lang = plugin.getLang();
 		this.runTaskTimer(plugin, -1, plugin.getAlertInterval() * 20);
 	}
 	@Override
@@ -21,10 +24,10 @@ class ThirstAlert extends BukkitRunnable {
 			if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 				int hunger = player.getFoodLevel();
 				if (hunger <= 6) {
-					player.sendMessage(ChatColor.GOLD + Survival.lang.starved_eat);
+					player.sendMessage(ChatColor.GOLD + lang.starved_eat);
 				}
 				if (StatusManager.getThirst(player) <= 6) {
-					player.sendMessage(ChatColor.AQUA + Survival.lang.dehydrated_drink);
+					player.sendMessage(ChatColor.AQUA + lang.dehydrated_drink);
 				}
 			}
 		}

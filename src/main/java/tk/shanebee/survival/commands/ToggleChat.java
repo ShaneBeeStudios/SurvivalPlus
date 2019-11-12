@@ -1,5 +1,6 @@
 package tk.shanebee.survival.commands;
 
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,19 +18,25 @@ import java.util.List;
 
 public class ToggleChat implements CommandExecutor, TabCompleter {
 
-	private Objective chat = Survival.board.getObjective("Chat");
+	private Lang lang;
+	private Objective chat;
+	
+	public ToggleChat(Survival plugin) {
+		this.lang = plugin.getLang();
+		this.chat = plugin.getBoard().getObjective("Chat");
+	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String prefix = "&7[&3SurvivalPlus&7] ";
 		if (command.getName().equalsIgnoreCase("togglechat")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(Utils.getColoredString(Survival.lang.players_only));
+				sender.sendMessage(Utils.getColoredString(lang.players_only));
 				return true;
 			}
 			Player player = (Player) sender;
 			//if (LocalChatDist > -1)
 			if (Survival.LocalChatDist <= -1) {
-				player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_disabled));
+				player.sendMessage(Utils.getColoredString(lang.toggle_chat_disabled));
 				return true;
 			}
 
@@ -38,12 +45,12 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 				switch (args[0]) {
 					case "local":
 					case "l":
-						player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_local));
+						player.sendMessage(Utils.getColoredString(lang.toggle_chat_local));
 						chat.getScore(player.getName()).setScore(0);
 						break;
 					case "global":
 					case "g":
-						player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_global));
+						player.sendMessage(Utils.getColoredString(lang.toggle_chat_global));
 						chat.getScore(player.getName()).setScore(1);
 						break;
 					default:
@@ -51,14 +58,14 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 				}
 			} else if (args.length == 0) {
 				if (chat.getScore(player.getName()).getScore() == 0) {
-					player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_global));
+					player.sendMessage(Utils.getColoredString(lang.toggle_chat_global));
 					chat.getScore(player.getName()).setScore(1);
 				} else {
-					player.sendMessage(Utils.getColoredString(Survival.lang.toggle_chat_local));
+					player.sendMessage(Utils.getColoredString(lang.toggle_chat_local));
 					chat.getScore(player.getName()).setScore(0);
 				}
 			} else {
-				sender.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.invalid_arg));
+				sender.sendMessage(ChatColor.RED + Utils.getColoredString(lang.invalid_arg));
 				return false;
 			}
 

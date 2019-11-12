@@ -4,6 +4,7 @@ import org.bukkit.block.data.Lightable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.block.BlockState;
@@ -32,6 +33,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Random;
 
 class FirestrikerClick implements Listener {
+	
+	private Survival plugin;
+	private Lang lang;
+	
+	FirestrikerClick(Survival plugin) {
+		this.plugin = plugin;
+		this.lang = plugin.getLang();
+	}
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
@@ -50,7 +59,7 @@ class FirestrikerClick implements Listener {
 						Random rand = new Random();
 						player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Utils.getColoredString(Survival.lang.firestriker));
+						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Utils.getColoredString(lang.firestriker));
 						player.openInventory(firestriker);
 						firestriker.setItem(1, event.getItem());
 						event.setCancelled(true);
@@ -146,7 +155,7 @@ class FirestrikerClick implements Listener {
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
-		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) {
+		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(lang.firestriker))) {
 			final Player player = (Player) event.getWhoClicked();
 
 			switch (event.getRawSlot()) {
@@ -193,7 +202,7 @@ class FirestrikerClick implements Listener {
 					} else {
 						event.setCancelled(true);
 					}
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, player::updateInventory, 1L);
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, player::updateInventory, 1L);
 					break;
 			}
 		}
@@ -234,7 +243,7 @@ class FirestrikerClick implements Listener {
 
 	@EventHandler
 	private void onCloseInventory(InventoryCloseEvent event) {
-		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(Survival.lang.firestriker))) // Update due to deprecation
+		if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(lang.firestriker))) // Update due to deprecation
 		{
 			Inventory inv = event.getInventory();
 			Player player = (Player) event.getPlayer();

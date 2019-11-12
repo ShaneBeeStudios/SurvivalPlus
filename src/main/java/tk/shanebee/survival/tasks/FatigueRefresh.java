@@ -5,14 +5,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.StatusManager;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 class FatigueRefresh extends BukkitRunnable {
 
 	private Survival plugin;
+	private Lang lang;
 
 	FatigueRefresh(Survival plugin) {
 		this.plugin = plugin;
+		this.lang = plugin.getLang();
 		this.runTaskTimer(plugin, -1, 20 * plugin.getSurvivalConfig().MECHANICS_FATIGUE_REFRESH_TIME);
 	}
 
@@ -23,7 +26,7 @@ class FatigueRefresh extends BukkitRunnable {
 				if (player.isSleeping()) {
 					if (StatusManager.getFatigue(player) >= 1) {
 						StatusManager.setFatigue(player, StatusManager.getFatigue(player) - 1);
-						Utils.sendColoredMsg(player, Utils.getColoredString(Survival.lang.energy_rising));
+						Utils.sendColoredMsg(player, Utils.getColoredString(lang.energy_rising));
 					}
 				}
 			}

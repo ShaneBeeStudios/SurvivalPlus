@@ -19,6 +19,12 @@ import tk.shanebee.survival.managers.StatusManager;
 
 class BedFatigue implements Listener {
 
+	private Survival plugin;
+
+	BedFatigue(Survival plugin) {
+		this.plugin = plugin;
+	}
+
 	@EventHandler
 	private void onBedLeave(PlayerBedLeaveEvent e) {
 		long time = e.getBed().getWorld().getTime();
@@ -64,7 +70,7 @@ class BedFatigue implements Listener {
 	@EventHandler
 	private void onCraftCoffee(CraftItemEvent e) {
 		if (ItemManager.compare(e.getRecipe().getResult(), Items.COFFEE)) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> e.getInventory().remove(Material.GLASS_BOTTLE), 2);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> e.getInventory().remove(Material.GLASS_BOTTLE), 2);
 		}
 	}
 

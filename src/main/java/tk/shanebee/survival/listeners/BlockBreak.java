@@ -18,13 +18,20 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
 class BlockBreak implements Listener {
-
-	private Config settings = Survival.getInstance().getSurvivalConfig();
+	
+	private Config settings;
+	private Lang lang;
+	
+	BlockBreak(Survival plugin) {
+		this.lang = plugin.getLang();
+		this.settings = plugin.getSurvivalConfig();
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBlockBreak(BlockBreakEvent event) {
@@ -43,7 +50,7 @@ class BlockBreak implements Listener {
 						if (Utils.requiresShovel(material)) {
 							event.setCancelled(true);
 							player.updateInventory();
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shovel));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_shovel));
 						}
 						//Flint
 						if (material == Material.GRAVEL) {
@@ -74,7 +81,7 @@ class BlockBreak implements Listener {
 					if (Utils.requiresAxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_axe));
+						player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_axe));
 					}
 
 					//Fix half door glitch
@@ -89,7 +96,7 @@ class BlockBreak implements Listener {
 					if (Utils.requiresPickaxe(material)) {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_pick));
+						player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_pick));
 					}
 				}
 
@@ -97,7 +104,7 @@ class BlockBreak implements Listener {
 					if (Utils.isFarmable(material)) {
 						if (!Items.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
 						} else {
 							event.setDropItems(false);
 							Location loc = event.getBlock().getLocation();
@@ -146,7 +153,7 @@ class BlockBreak implements Listener {
 						if (Utils.requiresShears(material)) {
 							event.setCancelled(true);
 							player.updateInventory();
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_shear));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_shear));
 						}
 					}
 
@@ -188,7 +195,7 @@ class BlockBreak implements Listener {
 			}
 			if (!Items.Tags.SICKLES.isTagged(tool)) {
 				e.setCancelled(true);
-				player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_sickle));
+				player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
 			} else {
 				if (bush.getAge() >= 2) {
 					int berries = 0;

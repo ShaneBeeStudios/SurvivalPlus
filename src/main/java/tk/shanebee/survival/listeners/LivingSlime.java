@@ -21,12 +21,18 @@ import tk.shanebee.survival.Survival;
 
 class LivingSlime implements Listener {
 
+	private Survival plugin;
+
+	LivingSlime(Survival plugin) {
+		this.plugin = plugin;
+	}
+
 	@EventHandler
 	private void onGhastTearSlimeBlock(ItemSpawnEvent e) {
 		if (e.getEntityType() == EntityType.DROPPED_ITEM) {
 			Item i = e.getEntity();
 			if (i.getItemStack().getType() == Material.GHAST_TEAR) {
-				Bukkit.getScheduler().runTaskLater(Survival.instance, initRunnable(i), 20);
+				Bukkit.getScheduler().runTaskLater(plugin, initRunnable(i), 20);
 			}
 		}
 	}

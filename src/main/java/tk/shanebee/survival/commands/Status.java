@@ -1,7 +1,10 @@
 package tk.shanebee.survival.commands;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,35 +20,43 @@ import java.util.List;
 
 public class Status implements CommandExecutor, TabCompleter {
 
-	private Objective boardHunger = Survival.mainBoard.getObjective("BoardHunger");
-	private Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
-	private Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
-	private Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
-	private Survival plugin;
+	private Objective boardHunger;
+	private Objective boardThirst;
+	private Objective boardFatigue;
+	private Objective boardNutrients;
 	private Config config;
+	private Lang lang;
+	private PlayerManager playerManager;
+	private FileConfiguration settings;
 
 	public Status(Survival plugin) {
-		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
+		this.lang = plugin.getLang();
+		this.playerManager = plugin.getPlayerManager();
+		this.settings = plugin.getSettings();
+		boardHunger = plugin.getMainBoard().getObjective("BoardHunger");
+		boardThirst = plugin.getMainBoard().getObjective("BoardThirst");
+		boardFatigue = plugin.getMainBoard().getObjective("BoardFatigue");
+		boardNutrients = plugin.getMainBoard().getObjective("BoardNutrients");
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String prefix = "&7[&3SurvivalPlus&7] ";
 		if (command.getName().equalsIgnoreCase("status")) {
 			if (!(sender instanceof Player)) {
-				sender.sendMessage(Utils.getColoredString(Survival.lang.players_only));
+				sender.sendMessage(Utils.getColoredString(lang.players_only));
 				return false;
 			}
 
 			Player player = (Player) sender;
 
 			if (args.length == 0) {
-				if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-					player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
-							plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
-					if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-						player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
-								plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
+				if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+					player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
+							playerManager.ShowHunger(player).get(0).toUpperCase());
+					if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+						player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
+								playerManager.ShowThirst(player).get(0).toUpperCase());
 				} else {
 					//boardHunger.getScore(player.getName()).setScore(0);
 					//boardThirst.getScore(player.getName()).setScore(0);
@@ -65,23 +76,23 @@ public class Status implements CommandExecutor, TabCompleter {
 			if (args.length == 1) {
 				switch (args[0]) {
 					case "all":
-						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
-									plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
-							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-								player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
-										plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
-							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
-								player.sendMessage(plugin.getPlayerManager().ShowFatigue(player));
+						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+							player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
+									playerManager.ShowHunger(player).get(0).toUpperCase());
+							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+								player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
+										playerManager.ShowThirst(player).get(0).toUpperCase());
+							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
+								player.sendMessage(playerManager.ShowFatigue(player));
 							if (config.MECHANICS_FOOD_DIVERSITY) {
-								for (String s : plugin.getPlayerManager().ShowNutrients(player))
+								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);
 							}
 						} else {
 							boardHunger.getScore(player.getName()).setScore(0);
-							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
+							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
 								boardThirst.getScore(player.getName()).setScore(0);
-							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
+							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
 								boardFatigue.getScore(player.getName()).setScore(0);
 							if (config.MECHANICS_FOOD_DIVERSITY)
 								boardNutrients.getScore(player.getName()).setScore(0);
@@ -89,7 +100,7 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "none":
 					case "off":
-						if (Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (settings.getBoolean("Mechanics.StatusScoreboard")) {
 							boardHunger.getScore(player.getName()).setScore(1);
 							boardThirst.getScore(player.getName()).setScore(1);
 							boardFatigue.getScore(player.getName()).setScore(1);
@@ -98,34 +109,34 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "hunger":
 					case "h":
-						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " +
-									plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
+						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+							player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
+									playerManager.ShowHunger(player).get(0).toUpperCase());
 						} else
 							boardHunger.getScore(player.getName()).setScore(Reverse(boardHunger.getScore(player.getName()).getScore()));
 						break;
 					case "thirst":
 					case "t":
-						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled"))
-								player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " +
-										plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
+						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+								player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
+										playerManager.ShowThirst(player).get(0).toUpperCase());
 						} else
 							boardThirst.getScore(player.getName()).setScore(Reverse(boardThirst.getScore(player.getName()).getScore()));
 						break;
 					case "fatigue":
 					case "f":
-						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel"))
-								player.sendMessage(plugin.getPlayerManager().ShowFatigue(player));
+						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
+								player.sendMessage(playerManager.ShowFatigue(player));
 						} else
 							boardFatigue.getScore(player.getName()).setScore(Reverse(boardFatigue.getScore(player.getName()).getScore()));
 						break;
 					case "nutrients":
 					case "n":
-						if (!Survival.settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
 							if (config.MECHANICS_FOOD_DIVERSITY) {
-								for (String s : plugin.getPlayerManager().ShowNutrients(player))
+								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);
 							}
 						} else

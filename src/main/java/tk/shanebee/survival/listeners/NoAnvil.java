@@ -2,6 +2,7 @@ package tk.shanebee.survival.listeners;
 
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -15,6 +16,12 @@ import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 
 class NoAnvil implements Listener {
+
+	private Lang lang;
+
+	NoAnvil(Survival plugin) {
+		this.lang = plugin.getLang();
+	}
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent e) {
@@ -41,7 +48,7 @@ class NoAnvil implements Listener {
 								|| ItemManager.compare(item, Items.HAMMER)) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
-							e.getWhoClicked().sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.no_rename) + item.getItemMeta().getDisplayName() + ChatColor.RED + Utils.getColoredString(Survival.lang.period));
+							e.getWhoClicked().sendMessage(ChatColor.RED + Utils.getColoredString(lang.no_rename) + item.getItemMeta().getDisplayName() + ChatColor.RED + Utils.getColoredString(lang.period));
 						}
 					}
 				}

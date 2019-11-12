@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,12 @@ import java.util.Objects;
 
 class WaterBottleCrafting implements Listener {
 
+	private Survival plugin;
+
+	WaterBottleCrafting(Survival plugin) {
+		this.plugin = plugin;
+	}
+
 	@EventHandler
 	private void onCraft(CraftItemEvent e) {
 		final Player player = (Player) e.getWhoClicked();
@@ -36,7 +43,7 @@ class WaterBottleCrafting implements Listener {
 				if (bottles[i].getType() == Material.POTION) {
 					if (checkWaterBottle(bottles[i])) {
 						final int slot = i + 1;
-						Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+						Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 							inv.setItem(slot, new ItemStack(Material.GLASS_BOTTLE));
 							player.updateInventory();
 						}, 1);
@@ -50,7 +57,7 @@ class WaterBottleCrafting implements Listener {
 				if (bottles[i] == null) continue;
 				if (bottles[i].getType() == Material.BEETROOT_SOUP) {
 					final int slot = i + 1;
-					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+					Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 						inv.setItem(slot, new ItemStack(Material.BOWL));
 						player.updateInventory();
 					}, 1);
@@ -79,7 +86,7 @@ class WaterBottleCrafting implements Listener {
 
 	@EventHandler
 	private void onFillWaterBottle(PlayerInteractEvent e) {
-		if (!Survival.settings.getBoolean("Mechanics.Thirst.PurifyWater")) return;
+		if (!plugin.getSettings().getBoolean("Mechanics.Thirst.PurifyWater")) return;
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {

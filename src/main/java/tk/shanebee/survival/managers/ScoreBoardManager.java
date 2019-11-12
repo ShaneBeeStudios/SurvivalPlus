@@ -1,6 +1,7 @@
 package tk.shanebee.survival.managers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -13,10 +14,14 @@ public class ScoreBoardManager {
 
     private Survival plugin;
     private Config config;
+    private Scoreboard mainBoard;
+    private FileConfiguration settings;
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
+        this.mainBoard = plugin.getMainBoard();
         this.config = plugin.getSurvivalConfig();
+        this.settings = plugin.getSettings();
     }
 
     @SuppressWarnings("deprecation")
@@ -83,10 +88,10 @@ public class ScoreBoardManager {
         Runnable run = new Runnable() {
             Objective status = stats.registerNewObjective("Status", "dummy", "Status");
 
-            Objective boardHunger = Survival.mainBoard.getObjective("BoardHunger");
-            Objective boardThirst = Survival.mainBoard.getObjective("BoardThirst");
-            Objective boardFatigue = Survival.mainBoard.getObjective("BoardFatigue");
-            Objective boardNutrients = Survival.mainBoard.getObjective("BoardNutrients");
+            Objective boardHunger = mainBoard.getObjective("BoardHunger");
+            Objective boardThirst = mainBoard.getObjective("BoardThirst");
+            Objective boardFatigue = mainBoard.getObjective("BoardFatigue");
+            Objective boardNutrients = mainBoard.getObjective("BoardNutrients");
 
             public void run() {
                 status.unregister();
@@ -103,7 +108,7 @@ public class ScoreBoardManager {
                     hunger2.setScore(8);
                 }
 
-                if (Survival.settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player.getName()).getScore() <= 0) {
+                if (settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player.getName()).getScore() <= 0) {
                     Score thirst0 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(0));
                     thirst0.setScore(7);
                     Score thirst1 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(1));
@@ -112,7 +117,7 @@ public class ScoreBoardManager {
                     thirst2.setScore(5);
                 }
 
-                if (Survival.settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player.getName()).getScore() <= 0) {
+                if (settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player.getName()).getScore() <= 0) {
                     Score fatigue = status.getScore(plugin.getPlayerManager().ShowFatigue(player));
                     fatigue.setScore(4);
                 }
@@ -127,11 +132,11 @@ public class ScoreBoardManager {
                 }
 
                 if (player.isOnline())
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 10L);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 10L);
             }
         };
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, run, -1);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, run, -1);
     }
 
     public void resetStatusScoreboard(boolean enabled) {

@@ -24,6 +24,12 @@ import tk.shanebee.survival.managers.Items;
 import java.util.*;
 
 class WorkbenchShare implements Listener {
+	
+	private Survival plugin;
+	
+	WorkbenchShare(Survival plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	@SuppressWarnings("deprecation")
@@ -36,12 +42,12 @@ class WorkbenchShare implements Listener {
 
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
-		Bukkit.getServer().getScheduler().runTask(Survival.instance, () -> {
+		Bukkit.getServer().getScheduler().runTask(plugin, () -> {
 			if (!p.isOnline())
 				return;
 
 			if (!block.hasMetadata("shared_players"))
-				block.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, new ArrayList<UUID>()));
+				block.setMetadata("shared_players", new FixedMetadataValue(plugin, new ArrayList<UUID>()));
 
 			final List<UUID> list = (block.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").get(0).value() : new ArrayList<>();
 
@@ -61,9 +67,9 @@ class WorkbenchShare implements Listener {
 
 			assert list != null;
 			list.add(p.getUniqueId());
-			p.setMetadata("shared_workbench", new FixedMetadataValue(Survival.instance, block));
+			p.setMetadata("shared_workbench", new FixedMetadataValue(plugin, block));
 
-			Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+			Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 				if (list.isEmpty())
 					return;
 				Player first = Bukkit.getPlayer(list.get(0));
@@ -72,7 +78,7 @@ class WorkbenchShare implements Listener {
 				if (pInv.getType() != InventoryType.WORKBENCH)
 					return;
 				open.setContents(pInv.getContents());
-				Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, p::updateInventory, 1);
+				Bukkit.getServer().getScheduler().runTaskLater(plugin, p::updateInventory, 1);
 			}, 1);
 		});
 
@@ -107,7 +113,7 @@ class WorkbenchShare implements Listener {
 				if (p.getOpenInventory().getTopInventory() != null)
 					p.getOpenInventory().getTopInventory().clear();
 				p.closeInventory();
-				p.removeMetadata("shared_workbench", Survival.instance);
+				p.removeMetadata("shared_workbench", plugin);
 				return;
 			}
 
@@ -115,7 +121,7 @@ class WorkbenchShare implements Listener {
 
 			final Inventory pInv = p.getOpenInventory().getTopInventory();
 			if (pInv.getType() != InventoryType.WORKBENCH) {
-				workbench.removeMetadata("shared_players", Survival.instance);
+				workbench.removeMetadata("shared_players", plugin);
 				return;
 			}
 
@@ -143,9 +149,9 @@ class WorkbenchShare implements Listener {
 					continue;
 				}
 
-				Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+				Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 					open.setContents(pInv.getContents());
-					Bukkit.getServer().getScheduler().runTaskLater(Survival.instance, () -> {
+					Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 						p.updateInventory();
 						idPlayer.updateInventory();
 					}, 1);
@@ -169,7 +175,7 @@ class WorkbenchShare implements Listener {
 			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE) {
 				p.getOpenInventory().getTopInventory();
 				p.getOpenInventory().getTopInventory().clear();
-				p.removeMetadata("shared_workbench", Survival.instance);
+				p.removeMetadata("shared_workbench", plugin);
 
 				return;
 			}
@@ -180,10 +186,10 @@ class WorkbenchShare implements Listener {
 			list.remove(p.getUniqueId());
 
 			if (list.isEmpty())
-				workbench.removeMetadata("shared_players", Survival.instance);
+				workbench.removeMetadata("shared_players", plugin);
 			else {
 				e.getInventory().clear();
-				workbench.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, list));
+				workbench.setMetadata("shared_players", new FixedMetadataValue(plugin, list));
 			}
 		}
 	}
@@ -204,12 +210,12 @@ class WorkbenchShare implements Listener {
 			list.remove(p.getUniqueId());
 
 			if (list.isEmpty())
-				workbench.removeMetadata("shared_players", Survival.instance);
+				workbench.removeMetadata("shared_players", plugin);
 			else
-				workbench.setMetadata("shared_players", new FixedMetadataValue(Survival.instance, list));
+				workbench.setMetadata("shared_players", new FixedMetadataValue(plugin, list));
 		}
 
-		p.removeMetadata("shared_workbench", Survival.instance);
+		p.removeMetadata("shared_workbench", plugin);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -240,7 +246,7 @@ class WorkbenchShare implements Listener {
 			final Player idPlayer = Bukkit.getPlayer(next);
 
 			if (idPlayer != null) {
-				idPlayer.removeMetadata("shared_inv", Survival.instance);
+				idPlayer.removeMetadata("shared_inv", plugin);
 
 				if (idPlayer.isOnline()) {
 					final Inventory open = idPlayer.getOpenInventory().getTopInventory();
@@ -261,6 +267,6 @@ class WorkbenchShare implements Listener {
 		}
 
 
-		workbench.removeMetadata("shared_players", Survival.instance);
+		workbench.removeMetadata("shared_players", plugin);
 	}
 }

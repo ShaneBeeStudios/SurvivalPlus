@@ -19,6 +19,8 @@ import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.StatusManager;
+import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -26,9 +28,13 @@ import java.util.Random;
 class Consume implements Listener {
 
 	private Survival plugin;
+	private Config config;
+	private Lang lang;
 
 	Consume(Survival plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getSurvivalConfig();
+		this.lang = plugin.getLang();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -39,7 +45,7 @@ class Consume implements Listener {
 		int change = 0;
 		switch (event.getItem().getType()) {
 			case POTION:
-				if (Survival.instance.getSurvivalConfig().THIRST_PURIFY_WATER) {
+				if (config.THIRST_PURIFY_WATER) {
 					if (checkWaterBottle(item)) {
 						if (ItemManager.compare(item, Items.DIRTY_WATER)) {
 							change = 13;
@@ -63,7 +69,7 @@ class Consume implements Listener {
 							change = 10;
 							player.damage(2);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0), true);
-							Utils.sendColoredMsg(player, Survival.lang.hot_milk_drink);
+							Utils.sendColoredMsg(player, lang.hot_milk_drink);
 						}
 					}
 				} else {
@@ -76,7 +82,7 @@ class Consume implements Listener {
 					change = 10;
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
-					if (Survival.instance.getSurvivalConfig().THIRST_PURIFY_WATER) {
+					if (config.THIRST_PURIFY_WATER) {
 						Random rand = new Random();
 						if (rand.nextInt(10) + 1 <= 8) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
@@ -102,8 +108,8 @@ class Consume implements Listener {
 			StatusManager.addThirst(player, change);
 		}
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
-			if (!Survival.instance.getSurvivalConfig().STATUS_SCOREBOARD) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+			if (!config.STATUS_SCOREBOARD) {
 				player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " + plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
 				player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " + plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
 			}
@@ -113,9 +119,9 @@ class Consume implements Listener {
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		int thirst = Survival.instance.getSurvivalConfig().THIRST_RESPAWN_AMOUNT;
+		int thirst = config.THIRST_RESPAWN_AMOUNT;
 		StatusManager.setThirst(player, thirst);
-		int hunger = Survival.instance.getSurvivalConfig().HUNGER_RESPAWN_AMOUNT;
+		int hunger = config.HUNGER_RESPAWN_AMOUNT;
 		Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
 
 	}
@@ -124,9 +130,9 @@ class Consume implements Listener {
 	private void onFirstJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		if (!player.hasPlayedBefore()) {
-			int thirst = Survival.instance.getSurvivalConfig().THIRST_START_AMOUNT;
+			int thirst = config.THIRST_START_AMOUNT;
 			StatusManager.setThirst(player, thirst);
-			int hunger = Survival.instance.getSurvivalConfig().HUNGER_START_AMOUNT;
+			int hunger = config.HUNGER_START_AMOUNT;
 			Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
 		}
 	}

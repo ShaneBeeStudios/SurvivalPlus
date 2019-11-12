@@ -12,11 +12,21 @@ import org.bukkit.inventory.meta.Damageable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
 class BlockPlace implements Listener {
+
+	private Config config;
+	private Lang lang;
+
+	BlockPlace(Survival plugin) {
+		this.config = plugin.getSurvivalConfig();
+		this.lang = plugin.getLang();
+	}
 
 	@SuppressWarnings("ConstantConditions")
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -30,7 +40,7 @@ class BlockPlace implements Listener {
 		Block block = event.getBlock();
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (Survival.instance.getSurvivalConfig().PLACE_ONLY_WITH_HAMMER) {
+			if (config.PLACE_ONLY_WITH_HAMMER) {
 				if (Utils.requiresHammer(block.getType())) {
 					if (ItemManager.compare(offTool, Items.HAMMER)) {
 						Random rand = new Random();
@@ -57,7 +67,7 @@ class BlockPlace implements Listener {
 					} else {
 						event.setCancelled(true);
 						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.task_must_use_hammer));
+						player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_hammer));
 					}
 				}
 			}

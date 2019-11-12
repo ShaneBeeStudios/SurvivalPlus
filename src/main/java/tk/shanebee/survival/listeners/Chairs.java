@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,13 +31,21 @@ import tk.shanebee.survival.Survival;
 @SuppressWarnings("deprecation") // TODO fix deprecated Stairs stuff
 class Chairs implements Listener {
 
+	private Survival plugin;
+	private FileConfiguration settings;
+
+	Chairs(Survival plugin) {
+		this.plugin = plugin;
+		this.settings = plugin.getSettings();
+	}
+
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.hasBlock() && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
 
 			assert block != null;
-			if (Survival.allowedBlocks.contains(block.getType())) {
+			if (plugin.getChairBlocks().contains(block.getType())) {
 				Player player = event.getPlayer();
 				Stairs stairs = (Stairs) block.getState().getData();
 				int chairwidth = 1;
@@ -79,7 +88,7 @@ class Chairs implements Listener {
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
 
-				if (chairwidth > Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"))
+				if (chairwidth > settings.getInt("Mechanics.Chairs.MaxChairWidth"))
 					return;
 
 				// Sit-down process.
@@ -129,11 +138,11 @@ class Chairs implements Listener {
 						if (chair.getPassengers().isEmpty())
 							chair.remove();
 						else
-							Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 10L);
+							Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 10L);
 					}
 				};
 
-				Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, run, -1);
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, run, -1);
 			}
 		}
 	}
@@ -141,7 +150,7 @@ class Chairs implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
-		if (Survival.allowedBlocks.contains(event.getBlock().getType())) {
+		if (plugin.getChairBlocks().contains(event.getBlock().getType())) {
 			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
 
 			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
@@ -228,10 +237,10 @@ class Chairs implements Listener {
 		int width = 0;
 
 		// Go through the blocks next to the clicked block and check if there are any further stairs.
-		for (int i = 1; i <= Survival.settings.getInt("Mechanics.Chairs.MaxChairWidth"); i++) {
+		for (int i = 1; i <= settings.getInt("Mechanics.Chairs.MaxChairWidth"); i++) {
 			Block relative = block.getRelative(face, i);
 
-			if (Survival.allowedBlocks.contains(relative.getType()) && ((Stairs) relative.getState().getData()).getDescendingDirection() == ((Stairs) block.getState().getData()).getDescendingDirection())
+			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getState().getData()).getDescendingDirection() == ((Stairs) block.getState().getData()).getDescendingDirection())
 				width++;
 			else
 				break;
@@ -244,7 +253,7 @@ class Chairs implements Listener {
 		// Go through the blocks next to the clicked block and check if are signs on the end.
 		for (int i = 1; true; i++) {
 			Block relative = block.getRelative(face, i);
-			if (!(Survival.allowedBlocks.contains(relative.getType())) || (block instanceof Stairs && ((Stairs) relative.getState().getData()).getDescendingDirection() != ((Stairs) block.getState().getData()).getDescendingDirection())) {
+			if (!(plugin.getChairBlocks().contains(relative.getType())) || (block instanceof Stairs && ((Stairs) relative.getState().getData()).getDescendingDirection() != ((Stairs) block.getState().getData()).getDescendingDirection())) {
 				if (Tag.SIGNS.isTagged(relative.getType())) return true;
 				switch (relative.getType()) {
 					case ITEM_FRAME:

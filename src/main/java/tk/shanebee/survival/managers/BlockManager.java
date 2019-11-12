@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
@@ -23,11 +24,14 @@ public class BlockManager {
 	private Survival plugin;
 	private FileConfiguration data;
 	private File data_file;
+	private Lang lang;
 
-	private int seconds = Survival.settings.getInt("Mechanics.BurnoutTorches.BurnoutTime");
+	private int seconds;
 
 	public BlockManager(Survival plugin) {
 		this.plugin = plugin;
+		this.lang = plugin.getLang();
+		this.seconds = plugin.getSettings().getInt("Mechanics.BurnoutTorches.BurnoutTime");
 		loadDataFile(plugin.getServer().getConsoleSender());
 		toBurnout();
 	}
@@ -47,7 +51,7 @@ public class BlockManager {
 	 */
 	@SuppressWarnings("WeakerAccess")
 	public void burnoutTorch(Block block, int seconds) {
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
 			if (block.getType() == Material.TORCH)
 				block.setType(Material.REDSTONE_TORCH);
 			else if (block.getType() == Material.WALL_TORCH) {
@@ -78,7 +82,7 @@ public class BlockManager {
 			loaded = "&7data.yml &aloaded";
 		}
 		data = YamlConfiguration.loadConfiguration(data_file);
-		Utils.sendColoredMsg(sender, Survival.lang.prefix + loaded);
+		Utils.sendColoredMsg(sender, lang.prefix + loaded);
 	}
 
 	/**
@@ -166,12 +170,12 @@ public class BlockManager {
 			List<String> list = data.getStringList("NonPersistent Torches");
 			for (String string : list) {
 				String[] loc = string.split(" ");
-				long time = Long.valueOf(loc[4].replace("time:", ""));
+				long time = Long.parseLong(loc[4].replace("time:", ""));
 				if (time < System.currentTimeMillis()) {
 					String world = loc[0].replace("world:", "");
-					int x = Integer.valueOf(loc[1].replace("x:", ""));
-					int y = Integer.valueOf(loc[2].replace("y:", ""));
-					int z = Integer.valueOf(loc[3].replace("z:", ""));
+					int x = Integer.parseInt(loc[1].replace("x:", ""));
+					int y = Integer.parseInt(loc[2].replace("y:", ""));
+					int z = Integer.parseInt(loc[3].replace("z:", ""));
 					Block block = Objects.requireNonNull(Bukkit.getServer().getWorld(world)).getBlockAt(x, y, z);
 					if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
 						burnoutTorch(block, 20);

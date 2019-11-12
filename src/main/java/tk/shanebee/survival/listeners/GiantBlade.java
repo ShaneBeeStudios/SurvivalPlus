@@ -5,6 +5,7 @@ import java.util.Random;
 
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -27,9 +28,21 @@ import tk.shanebee.survival.Survival;
 
 class GiantBlade implements Listener {
 
-	private Objective charge = Survival.board.getObjective("Charge");
-	private Objective charging = Survival.board.getObjective("Charging");
-	private Objective dualWield = Survival.board.getObjective("DualWield");
+	private Survival plugin;
+	private Objective charge;
+	private Objective charging;
+	private Objective dualWield;
+	private Objective tech_dualWieldMsg;
+	private Lang lang;
+	
+	GiantBlade(Survival plugin) {
+		this.plugin = plugin;
+		this.charge = plugin.getBoard().getObjective("Charge");
+		this.charging = plugin.getBoard().getObjective("Charging");
+		this.dualWield = plugin.getBoard().getObjective("DualWield");
+		this.tech_dualWieldMsg = plugin.getBoard().getObjective("DualWieldMsg");
+		this.lang = plugin.getLang();
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onAttack(EntityDamageByEntityEvent event) {
@@ -65,7 +78,6 @@ class GiantBlade implements Listener {
 	}
 
 	//To prevent double messages send to player.
-	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
@@ -98,7 +110,7 @@ class GiantBlade implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.charge_unable));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.charge_unable));
 						}
 					}
 				}
@@ -108,7 +120,7 @@ class GiantBlade implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() >= 2) {
-					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.ender_giant_blade_unable_duel));
 				}
 			}
 		} else if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
@@ -118,7 +130,7 @@ class GiantBlade implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() >= 2) {
-					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.ender_giant_blade_unable_duel));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.ender_giant_blade_unable_duel));
 				}
 			}
 		}
@@ -126,7 +138,7 @@ class GiantBlade implements Listener {
 	}
 
 	private void ChargeForward(Player player) {
-		player.sendMessage(ChatColor.BLUE + Utils.getColoredString(Survival.lang.charge));
+		player.sendMessage(ChatColor.BLUE + Utils.getColoredString(lang.charge));
 
 		Score score = charge.getScore(player.getName());
 		score.setScore(1);
@@ -154,19 +166,19 @@ class GiantBlade implements Listener {
 
 				int times = charging.getScore(chargingPlayer.getName()).getScore();
 				if (--times > 1)
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 1L);
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 1L);
 				charging.getScore(chargingPlayer.getName()).setScore(times);
 			}
 		};
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1L);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable() {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					Score score = charge.getScore(chargingPlayer.getName());
 
 					public void run() {
 						score.setScore(0);
-						chargingPlayer.sendMessage(ChatColor.GREEN + Utils.getColoredString(Survival.lang.charge_ready));
+						chargingPlayer.sendMessage(ChatColor.GREEN + Utils.getColoredString(lang.charge_ready));
 					}
 				},
 				100L);

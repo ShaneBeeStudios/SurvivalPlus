@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 
@@ -20,10 +21,12 @@ public class EffectManager {
 	
 	private Survival plugin;
 	private FileConfiguration settings;
+	private Scoreboard board;
 	
 	public EffectManager(Survival plugin) {
 		this.plugin = plugin;
-		this.settings = Survival.settings;
+		this.board = plugin.getBoard();
+		this.settings = plugin.getSettings();
 		loadEffects();
 	}
 
@@ -104,7 +107,7 @@ public class EffectManager {
 					particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 				}
 
-				Score dualWield = Survival.board.getObjective("DualWield").getScore(player.getName());
+				Score dualWield = board.getObjective("DualWield").getScore(player.getName());
 
 				if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
 						&& (offItem.getType() == Material.WOODEN_AXE

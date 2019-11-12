@@ -556,7 +556,7 @@ public class Utils {
     }
 
 	public static void log(String msg) {
-		sendColoredConsoleMsg(Survival.lang.prefix + msg);
+		sendColoredConsoleMsg(Survival.getInstance().getLang().prefix + msg);
 	}
 
     /** Gets a colored string

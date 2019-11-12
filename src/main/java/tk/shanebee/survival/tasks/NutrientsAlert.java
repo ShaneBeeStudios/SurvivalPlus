@@ -7,10 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.StatusManager;
+import tk.shanebee.survival.util.Lang;
 
 class NutrientsAlert extends BukkitRunnable {
 
+	private Lang lang;
+
 	NutrientsAlert(Survival plugin) {
+		this.lang = plugin.getLang();
 		this.runTaskTimer(plugin, -1, plugin.getAlertInterval() * 20);
 	}
 
@@ -19,15 +23,15 @@ class NutrientsAlert extends BukkitRunnable {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.CARBS) <= 480) {
-					player.sendMessage(ChatColor.DARK_GREEN + Survival.lang.carbohydrates_lack);
+					player.sendMessage(ChatColor.DARK_GREEN + lang.carbohydrates_lack);
 				}
 
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.SALTS) <= 180) {
-					player.sendMessage(ChatColor.BLUE + Survival.lang.vitamins_lack);
+					player.sendMessage(ChatColor.BLUE + lang.vitamins_lack);
 				}
 
 				if (StatusManager.getNutrients(player, StatusManager.Nutrients.PROTEIN) <= 120) {
-					player.sendMessage(ChatColor.DARK_RED + Survival.lang.protein_lack);
+					player.sendMessage(ChatColor.DARK_RED + lang.protein_lack);
 				}
 			}
 		}

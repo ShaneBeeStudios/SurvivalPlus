@@ -3,7 +3,6 @@ package tk.shanebee.survival;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,26 +24,26 @@ import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
-	/**
-	 * Instance of this plugin
-	 */
-	public static Survival instance;
 
-	public static Scoreboard board;
-	public static Scoreboard mainBoard;
-	public static FileConfiguration settings;
-	private Config config;
-	public static int LocalChatDist = 64;
+	private static Survival instance;
+
+	public static int LocalChatDist = 64; // TODO - remove static
 	private int AlertInterval = 20;
 	private static List<Double> Rates = new ArrayList<>();
-	/**
-	 * Instance of the language file
-	 */
-	public static Lang lang;
-	public static List<Material> allowedBlocks = new ArrayList<>();
-	public static List<Player> usingPlayers = new ArrayList<>();
-	public boolean snowGenOption = true;
+
+	private List<Material> chairBlocks = new ArrayList<>();
+	private List<Player> usingPlayers = new ArrayList<>();
+	private boolean snowGenOption = true;
 	private String prefix;
+
+	// Configs
+	private Config config;
+	private Lang lang;
+	private FileConfiguration settings;
+
+	// Scoreboards
+	private Scoreboard board;
+	private Scoreboard mainBoard;
 
 	// Managers
 	private BlockManager blockManager;
@@ -124,7 +123,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
-			allowedBlocks.add(Material.getMaterial(type));
+			chairBlocks.add(Material.getMaterial(type));
 
 
 		// LOAD SCOREBOARDS
@@ -217,16 +216,16 @@ public class Survival extends JavaPlugin implements Listener {
 
 	private void registerCommands() {
 		getCommand("recipes").setExecutor(new Recipes());
-		getCommand("togglechat").setExecutor(new ToggleChat());
+		getCommand("togglechat").setExecutor(new ToggleChat(this));
 		getCommand("togglechat").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 		getCommand("status").setExecutor(new Status(this));
-		getCommand("reload-survival").setExecutor(new Reload());
+		getCommand("reload-survival").setExecutor(new Reload(this));
 		getCommand("reload-survival").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 		if (settings.getBoolean("Mechanics.SnowGenerationRevamp")) {
-			getCommand("snowgen").setExecutor(new SnowGen());
+			getCommand("snowgen").setExecutor(new SnowGen(this));
 			getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 		}
-		getCommand("giveitem").setExecutor(new GiveItem());
+		getCommand("giveitem").setExecutor(new GiveItem(this));
 		getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 	}
 
@@ -273,13 +272,69 @@ public class Survival extends JavaPlugin implements Listener {
 		return this.taskManager;
 	}
 
+	/** Get the main SurvivalPlus config
+	 * @return SurvivalPlus config
+	 */
 	public Config getSurvivalConfig() {
 		return this.config;
 	}
 
+	/** Get the plugin's settings
+	 * @return Settings
+	 */
+	public FileConfiguration getSettings() {
+		return this.settings;
+	}
+
+	/** Get an instance of the language config
+	 * @return Language config
+	 */
+	public Lang getLang() {
+		return lang;
+	}
+
+	/** Get server scoreboard
+	 * @return server Scoreboard
+	 */
+	public Scoreboard getBoard() {
+		return board;
+	}
+
+	/** Get the main server scoreboard
+	 * @return Main server scoreboard
+	 */
+	public Scoreboard getMainBoard() {
+		return mainBoard;
+	}
+
+	/**
+	 * Load config settings
+	 */
 	public void loadSettings() {
 		this.config = new Config(this);
 		settings = config.getSettings();
+	}
+
+	public boolean isSnowGenOption() {
+		return snowGenOption;
+	}
+
+	public void setSnowGenOption(boolean snowGenOption) {
+		this.snowGenOption = snowGenOption;
+	}
+
+	/** Get acceptable chair blocks
+	 * @return List of chair blocks
+	 */
+	public List<Material> getChairBlocks() {
+		return chairBlocks;
+	}
+
+	/** Get a list of players using the plugin's resource pack
+	 * @return List of players using the plugin's resource pack
+	 */
+	public List<Player> getUsingPlayers() {
+		return usingPlayers;
 	}
 
 	public int getAlertInterval() {

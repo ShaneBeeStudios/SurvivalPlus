@@ -2,8 +2,11 @@ package tk.shanebee.survival.listeners;
 
 import java.util.Random;
 
+import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -23,8 +26,24 @@ import tk.shanebee.survival.Survival;
 
 class MedicKit implements Listener {
 
-	private Objective healing = Survival.board.getObjective("Healing");
-	private Objective healTimes = Survival.board.getObjective("HealTimes");
+	private Survival plugin;
+	private Lang lang;
+	private Scoreboard board;
+	private PlayerManager playerManager;
+
+	private Objective healing;
+	private Objective healTimes;
+	
+	MedicKit(Survival plugin) {
+		this.plugin = plugin;
+		this.lang = plugin.getLang();
+		this.board = plugin.getBoard();
+		this.playerManager = plugin.getPlayerManager();
+		this.healing = board.getObjective("Healing");
+		this.healing = board.getObjective("HealTimes");
+	}
+
+	
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onDamaged(EntityDamageByEntityEvent event) {
@@ -49,9 +68,9 @@ class MedicKit implements Listener {
 							if (player.getLocation().distance(healed.getLocation()) <= 4) {
 								healing.getScore(player.getName()).setScore(1);
 								healing.getScore(healed.getName()).setScore(1);
-								healed.teleport(Survival.instance.getPlayerManager().lookAt(healed.getLocation(), player.getLocation()));
-								player.sendMessage(Utils.getColoredString(Survival.lang.healing) + ChatColor.RESET + healed.getDisplayName() + Utils.getColoredString(Survival.lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.medical_kit) + Utils.getColoredString(Survival.lang.on_hand));
-								healed.sendMessage(Utils.getColoredString(Survival.lang.being_healed) + ChatColor.RESET + player.getDisplayName() + Utils.getColoredString(Survival.lang.stay_still));
+								healed.teleport(playerManager.lookAt(healed.getLocation(), player.getLocation()));
+								player.sendMessage(Utils.getColoredString(lang.healing) + ChatColor.RESET + healed.getDisplayName() + Utils.getColoredString(lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(lang.medical_kit) + Utils.getColoredString(lang.on_hand));
+								healed.sendMessage(Utils.getColoredString(lang.being_healed) + ChatColor.RESET + player.getDisplayName() + Utils.getColoredString(lang.stay_still));
 
 								healTimes.getScore(player.getName()).setScore(5);
 								final Runnable task = new Runnable() {
@@ -59,7 +78,7 @@ class MedicKit implements Listener {
 										int times = healTimes.getScore(player.getName()).getScore();
 										if (player.getInventory().getItemInMainHand().getType() == Material.CLOCK && player.getLocation().distance(healed.getLocation()) <= 4 && healing.getScore(player.getName()).getScore() > 0 && healing.getScore(healed.getName()).getScore() > 0) {
 											if (times-- > 0) {
-												player.teleport(Survival.instance.getPlayerManager().lookAt(player.getLocation(), healed.getLocation()));
+												player.teleport(playerManager.lookAt(player.getLocation(), healed.getLocation()));
 
 												Random rand = new Random();
 
@@ -75,14 +94,14 @@ class MedicKit implements Listener {
 												particleLoc.setY(particleLoc.getY() + 1);
 												Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
 
-												Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
+												Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
 												healTimes.getScore(player.getName()).setScore(times);
 											} else {
 												healing.getScore(player.getName()).setScore(0);
 												healing.getScore(healed.getName()).setScore(0);
 
-												player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
-												healed.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
+												player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
+												healed.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
 
 												player.getInventory().removeItem(ItemManager.get(Items.MEDIC_KIT));
 											}
@@ -90,14 +109,14 @@ class MedicKit implements Listener {
 											healing.getScore(player.getName()).setScore(0);
 											healing.getScore(healed.getName()).setScore(0);
 
-											player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
-											healed.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
+											player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
+											healed.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
 
 											player.getInventory().removeItem(ItemManager.get(Items.MEDIC_KIT));
 										}
 									}
 								};
-								Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1L);
+								Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
 							}
 						}
 					}
@@ -115,7 +134,7 @@ class MedicKit implements Listener {
 				if (healing.getScore(player.getName()).getScore() <= 0) {
 					if (player.isSneaking()) {
 						healing.getScore(player.getName()).setScore(1);
-						player.sendMessage(Utils.getColoredString(Survival.lang.healing_self) + Utils.getColoredString(Survival.lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.medical_kit) + Utils.getColoredString(Survival.lang.on_hand));
+						player.sendMessage(Utils.getColoredString(lang.healing_self) + Utils.getColoredString(lang.keep) + ChatColor.DARK_GREEN + Utils.getColoredString(lang.medical_kit) + Utils.getColoredString(lang.on_hand));
 
 						healTimes.getScore(player.getName()).setScore(5);
 						final Runnable task = new Runnable() {
@@ -137,26 +156,26 @@ class MedicKit implements Listener {
 										particleLoc.setY(particleLoc.getY() + 1);
 										Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
 
-										Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 20L);
+										Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
 										healTimes.getScore(player.getName()).setScore(times);
 									} else {
 										healing.getScore(player.getName()).setScore(0);
 
-										player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(Survival.lang.healing_complete));
+										player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
 
 										player.getInventory().removeItem(ItemManager.get(Items.MEDIC_KIT));
 									}
 								} else {
 									healing.getScore(player.getName()).setScore(0);
 
-									player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(Survival.lang.healing_interrupted));
+									player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
 
 									player.getInventory().removeItem(ItemManager.get(Items.MEDIC_KIT));
 								}
 							}
 						};
 
-						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1L);
+						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
 					}
 				}
 			}

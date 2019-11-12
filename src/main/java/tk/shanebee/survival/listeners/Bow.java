@@ -11,9 +11,16 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 class Bow implements Listener {
+	
+	private Lang lang;
+	
+	Bow(Survival plugin) {
+		this.lang = plugin.getLang();
+	}
 
 	@EventHandler
 	private void onShootWithoutArrows(EntityShootBowEvent event) {
@@ -26,13 +33,13 @@ class Bow implements Listener {
 				} else {
 					if (mainHand.getType() != Material.CROSSBOW) {
 						event.setCancelled(true);
-						Utils.sendColoredMsg(player, Survival.lang.arrows_off_hand);
+						Utils.sendColoredMsg(player, lang.arrows_off_hand);
 						player.updateInventory();
 					}
 				}
 			} else {
 				event.setCancelled(true);
-				Utils.sendColoredMsg(player, Survival.lang.bow_main_hand);
+				Utils.sendColoredMsg(player, lang.bow_main_hand);
 				player.updateInventory();
 			}
 		}
@@ -48,12 +55,12 @@ class Bow implements Listener {
 			if (mainHand.getItemMeta() != null && ((CrossbowMeta) mainHand.getItemMeta()).hasChargedProjectiles()) return;
 			if (!Survival.getInstance().getPlayerManager().isArrowOffHand(player)) {
 				event.setCancelled(true);
-				Utils.sendColoredMsg(player, Survival.lang.arrows_off_hand_crossbow);
+				Utils.sendColoredMsg(player, lang.arrows_off_hand_crossbow);
 			}
 		} else if (offHand.getType() == Material.CROSSBOW) {
 			if (event.getHand() == EquipmentSlot.HAND) return;
 			event.setCancelled(true);
-			Utils.sendColoredMsg(player, Survival.lang.bow_main_hand);
+			Utils.sendColoredMsg(player, lang.bow_main_hand);
 		}
 	}
 

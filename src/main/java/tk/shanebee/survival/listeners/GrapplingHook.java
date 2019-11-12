@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +22,12 @@ import org.bukkit.util.Vector;
 import tk.shanebee.survival.Survival;
 
 class GrapplingHook implements Listener {
+	
+	private Lang lang;
+	
+	GrapplingHook(Survival plugin) {
+		this.lang = plugin.getLang();
+	}
 
 	@EventHandler
 	private void onPlayerFish(PlayerFishEvent event) {
@@ -102,17 +109,17 @@ class GrapplingHook implements Listener {
 			} else {
 				event.setCancelled(true);
 				if (ItemManager.compare(mainHand, Items.GRAPPLING_HOOK))
-					p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.grappling_off_hand));
+					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_off_hand));
 				else
-					p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.fishing_off_hand));
+					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_off_hand));
 				p.updateInventory();
 			}
 		} else {
 			event.setCancelled(true);
 			if (ItemManager.compare(offHand, Items.GRAPPLING_HOOK))
-				p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.grappling_main_hand));
+				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_main_hand));
 			else
-				p.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.fishing_main_hand));
+				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_main_hand));
 			p.updateInventory();
 		}
 	}

@@ -29,14 +29,17 @@ class BurnoutTorches implements Listener {
 
     // TODO Experimental Feature
 
-    private boolean relightable = Survival.settings.getBoolean("Mechanics.BurnoutTorches.Relightable");
-    private boolean persistentTorches = Survival.settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
-    private boolean dropTorch = Survival.settings.getBoolean("Mechanics.BurnoutTorches.DropTorch");
+    private boolean relightable;
+    private boolean persistentTorches;
+    private boolean dropTorch;
 
     private BlockManager torchManager;
 
-    BurnoutTorches(Survival main) {
-        this.torchManager = main.getBlockManager();
+    BurnoutTorches(Survival plugin) {
+        this.torchManager = plugin.getBlockManager();
+        this.relightable = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.Relightable");
+        this.persistentTorches = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
+        this.dropTorch = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.DropTorch");
     }
 
     @EventHandler

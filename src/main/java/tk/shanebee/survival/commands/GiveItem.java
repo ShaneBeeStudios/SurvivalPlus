@@ -13,6 +13,7 @@ import org.bukkit.util.StringUtil;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -22,9 +23,15 @@ import java.util.List;
 @SuppressWarnings("NullableProblems")
 public class GiveItem implements CommandExecutor, TabCompleter {
 
+    private Lang lang;
+
+    public GiveItem(Survival plugin) {
+        this.lang = plugin.getLang();
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        String prefix = Utils.getColoredString(Survival.lang.prefix);
+        String prefix = Utils.getColoredString(lang.prefix);
         if (args.length < 2) return true;
         Player player = Bukkit.getPlayer(args[0]);
         if (player != null) {

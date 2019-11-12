@@ -19,9 +19,15 @@ import tk.shanebee.survival.Survival;
 
 class FoodDiversityConsume implements Listener {
 
-	private Objective carbon = Survival.mainBoard.getObjective("Carbs");
-	private Objective protein = Survival.mainBoard.getObjective("Protein");
-	private Objective salts = Survival.mainBoard.getObjective("Salts");
+	private Objective carbon;
+	private Objective protein;
+	private Objective salts;
+
+	FoodDiversityConsume(Survival plugin) {
+		this.carbon = plugin.getMainBoard().getObjective("Carbs");
+		this.protein = plugin.getMainBoard().getObjective("Protein");
+		this.salts = plugin.getMainBoard().getObjective("Salts");
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {

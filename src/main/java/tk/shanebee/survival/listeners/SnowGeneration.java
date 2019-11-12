@@ -10,11 +10,18 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import tk.shanebee.survival.Survival;
 
 public class SnowGeneration implements Listener {
+	
+	private Survival plugin;
+	
+	public SnowGeneration(Survival plugin) {
+		this.plugin = plugin;
+	}
+	
 	@EventHandler(ignoreCancelled = true)
 	private void chunkLoad(final ChunkLoadEvent event) {
-		if (Survival.instance.snowGenOption) {
+		if (plugin.isSnowGenOption()) {
 			if (event.isNewChunk()) {
-				Bukkit.getScheduler().runTask(Survival.instance, () -> checkChunk(event.getChunk()));
+				Bukkit.getScheduler().runTask(plugin, () -> checkChunk(event.getChunk()));
 			}
 		}
 	}
@@ -40,11 +47,11 @@ public class SnowGeneration implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	private void snowForm(final BlockFormEvent event) {
-		if (Survival.instance.snowGenOption) {
+		if (plugin.isSnowGenOption()) {
 			if (event.getNewState().getType() != Material.SNOW)
 				return;
 
-			Bukkit.getScheduler().runTask(Survival.instance, () -> placeSnow(event.getBlock()));
+			Bukkit.getScheduler().runTask(plugin, () -> placeSnow(event.getBlock()));
 		}
 	}
 

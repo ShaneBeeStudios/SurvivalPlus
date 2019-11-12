@@ -1,5 +1,7 @@
 package tk.shanebee.survival.listeners;
 
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -12,6 +14,14 @@ import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 
 class CompassWaypoint implements Listener {
+
+	private Lang lang;
+	private PlayerManager playerManager;
+
+	public CompassWaypoint(Survival plugin) {
+		this.lang = plugin.getLang();
+		this.playerManager = plugin.getPlayerManager();
+	}
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
@@ -39,14 +49,14 @@ class CompassWaypoint implements Listener {
 						if (Utils.isUtilityBlock(event.getClickedBlock().getType())) return;
 
 						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(Survival.lang.compass_pointed) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(lang.compass_pointed) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ").");
 						loc.add(0.5, 0.5, 0.5);
-						Survival.instance.getPlayerManager().setWaypoint(player, loc, true);
+						playerManager.setWaypoint(player, loc, true);
 					}
 
 					if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
 						Location loc = player.getLocation().getBlock().getLocation();
-						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(Survival.lang.compass_coords) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
+						player.sendMessage(ChatColor.LIGHT_PURPLE + Utils.getColoredString(lang.compass_coords) + " (" + loc.getX() + ", " + loc.getY() + ", " + loc.getZ() + ")");
 					}
 				}
 			}

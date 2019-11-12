@@ -120,7 +120,7 @@ public class Metrics {
         logFailedRequests = config.getBoolean("logFailedRequests", false);
         logSentData = config.getBoolean("logSentData", false);
         logResponseStatusText = config.getBoolean("logResponseStatusText", false);
-        String prefix = Utils.getColoredString(Survival.lang.prefix);
+        String prefix = Utils.getColoredString(Survival.getInstance().getLang().prefix);
 
         if (enabled) {
             Utils.sendColoredConsoleMsg(prefix + "&7Metrics &aenabled");

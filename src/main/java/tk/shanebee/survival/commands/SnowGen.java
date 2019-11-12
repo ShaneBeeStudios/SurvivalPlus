@@ -14,16 +14,21 @@ import tk.shanebee.survival.listeners.SnowGeneration;
 
 public class SnowGen implements CommandExecutor {
 
+	private Survival plugin;
 	private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+
+	public SnowGen(Survival plugin) {
+		this.plugin = plugin;
+	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 1) {
 			switch (args[0].toLowerCase()) {
 				case "on":
-					Survival.instance.snowGenOption = true;
+					plugin.setSnowGenOption(true);
 					break;
 				case "off":
-					Survival.instance.snowGenOption = false;
+					plugin.setSnowGenOption(false);
 					break;
 				default:
 					return false;
@@ -44,7 +49,7 @@ public class SnowGen implements CommandExecutor {
 					sender.sendMessage(prefix + ChatColor.RED + "WARNING!" + ChatColor.YELLOW + " Snow Generation is running for generated chunks!");
 				}
 
-				SnowGeneration snowGen = new SnowGeneration();
+				SnowGeneration snowGen = new SnowGeneration(plugin);
 
 				for (final World world : Bukkit.getServer().getWorlds()) {
 					for (final Chunk chunk : world.getLoadedChunks()) {

@@ -12,6 +12,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.events.FatigueLevelChangeEvent;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -19,9 +20,11 @@ import java.util.Random;
 class FatigueDrain extends BukkitRunnable {
 
 	private Config config;
+	private Lang lang;
 
 	FatigueDrain(Survival plugin) {
 		this.config = plugin.getSurvivalConfig();
+		this.lang = plugin.getLang();
 		this.runTaskTimer(plugin, -1, 100);
 	}
 
@@ -56,13 +59,13 @@ class FatigueDrain extends BukkitRunnable {
 					}
 
 					if (StatusManager.getFatigue(player) == 1)
-						Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_1);
+						Utils.sendColoredMsg(player, lang.feeling_sleepy_1);
 					else if (StatusManager.getFatigue(player) == 2)
-						Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_2);
+						Utils.sendColoredMsg(player, lang.feeling_sleepy_2);
 					else if (StatusManager.getFatigue(player) == 3)
-						Utils.sendColoredMsg(player, Survival.lang.feeling_sleepy_3);
+						Utils.sendColoredMsg(player, lang.feeling_sleepy_3);
 					else if (StatusManager.getFatigue(player) == 4)
-						Utils.sendColoredMsg(player, Survival.lang.collapsed_2);
+						Utils.sendColoredMsg(player, lang.collapsed_2);
 				}
 			}
 		}

@@ -3,8 +3,10 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -26,11 +28,21 @@ import tk.shanebee.survival.Survival;
 
 class Valkyrie implements Listener {
 
-	private Objective spin = Survival.board.getObjective("Spin");
-	private Objective dualWield = Survival.board.getObjective("DualWield");
+	private Survival plugin;
+	private Scoreboard board;
+	private Lang lang;
+
+	Valkyrie(Survival plugin) {
+		this.plugin = plugin;
+		this.board = plugin.getBoard();
+		this.lang = plugin.getLang();
+	}
+
+	private Objective spin = board.getObjective("Spin");
+	private Objective dualWield = board.getObjective("DualWield");
 
 	//To prevent double messages send to player.
-	private Objective tech_dualWieldMsg = Survival.board.getObjective("DualWieldMsg");
+	private Objective tech_dualWieldMsg = board.getObjective("DualWieldMsg");
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
@@ -65,7 +77,7 @@ class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.lack_of_energy));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.lack_of_energy));
 						}
 					}
 				}
@@ -75,7 +87,7 @@ class Valkyrie implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
 				if (score_dualWieldMsg.getScore() == 2) {
-					player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.valkyrie_axe_unable_dual));
+					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.valkyrie_axe_unable_dual));
 				}
 			}
 		}
@@ -114,7 +126,7 @@ class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(Survival.lang.lack_of_energy));
+							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.lack_of_energy));
 						}
 					}
 				}
@@ -138,7 +150,7 @@ class Valkyrie implements Listener {
 
 		damageNearbyEnemies(player, 8);
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, new Runnable() {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 					Score score = spin.getScore(player.getName());
 
 					public void run() {

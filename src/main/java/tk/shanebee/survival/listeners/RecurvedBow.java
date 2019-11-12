@@ -18,6 +18,12 @@ import java.util.Random;
 
 class RecurvedBow implements Listener {
 
+	private Survival plugin;
+
+	RecurvedBow(Survival plugin) {
+		this.plugin = plugin;
+	}
+
 	@EventHandler
 	private void onShoot(EntityShootBowEvent event) {
 		if (event.getEntity() instanceof Player) {
@@ -55,12 +61,12 @@ class RecurvedBow implements Listener {
 							if (!arrow.isOnGround()) {
 								arrow.setVelocity(velocity);
 								if (times-- > 0)
-									Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, this, 5);
+									Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 5);
 							}
 						}
 					};
 
-					Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, task, -1);
+					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, task, -1);
 				} else {
 					event.setCancelled(true);
 					player.updateInventory();

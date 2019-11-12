@@ -20,11 +20,17 @@ import tk.shanebee.survival.managers.RecipeManager.Recipes;
 
 class RecipeDiscovery implements Listener {
 
+    private Survival plugin;
+
+    RecipeDiscovery(Survival plugin) {
+        this.plugin = plugin;
+    }
+
     // When a player first joins, give them a few recipes after 10 seconds
     @EventHandler
     private void onFirstJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             player.discoverRecipes(Recipes.HATCHET.getKeys());
             player.discoverRecipes(Recipes.MATTOCK.getKeys());
             player.discoverRecipes(Recipes.SHIV.getKeys());

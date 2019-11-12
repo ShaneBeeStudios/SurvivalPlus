@@ -22,6 +22,12 @@ import java.util.Random;
 
 class Campfire implements Listener {
 
+    private Survival plugin;
+
+    Campfire(Survival plugin) {
+        this.plugin = plugin;
+    }
+
     // When placing a campfire, turn it off (Requiring a player to light it manually)
     @EventHandler
     private void onPlaceCampfire(BlockPlaceEvent e) {
@@ -54,7 +60,7 @@ class Campfire implements Listener {
                     ItemStack tool = e.getItem();
                     tool.setAmount(tool.getAmount() - 1);
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Survival.instance, () ->
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () ->
                             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_BURN, 1, 1), 1);
 
                 }

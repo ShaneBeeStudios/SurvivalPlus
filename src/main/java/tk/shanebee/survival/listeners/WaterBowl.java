@@ -17,12 +17,19 @@ import tk.shanebee.survival.Survival;
 
 class WaterBowl implements Listener {
 
-	private final boolean THIRST_ENABLED = Survival.settings.getBoolean("Mechanics.Thirst.Enabled");
-	private final boolean CLAY_ENABLED = Survival.settings.getBoolean("Recipes.Clay");
+	private Survival plugin;
+	private final boolean THIRST_ENABLED;
+	private final boolean CLAY_ENABLED;
+
+	WaterBowl(Survival plugin) {
+		this.plugin = plugin;
+		this.THIRST_ENABLED = plugin.getSettings().getBoolean("Mechanics.Thirst.Enabled");
+		this.CLAY_ENABLED = plugin.getSettings().getBoolean("Recipes.Clay");
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {
-		if (!Survival.settings.getBoolean("Mechanics.Thirst.Enabled")) {
+		if (!plugin.getSettings().getBoolean("Mechanics.Thirst.Enabled")) {
 			if (event.isCancelled()) return;
 			if (ItemManager.compare(event.getItem(), Items.WATER_BOWL)) {
 				event.setCancelled(true);
@@ -47,7 +54,7 @@ class WaterBowl implements Listener {
 						itemDrop.getWorld().dropItem(itemLocation, ItemManager.get(Items.WATER_BOWL));
 					}
 				};
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Survival.instance, task, 20L);
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20L);
 			}
 		}
 	}

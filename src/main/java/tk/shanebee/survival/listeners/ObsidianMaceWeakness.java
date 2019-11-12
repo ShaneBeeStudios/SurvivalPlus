@@ -20,6 +20,12 @@ import org.bukkit.potion.PotionEffectType;
 
 class ObsidianMaceWeakness implements Listener {
 
+	private EffectManager effectManager;
+
+	ObsidianMaceWeakness(Survival plugin) {
+		this.effectManager = plugin.getEffectManager();
+	}
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onAttack(EntityDamageByEntityEvent event) {
 		if (event.isCancelled()) return;
@@ -29,7 +35,7 @@ class ObsidianMaceWeakness implements Listener {
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 
 			if (ItemManager.compare(mainItem, Items.OBSIDIAN_MACE)) {
-				Survival.instance.getEffectManager().applyObsidianMaceEffects(player, enemy);
+				effectManager.applyObsidianMaceEffects(player, enemy);
 			}
 		}
 	}
