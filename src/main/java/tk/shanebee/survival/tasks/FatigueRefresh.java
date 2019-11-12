@@ -16,7 +16,7 @@ class FatigueRefresh extends BukkitRunnable {
 	FatigueRefresh(Survival plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
-		this.runTaskTimer(plugin, -1, 20 * plugin.getSurvivalConfig().MECHANICS_FATIGUE_REFRESH_TIME);
+		this.runTaskTimer(plugin, -1, 20 * plugin.getSurvivalConfig().MECHANICS_BED_FATIGUE_REFRESH_TIME);
 	}
 
 	@Override

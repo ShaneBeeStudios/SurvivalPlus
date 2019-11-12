@@ -29,20 +29,18 @@ import tk.shanebee.survival.Survival;
 class Valkyrie implements Listener {
 
 	private Survival plugin;
-	private Scoreboard board;
 	private Lang lang;
+	private Objective spin;
+	private Objective dualWield;
+	private Objective tech_dualWieldMsg;
 
 	Valkyrie(Survival plugin) {
 		this.plugin = plugin;
-		this.board = plugin.getBoard();
 		this.lang = plugin.getLang();
+		this.spin = plugin.getBoard().getObjective("Spin");
+		this.dualWield = plugin.getBoard().getObjective("DualWield");
+		this.tech_dualWieldMsg = plugin.getBoard().getObjective("DualWieldMsg");
 	}
-
-	private Objective spin = board.getObjective("Spin");
-	private Objective dualWield = board.getObjective("DualWield");
-
-	//To prevent double messages send to player.
-	private Objective tech_dualWieldMsg = board.getObjective("DualWieldMsg");
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {

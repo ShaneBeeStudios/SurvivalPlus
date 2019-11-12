@@ -122,7 +122,7 @@ public class ScoreBoardManager {
                     fatigue.setScore(4);
                 }
 
-                if (config.MECHANICS_FOOD_DIVERSITY && boardNutrients.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && boardNutrients.getScore(player.getName()).getScore() <= 0) {
                     Score carbon = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(0));
                     carbon.setScore(3);
                     Score protein = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(1));

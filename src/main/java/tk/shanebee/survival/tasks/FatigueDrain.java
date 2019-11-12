@@ -46,7 +46,7 @@ class FatigueDrain extends BukkitRunnable {
 				}
 				World overworld = player.getWorld();
 
-				int fatigueLevel = config.MECHANICS_FATIGUE_INCREASE_CHANCE;
+				int fatigueLevel = config.MECHANICS_BED_FATIGUE_INCREASE_CHANCE;
 				int random = new Random().nextInt(100) + 1;
 
 				if (overworld.getTime() >= 18000 && overworld.getTime() < 18150 && !player.isSleeping() &&

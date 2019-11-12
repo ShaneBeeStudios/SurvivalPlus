@@ -84,7 +84,7 @@ public class Status implements CommandExecutor, TabCompleter {
 										playerManager.ShowThirst(player).get(0).toUpperCase());
 							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
 								player.sendMessage(playerManager.ShowFatigue(player));
-							if (config.MECHANICS_FOOD_DIVERSITY) {
+							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);
 							}
@@ -94,7 +94,7 @@ public class Status implements CommandExecutor, TabCompleter {
 								boardThirst.getScore(player.getName()).setScore(0);
 							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
 								boardFatigue.getScore(player.getName()).setScore(0);
-							if (config.MECHANICS_FOOD_DIVERSITY)
+							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
 								boardNutrients.getScore(player.getName()).setScore(0);
 						}
 						break;
@@ -135,7 +135,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "nutrients":
 					case "n":
 						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (config.MECHANICS_FOOD_DIVERSITY) {
+							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);
 							}

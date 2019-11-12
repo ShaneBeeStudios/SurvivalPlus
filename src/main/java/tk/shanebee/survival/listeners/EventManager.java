@@ -83,7 +83,7 @@ public class EventManager {
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
 		if (settings.getBoolean("Mechanics.BedFatigueLevel"))
 			pm.registerEvents(new BedFatigue(plugin), this.plugin);
-		if (CONFIG.MECHANICS_FOOD_DIVERSITY)
+		if (CONFIG.MECHANICS_FOOD_DIVERSITY_ENABLED)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (settings.getBoolean("Mechanics.RecurveBow"))
 			pm.registerEvents(new RecurvedBow(plugin), this.plugin);
