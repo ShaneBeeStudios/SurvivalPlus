@@ -27,14 +27,11 @@ import java.util.Collection;
 
 public class RecipeManager {
 
-
-    private FileConfiguration settings;
     private Config config;
     private static Survival survival;
 
     public RecipeManager(Survival survival, FileConfiguration settings) {
         RecipeManager.survival = survival;
-        this.settings = settings;
         this.config = survival.getSurvivalConfig();
     }
 
@@ -745,7 +742,7 @@ public class RecipeManager {
 
 
         //Add recipes
-        if (settings.getBoolean("Survival.Enabled")) {
+        if (config.SURVIVAL_ENABLED) {
             survival.getServer().addRecipe(hatchet1);
             survival.getServer().addRecipe(hatchet2);
             survival.getServer().addRecipe(mattock);
@@ -755,14 +752,14 @@ public class RecipeManager {
             survival.getServer().addRecipe(chest);
             survival.getServer().addRecipe(flint);
             survival.getServer().addRecipe(unlit_campfire);
-            if (settings.getBoolean("Survival.BreakOnlyWith.Sickle")) {
-                if (settings.getBoolean("Survival.Sickles.Flint"))
+            if (config.BREAK_ONLY_WITH_SICKLE) {
+                if (config.SURVIVAL_SICKLE_FLINT)
                     survival.getServer().addRecipe(flint_sickle);
-                if (settings.getBoolean("Survival.Sickles.Stone"))
+                if (config.SURVIVAL_SICKLE_STONE)
                     survival.getServer().addRecipe(stone_sickle);
-                if (settings.getBoolean("Survival.Sickles.Iron"))
+                if (config.SURVIVAL_SICKLE_IRON)
                     survival.getServer().addRecipe(iron_sickle);
-                if (settings.getBoolean("Survival.Sickles.Diamond"))
+                if (config.SURVIVAL_SICKLE_DIAMOND)
                     survival.getServer().addRecipe(diamond_sickle);
             }
             if (config.RECIPES_WORKBENCH) {
@@ -772,109 +769,112 @@ public class RecipeManager {
                 survival.getServer().addRecipe(furnace);
             }
         }
-        if (settings.getBoolean("Survival.Torch")) {
+        if (config.SURVIVAL_TORCH) {
             survival.getServer().addRecipe(torch1);
             survival.getServer().addRecipe(torch2);
         }
-        if (settings.getBoolean("Recipes.WebString"))
+        if (config.RECIPES_WEB_STRING)
             survival.getServer().addRecipe(string);
-        if (settings.getBoolean("Recipes.SaplingToSticks")) {
+        if (config.RECIPES_SAPLING_STICK) {
             survival.getServer().addRecipe(stick);
         }
 
-        if (settings.getBoolean("LegendaryItems.ValkyrieAxe")) {
+        if (config.LEGENDARY_VALKYRIE) {
             survival.getServer().addRecipe(valkyries_axe);
-            if (settings.getBoolean("LegendaryItems.CanRepair"))
+            if (config.LEGENDARY_CAN_REPAIR)
                 survival.getServer().addRecipe(repair_valkyries_axe);
         }
-        if (settings.getBoolean("LegendaryItems.QuartzPickaxe")) {
+        if (config.LEGENDARY_QUARTZPICKAXE) {
             survival.getServer().addRecipe(quartz_pickaxe);
-            if (settings.getBoolean("LegendaryItems.CanRepair"))
+            if (config.LEGENDARY_CAN_REPAIR)
                 survival.getServer().addRecipe(repair_quartz_pickaxe);
         }
-        if (settings.getBoolean("LegendaryItems.ObsidianMace")) {
+        if (config.LEGENDARY_OBSIDIAN_MACE) {
             survival.getServer().addRecipe(obsidian_mace);
-            if (settings.getBoolean("LegendaryItems.CanRepair"))
+            if (config.LEGENDARY_CAN_REPAIR)
                 survival.getServer().addRecipe(repair_obsidian_mace);
         }
-        if (settings.getBoolean("LegendaryItems.GiantBlade")) {
+        if (config.LEGENDARY_GIANTBLADE) {
             survival.getServer().addRecipe(ender_giant_blade);
-            if (settings.getBoolean("LegendaryItems.CanRepair"))
+            if (config.LEGENDARY_CAN_REPAIR)
                 survival.getServer().addRecipe(repair_ender_giant_blaze);
         }
-        if (settings.getBoolean("LegendaryItems.BlazeSword")) {
+        if (config.LEGENDARY_BLAZESWORD) {
             survival.getServer().addRecipe(blaze_sword);
-            if (settings.getBoolean("LegendaryItems.CanRepair"))
+            if (config.LEGENDARY_CAN_REPAIR)
                 survival.getServer().addRecipe(repair_blaze_sword);
         }
-        if (settings.getBoolean("LegendaryItems.NotchApple"))
+        if (config.LEGENDARY_NOTCH_APPLE)
             survival.getServer().addRecipe(notchApple);
-        if (settings.getBoolean("Recipes.Saddle"))
+        if (config.RECIPES_SADDLE)
             survival.getServer().addRecipe(saddle);
-        if (settings.getBoolean("Recipes.Nametag")) {
+        if (config.RECIPES_NAME_TAG) {
             survival.getServer().addRecipe(nametag);
         }
-        if (settings.getBoolean("Recipes.PackedIce")) {
+        if (config.RECIPES_PACKED_ICE) {
             survival.getServer().addRecipe(packedIce1);
             survival.getServer().addRecipe(ice2);
         }
-        if (settings.getBoolean("Recipes.IronBard")) {
+        if (config.RECIPES_IRON_BARD) {
             survival.getServer().addRecipe(iron_horse_armor);
         }
-        if (settings.getBoolean("Recipes.GoldBard")) {
+        if (config.RECIPES_GOLD_BARD) {
             survival.getServer().addRecipe(goldHorse1);
         }
-        if (settings.getBoolean("Recipes.DiamondBard")) {
+        if (config.RECIPES_DIAMOND_BARD) {
             survival.getServer().addRecipe(diamond_horse_armor);
         }
-        if (settings.getBoolean("Recipes.LeatherBard")) {
+        if (config.RECIPES_LEATHER_BARD) {
             survival.getServer().addRecipe(leather_horse_armor);
         }
-        if (settings.getBoolean("Recipes.ClayBrick"))
+        if (config.RECIPES_CLAY_BRICK)
             survival.getServer().addRecipe(clayBrick);
-        if (settings.getBoolean("Recipes.QuartzBlock"))
+        if (config.RECIPES_QUARTZ_BLOCK)
             survival.getServer().addRecipe(quartz);
-        if (settings.getBoolean("Recipes.WoolString"))
+        if (config.RECIPES_WOOL_STRING)
             survival.getServer().addRecipe(woolString);
-        if (settings.getBoolean("Recipes.Ice"))
+        if (config.RECIPES_ICE)
             survival.getServer().addRecipe(ice);
-        if (settings.getBoolean("Recipes.Clay"))
+        if (config.RECIPES_CLAY)
             survival.getServer().addRecipe(clay);
-        if (settings.getBoolean("Recipes.Diorite"))
+        if (config.RECIPES_DIORITE)
             survival.getServer().addRecipe(diorite);
-        if (settings.getBoolean("Recipes.Granite"))
+        if (config.RECIPES_GRANITE)
             survival.getServer().addRecipe(granite);
-        if (settings.getBoolean("Recipes.Andesite"))
+        if (config.RECIPES_ANDESITE)
             survival.getServer().addRecipe(andesite);
-        if (settings.getBoolean("Recipes.Gravel")) {
+        if (config.RECIPES_GRAVEL) {
             survival.getServer().addRecipe(gravel);
         }
+        /* There is no setting for this in the config?!?!
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
             survival.getServer().addRecipe(fermented_spider_eye);
         }
-        if (settings.getBoolean("Mechanics.FermentedSkin")) {
+
+         */
+        if (config.MECHANICS_FERMENTED_SKIN) {
             survival.getServer().addRecipe(fermented_skin);
         }
-        if (settings.getBoolean("Mechanics.PoisonousPotato"))
+        if (config.MECHANICS_POISON_POTATO)
             survival.getServer().addRecipe(poisonousPotato);
-        if (settings.getBoolean("Mechanics.EmptyPotions")) {
+        if (config.MECHANICS_EMPTY_POTION) {
             survival.getServer().addRecipe(glassBottle);
             survival.getServer().addRecipe(bowl);
         }
-        if (settings.getBoolean("Mechanics.ReinforcedLeatherArmor")) {
+        if (config.MECHANICS_REINFORCED_ARMOR) {
             survival.getServer().addRecipe(reinforced_leather_boots);
             survival.getServer().addRecipe(reinforced_leather_chestplate);
             survival.getServer().addRecipe(reinforced_leather_leggings);
             survival.getServer().addRecipe(reinforced_leather_helmet);
         }
-        if (settings.getBoolean("LegendaryItems.GoldArmorBuff")) {
+        if (config.LEGENDARY_GOLDARMORBUFF) {
             survival.getServer().addRecipe(gold_sabatons);
             survival.getServer().addRecipe(gold_guard);
             survival.getServer().addRecipe(gold_greaves);
             survival.getServer().addRecipe(gold_crown);
         }
 
-        if (settings.getBoolean("Mechanics.SlowArmor")) {
+        if (config.MECHANICS_SLOW_ARMOR) {
             survival.getServer().addRecipe(ironBoots);
             survival.getServer().addRecipe(ironChestplate);
             survival.getServer().addRecipe(ironLeggings);
@@ -885,48 +885,48 @@ public class RecipeManager {
             survival.getServer().addRecipe(diamondHelmet);
         }
 
-        if (settings.getBoolean("Mechanics.MedicalKit")) {
+        if (config.MECHANICS_MEDIC_KIT) {
             survival.getServer().addRecipe(medic_kit);
         }
 
-        if (settings.getBoolean("Recipes.FishingRod")) {
+        if (config.RECIPES_FISHING_ROD) {
             survival.getServer().addRecipe(fishing_rod);
         }
 
-        if (settings.getBoolean("Mechanics.ReducedIronNugget")) {
+        if (config.MECHANICS_REDUCED_IRON_NUGGET) {
             survival.getServer().addRecipe(ironNugget);
             survival.getServer().addRecipe(ironIngot);
             survival.getServer().addRecipe(smelt_ironIngot);
             survival.getServer().addRecipe(blast_ironIngot);
         }
 
-        if (settings.getBoolean("Mechanics.ReducedGoldNugget")) {
+        if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
             survival.getServer().addRecipe(goldNugget);
             survival.getServer().addRecipe(goldIngot);
             survival.getServer().addRecipe(smelt_goldIngot);
             survival.getServer().addRecipe(blast_goldIngot);
         }
 
-        if (settings.getBoolean("Mechanics.FarmingProducts.Bread"))
+        if (config.MECHANICS_FARMING_PRODUCTS_BREAD)
             survival.getServer().addRecipe(bread);
-        if (settings.getBoolean("Mechanics.FarmingProducts.Cookie"))
+        if (config.MECHANICS_FARMING_PRODUCTS_COOKIE)
             survival.getServer().addRecipe(cookie);
-        if (settings.getBoolean("Recipes.Slimeball"))
+        if (config.RECIPES_SLIMEBALL)
             survival.getServer().addRecipe(slimeball);
-        if (settings.getBoolean("Recipes.Cobweb"))
+        if (config.RECIPES_COBWEB)
             survival.getServer().addRecipe(cobweb);
-        if (settings.getBoolean("Mechanics.RecurveBow")) {
+        if (config.MECHANICS_RECURVED_BOW) {
             survival.getServer().addRecipe(recurvedBow);
             survival.getServer().addRecipe(recurvedCrossbow);
         }
-        if (settings.getBoolean("Mechanics.GrapplingHook"))
+        if (config.MECHANICS_GRAPPLING_HOOK)
             survival.getServer().addRecipe(grappling_hook);
-        if (settings.getBoolean("Mechanics.Thirst.PurifyWater")) {
+        if (config.MECHANICS_THIRST_PURIFY_WATER) {
             survival.getServer().addRecipe(clean_water_furnace);
             survival.getServer().addRecipe(clean_water_smoker);
             survival.getServer().addRecipe(clean_water_camp);
         }
-        if (settings.getBoolean("Mechanics.Coffee")) {
+        if (config.MECHANICS_COFFEE_ENABLED) {
             survival.getServer().addRecipe(coffee_bean);
             survival.getServer().addRecipe(cold_milk);
             survival.getServer().addRecipe(hot_milk);
