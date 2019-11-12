@@ -1,11 +1,5 @@
 package tk.shanebee.survival.commands;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Lang;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +8,11 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.util.StringUtil;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +26,11 @@ public class Status implements CommandExecutor, TabCompleter {
 	private Config config;
 	private Lang lang;
 	private PlayerManager playerManager;
-	private FileConfiguration settings;
 
 	public Status(Survival plugin) {
 		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
 		this.playerManager = plugin.getPlayerManager();
-		this.settings = plugin.getSettings();
 		boardHunger = plugin.getMainBoard().getObjective("BoardHunger");
 		boardThirst = plugin.getMainBoard().getObjective("BoardThirst");
 		boardFatigue = plugin.getMainBoard().getObjective("BoardFatigue");
@@ -51,10 +48,10 @@ public class Status implements CommandExecutor, TabCompleter {
 			Player player = (Player) sender;
 
 			if (args.length == 0) {
-				if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+				if (!config.MECHANICS_STATUS_SCOREBOARD) {
 					player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
 							playerManager.ShowHunger(player).get(0).toUpperCase());
-					if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+					if (config.MECHANICS_THIRST_ENABLED)
 						player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
 								playerManager.ShowThirst(player).get(0).toUpperCase());
 				} else {
@@ -76,13 +73,13 @@ public class Status implements CommandExecutor, TabCompleter {
 			if (args.length == 1) {
 				switch (args[0]) {
 					case "all":
-						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
 									playerManager.ShowHunger(player).get(0).toUpperCase());
-							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+							if (config.MECHANICS_THIRST_ENABLED)
 								player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());
-							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
+							if (config.MECHANICS_BED_FATIGUE_ENABLED)
 								player.sendMessage(playerManager.ShowFatigue(player));
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 								for (String s : playerManager.ShowNutrients(player))
@@ -90,9 +87,9 @@ public class Status implements CommandExecutor, TabCompleter {
 							}
 						} else {
 							boardHunger.getScore(player.getName()).setScore(0);
-							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+							if (config.MECHANICS_THIRST_ENABLED)
 								boardThirst.getScore(player.getName()).setScore(0);
-							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
+							if (config.MECHANICS_BED_FATIGUE_ENABLED)
 								boardFatigue.getScore(player.getName()).setScore(0);
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
 								boardNutrients.getScore(player.getName()).setScore(0);
@@ -100,7 +97,7 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "none":
 					case "off":
-						if (settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (config.MECHANICS_STATUS_SCOREBOARD) {
 							boardHunger.getScore(player.getName()).setScore(1);
 							boardThirst.getScore(player.getName()).setScore(1);
 							boardFatigue.getScore(player.getName()).setScore(1);
@@ -109,7 +106,7 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "hunger":
 					case "h":
-						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							player.sendMessage(playerManager.ShowHunger(player).get(1) + playerManager.ShowHunger(player).get(2) + " " +
 									playerManager.ShowHunger(player).get(0).toUpperCase());
 						} else
@@ -117,8 +114,8 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "thirst":
 					case "t":
-						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (settings.getBoolean("Mechanics.Thirst.Enabled"))
+						if (!config.MECHANICS_STATUS_SCOREBOARD) {
+							if (config.MECHANICS_THIRST_ENABLED)
 								player.sendMessage(playerManager.ShowThirst(player).get(1) + playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());
 						} else
@@ -126,15 +123,15 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "fatigue":
 					case "f":
-						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
-							if (settings.getBoolean("Mechanics.BedFatigueLevel"))
+						if (!config.MECHANICS_STATUS_SCOREBOARD) {
+							if (config.MECHANICS_BED_FATIGUE_ENABLED)
 								player.sendMessage(playerManager.ShowFatigue(player));
 						} else
 							boardFatigue.getScore(player.getName()).setScore(Reverse(boardFatigue.getScore(player.getName()).getScore()));
 						break;
 					case "nutrients":
 					case "n":
-						if (!settings.getBoolean("Mechanics.StatusScoreboard")) {
+						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);

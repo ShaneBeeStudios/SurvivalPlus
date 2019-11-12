@@ -22,7 +22,7 @@ public class PlayerManager {
 		this.plugin = plugin;
 		this.mainBoard = plugin.getMainBoard();
 		this.lang = plugin.getLang();
-		this.url = plugin.getSettings().getString("MultiWorld.ResourcePackURL");
+		this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
 	}
 
 	/** Set the waypoint of a player's compass to their location

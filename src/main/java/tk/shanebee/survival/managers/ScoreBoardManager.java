@@ -15,13 +15,11 @@ public class ScoreBoardManager {
     private Survival plugin;
     private Config config;
     private Scoreboard mainBoard;
-    private FileConfiguration settings;
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
         this.mainBoard = plugin.getMainBoard();
         this.config = plugin.getSurvivalConfig();
-        this.settings = plugin.getSettings();
     }
 
     @SuppressWarnings("deprecation")
@@ -108,7 +106,7 @@ public class ScoreBoardManager {
                     hunger2.setScore(8);
                 }
 
-                if (settings.getBoolean("Mechanics.Thirst.Enabled") && boardThirst.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_THIRST_ENABLED && boardThirst.getScore(player.getName()).getScore() <= 0) {
                     Score thirst0 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(0));
                     thirst0.setScore(7);
                     Score thirst1 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(1));
@@ -117,7 +115,7 @@ public class ScoreBoardManager {
                     thirst2.setScore(5);
                 }
 
-                if (settings.getBoolean("Mechanics.BedFatigueLevel") && boardFatigue.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_BED_FATIGUE_ENABLED && boardFatigue.getScore(player.getName()).getScore() <= 0) {
                     Score fatigue = status.getScore(plugin.getPlayerManager().ShowFatigue(player));
                     fatigue.setScore(4);
                 }

@@ -12,15 +12,16 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 class LocalChat implements Listener {
 
 	private Scoreboard board;
-	private FileConfiguration settings;
+	private Config config;
 
 	LocalChat(Survival plugin) {
 		this.board = plugin.getBoard();
-		this.settings = plugin.getSettings();
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -29,7 +30,7 @@ class LocalChat implements Listener {
 		Player player = event.getPlayer();
 		String msg = event.getMessage();
 
-		if (settings.getBoolean("LegendaryItems.GoldArmorBuff")) {
+		if (config.LEGENDARY_GOLDARMORBUFF) {
 			if (player.getInventory().getHelmet() != null) {
 				if (player.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET) {
 					event.setCancelled(false);

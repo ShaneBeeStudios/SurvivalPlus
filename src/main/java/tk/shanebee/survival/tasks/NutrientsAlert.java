@@ -15,7 +15,8 @@ class NutrientsAlert extends BukkitRunnable {
 
 	NutrientsAlert(Survival plugin) {
 		this.lang = plugin.getLang();
-		this.runTaskTimer(plugin, -1, plugin.getAlertInterval() * 20);
+		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
+		this.runTaskTimer(plugin, -1, ALERT_INTERVAL * 20);
 	}
 
 	@Override

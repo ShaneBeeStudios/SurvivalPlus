@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Config;
 
 import java.util.Objects;
 
@@ -24,9 +25,11 @@ import java.util.Objects;
 class WaterBottleCrafting implements Listener {
 
 	private Survival plugin;
+	private Config config;
 
 	WaterBottleCrafting(Survival plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler
@@ -86,7 +89,7 @@ class WaterBottleCrafting implements Listener {
 
 	@EventHandler
 	private void onFillWaterBottle(PlayerInteractEvent e) {
-		if (!plugin.getSettings().getBoolean("Mechanics.Thirst.PurifyWater")) return;
+		if (!config.MECHANICS_THIRST_PURIFY_WATER) return;
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {

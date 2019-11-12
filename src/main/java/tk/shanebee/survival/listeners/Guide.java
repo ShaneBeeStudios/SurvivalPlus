@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
@@ -18,18 +19,18 @@ class Guide implements Listener {
     
     private Survival plugin;
     private Lang lang;
-    private FileConfiguration settings;
+    private Config config;
     
     Guide(Survival plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();
-        this.settings = plugin.getSettings();
+        this.config = plugin.getSurvivalConfig();
     }
 
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
-        if (e.getPlayer().hasPlayedBefore() && settings.getBoolean("WelcomeGuide.NewPlayersOnly")) return;
-        int delay = settings.getInt("WelcomeGuide.Delay");
+        if (e.getPlayer().hasPlayedBefore() && config.WELCOME_GUIDE_NEW_PLAYERS) return;
+        int delay = config.WELCOME_GUIDE_DELAY;
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             Player player = e.getPlayer();
             TextComponent msg = new TextComponent(Utils.getColoredString(lang.survival_guide_msg));

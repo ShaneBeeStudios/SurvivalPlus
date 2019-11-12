@@ -2,7 +2,6 @@ package tk.shanebee.survival;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,19 +26,14 @@ public class Survival extends JavaPlugin implements Listener {
 
 	private static Survival instance;
 
-	public static int LocalChatDist = 64; // TODO - remove static
-	private int AlertInterval = 20;
-	private static List<Double> Rates = new ArrayList<>();
-
+	// Lists
+	private List<Double> Rates = new ArrayList<>();
 	private List<Material> chairBlocks = new ArrayList<>();
 	private List<Player> usingPlayers = new ArrayList<>();
-	private boolean snowGenOption = true;
-	private String prefix;
 
 	// Configs
 	private Config config;
 	private Lang lang;
-	private FileConfiguration settings;
 
 	// Scoreboards
 	private Scoreboard board;
@@ -52,7 +46,10 @@ public class Survival extends JavaPlugin implements Listener {
 	private PlayerManager playerManager;
 	private TaskManager taskManager;
 
+	// Other
+	private String prefix;
 	private boolean loaded = true;
+	private boolean snowGenOption = true;
 
 	public void onEnable() {
 		instance = this;
@@ -71,22 +68,22 @@ public class Survival extends JavaPlugin implements Listener {
 		loadSettings();
 
 		// LOAD LANG FILE
-		lang = new Lang(this, settings.getString("Language"));
+		lang = new Lang(this, config.LANG);
 		lang.loadLangFile(Bukkit.getConsoleSender());
 		prefix = lang.prefix;
 
-		if (settings.getBoolean("NoPos")) {
+		if (config.NO_POS) {
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this);
 			Utils.sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
 
 		for (World world : getServer().getWorlds()) {
-			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, settings.getBoolean("Survival.LimitedCrafting"));
+			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, config.SURVIVAL_LIMITED_CRAFTING);
 		}
 
 		// LOAD RESOURCE PACK
-		String url = settings.getString("MultiWorld.ResourcePackURL");
-		boolean resourcePack = settings.getBoolean("MultiWorld.EnableResourcePack");
+		String url = config.RESOURCE_PACK_URL;
+		boolean resourcePack = config.RESOURCE_PACK_ENABLED;
 		if (resourcePack) {
 			if (url.isEmpty()) {
 				Utils.sendColoredConsoleMsg(prefix + "&cResource Pack is not set! Plugin disabling");
@@ -97,17 +94,15 @@ public class Survival extends JavaPlugin implements Listener {
 			}
 		} else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
-		LocalChatDist = settings.getInt("LocalChatDist");
-		AlertInterval = settings.getInt("Mechanics.AlertInterval");
-		if (AlertInterval <= 0) {
+		if (config.MECHANICS_ALERT_INTERVAL <= 0) {
 			Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "AlertInterval cannot be zero or below! Plugin disabled.");
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
 
-		Rates.add(settings.getDouble("Survival.DropRate.Flint"));
-		Rates.add(settings.getDouble("Survival.DropRate.Stick"));
-		Rates.add(settings.getDouble("Mechanics.Thirst.DrainRate"));
+		Rates.add(config.DROP_RATE_FLINT);
+		Rates.add(config.DROP_RATE_STICK);
+		Rates.add(config.MECHANICS_THIRST_DRAIN_RATE);
 		for (double i : Rates) {
 			if (i <= 0) {
 				Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED +
@@ -122,7 +117,7 @@ public class Survival extends JavaPlugin implements Listener {
 			}
 		}
 
-		for (String type : settings.getStringList("Mechanics.Chairs.AllowedBlocks"))
+		for (String type : config.MECHANICS_CHAIRS_BLOCKS)
 			chairBlocks.add(Material.getMaterial(type));
 
 
@@ -131,7 +126,7 @@ public class Survival extends JavaPlugin implements Listener {
 		mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
 		scoreBoardManager = new ScoreBoardManager(this);
 		scoreBoardManager.loadScoreboards(board, mainBoard);
-		scoreBoardManager.resetStatusScoreboard(settings.getBoolean("Mechanics.StatusScoreboard"));
+		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// LOAD PLACEHOLDERS
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -147,11 +142,11 @@ public class Survival extends JavaPlugin implements Listener {
 
 		// REGISTER EVENTS & COMMANDS
 		registerCommands();
-		EventManager eventManager = new EventManager(this, settings);
+		EventManager eventManager = new EventManager(this);
 		eventManager.registerEvents();
 
 		// LOAD CUSTOM RECIPES
-		RecipeManager recipes = new RecipeManager(this, settings);
+		RecipeManager recipes = new RecipeManager(this);
 		recipes.loadCustomRecipes();
 		Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
@@ -179,7 +174,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		//Avoid WorkbenchShare glitch
-		if (settings.getBoolean("Mechanics.SharedWorkbench")) {
+		if (config.MECHANICS_SHARED_WORKBENCH) {
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (p.hasMetadata("shared_workbench")) {
 					Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)
@@ -197,6 +192,13 @@ public class Survival extends JavaPlugin implements Listener {
 			}
 		}
 		Utils.sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
+	}
+
+	/**
+	 * Load config settings
+	 */
+	public void loadSettings() {
+		this.config = new Config(this);
 	}
 
 	@EventHandler
@@ -221,7 +223,7 @@ public class Survival extends JavaPlugin implements Listener {
 		getCommand("status").setExecutor(new Status(this));
 		getCommand("reload-survival").setExecutor(new Reload(this));
 		getCommand("reload-survival").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
-		if (settings.getBoolean("Mechanics.SnowGenerationRevamp")) {
+		if (config.MECHANICS_SNOW_GEN_REVAMP) {
 			getCommand("snowgen").setExecutor(new SnowGen(this));
 			getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
 		}
@@ -279,13 +281,6 @@ public class Survival extends JavaPlugin implements Listener {
 		return this.config;
 	}
 
-	/** Get the plugin's settings
-	 * @return Settings
-	 */
-	public FileConfiguration getSettings() {
-		return this.settings;
-	}
-
 	/** Get an instance of the language config
 	 * @return Language config
 	 */
@@ -305,14 +300,6 @@ public class Survival extends JavaPlugin implements Listener {
 	 */
 	public Scoreboard getMainBoard() {
 		return mainBoard;
-	}
-
-	/**
-	 * Load config settings
-	 */
-	public void loadSettings() {
-		this.config = new Config(this);
-		settings = config.getSettings();
 	}
 
 	public boolean isSnowGenOption() {
@@ -335,10 +322,6 @@ public class Survival extends JavaPlugin implements Listener {
 	 */
 	public List<Player> getUsingPlayers() {
 		return usingPlayers;
-	}
-
-	public int getAlertInterval() {
-		return AlertInterval;
 	}
 
 }

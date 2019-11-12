@@ -16,6 +16,8 @@ public class Config {
 	private File configFile;
 	private String prefix;
 
+	public String LANG;
+
 	public String RESOURCE_PACK_URL;
 	public boolean RESOURCE_PACK_ENABLED;
 	public boolean RESOURCE_PACK_NOTIFY;
@@ -218,6 +220,8 @@ public class Config {
 	}
 
 	private void loadSettings() {
+
+		this.LANG = settings.getString("Language");
 
 		// MULTIWORLD
 		this.RESOURCE_PACK_URL = settings.getString("MultiWorld.ResourcePackURL");

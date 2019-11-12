@@ -29,17 +29,17 @@ class BurnoutTorches implements Listener {
 
     // TODO Experimental Feature
 
-    private boolean relightable;
-    private boolean persistentTorches;
-    private boolean dropTorch;
+    private final boolean RELIGHTABLE;
+    private final boolean PERSISTENT_TORCHES;
+    private final boolean DROP_TORCH;
 
     private BlockManager torchManager;
 
     BurnoutTorches(Survival plugin) {
         this.torchManager = plugin.getBlockManager();
-        this.relightable = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.Relightable");
-        this.persistentTorches = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
-        this.dropTorch = plugin.getSettings().getBoolean("Mechanics.BurnoutTorches.DropTorch");
+        this.RELIGHTABLE = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_RELIGHT;
+        this.PERSISTENT_TORCHES = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_PERSIST;
+        this.DROP_TORCH = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_DROP;
     }
 
     @EventHandler
@@ -54,7 +54,7 @@ class BurnoutTorches implements Listener {
 
     @EventHandler
     private void onRelight(PlayerInteractEvent e) {
-        if (!relightable) return;
+        if (!RELIGHTABLE) return;
         Player player = e.getPlayer();
         ItemStack tool = player.getInventory().getItemInMainHand();
         Block block = e.getClickedBlock();
@@ -118,12 +118,12 @@ class BurnoutTorches implements Listener {
             e.setDropItems(false);
             loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
-            if (persistentTorches && !torchManager.isNonPersistent(block)) {
+            if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
                 e.setDropItems(false);
                 loc.getWorld().dropItemNaturally(loc, ItemManager.get(Items.PERSISTENT_TORCH));
             } else {
                 torchManager.unsetNonPersistent(block);
-                if (!dropTorch) {
+                if (!DROP_TORCH) {
                     e.setDropItems(false);
                     loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
                 }

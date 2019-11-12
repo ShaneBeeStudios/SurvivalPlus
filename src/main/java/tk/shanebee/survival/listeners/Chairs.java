@@ -27,16 +27,17 @@ import org.bukkit.material.Stairs;
 import org.bukkit.util.Vector;
 
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 @SuppressWarnings("deprecation") // TODO fix deprecated Stairs stuff
 class Chairs implements Listener {
 
 	private Survival plugin;
-	private FileConfiguration settings;
+	private Config config;
 
 	Chairs(Survival plugin) {
 		this.plugin = plugin;
-		this.settings = plugin.getSettings();
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler
@@ -88,7 +89,7 @@ class Chairs implements Listener {
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
 
-				if (chairwidth > settings.getInt("Mechanics.Chairs.MaxChairWidth"))
+				if (chairwidth > config.MECHANICS_CHAIRS_MAX_WIDTH)
 					return;
 
 				// Sit-down process.
@@ -237,7 +238,7 @@ class Chairs implements Listener {
 		int width = 0;
 
 		// Go through the blocks next to the clicked block and check if there are any further stairs.
-		for (int i = 1; i <= settings.getInt("Mechanics.Chairs.MaxChairWidth"); i++) {
+		for (int i = 1; i <= config.MECHANICS_CHAIRS_MAX_WIDTH; i++) {
 			Block relative = block.getRelative(face, i);
 
 			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getState().getData()).getDescendingDirection() == ((Stairs) block.getState().getData()).getDescendingDirection())

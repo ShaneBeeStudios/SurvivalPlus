@@ -31,7 +31,7 @@ public class BlockManager {
 	public BlockManager(Survival plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
-		this.seconds = plugin.getSettings().getInt("Mechanics.BurnoutTorches.BurnoutTime");
+		this.seconds = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_TIME;
 		loadDataFile(plugin.getServer().getConsoleSender());
 		toBurnout();
 	}

@@ -7,13 +7,14 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 class SpecialItemInteractCancel implements Listener {
-	
-	private FileConfiguration settings;
+
+	private Config config;
 	
 	SpecialItemInteractCancel(Survival plugin) {
-		this.settings = plugin.getSettings();
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler
@@ -21,7 +22,7 @@ class SpecialItemInteractCancel implements Listener {
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			switch (event.getMaterial()) {
 				case WOODEN_HOE:
-					if (settings.getBoolean("Survival.Enabled")) {
+					if (config.SURVIVAL_ENABLED) {
 						switch (event.getClickedBlock().getType()) {
 							case DIRT:
 							case GRASS:
@@ -33,7 +34,7 @@ class SpecialItemInteractCancel implements Listener {
 					}
 					break;
 				case GOLDEN_HOE:
-					if (settings.getBoolean("LegendaryItems.GiantBlade")) {
+					if (config.LEGENDARY_GIANTBLADE) {
 						switch (event.getClickedBlock().getType()) {
 							case DIRT:
 							case GRASS:
@@ -45,7 +46,7 @@ class SpecialItemInteractCancel implements Listener {
 					}
 					break;
 				case WOODEN_SHOVEL:
-					if (settings.getBoolean("Survival.Enabled")) {
+					if (config.SURVIVAL_ENABLED) {
 						switch (event.getClickedBlock().getType()) {
 							case GRASS:
 								event.setCancelled(true);
@@ -56,7 +57,7 @@ class SpecialItemInteractCancel implements Listener {
 					}
 					break;
 				case GOLDEN_SHOVEL:
-					if (settings.getBoolean("LegendaryItems.ObsidianMace")) {
+					if (config.LEGENDARY_OBSIDIAN_MACE) {
 						switch (event.getClickedBlock().getType()) {
 							case GRASS:
 								event.setCancelled(true);

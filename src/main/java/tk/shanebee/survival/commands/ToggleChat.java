@@ -20,10 +20,12 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 
 	private Lang lang;
 	private Objective chat;
+	private final int LOCAL_CHAT_DIST;
 	
 	public ToggleChat(Survival plugin) {
 		this.lang = plugin.getLang();
 		this.chat = plugin.getBoard().getObjective("Chat");
+		this.LOCAL_CHAT_DIST = plugin.getSurvivalConfig().LOCAL_CHAT_DISTANCE;
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -35,7 +37,7 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 			}
 			Player player = (Player) sender;
 			//if (LocalChatDist > -1)
-			if (Survival.LocalChatDist <= -1) {
+			if (LOCAL_CHAT_DIST <= -1) {
 				player.sendMessage(Utils.getColoredString(lang.toggle_chat_disabled));
 				return true;
 			}
@@ -86,7 +88,7 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 		String[] list2 = {""};
 		String arg = builder.toString().trim();
 		ArrayList<String> matches = new ArrayList<>();
-		for (String name : (Survival.LocalChatDist > -1) ? list : list2) {
+		for (String name : (LOCAL_CHAT_DIST > -1) ? list : list2) {
 			if (StringUtil.startsWithIgnoreCase(name, arg)) {
 				matches.add(name);
 			}

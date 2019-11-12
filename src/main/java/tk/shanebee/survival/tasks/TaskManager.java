@@ -10,6 +10,7 @@ import tk.shanebee.survival.util.Utils;
 public class TaskManager {
 
 	public TaskManager(Survival plugin) {
+		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		Config config = plugin.getSurvivalConfig();
 		if (config.MECHANICS_BED_FATIGUE_ENABLED) {
 			new FatigueDrain(plugin);
@@ -20,7 +21,7 @@ public class TaskManager {
 		if (config.MECHANICS_THIRST_ENABLED) {
 			new ThirstDrain(plugin);
 			new ThirstEffect(plugin);
-			if (!config.MECHANICS_STATUS_SCOREBOARD && plugin.getAlertInterval() > 0) {
+			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
 				new ThirstAlert(plugin);
 			}
 		}
@@ -28,7 +29,7 @@ public class TaskManager {
 			Utils.log("&aFOOD diversity enabled");
 			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
-			if (!config.MECHANICS_STATUS_SCOREBOARD && plugin.getAlertInterval() > 0) {
+			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
 				new NutrientsAlert(plugin);
 			}
 		} else {

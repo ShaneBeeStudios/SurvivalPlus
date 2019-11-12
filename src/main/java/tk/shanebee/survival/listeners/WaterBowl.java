@@ -14,6 +14,7 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 
 class WaterBowl implements Listener {
 
@@ -23,13 +24,13 @@ class WaterBowl implements Listener {
 
 	WaterBowl(Survival plugin) {
 		this.plugin = plugin;
-		this.THIRST_ENABLED = plugin.getSettings().getBoolean("Mechanics.Thirst.Enabled");
-		this.CLAY_ENABLED = plugin.getSettings().getBoolean("Recipes.Clay");
+		this.THIRST_ENABLED = plugin.getSurvivalConfig().MECHANICS_THIRST_ENABLED;
+		this.CLAY_ENABLED = plugin.getSurvivalConfig().RECIPES_CLAY;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {
-		if (!plugin.getSettings().getBoolean("Mechanics.Thirst.Enabled")) {
+		if (!THIRST_ENABLED) {
 			if (event.isCancelled()) return;
 			if (ItemManager.compare(event.getItem(), Items.WATER_BOWL)) {
 				event.setCancelled(true);

@@ -17,8 +17,8 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BlockIterator;
 
-class SnowballThrow implements Listener
-{
+class SnowballThrow implements Listener {
+
 	@EventHandler
 	private void onThrowingSnowball(ProjectileHitEvent e) {
 		if (e.getEntity() instanceof Snowball) {
@@ -61,7 +61,7 @@ class SnowballThrow implements Listener
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBreakSnow(BlockBreakEvent e) {
 		if (e.isCancelled()) return;

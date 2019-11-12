@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -20,26 +21,26 @@ import java.util.Random;
 public class EffectManager {
 	
 	private Survival plugin;
-	private FileConfiguration settings;
+	private Config config;
 	private Scoreboard board;
 	
 	public EffectManager(Survival plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getSurvivalConfig();
 		this.board = plugin.getBoard();
-		this.settings = plugin.getSettings();
 		loadEffects();
 	}
 
 	private void loadEffects() {
-		if (settings.getBoolean("LegendaryItems.BlazeSword"))
+		if (config.LEGENDARY_BLAZESWORD)
 			BlazeSword();
-		if (settings.getBoolean("LegendaryItems.GiantBlade"))
+		if (config.LEGENDARY_GIANTBLADE)
 			GiantBlade();
-		if (settings.getBoolean("LegendaryItems.ObsidianMace"))
+		if (config.LEGENDARY_OBSIDIAN_MACE)
 			ObsidianMace();
-		if (settings.getBoolean("LegendaryItems.ValkyrieAxe"))
+		if (config.LEGENDARY_VALKYRIE)
 			Valkyrie();
-		if (settings.getBoolean("LegendaryItems.QuartzPickaxe"))
+		if (config.LEGENDARY_QUARTZPICKAXE)
 			QuartzPickaxe();
 	}
 

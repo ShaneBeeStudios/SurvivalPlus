@@ -30,7 +30,7 @@ public class RecipeManager {
     private Config config;
     private static Survival survival;
 
-    public RecipeManager(Survival survival, FileConfiguration settings) {
+    public RecipeManager(Survival survival) {
         RecipeManager.survival = survival;
         this.config = survival.getSurvivalConfig();
     }

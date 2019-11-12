@@ -1,7 +1,6 @@
 package tk.shanebee.survival.listeners;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,32 +10,31 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent.Status;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
 class SetResourcePack implements Listener {
 
 	private Survival plugin;
+	private Config config;
 	private Lang lang;
-	private FileConfiguration settings;
 	private PlayerManager playerManager;
-	private boolean resourcePack;
 	private String prefix;
 
 	SetResourcePack(Survival plugin) {
 		this.plugin = plugin;
+		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
-		this.settings = plugin.getSettings();
 		this.playerManager = plugin.getPlayerManager();
-		this.resourcePack = plugin.getSettings().getBoolean("MultiWorld.EnableResourcePack");
-		this.prefix = Utils.getColoredString("&7[&3SurvivalPlus&7] ");
+		this.prefix = lang.prefix;
 	}
 
 
 
 	@EventHandler
 	private void onPlayerJoin(PlayerJoinEvent event) {
-		if (resourcePack)
+		if (config.RESOURCE_PACK_ENABLED)
 			playerManager.applyResourcePack(event.getPlayer(), 20);
 	}
 
@@ -56,7 +54,7 @@ class SetResourcePack implements Listener {
 	@EventHandler
 	private void resourcePackEvent(PlayerResourcePackStatusEvent e) {
 		Player player = e.getPlayer();
-		if (settings.getBoolean("MultiWorld.NotifyMessage"))
+		if (config.RESOURCE_PACK_NOTIFY)
 			if (e.getStatus() == Status.DECLINED) {
 				player.sendMessage(" ");
 				player.sendMessage(prefix + ChatColor.RED + Utils.getColoredString(lang.resource_pack_declined));
