@@ -77,8 +77,8 @@ class Consume implements Listener {
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
-				event.setCancelled(true);
 				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
+					event.setCancelled(true);
 					change = 10;
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
@@ -89,6 +89,8 @@ class Consume implements Listener {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 						}
 					}
+				} else {
+					change = 6; // Regular beetroot soup (if player somehow gets one)
 				}
 				break;
 			case MILK_BUCKET:
