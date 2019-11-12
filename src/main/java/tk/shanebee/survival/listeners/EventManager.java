@@ -1,8 +1,10 @@
 package tk.shanebee.survival.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.util.Utils;
 
 /**
  * Internal use only
@@ -100,6 +102,11 @@ public class EventManager {
 
 		if (config.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
+
+		if (config.NO_POS) {
+			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
+			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
+		}
 	}
 
 }

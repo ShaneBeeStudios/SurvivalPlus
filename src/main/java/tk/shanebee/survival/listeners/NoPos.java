@@ -1,4 +1,4 @@
-package tk.shanebee.survival.util;
+package tk.shanebee.survival.listeners;
 
 /**
  * Originally by Rolyndev's plugin, NoPos
@@ -21,8 +21,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class NoPos implements Listener
-{
+public class NoPos implements Listener {
 	@EventHandler
 	private void onJoin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
@@ -48,65 +47,59 @@ public class NoPos implements Listener
 		}
 	}
 
-	/** Disable a player's coordinates in their Minecraft Debug screen
+	/**
+	 * Disable a player's coordinates in their Minecraft Debug screen
+	 *
 	 * @param player The player to disable coords for
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public static void disableF3(Player player)
-	{
-		try
-		{
+	public static void disableF3(Player player) {
+		try {
 			Class<?> packetClass = getNMSClass("PacketPlayOutEntityStatus");
 			Constructor<?> packetConstructor = packetClass.getConstructor(getNMSClass("Entity"), Byte.TYPE);
 			Object packet = packetConstructor.newInstance(getHandle(player), (byte) 22);
 			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
 			sendPacket.invoke(getConnection(player), packet);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + e.getMessage());
 		}
 	}
 
-	/** Enable a player's coordinates in their Minecraft Debug screen
+	/**
+	 * Enable a player's coordinates in their Minecraft Debug screen
+	 *
 	 * @param player The player to enable coords for
 	 */
 	@SuppressWarnings("WeakerAccess")
-	public static void enableF3(Player player)
-	{
-		try
-		{
+	public static void enableF3(Player player) {
+		try {
 			Class<?> packetClass = getNMSClass("PacketPlayOutEntityStatus");
 			Constructor<?> packetConstructor = packetClass.getConstructor(getNMSClass("Entity"), Byte.TYPE);
 			Object packet = packetConstructor.newInstance(getHandle(player), (byte) 23);
 			Method sendPacket = getNMSClass("PlayerConnection").getMethod("sendPacket", getNMSClass("Packet"));
 			sendPacket.invoke(getConnection(player), packet);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Bukkit.getConsoleSender().sendMessage("[SurvivalPlus] " + ChatColor.RED + e.getMessage());
 		}
 	}
-  
+
 	private static Class<?> getNMSClass(String nmsClassString)
-	throws ClassNotFoundException
-	{
+			throws ClassNotFoundException {
 		String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + ".";
 		String name = "net.minecraft.server." + version + nmsClassString;
 		return Class.forName(name);
 	}
-  
+
 	private static Object getConnection(Player player)
-	throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
-	{
+			throws SecurityException, NoSuchMethodException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		Field conField = getHandle(player).getClass().getField("playerConnection");
 		return conField.get(getHandle(player));
 	}
-  
+
 	private static Object getHandle(Player player)
-	throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException
-	{
+			throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		Method getHandle = player.getClass().getMethod("getHandle");
 		return getHandle.invoke(player);
 	}
+
 }

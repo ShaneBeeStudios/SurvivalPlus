@@ -15,7 +15,6 @@ import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
 import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Lang;
-import tk.shanebee.survival.util.NoPos;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -71,11 +70,6 @@ public class Survival extends JavaPlugin implements Listener {
 		lang = new Lang(this, config.LANG);
 		lang.loadLangFile(Bukkit.getConsoleSender());
 		prefix = lang.prefix;
-
-		if (config.NO_POS) {
-			Bukkit.getPluginManager().registerEvents(new NoPos(), this);
-			Utils.sendColoredConsoleMsg(prefix + "&7NoPos &aimplemented &7- F3 coordinates are disabled!");
-		}
 
 		for (World world : getServer().getWorlds()) {
 			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, config.SURVIVAL_LIMITED_CRAFTING);
