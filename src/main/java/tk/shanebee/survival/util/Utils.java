@@ -17,24 +17,352 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Utils {
 
-    private static final ImmutableSet<Material> CONCRETE_BLOCKS = ImmutableSet.<Material>builder()
-            .add(Material.CYAN_CONCRETE)
-            .add(Material.BLACK_CONCRETE)
-            .add(Material.BLUE_CONCRETE)
-            .add(Material.BROWN_CONCRETE)
-            .add(Material.GRAY_CONCRETE)
-            .add(Material.GREEN_CONCRETE)
-            .add(Material.LIGHT_BLUE_CONCRETE)
-            .add(Material.LIGHT_GRAY_CONCRETE)
-            .add(Material.LIME_CONCRETE)
-            .add(Material.MAGENTA_CONCRETE)
-            .add(Material.ORANGE_CONCRETE)
-            .add(Material.PINK_CONCRETE)
-            .add(Material.PURPLE_CONCRETE)
-            .add(Material.RED_CONCRETE)
-            .add(Material.WHITE_CONCRETE)
-            .add(Material.YELLOW_CONCRETE)
-            .build();
+    private static final ImmutableSet<Material> CONCRETE_BLOCKS;
+	private static final ImmutableSet<Material> CONCRETE_POWDER;
+	private final static ImmutableSet<Material> GLAZED_TERRACOTTA;
+	private final static ImmutableSet<Material> TERRACOTTA;
+	private final static ImmutableSet<Material> NATURAL_ORE_BLOCK;
+	private final static ImmutableSet<Material> ORE_BLOCK;
+	private final static ImmutableSet<Material> COOKING_BLOCK;
+	private final static ImmutableSet<Material> UTILITY_BLOCK;
+	private final static ImmutableSet<Material> SHULKER_BOX;
+	private final static ImmutableSet<Material> STORAGE_BLOCK;
+	private final static ImmutableSet<Material> STONE_TYPE_BLOCK;
+	private final static ImmutableSet<Material> WOOD_GATE;
+	private final static ImmutableSet<Material> FARMABLE;
+	private final static ImmutableSet<Material> SHOVEL;
+	private final static ImmutableSet<Material> REQUIRES_SHOVEL;
+	private final static ImmutableSet<Material> PICKAXE;
+	private final static ImmutableSet<Material> REQUIRES_PICKAXE;
+	private final static ImmutableSet<Material> AXE;
+	private final static ImmutableSet<Material> REQUIRES_AXE;
+	private final static ImmutableSet<Material> REQUIRES_SHEARS;
+	private final static ImmutableSet<Material> REQUIRES_HAMMER;
+
+    static {
+    	CONCRETE_BLOCKS = ImmutableSet.<Material>builder()
+				.add(Material.CYAN_CONCRETE)
+				.add(Material.BLACK_CONCRETE)
+				.add(Material.BLUE_CONCRETE)
+				.add(Material.BROWN_CONCRETE)
+				.add(Material.GRAY_CONCRETE)
+				.add(Material.GREEN_CONCRETE)
+				.add(Material.LIGHT_BLUE_CONCRETE)
+				.add(Material.LIGHT_GRAY_CONCRETE)
+				.add(Material.LIME_CONCRETE)
+				.add(Material.MAGENTA_CONCRETE)
+				.add(Material.ORANGE_CONCRETE)
+				.add(Material.PINK_CONCRETE)
+				.add(Material.PURPLE_CONCRETE)
+				.add(Material.RED_CONCRETE)
+				.add(Material.WHITE_CONCRETE)
+				.add(Material.YELLOW_CONCRETE)
+				.build();
+
+		CONCRETE_POWDER = ImmutableSet.<Material>builder()
+				.add(Material.BLACK_CONCRETE_POWDER)
+				.add(Material.BLUE_CONCRETE_POWDER)
+				.add(Material.BROWN_CONCRETE_POWDER)
+				.add(Material.CYAN_CONCRETE_POWDER)
+				.add(Material.GRAY_CONCRETE_POWDER)
+				.add(Material.GREEN_CONCRETE_POWDER)
+				.add(Material.LIME_CONCRETE_POWDER)
+				.add(Material.MAGENTA_CONCRETE_POWDER)
+				.add(Material.ORANGE_CONCRETE_POWDER)
+				.add(Material.PINK_CONCRETE_POWDER)
+				.add(Material.PURPLE_CONCRETE_POWDER)
+				.add(Material.RED_CONCRETE_POWDER)
+				.add(Material.WHITE_CONCRETE_POWDER)
+				.add(Material.YELLOW_CONCRETE_POWDER)
+				.add(Material.LIGHT_BLUE_CONCRETE_POWDER)
+				.add(Material.LIGHT_GRAY_CONCRETE_POWDER)
+				.build();
+
+		GLAZED_TERRACOTTA = ImmutableSet.<Material>builder()
+				.add(Material.BLACK_GLAZED_TERRACOTTA)
+				.add(Material.BLUE_GLAZED_TERRACOTTA)
+				.add(Material.BROWN_GLAZED_TERRACOTTA)
+				.add(Material.CYAN_GLAZED_TERRACOTTA)
+				.add(Material.GRAY_GLAZED_TERRACOTTA)
+				.add(Material.GREEN_GLAZED_TERRACOTTA)
+				.add(Material.LIGHT_BLUE_GLAZED_TERRACOTTA)
+				.add(Material.LIME_GLAZED_TERRACOTTA)
+				.add(Material.MAGENTA_GLAZED_TERRACOTTA)
+				.add(Material.ORANGE_GLAZED_TERRACOTTA)
+				.add(Material.PINK_GLAZED_TERRACOTTA)
+				.add(Material.PURPLE_GLAZED_TERRACOTTA)
+				.add(Material.RED_GLAZED_TERRACOTTA)
+				.add(Material.LIGHT_GRAY_GLAZED_TERRACOTTA)
+				.add(Material.WHITE_GLAZED_TERRACOTTA)
+				.add(Material.YELLOW_GLAZED_TERRACOTTA)
+				.build();
+
+		TERRACOTTA = ImmutableSet.<Material>builder()
+				.add(Material.BLACK_TERRACOTTA)
+				.add(Material.BLUE_TERRACOTTA)
+				.add(Material.BROWN_TERRACOTTA)
+				.add(Material.CYAN_TERRACOTTA)
+				.add(Material.GRAY_TERRACOTTA)
+				.add(Material.GREEN_TERRACOTTA)
+				.add(Material.LIGHT_BLUE_TERRACOTTA)
+				.add(Material.LIME_TERRACOTTA)
+				.add(Material.MAGENTA_TERRACOTTA)
+				.add(Material.ORANGE_TERRACOTTA)
+				.add(Material.PINK_TERRACOTTA)
+				.add(Material.PURPLE_TERRACOTTA)
+				.add(Material.RED_TERRACOTTA)
+				.add(Material.LIGHT_GRAY_TERRACOTTA)
+				.add(Material.WHITE_TERRACOTTA)
+				.add(Material.YELLOW_TERRACOTTA)
+				.build();
+
+		NATURAL_ORE_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.COAL_ORE)
+				.add(Material.DIAMOND_ORE)
+				.add(Material.EMERALD_ORE)
+				.add(Material.GOLD_ORE)
+				.add(Material.IRON_ORE)
+				.add(Material.LAPIS_ORE)
+				.add(Material.NETHER_QUARTZ_ORE)
+				.add(Material.REDSTONE_ORE)
+				.build();
+
+		ORE_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.COAL_BLOCK)
+				.add(Material.DIAMOND_BLOCK)
+				.add(Material.EMERALD_BLOCK)
+				.add(Material.GOLD_BLOCK)
+				.add(Material.IRON_BLOCK)
+				.add(Material.LAPIS_BLOCK)
+				.add(Material.QUARTZ_BLOCK)
+				.add(Material.REDSTONE_BLOCK)
+				.build();
+
+		COOKING_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.FURNACE)
+				.add(Material.BLAST_FURNACE)
+				.add(Material.SMOKER)
+				.build();
+
+		UTILITY_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.CARTOGRAPHY_TABLE)
+				.add(Material.FLETCHING_TABLE)
+				.add(Material.LECTERN)
+				.add(Material.LOOM)
+				.add(Material.STONECUTTER)
+				.add(Material.GRINDSTONE)
+				.add(Material.SMITHING_TABLE)
+				.add(Material.ANVIL)
+				.add(Material.ENCHANTING_TABLE)
+				.add(Material.JUKEBOX)
+				.add(Material.NOTE_BLOCK)
+				.add(Material.BREWING_STAND)
+				.add(Material.CAULDRON)
+				.add(Material.COMPOSTER)
+				.build();
+
+		SHULKER_BOX = ImmutableSet.<Material>builder()
+				.add(Material.SHULKER_BOX)
+				.add(Material.BLACK_SHULKER_BOX)
+				.add(Material.BLUE_SHULKER_BOX)
+				.add(Material.BROWN_SHULKER_BOX)
+				.add(Material.CYAN_SHULKER_BOX)
+				.add(Material.GRAY_SHULKER_BOX)
+				.add(Material.GREEN_SHULKER_BOX)
+				.add(Material.LIGHT_BLUE_SHULKER_BOX)
+				.add(Material.LIGHT_GRAY_SHULKER_BOX)
+				.add(Material.LIME_SHULKER_BOX)
+				.add(Material.MAGENTA_SHULKER_BOX)
+				.add(Material.ORANGE_SHULKER_BOX)
+				.add(Material.PINK_SHULKER_BOX)
+				.add(Material.PURPLE_SHULKER_BOX)
+				.add(Material.RED_SHULKER_BOX)
+				.add(Material.WHITE_SHULKER_BOX)
+				.add(Material.YELLOW_SHULKER_BOX)
+				.build();
+
+		STORAGE_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.CHEST)
+				.add(Material.ENDER_CHEST)
+				.add(Material.TRAPPED_CHEST)
+				.add(Material.BARREL)
+				.build();
+
+		STONE_TYPE_BLOCK = ImmutableSet.<Material>builder()
+				.add(Material.STONE)
+				.add(Material.COBBLESTONE)
+				.add(Material.MOSSY_COBBLESTONE)
+				.add(Material.INFESTED_COBBLESTONE)
+				.add(Material.ANDESITE)
+				.add(Material.POLISHED_ANDESITE)
+				.add(Material.DIORITE)
+				.add(Material.POLISHED_DIORITE)
+				.add(Material.GRANITE)
+				.add(Material.POLISHED_GRANITE)
+				.add(Material.BRICKS)
+				.add(Material.NETHER_BRICKS)
+				.add(Material.SANDSTONE)
+				.add(Material.CHISELED_SANDSTONE)
+				.add(Material.SMOOTH_SANDSTONE)
+				.add(Material.CUT_SANDSTONE)
+				.add(Material.RED_SANDSTONE)
+				.add(Material.CHISELED_RED_SANDSTONE)
+				.add(Material.CUT_RED_SANDSTONE)
+				.add(Material.SMOOTH_RED_SANDSTONE)
+				.add(Material.PRISMARINE)
+				.add(Material.NETHERRACK)
+				.add(Material.END_STONE)
+				.add(Material.END_STONE_BRICKS)
+				.add(Material.PURPUR_BLOCK)
+				.add(Material.PURPUR_PILLAR)
+				.build();
+
+		WOOD_GATE = ImmutableSet.<Material>builder()
+				.add(Material.ACACIA_FENCE_GATE)
+				.add(Material.BIRCH_FENCE_GATE)
+				.add(Material.DARK_OAK_FENCE_GATE)
+				.add(Material.JUNGLE_FENCE_GATE)
+				.add(Material.OAK_FENCE_GATE)
+				.add(Material.SPRUCE_FENCE_GATE)
+				.build();
+
+		FARMABLE = ImmutableSet.<Material>builder()
+				.add(Material.MELON)
+				.add(Material.MELON_STEM)
+				.add(Material.PUMPKIN)
+				.add(Material.PUMPKIN_STEM)
+				.add(Material.JACK_O_LANTERN)
+				.add(Material.CHORUS_FLOWER)
+				.add(Material.CHORUS_PLANT)
+				.add(Material.CARROTS)
+				.add(Material.POTATOES)
+				.add(Material.BEETROOTS)
+				.add(Material.WHEAT)
+				.add(Material.SWEET_BERRY_BUSH)
+				.add(Material.COCOA)
+				.build();
+
+		SHOVEL = ImmutableSet.<Material>builder()
+				.add(Material.STONE_SHOVEL)
+				.add(Material.IRON_SHOVEL)
+				.add(Material.DIAMOND_SHOVEL)
+				.add(Material.GOLDEN_SHOVEL)
+				.add(Material.WOODEN_SHOVEL)
+				.build();
+
+		REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
+				.add(Material.GRASS_BLOCK)
+				.add(Material.DIRT)
+				.add(Material.PODZOL)
+				.add(Material.COARSE_DIRT)
+				.add(Material.GRASS_PATH)
+				.add(Material.FARMLAND)
+				.add(Material.SOUL_SAND)
+				.add(Material.SAND)
+				.add(Material.RED_SAND)
+				.add(Material.CLAY)
+				.add(Material.MYCELIUM)
+				.add(Material.SNOW)
+				.add(Material.SNOW_BLOCK)
+				.build();
+
+		PICKAXE = ImmutableSet.<Material>builder()
+				.add(Material.GOLDEN_PICKAXE)
+				.add(Material.WOODEN_PICKAXE)
+				.add(Material.DIAMOND_PICKAXE)
+				.add(Material.IRON_PICKAXE)
+				.add(Material.STONE_PICKAXE)
+				.build();
+
+		REQUIRES_PICKAXE = ImmutableSet.<Material>builder()
+				.add(Material.NETHER_BRICK_FENCE)
+				.add(Material.NETHER_BRICKS)
+				.add(Material.RED_NETHER_BRICKS)
+				.add(Material.SPAWNER)
+				.add(Material.SEA_LANTERN)
+				.add(Material.GLOWSTONE)
+				.add(Material.END_ROD)
+				.add(Material.DISPENSER)
+				.add(Material.DROPPER)
+				.add(Material.OBSERVER)
+				.add(Material.PISTON)
+				.add(Material.PISTON_HEAD)
+				.add(Material.STICKY_PISTON)
+				.add(Material.MOVING_PISTON)
+				.add(Material.ENCHANTING_TABLE)
+				.add(Material.ANVIL)
+				.add(Material.GRINDSTONE)
+				.add(Material.STONECUTTER)
+				.add(Material.ENDER_CHEST)
+				.add(Material.HOPPER)
+				.add(Material.CAULDRON)
+				.add(Material.BREWING_STAND)
+				.add(Material.STONE_PRESSURE_PLATE)
+				.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
+				.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
+				.add(Material.BEACON)
+				.add(Material.OBSIDIAN)
+				.build();
+
+		AXE = ImmutableSet.<Material>builder()
+				.add(Material.WOODEN_AXE)
+				.add(Material.STONE_AXE)
+				.add(Material.GOLDEN_AXE)
+				.add(Material.IRON_AXE)
+				.add(Material.DIAMOND_AXE)
+				.build();
+
+		REQUIRES_AXE = ImmutableSet.<Material>builder()
+				.add(Material.CHEST)
+				.add(Material.TRAPPED_CHEST)
+				.add(Material.BARREL)
+				.add(Material.CRAFTING_TABLE)
+				.add(Material.CARTOGRAPHY_TABLE)
+				.add(Material.FLETCHING_TABLE)
+				.add(Material.SMITHING_TABLE)
+				.add(Material.LOOM)
+				.add(Material.LECTERN)
+				.add(Material.CAMPFIRE)
+				.add(Material.COMPOSTER)
+				.add(Material.BOOKSHELF)
+				.add(Material.LADDER)
+				.add(Material.JUKEBOX)
+				.add(Material.NOTE_BLOCK)
+				.add(Material.DAYLIGHT_DETECTOR)
+				.add(Material.SCAFFOLDING)
+				.build();
+
+		REQUIRES_SHEARS = ImmutableSet.<Material>builder()
+				.add(Material.COBWEB)
+				.add(Material.TRIPWIRE)
+				.add(Material.TNT)
+				.add(Material.MUSHROOM_STEM)
+				.build();
+
+		REQUIRES_HAMMER = ImmutableSet.<Material>builder()
+				.add(Material.BOOKSHELF)
+				.add(Material.LADDER)
+				.add(Material.SEA_LANTERN)
+				.add(Material.GLOWSTONE)
+				.add(Material.END_ROD)
+				.add(Material.DISPENSER)
+				.add(Material.DROPPER)
+				.add(Material.HOPPER)
+				.add(Material.STONE_PRESSURE_PLATE)
+				.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
+				.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
+				.add(Material.DAYLIGHT_DETECTOR)
+				.add(Material.PISTON)
+				.add(Material.STICKY_PISTON)
+				.add(Material.REDSTONE_LAMP)
+				.add(Material.REPEATER)
+				.add(Material.COMPARATOR)
+				.add(Material.TRIPWIRE_HOOK)
+				.add(Material.BEACON)
+				.add(Material.IRON_BARS)
+				.add(Material.SCAFFOLDING)
+				.build();
+	}
 
 	/** Check if a material is concrete
 	 * @param material Material to check
@@ -44,25 +372,6 @@ public class Utils {
         return CONCRETE_BLOCKS.contains(material);
     }
 
-    private static final ImmutableSet<Material> CONCRETE_POWDER = ImmutableSet.<Material>builder()
-            .add(Material.BLACK_CONCRETE_POWDER)
-            .add(Material.BLUE_CONCRETE_POWDER)
-            .add(Material.BROWN_CONCRETE_POWDER)
-            .add(Material.CYAN_CONCRETE_POWDER)
-            .add(Material.GRAY_CONCRETE_POWDER)
-            .add(Material.GREEN_CONCRETE_POWDER)
-            .add(Material.LIME_CONCRETE_POWDER)
-            .add(Material.MAGENTA_CONCRETE_POWDER)
-            .add(Material.ORANGE_CONCRETE_POWDER)
-            .add(Material.PINK_CONCRETE_POWDER)
-            .add(Material.PURPLE_CONCRETE_POWDER)
-            .add(Material.RED_CONCRETE_POWDER)
-            .add(Material.WHITE_CONCRETE_POWDER)
-            .add(Material.YELLOW_CONCRETE_POWDER)
-            .add(Material.LIGHT_BLUE_CONCRETE_POWDER)
-            .add(Material.LIGHT_GRAY_CONCRETE_POWDER)
-            .build();
-
 	/** Check if a material is concrete powder
 	 * @param material Material to check
 	 * @return True if material is concrete powder
@@ -70,25 +379,6 @@ public class Utils {
     public static boolean isConcretePowder(Material material) {
         return CONCRETE_POWDER.contains(material);
     }
-
-    private final static ImmutableSet<Material> GLAZED_TERRACOTTA = ImmutableSet.<Material>builder()
-            .add(Material.BLACK_GLAZED_TERRACOTTA)
-            .add(Material.BLUE_GLAZED_TERRACOTTA)
-            .add(Material.BROWN_GLAZED_TERRACOTTA)
-            .add(Material.CYAN_GLAZED_TERRACOTTA)
-            .add(Material.GRAY_GLAZED_TERRACOTTA)
-            .add(Material.GREEN_GLAZED_TERRACOTTA)
-            .add(Material.LIGHT_BLUE_GLAZED_TERRACOTTA)
-            .add(Material.LIME_GLAZED_TERRACOTTA)
-            .add(Material.MAGENTA_GLAZED_TERRACOTTA)
-            .add(Material.ORANGE_GLAZED_TERRACOTTA)
-            .add(Material.PINK_GLAZED_TERRACOTTA)
-            .add(Material.PURPLE_GLAZED_TERRACOTTA)
-            .add(Material.RED_GLAZED_TERRACOTTA)
-            .add(Material.LIGHT_GRAY_GLAZED_TERRACOTTA)
-            .add(Material.WHITE_GLAZED_TERRACOTTA)
-            .add(Material.YELLOW_GLAZED_TERRACOTTA)
-            .build();
 
 	/** Check if a material is glazed terracotta
 	 * @param material Material to check
@@ -98,25 +388,6 @@ public class Utils {
         return GLAZED_TERRACOTTA.contains(material);
     }
 
-    private final static ImmutableSet<Material> TERRACOTTA = ImmutableSet.<Material>builder()
-			.add(Material.BLACK_TERRACOTTA)
-			.add(Material.BLUE_TERRACOTTA)
-			.add(Material.BROWN_TERRACOTTA)
-			.add(Material.CYAN_TERRACOTTA)
-			.add(Material.GRAY_TERRACOTTA)
-			.add(Material.GREEN_TERRACOTTA)
-			.add(Material.LIGHT_BLUE_TERRACOTTA)
-			.add(Material.LIME_TERRACOTTA)
-			.add(Material.MAGENTA_TERRACOTTA)
-			.add(Material.ORANGE_TERRACOTTA)
-			.add(Material.PINK_TERRACOTTA)
-			.add(Material.PURPLE_TERRACOTTA)
-			.add(Material.RED_TERRACOTTA)
-			.add(Material.LIGHT_GRAY_TERRACOTTA)
-			.add(Material.WHITE_TERRACOTTA)
-			.add(Material.YELLOW_TERRACOTTA)
-			.build();
-
 	/** Check if a material is terracotta
 	 * @param material Material to check
 	 * @return True if material is terracotta
@@ -124,17 +395,6 @@ public class Utils {
     public static boolean isTerracotta(Material material) {
         return TERRACOTTA.contains(material);
     }
-
-    private final static ImmutableSet<Material> NATURAL_ORE_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.COAL_ORE)
-			.add(Material.DIAMOND_ORE)
-			.add(Material.EMERALD_ORE)
-			.add(Material.GOLD_ORE)
-			.add(Material.IRON_ORE)
-			.add(Material.LAPIS_ORE)
-			.add(Material.NETHER_QUARTZ_ORE)
-			.add(Material.REDSTONE_ORE)
-			.build();
 
 	/** Check if a material is a natural ore block
 	 * <p>ie: coal ore, diamond ore, iron ore</p>
@@ -145,17 +405,6 @@ public class Utils {
         return NATURAL_ORE_BLOCK.contains(material);
     }
 
-    private final static ImmutableSet<Material> ORE_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.COAL_BLOCK)
-			.add(Material.DIAMOND_BLOCK)
-			.add(Material.EMERALD_BLOCK)
-			.add(Material.GOLD_BLOCK)
-			.add(Material.IRON_BLOCK)
-			.add(Material.LAPIS_BLOCK)
-			.add(Material.QUARTZ_BLOCK)
-			.add(Material.REDSTONE_BLOCK)
-			.build();
-
 	/** Check if a material is an ore block
 	 * <p>ie: coal block, diamond block, iron block</p>
 	 * @param material Material to check
@@ -164,12 +413,6 @@ public class Utils {
     public static boolean isOreBlock(Material material) {
         return ORE_BLOCK.contains(material);
     }
-
-    private final static ImmutableSet<Material> COOKING_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.FURNACE)
-			.add(Material.BLAST_FURNACE)
-			.add(Material.SMOKER)
-			.build();
 
 	/** Check if a material is a cooking block
 	 * <p>ie: furnace, blast furnace, smoker</p>
@@ -180,23 +423,6 @@ public class Utils {
         return COOKING_BLOCK.contains(material);
     }
 
-    private final static ImmutableSet<Material> UTILITY_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.CARTOGRAPHY_TABLE)
-			.add(Material.FLETCHING_TABLE)
-			.add(Material.LECTERN)
-			.add(Material.LOOM)
-			.add(Material.STONECUTTER)
-			.add(Material.GRINDSTONE)
-			.add(Material.SMITHING_TABLE)
-			.add(Material.ANVIL)
-			.add(Material.ENCHANTING_TABLE)
-			.add(Material.JUKEBOX)
-			.add(Material.NOTE_BLOCK)
-			.add(Material.BREWING_STAND)
-			.add(Material.CAULDRON)
-			.add(Material.COMPOSTER)
-			.build();
-
 	/** Check if a material is a utility block
 	 * <p>ie: cartography table, grindstone, anvil</p>
 	 * @param material Material to check
@@ -206,26 +432,6 @@ public class Utils {
         return UTILITY_BLOCK.contains(material);
     }
 
-    private final static ImmutableSet<Material> SHULKER_BOX = ImmutableSet.<Material>builder()
-			.add(Material.SHULKER_BOX)
-			.add(Material.BLACK_SHULKER_BOX)
-			.add(Material.BLUE_SHULKER_BOX)
-			.add(Material.BROWN_SHULKER_BOX)
-			.add(Material.CYAN_SHULKER_BOX)
-			.add(Material.GRAY_SHULKER_BOX)
-			.add(Material.GREEN_SHULKER_BOX)
-			.add(Material.LIGHT_BLUE_SHULKER_BOX)
-			.add(Material.LIGHT_GRAY_SHULKER_BOX)
-			.add(Material.LIME_SHULKER_BOX)
-			.add(Material.MAGENTA_SHULKER_BOX)
-			.add(Material.ORANGE_SHULKER_BOX)
-			.add(Material.PINK_SHULKER_BOX)
-			.add(Material.PURPLE_SHULKER_BOX)
-			.add(Material.RED_SHULKER_BOX)
-			.add(Material.WHITE_SHULKER_BOX)
-			.add(Material.YELLOW_SHULKER_BOX)
-			.build();
-
 	/** Check if a material is a shulker box
 	 * @param material Material to check
 	 * @return True if material is shulker box
@@ -233,13 +439,6 @@ public class Utils {
     public static boolean isShulkerBox(Material material) {
         return SHULKER_BOX.contains(material);
     }
-
-    private final static ImmutableSet<Material> STORAGE_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.CHEST)
-			.add(Material.ENDER_CHEST)
-			.add(Material.TRAPPED_CHEST)
-			.add(Material.BARREL)
-			.build();
 
 	/** Check if a material is a storage block
 	 * <p>ie: chest, ender chest, barrel</p>
@@ -249,35 +448,6 @@ public class Utils {
     public static boolean isStorageBlock(Material material) {
         return STORAGE_BLOCK.contains(material);
     }
-
-    private final static ImmutableSet<Material> STONE_TYPE_BLOCK = ImmutableSet.<Material>builder()
-			.add(Material.STONE)
-			.add(Material.COBBLESTONE)
-			.add(Material.MOSSY_COBBLESTONE)
-			.add(Material.INFESTED_COBBLESTONE)
-			.add(Material.ANDESITE)
-			.add(Material.POLISHED_ANDESITE)
-			.add(Material.DIORITE)
-			.add(Material.POLISHED_DIORITE)
-			.add(Material.GRANITE)
-			.add(Material.POLISHED_GRANITE)
-			.add(Material.BRICKS)
-			.add(Material.NETHER_BRICKS)
-			.add(Material.SANDSTONE)
-			.add(Material.CHISELED_SANDSTONE)
-			.add(Material.SMOOTH_SANDSTONE)
-			.add(Material.CUT_SANDSTONE)
-			.add(Material.RED_SANDSTONE)
-			.add(Material.CHISELED_RED_SANDSTONE)
-			.add(Material.CUT_RED_SANDSTONE)
-			.add(Material.SMOOTH_RED_SANDSTONE)
-			.add(Material.PRISMARINE)
-			.add(Material.NETHERRACK)
-			.add(Material.END_STONE)
-			.add(Material.END_STONE_BRICKS)
-			.add(Material.PURPUR_BLOCK)
-			.add(Material.PURPUR_PILLAR)
-			.build();
 
 	/** Check if a material is stone block type
 	 * @param material Material to check
@@ -314,15 +484,6 @@ public class Utils {
         return (Tag.STAIRS.isTagged(material) && !Tag.WOODEN_STAIRS.isTagged(material));
     }
 
-    private final static ImmutableSet<Material> WOOD_GATE = ImmutableSet.<Material>builder()
-			.add(Material.ACACIA_FENCE_GATE)
-			.add(Material.BIRCH_FENCE_GATE)
-			.add(Material.DARK_OAK_FENCE_GATE)
-			.add(Material.JUNGLE_FENCE_GATE)
-			.add(Material.OAK_FENCE_GATE)
-			.add(Material.SPRUCE_FENCE_GATE)
-			.build();
-
 	/** Check if a material is a wood gate
 	 * @param material Material to check
 	 * @return True if material is wood gate
@@ -330,22 +491,6 @@ public class Utils {
     public static boolean isWoodGate(Material material) {
         return WOOD_GATE.contains(material);
     }
-
-    private final static ImmutableSet<Material> FARMABLE = ImmutableSet.<Material>builder()
-			.add(Material.MELON)
-			.add(Material.MELON_STEM)
-			.add(Material.PUMPKIN)
-			.add(Material.PUMPKIN_STEM)
-			.add(Material.JACK_O_LANTERN)
-			.add(Material.CHORUS_FLOWER)
-			.add(Material.CHORUS_PLANT)
-			.add(Material.CARROTS)
-			.add(Material.POTATOES)
-			.add(Material.BEETROOTS)
-			.add(Material.WHEAT)
-			.add(Material.SWEET_BERRY_BUSH)
-			.add(Material.COCOA)
-			.build();
 
 	/** Check if a material is a farmable block
 	 * <p>ie: melon, potatoes, wheat</p>
@@ -356,14 +501,6 @@ public class Utils {
         return FARMABLE.contains(material);
     }
 
-    private final static ImmutableSet<Material> SHOVEL = ImmutableSet.<Material>builder()
-			.add(Material.STONE_SHOVEL)
-			.add(Material.IRON_SHOVEL)
-			.add(Material.DIAMOND_SHOVEL)
-			.add(Material.GOLDEN_SHOVEL)
-			.add(Material.WOODEN_SHOVEL)
-			.build();
-
 	/** Check if a material is a shove
 	 * @param material Material to check
 	 * @return True if material is shovel
@@ -371,22 +508,6 @@ public class Utils {
     public static boolean isShovel(Material material) {
         return SHOVEL.contains(material);
     }
-
-    private final static ImmutableSet<Material> REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
-			.add(Material.GRASS_BLOCK)
-			.add(Material.DIRT)
-			.add(Material.PODZOL)
-			.add(Material.COARSE_DIRT)
-			.add(Material.GRASS_PATH)
-			.add(Material.FARMLAND)
-			.add(Material.SOUL_SAND)
-			.add(Material.SAND)
-			.add(Material.RED_SAND)
-			.add(Material.CLAY)
-			.add(Material.MYCELIUM)
-			.add(Material.SNOW)
-			.add(Material.SNOW_BLOCK)
-			.build();
 
 	/** Check if a material requires a shovel to dig it
 	 * @param material Material to check
@@ -396,14 +517,6 @@ public class Utils {
 		return REQUIRES_SHOVEL.contains(material) || isConcretePowder(material);
 	}
 
-	private final static ImmutableSet<Material> PICKAXE = ImmutableSet.<Material>builder()
-			.add(Material.GOLDEN_PICKAXE)
-			.add(Material.WOODEN_PICKAXE)
-			.add(Material.DIAMOND_PICKAXE)
-			.add(Material.IRON_PICKAXE)
-			.add(Material.STONE_PICKAXE)
-			.build();
-
 	/** Check if a material is a pickaxe
 	 * @param material Material to check
 	 * @return True if material is pickaxe
@@ -411,36 +524,6 @@ public class Utils {
     public static boolean isPickaxe(Material material) {
         return PICKAXE.contains(material);
     }
-
-    private final static ImmutableSet<Material> REQUIRES_PICKAXE = ImmutableSet.<Material>builder()
-			.add(Material.NETHER_BRICK_FENCE)
-			.add(Material.NETHER_BRICKS)
-			.add(Material.RED_NETHER_BRICKS)
-			.add(Material.SPAWNER)
-			.add(Material.SEA_LANTERN)
-			.add(Material.GLOWSTONE)
-			.add(Material.END_ROD)
-			.add(Material.DISPENSER)
-			.add(Material.DROPPER)
-			.add(Material.OBSERVER)
-			.add(Material.PISTON)
-			.add(Material.PISTON_HEAD)
-			.add(Material.STICKY_PISTON)
-			.add(Material.MOVING_PISTON)
-			.add(Material.ENCHANTING_TABLE)
-			.add(Material.ANVIL)
-			.add(Material.GRINDSTONE)
-			.add(Material.STONECUTTER)
-			.add(Material.ENDER_CHEST)
-			.add(Material.HOPPER)
-			.add(Material.CAULDRON)
-			.add(Material.BREWING_STAND)
-			.add(Material.STONE_PRESSURE_PLATE)
-			.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
-			.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
-			.add(Material.BEACON)
-			.add(Material.OBSIDIAN)
-			.build();
 
 	/** Check if a material requires a pickaxe to mine it
 	 * <p>ie: ores, non-wood doors/slabs/stairs, concrete</p>
@@ -465,14 +548,6 @@ public class Utils {
         return Tag.RAILS.isTagged(material);
     }
 
-    private final static ImmutableSet<Material> AXE = ImmutableSet.<Material>builder()
-			.add(Material.WOODEN_AXE)
-			.add(Material.STONE_AXE)
-			.add(Material.GOLDEN_AXE)
-			.add(Material.IRON_AXE)
-			.add(Material.DIAMOND_AXE)
-			.build();
-
 	/** Check if a material is an axe
 	 * @param material Material to check
 	 * @return True if material is axe
@@ -480,26 +555,6 @@ public class Utils {
     public static boolean isAxe(Material material) {
         return AXE.contains(material);
     }
-
-    private final static ImmutableSet<Material> REQUIRES_AXE = ImmutableSet.<Material>builder()
-			.add(Material.CHEST)
-			.add(Material.TRAPPED_CHEST)
-			.add(Material.BARREL)
-			.add(Material.CRAFTING_TABLE)
-			.add(Material.CARTOGRAPHY_TABLE)
-			.add(Material.FLETCHING_TABLE)
-			.add(Material.SMITHING_TABLE)
-			.add(Material.LOOM)
-			.add(Material.LECTERN)
-			.add(Material.CAMPFIRE)
-			.add(Material.COMPOSTER)
-			.add(Material.BOOKSHELF)
-			.add(Material.LADDER)
-			.add(Material.JUKEBOX)
-			.add(Material.NOTE_BLOCK)
-			.add(Material.DAYLIGHT_DETECTOR)
-			.add(Material.SCAFFOLDING)
-			.build();
 
 	/** Check if a material requires an axe to break
 	 * @param material Material to check
@@ -519,13 +574,6 @@ public class Utils {
         return Utils.isWoodGate(material);
     }
 
-    private final static ImmutableSet<Material> REQUIRES_SHEARS = ImmutableSet.<Material>builder()
-			.add(Material.COBWEB)
-			.add(Material.TRIPWIRE)
-			.add(Material.TNT)
-			.add(Material.MUSHROOM_STEM)
-			.build();
-
 	/** Check if a material requires shears to break
 	 * <p>ie: cobweb, tripwire, tnt</p>
 	 * @param material Material to check
@@ -534,30 +582,6 @@ public class Utils {
     public static boolean requiresShears(Material material) {
         return REQUIRES_SHEARS.contains(material);
     }
-
-    private final static ImmutableSet<Material> REQUIRES_HAMMER = ImmutableSet.<Material>builder()
-			.add(Material.BOOKSHELF)
-			.add(Material.LADDER)
-			.add(Material.SEA_LANTERN)
-			.add(Material.GLOWSTONE)
-			.add(Material.END_ROD)
-			.add(Material.DISPENSER)
-			.add(Material.DROPPER)
-			.add(Material.HOPPER)
-			.add(Material.STONE_PRESSURE_PLATE)
-			.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
-			.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
-			.add(Material.DAYLIGHT_DETECTOR)
-			.add(Material.PISTON)
-			.add(Material.STICKY_PISTON)
-			.add(Material.REDSTONE_LAMP)
-			.add(Material.REPEATER)
-			.add(Material.COMPARATOR)
-			.add(Material.TRIPWIRE_HOOK)
-			.add(Material.BEACON)
-			.add(Material.IRON_BARS)
-			.add(Material.SCAFFOLDING)
-			.build();
 
 	/** Check if a material requires a hammer (in offhand) to place
 	 * @param material Material to check
