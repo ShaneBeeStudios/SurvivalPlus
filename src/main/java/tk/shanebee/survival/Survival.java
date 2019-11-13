@@ -2,6 +2,7 @@ package tk.shanebee.survival;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -64,12 +65,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		// LOAD MAIN CONFIG FILE
-		loadSettings();
-
-		// LOAD LANG FILE
-		lang = new Lang(this, config.LANG);
-		lang.loadLangFile(Bukkit.getConsoleSender());
-		prefix = lang.prefix;
+		loadSettings(Bukkit.getConsoleSender());
 
 		for (World world : getServer().getWorlds()) {
 			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, config.SURVIVAL_LIMITED_CRAFTING);
@@ -110,10 +106,6 @@ public class Survival extends JavaPlugin implements Listener {
 				return;
 			}
 		}
-
-		for (String type : config.MECHANICS_CHAIRS_BLOCKS)
-			chairBlocks.add(Material.getMaterial(type));
-
 
 		// LOAD SCOREBOARDS
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -191,8 +183,19 @@ public class Survival extends JavaPlugin implements Listener {
 	/**
 	 * Load config settings
 	 */
-	public void loadSettings() {
+	public void loadSettings(CommandSender sender) {
 		this.config = new Config(this);
+		this.lang = new Lang(this, config.LANG);
+		this.lang.loadLangFile(sender);
+		this.prefix = lang.prefix;
+		for (String type : config.MECHANICS_CHAIRS_BLOCKS) {
+			Material mat = Material.getMaterial(type);
+			if (mat != null) {
+				chairBlocks.add(mat);
+			} else {
+				Utils.log("&cInvalid chair block material: &7" + type);
+			}
+		}
 	}
 
 	@EventHandler

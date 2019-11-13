@@ -9,10 +9,12 @@ import tk.shanebee.survival.Survival;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Lang {
 
-    private Survival main;
+    private Survival plugin;
     private String language;
     private String lang_yml;
 
@@ -169,10 +171,8 @@ public class Lang {
     public String campfire_name;
     public String campfire_lore;
 
-
-
     public Lang(Survival main, String language) {
-        this.main = main;
+        this.plugin = main;
         this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
         this.language = language;
     }
@@ -180,13 +180,14 @@ public class Lang {
     public void loadLangFile(CommandSender sender) {
         String loaded;
         FileConfiguration lang;
-        File lang_file = new File(main.getDataFolder(), lang_yml);
+        File lang_file = new File(plugin.getDataFolder(), lang_yml);
         if (!lang_file.exists()) {
-            main.saveResource(lang_yml, true);
+            plugin.saveResource(lang_yml, true);
             loaded = "&aNew " + lang_yml + " created";
         } else {
             loaded = "&7" + lang_yml + " &aloaded";
-            updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
+            //updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
+            matchConfig(YamlConfiguration.loadConfiguration(lang_file), lang_file);
         }
         lang = YamlConfiguration.loadConfiguration(lang_file);
 
@@ -336,7 +337,35 @@ public class Lang {
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
 
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + loaded));
+        Utils.sendColoredMsg(sender, prefix + loaded);
+    }
+
+    // Used to update config
+    @SuppressWarnings("ConstantConditions")
+    private void matchConfig(FileConfiguration config, File file) {
+        try {
+            boolean hasUpdated = false;
+            InputStream test = plugin.getResource(file.getName());
+            assert test != null;
+            InputStreamReader is = new InputStreamReader(test);
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(is);
+            for (String key : defConfig.getConfigurationSection("").getKeys(true)) {
+                if (!config.contains(key)) {
+                    config.set(key, defConfig.get(key));
+                    hasUpdated = true;
+                }
+            }
+            for (String key : config.getConfigurationSection("").getKeys(true)) {
+                if (!defConfig.contains(key)) {
+                    config.set(key, null);
+                    hasUpdated = true;
+                }
+            }
+            if (hasUpdated)
+                config.save(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateLang(YamlConfiguration lang, File file) {

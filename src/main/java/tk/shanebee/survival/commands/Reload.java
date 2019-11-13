@@ -18,14 +18,8 @@ public class Reload implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String prefix = lang.prefix;
-
-		plugin.loadSettings();
-		Utils.sendColoredMsg(sender, prefix + "&7Config &areloaded");
-
-		lang.loadLangFile(sender);
-		Utils.sendColoredMsg(sender, prefix + "&7Lang file &areloaded");
-		Utils.sendColoredMsg(sender, prefix + "&aReload complete");
+		plugin.loadSettings(sender);
+		Utils.sendColoredMsg(sender, lang.prefix + "&aReload complete");
 		return true;
 	}
 
