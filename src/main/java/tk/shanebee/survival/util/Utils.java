@@ -145,11 +145,6 @@ public class Utils {
         return NATURAL_ORE_BLOCK.contains(material);
     }
 
-	/** Check if a material is an ore block
-	 * <p>ie: coal block, diamond block, iron block</p>
-	 * @param material Material to check
-	 * @return True if material is ore block
-	 */
     private final static ImmutableSet<Material> ORE_BLOCK = ImmutableSet.<Material>builder()
 			.add(Material.COAL_BLOCK)
 			.add(Material.DIAMOND_BLOCK)
@@ -161,6 +156,11 @@ public class Utils {
 			.add(Material.REDSTONE_BLOCK)
 			.build();
 
+	/** Check if a material is an ore block
+	 * <p>ie: coal block, diamond block, iron block</p>
+	 * @param material Material to check
+	 * @return True if material is ore block
+	 */
     public static boolean isOreBlock(Material material) {
         return ORE_BLOCK.contains(material);
     }
@@ -594,7 +594,7 @@ public class Utils {
 	/** Get the drops for a certain material
 	 * @param material Material that will be broken
 	 * @param grown If the block is grown
-	 * @return
+	 * @return List of materials this material will drop
 	 */
     public static List<Material> getDrops(Material material, Boolean grown) {
         List<Material> mat = new ArrayList<>();
