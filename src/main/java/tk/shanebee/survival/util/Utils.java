@@ -36,6 +36,10 @@ public class Utils {
             .add(Material.YELLOW_CONCRETE)
             .build();
 
+	/** Check if a material is concrete
+	 * @param material Material to check
+	 * @return True if material is concrete
+	 */
     public static boolean isConcrete(Material material) {
         return CONCRETE_BLOCKS.contains(material);
     }
@@ -59,6 +63,10 @@ public class Utils {
             .add(Material.LIGHT_GRAY_CONCRETE_POWDER)
             .build();
 
+	/** Check if a material is concrete powder
+	 * @param material Material to check
+	 * @return True if material is concrete powder
+	 */
     public static boolean isConcretePowder(Material material) {
         return CONCRETE_POWDER.contains(material);
     }
@@ -82,6 +90,10 @@ public class Utils {
             .add(Material.YELLOW_GLAZED_TERRACOTTA)
             .build();
 
+	/** Check if a material is glazed terracotta
+	 * @param material Material to check
+	 * @return True if material is glazed terracotta
+	 */
     public static boolean isGlazedTerracotta(Material material) {
         return GLAZED_TERRACOTTA.contains(material);
     }
@@ -105,6 +117,10 @@ public class Utils {
 			.add(Material.YELLOW_TERRACOTTA)
 			.build();
 
+	/** Check if a material is terracotta
+	 * @param material Material to check
+	 * @return True if material is terracotta
+	 */
     public static boolean isTerracotta(Material material) {
         return TERRACOTTA.contains(material);
     }
@@ -120,10 +136,20 @@ public class Utils {
 			.add(Material.REDSTONE_ORE)
 			.build();
 
+	/** Check if a material is a natural ore block
+	 * <p>ie: coal ore, diamond ore, iron ore</p>
+	 * @param material Material to check
+	 * @return True if material is natural ore block
+	 */
     public static boolean isNaturalOreBlock(Material material) {
         return NATURAL_ORE_BLOCK.contains(material);
     }
 
+	/** Check if a material is an ore block
+	 * <p>ie: coal block, diamond block, iron block</p>
+	 * @param material Material to check
+	 * @return True if material is ore block
+	 */
     private final static ImmutableSet<Material> ORE_BLOCK = ImmutableSet.<Material>builder()
 			.add(Material.COAL_BLOCK)
 			.add(Material.DIAMOND_BLOCK)
@@ -145,6 +171,11 @@ public class Utils {
 			.add(Material.SMOKER)
 			.build();
 
+	/** Check if a material is a cooking block
+	 * <p>ie: furnace, blast furnace, smoker</p>
+	 * @param material Material to check
+	 * @return True if material is cooking block
+	 */
     public static boolean isCookingBlock(Material material) {
         return COOKING_BLOCK.contains(material);
     }
@@ -166,6 +197,11 @@ public class Utils {
 			.add(Material.COMPOSTER)
 			.build();
 
+	/** Check if a material is a utility block
+	 * <p>ie: cartography table, grindstone, anvil</p>
+	 * @param material Material to check
+	 * @return True if material is utility block
+	 */
     public static boolean isUtilityBlock(Material material) {
         return UTILITY_BLOCK.contains(material);
     }
@@ -190,6 +226,10 @@ public class Utils {
 			.add(Material.YELLOW_SHULKER_BOX)
 			.build();
 
+	/** Check if a material is a shulker box
+	 * @param material Material to check
+	 * @return True if material is shulker box
+	 */
     public static boolean isShulkerBox(Material material) {
         return SHULKER_BOX.contains(material);
     }
@@ -201,6 +241,11 @@ public class Utils {
 			.add(Material.BARREL)
 			.build();
 
+	/** Check if a material is a storage block
+	 * <p>ie: chest, ender chest, barrel</p>
+	 * @param material Material to check
+	 * @return True if material is storage block
+	 */
     public static boolean isStorageBlock(Material material) {
         return STORAGE_BLOCK.contains(material);
     }
@@ -234,6 +279,10 @@ public class Utils {
 			.add(Material.PURPUR_PILLAR)
 			.build();
 
+	/** Check if a material is stone block type
+	 * @param material Material to check
+	 * @return True if material is stone block type
+	 */
     public static boolean isStoneTypeBlock(Material material) {
         if (STONE_TYPE_BLOCK.contains(material)) return true;
         if (isNonWoodSlab(material)) return true;
@@ -241,14 +290,26 @@ public class Utils {
         return Tag.STONE_BRICKS.isTagged(material) || Tag.WALLS.isTagged(material);
     }
 
+	/** Check if a material is a non wood door
+	 * @param material Material to check
+	 * @return True if material is non wood door
+	 */
     public static boolean isNonWoodDoor(Material material) {
         return (Tag.DOORS.isTagged(material) && !Tag.WOODEN_DOORS.isTagged(material));
     }
 
+	/** Check if a material is a non wood slab
+	 * @param material Material to check
+	 * @return True if material is non wood slab
+	 */
     public static boolean isNonWoodSlab(Material material) {
         return (Tag.SLABS.isTagged(material) && !Tag.WOODEN_SLABS.isTagged(material));
     }
 
+	/** Check if a material is a non wood stair
+	 * @param material Material to check
+	 * @return True if material is non wood stair
+	 */
     public static boolean isNonWoodStairs(Material material) {
         return (Tag.STAIRS.isTagged(material) && !Tag.WOODEN_STAIRS.isTagged(material));
     }
@@ -262,6 +323,10 @@ public class Utils {
 			.add(Material.SPRUCE_FENCE_GATE)
 			.build();
 
+	/** Check if a material is a wood gate
+	 * @param material Material to check
+	 * @return True if material is wood gate
+	 */
     public static boolean isWoodGate(Material material) {
         return WOOD_GATE.contains(material);
     }
@@ -282,6 +347,11 @@ public class Utils {
 			.add(Material.COCOA)
 			.build();
 
+	/** Check if a material is a farmable block
+	 * <p>ie: melon, potatoes, wheat</p>
+	 * @param material Material to check
+	 * @return True if material is farmable block
+	 */
     public static boolean isFarmable(Material material) {
         return FARMABLE.contains(material);
     }
@@ -294,6 +364,10 @@ public class Utils {
 			.add(Material.WOODEN_SHOVEL)
 			.build();
 
+	/** Check if a material is a shove
+	 * @param material Material to check
+	 * @return True if material is shovel
+	 */
     public static boolean isShovel(Material material) {
         return SHOVEL.contains(material);
     }
@@ -314,6 +388,10 @@ public class Utils {
 			.add(Material.SNOW_BLOCK)
 			.build();
 
+	/** Check if a material requires a shovel to dig it
+	 * @param material Material to check
+	 * @return True if material requires a shovel
+	 */
     public static boolean requiresShovel(Material material) {
 		return REQUIRES_SHOVEL.contains(material) || isConcretePowder(material);
 	}
@@ -326,6 +404,10 @@ public class Utils {
 			.add(Material.STONE_PICKAXE)
 			.build();
 
+	/** Check if a material is a pickaxe
+	 * @param material Material to check
+	 * @return True if material is pickaxe
+	 */
     public static boolean isPickaxe(Material material) {
         return PICKAXE.contains(material);
     }
@@ -360,6 +442,11 @@ public class Utils {
 			.add(Material.OBSIDIAN)
 			.build();
 
+	/** Check if a material requires a pickaxe to mine it
+	 * <p>ie: ores, non-wood doors/slabs/stairs, concrete</p>
+	 * @param material Material to check
+	 * @return True if material requires pickaxe
+	 */
     public static boolean requiresPickaxe(Material material) {
         if (REQUIRES_PICKAXE.contains(material)) return true;
         if (Utils.isOreBlock(material)) return true;
@@ -386,6 +473,10 @@ public class Utils {
 			.add(Material.DIAMOND_AXE)
 			.build();
 
+	/** Check if a material is an axe
+	 * @param material Material to check
+	 * @return True if material is axe
+	 */
     public static boolean isAxe(Material material) {
         return AXE.contains(material);
     }
@@ -410,6 +501,10 @@ public class Utils {
 			.add(Material.SCAFFOLDING)
 			.build();
 
+	/** Check if a material requires an axe to break
+	 * @param material Material to check
+	 * @return True if material requires axe
+	 */
     public static boolean requiresAxe(Material material) {
         if (REQUIRES_AXE.contains(material)) return true;
         if (Tag.WOODEN_DOORS.isTagged(material)) return true;
@@ -431,6 +526,11 @@ public class Utils {
 			.add(Material.MUSHROOM_STEM)
 			.build();
 
+	/** Check if a material requires shears to break
+	 * <p>ie: cobweb, tripwire, tnt</p>
+	 * @param material Material to check
+	 * @return True if material requires shears
+	 */
     public static boolean requiresShears(Material material) {
         return REQUIRES_SHEARS.contains(material);
     }
@@ -459,6 +559,10 @@ public class Utils {
 			.add(Material.SCAFFOLDING)
 			.build();
 
+	/** Check if a material requires a hammer (in offhand) to place
+	 * @param material Material to check
+	 * @return True if material requires hammer
+	 */
     public static boolean requiresHammer(Material material) {
         if (REQUIRES_HAMMER.contains(material)) return true;
         return Tag.DOORS.isTagged(material)
@@ -487,6 +591,11 @@ public class Utils {
                 || Tag.SIGNS.isTagged(material);
     }
 
+	/** Get the drops for a certain material
+	 * @param material Material that will be broken
+	 * @param grown If the block is grown
+	 * @return
+	 */
     public static List<Material> getDrops(Material material, Boolean grown) {
         List<Material> mat = new ArrayList<>();
         switch (material) {
@@ -551,6 +660,9 @@ public class Utils {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+	/** Send a colored console message
+	 * @param msg Message to send
+	 */
     public static void sendColoredConsoleMsg(String msg) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
