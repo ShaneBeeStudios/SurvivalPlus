@@ -59,11 +59,10 @@ public class PlayerManager implements Listener {
 	 */
 	public void createNewPlayerData(OfflinePlayer player) {
 		UUID uuid = player.getUniqueId();
-		int thirst = 20; // TODO temp values
-		int proteins = 20;
-		int carbs = 20;
-		int salts = 20;
-		PlayerData playerData = new PlayerData(uuid, thirst, proteins, carbs, salts, 0);
+
+		int thirst = 20; //TODO temp value
+
+		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 0);
 		playerDataMap.put(uuid, playerData);
 		savePlayerData(playerData);
 	}
