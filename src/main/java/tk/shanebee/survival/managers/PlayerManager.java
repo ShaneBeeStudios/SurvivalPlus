@@ -2,31 +2,96 @@ package tk.shanebee.survival.managers;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.PlayerDataConfig;
+import tk.shanebee.survival.data.Nutrient;
+import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.util.Lang;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public class PlayerManager {
+/**
+ * Manager for players
+ * <p>Get an instance of this class from <b>{@link Survival#getPlayerManager()}</b></p>
+ */
+public class PlayerManager implements Listener {
 
 	private String url;
-	private Scoreboard mainBoard;
 	private Lang lang;
 	private Survival plugin;
+	private PlayerDataConfig playerDataConfig;
+
+	// Store all the active PlayerData
+	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
 	public PlayerManager(Survival plugin) {
 		this.plugin = plugin;
-		this.mainBoard = plugin.getMainBoard();
 		this.lang = plugin.getLang();
 		this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
+		this.playerDataConfig = plugin.getPlayerDataConfig();
+		loadPlayerData();
 	}
 
-	/** Set the waypoint of a player's compass to their location
-	 * @param player The player to set a waypoint for
+	/**
+	 * Get PlayerData for a player
+	 *
+	 * @param player Player to get data for
+	 * @return PlayerData for player
+	 */
+	public PlayerData getPlayerData(OfflinePlayer player) {
+		return playerDataMap.get(player.getUniqueId());
+	}
+
+	/** Get a collection of all PlayerData
+	 * @return Collection of all PlayerData
+	 */
+	public Collection<PlayerData> getAllPlayerData() {
+		return playerDataMap.values();
+	}
+
+	/**
+	 * Create player data for a new player
+	 *
+	 * @param player Player to create data for
+	 */
+	public void createNewPlayerData(OfflinePlayer player) {
+		UUID uuid = player.getUniqueId();
+		int thirst = 20; // TODO temp values
+		int proteins = 20;
+		int carbs = 20;
+		int salts = 20;
+		PlayerData playerData = new PlayerData(uuid, thirst, proteins, carbs, salts, 0);
+		playerDataMap.put(uuid, playerData);
+		savePlayerData(playerData);
+	}
+
+	/**
+	 * Save PlayerData to file
+	 *
+	 * @param data PlayerData to save
+	 */
+	public void savePlayerData(PlayerData data) {
+		playerDataConfig.savePlayerDataToFile(data);
+	}
+
+	/**
+	 * Load PlayerData from file into map
+	 *
+	 * @param player Player to load data for
+	 */
+	@SuppressWarnings("unused") // TODO do we need this?!?
+	public void loadPlayerData(OfflinePlayer player) {
+		PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
+		playerDataMap.put(player.getUniqueId(), playerData);
+	}
+
+	/**
+	 * Set the waypoint of a player's compass to their location
+	 *
+	 * @param player   The player to set a waypoint for
 	 * @param particle If particles should show at the location a waypoint is set
 	 */
 	@SuppressWarnings("unused")
@@ -34,8 +99,10 @@ public class PlayerManager {
 		setWaypoint(player, player.getLocation(), particle);
 	}
 
-	/** Set the waypoint of a player's compass
-	 * @param player The player to set a waypoint for
+	/**
+	 * Set the waypoint of a player's compass
+	 *
+	 * @param player   The player to set a waypoint for
 	 * @param location The location of the waypoint
 	 * @param particle If the particles should show at the location a waypoint is set
 	 */
@@ -45,9 +112,11 @@ public class PlayerManager {
 			Utils.spawnParticle(location, Particle.CLOUD, 25, 0.5, 0.5, 0.5, player);
 	}
 
-	/** Apply SurvivalPlus' resource pack to a player
+	/**
+	 * Apply SurvivalPlus' resource pack to a player
+	 *
 	 * @param player The player to apply the resource pack to
-	 * @param delay A delay in ticks
+	 * @param delay  A delay in ticks
 	 */
 	public void applyResourcePack(Player player, int delay) {
 		if (url != null) {
@@ -100,16 +169,19 @@ public class PlayerManager {
 
 	public List<String> ShowThirst(Player player) {
 		StringBuilder thirstBar = new StringBuilder();
-		for (int i = 0; i < StatusManager.getThirst(player); i++) {
+		PlayerData data = getPlayerData(player);
+		int thirst = data.getThirst();
+
+		for (int i = 0; i < thirst; i++) {
 			thirstBar.append("|");
 		}
-		for (int i = StatusManager.getThirst(player); i < 20; i++) {
+		for (int i = thirst; i < 20; i++) {
 			thirstBar.append(".");
 		}
 
-		if (StatusManager.getThirst(player) >= 40)
+		if (thirst >= 40)
 			thirstBar.insert(0, ChatColor.GREEN);
-		else if (StatusManager.getThirst(player) <= 6)
+		else if (thirst <= 6)
 			thirstBar.insert(0, ChatColor.RED);
 		else
 			thirstBar.insert(0, ChatColor.AQUA);
@@ -145,9 +217,11 @@ public class PlayerManager {
 
 	public List<String> ShowNutrients(Player player) {
 		List<String> nutrients = new ArrayList<>();
-		int carbon = mainBoard.getObjective("Carbs").getScore(player.getName()).getScore();
-		int protein = mainBoard.getObjective("Protein").getScore(player.getName()).getScore();
-		int salts = mainBoard.getObjective("Salts").getScore(player.getName()).getScore();
+		PlayerData data = getPlayerData(player);
+
+		int carbon = data.getNutrient(Nutrient.CARBS);
+		int protein = data.getNutrient(Nutrient.PROTEIN);
+		int salts = data.getNutrient(Nutrient.SALTS);
 
 		String showCarbon = Integer.toString(carbon);
 		if (carbon >= 480)
@@ -174,7 +248,8 @@ public class PlayerManager {
 	}
 
 	public String ShowFatigue(Player player) {
-		int fatigue = mainBoard.getObjective("Fatigue").getScore(player.getName()).getScore();
+		PlayerData data = getPlayerData(player);
+		int fatigue = data.getFatigue();
 
 		if (fatigue <= 0)
 			return ChatColor.YELLOW + lang.energized;
@@ -187,17 +262,63 @@ public class PlayerManager {
 		else return ChatColor.DARK_GRAY + lang.collapsed_1;
 	}
 
-	/** Check if player is holding arrows in their offhand
+	/**
+	 * Check if player is holding arrows in their offhand
+	 *
 	 * @param player The player to check
 	 * @return Whether or not the player has arrows in their offhand
 	 */
-	public boolean isArrowOffHand(Player player){
+	public boolean isArrowOffHand(Player player) {
 		Material mainHand = player.getInventory().getItemInMainHand().getType();
 		Material offHand = player.getInventory().getItemInOffHand().getType();
 		if (mainHand == Material.CROSSBOW)
 			return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW
 					|| offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
 		return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW || offHand == Material.TIPPED_ARROW;
+	}
+
+	@SuppressWarnings("ConstantConditions")
+	private void loadPlayerData() {
+		OfflinePlayer[] players = Bukkit.getOfflinePlayers();
+		Scoreboard scoreboard = plugin.getMainBoard();
+
+		// Convert previous player data
+		if (scoreboard.getObjective("Thirst") != null && playerDataConfig.needsConversion()) {
+			Utils.log("&bConverting player data!");
+			int n = 0;
+			int c = 0;
+			long time = System.currentTimeMillis();
+
+			for (OfflinePlayer player : players) {
+				UUID uuid = player.getUniqueId();
+				assert player.getName() != null;
+				int thirst = scoreboard.getObjective("Thirst").getScore(player.getName()).getScore();
+				int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
+				int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
+				int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
+				int fatigue = scoreboard.getObjective("Fatigue").getScore(player.getName()).getScore();
+				if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
+					PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
+					playerDataMap.put(uuid, data);
+					savePlayerData(data);
+					c++;
+				} else {
+					createNewPlayerData(player);
+					n++;
+				}
+			}
+			Utils.log("Converted players: &b" + c);
+			Utils.log("New player data files: &b" + n);
+			Utils.log("&aPlayer data conversion completed in " + ((System.currentTimeMillis() - time) / 1000) + " seconds!");
+
+		// If we dont convert, we just load player data into the map
+		} else {
+			for (OfflinePlayer player : players) {
+				PlayerData data = playerDataConfig.getPlayerDataFromFile(player);
+				this.playerDataMap.put(player.getUniqueId(), data);
+			}
+			Utils.log("PlayerData &aloaded &7for &b" + players.length + " &7players.");
+		}
 	}
 
 }

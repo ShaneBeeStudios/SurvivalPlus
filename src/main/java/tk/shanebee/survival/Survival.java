@@ -3,6 +3,7 @@ package tk.shanebee.survival;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,6 +11,8 @@ import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.commands.*;
+import tk.shanebee.survival.config.PlayerDataConfig;
+import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.listeners.EventManager;
 import tk.shanebee.survival.managers.*;
 import tk.shanebee.survival.metrics.Metrics;
@@ -24,6 +27,10 @@ import java.util.List;
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
 
+	static {
+		ConfigurationSerialization.registerClass(PlayerData.class, "PlayerData");
+	}
+
 	private static Survival instance;
 
 	// Lists
@@ -34,6 +41,7 @@ public class Survival extends JavaPlugin implements Listener {
 	// Configs
 	private Config config;
 	private Lang lang;
+	private PlayerDataConfig playerDataConfig;
 
 	// Scoreboards
 	private Scoreboard board;
@@ -183,6 +191,7 @@ public class Survival extends JavaPlugin implements Listener {
 
 	/**
 	 * Load config settings
+	 * @param sender The person/console loading config
 	 */
 	public void loadSettings(CommandSender sender) {
 		this.config = new Config(this);
@@ -197,6 +206,7 @@ public class Survival extends JavaPlugin implements Listener {
 				Utils.log("&cInvalid chair block material: &7" + type);
 			}
 		}
+		this.playerDataConfig = new PlayerDataConfig(this);
 	}
 
 	@EventHandler
@@ -322,4 +332,7 @@ public class Survival extends JavaPlugin implements Listener {
 		return usingPlayers;
 	}
 
+	public PlayerDataConfig getPlayerDataConfig() {
+		return playerDataConfig;
+	}
 }

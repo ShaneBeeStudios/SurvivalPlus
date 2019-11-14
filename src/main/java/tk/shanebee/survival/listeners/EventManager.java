@@ -107,6 +107,7 @@ public class EventManager {
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
 			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
+		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 	}
 
 }

@@ -1,22 +1,19 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.events.FatigueLevelChangeEvent;
-import tk.shanebee.survival.events.ThirstLevelChangeEvent;
-
-import java.util.Objects;
+import tk.shanebee.survival.data.Nutrient;
+import tk.shanebee.survival.data.PlayerData;
 
 /**
  * Manage a player's different status levels
+ * @deprecated Use <b>{@link PlayerData}</b>
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
+@Deprecated
 public class StatusManager {
-    
-    private static Scoreboard mainBoard = Survival.getInstance().getMainBoard();
+
+    private static PlayerManager playerManager = Survival.getInstance().getPlayerManager();
 
     /**
      * Enums for Nutrient types
@@ -31,6 +28,11 @@ public class StatusManager {
         Nutrients(String nutrient){
             name = nutrient;
         }
+
+        public String getName() {
+            return name;
+        }
+
     }
 
     /** Set the thirst level of a player
@@ -38,9 +40,8 @@ public class StatusManager {
      * @param level The level of thirst to set (Max = 40)
      */
     public static void setThirst(Player player, int level) {
-        Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
-        int newLevel = level <= 40 ? level : 40;
-        thirst.setScore(newLevel);
+        PlayerData pd = playerManager.getPlayerData(player);
+        pd.setThirst(level);
     }
 
     /** Get the thirst level of a player
@@ -48,7 +49,8 @@ public class StatusManager {
      * @return The thirst level of this player
      */
     public static int getThirst(Player player) {
-        return Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName()).getScore();
+        PlayerData pd = playerManager.getPlayerData(player);
+        return pd.getThirst();
     }
 
     /** Add to the thirst level of a player
@@ -56,10 +58,7 @@ public class StatusManager {
      * @param level The level of thirst to add
      */
     public static void addThirst(Player player, int level) {
-        Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
-        int add = thirst.getScore() + level;
-        int newLevel = add <= 40 ? add : 40;
-        thirst.setScore(newLevel);
+        setThirst(player, getThirst(player) + level);
     }
 
     /** Remove from the thirst level of a player
@@ -67,10 +66,7 @@ public class StatusManager {
      * @param level The level of thirst to remove
      */
     public static void removeThirst(Player player, int level) {
-        Score thirst = Objects.requireNonNull(mainBoard.getObjective("Thirst")).getScore(player.getName());
-        int remove = thirst.getScore() - level;
-        int newLevel = remove > 0 ? remove : 0;
-        thirst.setScore(remove > 0 ? remove : 0);
+        setThirst(player, getThirst(player) - level);
     }
 
     /** Set the nutrient levels of a player
@@ -79,8 +75,17 @@ public class StatusManager {
      * @param level The level to set
      */
     public static void setNutrients(Player player, Nutrients nutrient, int level) {
-        Score nut = Objects.requireNonNull(mainBoard.getObjective(nutrient.name)).getScore(player.getName());
-        nut.setScore(level);
+        PlayerData pd = playerManager.getPlayerData(player);
+        switch (nutrient) {
+            case SALTS:
+                pd.setNutrient(Nutrient.SALTS, level);
+                break;
+            case CARBS:
+                pd.setNutrient(Nutrient.CARBS, level);
+                break;
+            case PROTEIN:
+                pd.setNutrient(Nutrient.PROTEIN, level);
+        }
     }
 
     /** Get the nutrient levels of a player
@@ -89,7 +94,17 @@ public class StatusManager {
      * @return The level of this nutrient
      */
     public static int getNutrients(Player player, Nutrients nutrient) {
-        return Objects.requireNonNull(mainBoard.getObjective(nutrient.name)).getScore(player.getName()).getScore();
+        PlayerData pd = playerManager.getPlayerData(player);
+        switch (nutrient) {
+            case SALTS:
+                return pd.getNutrient(Nutrient.SALTS);
+            case CARBS:
+                return pd.getNutrient(Nutrient.CARBS);
+            case PROTEIN:
+                return pd.getNutrient(Nutrient.PROTEIN);
+            default:
+                return 0;
+        }
     }
 
     /** Add to the nutrient levels of a player
@@ -98,8 +113,7 @@ public class StatusManager {
      * @param level The level to add
      */
     public static void addNutrients(Player player, Nutrients nutrient, int level) {
-        Score nut = Objects.requireNonNull(mainBoard.getObjective(nutrient.name)).getScore(player.getName());
-        nut.setScore(nut.getScore() + level);
+        setNutrients(player, nutrient, getNutrients(player, nutrient) + level);
     }
 
     /** Remove from the nutrient levels of a player
@@ -108,9 +122,7 @@ public class StatusManager {
      * @param level The level to remove
      */
     public static void removeNutrients(Player player, Nutrients nutrient, int level) {
-        Score nut = Objects.requireNonNull(mainBoard.getObjective(nutrient.name)).getScore(player.getName());
-        int remove = nut.getScore() - level;
-        nut.setScore(remove > 0 ? remove : 0);
+        setNutrients(player, nutrient, getNutrients(player, nutrient) - level);
     }
 
     /** Set the fatigue level of a player
@@ -118,12 +130,8 @@ public class StatusManager {
      * @param level The level to set for the player (0 - 4)
      */
     public static void setFatigue(Player player, int level) {
-        Score fatigue = Objects.requireNonNull(mainBoard.getObjective("Fatigue")).getScore(player.getName());
-        if (level > 4)
-            level = 4;
-        if (level < 0)
-            level = 0;
-        fatigue.setScore(level);
+        PlayerData pd = playerManager.getPlayerData(player);
+        pd.setFatigue(level);
     }
 
     /** Get the fatigue level of a player
@@ -131,17 +139,15 @@ public class StatusManager {
      * @return The fatigue level of this player (0 - 5)
      */
     public static int getFatigue(Player player) {
-        return Objects.requireNonNull(mainBoard.getObjective("Fatigue")).getScore(player.getName()).getScore();
+        PlayerData pd = playerManager.getPlayerData(player);
+        return pd.getFatigue();
     }
 
     /** Increase a player's fatigue level by 1
      * @param player The player to increase fatigue for
      */
     public static void increaseFatigue(Player player) {
-        Score fatigue = Objects.requireNonNull(mainBoard.getObjective("Fatigue")).getScore(player.getName());
-        int increase = fatigue.getScore() + 1;
-        int newLevel = increase < 4 ? increase : 4;
-        fatigue.setScore(newLevel);
+        setFatigue(player, getFatigue( player) + 1);
     }
 
     /** Set the hunger level of a player
@@ -152,8 +158,8 @@ public class StatusManager {
      * @param level The level to set for the player
      */
     public static void setHunger(Player player, int level) {
-        level = level <= 40 ? level : 40;
-        player.setFoodLevel(level <= 20 ? level : 20);
+        level = Math.min(level, 40);
+        player.setFoodLevel(Math.min(level, 20));
         player.setSaturation(level >= 21 ? level - 20 : 0);
     }
 
