@@ -139,6 +139,7 @@ public class Survival extends JavaPlugin implements Listener {
 		// Load metrics
 		@SuppressWarnings("unused")
 		Metrics metrics = new Metrics(this);
+		Utils.sendColoredConsoleMsg(prefix + "&7Metrics " + (metrics.isEnabled() ? "&aenabled" : "&cdisabled"));
 
 		Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded");
 		if (this.getDescription().getVersion().contains("Beta")) {
