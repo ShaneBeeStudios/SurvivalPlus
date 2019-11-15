@@ -7,17 +7,17 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.Info;
+import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.util.Config;
 
 public class ScoreBoardManager {
 
     private Survival plugin;
     private Config config;
-    private Scoreboard mainBoard;
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
-        this.mainBoard = plugin.getMainBoard();
         this.config = plugin.getSurvivalConfig();
     }
 
@@ -54,7 +54,6 @@ public class ScoreBoardManager {
             mainBoard.registerNewObjective("Salts", "dummy");
         } catch (IllegalArgumentException ignored) {
         }
-         */
         try {
             mainBoard.registerNewObjective("BoardHunger", "dummy");
         } catch (IllegalArgumentException ignored) {
@@ -71,6 +70,7 @@ public class ScoreBoardManager {
             mainBoard.registerNewObjective("BoardNutrients", "dummy");
         } catch (IllegalArgumentException ignored) {
         }
+         */
     }
 
     /** Sets up a scoreboard for a player
@@ -81,24 +81,22 @@ public class ScoreBoardManager {
      */
     public void setupScoreboard(Player p) {
         final Player player = p;
+        PlayerData playerData = plugin.getPlayerManager().getPlayerData(p);
+
         final Scoreboard stats = Bukkit.getScoreboardManager().getNewScoreboard();
         player.setScoreboard(stats);
 
         Runnable run = new Runnable() {
             Objective status = stats.registerNewObjective("Status", "dummy", "Status");
 
-            Objective boardHunger = mainBoard.getObjective("BoardHunger");
-            Objective boardThirst = mainBoard.getObjective("BoardThirst");
-            Objective boardFatigue = mainBoard.getObjective("BoardFatigue");
-            Objective boardNutrients = mainBoard.getObjective("BoardNutrients");
-
             public void run() {
                 status.unregister();
+                if (!player.isOnline()) return;
                 status = stats.registerNewObjective("Status", "dummy", "Status");
                 status.setDisplaySlot(DisplaySlot.SIDEBAR);
                 status.setDisplayName("Status");
 
-                if (boardHunger.getScore(player.getName()).getScore() <= 0) {
+                if (playerData.showInfo(Info.HUNGER)) {
                     Score hunger0 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(0));
                     hunger0.setScore(10);
                     Score hunger1 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(1));
@@ -107,7 +105,7 @@ public class ScoreBoardManager {
                     hunger2.setScore(8);
                 }
 
-                if (config.MECHANICS_THIRST_ENABLED && boardThirst.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_THIRST_ENABLED && playerData.showInfo(Info.THIRST)) {
                     Score thirst0 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(0));
                     thirst0.setScore(7);
                     Score thirst1 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(1));
@@ -116,12 +114,12 @@ public class ScoreBoardManager {
                     thirst2.setScore(5);
                 }
 
-                if (config.MECHANICS_BED_FATIGUE_ENABLED && boardFatigue.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_BED_FATIGUE_ENABLED && playerData.showInfo(Info.FATIGUE)) {
                     Score fatigue = status.getScore(plugin.getPlayerManager().ShowFatigue(player));
                     fatigue.setScore(4);
                 }
 
-                if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && boardNutrients.getScore(player.getName()).getScore() <= 0) {
+                if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && playerData.showInfo(Info.NUTRIENTS)) {
                     Score carbon = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(0));
                     carbon.setScore(3);
                     Score protein = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(1));
@@ -130,8 +128,7 @@ public class ScoreBoardManager {
                     salts.setScore(1);
                 }
 
-                if (player.isOnline())
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 10L);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 10L);
             }
         };
 

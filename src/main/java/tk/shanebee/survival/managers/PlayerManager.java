@@ -93,7 +93,7 @@ public class PlayerManager implements Listener {
 	 * @param player Player to save/unload data for
 	 */
 	public void unloadPlayerData(Player player) {
-		PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
+		PlayerData playerData = getPlayerData(player);
 		playerDataConfig.savePlayerDataToFile(playerData);
 		playerDataMap.remove(player.getUniqueId());
 	}
@@ -315,7 +315,7 @@ public class PlayerManager implements Listener {
 
 					if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
 						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
-						data.setShowScores(s_hunger, s_thirst, s_fatigue, s_nutrients);
+						data.setShowInfo(s_hunger, s_thirst, s_fatigue, s_nutrients);
 						savePlayerData(data);
 						c++;
 					}

@@ -1,6 +1,6 @@
 package tk.shanebee.survival.data;
 
-public enum Score {
+public enum Info {
 
 	HUNGER,
 	THIRST,

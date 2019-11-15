@@ -246,7 +246,7 @@ public class PlayerData implements ConfigurationSerializable {
 	 * @param score Scoreboard feature
 	 * @return True if this feature is visible on the player's scoreboard
 	 */
-	public boolean getShowScore(Score score) {
+	public boolean showInfo(Info score) {
 		switch (score) {
 			case HUNGER:
 				return score_hunger;
@@ -265,7 +265,7 @@ public class PlayerData implements ConfigurationSerializable {
 	 * @param score Scoreboard feature to show
 	 * @param visible Whether the feature should be visible or not
 	 */
-	public void setShowScore(Score score, boolean visible) {
+	public void setShowInfo(Info score, boolean visible) {
 		switch (score) {
 			case HUNGER:
 				this.score_hunger = visible;
@@ -291,7 +291,7 @@ public class PlayerData implements ConfigurationSerializable {
 	 * @param fatigue Whether fatigue should be shown on the player's scoreboard
 	 * @param nutrients Whether nutrients should be shown on the player's scoreboard
 	 */
-	public void setShowScores(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
+	public void setShowInfo(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
 		this.score_hunger = hunger;
 		this.score_thirst = thirst;
 		this.score_fatigue = fatigue;
@@ -354,7 +354,7 @@ public class PlayerData implements ConfigurationSerializable {
 		boolean score_thirst = (boolean) args.get("score.thirst");
 		boolean score_fatigue = (boolean) args.get("score.fatigue");
 		boolean score_nutrients = (boolean) args.get("score.nutrients");
-		data.setShowScores(score_hunger, score_thirst, score_fatigue, score_nutrients);
+		data.setShowInfo(score_hunger, score_thirst, score_fatigue, score_nutrients);
 
 		return data;
 	}
