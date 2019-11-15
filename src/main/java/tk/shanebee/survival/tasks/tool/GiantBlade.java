@@ -1,5 +1,6 @@
 package tk.shanebee.survival.tasks.tool;
 
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -19,16 +20,29 @@ public class GiantBlade extends BukkitRunnable {
 
 	private Survival plugin;
 	private PlayerManager playerManager;
-	private int id;
+	private final ImmutableSet<Material> MAIN_SET;
+	private final ImmutableSet<Material> OFF_SET;
 
 	public GiantBlade(Survival plugin) {
 		this.plugin = plugin;
 		this.playerManager = plugin.getPlayerManager();
-		this.id = this.runTaskTimer(plugin, 1, 10).getTaskId();
+		this.MAIN_SET = ImmutableSet.<Material>builder()
+				.add(Material.GOLDEN_HOE).add(Material.GOLDEN_AXE).build();
+		this.OFF_SET = ImmutableSet.<Material>builder()
+				.add(Material.WOODEN_AXE).add(Material.WOODEN_SWORD).add(Material.WOODEN_PICKAXE)
+				.add(Material.WOODEN_SHOVEL).add(Material.WOODEN_HOE).add(Material.STONE_AXE)
+				.add(Material.STONE_SWORD).add(Material.STONE_PICKAXE).add(Material.STONE_SHOVEL)
+				.add(Material.STONE_HOE).add(Material.IRON_AXE).add(Material.IRON_SWORD)
+				.add(Material.IRON_PICKAXE).add(Material.IRON_SHOVEL).add(Material.IRON_HOE)
+				.add(Material.GOLDEN_AXE).add(Material.GOLDEN_SWORD).add(Material.GOLDEN_PICKAXE)
+				.add(Material.GOLDEN_SHOVEL).add(Material.GOLDEN_HOE).add(Material.DIAMOND_AXE)
+				.add(Material.DIAMOND_SWORD).add(Material.DIAMOND_PICKAXE).add(Material.DIAMOND_SHOVEL)
+				.add(Material.DIAMOND_HOE).add(Material.BOW).build();
+		this.runTaskTimer(plugin, 1, 10).getTaskId();
 	}
 
 	@Override
-	public void run() {
+	public void run() { //TODO this guy needs some serious work
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
 			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
@@ -49,38 +63,10 @@ public class GiantBlade extends BukkitRunnable {
 				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 
-			//Score dualWield = board.getObjective("DualWield").getScore(player.getName());
+			Material mainType = mainItem.getType();
+			Material offType = offItem.getType();
 
-			if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
-					&& (offItem.getType() == Material.WOODEN_AXE
-					|| offItem.getType() == Material.WOODEN_SWORD || offItem.getType() == Material.WOODEN_PICKAXE
-					|| offItem.getType() == Material.WOODEN_SHOVEL || offItem.getType() == Material.WOODEN_HOE
-					|| offItem.getType() == Material.STONE_AXE || offItem.getType() == Material.STONE_SWORD
-					|| offItem.getType() == Material.STONE_PICKAXE || offItem.getType() == Material.STONE_SHOVEL
-					|| offItem.getType() == Material.STONE_HOE || offItem.getType() == Material.IRON_AXE
-					|| offItem.getType() == Material.IRON_SWORD || offItem.getType() == Material.IRON_PICKAXE
-					|| offItem.getType() == Material.IRON_SHOVEL || offItem.getType() == Material.IRON_HOE
-					|| offItem.getType() == Material.GOLDEN_AXE || offItem.getType() == Material.GOLDEN_SWORD
-					|| offItem.getType() == Material.GOLDEN_PICKAXE || offItem.getType() == Material.GOLDEN_SHOVEL
-					|| offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.DIAMOND_AXE
-					|| offItem.getType() == Material.DIAMOND_SWORD || offItem.getType() == Material.DIAMOND_PICKAXE
-					|| offItem.getType() == Material.DIAMOND_SHOVEL || offItem.getType() == Material.DIAMOND_HOE
-					|| offItem.getType() == Material.BOW))
-					|| ((offItem.getType() == Material.GOLDEN_HOE || offItem.getType() == Material.GOLDEN_AXE)
-					&& (mainItem.getType() == Material.WOODEN_AXE
-					|| mainItem.getType() == Material.WOODEN_SWORD || mainItem.getType() == Material.WOODEN_PICKAXE
-					|| mainItem.getType() == Material.WOODEN_SHOVEL || mainItem.getType() == Material.WOODEN_HOE
-					|| mainItem.getType() == Material.STONE_AXE || mainItem.getType() == Material.STONE_SWORD
-					|| mainItem.getType() == Material.STONE_PICKAXE || mainItem.getType() == Material.STONE_SHOVEL
-					|| mainItem.getType() == Material.STONE_HOE || mainItem.getType() == Material.IRON_AXE
-					|| mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.IRON_PICKAXE
-					|| mainItem.getType() == Material.IRON_SHOVEL || mainItem.getType() == Material.IRON_HOE
-					|| mainItem.getType() == Material.GOLDEN_AXE || mainItem.getType() == Material.GOLDEN_SWORD
-					|| mainItem.getType() == Material.GOLDEN_PICKAXE || mainItem.getType() == Material.GOLDEN_SHOVEL
-					|| mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.DIAMOND_AXE
-					|| mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.DIAMOND_PICKAXE
-					|| mainItem.getType() == Material.DIAMOND_SHOVEL || mainItem.getType() == Material.DIAMOND_HOE
-					|| mainItem.getType() == Material.BOW))) {
+			if ((MAIN_SET.contains(mainType) && OFF_SET.contains(offType)) || (MAIN_SET.contains(offType) && OFF_SET.contains(mainType))) {
 				player.removePotionEffect(PotionEffectType.SLOW);
 				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
 				player.removePotionEffect(PotionEffectType.JUMP);
