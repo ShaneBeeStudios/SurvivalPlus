@@ -1,6 +1,5 @@
 package tk.shanebee.survival.config;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
@@ -32,11 +31,17 @@ public class PlayerDataConfig {
 		}
 	}
 
-	@SuppressWarnings("ConstantConditions")
 	public boolean needsConversion() {
-		int offlineSize = Bukkit.getOfflinePlayers().length;
-		long fileSize = playerDirectory.listFiles().length;
-		return offlineSize > 0 && offlineSize > fileSize;
+		File file = new File(playerDirectory, "converted.yml");
+		return !file.exists();
+	}
+
+	public void createConvertedFile(int conversions) {
+		File file = new File(playerDirectory, "converted.yml");
+		YamlConfiguration converted = YamlConfiguration.loadConfiguration(file);
+		converted.set("converted", conversions);
+		converted.options().header("This file is a placeholder, do not delete this file");
+		saveFile(converted, file);
 	}
 
 	public boolean hasPlayerDataFile(OfflinePlayer player) {
@@ -55,6 +60,10 @@ public class PlayerDataConfig {
 		File file = new File(playerDirectory, playerData.getUuid().toString() + ".yml");
 		YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 		config.set("player-data", playerData);
+		saveFile(config, file);
+	}
+
+	private void saveFile(YamlConfiguration config, File file) {
 		try {
 			config.save(file);
 		} catch (IOException e) {

@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.PlayerDataConfig;
-import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 
 class PlayerDataListener implements Listener {
@@ -25,14 +24,15 @@ class PlayerDataListener implements Listener {
 		Player player = event.getPlayer();
 		if (!playerDataConfig.hasPlayerDataFile(player)) {
 			playerManager.createNewPlayerData(player);
+		} else {
+			playerManager.loadPlayerData(player);
 		}
 	}
 
 	@EventHandler
 	private void onQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		PlayerData data = playerManager.getPlayerData(player);
-		playerManager.savePlayerData(data);
+		playerManager.unloadPlayerData(player);
 	}
 
 }

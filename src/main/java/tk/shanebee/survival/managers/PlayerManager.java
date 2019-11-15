@@ -25,10 +25,11 @@ public class PlayerManager implements Listener {
 	private PlayerDataConfig playerDataConfig;
 
 	// Store all the active PlayerData
-	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
+	private Map<UUID, PlayerData> playerDataMap;
 
-	public PlayerManager(Survival plugin) {
+	public PlayerManager(Survival plugin, Map<UUID, PlayerData> playerDataMap) {
 		this.plugin = plugin;
+		this.playerDataMap = playerDataMap;
 		this.lang = plugin.getLang();
 		this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
 		this.playerDataConfig = plugin.getPlayerDataConfig();
@@ -41,13 +42,14 @@ public class PlayerManager implements Listener {
 	 * @param player Player to get data for
 	 * @return PlayerData for player
 	 */
-	public PlayerData getPlayerData(OfflinePlayer player) {
+	public PlayerData getPlayerData(Player player) {
 		return playerDataMap.get(player.getUniqueId());
 	}
 
 	/** Get a collection of all PlayerData
 	 * @return Collection of all PlayerData
 	 */
+	@SuppressWarnings("unused")
 	public Collection<PlayerData> getAllPlayerData() {
 		return playerDataMap.values();
 	}
@@ -57,9 +59,8 @@ public class PlayerManager implements Listener {
 	 *
 	 * @param player Player to create data for
 	 */
-	public void createNewPlayerData(OfflinePlayer player) {
+	public void createNewPlayerData(Player player) {
 		UUID uuid = player.getUniqueId();
-
 		int thirst = 20; //TODO temp value
 
 		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 0);
@@ -72,7 +73,7 @@ public class PlayerManager implements Listener {
 	 *
 	 * @param data PlayerData to save
 	 */
-	public void savePlayerData(PlayerData data) {
+	private void savePlayerData(PlayerData data) {
 		playerDataConfig.savePlayerDataToFile(data);
 	}
 
@@ -81,10 +82,20 @@ public class PlayerManager implements Listener {
 	 *
 	 * @param player Player to load data for
 	 */
-	@SuppressWarnings("unused") // TODO do we need this?!?
-	public void loadPlayerData(OfflinePlayer player) {
+	public void loadPlayerData(Player player) {
 		PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
 		playerDataMap.put(player.getUniqueId(), playerData);
+	}
+
+	/** Save/Unload player data
+	 * <p>This will mainly be used internally for when a player leaves the server,
+	 * their data will be saved to file then removed from the PlayerData map</p>
+	 * @param player Player to save/unload data for
+	 */
+	public void unloadPlayerData(Player player) {
+		PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
+		playerDataConfig.savePlayerDataToFile(playerData);
+		playerDataMap.remove(player.getUniqueId());
 	}
 
 	/**
@@ -282,41 +293,37 @@ public class PlayerManager implements Listener {
 		Scoreboard scoreboard = plugin.getMainBoard();
 
 		// Convert previous player data
-		if (scoreboard.getObjective("Thirst") != null && playerDataConfig.needsConversion()) {
-			Utils.log("&bConverting player data!");
-			int n = 0;
+		if (playerDataConfig.needsConversion()) {
 			int c = 0;
-			long time = System.currentTimeMillis();
+			if (scoreboard.getObjective("Thirst") != null) {
+				Utils.log("&bConverting player data!");
+				long time = System.currentTimeMillis();
 
-			for (OfflinePlayer player : players) {
-				UUID uuid = player.getUniqueId();
-				assert player.getName() != null;
-				int thirst = scoreboard.getObjective("Thirst").getScore(player.getName()).getScore();
-				int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
-				int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
-				int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
-				int fatigue = scoreboard.getObjective("Fatigue").getScore(player.getName()).getScore();
-				if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
-					PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
-					playerDataMap.put(uuid, data);
-					savePlayerData(data);
-					c++;
-				} else {
-					createNewPlayerData(player);
-					n++;
+				for (OfflinePlayer player : players) {
+					UUID uuid = player.getUniqueId();
+					assert player.getName() != null;
+					int thirst = scoreboard.getObjective("Thirst").getScore(player.getName()).getScore();
+					int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
+					int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
+					int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
+					int fatigue = scoreboard.getObjective("Fatigue").getScore(player.getName()).getScore();
+
+					boolean s_hunger = scoreboard.getObjective("BoardHunger").getScore(player.getName()).getScore() == 0;
+					boolean s_thirst = scoreboard.getObjective("BoardThirst").getScore(player.getName()).getScore() == 0;
+					boolean s_fatigue = scoreboard.getObjective("BoardFatigue").getScore(player.getName()).getScore() == 0;
+					boolean s_nutrients = scoreboard.getObjective("BoardNutrients").getScore(player.getName()).getScore() == 0;
+
+					if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
+						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
+						data.setShowScores(s_hunger, s_thirst, s_fatigue, s_nutrients);
+						savePlayerData(data);
+						c++;
+					}
 				}
+				Utils.log("Converted players: &b" + c);
+				Utils.log("&aPlayer data conversion completed in " + (System.currentTimeMillis() - time) + " milliseconds!");
 			}
-			Utils.log("Converted players: &b" + c);
-			Utils.log("New player data files: &b" + n);
-			Utils.log("&aPlayer data conversion completed in " + ((System.currentTimeMillis() - time) / 1000) + " seconds!");
-
-		// If we dont convert, we just load player data into the map
-		} else {
-			for (OfflinePlayer player : players) {
-				PlayerData data = playerDataConfig.getPlayerDataFromFile(player);
-				this.playerDataMap.put(player.getUniqueId(), data);
-			}
-			Utils.log("PlayerData &aloaded &7for &b" + players.length + " &7players.");
+			playerDataConfig.createConvertedFile(c);
 		}
 	}
 

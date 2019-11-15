@@ -1,7 +1,6 @@
 package tk.shanebee.survival.managers;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -34,6 +33,7 @@ public class ScoreBoardManager {
         board.registerNewObjective("HealTimes", "dummy");
         board.registerNewObjective("RecurveFiring", "dummy");
         board.registerNewObjective("RecurveCooldown", "dummy");
+        /* temp removing old scoreboard stats/data
         try {
             mainBoard.registerNewObjective("Thirst", "dummy");
         } catch (IllegalArgumentException ignored) {
@@ -54,6 +54,7 @@ public class ScoreBoardManager {
             mainBoard.registerNewObjective("Salts", "dummy");
         } catch (IllegalArgumentException ignored) {
         }
+         */
         try {
             mainBoard.registerNewObjective("BoardHunger", "dummy");
         } catch (IllegalArgumentException ignored) {
@@ -78,7 +79,7 @@ public class ScoreBoardManager {
      * </p>
      * @param p The player to setup a scoreboard for
      */
-    public void setupScorebard(Player p) {
+    public void setupScoreboard(Player p) {
         final Player player = p;
         final Scoreboard stats = Bukkit.getScoreboardManager().getNewScoreboard();
         player.setScoreboard(stats);
@@ -140,9 +141,10 @@ public class ScoreBoardManager {
     public void resetStatusScoreboard(boolean enabled) {
         for (Player player : plugin.getServer().getOnlinePlayers()) {
             if (enabled)
-                setupScorebard(player);
+                setupScoreboard(player);
             else
                 player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         }
     }
+
 }

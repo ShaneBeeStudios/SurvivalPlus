@@ -35,7 +35,7 @@ class ScoreboardStats implements Listener {
 			boardFatigue.getScore(player.getName()).setScore(1);
 			boardNutrients.getScore(player.getName()).setScore(1);
 		}
-		scoreboardManager.setupScorebard(player);
+		scoreboardManager.setupScoreboard(player);
 	}
 
 	@EventHandler
