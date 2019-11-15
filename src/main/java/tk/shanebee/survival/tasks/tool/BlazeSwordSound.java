@@ -12,11 +12,10 @@ import java.util.Random;
 public class BlazeSwordSound extends BukkitRunnable {
 
 	private Survival plugin;
-	private int id;
 
 	public BlazeSwordSound(Survival plugin) {
 		this.plugin = plugin;
-		this.id = this.runTaskTimer(plugin, 1, 50).getTaskId();
+		this.runTaskTimer(plugin, 1, 50);
 	}
 
 	@Override

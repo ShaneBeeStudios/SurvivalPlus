@@ -11,11 +11,10 @@ import tk.shanebee.survival.managers.Items;
 public class Valkyrie extends BukkitRunnable {
 
 	private Survival plugin;
-	private int id;
 
 	public Valkyrie(Survival plugin) {
 		this.plugin = plugin;
-		this.id = this.runTaskTimer(plugin, 1, 10).getTaskId();
+		this.runTaskTimer(plugin, 1, 10);
 	}
 
 	@Override

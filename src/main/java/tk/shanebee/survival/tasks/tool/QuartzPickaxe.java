@@ -11,11 +11,10 @@ import tk.shanebee.survival.managers.Items;
 public class QuartzPickaxe extends BukkitRunnable {
 
 	private Survival plugin;
-	private int id;
 
 	public QuartzPickaxe(Survival plugin) {
 		this.plugin = plugin;
-		this.id = this.runTaskTimer(plugin, 1, 10).getTaskId();
+		this.runTaskTimer(plugin, 1, 10);
 	}
 
 	@Override

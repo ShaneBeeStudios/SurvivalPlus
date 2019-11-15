@@ -13,11 +13,10 @@ import tk.shanebee.survival.managers.Items;
 public class BlazeSwordEffects extends BukkitRunnable {
 
 	private Survival plugin;
-	private int id;
 
 	public BlazeSwordEffects(Survival plugin) {
 		this.plugin = plugin;
-		this.id = this.runTaskTimer(plugin, 1, 10).getTaskId();
+		this.runTaskTimer(plugin, 1, 10);
 	}
 
 	@Override

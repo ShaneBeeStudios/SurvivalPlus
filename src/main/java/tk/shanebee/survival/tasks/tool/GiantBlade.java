@@ -38,7 +38,7 @@ public class GiantBlade extends BukkitRunnable {
 				.add(Material.GOLDEN_SHOVEL).add(Material.GOLDEN_HOE).add(Material.DIAMOND_AXE)
 				.add(Material.DIAMOND_SWORD).add(Material.DIAMOND_PICKAXE).add(Material.DIAMOND_SHOVEL)
 				.add(Material.DIAMOND_HOE).add(Material.BOW).build();
-		this.runTaskTimer(plugin, 1, 10).getTaskId();
+		this.runTaskTimer(plugin, 1, 10);
 	}
 
 	@Override
