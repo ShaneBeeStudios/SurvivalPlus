@@ -8,15 +8,21 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.managers.ScoreBoardManager;
+import tk.shanebee.survival.util.Config;
 
 class PlayerDataListener implements Listener {
 
 	private PlayerManager playerManager;
 	private PlayerDataConfig playerDataConfig;
+	private ScoreBoardManager scoreboardManager;
+	private Config config;
 
 	PlayerDataListener(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();
 		this.playerDataConfig = plugin.getPlayerDataConfig();
+		this.scoreboardManager = plugin.getScoreboardManager();
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler
@@ -27,6 +33,8 @@ class PlayerDataListener implements Listener {
 		} else {
 			playerManager.loadPlayerData(player);
 		}
+		if (config.MECHANICS_STATUS_SCOREBOARD)
+			scoreboardManager.setupScoreboard(player);
 	}
 
 	@EventHandler

@@ -130,11 +130,10 @@ public class Survival extends JavaPlugin implements Listener {
 
 		// LOAD MANAGERS
 		blockManager = new BlockManager(this);
-		effectManager = new EffectManager(this);
 		playerManager = new PlayerManager(this, playerDataMap);
+		effectManager = new EffectManager(this);
 		taskManager = new TaskManager(this);
 		scoreBoardManager = new ScoreBoardManager(this);
-		scoreBoardManager.loadScoreboards(board, mainBoard);
 		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)

@@ -13,7 +13,7 @@ import java.util.UUID;
  * Holder of data for player
  * <p>You can get an instance of PlayerData from <b>{@link tk.shanebee.survival.managers.PlayerManager}</b></p>
  */
-@SuppressWarnings({"unused", "FieldCanBeLocal"})
+@SuppressWarnings({"unused", "FieldCanBeLocal", "SameParameterValue"})
 public class PlayerData implements ConfigurationSerializable {
 
 	private UUID uuid;
@@ -26,19 +26,20 @@ public class PlayerData implements ConfigurationSerializable {
 	private int fatigue;
 
 	// Dunno yet
-	private int chat = 0;
+	private boolean localChat = false;
 
 	// Stats
 	private int charge = 0;
 	private int charging = 0;
 	private int spin = 0;
 	private int dualWield = 0;
+	private int dualWieldMsg = 0;
 	private int healing = 0;
 	private int healTimes = 0;
 	private int recurveFiring = 0;
 	private int recurveCooldown = 0;
 
-	// Scoreboard
+	// Scoreboard info
 	private boolean score_hunger = false;
 	private boolean score_thirst = false;
 	private boolean score_fatigue = false;
@@ -171,6 +172,10 @@ public class PlayerData implements ConfigurationSerializable {
 		this.fatigue = fatigue;
 	}
 
+	/** Set a stat for this data
+	 * @param stat Stat to set
+	 * @param value Value of stat to set
+	 */
 	public void setStat(Stat stat, int value) {
 		switch (stat) {
 			case CHARGE:
@@ -200,17 +205,22 @@ public class PlayerData implements ConfigurationSerializable {
 	}
 
 	// Internal use only - set all stats at once
-	private void setStats(int charge, int charging, int spin, int dual, int healing, int healTime, int recurveFiring, int recurveCooldown) {
+	private void setStats(int charge, int charging, int spin, int dual, int dualMsg, int healing, int healTime, int recurveFiring, int recurveCooldown) {
 		this.charge = charge;
 		this.charging = charging;
 		this.spin = spin;
 		this.dualWield = dual;
+		this.dualWieldMsg = dualMsg;
 		this.healing = healing;
 		this.healTimes = healTime;
 		this.recurveFiring = recurveFiring;
 		this.recurveCooldown = recurveCooldown;
 	}
 
+	/** Get a stat from this data
+	 * @param stat Stat to retrieve
+	 * @return Value of stat
+	 */
 	public int getStat(Stat stat) {
 		switch (stat) {
 			case CHARGE:
@@ -234,20 +244,26 @@ public class PlayerData implements ConfigurationSerializable {
 		}
 	}
 
-	public void setChat(int chat) {
-		this.chat = chat;
+	/** Set whether the player is using local chat
+	 * @param localChat Whether the player is using local chat
+	 */
+	public void setLocalChat(boolean localChat) {
+		this.localChat = localChat;
 	}
 
-	public int getChat() {
-		return chat;
+	/** Check if the player is using local chat
+	 * @return True if local chat is activated
+	 */
+	public boolean isLocalChat() {
+		return localChat;
 	}
 
-	/** Get the visibility of a specific scoreboard feature
-	 * @param score Scoreboard feature
+	/** Get the visibility of a specific healthboard feature
+	 * @param info Healthboard feature
 	 * @return True if this feature is visible on the player's scoreboard
 	 */
-	public boolean showInfo(Info score) {
-		switch (score) {
+	public boolean showInfo(Info info) {
+		switch (info) {
 			case HUNGER:
 				return score_hunger;
 			case THIRST:
@@ -257,16 +273,16 @@ public class PlayerData implements ConfigurationSerializable {
 			case NUTRIENTS:
 				return score_nutrients;
 			default:
-				throw new IllegalStateException("Unexpected value: " + score);
+				throw new IllegalStateException("Unexpected value: " + info);
 		}
 	}
 
-	/** Set the visibility of a specific scoreboard feature
-	 * @param score Scoreboard feature to show
+	/** Set the visibility of a specific healthboard feature
+	 * @param info Healthboard feature to show
 	 * @param visible Whether the feature should be visible or not
 	 */
-	public void setShowInfo(Info score, boolean visible) {
-		switch (score) {
+	public void setShowInfo(Info info, boolean visible) {
+		switch (info) {
 			case HUNGER:
 				this.score_hunger = visible;
 				break;
@@ -280,16 +296,16 @@ public class PlayerData implements ConfigurationSerializable {
 				this.score_nutrients = visible;
 				break;
 			default:
-				throw new IllegalStateException("Unexpected value: " + score);
+				throw new IllegalStateException("Unexpected value: " + info);
 		}
 	}
 
-	/** Set the visibility of all scoreboard features
+	/** Set the visibility of all healthboard features
 	 * <p>This is mainly used internally for data transfers</p>
-	 * @param hunger Whether hunger should be shown on the player's scoreboard
-	 * @param thirst Whether thirst should be shown on the player's scoreboard
-	 * @param fatigue Whether fatigue should be shown on the player's scoreboard
-	 * @param nutrients Whether nutrients should be shown on the player's scoreboard
+	 * @param hunger Whether hunger should be shown on the player's healthboard
+	 * @param thirst Whether thirst should be shown on the player's healthboard
+	 * @param fatigue Whether fatigue should be shown on the player's healthboard
+	 * @param nutrients Whether nutrients should be shown on the player's healthboard
 	 */
 	public void setShowInfo(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
 		this.score_hunger = hunger;
@@ -311,10 +327,12 @@ public class PlayerData implements ConfigurationSerializable {
 		result.put("nutrients.proteins", proteins);
 		result.put("nutrients.carbs", carbs);
 		result.put("nutrients.salts", salts);
+		result.put("local-chat", localChat);
 		result.put("stats.charge", charge);
 		result.put("stats.charging", charging);
 		result.put("stats.spin", spin);
 		result.put("stats.dualWield", dualWield);
+		result.put("stats.dualWieldMsg", dualWieldMsg);
 		result.put("stats.healing", healing);
 		result.put("stats.healTimes", healTimes);
 		result.put("stats.recurveFiring", recurveFiring);
@@ -340,23 +358,41 @@ public class PlayerData implements ConfigurationSerializable {
 
 		PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
 
-		int charge = ((Integer) args.get("stats.charge"));
-		int charging = ((Integer) args.get("stats.charging"));
-		int spin = ((Integer) args.get("stats.spin"));
-		int dual = ((Integer) args.get("stats.dualWield"));
-		int healing = ((Integer) args.get("stats.healing"));
-		int healTimes = ((Integer) args.get("stats.healTimes"));
-		int recurveFiring = ((Integer) args.get("stats.recurveFiring"));
-		int recurveCooldown = ((Integer) args.get("stats.recurveCooldown"));
-		data.setStats(charge, charging, spin, dual, healing, healTimes, recurveFiring, recurveCooldown);
+		boolean localChat = getBool(args, "local-chat", false);
+		data.setLocalChat(localChat);
 
-		boolean score_hunger = (boolean) args.get("score.hunger");
-		boolean score_thirst = (boolean) args.get("score.thirst");
-		boolean score_fatigue = (boolean) args.get("score.fatigue");
-		boolean score_nutrients = (boolean) args.get("score.nutrients");
+		int charge = getInt(args, "stats.charge", 0);
+		int charging = getInt(args, "stats.charging", 0);
+		int spin = getInt(args, "stats.spin", 0);
+		int dual = getInt(args, "stats.dualWield", 0);
+		int dualMsg = getInt(args, "stats.dualWieldMsg", 0);
+		int healing = getInt(args, "stats.healing", 0);
+		int healTimes = getInt(args, "stats.healTimes", 0);
+		int recurveFiring = getInt(args, "stats.recurveFiring", 0);
+		int recurveCooldown = getInt(args, "stats.recurveCooldown", 0);
+		data.setStats(charge, charging, spin, dual, dualMsg, healing,
+				healTimes, recurveFiring, recurveCooldown);
+
+		boolean score_hunger = getBool(args, "score.hunger", true);
+		boolean score_thirst = getBool(args, "score.thirst", true);
+		boolean score_fatigue = getBool(args, "score.fatigue", true);
+		boolean score_nutrients = getBool(args, "score.nutrients", false);
 		data.setShowInfo(score_hunger, score_thirst, score_fatigue, score_nutrients);
 
 		return data;
+	}
+
+	// Methods for grabbing sections from map, defaults if section isn't set
+	private static int getInt(Map<String, Object> args, String val, int def) {
+		if (args.containsKey(val))
+			return ((int) args.get(val));
+		return def;
+	}
+
+	private static boolean getBool(Map<String, Object> args, String val, boolean def) {
+		if (args.containsKey(val))
+			return (boolean) args.get(val);
+		return def;
 	}
 
 }

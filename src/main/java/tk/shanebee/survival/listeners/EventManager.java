@@ -87,8 +87,6 @@ public class EventManager {
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (config.MECHANICS_RECURVED_BOW)
 			pm.registerEvents(new RecurvedBow(plugin), this.plugin);
-		if (config.MECHANICS_STATUS_SCOREBOARD)
-			pm.registerEvents(new ScoreboardStats(plugin), this.plugin);
 		if (config.MECHANICS_SNOWBALL_REVAMP)
 			pm.registerEvents(new SnowballThrow(), this.plugin);
 		if (config.MECHANICS_SNOW_GEN_REVAMP)

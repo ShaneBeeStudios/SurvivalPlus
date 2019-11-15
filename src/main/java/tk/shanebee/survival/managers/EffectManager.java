@@ -13,6 +13,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.util.Config;
 import tk.shanebee.survival.util.Utils;
 
@@ -22,12 +24,12 @@ public class EffectManager {
 	
 	private Survival plugin;
 	private Config config;
-	private Scoreboard board;
+	private PlayerManager playerManager;
 	
 	public EffectManager(Survival plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
-		this.board = plugin.getBoard();
+		this.playerManager = plugin.getPlayerManager();
 		loadEffects();
 	}
 
@@ -90,6 +92,7 @@ public class EffectManager {
 	private void GiantBlade() {
 		plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 			for (Player player : plugin.getServer().getOnlinePlayers()) {
+				PlayerData playerData = playerManager.getPlayerData(player);
 				ItemStack mainItem = player.getInventory().getItemInMainHand();
 				ItemStack offItem = player.getInventory().getItemInOffHand();
 				if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
@@ -108,7 +111,7 @@ public class EffectManager {
 					particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 				}
 
-				Score dualWield = board.getObjective("DualWield").getScore(player.getName());
+				//Score dualWield = board.getObjective("DualWield").getScore(player.getName());
 
 				if (((mainItem.getType() == Material.GOLDEN_HOE || mainItem.getType() == Material.GOLDEN_AXE)
 						&& (offItem.getType() == Material.WOODEN_AXE
@@ -144,9 +147,9 @@ public class EffectManager {
 					player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
 					player.removePotionEffect(PotionEffectType.JUMP);
 					player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true));
-					dualWield.setScore(1);
+					playerData.setStat(Stat.DUAL_WIELD, 1);
 				} else {
-					dualWield.setScore(0);
+					playerData.setStat(Stat.DUAL_WIELD, 0);
 				}
 			}
 		}, 1L, 10L);

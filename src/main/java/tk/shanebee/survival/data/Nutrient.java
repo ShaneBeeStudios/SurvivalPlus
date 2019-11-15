@@ -1,5 +1,8 @@
 package tk.shanebee.survival.data;
 
+/**
+ * Player nutrient types
+ */
 public enum Nutrient {
 
 	CARBS("Carbs"),
@@ -10,6 +13,10 @@ public enum Nutrient {
 
 	Nutrient(String nutrient){
 		name = nutrient;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
