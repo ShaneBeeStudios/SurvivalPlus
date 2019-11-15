@@ -26,14 +26,11 @@ public class TaskManager {
 			}
 		}
 		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
-			Utils.log("&aFOOD diversity enabled");
 			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
 			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
 				new NutrientsAlert(plugin);
 			}
-		} else {
-			Utils.log("&cFOOD diversity disabled");
 		}
 	}
 
