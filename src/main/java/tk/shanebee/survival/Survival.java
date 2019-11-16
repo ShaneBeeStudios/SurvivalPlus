@@ -257,18 +257,21 @@ public class Survival extends JavaPlugin implements Listener {
 	}
 
 	private void registerCommands() {
+		String noPerm = Utils.getColoredString(prefix + lang.no_perm);
 		getCommand("recipes").setExecutor(new Recipes());
 		getCommand("togglechat").setExecutor(new ToggleChat(this));
-		getCommand("togglechat").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("togglechat").setPermissionMessage(noPerm);
 		getCommand("status").setExecutor(new Status(this));
 		getCommand("reload-survival").setExecutor(new Reload(this));
-		getCommand("reload-survival").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("reload-survival").setPermissionMessage(noPerm);
 		if (config.MECHANICS_SNOW_GEN_REVAMP) {
 			getCommand("snowgen").setExecutor(new SnowGen(this));
-			getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+			getCommand("snowgen").setPermissionMessage(noPerm);
 		}
 		getCommand("giveitem").setExecutor(new GiveItem(this));
-		getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("giveitem").setPermissionMessage(noPerm);
+		getCommand("nutrition").setExecutor(new Nutrition(this));
+		getCommand("nutrition").setPermissionMessage(noPerm);
 	}
 
 	/** Get instance of this plugin
