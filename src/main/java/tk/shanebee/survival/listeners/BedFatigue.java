@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
@@ -51,16 +50,6 @@ class BedFatigue implements Listener {
 		Bukkit.getPluginManager().callEvent(fatigueEvent);
 		if (fatigueEvent.isCancelled()) return;
 		playerData.setFatigue(0);
-	}
-
-	@EventHandler
-	private void onFirstJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-		PlayerData playerData = playerManager.getPlayerData(player);
-
-		if (!player.hasPlayedBefore()) {
-			playerData.setFatigue(0);
-		}
 	}
 
 	@EventHandler
