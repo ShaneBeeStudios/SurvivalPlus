@@ -22,6 +22,9 @@ public class GiantBlade extends BukkitRunnable {
 	private PlayerManager playerManager;
 	private final ImmutableSet<Material> MAIN_SET;
 	private final ImmutableSet<Material> OFF_SET;
+	private final PotionEffect DAMAGE;
+	private final PotionEffect SLOW;
+	private final PotionEffect JUMP;
 
 	public GiantBlade(Survival plugin) {
 		this.plugin = plugin;
@@ -38,15 +41,22 @@ public class GiantBlade extends BukkitRunnable {
 				.add(Material.GOLDEN_SHOVEL).add(Material.GOLDEN_HOE).add(Material.DIAMOND_AXE)
 				.add(Material.DIAMOND_SWORD).add(Material.DIAMOND_PICKAXE).add(Material.DIAMOND_SHOVEL)
 				.add(Material.DIAMOND_HOE).add(Material.BOW).build();
+
+		this.DAMAGE = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false);
+		this.SLOW = new PotionEffect(PotionEffectType.SLOW, 20, 6, true);
+		this.JUMP = new PotionEffect(PotionEffectType.JUMP, 20, 199, true);
+
 		this.runTaskTimer(plugin, 1, 10);
 	}
 
 	@Override
 	public void run() { //TODO this guy needs some serious work
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
-			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
+			Material mainType = mainItem.getType();
+			Material offType = offItem.getType();
+
 			if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
@@ -56,21 +66,19 @@ public class GiantBlade extends BukkitRunnable {
 
 			if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
 				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false));
+				player.addPotionEffect(this.DAMAGE);
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
 				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 
-			Material mainType = mainItem.getType();
-			Material offType = offItem.getType();
-
+			PlayerData playerData = playerManager.getPlayerData(player);
 			if ((MAIN_SET.contains(mainType) && OFF_SET.contains(offType)) || (MAIN_SET.contains(offType) && OFF_SET.contains(mainType))) {
 				player.removePotionEffect(PotionEffectType.SLOW);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true));
+				player.addPotionEffect(this.SLOW);
 				player.removePotionEffect(PotionEffectType.JUMP);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true));
+				player.addPotionEffect(this.JUMP);
 				playerData.setStat(Stat.DUAL_WIELD, 1);
 			} else {
 				playerData.setStat(Stat.DUAL_WIELD, 0);
