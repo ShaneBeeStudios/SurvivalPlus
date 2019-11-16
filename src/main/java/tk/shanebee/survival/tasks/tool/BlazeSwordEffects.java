@@ -13,9 +13,11 @@ import tk.shanebee.survival.managers.Items;
 public class BlazeSwordEffects extends BukkitRunnable {
 
 	private Survival plugin;
+	private final PotionEffect FLAME;
 
 	public BlazeSwordEffects(Survival plugin) {
 		this.plugin = plugin;
+		this.FLAME = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false);
 		this.runTaskTimer(plugin, 1, 10);
 	}
 
@@ -24,7 +26,7 @@ public class BlazeSwordEffects extends BukkitRunnable {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
 			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.BLAZE_SWORD)) {
 				player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false));
+				player.addPotionEffect(this.FLAME);
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
