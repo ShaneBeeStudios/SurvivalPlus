@@ -136,17 +136,6 @@ class Consume implements Listener {
 
 	}
 
-	@EventHandler
-	private void onFirstJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-		if (!player.hasPlayedBefore()) {
-			int thirst = config.MECHANICS_THIRST_START_AMOUNT;
-			StatusManager.setThirst(player, thirst);
-			int hunger = config.MECHANICS_HUNGER_START_AMOUNT;
-			Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
-		}
-	}
-
 	private boolean checkWaterBottle(ItemStack bottle) {
 		ItemMeta meta = bottle.getItemMeta();
 		assert meta != null;
