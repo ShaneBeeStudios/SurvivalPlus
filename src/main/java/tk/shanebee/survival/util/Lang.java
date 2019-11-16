@@ -73,6 +73,7 @@ public class Lang {
     public String protein_lack;
     public String vitamins;
     public String vitamins_lack;
+    public String nutrition_gui;
 
     public String healing;
     public String healing_self;
@@ -240,6 +241,7 @@ public class Lang {
         protein_lack = lang.getString("protein-lack");
         vitamins = lang.getString("vitamins");
         vitamins_lack = lang.getString("vitamins-lack");
+        nutrition_gui = lang.getString("nutrition-gui");
         healing = lang.getString("healing");
         healing_self = lang.getString("healing-self");
         keep = lang.getString("keep");
