@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import org.bukkit.inventory.EquipmentSlot;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
@@ -87,6 +88,8 @@ class GiantBlade implements Listener {
 		if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+					if (event.getHand() != EquipmentSlot.HAND) return; // prevent double message
+
 					if (player.isSprinting()) {
 						if (playerData.getStat(Stat.CHARGE) == 0) {
 							Random rand = new Random();
