@@ -7,8 +7,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.managers.StatusManager;
-import tk.shanebee.survival.util.Config;
 
 class ThirstEffect extends BukkitRunnable {
 

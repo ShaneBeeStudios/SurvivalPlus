@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.Nutrition;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;

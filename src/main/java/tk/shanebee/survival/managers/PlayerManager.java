@@ -8,7 +8,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.*;

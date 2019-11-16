@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.tasks.tool.*;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 public class EffectManager {

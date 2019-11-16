@@ -3,7 +3,7 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 /**

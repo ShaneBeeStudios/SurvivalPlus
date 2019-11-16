@@ -9,7 +9,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 
 class NutrientsAlert extends BukkitRunnable {
 

@@ -1,7 +1,7 @@
 package tk.shanebee.survival.listeners;
 
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;

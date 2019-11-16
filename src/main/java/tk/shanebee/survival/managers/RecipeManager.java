@@ -7,7 +7,7 @@ import org.bukkit.Tag;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.lang.reflect.Constructor;

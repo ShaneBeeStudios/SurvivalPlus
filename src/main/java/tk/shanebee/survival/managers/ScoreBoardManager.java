@@ -10,7 +10,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.Info;
 import tk.shanebee.survival.data.PlayerData;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 public class ScoreBoardManager {
 

@@ -9,7 +9,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 class PlayerDataListener implements Listener {
 

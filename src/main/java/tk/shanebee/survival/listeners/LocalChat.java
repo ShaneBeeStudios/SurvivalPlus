@@ -3,18 +3,16 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 class LocalChat implements Listener {
 

@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 import java.util.Objects;
 

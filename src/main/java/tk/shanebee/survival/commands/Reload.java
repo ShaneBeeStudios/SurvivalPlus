@@ -1,7 +1,7 @@
 package tk.shanebee.survival.commands;
 
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,8 +1,7 @@
 package tk.shanebee.survival.tasks;
 
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Utils;
+import tk.shanebee.survival.config.Config;
 
 /**
  * Internal task manager

@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -27,7 +26,7 @@ import org.bukkit.material.Stairs;
 import org.bukkit.util.Vector;
 
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 @SuppressWarnings("deprecation") // TODO fix deprecated Stairs stuff
 class Chairs implements Listener {
