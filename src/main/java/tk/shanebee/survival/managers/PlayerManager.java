@@ -61,11 +61,21 @@ public class PlayerManager implements Listener {
 	 */
 	public void createNewPlayerData(Player player) {
 		UUID uuid = player.getUniqueId();
-		int thirst = 20; //TODO temp value
+		int thirst = plugin.getSurvivalConfig().MECHANICS_THIRST_START_AMOUNT;
+		int hunger = plugin.getSurvivalConfig().MECHANICS_HUNGER_START_AMOUNT;
+		setHunger(player, hunger);
 
 		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 0);
 		playerDataMap.put(uuid, playerData);
 		savePlayerData(playerData);
+	}
+
+	private void setHunger(Player player, int value) {
+		value = Math.min(value, 40);
+		int hunger = Math.min(value, 20);
+		int saturation = value > 20 ? value - 20 : 0;
+		player.setFoodLevel(hunger);
+		player.setSaturation(saturation);
 	}
 
 	/**
