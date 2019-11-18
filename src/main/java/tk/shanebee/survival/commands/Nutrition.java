@@ -23,12 +23,13 @@ public class Nutrition implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = ((Player) sender);
 			gui.openInventory(player);
+		} else {
+			if (args.length == 1 && args[0].equalsIgnoreCase("debug")) {
+				itemTest();
+				return true;
+			}
+			Utils.log("&cThis is a player only command!");
 		}
-		if (args.length == 1 && args[0].equalsIgnoreCase("debug")) {
-			itemTest();
-			return true;
-		}
-		Utils.log("&cThis is a player only command!");
 		return true;
 	}
 
