@@ -32,6 +32,11 @@ class ThirstDrain extends BukkitRunnable {
 
 					Random rand = new Random();
 					int change = rand.nextDouble() <= config.MECHANICS_THIRST_DRAIN_RATE ? 1 : 0;
+
+					// Prevent calling thirst event if there is no change
+					if (change == 0) continue;
+
+					// Call thirst level change event
 					ThirstLevelChangeEvent event = new ThirstLevelChangeEvent(player, change, playerData.getThirst() - change);
 					Bukkit.getPluginManager().callEvent(event);
 					if (!event.isCancelled()) {
