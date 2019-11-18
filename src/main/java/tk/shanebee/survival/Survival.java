@@ -132,10 +132,10 @@ public class Survival extends JavaPlugin implements Listener {
 		effectManager = new EffectManager(this);
 		taskManager = new TaskManager(this);
 		scoreBoardManager = new ScoreBoardManager(this);
-		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
+		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// REGISTER EVENTS & COMMANDS
 		registerCommands();
