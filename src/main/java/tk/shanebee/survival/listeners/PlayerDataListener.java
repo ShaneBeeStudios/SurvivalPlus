@@ -41,6 +41,7 @@ class PlayerDataListener implements Listener {
 	private void onQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		playerManager.unloadPlayerData(player);
+		scoreboardManager.unloadScoreboard(player);
 	}
 
 }

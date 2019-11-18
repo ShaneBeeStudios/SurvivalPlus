@@ -1,21 +1,20 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.data.Info;
-import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.tasks.Healthboard;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ScoreBoardManager {
 
     private Survival plugin;
     private Config config;
+    private Map<UUID, Healthboard> playerBoards = new HashMap<>();
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
@@ -29,11 +28,7 @@ public class ScoreBoardManager {
      * @param player Player to setup a scoreboard for
      */
     public void setupScoreboard(Player player) {
-
-        assert Bukkit.getScoreboardManager() != null;
-        final Scoreboard stats = Bukkit.getScoreboardManager().getNewScoreboard();
-        player.setScoreboard(stats);
-
+        /*
         Runnable run = new Runnable() {
             Objective status = stats.registerNewObjective("Status", "dummy", "Status");
 
@@ -86,7 +81,8 @@ public class ScoreBoardManager {
             }
         };
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, run, -1);
+         */
+        playerBoards.put(player.getUniqueId(), new Healthboard(plugin, player));
     }
 
     public void resetStatusScoreboard(boolean enabled) {
@@ -96,6 +92,11 @@ public class ScoreBoardManager {
             else
                 player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         }
+    }
+
+    public void unloadScoreboard(Player player) {
+        playerBoards.get(player.getUniqueId()).cancel();
+        playerBoards.remove(player.getUniqueId());
     }
 
 }
