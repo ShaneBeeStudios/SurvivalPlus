@@ -258,11 +258,11 @@ public class PlayerData implements ConfigurationSerializable {
 		return localChat;
 	}
 
-	/** Get the visibility of a specific healthboard feature
-	 * @param info Healthboard feature
-	 * @return True if this feature is visible on the player's scoreboard
+	/** Get the visibility of a specific healthboard info
+	 * @param info Healthboard info
+	 * @return True if this info is displayed on the player's scoreboard
 	 */
-	public boolean showInfo(Info info) {
+	public boolean isInfoDisplayed(Info info) {
 		switch (info) {
 			case HUNGER:
 				return score_hunger;
@@ -277,11 +277,11 @@ public class PlayerData implements ConfigurationSerializable {
 		}
 	}
 
-	/** Set the visibility of a specific healthboard feature
-	 * @param info Healthboard feature to show
-	 * @param visible Whether the feature should be visible or not
+	/** Set the visibility of a specific healthboard info
+	 * @param info Healthboard info to display
+	 * @param visible Whether the info should be displayed or not
 	 */
-	public void setShowInfo(Info info, boolean visible) {
+	public void setInfoDisplayed(Info info, boolean visible) {
 		switch (info) {
 			case HUNGER:
 				this.score_hunger = visible;
@@ -300,14 +300,14 @@ public class PlayerData implements ConfigurationSerializable {
 		}
 	}
 
-	/** Set the visibility of all healthboard features
+	/** Set the visibility of all healthboard info
 	 * <p>This is mainly used internally for data transfers</p>
-	 * @param hunger Whether hunger should be shown on the player's healthboard
-	 * @param thirst Whether thirst should be shown on the player's healthboard
-	 * @param fatigue Whether fatigue should be shown on the player's healthboard
-	 * @param nutrients Whether nutrients should be shown on the player's healthboard
+	 * @param hunger Whether hunger should be displayed on the player's healthboard
+	 * @param thirst Whether thirst should be displayed on the player's healthboard
+	 * @param fatigue Whether fatigue should be displayed on the player's healthboard
+	 * @param nutrients Whether nutrients should be displayed on the player's healthboard
 	 */
-	public void setShowInfo(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
+	public void setInfoDisplayed(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
 		this.score_hunger = hunger;
 		this.score_thirst = thirst;
 		this.score_fatigue = fatigue;
@@ -377,7 +377,7 @@ public class PlayerData implements ConfigurationSerializable {
 		boolean score_thirst = getBool(args, "score.thirst", true);
 		boolean score_fatigue = getBool(args, "score.fatigue", true);
 		boolean score_nutrients = getBool(args, "score.nutrients", false);
-		data.setShowInfo(score_hunger, score_thirst, score_fatigue, score_nutrients);
+		data.setInfoDisplayed(score_hunger, score_thirst, score_fatigue, score_nutrients);
 
 		return data;
 	}

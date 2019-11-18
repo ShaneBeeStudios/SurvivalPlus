@@ -325,7 +325,7 @@ public class PlayerManager implements Listener {
 
 					if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
 						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
-						data.setShowInfo(s_hunger, s_thirst, s_fatigue, s_nutrients);
+						data.setInfoDisplayed(s_hunger, s_thirst, s_fatigue, s_nutrients);
 						savePlayerData(data);
 						c++;
 					}

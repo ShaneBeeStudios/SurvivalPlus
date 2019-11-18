@@ -44,7 +44,6 @@ public class Survival extends JavaPlugin implements Listener {
 	private PlayerDataConfig playerDataConfig;
 
 	// Scoreboards
-	private Scoreboard board;
 	private Scoreboard mainBoard;
 
 	// Managers
@@ -119,7 +118,6 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		// LOAD SCOREBOARDS
-		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 		// LOAD PLACEHOLDERS
@@ -329,13 +327,6 @@ public class Survival extends JavaPlugin implements Listener {
 	 */
 	public Lang getLang() {
 		return lang;
-	}
-
-	/** Get server scoreboard
-	 * @return server Scoreboard
-	 */
-	public Scoreboard getBoard() {
-		return board;
 	}
 
 	/** Get the main server scoreboard

@@ -49,7 +49,7 @@ public class ScoreBoardManager {
                     status.setDisplaySlot(DisplaySlot.SIDEBAR);
                     status.setDisplayName("Status");
 
-                    if (playerData.showInfo(Info.HUNGER)) {
+                    if (playerData.isInfoDisplayed(Info.HUNGER)) {
                         Score hunger0 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(0));
                         hunger0.setScore(10);
                         Score hunger1 = status.getScore(plugin.getPlayerManager().ShowHunger(player).get(1));
@@ -58,7 +58,7 @@ public class ScoreBoardManager {
                         hunger2.setScore(8);
                     }
 
-                    if (config.MECHANICS_THIRST_ENABLED && playerData.showInfo(Info.THIRST)) {
+                    if (config.MECHANICS_THIRST_ENABLED && playerData.isInfoDisplayed(Info.THIRST)) {
                         Score thirst0 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(0));
                         thirst0.setScore(7);
                         Score thirst1 = status.getScore(plugin.getPlayerManager().ShowThirst(player).get(1));
@@ -67,12 +67,12 @@ public class ScoreBoardManager {
                         thirst2.setScore(5);
                     }
 
-                    if (config.MECHANICS_BED_FATIGUE_ENABLED && playerData.showInfo(Info.FATIGUE)) {
+                    if (config.MECHANICS_BED_FATIGUE_ENABLED && playerData.isInfoDisplayed(Info.FATIGUE)) {
                         Score fatigue = status.getScore(plugin.getPlayerManager().ShowFatigue(player));
                         fatigue.setScore(4);
                     }
 
-                    if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && playerData.showInfo(Info.NUTRIENTS)) {
+                    if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && playerData.isInfoDisplayed(Info.NUTRIENTS)) {
                         Score carbon = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(0));
                         carbon.setScore(3);
                         Score protein = status.getScore(plugin.getPlayerManager().ShowNutrients(player).get(1));

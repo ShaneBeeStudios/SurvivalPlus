@@ -80,21 +80,21 @@ public class Status implements CommandExecutor, TabCompleter {
 									player.sendMessage(s);
 							}
 						} else {
-							playerData.setShowInfo(Info.HUNGER, true);
+							playerData.setInfoDisplayed(Info.HUNGER, true);
 							if (config.MECHANICS_THIRST_ENABLED)
-								playerData.setShowInfo(Info.THIRST, true);
+								playerData.setInfoDisplayed(Info.THIRST, true);
 							if (config.MECHANICS_BED_FATIGUE_ENABLED)
-								playerData.setShowInfo(Info.FATIGUE, true);
+								playerData.setInfoDisplayed(Info.FATIGUE, true);
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
-								playerData.setShowInfo(Info.NUTRIENTS, true);
+								playerData.setInfoDisplayed(Info.NUTRIENTS, true);
 						}
 						break;
 					case "none":
 					case "off":
-						playerData.setShowInfo(Info.HUNGER, false);
-						playerData.setShowInfo(Info.THIRST, false);
-						playerData.setShowInfo(Info.FATIGUE, false);
-						playerData.setShowInfo(Info.NUTRIENTS, false);
+						playerData.setInfoDisplayed(Info.HUNGER, false);
+						playerData.setInfoDisplayed(Info.THIRST, false);
+						playerData.setInfoDisplayed(Info.FATIGUE, false);
+						playerData.setInfoDisplayed(Info.NUTRIENTS, false);
 						break;
 					case "hunger":
 					case "h":
@@ -103,7 +103,7 @@ public class Status implements CommandExecutor, TabCompleter {
 									playerManager.ShowHunger(player).get(2) + " " +
 									playerManager.ShowHunger(player).get(0).toUpperCase());
 						} else
-							playerData.setShowInfo(Info.HUNGER, !playerData.showInfo(Info.HUNGER));
+							playerData.setInfoDisplayed(Info.HUNGER, !playerData.isInfoDisplayed(Info.HUNGER));
 						break;
 					case "thirst":
 					case "t":
@@ -113,7 +113,7 @@ public class Status implements CommandExecutor, TabCompleter {
 										playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());
 						} else
-							playerData.setShowInfo(Info.THIRST, !playerData.showInfo(Info.THIRST));
+							playerData.setInfoDisplayed(Info.THIRST, !playerData.isInfoDisplayed(Info.THIRST));
 						break;
 					case "fatigue":
 					case "f":
@@ -121,7 +121,7 @@ public class Status implements CommandExecutor, TabCompleter {
 							if (config.MECHANICS_BED_FATIGUE_ENABLED)
 								player.sendMessage(playerManager.ShowFatigue(player));
 						} else
-							playerData.setShowInfo(Info.FATIGUE, !playerData.showInfo(Info.FATIGUE));
+							playerData.setInfoDisplayed(Info.FATIGUE, !playerData.isInfoDisplayed(Info.FATIGUE));
 						break;
 					case "nutrients":
 					case "n":
@@ -131,7 +131,7 @@ public class Status implements CommandExecutor, TabCompleter {
 									player.sendMessage(s);
 							}
 						} else
-							playerData.setShowInfo(Info.NUTRIENTS, !playerData.showInfo(Info.NUTRIENTS));
+							playerData.setInfoDisplayed(Info.NUTRIENTS, !playerData.isInfoDisplayed(Info.NUTRIENTS));
 						break;
 					default:
 						Utils.sendColoredMsg(player, prefix + "&6HealthBoard");
