@@ -19,7 +19,6 @@ public class TaskManager {
 		}
 		if (config.MECHANICS_THIRST_ENABLED) {
 			new ThirstDrain(plugin);
-			new ThirstEffect(plugin);
 			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
 				new ThirstAlert(plugin);
 			}
