@@ -61,6 +61,11 @@ grappling-main-hand: "&c你必须用右手使用抓钩."
 
 compass-pointed: "指南针已指向"
 compass-coords: "你的坐标为"
+compass-lore:
+  - '&a左键单击：'
+  - '&7  - 查看当前位置的坐标'
+  - '&a右键单击:'
+  - '&7  - 设置指南针的航点'
 
 players-only: "只对玩家有效."
 toggle-chat-local: "&b切换至 &a本地&b聊天."

@@ -60,6 +60,11 @@ grappling-main-hand: "&cYou must use a grappling hook with your main hand."
 
 compass-pointed: "Compass has pointed at"
 compass-coords: "Your coordinates are"
+compass-lore:
+  - '&aLeft-Click:'
+  - '&7  - See coords of current location'
+  - '&aShift-Right-Click:'
+  - '&7  - Set waypoint for compass'
 
 players-only: "Works on players only."
 toggle-chat-local: "&bToggled to &aLocal&b Chat."
