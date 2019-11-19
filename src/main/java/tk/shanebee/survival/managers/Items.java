@@ -68,6 +68,7 @@ public enum Items {
     DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
+    COMPASS(Material.COMPASS, 0),
 
 
     // TODO Experimental

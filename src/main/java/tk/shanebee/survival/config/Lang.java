@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class Lang {
 
@@ -58,6 +59,7 @@ public class Lang {
     public String grappling_main_hand;
     public String compass_pointed;
     public String compass_coords;
+    public List<String> compass_lore;
     public String players_only;
     public String toggle_chat_local;
     public String toggle_chat_global;
@@ -227,6 +229,7 @@ public class Lang {
         grappling_main_hand = lang.getString("grappling-main-hand");
         compass_pointed = lang.getString("compass-pointed");
         compass_coords = lang.getString("compass-coords");
+        compass_lore = lang.getStringList("compass-lore");
         players_only = lang.getString("players-only");
         toggle_chat_local = lang.getString("toggle-chat-local");
         toggle_chat_global = lang.getString("toggle-chat-global");
