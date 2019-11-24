@@ -40,10 +40,10 @@ public class PlayerData implements ConfigurationSerializable {
 	private int recurveCooldown = 0;
 
 	// Scoreboard info
-	private boolean score_hunger = false;
-	private boolean score_thirst = false;
-	private boolean score_fatigue = false;
-	private boolean score_nutrients = false;
+	private boolean score_hunger = true;
+	private boolean score_thirst = true;
+	private boolean score_fatigue = true;
+	private boolean score_nutrients = true;
 
 	public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int salts, int fatigue) {
 		this(player.getUniqueId(), thirst, proteins, carbs, salts, fatigue);
@@ -205,6 +205,7 @@ public class PlayerData implements ConfigurationSerializable {
 	}
 
 	// Internal use only - set all stats at once
+	/*
 	private void setStats(int charge, int charging, int spin, int dual, int dualMsg, int healing, int healTime, int recurveFiring, int recurveCooldown) {
 		this.charge = charge;
 		this.charging = charging;
@@ -216,6 +217,7 @@ public class PlayerData implements ConfigurationSerializable {
 		this.recurveFiring = recurveFiring;
 		this.recurveCooldown = recurveCooldown;
 	}
+	 */
 
 	/** Get a stat from this data
 	 * @param stat Stat to retrieve
@@ -328,6 +330,7 @@ public class PlayerData implements ConfigurationSerializable {
 		result.put("nutrients.carbs", carbs);
 		result.put("nutrients.salts", salts);
 		result.put("local-chat", localChat);
+		/* removing for now, probably doesnt need to save to data file
 		result.put("stats.charge", charge);
 		result.put("stats.charging", charging);
 		result.put("stats.spin", spin);
@@ -337,6 +340,7 @@ public class PlayerData implements ConfigurationSerializable {
 		result.put("stats.healTimes", healTimes);
 		result.put("stats.recurveFiring", recurveFiring);
 		result.put("stats.recurveCooldown", recurveCooldown);
+		 */
 		result.put("score.hunger", score_hunger);
 		result.put("score.thirst", score_thirst);
 		result.put("score.fatigue", score_fatigue);
@@ -361,6 +365,7 @@ public class PlayerData implements ConfigurationSerializable {
 		boolean localChat = getBool(args, "local-chat", false);
 		data.setLocalChat(localChat);
 
+		/* removing for now, probably doesnt need to save to data file
 		int charge = getInt(args, "stats.charge", 0);
 		int charging = getInt(args, "stats.charging", 0);
 		int spin = getInt(args, "stats.spin", 0);
@@ -372,6 +377,7 @@ public class PlayerData implements ConfigurationSerializable {
 		int recurveCooldown = getInt(args, "stats.recurveCooldown", 0);
 		data.setStats(charge, charging, spin, dual, dualMsg, healing,
 				healTimes, recurveFiring, recurveCooldown);
+		 */
 
 		boolean score_hunger = getBool(args, "score.hunger", true);
 		boolean score_thirst = getBool(args, "score.thirst", true);
