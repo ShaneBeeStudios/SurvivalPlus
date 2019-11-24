@@ -1,13 +1,12 @@
 package tk.shanebee.survival.listeners;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 class SpecialItemInteractCancel implements Listener {
 

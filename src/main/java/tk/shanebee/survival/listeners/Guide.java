@@ -5,14 +5,13 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 class Guide implements Listener {

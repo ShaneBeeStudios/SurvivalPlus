@@ -3,7 +3,7 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 /**
@@ -87,8 +87,6 @@ public class EventManager {
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (config.MECHANICS_RECURVED_BOW)
 			pm.registerEvents(new RecurvedBow(plugin), this.plugin);
-		if (config.MECHANICS_STATUS_SCOREBOARD)
-			pm.registerEvents(new ScoreboardStats(plugin), this.plugin);
 		if (config.MECHANICS_SNOWBALL_REVAMP)
 			pm.registerEvents(new SnowballThrow(), this.plugin);
 		if (config.MECHANICS_SNOW_GEN_REVAMP)
@@ -107,6 +105,7 @@ public class EventManager {
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
 			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
+		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 	}
 
 }

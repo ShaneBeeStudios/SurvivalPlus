@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,12 +14,14 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -30,17 +31,20 @@ class Consume implements Listener {
 	private Survival plugin;
 	private Config config;
 	private Lang lang;
+	private PlayerManager playerManager;
 
 	Consume(Survival plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
+		this.playerManager = plugin.getPlayerManager();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		final Player player = event.getPlayer();
+		PlayerData playerData = playerManager.getPlayerData(player);
 		ItemStack item = event.getItem();
 		int change = 0;
 		switch (event.getItem().getType()) {
@@ -104,10 +108,10 @@ class Consume implements Listener {
 				break;
 			default:
 		}
-		ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, StatusManager.getThirst(player) + change);
+		ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
 		Bukkit.getPluginManager().callEvent(thirstEvent);
 		if (!thirstEvent.isCancelled()) {
-			StatusManager.addThirst(player, change);
+			playerData.setThirst(playerData.getThirst() + change);
 		}
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -121,22 +125,14 @@ class Consume implements Listener {
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
+		PlayerData playerData = playerManager.getPlayerData(player);
+
 		int thirst = config.MECHANICS_THIRST_RESPAWN_AMOUNT;
-		StatusManager.setThirst(player, thirst);
+		playerData.setThirst(thirst);
+		playerManager.getPlayerData(player).setThirst(thirst);
 		int hunger = config.MECHANICS_HUNGER_RESPAWN_AMOUNT;
 		Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
 
-	}
-
-	@EventHandler
-	private void onFirstJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-		if (!player.hasPlayedBefore()) {
-			int thirst = config.MECHANICS_THIRST_START_AMOUNT;
-			StatusManager.setThirst(player, thirst);
-			int hunger = config.MECHANICS_HUNGER_START_AMOUNT;
-			Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
-		}
 	}
 
 	private boolean checkWaterBottle(ItemStack bottle) {

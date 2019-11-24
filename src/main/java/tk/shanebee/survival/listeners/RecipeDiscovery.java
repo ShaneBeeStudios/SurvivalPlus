@@ -98,6 +98,8 @@ class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.BOWL.getKeys());
         } else if (item == Material.VINE) {
             player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
+        } else if (item == Material.REDSTONE) {
+            player.discoverRecipes(Recipes.COMPASS.getKeys());
         }
     }
 

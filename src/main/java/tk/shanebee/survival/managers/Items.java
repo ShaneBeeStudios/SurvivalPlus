@@ -68,6 +68,7 @@ public enum Items {
     DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 
     GRAPPLING_HOOK(Material.FISHING_ROD, 1),
+    COMPASS(Material.COMPASS, 1),
 
 
     // TODO Experimental
@@ -96,44 +97,54 @@ public enum Items {
         return this.modelData;
     }
 
+    @SuppressWarnings("unused")
     public enum Tags {
         /**
          * Any sickle
          */
-        SICKLES,
+        SICKLES(FLINT_SICKLE, STONE_SICKLE, IRON_SICKLE, DIAMOND_SICKLE),
         /**
          * Any reinforced leather armor
          */
-        REINFORCED_LEATHER_ARMOR,
+        REINFORCED_LEATHER_ARMOR(REINFORCED_LEATHER_BOOTS, REINFORCED_LEATHER_TROUSERS,
+                REINFORCED_LEATHER_TUNIC, REINFORCED_LEATHER_HELMET),
         /**
          * Any water bottle
          */
-        WATER_BOTTLE,
+        WATER_BOTTLE(DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER),
         /**
          * Any drinkable item
          */
-        DRINKABLE;
+        DRINKABLE(DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
+                COLD_MILK, HOT_MILK, COFFEE),
+
+        /**
+         * Any legendary item
+         */
+        LEGENDARY(BLAZE_SWORD, OBSIDIAN_MACE, VALKYRIES_AXE, ENDER_GIANT_BLADE, QUARTZ_PICKAXE);
+
+        private Items[] items;
+
+        Tags(Items... items) {
+            this.items = items;
+        }
+
+        /** Get all items tagged in this group
+         * @return All items tagged in this group
+         */
+        public Items[] getItems() {
+            return items;
+        }
 
         /** Check if an ItemStack is tagged in a group of custom {@link Items}
          * @param item ItemStack to check
          * @return True if item matches tag
          */
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         public boolean isTagged(ItemStack item) {
-            switch (this) {
-                case SICKLES:
-                    return ItemManager.compare(item, FLINT_SICKLE, STONE_SICKLE, IRON_SICKLE, DIAMOND_SICKLE);
-                case REINFORCED_LEATHER_ARMOR:
-                    return ItemManager.compare(item, REINFORCED_LEATHER_BOOTS, REINFORCED_LEATHER_TROUSERS,
-                            REINFORCED_LEATHER_TUNIC, REINFORCED_LEATHER_HELMET);
-                case WATER_BOTTLE:
-                    return ItemManager.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER);
-                case DRINKABLE:
-                    return ItemManager.compare(item, DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
-                            COLD_MILK, HOT_MILK, COFFEE);
-                default:
-                    return false;
-            }
+            return ItemManager.compare(item, items);
         }
+
     }
 
 }

@@ -3,10 +3,11 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
-import org.bukkit.scoreboard.Scoreboard;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -21,8 +22,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 
 import tk.shanebee.survival.Survival;
 
@@ -30,29 +29,22 @@ class Valkyrie implements Listener {
 
 	private Survival plugin;
 	private Lang lang;
-	private Objective spin;
-	private Objective dualWield;
-	private Objective tech_dualWieldMsg;
 
 	Valkyrie(Survival plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
-		this.spin = plugin.getBoard().getObjective("Spin");
-		this.dualWield = plugin.getBoard().getObjective("DualWield");
-		this.tech_dualWieldMsg = plugin.getBoard().getObjective("DualWieldMsg");
 	}
 
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 
-		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
-
 		if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
-			if (dualWield.getScore(player.getName()).getScore() == 0) {
+			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
-					if (spin.getScore(player.getName()).getScore() == 0) {
+					if (playerData.getStat(Stat.SPIN) == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();
 
@@ -81,15 +73,15 @@ class Valkyrie implements Listener {
 				}
 			} else {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 1);
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if (score_dualWieldMsg.getScore() == 2) {
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 2);
+				if (playerData.getStat(Stat.DUAL_WIELD_MSG) == 2) {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.valkyrie_axe_unable_dual));
 				}
 			}
 		}
-		score_dualWieldMsg.setScore(0);
+		playerData.setStat(Stat.DUAL_WIELD_MSG, 0);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -97,11 +89,12 @@ class Valkyrie implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
+			PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 
-			if (dualWield.getScore(player.getName()).getScore() == 0) {
+			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
-					if (spin.getScore(player.getName()).getScore() == 0) {
+					if (playerData.getStat(Stat.SPIN) == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();
 
@@ -135,8 +128,8 @@ class Valkyrie implements Listener {
 	}
 
 	private void spin(final Player player) {
-		Score score = spin.getScore(player.getName());
-		score.setScore(1);
+		PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
+		playerData.setStat(Stat.SPIN, 1);
 
 		particleCircle(player, 50, 2.5f, Particle.CRIT);
 		particleCircle(player, 25, 2f, Particle.CRIT);
@@ -148,14 +141,9 @@ class Valkyrie implements Listener {
 
 		damageNearbyEnemies(player, 8);
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					Score score = spin.getScore(player.getName());
-
-					public void run() {
-						score.setScore(0);
-					}
-				},
-				20L);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+			playerData.setStat(Stat.SPIN, 0);
+		}, 20L);
 	}
 
 	private void particleCircle(Player player, int particles, float radius, Particle particle) {

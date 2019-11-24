@@ -7,7 +7,7 @@ import org.bukkit.Tag;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.lang.reflect.Constructor;
@@ -743,6 +743,12 @@ public class RecipeManager {
         cold_milk.setIngredient('1', Material.MILK_BUCKET);
         cold_milk.setIngredient('2', Material.GLASS_BOTTLE);
 
+        // NEW COMPASS RECIPE
+        ShapedRecipe compass_recipe = new ShapedRecipe(new NamespacedKey(survival, "compass"), ItemManager.get(Items.COMPASS));
+        compass_recipe.shape(" 1 ", "121", " 1 ");
+        compass_recipe.setIngredient('1', Material.IRON_INGOT);
+        compass_recipe.setIngredient('2', Material.REDSTONE);
+
 
 
 
@@ -938,6 +944,9 @@ public class RecipeManager {
             survival.getServer().addRecipe(hot_milk);
             survival.getServer().addRecipe(coffee);
         }
+        if (config.MECHANICS_COMPASS_WAYPOINT) {
+            survival.getServer().addRecipe(compass_recipe);
+        }
     }
 
     /** Enums of all custom recipes
@@ -1013,6 +1022,7 @@ public class RecipeManager {
         DIAMOND_LEGGINGS("diamond_leggings"),
         DIAMOND_CHESTPLATE("diamond_chestplate"),
         DIAMOND_HELMET("diamond_helmet"),
+        COMPASS("compass"),
 
         // VANILLA BLOCKS
         CLAY_BRICK("clay_brick"),
@@ -1151,6 +1161,9 @@ public class RecipeManager {
         }
         if (config.RECIPES_FISHING_ROD) {
             removeRecipeByKey("fishing_rod");
+        }
+        if (config.MECHANICS_COMPASS_WAYPOINT) {
+            removeRecipeByKey("compass");
         }
     }
 

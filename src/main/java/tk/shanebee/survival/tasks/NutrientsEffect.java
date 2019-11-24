@@ -7,12 +7,15 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.StatusManager;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.data.Nutrient;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.config.Config;
 
 class NutrientsEffect extends BukkitRunnable {
 
 	private Config config;
+	private PlayerManager playerManager;
 	private PotionEffect SALTS_NORMAL = null;
 	private PotionEffect SALTS_HARD = null;
 	private PotionEffect PROTEIN_NORMAL = null;
@@ -20,6 +23,7 @@ class NutrientsEffect extends BukkitRunnable {
 
 	NutrientsEffect(Survival plugin) {
 		this.config = plugin.getSurvivalConfig();
+		this.playerManager = plugin.getPlayerManager();
 		loadEffects();
 		this.runTaskTimer(plugin, -1, 320);
 	}
@@ -28,8 +32,9 @@ class NutrientsEffect extends BukkitRunnable {
 	public void run() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+				PlayerData playerData = playerManager.getPlayerData(player);
 
-				if (StatusManager.getNutrients(player, StatusManager.Nutrients.CARBS) <= 0) {
+				if (playerData.getNutrient(Nutrient.CARBS) <= 0) {
 					switch (player.getWorld().getDifficulty()) {
 						case EASY:
 							player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY, 0));
@@ -44,7 +49,7 @@ class NutrientsEffect extends BukkitRunnable {
 					}
 				}
 
-				if (StatusManager.getNutrients(player, StatusManager.Nutrients.SALTS) <= 0) {
+				if (playerData.getNutrient(Nutrient.SALTS) <= 0) {
 					player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP, 0));
 					switch (player.getWorld().getDifficulty()) {
 						case NORMAL:
@@ -61,7 +66,7 @@ class NutrientsEffect extends BukkitRunnable {
 					}
 				}
 
-				if (StatusManager.getNutrients(player, StatusManager.Nutrients.PROTEIN) <= 0) {
+				if (playerData.getNutrient(Nutrient.PROTEIN) <= 0) {
 					player.setExhaustion(player.getExhaustion() + Math.max(config.MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP, 0));
 					switch (player.getWorld().getDifficulty()) {
 						case NORMAL:

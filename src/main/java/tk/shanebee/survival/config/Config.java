@@ -1,8 +1,9 @@
-package tk.shanebee.survival.util;
+package tk.shanebee.survival.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
 import java.io.InputStream;

@@ -3,6 +3,7 @@ package tk.shanebee.survival;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,33 +11,39 @@ import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.commands.*;
+import tk.shanebee.survival.config.PlayerDataConfig;
+import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.listeners.EventManager;
 import tk.shanebee.survival.managers.*;
 import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
 
+	static {
+		ConfigurationSerialization.registerClass(PlayerData.class, "PlayerData");
+	}
+
 	private static Survival instance;
 
-	// Lists
+	// Lists & Maps
 	private List<Double> Rates = new ArrayList<>();
 	private List<Material> chairBlocks = new ArrayList<>();
 	private List<Player> usingPlayers = new ArrayList<>();
+	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
 	// Configs
 	private Config config;
 	private Lang lang;
+	private PlayerDataConfig playerDataConfig;
 
 	// Scoreboards
-	private Scoreboard board;
 	private Scoreboard mainBoard;
 
 	// Managers
@@ -53,6 +60,9 @@ public class Survival extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		instance = this;
+		long time = System.currentTimeMillis();
+
+		// VERSION CHECK
 		if (!Utils.isRunningMinecraft(1, 14)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
 			getLogger().severe("-----------------------------------------------------------");
@@ -64,7 +74,7 @@ public class Survival extends JavaPlugin implements Listener {
 			return;
 		}
 
-		// LOAD MAIN CONFIG FILE
+		// LOAD CONFIG FILES
 		loadSettings(Bukkit.getConsoleSender());
 
 		for (World world : getServer().getWorlds()) {
@@ -108,11 +118,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		// LOAD SCOREBOARDS
-		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
-		scoreBoardManager = new ScoreBoardManager(this);
-		scoreBoardManager.loadScoreboards(board, mainBoard);
-		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// LOAD PLACEHOLDERS
 		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -120,11 +126,16 @@ public class Survival extends JavaPlugin implements Listener {
 			Utils.sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
 		}
 
-		// MANAGERS
+		// LOAD MANAGERS
 		blockManager = new BlockManager(this);
+		playerManager = new PlayerManager(this, playerDataMap);
 		effectManager = new EffectManager(this);
-		playerManager = new PlayerManager(this);
 		taskManager = new TaskManager(this);
+		scoreBoardManager = new ScoreBoardManager(this);
+
+		// LOAD PLAYER DATA - (during a reload if players are still online)
+		playerDataLoader(true);
+		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
 
 		// REGISTER EVENTS & COMMANDS
 		registerCommands();
@@ -136,12 +147,14 @@ public class Survival extends JavaPlugin implements Listener {
 		recipes.loadCustomRecipes();
 		Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
 
-		// Load metrics
-		@SuppressWarnings("unused")
+		// LOAD METRICS
 		Metrics metrics = new Metrics(this);
 		Utils.sendColoredConsoleMsg(prefix + "&7Metrics " + (metrics.isEnabled() ? "&aenabled" : "&cdisabled"));
 
-		Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded");
+		Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded &7in " +
+				(System.currentTimeMillis() - time) + " milliseconds");
+
+		// BETA WARNING
 		if (this.getDescription().getVersion().contains("Beta")) {
 			getLogger().warning(ChatColor.translateAlternateColorCodes('&',
 					"&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!"));
@@ -159,6 +172,9 @@ public class Survival extends JavaPlugin implements Listener {
 		for (World world : getServer().getWorlds()) {
 			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, false);
 		}
+
+		// Unload player data (decrease chance of memory leak)
+		playerDataLoader(false);
 
 		//Avoid WorkbenchShare glitch
 		if (config.MECHANICS_SHARED_WORKBENCH) {
@@ -181,8 +197,31 @@ public class Survival extends JavaPlugin implements Listener {
 		Utils.sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
 	}
 
+	private void playerDataLoader(boolean load) {
+		int size = Bukkit.getOnlinePlayers().size();
+		if (load) {
+			// Load player data - if players are online (useful during reload)
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				playerManager.loadPlayerData(player);
+			}
+			if (size > 0) {
+				Utils.log("Loading player data for &b" + size + " player" + (size != 1 ? "s" : ""));
+			}
+		} else {
+			// Unload player data - if players are still online
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				playerManager.unloadPlayerData(player);
+			}
+			// Clear/delete player data map to prevent memory leaks
+			playerDataMap.clear();
+			playerDataMap = null;
+			Utils.log("Unloading player data for &b" + size + " player" + (size != 1 ? "s" : ""));
+		}
+	}
+
 	/**
 	 * Load config settings
+	 * @param sender The person/console loading config
 	 */
 	public void loadSettings(CommandSender sender) {
 		this.config = new Config(this);
@@ -197,6 +236,7 @@ public class Survival extends JavaPlugin implements Listener {
 				Utils.log("&cInvalid chair block material: &7" + type);
 			}
 		}
+		this.playerDataConfig = new PlayerDataConfig(this);
 	}
 
 	@EventHandler
@@ -215,18 +255,21 @@ public class Survival extends JavaPlugin implements Listener {
 	}
 
 	private void registerCommands() {
+		String noPerm = Utils.getColoredString(prefix + lang.no_perm);
 		getCommand("recipes").setExecutor(new Recipes());
 		getCommand("togglechat").setExecutor(new ToggleChat(this));
-		getCommand("togglechat").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("togglechat").setPermissionMessage(noPerm);
 		getCommand("status").setExecutor(new Status(this));
 		getCommand("reload-survival").setExecutor(new Reload(this));
-		getCommand("reload-survival").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("reload-survival").setPermissionMessage(noPerm);
 		if (config.MECHANICS_SNOW_GEN_REVAMP) {
 			getCommand("snowgen").setExecutor(new SnowGen(this));
-			getCommand("snowgen").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+			getCommand("snowgen").setPermissionMessage(noPerm);
 		}
 		getCommand("giveitem").setExecutor(new GiveItem(this));
-		getCommand("giveitem").setPermissionMessage(Utils.getColoredString(prefix + lang.no_perm));
+		getCommand("giveitem").setPermissionMessage(noPerm);
+		getCommand("nutrition").setExecutor(new Nutrition(this));
+		getCommand("nutrition").setPermissionMessage(noPerm);
 	}
 
 	/** Get instance of this plugin
@@ -286,13 +329,6 @@ public class Survival extends JavaPlugin implements Listener {
 		return lang;
 	}
 
-	/** Get server scoreboard
-	 * @return server Scoreboard
-	 */
-	public Scoreboard getBoard() {
-		return board;
-	}
-
 	/** Get the main server scoreboard
 	 * @return Main server scoreboard
 	 */
@@ -322,4 +358,7 @@ public class Survival extends JavaPlugin implements Listener {
 		return usingPlayers;
 	}
 
+	public PlayerDataConfig getPlayerDataConfig() {
+		return playerDataConfig;
+	}
 }

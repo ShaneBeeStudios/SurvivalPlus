@@ -3,7 +3,6 @@ package tk.shanebee.survival.listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +16,7 @@ import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.util.Config;
+import tk.shanebee.survival.config.Config;
 
 import java.util.Objects;
 

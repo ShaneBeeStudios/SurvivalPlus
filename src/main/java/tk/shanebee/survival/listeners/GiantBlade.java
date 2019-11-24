@@ -3,9 +3,13 @@ package tk.shanebee.survival.listeners;
 import java.util.Collection;
 import java.util.Random;
 
+import org.bukkit.inventory.EquipmentSlot;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -20,8 +24,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.util.Vector;
 
 import tk.shanebee.survival.Survival;
@@ -29,19 +31,13 @@ import tk.shanebee.survival.Survival;
 class GiantBlade implements Listener {
 
 	private Survival plugin;
-	private Objective charge;
-	private Objective charging;
-	private Objective dualWield;
-	private Objective tech_dualWieldMsg;
 	private Lang lang;
-	
+	private PlayerManager playerManager;
+
 	GiantBlade(Survival plugin) {
 		this.plugin = plugin;
-		this.charge = plugin.getBoard().getObjective("Charge");
-		this.charging = plugin.getBoard().getObjective("Charging");
-		this.dualWield = plugin.getBoard().getObjective("DualWield");
-		this.tech_dualWieldMsg = plugin.getBoard().getObjective("DualWieldMsg");
 		this.lang = plugin.getLang();
+		this.playerManager = plugin.getPlayerManager();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -49,9 +45,10 @@ class GiantBlade implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
+			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 
-			if (dualWield.getScore(player.getName()).getScore() == 1) {
+			if (playerData.getStat(Stat.DUAL_WIELD) == 1) {
 				event.setCancelled(true);
 				return;
 			}
@@ -82,16 +79,17 @@ class GiantBlade implements Listener {
 	@EventHandler
 	private void onItemClick(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		PlayerData playerData = playerManager.getPlayerData(player);
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		ItemStack offItem = player.getInventory().getItemInOffHand();
 
-		Score score_dualWieldMsg = tech_dualWieldMsg.getScore(player.getName());
-
 		if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
-			if (dualWield.getScore(player.getName()).getScore() == 0) {
+			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+					if (event.getHand() != EquipmentSlot.HAND) return; // prevent double message
+
 					if (player.isSprinting()) {
-						if (charge.getScore(player.getName()).getScore() == 0) {
+						if (playerData.getStat(Stat.CHARGE) == 0) {
 							Random rand = new Random();
 
 							ChargeForward(player);
@@ -116,32 +114,33 @@ class GiantBlade implements Listener {
 				}
 			} else {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 1);
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if (score_dualWieldMsg.getScore() >= 2) {
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 2);
+				if (playerData.getStat(Stat.DUAL_WIELD_MSG) >= 2) {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.ender_giant_blade_unable_duel));
 				}
 			}
 		} else if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
-			if (dualWield.getScore(player.getName()).getScore() != 0) {
+			if (playerData.getStat(Stat.DUAL_WIELD) != 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 1);
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 1);
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-					score_dualWieldMsg.setScore(score_dualWieldMsg.getScore() + 2);
-				if (score_dualWieldMsg.getScore() >= 2) {
+					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 2);
+				if (playerData.getStat(Stat.DUAL_WIELD_MSG) >= 2) {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.ender_giant_blade_unable_duel));
 				}
 			}
 		}
-		score_dualWieldMsg.setScore(0);
+		playerData.setStat(Stat.DUAL_WIELD_MSG, 0);
 	}
 
 	private void ChargeForward(Player player) {
+		PlayerData playerData = playerManager.getPlayerData(player);
 		player.sendMessage(ChatColor.BLUE + Utils.getColoredString(lang.charge));
 
-		Score score = charge.getScore(player.getName());
-		score.setScore(1);
+		playerData.setStat(Stat.CHARGE, 1);
+
 
 		Location loc = player.getLocation();
 		if (loc.getPitch() < 0)
@@ -154,7 +153,7 @@ class GiantBlade implements Listener {
 		player.setVelocity(newVel);
 
 		final Player chargingPlayer = player;
-		charging.getScore(chargingPlayer.getName()).setScore(8);
+		playerData.setStat(Stat.CHARGING, 8);
 
 		final Runnable task = new Runnable() {
 			public void run() {
@@ -162,26 +161,21 @@ class GiantBlade implements Listener {
 
 				Random rand = new Random();
 				chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
-				Utils.spawnParticle(chargingPlayer.getLocation(), Particle.EXPLOSION_NORMAL, 10, 0,0,0);
+				Utils.spawnParticle(chargingPlayer.getLocation(), Particle.EXPLOSION_NORMAL, 10, 0, 0, 0);
 
-				int times = charging.getScore(chargingPlayer.getName()).getScore();
+				int times = playerData.getStat(Stat.CHARGING);
 				if (--times > 1)
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 1L);
-				charging.getScore(chargingPlayer.getName()).setScore(times);
+				playerData.setStat(Stat.CHARGING, times);
 			}
 		};
 
 		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
 
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-					Score score = charge.getScore(chargingPlayer.getName());
-
-					public void run() {
-						score.setScore(0);
-						chargingPlayer.sendMessage(ChatColor.GREEN + Utils.getColoredString(lang.charge_ready));
-					}
-				},
-				100L);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+			playerData.setStat(Stat.CHARGE, 0);
+			chargingPlayer.sendMessage(ChatColor.GREEN + Utils.getColoredString(lang.charge_ready));
+		}, 100L);
 	}
 
 	private void damageNearbyEnemies(Player player) {

@@ -3,6 +3,8 @@ package tk.shanebee.survival.managers;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.Nutrient;
+import tk.shanebee.survival.data.PlayerData;
 
 @SuppressWarnings("unused")
 public class Placeholders extends PlaceholderExpansion {
@@ -40,13 +42,15 @@ public class Placeholders extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player p, String identifier) {
+        PlayerData playerData = plugin.getPlayerManager().getPlayerData(p);
+
         // Shows player's health, kinda useless but here it is
         if (identifier.equalsIgnoreCase("player_health")) {
             return String.valueOf(p.getHealth());
         }
         // Shows a player's total hunger (including saturation)
         if (identifier.equalsIgnoreCase("player_hunger_total")) {
-            return String.valueOf(StatusManager.getHunger(p));
+            return String.valueOf(p.getFoodLevel() + p.getSaturation());
         }
         // Shows player's hunger
         if (identifier.equalsIgnoreCase("player_hunger")) {
@@ -66,7 +70,7 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's thirst
         if (identifier.equalsIgnoreCase("player_thirst")) {
-            return String.valueOf(StatusManager.getThirst(p));
+            return String.valueOf(playerData.getThirst());
         }
         // Shows player's thirst bar (top part - first half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_1")) {
@@ -92,13 +96,13 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's nutrients (just the <amount>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs")) {
-            return String.valueOf(StatusManager.getNutrients(p, StatusManager.Nutrients.CARBS));
+            return String.valueOf(playerData.getNutrient(Nutrient.CARBS));
         }
         if (identifier.equalsIgnoreCase("player_nutrients_proteins")) {
-            return String.valueOf(StatusManager.getNutrients(p, StatusManager.Nutrients.PROTEIN));
+            return String.valueOf(playerData.getNutrient(Nutrient.PROTEIN));
         }
         if (identifier.equalsIgnoreCase("player_nutrients_salts")) {
-            return String.valueOf(StatusManager.getNutrients(p, StatusManager.Nutrients.SALTS));
+            return String.valueOf(playerData.getNutrient(Nutrient.SALTS));
         }
         return null;
     }

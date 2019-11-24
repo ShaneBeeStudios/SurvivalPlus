@@ -60,6 +60,12 @@ grappling-main-hand: "&cYou must use a grappling hook with your main hand."
 
 compass-pointed: "Compass has pointed at"
 compass-coords: "Your coordinates are"
+compass-lore:
+  - ' '
+  - '&7Left-Click:'
+  - '&2  See coords of current location'
+  - '&7Shift-Right-Click:'
+  - '&2  Set waypoint for compass'
 
 players-only: "Works on players only."
 toggle-chat-local: "&bToggled to &aLocal&b Chat."
@@ -74,6 +80,7 @@ thirst: "Thirst"
 carbohydrates: "Carbohydrates"
 protein: "Protein"
 vitamins: "Vitamins and Minerals"
+nutrition-gui: "Nutrition GUI"
 carbohydrates-lack: "Eat your grains and sugar."
 vitamins-lack: "Eat your vegetables and fruit."
 protein-lack: "Eat your meat, poultry, and dairy."

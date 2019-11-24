@@ -17,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
-import tk.shanebee.survival.util.Config;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -165,6 +165,11 @@ class BlockBreak implements Listener {
 						if (chance <= settings.DROP_RATE_STICK)
 							event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.STICK));
 					}
+				}
+				if (settings.RECIPES_WORKBENCH && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
+					event.setDropItems(false);
+					ItemStack workbench = ItemManager.get(Items.WORKBENCH);
+					block.getWorld().dropItem(block.getLocation(), workbench);
 				}
 			} else {
 				if (Utils.isOreBlock(material) || Utils.isNaturalOreBlock(material)) {

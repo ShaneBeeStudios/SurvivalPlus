@@ -1,4 +1,4 @@
-package tk.shanebee.survival.util;
+package tk.shanebee.survival.config;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,11 +6,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class Lang {
 
@@ -57,6 +59,7 @@ public class Lang {
     public String grappling_main_hand;
     public String compass_pointed;
     public String compass_coords;
+    public List<String> compass_lore;
     public String players_only;
     public String toggle_chat_local;
     public String toggle_chat_global;
@@ -73,6 +76,7 @@ public class Lang {
     public String protein_lack;
     public String vitamins;
     public String vitamins_lack;
+    public String nutrition_gui;
 
     public String healing;
     public String healing_self;
@@ -225,6 +229,7 @@ public class Lang {
         grappling_main_hand = lang.getString("grappling-main-hand");
         compass_pointed = lang.getString("compass-pointed");
         compass_coords = lang.getString("compass-coords");
+        compass_lore = lang.getStringList("compass-lore");
         players_only = lang.getString("players-only");
         toggle_chat_local = lang.getString("toggle-chat-local");
         toggle_chat_global = lang.getString("toggle-chat-global");
@@ -240,6 +245,7 @@ public class Lang {
         protein_lack = lang.getString("protein-lack");
         vitamins = lang.getString("vitamins");
         vitamins_lack = lang.getString("vitamins-lack");
+        nutrition_gui = lang.getString("nutrition-gui");
         healing = lang.getString("healing");
         healing_self = lang.getString("healing-self");
         keep = lang.getString("keep");

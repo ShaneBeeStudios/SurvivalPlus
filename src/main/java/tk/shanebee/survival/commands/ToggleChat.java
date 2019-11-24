@@ -1,42 +1,43 @@
 package tk.shanebee.survival.commands;
 
-import tk.shanebee.survival.util.Lang;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Objective;
-
-import tk.shanebee.survival.Survival;
 import org.bukkit.util.StringUtil;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.config.Lang;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class ToggleChat implements CommandExecutor, TabCompleter {
 
 	private Lang lang;
-	private Objective chat;
+	private PlayerManager playerManager;
 	private final int LOCAL_CHAT_DIST;
 	
 	public ToggleChat(Survival plugin) {
 		this.lang = plugin.getLang();
-		this.chat = plugin.getBoard().getObjective("Chat");
+		this.playerManager = plugin.getPlayerManager();
 		this.LOCAL_CHAT_DIST = plugin.getSurvivalConfig().LOCAL_CHAT_DISTANCE;
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String prefix = "&7[&3SurvivalPlus&7] ";
 		if (command.getName().equalsIgnoreCase("togglechat")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(Utils.getColoredString(lang.players_only));
 				return true;
 			}
 			Player player = (Player) sender;
-			//if (LocalChatDist > -1)
+			PlayerData playerData = playerManager.getPlayerData(player);
+
 			if (LOCAL_CHAT_DIST <= -1) {
 				player.sendMessage(Utils.getColoredString(lang.toggle_chat_disabled));
 				return true;
@@ -48,23 +49,23 @@ public class ToggleChat implements CommandExecutor, TabCompleter {
 					case "local":
 					case "l":
 						player.sendMessage(Utils.getColoredString(lang.toggle_chat_local));
-						chat.getScore(player.getName()).setScore(0);
+						playerData.setLocalChat(true);
 						break;
 					case "global":
 					case "g":
 						player.sendMessage(Utils.getColoredString(lang.toggle_chat_global));
-						chat.getScore(player.getName()).setScore(1);
+						playerData.setLocalChat(false);
 						break;
 					default:
 						return false;
 				}
 			} else if (args.length == 0) {
-				if (chat.getScore(player.getName()).getScore() == 0) {
+				if (playerData.isLocalChat()) {
 					player.sendMessage(Utils.getColoredString(lang.toggle_chat_global));
-					chat.getScore(player.getName()).setScore(1);
+					playerData.setLocalChat(false);
 				} else {
 					player.sendMessage(Utils.getColoredString(lang.toggle_chat_local));
-					chat.getScore(player.getName()).setScore(0);
+					playerData.setLocalChat(true);
 				}
 			} else {
 				sender.sendMessage(ChatColor.RED + Utils.getColoredString(lang.invalid_arg));

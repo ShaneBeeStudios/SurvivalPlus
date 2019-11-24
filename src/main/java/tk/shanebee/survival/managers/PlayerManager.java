@@ -2,31 +2,116 @@ package tk.shanebee.survival.managers;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.PlayerDataConfig;
+import tk.shanebee.survival.data.Nutrient;
+import tk.shanebee.survival.data.PlayerData;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public class PlayerManager {
+/**
+ * Manager for players
+ * <p>Get an instance of this class from <b>{@link Survival#getPlayerManager()}</b></p>
+ */
+public class PlayerManager implements Listener {
 
 	private String url;
-	private Scoreboard mainBoard;
 	private Lang lang;
 	private Survival plugin;
+	private PlayerDataConfig playerDataConfig;
 
-	public PlayerManager(Survival plugin) {
+	// Store all the active PlayerData
+	private Map<UUID, PlayerData> playerDataMap;
+
+	public PlayerManager(Survival plugin, Map<UUID, PlayerData> playerDataMap) {
 		this.plugin = plugin;
-		this.mainBoard = plugin.getMainBoard();
+		this.playerDataMap = playerDataMap;
 		this.lang = plugin.getLang();
 		this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
+		this.playerDataConfig = plugin.getPlayerDataConfig();
+		loadPlayerData();
 	}
 
-	/** Set the waypoint of a player's compass to their location
-	 * @param player The player to set a waypoint for
+	/**
+	 * Get PlayerData for a player
+	 *
+	 * @param player Player to get data for
+	 * @return PlayerData for player
+	 */
+	public PlayerData getPlayerData(Player player) {
+		return playerDataMap.get(player.getUniqueId());
+	}
+
+	/** Get a collection of all PlayerData
+	 * @return Collection of all PlayerData
+	 */
+	@SuppressWarnings("unused")
+	public Collection<PlayerData> getAllPlayerData() {
+		return playerDataMap.values();
+	}
+
+	/**
+	 * Create player data for a new player
+	 *
+	 * @param player Player to create data for
+	 */
+	public void createNewPlayerData(Player player) {
+		UUID uuid = player.getUniqueId();
+		int thirst = plugin.getSurvivalConfig().MECHANICS_THIRST_START_AMOUNT;
+		int hunger = plugin.getSurvivalConfig().MECHANICS_HUNGER_START_AMOUNT;
+		setHunger(player, hunger);
+
+		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 0);
+		playerDataMap.put(uuid, playerData);
+		savePlayerData(playerData);
+	}
+
+	private void setHunger(Player player, int value) {
+		value = Math.min(value, 40);
+		int hunger = Math.min(value, 20);
+		int saturation = value > 20 ? value - 20 : 0;
+		player.setFoodLevel(hunger);
+		player.setSaturation(saturation);
+	}
+
+	/**
+	 * Save PlayerData to file
+	 *
+	 * @param data PlayerData to save
+	 */
+	private void savePlayerData(PlayerData data) {
+		playerDataConfig.savePlayerDataToFile(data);
+	}
+
+	/**
+	 * Load PlayerData from file into map
+	 *
+	 * @param player Player to load data for
+	 */
+	public void loadPlayerData(Player player) {
+		PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
+		playerDataMap.put(player.getUniqueId(), playerData);
+	}
+
+	/** Save/Unload player data
+	 * <p>This will mainly be used internally for when a player leaves the server,
+	 * their data will be saved to file then removed from the PlayerData map</p>
+	 * @param player Player to save/unload data for
+	 */
+	public void unloadPlayerData(Player player) {
+		PlayerData playerData = getPlayerData(player);
+		playerDataConfig.savePlayerDataToFile(playerData);
+		playerDataMap.remove(player.getUniqueId());
+	}
+
+	/**
+	 * Set the waypoint of a player's compass to their location
+	 *
+	 * @param player   The player to set a waypoint for
 	 * @param particle If particles should show at the location a waypoint is set
 	 */
 	@SuppressWarnings("unused")
@@ -34,8 +119,10 @@ public class PlayerManager {
 		setWaypoint(player, player.getLocation(), particle);
 	}
 
-	/** Set the waypoint of a player's compass
-	 * @param player The player to set a waypoint for
+	/**
+	 * Set the waypoint of a player's compass
+	 *
+	 * @param player   The player to set a waypoint for
 	 * @param location The location of the waypoint
 	 * @param particle If the particles should show at the location a waypoint is set
 	 */
@@ -45,9 +132,11 @@ public class PlayerManager {
 			Utils.spawnParticle(location, Particle.CLOUD, 25, 0.5, 0.5, 0.5, player);
 	}
 
-	/** Apply SurvivalPlus' resource pack to a player
+	/**
+	 * Apply SurvivalPlus' resource pack to a player
+	 *
 	 * @param player The player to apply the resource pack to
-	 * @param delay A delay in ticks
+	 * @param delay  A delay in ticks
 	 */
 	public void applyResourcePack(Player player, int delay) {
 		if (url != null) {
@@ -100,16 +189,19 @@ public class PlayerManager {
 
 	public List<String> ShowThirst(Player player) {
 		StringBuilder thirstBar = new StringBuilder();
-		for (int i = 0; i < StatusManager.getThirst(player); i++) {
+		PlayerData data = getPlayerData(player);
+		int thirst = data.getThirst();
+
+		for (int i = 0; i < thirst; i++) {
 			thirstBar.append("|");
 		}
-		for (int i = StatusManager.getThirst(player); i < 20; i++) {
+		for (int i = thirst; i < 20; i++) {
 			thirstBar.append(".");
 		}
 
-		if (StatusManager.getThirst(player) >= 40)
+		if (thirst >= 40)
 			thirstBar.insert(0, ChatColor.GREEN);
-		else if (StatusManager.getThirst(player) <= 6)
+		else if (thirst <= 6)
 			thirstBar.insert(0, ChatColor.RED);
 		else
 			thirstBar.insert(0, ChatColor.AQUA);
@@ -145,9 +237,11 @@ public class PlayerManager {
 
 	public List<String> ShowNutrients(Player player) {
 		List<String> nutrients = new ArrayList<>();
-		int carbon = mainBoard.getObjective("Carbs").getScore(player.getName()).getScore();
-		int protein = mainBoard.getObjective("Protein").getScore(player.getName()).getScore();
-		int salts = mainBoard.getObjective("Salts").getScore(player.getName()).getScore();
+		PlayerData data = getPlayerData(player);
+
+		int carbon = data.getNutrient(Nutrient.CARBS);
+		int protein = data.getNutrient(Nutrient.PROTEIN);
+		int salts = data.getNutrient(Nutrient.SALTS);
 
 		String showCarbon = Integer.toString(carbon);
 		if (carbon >= 480)
@@ -174,7 +268,8 @@ public class PlayerManager {
 	}
 
 	public String ShowFatigue(Player player) {
-		int fatigue = mainBoard.getObjective("Fatigue").getScore(player.getName()).getScore();
+		PlayerData data = getPlayerData(player);
+		int fatigue = data.getFatigue();
 
 		if (fatigue <= 0)
 			return ChatColor.YELLOW + lang.energized;
@@ -187,17 +282,59 @@ public class PlayerManager {
 		else return ChatColor.DARK_GRAY + lang.collapsed_1;
 	}
 
-	/** Check if player is holding arrows in their offhand
+	/**
+	 * Check if player is holding arrows in their offhand
+	 *
 	 * @param player The player to check
 	 * @return Whether or not the player has arrows in their offhand
 	 */
-	public boolean isArrowOffHand(Player player){
+	public boolean isArrowOffHand(Player player) {
 		Material mainHand = player.getInventory().getItemInMainHand().getType();
 		Material offHand = player.getInventory().getItemInOffHand().getType();
 		if (mainHand == Material.CROSSBOW)
 			return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW
 					|| offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
 		return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW || offHand == Material.TIPPED_ARROW;
+	}
+
+	@SuppressWarnings("ConstantConditions")
+	private void loadPlayerData() {
+		OfflinePlayer[] players = Bukkit.getOfflinePlayers();
+		Scoreboard scoreboard = plugin.getMainBoard();
+
+		// Convert previous player data
+		if (playerDataConfig.needsConversion()) {
+			int c = 0;
+			if (scoreboard.getObjective("Thirst") != null) {
+				Utils.log("&bConverting player data!");
+				long time = System.currentTimeMillis();
+
+				for (OfflinePlayer player : players) {
+					UUID uuid = player.getUniqueId();
+					assert player.getName() != null;
+					int thirst = scoreboard.getObjective("Thirst").getScore(player.getName()).getScore();
+					int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
+					int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
+					int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
+					int fatigue = scoreboard.getObjective("Fatigue").getScore(player.getName()).getScore();
+
+					boolean s_hunger = scoreboard.getObjective("BoardHunger").getScore(player.getName()).getScore() == 0;
+					boolean s_thirst = scoreboard.getObjective("BoardThirst").getScore(player.getName()).getScore() == 0;
+					boolean s_fatigue = scoreboard.getObjective("BoardFatigue").getScore(player.getName()).getScore() == 0;
+					boolean s_nutrients = scoreboard.getObjective("BoardNutrients").getScore(player.getName()).getScore() == 0;
+
+					if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
+						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
+						data.setInfoDisplayed(s_hunger, s_thirst, s_fatigue, s_nutrients);
+						savePlayerData(data);
+						c++;
+					}
+				}
+				Utils.log("Converted players: &b" + c);
+				Utils.log("&aPlayer data conversion completed in " + (System.currentTimeMillis() - time) + " milliseconds!");
+			}
+			playerDataConfig.createConvertedFile(c);
+		}
 	}
 
 }

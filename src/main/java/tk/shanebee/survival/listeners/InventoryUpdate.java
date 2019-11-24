@@ -47,6 +47,8 @@ class InventoryUpdate implements Listener {
             	itemUpdate(inv, i, item, Items.ENDER_GIANT_BLADE);
 			} else if (ItemManager.compare(item, Items.BLAZE_SWORD_OLD)) {
                 itemUpdate(inv, i, item, Items.BLAZE_SWORD);
+            } else if (item.getType() == Material.COMPASS && !item.getItemMeta().hasCustomModelData()) {
+                itemUpdate(inv, i, item, Items.COMPASS);
             }
         }
     }
@@ -64,7 +66,8 @@ class InventoryUpdate implements Listener {
 
     private boolean needsUpdate(Inventory inv) {
         return inv.contains(Material.WOODEN_HOE) || inv.contains(Material.GOLDEN_PICKAXE) || inv.contains(Material.GOLDEN_AXE) ||
-                inv.contains(Material.GOLDEN_SHOVEL) || inv.contains(Material.GOLDEN_HOE) || inv.contains(Material.GOLDEN_SWORD);
+                inv.contains(Material.GOLDEN_SHOVEL) || inv.contains(Material.GOLDEN_HOE) || inv.contains(Material.GOLDEN_SWORD) ||
+                inv.contains(Material.COMPASS);
     }
 
 }

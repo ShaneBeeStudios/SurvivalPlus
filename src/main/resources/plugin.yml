@@ -33,3 +33,7 @@ commands:
       usage: /<command> <player> <item>
       permission: survivalplus.giveitem
       aliases: [survivalitem, itemgive]
+   nutrition:
+      description: Open the nutrition GUI
+      usage: /<command>
+      permission: survivaplus.nutrition.gui

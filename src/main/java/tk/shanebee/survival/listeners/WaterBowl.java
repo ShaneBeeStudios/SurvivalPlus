@@ -14,7 +14,6 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Config;
 
 class WaterBowl implements Listener {
 

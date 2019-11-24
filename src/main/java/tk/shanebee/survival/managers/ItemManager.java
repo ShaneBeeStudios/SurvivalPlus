@@ -17,11 +17,13 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.util.Lang;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -692,6 +694,17 @@ public class ItemManager {
 				coffee_bean_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.coffee_bean_name));
 				coffee_bean.setItemMeta(coffee_bean_meta);
 				return coffee_bean;
+			case COMPASS:
+				ItemStack compass = new ItemStack(Items.COMPASS.getMaterialType());
+				ItemMeta compass_meta = compass.getItemMeta();
+				List<String> compass_lore = new ArrayList<>();
+				for (int i = 0; i < lang.compass_lore.size(); i++) {
+					compass_lore.add(Utils.getColoredString(lang.compass_lore.get(i)));
+				}
+				compass_meta.setLore(compass_lore);
+				compass.setItemMeta(compass_meta);
+				return compass;
+
 			case PERSISTENT_TORCH:
 				// TODO Experimental
 				ItemStack persistent_torch = new ItemStack(Items.PERSISTENT_TORCH.getMaterialType());
