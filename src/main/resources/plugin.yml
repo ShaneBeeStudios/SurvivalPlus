@@ -36,4 +36,4 @@ commands:
    nutrition:
       description: Open the nutrition GUI
       usage: /<command>
-      permission: survivaplus.nutrition.gui
+      permission: survivalplus.nutrition.gui
