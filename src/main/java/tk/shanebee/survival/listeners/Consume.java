@@ -52,38 +52,40 @@ class Consume implements Listener {
 				if (config.MECHANICS_THIRST_PURIFY_WATER) {
 					if (checkWaterBottle(item)) {
 						if (ItemManager.compare(item, Items.DIRTY_WATER)) {
-							change = 13;
+							change = config.MECHANICS_THIRST_REP_DIRTY_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 5) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
 						} else if (ItemManager.compare(item, Items.CLEAN_WATER)) {
-							change = 18;
+							change = config.MECHANICS_THIRST_REP_CLEAN_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 2) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
 							}
-						} else if (ItemManager.compare(item, Items.PURIFIED_WATER) || ItemManager.compare(item, Items.COFFEE)) {
-							change = 23;
+						} else if (ItemManager.compare(item, Items.PURIFIED_WATER)) {
+							change = config.MECHANICS_THIRST_REP_PURE_WATER;
+						} else if (ItemManager.compare(item, Items.COFFEE)) {
+							change = config.MECHANICS_THIRST_REP_COFFEE;
 						} else if (ItemManager.compare(item, Items.COLD_MILK)) {
-							change = 15;
+							change = config.MECHANICS_THIRST_REP_COLD_MILK;
 						} else if (ItemManager.compare(item, Items.HOT_MILK)) {
-							change = 10;
+							change = config.MECHANICS_THIRST_REP_HOT_MILK;
 							player.damage(2);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0), true);
 							Utils.sendColoredMsg(player, lang.hot_milk_drink);
 						}
 					}
 				} else {
-					change = 18;
+					change = config.MECHANICS_THIRST_REP_WATER;
 				}
 				break;
 			case BEETROOT_SOUP: //Water Bowl
 				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
 					event.setCancelled(true);
-					change = 10;
+					change = config.MECHANICS_THIRST_REP_WATER_BOWL;
 					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 
 					if (config.MECHANICS_THIRST_PURIFY_WATER) {
@@ -94,17 +96,17 @@ class Consume implements Listener {
 						}
 					}
 				} else {
-					change = 6; // Regular beetroot soup (if player somehow gets one)
+					change = config.MECHANICS_THIRST_REP_BEET_SOUP; // Regular beetroot soup (if player somehow gets one)
 				}
 				break;
 			case MILK_BUCKET:
-				change = 30;
+				change = config.MECHANICS_THIRST_REP_MILK_BUCKET;
 				break;
 			case MELON_SLICE:
-				change = 6;
+				change = config.MECHANICS_THIRST_REP_MELON_SLICE;
 				break;
 			case MUSHROOM_STEW:
-				change = 12;
+				change = config.MECHANICS_THIRST_REP_MUSH_STEW;
 				break;
 			default:
 		}

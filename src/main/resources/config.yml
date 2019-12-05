@@ -171,6 +171,22 @@ Mechanics:
     MeltSnow: true
     # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
     DrainRate: 1.0
+    # The level of thirst that will be replenished when a player consumes this item
+    Replenish-Level:
+      beetroot-soup: 6
+      melon-slice: 6
+      mushroom-stew: 12
+      water-bowl: 10
+      coffee: 23
+      cold-milk: 15
+      hot-milk: 10
+      milk-bucket: 30
+      # Only used if PurifyWater is enabled
+      dirty-water: 13
+      clean-water: 18
+      purified-water: 23
+      # Only used if PurifyWater is disabled
+      water: 18
 
   Hunger:
     # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)
