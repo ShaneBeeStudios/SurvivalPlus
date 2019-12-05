@@ -95,8 +95,10 @@ public class ScoreBoardManager {
     }
 
     public void unloadScoreboard(Player player) {
-        playerBoards.get(player.getUniqueId()).cancel();
-        playerBoards.remove(player.getUniqueId());
+        if (playerBoards.containsKey(player.getUniqueId())) {
+            playerBoards.get(player.getUniqueId()).cancel();
+            playerBoards.remove(player.getUniqueId());
+        }
     }
 
 }
