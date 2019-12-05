@@ -7,10 +7,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.config.Config;
 
 class NutrientsEffect extends BukkitRunnable {
 
@@ -97,7 +97,7 @@ class NutrientsEffect extends BukkitRunnable {
 		if (s_hard_type != null) {
 			int s_hard_amp = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP;
 			int s_hard_dur = config.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION;
-			SALTS_NORMAL = new PotionEffect(s_hard_type, s_hard_dur * 20, s_hard_amp);
+			SALTS_HARD = new PotionEffect(s_hard_type, s_hard_dur * 20, s_hard_amp);
 		}
 
 		PotionEffectType p_normal_type = getType(config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT);
@@ -110,7 +110,7 @@ class NutrientsEffect extends BukkitRunnable {
 		if (p_hard_type != null) {
 			int p_hard_amp = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP;
 			int p_hard_dur = config.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION;
-			PROTEIN_NORMAL = new PotionEffect(p_hard_type, p_hard_dur * 20, p_hard_amp);
+			PROTEIN_HARD = new PotionEffect(p_hard_type, p_hard_dur * 20, p_hard_amp);
 		}
 	}
 
