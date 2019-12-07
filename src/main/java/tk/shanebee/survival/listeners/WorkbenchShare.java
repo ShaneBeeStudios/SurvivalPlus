@@ -223,10 +223,6 @@ class WorkbenchShare implements Listener {
 		if (e.isCancelled()) return;
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		Block workbench = e.getBlock();
-		if (e.getBlock().getType() == Material.CRAFTING_TABLE) {
-			e.setDropItems(false);
-			workbench.getWorld().dropItem(workbench.getLocation(), new ItemStack(ItemManager.get(Items.WORKBENCH)));
-		}
 
 		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			return;
