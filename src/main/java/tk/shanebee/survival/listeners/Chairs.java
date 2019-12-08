@@ -103,6 +103,8 @@ class Chairs implements Listener {
 					return;
 				}
 
+				// Save the location of player before sitting in a chair
+				Location pastLoc = player.getLocation();
 				// Rotate the player's view to the descending side of the block.
 				Location plocation = player.getLocation();
 
@@ -135,8 +137,10 @@ class Chairs implements Listener {
 
 				Runnable run = new Runnable() {
 					public void run() {
-						if (chair.getPassengers().isEmpty())
+						if (chair.getPassengers().isEmpty()) {
 							chair.remove();
+							player.teleport(pastLoc);
+						}
 						else
 							Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, 10L);
 					}
