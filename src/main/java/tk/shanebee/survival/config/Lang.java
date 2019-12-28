@@ -175,6 +175,12 @@ public class Lang {
     public String campfire_name;
     public String campfire_lore;
 
+    public String bee_helmet_name;
+    public String bee_chest_name;
+    public String bee_legs_name;
+    public String bee_boots_name;
+    public String bee_suit_lore;
+
     public Lang(Survival main, String language) {
         this.plugin = main;
         this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
@@ -342,6 +348,12 @@ public class Lang {
         diamond_sickle = lang.getString("diamond_sickle");
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
+
+        bee_helmet_name = lang.getString("bee-helmet-name");
+        bee_chest_name = lang.getString("bee-chest-name");
+        bee_legs_name = lang.getString("bee-legs-name");
+        bee_boots_name = lang.getString("bee-boots-name");
+        bee_suit_lore = lang.getString("bee-suit-lore");
 
         Utils.sendColoredMsg(sender, prefix + loaded);
     }

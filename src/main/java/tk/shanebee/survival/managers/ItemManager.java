@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
@@ -713,6 +714,46 @@ public class ItemManager {
 				p_torch_meta.setLore(Collections.singletonList(ChatColor.AQUA + "Persistent"));
 				persistent_torch.setItemMeta(p_torch_meta);
 				return persistent_torch;
+
+			case BEEKEEPER_HELMET:
+				ItemStack beeHelmet = new ItemStack(Items.BEEKEEPER_HELMET.getMaterialType());
+				ItemMeta bhMeta = beeHelmet.getItemMeta();
+				bhMeta.setCustomModelData(Items.BEEKEEPER_HELMET.getModelData());
+				bhMeta.setDisplayName(Utils.getColoredString(lang.bee_helmet_name));
+				bhMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
+				((LeatherArmorMeta) bhMeta).setColor(Color.WHITE);
+				beeHelmet.setItemMeta(bhMeta);
+				return beeHelmet;
+
+			case BEEKEEPER_CHESTPLATE:
+				ItemStack beeChest = new ItemStack(Items.BEEKEEPER_CHESTPLATE.getMaterialType());
+				ItemMeta bcMeta = beeChest.getItemMeta();
+				bcMeta.setCustomModelData(Items.BEEKEEPER_CHESTPLATE.getModelData());
+				bcMeta.setDisplayName(Utils.getColoredString(lang.bee_chest_name));
+				bcMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
+				((LeatherArmorMeta) bcMeta).setColor(Color.WHITE);
+				beeChest.setItemMeta(bcMeta);
+				return beeChest;
+
+			case BEEKEEPER_LEGGINGS:
+				ItemStack beeLegs = new ItemStack(Items.BEEKEEPER_LEGGINGS.getMaterialType());
+				ItemMeta blMeta = beeLegs.getItemMeta();
+				blMeta.setCustomModelData(Items.BEEKEEPER_LEGGINGS.getModelData());
+				blMeta.setDisplayName(Utils.getColoredString(lang.bee_legs_name));
+				blMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
+				((LeatherArmorMeta) blMeta).setColor(Color.WHITE);
+				beeLegs.setItemMeta(blMeta);
+				return beeLegs;
+
+			case BEEKEEPER_BOOTS:
+				ItemStack beeBoots = new ItemStack(Items.BEEKEEPER_BOOTS.getMaterialType());
+				ItemMeta bbMeta = beeBoots.getItemMeta();
+				bbMeta.setCustomModelData(Items.BEEKEEPER_BOOTS.getModelData());
+				bbMeta.setDisplayName(Utils.getColoredString(lang.bee_boots_name));
+				bbMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
+				((LeatherArmorMeta) bbMeta).setColor(Color.WHITE);
+				beeBoots.setItemMeta(bbMeta);
+				return beeBoots;
 
 			default:
 				return new ItemStack(Material.AIR);

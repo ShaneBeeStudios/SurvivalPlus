@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.listeners.entity.BeeKeeperSuit;
 import tk.shanebee.survival.util.Utils;
 
 /**
@@ -106,6 +107,7 @@ public class EventManager {
 			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
 		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
+		Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
 	}
 
 }
