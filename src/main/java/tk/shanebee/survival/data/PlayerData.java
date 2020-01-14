@@ -130,6 +130,17 @@ public class PlayerData implements ConfigurationSerializable {
 		}
 	}
 
+    /** Set all the nutrients for this data
+     * @param carbs Level of carbs to set
+     * @param proteins Level of proteins to set
+     * @param salts Level of salts to set
+     */
+	public void setNutrients(int carbs, int proteins, int salts) {
+	    this.carbs = carbs;
+	    this.proteins = proteins;
+	    this.salts = salts;
+    }
+
 	/** Increase a nutrient for this data
 	 * @param nutrient Nutrient to increase
 	 * @param value Level of increase
