@@ -206,3 +206,13 @@ diamond_sickle: "&b钻石镰刀"
 
 campfire-name: "&a篝火"
 campfire-lore: "&b未点燃的篝火||&7用木棍点击几次||&7来点燃篝火"
+
+####################
+# 指令 - Commands
+####################
+
+# <player> 将被替换为玩家名称！ (will be replaced with a player name!)
+cmd-player-not-online: "&c看来<player>不在线"
+cmd-heal-self: "&a您已经康复了"
+cmd-heal-by: "&a您已经被<player>治愈了"
+cmd-heal-other: "&a您已前往<player>"

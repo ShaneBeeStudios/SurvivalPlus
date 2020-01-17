@@ -37,3 +37,7 @@ commands:
       description: Open the nutrition GUI
       usage: /<command>
       permission: survivalplus.nutrition.gui
+   heal:
+      description: Heal a player
+      usage: /<command> [player]
+      permission: survivalplus.heal

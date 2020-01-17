@@ -175,6 +175,11 @@ public class Lang {
     public String campfire_name;
     public String campfire_lore;
 
+    public String cmd_player_not_online;
+    public String cmd_heal_self;
+    public String cmd_heal_by;
+    public String cmd_heal_other;
+
     public Lang(Survival main, String language) {
         this.plugin = main;
         this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
@@ -342,6 +347,11 @@ public class Lang {
         diamond_sickle = lang.getString("diamond_sickle");
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
+
+        cmd_player_not_online = lang.getString("cmd-player-not-online");
+        cmd_heal_self = lang.getString("cmd-heal-self");
+        cmd_heal_by = lang.getString("cmd-heal-by");
+        cmd_heal_other = lang.getString("cmd-heal-other");
 
         Utils.sendColoredMsg(sender, prefix + loaded);
     }

@@ -206,3 +206,13 @@ diamond_sickle: "&bDiamond Sickle"
 
 campfire-name: "&aCampfire"
 campfire-lore: "&bUnlit||&7Hit with a stick a few times||&7to light the campfire"
+
+####################
+# Commands
+####################
+
+# <player> will be replaced with a player name!
+cmd-player-not-online: "&cIt appears <player> is not online!"
+cmd-heal-self: "&aYou have been healed!"
+cmd-heal-by: "&aYou have been healed by <player>!"
+cmd-heal-other: "&aYou have headed <player>!"
