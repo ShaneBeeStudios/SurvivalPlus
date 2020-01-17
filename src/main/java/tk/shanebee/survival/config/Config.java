@@ -177,6 +177,8 @@ public class Config {
 	public boolean LEGENDARY_NOTCH_APPLE;
 	public boolean LEGENDARY_GOLDARMORBUFF;
 
+	// HIDDEN CONFIG
+    public int RECIPE_DELAY;
 
 	public Config(Survival plugin) {
 		this.plugin = plugin;
@@ -216,7 +218,7 @@ public class Config {
 				}
 			}
 			for (String key : config.getConfigurationSection("").getKeys(true)) {
-				if (!defConfig.contains(key)) {
+				if (!defConfig.contains(key) && !key.equalsIgnoreCase("recipe-delay")) {
 					config.set(key, null);
 					hasUpdated = true;
 				}
@@ -398,6 +400,9 @@ public class Config {
 		this.LEGENDARY_BLAZESWORD = settings.getBoolean("LegendaryItems.BlazeSword");
 		this.LEGENDARY_NOTCH_APPLE = settings.getBoolean("LegendaryItems.NotchApple");
 		this.LEGENDARY_GOLDARMORBUFF = settings.getBoolean("LegendaryItems.GoldArmorBuff");
+
+		// HIDDEN CONFIG
+        this.RECIPE_DELAY = settings.getInt("recipe-delay", 0);
 	}
 
 }

@@ -144,8 +144,21 @@ public class Survival extends JavaPlugin implements Listener {
 
 		// LOAD CUSTOM RECIPES
 		RecipeManager recipes = new RecipeManager(this);
-		recipes.loadCustomRecipes();
-		Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+		// This is a helper for other plugins that wipe custom recipes - secret hidden config
+		if (config.RECIPE_DELAY > 0) {
+		    Utils.sendColoredConsoleMsg(prefix + "&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
+		    Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+                @Override
+                public void run() {
+                    recipes.loadCustomRecipes();
+                    Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+                }
+            }, config.RECIPE_DELAY * 20);
+
+        } else {
+            recipes.loadCustomRecipes();
+            Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+        }
 
 		// LOAD METRICS
 		Metrics metrics = new Metrics(this);
