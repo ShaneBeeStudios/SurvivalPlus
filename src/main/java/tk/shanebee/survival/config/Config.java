@@ -141,6 +141,7 @@ public class Config {
 	public boolean ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED;
 	public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
 	public double ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
+	public boolean ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED;
 
 	// RECIPES
 	public boolean RECIPES_SADDLE;
@@ -363,6 +364,7 @@ public class Config {
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.pigmen-chests.enabled");
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.pigmen-chests.distance");
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.pigmen-chests.speed-modifier");
+		this.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED = settings.getBoolean("Entity-Mechanics.beekeper-suit.enabled");
 
 		// RECIPES
 		this.RECIPES_SADDLE = settings.getBoolean("Recipes.Saddle");

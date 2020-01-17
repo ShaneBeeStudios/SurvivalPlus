@@ -106,8 +106,11 @@ public class EventManager {
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
 			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
+		if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
+            Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
+        }
 		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
-		Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
+
 	}
 
 }

@@ -262,6 +262,9 @@ Entity-Mechanics:
     distance: 24
     # Speeds up the pigmen when they are triggered (1.0 = no increase in speed)
     speed-modifier: 1.3
+  # When a player has a beekeeper suit on they will not take damage
+  beekeeper-suit:
+    enabled: true
 
 # Enables custom recipes (Overrides vanilla recipes)
 Recipes:
