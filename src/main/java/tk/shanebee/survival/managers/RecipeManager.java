@@ -775,7 +775,6 @@ public class RecipeManager {
             ShapedRecipe beekeeper_boot = new ShapedRecipe(key("beekeeper_boots"), ItemManager.get(Items.BEEKEEPER_BOOTS));
             beekeeper_boot.shape("   ", "1 1", "3 3");
             beekeeper_boot.setIngredient('1', Material.HONEYCOMB);
-            beekeeper_boot.setIngredient('2', Material.IRON_INGOT);
             beekeeper_boot.setIngredient('3', Material.LEATHER);
 
             if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
