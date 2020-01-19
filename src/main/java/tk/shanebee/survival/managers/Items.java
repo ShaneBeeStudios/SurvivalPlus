@@ -74,10 +74,10 @@ public enum Items {
     // TODO Experimental
     PERSISTENT_TORCH(Material.TORCH, 1),
 
-    BEEKEEPER_HELMET(Material.LEATHER_HELMET, 1),
-    BEEKEEPER_CHESTPLATE(Material.LEATHER_CHESTPLATE, 1),
-    BEEKEEPER_LEGGINGS(Material.LEATHER_LEGGINGS, 1),
-    BEEKEEPER_BOOTS(Material.LEATHER_BOOTS, 1);
+    BEEKEEPER_HELMET(Material.LEATHER_HELMET, 10881),
+    BEEKEEPER_CHESTPLATE(Material.LEATHER_CHESTPLATE, 10881),
+    BEEKEEPER_LEGGINGS(Material.LEATHER_LEGGINGS, 10881),
+    BEEKEEPER_BOOTS(Material.LEATHER_BOOTS, 10881);
 
     private final Material materialType;
     private final int modelData;
