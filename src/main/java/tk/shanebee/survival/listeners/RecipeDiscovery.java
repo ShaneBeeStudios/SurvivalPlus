@@ -17,10 +17,12 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
+import tk.shanebee.survival.util.Utils;
 
 class RecipeDiscovery implements Listener {
 
     private Survival plugin;
+    private final boolean HAS_BEES = Utils.isRunningMinecraft(1, 15);
 
     RecipeDiscovery(Survival plugin) {
         this.plugin = plugin;
@@ -100,6 +102,8 @@ class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
         } else if (item == Material.REDSTONE) {
             player.discoverRecipes(Recipes.COMPASS.getKeys());
+        } else if (HAS_BEES && item == Material.HONEYCOMB) {
+            player.discoverRecipes(Recipes.BEEKEEPER_SUIT.getKeys());
         }
     }
 
