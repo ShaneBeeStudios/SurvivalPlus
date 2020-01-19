@@ -1023,10 +1023,7 @@ public class RecipeManager {
         COLD_MILK("cold_milk"),
         HOT_MILK("hot_milk"),
         COFFEE("coffee"),
-        BEEKEEPER_HELMET("beekeeper_helmet"),
-        BEEKEEPER_CHESTPLATE("beekeeper_chestplate"),
-        BEEKEEPER_LEGGINGS("beekeeper_leggings"),
-        BEEKEEPER_BOOTS("beekeeper_boots"),
+        BEEKEEPER_SUIT("beekeeper_helmet", "beekeeper_chestplate", "beekeeper_leggings", "beekeeper_boots"),
 
         // VANILLA ITEMS
         ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),
