@@ -181,6 +181,11 @@ public class Lang {
     public String bee_boots_name;
     public String bee_suit_lore;
 
+    public String cmd_player_not_online;
+    public String cmd_heal_self;
+    public String cmd_heal_by;
+    public String cmd_heal_other;
+
     public Lang(Survival main, String language) {
         this.plugin = main;
         this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
@@ -354,6 +359,11 @@ public class Lang {
         bee_legs_name = lang.getString("bee-legs-name");
         bee_boots_name = lang.getString("bee-boots-name");
         bee_suit_lore = lang.getString("bee-suit-lore");
+
+        cmd_player_not_online = lang.getString("cmd-player-not-online");
+        cmd_heal_self = lang.getString("cmd-heal-self");
+        cmd_heal_by = lang.getString("cmd-heal-by");
+        cmd_heal_other = lang.getString("cmd-heal-other");
 
         Utils.sendColoredMsg(sender, prefix + loaded);
     }
