@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.listeners.entity.BeeKeeperSuit;
 import tk.shanebee.survival.util.Utils;
 
 /**
@@ -105,7 +106,13 @@ public class EventManager {
 			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
 			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
 		}
+		if (Utils.isRunningMinecraft(1, 15)) {
+            if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
+                Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
+            }
+        }
 		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
+
 	}
 
 }
