@@ -207,6 +207,12 @@ diamond_sickle: "&bDiamond Sickle"
 campfire-name: "&aCampfire"
 campfire-lore: "&bUnlit||&7Hit with a stick a few times||&7to light the campfire"
 
+bee-helmet-name: '&6Beekeeper Helmet'
+bee-chest-name: '&6Beekeeper Chestplate'
+bee-legs-name: '&6Beekeeper Leggings'
+bee-boots-name: '&6Beekeeper Boots'
+bee-suit-lore: '&bPrevent bee stings'
+
 ####################
 # Commands
 ####################

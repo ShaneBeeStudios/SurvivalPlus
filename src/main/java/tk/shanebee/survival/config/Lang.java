@@ -175,10 +175,11 @@ public class Lang {
     public String campfire_name;
     public String campfire_lore;
 
-    public String cmd_player_not_online;
-    public String cmd_heal_self;
-    public String cmd_heal_by;
-    public String cmd_heal_other;
+    public String bee_helmet_name;
+    public String bee_chest_name;
+    public String bee_legs_name;
+    public String bee_boots_name;
+    public String bee_suit_lore;
 
     public Lang(Survival main, String language) {
         this.plugin = main;
@@ -348,10 +349,11 @@ public class Lang {
         campfire_name = lang.getString("campfire-name");
         campfire_lore = lang.getString("campfire-lore");
 
-        cmd_player_not_online = lang.getString("cmd-player-not-online");
-        cmd_heal_self = lang.getString("cmd-heal-self");
-        cmd_heal_by = lang.getString("cmd-heal-by");
-        cmd_heal_other = lang.getString("cmd-heal-other");
+        bee_helmet_name = lang.getString("bee-helmet-name");
+        bee_chest_name = lang.getString("bee-chest-name");
+        bee_legs_name = lang.getString("bee-legs-name");
+        bee_boots_name = lang.getString("bee-boots-name");
+        bee_suit_lore = lang.getString("bee-suit-lore");
 
         Utils.sendColoredMsg(sender, prefix + loaded);
     }
