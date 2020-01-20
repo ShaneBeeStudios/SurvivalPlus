@@ -6,8 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.entity.EntityPotionEffectEvent.Action;
+import org.bukkit.event.entity.EntityPotionEffectEvent.Cause;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 
@@ -29,8 +32,13 @@ public class BeeKeeperSuit implements Listener {
 	@EventHandler
 	private void onPoison(EntityPotionEffectEvent event) {
 		if (event.getEntity() instanceof Player) {
+		    if (event.getCause() != Cause.ATTACK) return;
+		    if (event.getModifiedType() != PotionEffectType.POISON) return;
+		    if (event.getAction() != Action.ADDED) return;
 			Player player = ((Player) event.getEntity());
-			player.sendMessage("Poisoned: " + event.getHandlers());
+			if (hasBeekeeperSuit(player)) {
+			    event.setCancelled(true);
+            }
 		}
 	}
 
@@ -38,9 +46,9 @@ public class BeeKeeperSuit implements Listener {
 	private void onTarget(EntityTargetLivingEntityEvent event) {
 		if (event.getTarget() instanceof Player && event.getEntity() instanceof Bee) {
 			Player player = ((Player) event.getTarget());
-			if (!hasBeekeeperSuit(player)) return;
-			player.sendMessage("You are being targeted by: " + event.getEntity());
-			event.setCancelled(true);
+			if (hasBeekeeperSuit(player)) {
+                event.setCancelled(true);
+            }
 		}
 	}
 
