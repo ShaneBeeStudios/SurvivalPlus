@@ -207,11 +207,11 @@ diamond_sickle: "&b钻石镰刀"
 campfire-name: "&a篝火"
 campfire-lore: "&b未点燃的篝火||&7用木棍点击几次||&7来点燃篝火"
 
-bee-helmet-name: '&6养蜂头盔'
+bee-helmet-name: '&6养蜂人头盔'
 bee-chest-name: '&6养蜂人胸甲'
 bee-legs-name: '&6养蜂人护腿'
-bee-boots-name: '&6养蜂人长靴'
-bee-suit-lore: '&b防止蜜蜂st伤'
+bee-boots-name: '&6养蜂人靴子'
+bee-suit-lore: '&b可防止蜜蜂蜇伤'
 
 ####################
 # 指令 - Commands
