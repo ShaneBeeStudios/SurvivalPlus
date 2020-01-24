@@ -396,40 +396,6 @@ public class Lang {
         }
     }
 
-    private void updateLang(YamlConfiguration lang, File file) {
-        if (language.equalsIgnoreCase("EN")) {
-            // Guide update - 3.3.0
-            if (!lang.isSet("survival-guide-msg")) {
-                lang.set("survival-guide-msg", "&6To see our survival guide ");
-                lang.set("survival-guide-click-msg", "&bClick Here");
-                lang.set("survival-guide-hover-msg", "Click for Guide");
-                lang.set("survival-guide-link", "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started");
-                saveLang(lang, file);
-            }
-            // Update - 3.3.2
-            if (!lang.isSet("firestriker-lore")) {
-                lang.set("firestriker-lore", "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter" +
-                        "||&7 -Put smeltable into input slot||&7 -Click output slot to smelt");
-                saveLang(lang, file);
-            }
-            // Update - TODO number here
-            if (!lang.isSet("flint_sickle")) {
-                lang.set("flint_sickle", "&7Flint Sickle");
-                lang.set("diamond_sickle", "&bDiamond Sickle");
-                saveLang(lang, file);
-
-            }
-        }
-        if (language.equalsIgnoreCase("CN")) {
-            // Update - TODO number here
-            if (!lang.isSet("flint_sickle")) {
-                lang.set("flint_sickle", "&7燧石镰刀");
-                lang.set("diamond_sickle", "&b钻石镰刀");
-                saveLang(lang, file);
-            }
-        }
-    }
-
     private void saveLang(YamlConfiguration lang, File file) {
         try {
             lang.save(file);
