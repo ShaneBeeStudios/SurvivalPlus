@@ -109,6 +109,9 @@ class Consume implements Listener {
 				change = config.MECHANICS_THIRST_REP_MUSH_STEW;
 				break;
 			default:
+			    if (Utils.isRunningMinecraft(1, 15) && item.getType() == Material.HONEY_BOTTLE) {
+			        change = config.MECHANICS_THIRST_REP_HONEY_BOTTLE;
+                }
 		}
 		ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
 		Bukkit.getPluginManager().callEvent(thirstEvent);

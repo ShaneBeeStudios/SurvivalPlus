@@ -187,6 +187,7 @@ Mechanics:
       purified-water: 23
       # Only used if PurifyWater is disabled
       water: 18
+      honey-bottle: 16
 
   Hunger:
     # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)
