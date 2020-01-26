@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.Metadatable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
@@ -827,5 +828,13 @@ public class Utils {
 			return false;
 		}
 	}
+
+    /** Check if this entity is a Citizens NPC
+     * @param entity Entity to check
+     * @return True if entity is an NPC
+     */
+	public static boolean isCitizensNPC(Metadatable entity) {
+	    return entity.hasMetadata("NPC");
+    }
 
 }
