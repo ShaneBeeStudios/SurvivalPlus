@@ -89,6 +89,7 @@ class Valkyrie implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
+			if (Utils.isCitizensNPC(player)) return;
 			PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 

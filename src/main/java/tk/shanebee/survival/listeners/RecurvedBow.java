@@ -13,6 +13,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.events.ShootRecurvedBowEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
@@ -28,6 +29,7 @@ class RecurvedBow implements Listener {
 	private void onShoot(EntityShootBowEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
+            if (Utils.isCitizensNPC(player)) return;
 			ItemStack mainItem = event.getBow();
 
 			assert mainItem != null;

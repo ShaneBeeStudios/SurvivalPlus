@@ -31,6 +31,7 @@ class ObsidianMaceWeakness implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 			Player player = (Player) event.getDamager();
+            if (Utils.isCitizensNPC(player)) return;
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 

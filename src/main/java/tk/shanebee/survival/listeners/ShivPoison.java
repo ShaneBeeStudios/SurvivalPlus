@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
@@ -25,6 +26,7 @@ class ShivPoison implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 			Player player = (Player) event.getDamager();
+            if (Utils.isCitizensNPC(player)) return;
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 			LivingEntity enemy = (LivingEntity) event.getEntity();

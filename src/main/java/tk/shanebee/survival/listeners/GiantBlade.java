@@ -45,6 +45,7 @@ class GiantBlade implements Listener {
 		if (event.isCancelled()) return;
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
+            if (Utils.isCitizensNPC(player)) return;
 			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack offItem = player.getInventory().getItemInOffHand();
 
