@@ -36,7 +36,7 @@ Survival:
   Enabled: true
 
   # With this enabled, players will only be able to craft items which they have unlocked recipes for
-  LimitedCrafting: true
+  LimitedCrafting: false
 
   # With these enabled, players will only be able to break most blocks with the correct tools
   BreakOnlyWith:
