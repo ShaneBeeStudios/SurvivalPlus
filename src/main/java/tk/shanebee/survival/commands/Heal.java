@@ -76,8 +76,8 @@ public class Heal implements CommandExecutor {
                     break;
             }
         }
-        if (config.MECHANICS_BED_FATIGUE_ENABLED) {
-            playerData.setFatigue(0);
+        if (config.MECHANICS_ENERGY_ENABLED) {
+            playerData.setEnergy(20.0);
         }
         for (PotionEffect effect : player.getActivePotionEffects()) {
             player.removePotionEffect(effect.getType());

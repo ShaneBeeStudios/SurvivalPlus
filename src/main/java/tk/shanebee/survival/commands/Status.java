@@ -73,8 +73,9 @@ public class Status implements CommandExecutor, TabCompleter {
 								player.sendMessage(playerManager.ShowThirst(player).get(1) +
 										playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());
-							if (config.MECHANICS_BED_FATIGUE_ENABLED)
-								player.sendMessage(playerManager.ShowFatigue(player));
+							if (config.MECHANICS_ENERGY_ENABLED)
+							    player.sendMessage(playerManager.showEnergy(player).get(1) +
+                                        " " + playerManager.showEnergy(player).get(0).toUpperCase());
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 								for (String s : playerManager.ShowNutrients(player))
 									player.sendMessage(s);
@@ -83,8 +84,8 @@ public class Status implements CommandExecutor, TabCompleter {
 							playerData.setInfoDisplayed(Info.HUNGER, true);
 							if (config.MECHANICS_THIRST_ENABLED)
 								playerData.setInfoDisplayed(Info.THIRST, true);
-							if (config.MECHANICS_BED_FATIGUE_ENABLED)
-								playerData.setInfoDisplayed(Info.FATIGUE, true);
+							if (config.MECHANICS_ENERGY_ENABLED)
+								playerData.setInfoDisplayed(Info.ENERGY, true);
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
 								playerData.setInfoDisplayed(Info.NUTRIENTS, true);
 						}
@@ -93,7 +94,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "off":
 						playerData.setInfoDisplayed(Info.HUNGER, false);
 						playerData.setInfoDisplayed(Info.THIRST, false);
-						playerData.setInfoDisplayed(Info.FATIGUE, false);
+						playerData.setInfoDisplayed(Info.ENERGY, false);
 						playerData.setInfoDisplayed(Info.NUTRIENTS, false);
 						break;
 					case "hunger":
@@ -117,11 +118,14 @@ public class Status implements CommandExecutor, TabCompleter {
 						break;
 					case "fatigue":
 					case "f":
+                    case "energy":
+                    case "e":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
-							if (config.MECHANICS_BED_FATIGUE_ENABLED)
-								player.sendMessage(playerManager.ShowFatigue(player));
+							if (config.MECHANICS_ENERGY_ENABLED)
+                                player.sendMessage(playerManager.showEnergy(player).get(1) +
+                                        " " + playerManager.showEnergy(player).get(0).toUpperCase());
 						} else
-							playerData.setInfoDisplayed(Info.FATIGUE, !playerData.isInfoDisplayed(Info.FATIGUE));
+							playerData.setInfoDisplayed(Info.ENERGY, !playerData.isInfoDisplayed(Info.ENERGY));
 						break;
 					case "nutrients":
 					case "n":
