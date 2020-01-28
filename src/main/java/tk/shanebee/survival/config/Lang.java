@@ -70,6 +70,7 @@ public class Lang {
     public String dehydrated_drink;
     public String hunger;
     public String thirst;
+    public String energy;
     public String carbohydrates;
     public String carbohydrates_lack;
     public String protein;
@@ -250,6 +251,7 @@ public class Lang {
         dehydrated_drink = lang.getString("dehydrated-drink");
         hunger = lang.getString("hunger");
         thirst = lang.getString("thirst");
+        energy = lang.getString("energy");
         carbohydrates = lang.getString("carbohydrates");
         carbohydrates_lack = lang.getString("carbohydrates-lack");
         protein = lang.getString("protein");
