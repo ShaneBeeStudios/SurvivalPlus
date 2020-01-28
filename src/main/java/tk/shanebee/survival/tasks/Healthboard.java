@@ -39,8 +39,10 @@ public class Healthboard extends BukkitRunnable {
 	private Team thirstT2;
 	private String thirstS2;
 
-	private Team fatigueT;
-	private String fatigueS;
+	private Team energyT0;
+    private Team energyT1;
+    private String energyS0;
+    private String energyS1;
 
 	private Team nutritionT0;
 	private String nutritionS0;
@@ -51,7 +53,7 @@ public class Healthboard extends BukkitRunnable {
 
 	private boolean hunger;
 	private boolean thirst;
-	private boolean fatigue;
+	private boolean energy;
 	private boolean nutrients;
 
 	@SuppressWarnings("ConstantConditions")
@@ -69,14 +71,15 @@ public class Healthboard extends BukkitRunnable {
 		this.thirstS0 = Utils.getColoredString("&d");
 		this.thirstS1 = Utils.getColoredString("&e");
 		this.thirstS2 = Utils.getColoredString("&f");
-		this.fatigueS = Utils.getColoredString("&0");
+		this.energyS0 = Utils.getColoredString("&0");
+        this.energyS1 = Utils.getColoredString("&4");
 		this.nutritionS0 = Utils.getColoredString("&1");
 		this.nutritionS1 = Utils.getColoredString("&2");
 		this.nutritionS2 = Utils.getColoredString("&3");
 
 		this.hunger = playerData.isInfoDisplayed(Info.HUNGER);
 		this.thirst = playerData.isInfoDisplayed(Info.THIRST);
-		this.fatigue = playerData.isInfoDisplayed(Info.FATIGUE);
+		this.energy = playerData.isInfoDisplayed(Info.ENERGY);
 		this.nutrients = playerData.isInfoDisplayed(Info.NUTRIENTS);
 
 		refresh(false);
@@ -115,9 +118,9 @@ public class Healthboard extends BukkitRunnable {
 			refresh(true);
 			thirst = playerData.isInfoDisplayed(Info.THIRST);
 		}
-		if (fatigue != playerData.isInfoDisplayed(Info.FATIGUE)) {
+		if (energy != playerData.isInfoDisplayed(Info.ENERGY)) {
 			refresh(true);
-			fatigue = playerData.isInfoDisplayed(Info.FATIGUE);
+			energy = playerData.isInfoDisplayed(Info.ENERGY);
 		}
 		if (nutrients != playerData.isInfoDisplayed(Info.NUTRIENTS)) {
 			refresh(true);
@@ -128,23 +131,25 @@ public class Healthboard extends BukkitRunnable {
 			hungerT0.setPrefix(pm.ShowHunger(player).get(0));
 			hungerT1.setPrefix(pm.ShowHunger(player).get(1));
 			hungerT2.setPrefix(pm.ShowHunger(player).get(2));
-			status.getScore(hungerS0).setScore(10);
-			status.getScore(hungerS1).setScore(9);
-			status.getScore(hungerS2).setScore(8);
+			status.getScore(hungerS0).setScore(11);
+			status.getScore(hungerS1).setScore(10);
+			status.getScore(hungerS2).setScore(9);
 		}
 
 		if (config.MECHANICS_THIRST_ENABLED && thirst) {
 			thirstT0.setPrefix(pm.ShowThirst(player).get(0));
 			thirstT1.setPrefix(pm.ShowThirst(player).get(1));
 			thirstT2.setPrefix(pm.ShowThirst(player).get(2));
-			status.getScore(thirstS0).setScore(7);
-			status.getScore(thirstS1).setScore(6);
-			status.getScore(thirstS2).setScore(5);
+			status.getScore(thirstS0).setScore(8);
+			status.getScore(thirstS1).setScore(7);
+			status.getScore(thirstS2).setScore(6);
 		}
 
-		if (config.MECHANICS_BED_FATIGUE_ENABLED && fatigue) {
-			fatigueT.setPrefix(pm.ShowFatigue(player));
-			status.getScore(fatigueS).setScore(4);
+		if (config.MECHANICS_ENERGY_ENABLED && energy) {
+			energyT0.setPrefix(pm.showEnergy(player).get(0));
+			energyT1.setPrefix(pm.showEnergy(player).get(1));
+			status.getScore(energyS0).setScore(5);
+            status.getScore(energyS1).setScore(4);
 		}
 
 		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && nutrients) {
@@ -172,7 +177,8 @@ public class Healthboard extends BukkitRunnable {
 		thirstT0 = stats.registerNewTeam("thirstT0");
 		thirstT1 = stats.registerNewTeam("thirstT1");
 		thirstT2 = stats.registerNewTeam("thirstT2");
-		fatigueT = stats.registerNewTeam("fatigueT");
+		energyT0 = stats.registerNewTeam("energyT0");
+        energyT1 = stats.registerNewTeam("energyT1");
 		nutritionT0 = stats.registerNewTeam("nutritionT0");
 		nutritionT1 = stats.registerNewTeam("nutritionT1");
 		nutritionT2 = stats.registerNewTeam("nutritionT2");
@@ -183,7 +189,8 @@ public class Healthboard extends BukkitRunnable {
 		thirstT0.addEntry(thirstS0);
 		thirstT1.addEntry(thirstS1);
 		thirstT2.addEntry(thirstS2);
-		fatigueT.addEntry(fatigueS);
+		energyT0.addEntry(energyS0);
+        energyT1.addEntry(energyS1);
 		nutritionT0.addEntry(nutritionS0);
 		nutritionT1.addEntry(nutritionS1);
 		nutritionT2.addEntry(nutritionS2);
