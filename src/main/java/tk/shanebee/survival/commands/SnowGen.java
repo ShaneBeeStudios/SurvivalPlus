@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.listeners.SnowGeneration;
+import tk.shanebee.survival.listeners.block.SnowGeneration;
 
 public class SnowGen implements CommandExecutor {
 
