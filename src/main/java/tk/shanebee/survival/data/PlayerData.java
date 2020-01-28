@@ -23,7 +23,7 @@ public class PlayerData implements ConfigurationSerializable {
 	private int proteins;
 	private int carbs;
 	private int salts;
-	private int fatigue;
+    private double energy;
 
 	// Dunno yet
 	private boolean localChat = false;
@@ -42,20 +42,20 @@ public class PlayerData implements ConfigurationSerializable {
 	// Scoreboard info
 	private boolean score_hunger = true;
 	private boolean score_thirst = true;
-	private boolean score_fatigue = true;
+	private boolean score_energy = true;
 	private boolean score_nutrients = true;
 
-	public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int salts, int fatigue) {
-		this(player.getUniqueId(), thirst, proteins, carbs, salts, fatigue);
+	public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int salts, double energy) {
+		this(player.getUniqueId(), thirst, proteins, carbs, salts, energy);
 	}
 
-	public PlayerData(UUID uuid, int thirst, int proteins, int carbs, int salts, int fatigue) {
+	public PlayerData(UUID uuid, int thirst, int proteins, int carbs, int salts, double energy) {
 		this.uuid = uuid;
 		this.thirst = thirst;
 		this.proteins = proteins;
 		this.carbs = carbs;
 		this.salts = salts;
-		this.fatigue = fatigue;
+		this.energy = energy;
 	}
 
 	/** Get the player from this data
@@ -161,29 +161,37 @@ public class PlayerData implements ConfigurationSerializable {
 		}
 	}
 
-	/** Get the fatigue of this data
-	 * @return Fatigue of this data
-	 */
-	public int getFatigue() {
-		return fatigue;
-	}
+    /** Get the energy of this data
+     * @return Energy of this data
+     */
+    public double getEnergy() {
+        return energy;
+    }
 
-	/** Set the fatigue level for this data
-	 * <p>Value must be between 0 and 4</p>
-	 * @param fatigue Level to set
-	 */
-	public void setFatigue(int fatigue) {
-		if (fatigue > 4) {
-			this.fatigue = 4;
-			return;
-		} else if (fatigue < 0) {
-			this.fatigue = 0;
-			return;
-		}
-		this.fatigue = fatigue;
-	}
+    /** Set the energy level for this data
+     * <p>Value must be between 0.0 and 20.0</p>
+     * @param energy Energy level to set
+     */
+    public void setEnergy(double energy) {
+        if (energy > 20.0) {
+            this.energy = 20.0;
+        } else if (energy < 0) {
+            this.energy = 0.0;
+        } else {
+            this.energy = energy;
+        }
+    }
 
-	/** Set a stat for this data
+    /** Increase the energy level for this data
+     * @param energy Energy amount to increase
+     */
+    public void increaseEnergy(double energy) {
+        if ((this.energy += energy) > 10.0) {
+            this.energy = 10.0;
+        }
+    }
+
+    /** Set a stat for this data
 	 * @param stat Stat to set
 	 * @param value Value of stat to set
 	 */
@@ -214,21 +222,6 @@ public class PlayerData implements ConfigurationSerializable {
 				this.recurveCooldown = value;
 		}
 	}
-
-	// Internal use only - set all stats at once
-	/*
-	private void setStats(int charge, int charging, int spin, int dual, int dualMsg, int healing, int healTime, int recurveFiring, int recurveCooldown) {
-		this.charge = charge;
-		this.charging = charging;
-		this.spin = spin;
-		this.dualWield = dual;
-		this.dualWieldMsg = dualMsg;
-		this.healing = healing;
-		this.healTimes = healTime;
-		this.recurveFiring = recurveFiring;
-		this.recurveCooldown = recurveCooldown;
-	}
-	 */
 
 	/** Get a stat from this data
 	 * @param stat Stat to retrieve
@@ -281,8 +274,8 @@ public class PlayerData implements ConfigurationSerializable {
 				return score_hunger;
 			case THIRST:
 				return score_thirst;
-			case FATIGUE:
-				return score_fatigue;
+			case ENERGY:
+				return score_energy;
 			case NUTRIENTS:
 				return score_nutrients;
 			default:
@@ -302,8 +295,8 @@ public class PlayerData implements ConfigurationSerializable {
 			case THIRST:
 				this.score_thirst = visible;
 				break;
-			case FATIGUE:
-				this.score_fatigue = visible;
+			case ENERGY:
+				this.score_energy = visible;
 				break;
 			case NUTRIENTS:
 				this.score_nutrients = visible;
@@ -317,13 +310,13 @@ public class PlayerData implements ConfigurationSerializable {
 	 * <p>This is mainly used internally for data transfers</p>
 	 * @param hunger Whether hunger should be displayed on the player's healthboard
 	 * @param thirst Whether thirst should be displayed on the player's healthboard
-	 * @param fatigue Whether fatigue should be displayed on the player's healthboard
+	 * @param energy Whether energy should be displayed on the player's healthboard
 	 * @param nutrients Whether nutrients should be displayed on the player's healthboard
 	 */
-	public void setInfoDisplayed(boolean hunger, boolean thirst, boolean fatigue, boolean nutrients) {
+	public void setInfoDisplayed(boolean hunger, boolean thirst, boolean energy, boolean nutrients) {
 		this.score_hunger = hunger;
 		this.score_thirst = thirst;
-		this.score_fatigue = fatigue;
+		this.score_energy = energy;
 		this.score_nutrients = nutrients;
 	}
 
@@ -336,25 +329,14 @@ public class PlayerData implements ConfigurationSerializable {
 		Map<String, Object> result = new LinkedHashMap<>();
 		result.put("uuid", uuid.toString());
 		result.put("thirst", thirst);
-		result.put("fatigue", fatigue);
+		result.put("energy", energy);
 		result.put("nutrients.proteins", proteins);
 		result.put("nutrients.carbs", carbs);
 		result.put("nutrients.salts", salts);
 		result.put("local-chat", localChat);
-		/* removing for now, probably doesnt need to save to data file
-		result.put("stats.charge", charge);
-		result.put("stats.charging", charging);
-		result.put("stats.spin", spin);
-		result.put("stats.dualWield", dualWield);
-		result.put("stats.dualWieldMsg", dualWieldMsg);
-		result.put("stats.healing", healing);
-		result.put("stats.healTimes", healTimes);
-		result.put("stats.recurveFiring", recurveFiring);
-		result.put("stats.recurveCooldown", recurveCooldown);
-		 */
 		result.put("score.hunger", score_hunger);
 		result.put("score.thirst", score_thirst);
-		result.put("score.fatigue", score_fatigue);
+		result.put("score.energy", score_energy);
 		result.put("score.nutrients", score_nutrients);
 		return result;
 	}
@@ -366,35 +348,21 @@ public class PlayerData implements ConfigurationSerializable {
 	public static PlayerData deserialize(Map<String, Object> args) {
 		UUID uuid = UUID.fromString(args.get("uuid").toString());
 		int thirst = ((Integer) args.get("thirst"));
-		int fatigue = ((Integer) args.get("fatigue"));
+        double energy = getDouble(args, "energy", 20.0);
 		int proteins = ((Integer) args.get("nutrients.proteins"));
 		int carbs = ((Integer) args.get("nutrients.carbs"));
 		int salts = ((Integer) args.get("nutrients.salts"));
 
-		PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
+		PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, energy);
 
 		boolean localChat = getBool(args, "local-chat", false);
 		data.setLocalChat(localChat);
 
-		/* removing for now, probably doesnt need to save to data file
-		int charge = getInt(args, "stats.charge", 0);
-		int charging = getInt(args, "stats.charging", 0);
-		int spin = getInt(args, "stats.spin", 0);
-		int dual = getInt(args, "stats.dualWield", 0);
-		int dualMsg = getInt(args, "stats.dualWieldMsg", 0);
-		int healing = getInt(args, "stats.healing", 0);
-		int healTimes = getInt(args, "stats.healTimes", 0);
-		int recurveFiring = getInt(args, "stats.recurveFiring", 0);
-		int recurveCooldown = getInt(args, "stats.recurveCooldown", 0);
-		data.setStats(charge, charging, spin, dual, dualMsg, healing,
-				healTimes, recurveFiring, recurveCooldown);
-		 */
-
 		boolean score_hunger = getBool(args, "score.hunger", true);
 		boolean score_thirst = getBool(args, "score.thirst", true);
-		boolean score_fatigue = getBool(args, "score.fatigue", true);
+		boolean score_energy = getBool(args, "score.energy", true);
 		boolean score_nutrients = getBool(args, "score.nutrients", false);
-		data.setInfoDisplayed(score_hunger, score_thirst, score_fatigue, score_nutrients);
+		data.setInfoDisplayed(score_hunger, score_thirst, score_energy, score_nutrients);
 
 		return data;
 	}
@@ -405,6 +373,12 @@ public class PlayerData implements ConfigurationSerializable {
 			return ((int) args.get(val));
 		return def;
 	}
+
+    private static double getDouble(Map<String, Object> args, String val, double def) {
+        if (args.containsKey(val))
+            return ((double) args.get(val));
+        return def;
+    }
 
 	private static boolean getBool(Map<String, Object> args, String val, boolean def) {
 		if (args.containsKey(val))

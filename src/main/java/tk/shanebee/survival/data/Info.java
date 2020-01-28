@@ -7,7 +7,7 @@ public enum Info {
 
 	HUNGER,
 	THIRST,
-	FATIGUE,
+    ENERGY,
 	NUTRIENTS
 
 }
