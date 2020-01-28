@@ -267,20 +267,25 @@ public class PlayerManager implements Listener {
 		return nutrients;
 	}
 
-	public String ShowFatigue(Player player) {
-		PlayerData data = getPlayerData(player);
-		int fatigue = data.getFatigue();
-
-		if (fatigue <= 0)
-			return ChatColor.YELLOW + lang.energized;
-		else if (fatigue == 1)
-			return ChatColor.LIGHT_PURPLE + lang.sleepy;
-		else if (fatigue == 2)
-			return ChatColor.RED + lang.overworked;
-		else if (fatigue == 3)
-			return ChatColor.WHITE + lang.distressed;
-		else return ChatColor.DARK_GRAY + lang.collapsed_1;
-	}
+	public List<String> showEnergy(Player player) {
+	    PlayerData playerData = getPlayerData(player);
+	    double energy = Math.floor(playerData.getEnergy());
+	    StringBuilder energyBar = new StringBuilder();
+	    for (int i = 0; i < energy; i++) {
+	        energyBar.append("|");
+        }
+	    for (int i = ((int) energy); i < 20; i++) {
+	        energyBar.append(".");
+        }
+	    if (energy >= 16) {
+	        energyBar.insert(0, ChatColor.GREEN);
+        } else if (energy <= 3) {
+	        energyBar.insert(0, ChatColor.RED);
+        } else {
+	        energyBar.insert(0, ChatColor.GOLD);
+        }
+	    return Arrays.asList(Utils.getColoredString(lang.energy), energyBar.toString());
+    }
 
 	/**
 	 * Check if player is holding arrows in their offhand
