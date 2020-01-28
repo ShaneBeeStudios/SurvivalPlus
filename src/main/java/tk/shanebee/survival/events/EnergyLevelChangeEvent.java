@@ -6,18 +6,18 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * Called when a player's fatigue level changes
+ * Called when a player's energy level changes
  */
 @SuppressWarnings("unused")
-public class FatigueLevelChangeEvent extends Event implements Cancellable {
+public class EnergyLevelChangeEvent extends Event implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
 	private Player player;
-	private int changed;
-	private int level;
+	private double changed;
+	private double level;
 	private boolean isCancelled;
 
-	public FatigueLevelChangeEvent(Player player, int changed, int level) {
+	public EnergyLevelChangeEvent(Player player, double changed, double level) {
 		this.player = player;
 		this.changed = changed;
 		this.level = level;
@@ -34,14 +34,14 @@ public class FatigueLevelChangeEvent extends Event implements Cancellable {
 	/** Get the amount that changed in this event
 	 * @return The amount that changed
 	 */
-	public int getChanged() {
+	public double getChanged() {
 		return this.changed;
 	}
 
-	/** Get the new fatigue level of the player
-	 * @return The fatigue level of the player
+	/** Get the new energy level of the player
+	 * @return The energy level of the player
 	 */
-	public int getFatigueLevel() {
+	public double getEnergyLevel() {
 		return this.level;
 	}
 
