@@ -10,9 +10,11 @@ import tk.shanebee.survival.data.PlayerData;
 public class Placeholders extends PlaceholderExpansion {
 
     private Survival plugin;
+    private PlayerManager playerManager;
 
     public Placeholders(Survival plugin) {
         this.plugin = plugin;
+        this.playerManager = plugin.getPlayerManager();
     }
 
     @Override
@@ -82,7 +84,15 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's fatigue
         if (identifier.equalsIgnoreCase("player_fatigue")) {
-            return plugin.getPlayerManager().ShowFatigue(p);
+            return "0"; // removed
+        }
+        // Shows player's energy level (as a number)
+        if (identifier.equalsIgnoreCase("player_energy")) {
+            return String.valueOf(playerManager.getPlayerData(p).getEnergy());
+        }
+        // Shows player's energy level (as a colored bar)
+        if (identifier.equalsIgnoreCase("player_energy_bar")) {
+            return playerManager.showEnergy(p).get(1);
         }
         // Shows player's nutrients bars (<amount> <nutrient>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs_bar")) {
