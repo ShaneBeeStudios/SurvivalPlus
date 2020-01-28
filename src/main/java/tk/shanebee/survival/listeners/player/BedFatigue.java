@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
-import tk.shanebee.survival.events.FatigueLevelChangeEvent;
+import tk.shanebee.survival.events.EnergyLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -34,10 +34,10 @@ public class BedFatigue implements Listener {
 			Player player = e.getPlayer();
 			PlayerData playerData = playerManager.getPlayerData(player);
 
-			FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, playerData.getFatigue(), 0);
+			EnergyLevelChangeEvent fatigueEvent = new EnergyLevelChangeEvent(player, 20 - playerData.getEnergy(), 20);
 			Bukkit.getPluginManager().callEvent(fatigueEvent);
 			if (fatigueEvent.isCancelled()) return;
-			playerData.setFatigue(0);
+			playerData.setEnergy(20);
 		}
 	}
 
@@ -46,10 +46,10 @@ public class BedFatigue implements Listener {
 		Player player = event.getPlayer();
 		PlayerData playerData = playerManager.getPlayerData(player);
 
-		FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, playerData.getFatigue(), 0);
+		EnergyLevelChangeEvent fatigueEvent = new EnergyLevelChangeEvent(player, 20 - playerData.getEnergy(), 20);
 		Bukkit.getPluginManager().callEvent(fatigueEvent);
 		if (fatigueEvent.isCancelled()) return;
-		playerData.setFatigue(0);
+        playerData.setEnergy(20);
 	}
 
 	@EventHandler
@@ -59,10 +59,10 @@ public class BedFatigue implements Listener {
 		PlayerData playerData = playerManager.getPlayerData(player);
 
 		if (ItemManager.compare(item, Items.COFFEE)) {
-			FatigueLevelChangeEvent fatigueEvent = new FatigueLevelChangeEvent(player, playerData.getFatigue(), 0);
+			EnergyLevelChangeEvent fatigueEvent = new EnergyLevelChangeEvent(player, 20 - playerData.getEnergy(), 20);
 			Bukkit.getPluginManager().callEvent(fatigueEvent);
 			if (fatigueEvent.isCancelled()) return;
-			playerData.setFatigue(0);
+            playerData.setEnergy(20);
 		}
 	}
 
