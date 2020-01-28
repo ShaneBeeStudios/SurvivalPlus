@@ -103,7 +103,7 @@ public class EventManager {
 			pm.registerEvents(new Clownfish(), this.plugin);
 		if (config.MECHANICS_LIVING_SLIME)
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
-		if (config.MECHANICS_BED_FATIGUE_ENABLED)
+		if (config.MECHANICS_ENERGY_ENABLED)
 			pm.registerEvents(new BedFatigue(plugin), this.plugin);
 		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);

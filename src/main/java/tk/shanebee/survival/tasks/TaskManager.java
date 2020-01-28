@@ -11,12 +11,9 @@ public class TaskManager {
 	public TaskManager(Survival plugin) {
 		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		Config config = plugin.getSurvivalConfig();
-		if (config.MECHANICS_BED_FATIGUE_ENABLED) {
-			new FatigueDrain(plugin);
-			if (config.MECHANICS_BED_FATIGUE_REFRESH_TIME > 0) {
-				new FatigueRefresh(plugin);
-			}
-		}
+		if (config.MECHANICS_ENERGY_ENABLED) {
+		    new EnergyDrain(plugin);
+        }
 		if (config.MECHANICS_THIRST_ENABLED) {
 			new ThirstDrain(plugin);
 			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
