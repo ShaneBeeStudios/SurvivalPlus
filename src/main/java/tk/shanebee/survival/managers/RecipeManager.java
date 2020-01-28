@@ -972,7 +972,7 @@ public class RecipeManager {
             survival.getServer().addRecipe(clean_water_smoker);
             survival.getServer().addRecipe(clean_water_camp);
         }
-        if (config.MECHANICS_COFFEE_ENABLED) {
+        if (config.MECHANICS_ENERGY_COFFEE_ENABLED) {
             survival.getServer().addRecipe(coffee_bean);
             survival.getServer().addRecipe(cold_milk);
             survival.getServer().addRecipe(hot_milk);
