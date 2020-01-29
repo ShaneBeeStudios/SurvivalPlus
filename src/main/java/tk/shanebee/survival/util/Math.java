@@ -73,4 +73,28 @@ public class Math {
         return java.lang.Math.max(a, b);
     }
 
+    /** Returns the closest long to the argument, with ties rounding to positive infinity.
+     * @param val a floating-point value to be rounded to a long.
+     * @return the value of the argument rounded to the nearest long value.
+     */
+    public static long round(double val) {
+        return java.lang.Math.round(val);
+    }
+
+    /** Returns the closest int to the argument, with ties rounding to positive infinity.
+     * @param val a floating-point value to be rounded to a long.
+     * @return the value of the argument rounded to the nearest int value.
+     */
+    public static int round(float val) {
+        return java.lang.Math.round(val);
+    }
+
+    /** See {@link java.lang.Math#pow(double, double)}
+     * @param a a
+     * @param b b
+     * @return return
+     */
+    public static double pow(double a, double b) {
+        return java.lang.Math.pow(a, b);
+    }
 }
