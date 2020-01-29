@@ -25,13 +25,13 @@ public class Difficulty {
 		} else {
 			boolean hard = difficulty == org.bukkit.Difficulty.HARD;
 			float f1 = 0.75F;
-			float f2 = clamp(((float) worldTime + -72000.0F) / 1440000.0F, 0.0F, 1.0F) * 0.25F;
+			float f2 = Math.clamp(((float) worldTime + -72000.0F) / 1440000.0F, 0.0F, 1.0F) * 0.25F;
 
 			f1 += f2;
 			float f3 = 0.0F;
 
-			f3 += clamp((float) inhabitedTime / 3600000.0F, 0.0F, 1.0F) * (hard ? 1.0F : 0.75F);
-			f3 += clamp(moonPhase * 0.25F, 0.0F, f2);
+			f3 += Math.clamp((float) inhabitedTime / 3600000.0F, 0.0F, 1.0F) * (hard ? 1.0F : 0.75F);
+			f3 += Math.clamp(moonPhase * 0.25F, 0.0F, f2);
 			if (difficulty == org.bukkit.Difficulty.EASY) {
 				f3 *= 0.5F;
 			}
@@ -39,10 +39,6 @@ public class Difficulty {
 			f1 += f3;
 			return round((float) difficultyNum(difficulty) * f1, 2);
 		}
-	}
-
-	private static float clamp(float f, float f1, float f2) {
-		return f < f1 ? f1 : (Math.min(f, f2));
 	}
 
 	public static int difficultyNum(org.bukkit.Difficulty difficulty) {
