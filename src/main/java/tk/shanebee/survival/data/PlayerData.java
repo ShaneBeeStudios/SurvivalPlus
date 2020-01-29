@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+import tk.shanebee.survival.util.Math;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -83,14 +84,14 @@ public class PlayerData implements ConfigurationSerializable {
 	 * @param thirst Level of thirst to set
 	 */
 	public void setThirst(int thirst) {
-		this.thirst = Math.min(thirst, 40);
+		this.thirst = Math.clamp(thirst, 0, 40);
 	}
 
 	/** Increase the thirst for this data
 	 * @param thirst Level of thirst to add
 	 */
 	public void increaseThirst(int thirst) {
-		this.thirst += thirst;
+		this.thirst = Math.clamp(this.thirst + thirst, 0, 40);
 	}
 
 	/** Get the nutrients from this data
@@ -117,13 +118,13 @@ public class PlayerData implements ConfigurationSerializable {
 	public void setNutrient(Nutrient nutrient, int value) {
 		switch (nutrient) {
 			case PROTEIN:
-				this.proteins = value;
+				this.proteins = Math.max(0, value);
 				break;
 			case CARBS:
-				this.carbs = value;
+				this.carbs = Math.max(0, value);
 				break;
 			case SALTS:
-				this.salts = value;
+				this.salts = Math.max(0, value);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + nutrient);
@@ -136,9 +137,9 @@ public class PlayerData implements ConfigurationSerializable {
      * @param salts Level of salts to set
      */
 	public void setNutrients(int carbs, int proteins, int salts) {
-	    this.carbs = carbs;
-	    this.proteins = proteins;
-	    this.salts = salts;
+	    this.carbs = Math.max(0, carbs);
+	    this.proteins = Math.max(0, proteins);
+	    this.salts = Math.max(0, salts);
     }
 
 	/** Increase a nutrient for this data
@@ -148,13 +149,13 @@ public class PlayerData implements ConfigurationSerializable {
 	public void increaseNutrient(Nutrient nutrient, int value) {
 		switch (nutrient) {
 			case PROTEIN:
-				this.proteins += value;
+				this.proteins = Math.max(0, this.proteins + value);
 				break;
 			case CARBS:
-				this.carbs += value;
+				this.carbs = Math.max(0, this.carbs + value);
 				break;
 			case SALTS:
-				this.salts += value;
+				this.salts = Math.max(0, this.salts + value);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + nutrient);
