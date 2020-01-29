@@ -186,8 +186,8 @@ public class PlayerData implements ConfigurationSerializable {
      * @param energy Energy amount to increase
      */
     public void increaseEnergy(double energy) {
-        if ((this.energy += energy) > 10.0) {
-            this.energy = 10.0;
+        if ((this.energy += energy) > 20.0) {
+            this.energy = 20.0;
         }
     }
 

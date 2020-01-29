@@ -95,17 +95,12 @@ stay-still: "&a, stay still."
 healing-complete: "Healing complete."
 healing-interrupted: "Healing interrupted."
 
-# Fatigue Level
-energized: "Energized"
-sleepy: "Sleepy"
-overworked: "Overworked"
-distressed: "Distressed"
-collapsed-1: "Collapsed"
-feeling-sleepy-1: "Your eyelids are getting heavy, maybe you should get some sleep."
-feeling-sleepy-2: "Your vision is blurred."
-feeling-sleepy-3: "You are being enveloped by darkness."
-energy-rising: "Your energy is rising."
-collapsed-2: "You collapsed to the ground from exhaustion."
+# Energy Level
+energy-level-10: "&6You are starting to feel a little tired."
+energy-level-6-5: "&6You are starting to feel a little worn out and weak."
+energy-level-3-5: "&eYou are starting to feel a little nauseous, maybe it's time to get some sleep."
+energy-level-2: "&cYou are starting to feel really sick, you should get some rest."
+energy-level-1: "&cYour lack of sleep is really taking a toll on you."
 
 locked: "Locked"
 missing-component: "Missing Component"

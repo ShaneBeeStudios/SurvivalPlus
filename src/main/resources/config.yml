@@ -86,12 +86,15 @@ Mechanics:
   Energy:
     # With this enabled, players will need to sleep often or risk losing energy
     enabled: true
+    # Warn the player via message when energy starts dropping below 10
+    warning: true
     # The amount of energy a player loses every 5 seconds of gameplay
     drain-rate: 0.015 # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
     # Every 5 seconds a player spends in bed, the level of energy to increase
     sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
     # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
-    exhaustion: true
+    # Amount to drop per exhaustion reset (when the player's hunger bar drops) (set to 0 to disable)
+    exhaustion: 0.15
     # Enables coffee recipes and effects (Drink coffee to regain energy)
     coffee: true
 

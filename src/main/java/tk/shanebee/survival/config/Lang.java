@@ -87,6 +87,13 @@ public class Lang {
     public String stay_still;
     public String healing_complete;
     public String healing_interrupted;
+
+    public String energy_level_10;
+    public String energy_level_6_5;
+    public String energy_level_3_5;
+    public String energy_level_2;
+    public String energy_level_1;
+    /*
     public String energized;
     public String sleepy;
     public String overworked;
@@ -97,6 +104,9 @@ public class Lang {
     public String feeling_sleepy_2;
     public String feeling_sleepy_3;
     public String energy_rising;
+
+     */
+
     public String locked;
     public String missing_component;
     public String in_main_hand;
@@ -267,16 +277,11 @@ public class Lang {
         stay_still = lang.getString("stay-still");
         healing_complete = lang.getString("healing-complete");
         healing_interrupted = lang.getString("healing-interrupted");
-        energized = lang.getString("energized");
-        sleepy = lang.getString("sleepy");
-        overworked = lang.getString("overworked");
-        distressed = lang.getString("distressed");
-        collapsed_1 = lang.getString("collapsed-1");
-        collapsed_2 = lang.getString("collapsed-2");
-        feeling_sleepy_1 = lang.getString("feeling-sleepy-1");
-        feeling_sleepy_2 = lang.getString("feeling-sleepy-2");
-        feeling_sleepy_3 = lang.getString("feeling-sleepy-3");
-        energy_rising = lang.getString("energy-rising");
+        energy_level_10 = lang.getString("energy-level-10");
+        energy_level_6_5 = lang.getString("energy-level-6-5");
+        energy_level_3_5 = lang.getString("energy-level-3-5");
+        energy_level_2 = lang.getString("energy-level-2");
+        energy_level_1 = lang.getString("energy-level-1");
         locked = lang.getString("locked");
         missing_component = lang.getString("missing-component");
         in_main_hand = lang.getString("in-main-hand");

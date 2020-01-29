@@ -18,7 +18,7 @@ import tk.shanebee.survival.listeners.entity.ChestPigmen;
 import tk.shanebee.survival.listeners.entity.ChickenSpawn;
 import tk.shanebee.survival.listeners.entity.LivingSlime;
 import tk.shanebee.survival.listeners.item.*;
-import tk.shanebee.survival.listeners.player.BedFatigue;
+import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
 import tk.shanebee.survival.listeners.server.Guide;
 import tk.shanebee.survival.listeners.server.InventoryUpdate;
@@ -104,7 +104,7 @@ public class EventManager {
 		if (config.MECHANICS_LIVING_SLIME)
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
 		if (config.MECHANICS_ENERGY_ENABLED)
-			pm.registerEvents(new BedFatigue(plugin), this.plugin);
+			pm.registerEvents(new EnergyChange(plugin), this.plugin);
 		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (config.MECHANICS_RECURVED_BOW)

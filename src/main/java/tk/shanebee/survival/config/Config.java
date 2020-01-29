@@ -53,13 +53,12 @@ public class Config {
 	// MECHANICS
 	public boolean MECHANICS_SHARED_WORKBENCH;
 
-	//public boolean MECHANICS_BED_FATIGUE_ENABLED;
-	//public int MECHANICS_BED_FATIGUE_REFRESH_TIME;
-	//public int MECHANICS_BED_FATIGUE_INCREASE_CHANCE;
+	// ENERGY
     public boolean MECHANICS_ENERGY_ENABLED;
+    public boolean MECHANICS_ENERGY_WARNING;
     public double MECHANICS_ENERGY_DRAIN_RATE;
     public double MECHANICS_ENERGY_REFRESH_RATE;
-    public boolean MECHANICS_ENERGY_EXHAUSTION;
+    public double MECHANICS_ENERGY_EXHAUSTION;
 	public boolean MECHANICS_ENERGY_COFFEE_ENABLED;
 
 	public boolean MECHANICS_SLOW_ARMOR;
@@ -280,9 +279,10 @@ public class Config {
 		// MECHANICS
 		this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
 		this.MECHANICS_ENERGY_ENABLED = settings.getBoolean("Mechanics.Energy.enabled");
+		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
 		this.MECHANICS_ENERGY_REFRESH_RATE = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
-		this.MECHANICS_ENERGY_EXHAUSTION = settings.getBoolean("Mechanics.Energy.exhaustion");
+		this.MECHANICS_ENERGY_EXHAUSTION = settings.getDouble("Mechanics.Energy.exhaustion");
 		this.MECHANICS_ENERGY_COFFEE_ENABLED = settings.getBoolean("Mechanics.Energy.coffee");
 
 		this.MECHANICS_SLOW_ARMOR = settings.getBoolean("Mechanics.SlowArmor");

@@ -95,17 +95,12 @@ stay-still: "&a, 别动."
 healing-complete: "完成治疗."
 healing-interrupted: "治疗中断."
 
-# 疲劳等级
-energized: "精力充沛"
-sleepy: "昏昏欲睡"
-overworked: "疲惫不堪"
-distressed: "屈心抑志"
-collapsed-1: "筋疲力竭"
-feeling-sleepy-1: "你快睁不开眼了, 是时候去睡觉了."
-feeling-sleepy-2: "你的视野开始模糊."
-feeling-sleepy-3: "你正被黑暗所吞噬."
-energy-rising: "你来劲了."
-collapsed-2: "你力竭倒地了."
+# 能级 (Energy Level)
+energy-level-10: "&6您开始感到有些疲倦."
+energy-level-6-5: "&6您开始感到有点疲惫和虚弱."
+energy-level-3-5: "&e您开始感到恶心, 也许是时候入睡了."
+energy-level-2: "&c您开始感到恶心, 应该休息一下."
+energy-level-1: "&c你缺乏睡眠真的给你造成了伤害."
 
 locked: "已上锁"
 missing-component: "缺少成分"
