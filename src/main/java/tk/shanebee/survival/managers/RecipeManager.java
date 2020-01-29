@@ -1158,9 +1158,6 @@ public class RecipeManager {
         if (config.MECHANICS_FARMING_PRODUCTS_BREAD) {
             removeRecipeByKey("bread");
         }
-        if (config.MECHANICS_MEDIC_KIT) {
-            removeRecipeByKey("clock");
-        }
         if (config.LEGENDARY_GOLDARMORBUFF) {
             removeRecipeByKey("golden_helmet");
             removeRecipeByKey("golden_chestplate");
