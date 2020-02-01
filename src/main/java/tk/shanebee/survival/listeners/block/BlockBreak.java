@@ -128,12 +128,15 @@ public class BlockBreak implements Listener {
 							}
 							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
 							if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
-								random = grown ? new Random().nextInt(2) + 2 : 1;
+								random = grown ? new Random().nextInt(2) + 3 : 1;
 							}
 
 							for (Material drop : Utils.getDrops(material, grown)) {
 								if (drop != Material.AIR && random != 0) {
 									assert loc.getWorld() != null;
+									if (drop == Material.PUMPKIN) { // prevent duping pumpkins
+									    random = 1;
+                                    }
 									loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
 								}
 							}
