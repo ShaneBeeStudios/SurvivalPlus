@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.world.TimeSkipEvent;
@@ -35,20 +34,6 @@ public class EnergyChange implements Listener {
 		this.playerManager = plugin.getPlayerManager();
 		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
-	}
-
-	@EventHandler
-	private void onBedLeave(PlayerBedLeaveEvent e) {
-		long time = e.getBed().getWorld().getTime();
-		if (time < 1100) {
-			Player player = e.getPlayer();
-			PlayerData playerData = playerManager.getPlayerData(player);
-
-			EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);
-			Bukkit.getPluginManager().callEvent(energyEvent);
-			if (energyEvent.isCancelled()) return;
-			playerData.setEnergy(20);
-		}
 	}
 
 	@EventHandler
@@ -131,10 +116,25 @@ public class EnergyChange implements Listener {
 	    return level <= target && newLevel > target;
     }
 
+    // Increase players energy when they wakeup after the night skips
+    // Or cancel the night skip event if true in config (forcing players to lay in bed and let energy increase)
     @EventHandler
     private void onSkipNight(TimeSkipEvent event) {
-	    if (!config.MECHANICS_PREVENT_NIGHT_SKIP) return;
-	    if (event.getSkipReason() == TimeSkipEvent.SkipReason.NIGHT_SKIP) event.setCancelled(true);
+	    if (config.MECHANICS_PREVENT_NIGHT_SKIP) {
+            if (event.getSkipReason() == TimeSkipEvent.SkipReason.NIGHT_SKIP) {
+                event.setCancelled(true);
+            }
+        } else {
+	        for (Player player : event.getWorld().getPlayers()) {
+	            if (!player.isSleeping()) continue;
+                PlayerData playerData = playerManager.getPlayerData(player);
+
+                EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);
+                Bukkit.getPluginManager().callEvent(energyEvent);
+                if (energyEvent.isCancelled()) return;
+                playerData.setEnergy(20);
+            }
+        }
     }
 
 }
