@@ -321,16 +321,16 @@ public class PlayerManager implements Listener {
 					int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
 					int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
 					int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
-					int fatigue = scoreboard.getObjective("Fatigue").getScore(player.getName()).getScore();
+					int energy = scoreboard.getObjective("Energy").getScore(player.getName()).getScore();
 
 					boolean s_hunger = scoreboard.getObjective("BoardHunger").getScore(player.getName()).getScore() == 0;
 					boolean s_thirst = scoreboard.getObjective("BoardThirst").getScore(player.getName()).getScore() == 0;
-					boolean s_fatigue = scoreboard.getObjective("BoardFatigue").getScore(player.getName()).getScore() == 0;
+					boolean s_energy = scoreboard.getObjective("BoardEnergy").getScore(player.getName()).getScore() == 0;
 					boolean s_nutrients = scoreboard.getObjective("BoardNutrients").getScore(player.getName()).getScore() == 0;
 
 					if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
-						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, fatigue);
-						data.setInfoDisplayed(s_hunger, s_thirst, s_fatigue, s_nutrients);
+						PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, energy);
+						data.setInfoDisplayed(s_hunger, s_thirst, s_energy, s_nutrients);
 						savePlayerData(data);
 						c++;
 					}

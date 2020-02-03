@@ -125,31 +125,6 @@ public class StatusManager {
         setNutrients(player, nutrient, getNutrients(player, nutrient) - level);
     }
 
-    /** Set the fatigue level of a player (no longer in use)
-     * @param player The player to set fatigue for
-     * @param level The level to set for the player (0 - 4)
-     */
-    public static void setFatigue(Player player, int level) {
-        PlayerData pd = playerManager.getPlayerData(player);
-        //pd.setFatigue(level);
-    }
-
-    /** Get the fatigue level of a player (no longer in use)
-     * @param player The player to get a fatigue level for
-     * @return 0
-     */
-    public static int getFatigue(Player player) {
-        PlayerData pd = playerManager.getPlayerData(player);
-        return 0;
-    }
-
-    /** Increase a player's fatigue level by 1
-     * @param player The player to increase fatigue for
-     */
-    public static void increaseFatigue(Player player) {
-        setFatigue(player, getFatigue( player) + 1);
-    }
-
     /** Set the hunger level of a player
      * <p>
      *     <b>NOTE:</b> This level is a mixture of the player's food/saturation levels

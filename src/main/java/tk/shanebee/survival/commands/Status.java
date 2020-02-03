@@ -31,7 +31,6 @@ public class Status implements CommandExecutor, TabCompleter {
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String prefix = lang.prefix;
 		if (command.getName().equalsIgnoreCase("status")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(Utils.getColoredString(lang.players_only));
@@ -51,14 +50,7 @@ public class Status implements CommandExecutor, TabCompleter {
 								playerManager.ShowThirst(player).get(2) + " " +
 								playerManager.ShowThirst(player).get(0).toUpperCase());
 				} else {
-					// New help message
-					Utils.sendColoredMsg(player, prefix + "&6HealthBoard");
-					Utils.sendColoredMsg(player, "  &b/stat all &7- Show your entire health board");
-					Utils.sendColoredMsg(player, "  &b/stat none &7- Turn off your entire health board");
-					Utils.sendColoredMsg(player, "  &b/stat hunger &7- Turn on/off hunger");
-					Utils.sendColoredMsg(player, "  &b/stat thirst &7- Turn on/off thirst");
-					Utils.sendColoredMsg(player, "  &b/stat fatigue &7- Turn on/off fatigue");
-					Utils.sendColoredMsg(player, "  &b/stat nutrients &7- Turn on/off nutrients");
+					sendHelp(player);
 				}
 			}
 
@@ -138,13 +130,7 @@ public class Status implements CommandExecutor, TabCompleter {
 							playerData.setInfoDisplayed(Info.NUTRIENTS, !playerData.isInfoDisplayed(Info.NUTRIENTS));
 						break;
 					default:
-						Utils.sendColoredMsg(player, prefix + "&6HealthBoard");
-						Utils.sendColoredMsg(player, "  &b/stat all &7- Show your entire health board");
-						Utils.sendColoredMsg(player, "  &b/stat none &7- Turn off your entire health board");
-						Utils.sendColoredMsg(player, "  &b/stat hunger &7- Turn on/off hunger");
-						Utils.sendColoredMsg(player, "  &b/stat thirst &7- Turn on/off thirst");
-						Utils.sendColoredMsg(player, "  &b/stat fatigue &7- Turn on/off fatigue");
-						Utils.sendColoredMsg(player, "  &b/stat nutrients &7- Turn on/off nutrients");
+						sendHelp(player);
 				}
 			}
 			return true;
@@ -158,7 +144,7 @@ public class Status implements CommandExecutor, TabCompleter {
 		for (String arg : args) {
 			builder.append(arg).append(" ");
 		}
-		String[] list = {"all", "hunger", "thirst", "fatigue", "nutrients", "none", "help"};
+		String[] list = {"all", "hunger", "thirst", "energy", "nutrients", "none", "help"};
 
 		String arg = builder.toString().trim();
 		ArrayList<String> matches = new ArrayList<>();
@@ -169,5 +155,15 @@ public class Status implements CommandExecutor, TabCompleter {
 		}
 		return matches;
 	}
+
+	private void sendHelp(Player player) {
+        Utils.sendColoredMsg(player, lang.prefix + "&6HealthBoard");
+        Utils.sendColoredMsg(player, "  &b/stat all &7- Show your entire health board");
+        Utils.sendColoredMsg(player, "  &b/stat none &7- Turn off your entire health board");
+        Utils.sendColoredMsg(player, "  &b/stat hunger &7- Turn on/off hunger");
+        Utils.sendColoredMsg(player, "  &b/stat thirst &7- Turn on/off thirst");
+        Utils.sendColoredMsg(player, "  &b/stat energy &7- Turn on/off energy");
+        Utils.sendColoredMsg(player, "  &b/stat nutrients &7- Turn on/off nutrients");
+    }
 
 }
