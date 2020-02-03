@@ -232,7 +232,6 @@ public class Utils {
 				.add(Material.MELON_STEM)
 				.add(Material.PUMPKIN)
 				.add(Material.PUMPKIN_STEM)
-				.add(Material.JACK_O_LANTERN)
 				.add(Material.CHORUS_FLOWER)
 				.add(Material.CHORUS_PLANT)
 				.add(Material.CARROTS)
@@ -626,9 +625,6 @@ public class Utils {
         switch (material) {
             case PUMPKIN:
                 mat.add(Material.PUMPKIN);
-                break;
-            case JACK_O_LANTERN:
-                mat.add(Material.JACK_O_LANTERN);
                 break;
             case MELON_STEM:
                 mat.add(Material.MELON_SEEDS);

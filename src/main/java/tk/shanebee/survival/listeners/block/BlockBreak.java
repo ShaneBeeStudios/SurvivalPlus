@@ -128,12 +128,15 @@ public class BlockBreak implements Listener {
 							}
 							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
 							if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
-								random = grown ? new Random().nextInt(2) + 2 : 1;
+								random = grown ? new Random().nextInt(2) + 3 : 1;
 							}
 
 							for (Material drop : Utils.getDrops(material, grown)) {
 								if (drop != Material.AIR && random != 0) {
 									assert loc.getWorld() != null;
+									if (drop == Material.PUMPKIN) { // prevent duping pumpkins
+									    random = 1;
+                                    }
 									loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
 								}
 							}
@@ -244,8 +247,13 @@ public class BlockBreak implements Listener {
 
 					bush.setAge(1);
 					block.setBlockData(bush);
-					Utils.setDurability(tool, Utils.getDurability(tool) + multiplier);
+					int durability = Utils.getDurability(tool) + multiplier;
+					Utils.setDurability(tool, durability);
 					player.playSound(loc, Sound.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, 1, 1);
+					if (durability >= tool.getType().getMaxDurability()) {
+                        player.getInventory().setItemInMainHand(null);
+                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+                    }
 				}
 			}
 		}
