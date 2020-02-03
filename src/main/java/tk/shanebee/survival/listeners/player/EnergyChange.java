@@ -133,6 +133,7 @@ public class EnergyChange implements Listener {
 
     @EventHandler
     private void onSkipNight(TimeSkipEvent event) {
+	    if (!config.MECHANICS_PREVENT_NIGHT_SKIP) return;
 	    if (event.getSkipReason() == TimeSkipEvent.SkipReason.NIGHT_SKIP) event.setCancelled(true);
     }
 

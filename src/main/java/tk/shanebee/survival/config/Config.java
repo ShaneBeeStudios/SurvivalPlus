@@ -52,6 +52,7 @@ public class Config {
 
 	// MECHANICS
 	public boolean MECHANICS_SHARED_WORKBENCH;
+	public boolean MECHANICS_PREVENT_NIGHT_SKIP;
 
 	// ENERGY
     public boolean MECHANICS_ENERGY_ENABLED;
@@ -278,6 +279,7 @@ public class Config {
 
 		// MECHANICS
 		this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
+		this.MECHANICS_PREVENT_NIGHT_SKIP = settings.getBoolean("Mechanics.Prevent-Night-Skip");
 		this.MECHANICS_ENERGY_ENABLED = settings.getBoolean("Mechanics.Energy.enabled");
 		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");

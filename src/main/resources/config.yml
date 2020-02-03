@@ -73,14 +73,8 @@ Mechanics:
   # This is an experimental feature, I recommend not using it
   SharedWorkbench: false
 
-  # With this enabled, players will need to sleep often or risk losing energy
-  BedFatigueLevel: true
-  # Players can sleep in a bed for x seconds and regain energy
-  BedFatigueRefreshTime: 30
-  # This is the chance players will lose energy at midnight
-  FatigueLevelIncreaseChance: 70
-  # Enables coffee recipes and effects (Drink coffee to regain energy)
-  Coffee: true
+  # When enabled the night will not skip to day when players sleep
+  Prevent-Night-Skip: false
 
   # Players will have an energy level out of 20, as it drops, players will get weak and suffer some bad effects
   Energy:
