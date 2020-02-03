@@ -174,22 +174,14 @@ public class PlayerData implements ConfigurationSerializable {
      * @param energy Energy level to set
      */
     public void setEnergy(double energy) {
-        if (energy > 20.0) {
-            this.energy = 20.0;
-        } else if (energy < 0) {
-            this.energy = 0.0;
-        } else {
-            this.energy = energy;
-        }
+        this.energy = Math.clamp(energy, 0.0, 20.0);
     }
 
     /** Increase the energy level for this data
      * @param energy Energy amount to increase
      */
     public void increaseEnergy(double energy) {
-        if ((this.energy += energy) > 20.0) {
-            this.energy = 20.0;
-        }
+        setEnergy(this.energy + energy);
     }
 
     /** Set a stat for this data
