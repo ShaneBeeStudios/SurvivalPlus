@@ -132,6 +132,11 @@ Mechanics:
   # Players will need to eat a different variety of foods to stay nourished
   FoodDiversity:
     enabled: true
+    # Max level for each nutritional value
+    max-level:
+      carbs: 50000
+      salts: 50000
+      proteins: 50000
     # Each nutrition section has different effects when player's levels are too low
     effects:
       carbs:

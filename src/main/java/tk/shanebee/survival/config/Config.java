@@ -81,6 +81,9 @@ public class Config {
 	public boolean MECHANICS_BEET_STRENGTH;
 
 	public boolean MECHANICS_FOOD_DIVERSITY_ENABLED;
+	public int MECHANICS_FOOD_MAX_PROTEINS;
+    public int MECHANICS_FOOD_MAX_SALTS;
+    public int MECHANICS_FOOD_MAX_CARBS;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD;
@@ -307,6 +310,9 @@ public class Config {
 		this.MECHANICS_BEET_STRENGTH = settings.getBoolean("Mechanics.BeetrootStrength");
 
 		this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+		this.MECHANICS_FOOD_MAX_CARBS = settings.getInt("Mechanics.FoodDiversity.max-level.carbs");
+        this.MECHANICS_FOOD_MAX_SALTS = settings.getInt("Mechanics.FoodDiversity.max-level.salts");
+        this.MECHANICS_FOOD_MAX_PROTEINS = settings.getInt("Mechanics.FoodDiversity.max-level.proteins");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");

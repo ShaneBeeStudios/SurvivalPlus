@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Math;
 
 import java.util.LinkedHashMap;
@@ -17,6 +19,10 @@ import java.util.UUID;
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SameParameterValue"})
 public class PlayerData implements ConfigurationSerializable {
 
+    private Config config = Survival.getInstance().getSurvivalConfig();
+    private int max_carbs = config.MECHANICS_FOOD_MAX_CARBS;
+    private int max_proteins = config.MECHANICS_FOOD_MAX_PROTEINS;
+    private int max_salts = config.MECHANICS_FOOD_MAX_SALTS;
 	private UUID uuid;
 	private int thirst;
 
@@ -116,20 +122,20 @@ public class PlayerData implements ConfigurationSerializable {
 	 * @param value Level to set
 	 */
 	public void setNutrient(Nutrient nutrient, int value) {
-		switch (nutrient) {
-			case PROTEIN:
-				this.proteins = Math.max(0, value);
-				break;
-			case CARBS:
-				this.carbs = Math.max(0, value);
-				break;
-			case SALTS:
-				this.salts = Math.max(0, value);
-				break;
-			default:
-				throw new IllegalStateException("Unexpected value: " + nutrient);
-		}
-	}
+        switch (nutrient) {
+            case PROTEIN:
+                this.proteins = Math.clamp(value, 0, this.max_proteins);
+                break;
+            case CARBS:
+                this.carbs = Math.clamp(value, 0, this.max_carbs);
+                break;
+            case SALTS:
+                this.salts = Math.clamp(value, 0, this.max_salts);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + nutrient);
+        }
+    }
 
     /** Set all the nutrients for this data
      * @param carbs Level of carbs to set
@@ -137,9 +143,9 @@ public class PlayerData implements ConfigurationSerializable {
      * @param salts Level of salts to set
      */
 	public void setNutrients(int carbs, int proteins, int salts) {
-	    this.carbs = Math.max(0, carbs);
-	    this.proteins = Math.max(0, proteins);
-	    this.salts = Math.max(0, salts);
+	    setNutrient(Nutrient.CARBS, carbs);
+        setNutrient(Nutrient.PROTEIN, proteins);
+        setNutrient(Nutrient.SALTS, salts);
     }
 
 	/** Increase a nutrient for this data
@@ -149,13 +155,13 @@ public class PlayerData implements ConfigurationSerializable {
 	public void increaseNutrient(Nutrient nutrient, int value) {
 		switch (nutrient) {
 			case PROTEIN:
-				this.proteins = Math.max(0, this.proteins + value);
+				this.proteins = Math.clamp(this.proteins + value, 0, this.max_proteins);
 				break;
 			case CARBS:
-				this.carbs = Math.max(0, this.carbs + value);
+				this.carbs = Math.clamp(this.carbs + value, 0, this.max_carbs);
 				break;
 			case SALTS:
-				this.salts = Math.max(0, this.salts + value);
+				this.salts = Math.clamp(this.salts + value, 0, this.max_salts);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + nutrient);
