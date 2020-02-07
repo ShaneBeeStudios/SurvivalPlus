@@ -15,11 +15,14 @@ import java.util.Random;
 class ThirstDrain extends BukkitRunnable {
 
 	private PlayerManager playerManager;
-	private Config config;
+	private double drain;
+	private double damage;
 
 	ThirstDrain(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();
-		this.config = plugin.getSurvivalConfig();
+		Config config = plugin.getSurvivalConfig();
+		this.drain = config.MECHANICS_THIRST_DRAIN_RATE;
+		this.damage = config.MECHANICS_THIRST_DAMAGE_RATE;
 		this.runTaskTimer(plugin, -1, 1);
 	}
 
@@ -32,7 +35,7 @@ class ThirstDrain extends BukkitRunnable {
 					PlayerData playerData = playerManager.getPlayerData(player);
 
 					Random rand = new Random();
-					int change = rand.nextDouble() <= config.MECHANICS_THIRST_DRAIN_RATE ? 1 : 0;
+					int change = rand.nextDouble() <= this.drain ? 1 : 0;
 
 					// Prevent calling thirst event if there is no change
 					if (change == 0) continue;
@@ -51,14 +54,14 @@ class ThirstDrain extends BukkitRunnable {
 					switch (player.getWorld().getDifficulty()) {
 						case EASY:
 							if (player.getHealth() > 10)
-								player.damage(1);
+								player.damage(this.damage);
 							break;
 						case NORMAL:
 							if (player.getHealth() > 1)
-								player.damage(1);
+								player.damage(this.damage);
 							break;
 						case HARD:
-							player.damage(1);
+							player.damage(this.damage);
 							break;
 						default:
 					}

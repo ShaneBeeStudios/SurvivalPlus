@@ -181,6 +181,8 @@ Mechanics:
     MeltSnow: true
     # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
     DrainRate: 1.0
+    # The amount of damage a player takes when their thirst level is empty
+    DamageRate: 1.0
     # The level of thirst that will be replenished when a player consumes this item
     Replenish-Level:
       beetroot-soup: 6

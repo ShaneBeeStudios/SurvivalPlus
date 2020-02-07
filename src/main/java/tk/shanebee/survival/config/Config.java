@@ -105,6 +105,7 @@ public class Config {
 	public boolean MECHANICS_THIRST_PURIFY_WATER;
 	public boolean MECHANICS_THIRST_MELT_SNOW;
 	public double MECHANICS_THIRST_DRAIN_RATE;
+	public double MECHANICS_THIRST_DAMAGE_RATE;
 	public int MECHANICS_THIRST_REP_BEET_SOUP;
 	public int MECHANICS_THIRST_REP_MELON_SLICE;
 	public int MECHANICS_THIRST_REP_MUSH_STEW;
@@ -331,6 +332,7 @@ public class Config {
 		this.MECHANICS_THIRST_PURIFY_WATER = settings.getBoolean("Mechanics.Thirst.PurifyWater");
 		this.MECHANICS_THIRST_MELT_SNOW = settings.getBoolean("Mechanics.Thirst.MeltSnow");
 		this.MECHANICS_THIRST_DRAIN_RATE = settings.getDouble("Mechanics.Thirst.DrainRate");
+		this.MECHANICS_THIRST_DAMAGE_RATE = settings.getDouble("Mechanics.Thirst.DamageRate");
 
 		this.MECHANICS_THIRST_REP_BEET_SOUP = settings.getInt("Mechanics.Thirst.Replenish-Level.beetroot-soup");
 		this.MECHANICS_THIRST_REP_MELON_SLICE = settings.getInt("Mechanics.Thirst.Replenish-Level.melon-slice");
