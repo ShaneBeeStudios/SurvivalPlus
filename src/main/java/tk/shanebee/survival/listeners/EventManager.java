@@ -78,7 +78,6 @@ public class EventManager {
 			pm.registerEvents(new MedicKit(plugin), this.plugin);
 
 		pm.registerEvents(new WaterBottleCrafting(plugin), this.plugin);
-		pm.registerEvents(new SpecialItemInteractCancel(plugin), this.plugin);
 
 		pm.registerEvents(new SetResourcePack(plugin), this.plugin);
 
