@@ -40,17 +40,6 @@ public class SpecialItemInteractCancel implements Listener {
 						}
 					}
 					break;
-				case GOLDEN_SHOVEL:
-					if (config.LEGENDARY_OBSIDIAN_MACE) {
-						switch (clickedBlock) {
-							case GRASS:
-								event.setCancelled(true);
-								break;
-
-							default:
-						}
-					}
-					break;
 				default:
 			}
 		}
