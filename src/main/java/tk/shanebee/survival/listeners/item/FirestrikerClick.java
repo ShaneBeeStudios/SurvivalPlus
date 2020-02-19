@@ -1,5 +1,6 @@
 package tk.shanebee.survival.listeners.item;
 
+import org.bukkit.block.Block;
 import org.bukkit.block.data.Lightable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
@@ -46,13 +47,19 @@ public class FirestrikerClick implements Listener {
 	private void onItemClick(PlayerInteractEvent event) {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
-			if (event.getClickedBlock() == null) return;
-            if (event.getItem() != null && ItemManager.compare(event.getItem(), Items.FIRESTRIKER)) {
+            Block clickedBlock = event.getClickedBlock();
+            ItemStack tool = event.getItem();
+            Action action = event.getAction();
+			if (clickedBlock == null || tool == null) return;
+
+			Material clickedBlockType = clickedBlock.getType();
+			Material toolType = tool.getType();
+            if (ItemManager.compare(tool, Items.FIRESTRIKER)) {
 				if (player.isSneaking()) {
-					if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-						if (player.getInventory().getItemInMainHand().getType() == event.getItem().getType())
+					if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+						if (player.getInventory().getItemInMainHand().getType() == toolType)
 							player.getInventory().setItemInMainHand(null);
-						else if (player.getInventory().getItemInOffHand().getType() == event.getItem().getType())
+						else if (player.getInventory().getItemInOffHand().getType() == toolType)
 							player.getInventory().setItemInOffHand(null);
 						player.updateInventory();
 
@@ -61,12 +68,12 @@ public class FirestrikerClick implements Listener {
 
 						Inventory firestriker = Bukkit.createInventory(player, InventoryType.FURNACE, Utils.getColoredString(lang.firestriker));
 						player.openInventory(firestriker);
-						firestriker.setItem(1, event.getItem());
+						firestriker.setItem(1, tool);
 						event.setCancelled(true);
 					}
 				} else {
-					if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-						switch (event.getClickedBlock().getType()) {
+					if (action == Action.RIGHT_CLICK_BLOCK) {
+						switch (clickedBlockType) {
 							case ENCHANTING_TABLE:
 							case ANVIL:
 							case BREWING_STAND:
@@ -91,28 +98,32 @@ public class FirestrikerClick implements Listener {
 								return;
 							default:
 						}
-						if (Tag.BEDS.isTagged(event.getClickedBlock().getType())) return;
-						if (Utils.isWoodGate(event.getClickedBlock().getType())) return;
-						if (Tag.TRAPDOORS.isTagged(event.getClickedBlock().getType())) return;
-						if (event.getClickedBlock().getType() == Material.CAMPFIRE) {
-							Lightable camp = ((Lightable) event.getClickedBlock().getBlockData());
+						if (Tag.BEDS.isTagged(clickedBlockType)) return;
+						if (Utils.isWoodGate(clickedBlockType)) return;
+						if (Tag.TRAPDOORS.isTagged(clickedBlockType)) return;
+						if (clickedBlockType == Material.CAMPFIRE) {
+							Lightable camp = ((Lightable) clickedBlock.getBlockData());
 							if (camp.isLit()) return;
 							camp.setLit(true);
-							event.getClickedBlock().setBlockData(camp);
+							clickedBlock.setBlockData(camp);
 						}
-						Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
+						// Cancel turning grass block into grass path
+						if (clickedBlockType == Material.GRASS_BLOCK) {
+						    event.setCancelled(true);
+                        }
+						Location loc = clickedBlock.getRelative(event.getBlockFace()).getLocation();
 						if (ignite(player, loc)) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-							ItemMeta meta = event.getItem().getItemMeta();
+							ItemMeta meta = tool.getItemMeta();
 							((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 7);
-							event.getItem().setItemMeta(meta);
-							if (((Damageable) event.getItem().getItemMeta()).getDamage() >= 56) {
+							tool.setItemMeta(meta);
+							if (((Damageable) tool.getItemMeta()).getDamage() >= 56) {
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-								if (player.getInventory().getItemInMainHand().getType() == event.getItem().getType())
+								if (player.getInventory().getItemInMainHand().getType() == toolType)
 									player.getInventory().setItemInMainHand(null);
-								else if (player.getInventory().getItemInOffHand().getType() == event.getItem().getType())
+								else if (player.getInventory().getItemInOffHand().getType() == toolType)
 									player.getInventory().setItemInOffHand(null);
 							}
 							player.updateInventory();
