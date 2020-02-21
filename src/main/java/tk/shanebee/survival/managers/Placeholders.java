@@ -44,7 +44,7 @@ public class Placeholders extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player p, String identifier) {
-        PlayerData playerData = plugin.getPlayerManager().getPlayerData(p);
+        PlayerData playerData = playerManager.getPlayerData(p);
 
         // Shows player's health, kinda useless but here it is
         if (identifier.equalsIgnoreCase("player_health")) {
@@ -64,11 +64,11 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's hunger bar (hunger part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_1")) {
-            return plugin.getPlayerManager().ShowHunger(p).get(1);
+            return playerManager.ShowHunger(p).get(1);
         }
         // Shows player's hunger bar (saturation part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_2")) {
-            return plugin.getPlayerManager().ShowHunger(p).get(2);
+            return playerManager.ShowHunger(p).get(2);
         }
         // Shows player's thirst
         if (identifier.equalsIgnoreCase("player_thirst")) {
@@ -76,19 +76,19 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's thirst bar (top part - first half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_1")) {
-            return plugin.getPlayerManager().ShowThirst(p).get(1);
+            return playerManager.ShowThirst(p).get(1);
         }
         // Shows player's thirst bar (bottom part - second half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_2")) {
-            return plugin.getPlayerManager().ShowThirst(p).get(2);
+            return playerManager.ShowThirst(p).get(2);
         }
-        // Shows player's fatigue
+        // Shows player's fatigue // Deprecated
         if (identifier.equalsIgnoreCase("player_fatigue")) {
             return "0"; // removed
         }
         // Shows player's energy level (as a number)
         if (identifier.equalsIgnoreCase("player_energy")) {
-            return String.valueOf(playerManager.getPlayerData(p).getEnergy());
+            return String.valueOf(playerData.getEnergy());
         }
         // Shows player's energy level (as a colored bar)
         if (identifier.equalsIgnoreCase("player_energy_bar")) {
@@ -96,13 +96,13 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's nutrients bars (<amount> <nutrient>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs_bar")) {
-            return plugin.getPlayerManager().ShowNutrients(p).get(0);
+            return playerManager.ShowNutrients(p).get(0);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_proteins_bar")) {
-            return plugin.getPlayerManager().ShowNutrients(p).get(1);
+            return playerManager.ShowNutrients(p).get(1);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_salts_bar")) {
-            return plugin.getPlayerManager().ShowNutrients(p).get(2);
+            return playerManager.ShowNutrients(p).get(2);
         }
         // Shows player's nutrients (just the <amount>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs")) {
