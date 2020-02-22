@@ -75,6 +75,7 @@ invalid-arg: "Invalid Arguments."
 
 starved-eat: "You are starving, eat some food."
 dehydrated-drink: "You are dehydrated, drink some water."
+healthboard-title: "Status"
 hunger: "Hunger"
 thirst: "Thirst"
 energy: "&dEnergy"

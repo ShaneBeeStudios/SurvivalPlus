@@ -68,6 +68,7 @@ public class Lang {
 
     public String starved_eat;
     public String dehydrated_drink;
+    public String healthboard_title;
     public String hunger;
     public String thirst;
     public String energy;
@@ -259,6 +260,7 @@ public class Lang {
         invalid_arg = lang.getString("invalid-arg");
         starved_eat = lang.getString("starved-eat");
         dehydrated_drink = lang.getString("dehydrated-drink");
+        healthboard_title = lang.getString("healthboard-title");
         hunger = lang.getString("hunger");
         thirst = lang.getString("thirst");
         energy = lang.getString("energy");

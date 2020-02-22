@@ -75,6 +75,7 @@ invalid-arg: "无效的参数."
 
 starved-eat: "你饿了, 吃点食物吧."
 dehydrated-drink: "你脱水了, 喝点水吧."
+healthboard-title: "状态"
 hunger: "饥饿度"
 thirst: "口渴度"
 energy: "&d能源"

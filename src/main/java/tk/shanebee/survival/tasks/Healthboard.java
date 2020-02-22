@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.Info;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -55,6 +56,7 @@ public class Healthboard extends BukkitRunnable {
 	private boolean thirst;
 	private boolean energy;
 	private boolean nutrients;
+	private String title;
 
 	@SuppressWarnings("ConstantConditions")
 	public Healthboard(Survival plugin, Player player) {
@@ -81,6 +83,7 @@ public class Healthboard extends BukkitRunnable {
 		this.thirst = playerData.isInfoDisplayed(Info.THIRST);
 		this.energy = playerData.isInfoDisplayed(Info.ENERGY);
 		this.nutrients = playerData.isInfoDisplayed(Info.NUTRIENTS);
+		this.title = Utils.getColoredString(plugin.getLang().healthboard_title);
 
 		refresh(false);
 		setLines();
@@ -167,7 +170,7 @@ public class Healthboard extends BukkitRunnable {
 			status.unregister();
 		status = stats.registerNewObjective("Status", "dummy", "Status");
 		status.setDisplaySlot(DisplaySlot.SIDEBAR);
-		status.setDisplayName("Status");
+		status.setDisplayName(this.title);
 	}
 
 	private void setLines() {
