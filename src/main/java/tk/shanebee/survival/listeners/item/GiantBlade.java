@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners.item;
 import java.util.Collection;
 import java.util.Random;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.EquipmentSlot;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
@@ -87,6 +88,11 @@ public class GiantBlade implements Listener {
 		if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
+                    Block clickedBlock = event.getClickedBlock();
+                    // Prevent giant blade for turning dirt/grass into farmland
+				    if (clickedBlock != null && (clickedBlock.getType() == Material.GRASS_BLOCK || clickedBlock.getType() == Material.DIRT)) {
+				        event.setCancelled(true);
+                    }
 					if (event.getHand() != EquipmentSlot.HAND) return; // prevent double message
 
 					if (player.isSprinting()) {

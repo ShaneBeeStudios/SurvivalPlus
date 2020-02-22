@@ -6,13 +6,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.util.Utils;
@@ -20,6 +24,12 @@ import tk.shanebee.survival.util.Utils;
 import java.util.Random;
 
 public class ShivPoison implements Listener {
+
+    private Config config;
+
+    public ShivPoison(Survival plugin) {
+        this.config = plugin.getSurvivalConfig();
+    }
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onAttack(EntityDamageByEntityEvent event) {
@@ -62,5 +72,22 @@ public class ShivPoison implements Listener {
 			}
 		}
 	}
+
+	// Prevent shiv from turning dirt/grass block into farmland
+    @EventHandler
+    private void onInteractBlock(PlayerInteractEvent event) {
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            ItemStack tool = event.getItem();
+            if (event.getClickedBlock() == null || tool == null) return;
+
+            if (config.SURVIVAL_ENABLED && ItemManager.compare(tool, Items.SHIV)) {
+                switch (event.getClickedBlock().getType()) {
+                    case DIRT:
+                    case GRASS_BLOCK:
+                        event.setCancelled(true);
+                }
+            }
+        }
+    }
 
 }

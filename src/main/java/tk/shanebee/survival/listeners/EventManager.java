@@ -52,7 +52,7 @@ public class EventManager {
 			pm.registerEvents(new BlockBreak(plugin), this.plugin);
 			pm.registerEvents(new BlockPlace(plugin), this.plugin);
 			pm.registerEvents(new FirestrikerClick(plugin), this.plugin);
-			pm.registerEvents(new ShivPoison(), this.plugin);
+			pm.registerEvents(new ShivPoison(this.plugin), this.plugin);
 			pm.registerEvents(new WaterBowl(plugin), this.plugin);
 			pm.registerEvents(new Campfire(plugin), this.plugin);
 			//pm.registerEvents(new Backpack(), this.plugin); needs to be reworked
@@ -78,7 +78,6 @@ public class EventManager {
 			pm.registerEvents(new MedicKit(plugin), this.plugin);
 
 		pm.registerEvents(new WaterBottleCrafting(plugin), this.plugin);
-		pm.registerEvents(new SpecialItemInteractCancel(plugin), this.plugin);
 
 		pm.registerEvents(new SetResourcePack(plugin), this.plugin);
 

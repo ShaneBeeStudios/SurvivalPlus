@@ -1,6 +1,10 @@
 package tk.shanebee.survival.listeners.item;
 
+import org.bukkit.Material;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.managers.EffectManager;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
@@ -21,9 +25,11 @@ import org.bukkit.potion.PotionEffectType;
 public class ObsidianMaceWeakness implements Listener {
 
 	private EffectManager effectManager;
+	private Config config;
 
 	public ObsidianMaceWeakness(Survival plugin) {
 		this.effectManager = plugin.getEffectManager();
+		this.config = plugin.getSurvivalConfig();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -40,5 +46,24 @@ public class ObsidianMaceWeakness implements Listener {
 			}
 		}
 	}
+
+	// Prevent obsidian mace turning dirt/grass block into farmland
+    @EventHandler
+    private void onInteractBlock(PlayerInteractEvent event) {
+	    if (!this.config.LEGENDARY_OBSIDIAN_MACE) return;
+
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            ItemStack tool = event.getItem();
+            if (event.getClickedBlock() == null || tool == null) return;
+
+            Material clickedBlock = event.getClickedBlock().getType();
+
+            if (ItemManager.compare(tool, Items.OBSIDIAN_MACE)) {
+                if (clickedBlock == Material.GRASS_BLOCK || clickedBlock == Material.DIRT) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
 
 }

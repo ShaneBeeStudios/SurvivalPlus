@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -796,5 +797,22 @@ public class ItemManager {
 		}
 		return false;
 	}
+
+    /**
+     * Apply the attributes from an {@link Items} to an existing ItemStack
+     *
+     * @param itemStack Current ItemStack to apply attributes to
+     * @param items Item to grab data from
+     */
+	public static void applyAttribute(ItemStack itemStack, Items items) {
+	    ItemStack from = items.getItem();
+	    ItemMeta metaTo = itemStack.getItemMeta();
+	    ItemMeta metaFrom = from.getItemMeta();
+        Map<Enchantment, Integer> enchants = metaTo.getEnchants();
+        for (Enchantment enchantment : enchants.keySet()) {
+            metaFrom.addEnchant(enchantment, enchants.get(enchantment), true);
+        }
+        itemStack.setItemMeta(metaFrom);
+    }
 
 }

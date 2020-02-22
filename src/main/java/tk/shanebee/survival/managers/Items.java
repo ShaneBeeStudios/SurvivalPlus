@@ -24,10 +24,10 @@ public enum Items {
     OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
     @Deprecated // remove in the future
     ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1),
-	ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
+    ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
     @Deprecated // remove in the future
     BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1),
-	BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
+    BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
     FERMENTED_SKIN(Material.RABBIT_HIDE, 0),
@@ -63,7 +63,7 @@ public enum Items {
     FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
     @Deprecated // remove in the future
-    IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
+            IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
     IRON_SICKLE(Material.IRON_HOE, 1),
     DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 
@@ -87,15 +87,28 @@ public enum Items {
         this.materialType = mat;
     }
 
-    /** Get the Bukkit Material Enum for this item
+    /**
+     * Get a new ItemStack from this item.
+     *
+     * @return New ItemStack from this item.
+     */
+    public ItemStack getItem() {
+        return ItemManager.get(this);
+    }
+
+    /**
+     * Get the Bukkit Material Enum for this item
+     *
      * @return Bukkit Material Enum
      */
     public Material getMaterialType() {
         return this.materialType;
     }
 
-    /** Get the custom model data tag for this item
+    /**
+     * Get the custom model data tag for this item
      * <p>See <b>"custom_model_data"</b> in the <b><a href="https://minecraft.gamepedia.com/Model#Item_tags">Item Tags</a></b> section on the Minecraft wiki</p>
+     *
      * @return Custom model data tag
      */
     public int getModelData() {
@@ -134,14 +147,18 @@ public enum Items {
             this.items = items;
         }
 
-        /** Get all items tagged in this group
+        /**
+         * Get all items tagged in this group
+         *
          * @return All items tagged in this group
          */
         public Items[] getItems() {
             return items;
         }
 
-        /** Check if an ItemStack is tagged in a group of custom {@link Items}
+        /**
+         * Check if an ItemStack is tagged in a group of custom {@link Items}
+         *
          * @param item ItemStack to check
          * @return True if item matches tag
          */
