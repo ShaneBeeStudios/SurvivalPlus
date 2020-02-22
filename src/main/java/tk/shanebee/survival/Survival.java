@@ -120,12 +120,6 @@ public class Survival extends JavaPlugin implements Listener {
 		// LOAD SCOREBOARDS
 		mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
 
-		// LOAD PLACEHOLDERS
-		if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-			new Placeholders(this).register();
-			Utils.sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
-		}
-
 		// LOAD MANAGERS
 		blockManager = new BlockManager(this);
 		playerManager = new PlayerManager(this, playerDataMap);
@@ -136,6 +130,12 @@ public class Survival extends JavaPlugin implements Listener {
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
 		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
+
+        // LOAD PLACEHOLDERS
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders(this).register();
+            Utils.sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
+        }
 
 		// REGISTER EVENTS & COMMANDS
 		registerCommands();
