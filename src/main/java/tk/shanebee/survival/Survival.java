@@ -52,6 +52,7 @@ public class Survival extends JavaPlugin implements Listener {
 	private ScoreBoardManager scoreBoardManager;
 	private PlayerManager playerManager;
 	private TaskManager taskManager;
+	private MerchantManager merchantManager;
 
 	// Other
 	private String prefix;
@@ -126,6 +127,7 @@ public class Survival extends JavaPlugin implements Listener {
 		effectManager = new EffectManager(this);
 		taskManager = new TaskManager(this);
 		scoreBoardManager = new ScoreBoardManager(this);
+		merchantManager = new MerchantManager(this);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
@@ -330,7 +332,11 @@ public class Survival extends JavaPlugin implements Listener {
 		return this.taskManager;
 	}
 
-	/** Get the main SurvivalPlus config
+    public MerchantManager getMerchantManager() {
+        return merchantManager;
+    }
+
+    /** Get the main SurvivalPlus config
 	 * @return SurvivalPlus config
 	 */
 	public Config getSurvivalConfig() {

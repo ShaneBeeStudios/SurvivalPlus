@@ -69,6 +69,11 @@ Survival:
   # Enables custom torch recipes
   Torch: true
 
+  # Enables updating trade options for merchants (ie: Villagers) with custom items equivalent to the trade option
+  # Ex: An armorer offers diamond chestplate -> diamond chestplate with the slowness attribute
+  # Ex: A toolsmith offers diamond hoe -> diamond sickle
+  UpdateMerchantTrades: true
+
 Mechanics:
   # This is an experimental feature, I recommend not using it
   SharedWorkbench: false

@@ -34,6 +34,7 @@ public class Config {
 	public boolean SURVIVAL_ENABLED;
 	public boolean SURVIVAL_LIMITED_CRAFTING;
 	public boolean SURVIVAL_TORCH;
+	public boolean SURVIVAL_UPDATE_MERCHANT_TRADES;
 
 	public boolean BREAK_ONLY_WITH_SICKLE;
 	public boolean BREAK_ONLY_WITH_SHOVEL;
@@ -265,6 +266,7 @@ public class Config {
 		this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
 		this.SURVIVAL_LIMITED_CRAFTING = settings.getBoolean("Survival.LimitedCrafting");
 		this.SURVIVAL_TORCH = settings.getBoolean("Survival.Torch");
+		this.SURVIVAL_UPDATE_MERCHANT_TRADES = settings.getBoolean("Survival.UpdateMerchantTrades");
 
 		this.BREAK_ONLY_WITH_SICKLE = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
 		this.BREAK_ONLY_WITH_SHOVEL = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
