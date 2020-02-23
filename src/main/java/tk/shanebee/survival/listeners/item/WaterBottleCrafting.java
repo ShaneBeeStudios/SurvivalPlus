@@ -1,8 +1,12 @@
 package tk.shanebee.survival.listeners.item;
 
 import org.bukkit.Bukkit;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -92,10 +96,14 @@ public class WaterBottleCrafting implements Listener {
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {
-			if (player.getTargetBlock(null, 5).getType() == Material.WATER) {
+            Block targetBlock = player.getTargetBlockExact(5, FluidCollisionMode.ALWAYS);
+            if (targetBlock == null) return;
+            if (isWaterBlock(targetBlock)) {
 				e.setCancelled(true);
 				if (item.getAmount() > 1) {
-					player.getInventory().addItem(ItemManager.get(Items.DIRTY_WATER));
+				    if (player.getInventory().addItem(ItemManager.get(Items.DIRTY_WATER)).size() > 0) {
+				        player.getWorld().dropItem(player.getLocation(), Items.DIRTY_WATER.getItem());
+                    }
 					if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 						item.setAmount(item.getAmount() - 1);
 				} else {
@@ -107,6 +115,14 @@ public class WaterBottleCrafting implements Listener {
 			}
 		}
 	}
+
+	private boolean isWaterBlock(Block block) {
+	    if (block.getType() == Material.WATER) {
+	        return true;
+        }
+        BlockData data = block.getBlockData();
+        return data instanceof Waterlogged && ((Waterlogged) data).isWaterlogged();
+    }
 
 	private boolean checkWaterBottle(ItemStack bottle) {
 
