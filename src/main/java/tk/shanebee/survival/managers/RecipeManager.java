@@ -1197,6 +1197,9 @@ public class RecipeManager {
         if (config.MECHANICS_COMPASS_WAYPOINT) {
             removeRecipeByKey("compass");
         }
+        if (config.RECIPES_PACKED_ICE) {
+            removeRecipeByKey("packed_ice");
+        }
     }
 
     /** Remove a vanilla Minecraft recipe from the server
