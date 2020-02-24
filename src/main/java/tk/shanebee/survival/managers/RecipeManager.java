@@ -5,16 +5,20 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Server;
 import org.bukkit.Tag;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.BlastingRecipe;
+import org.bukkit.inventory.CampfireRecipe;
+import org.bukkit.inventory.FurnaceRecipe;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.ExactChoice;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.SmokingRecipe;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -24,22 +28,9 @@ public class RecipeManager {
     private Config config;
     private static Survival survival;
 
-    private final String VERSION;
-    private Constructor<?> keyConstructor;
-    private final Map<?, Map<?, ?>> recipeMap;
-
     public RecipeManager(Survival survival) {
         RecipeManager.survival = survival;
         this.config = survival.getSurvivalConfig();
-        VERSION = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        Class<?> MC_KEY;
-        try {
-            MC_KEY = getNMSClass("MinecraftKey");
-            keyConstructor = MC_KEY.getDeclaredConstructor(String.class);
-        } catch (ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        recipeMap = getRecipeMap();
     }
 
     /**
@@ -1126,13 +1117,11 @@ public class RecipeManager {
         if (config.MECHANICS_REDUCED_IRON_NUGGET) {
             removeRecipeByKey("iron_ingot");
             removeRecipeByKey("iron_ingot_from_nuggets");
-            removeRecipeByKey("iron_ingot_from_blasting"); //TODO maybe remove this?
             removeRecipeByKey("iron_nugget");
             removeRecipeByKey("iron_nugget_from_smelting");
         }
         if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
             removeRecipeByKey("gold_ingot");
-            removeRecipeByKey("gold_ingot_from_blasting"); //TODO maybe remove this?
             removeRecipeByKey("gold_ingot_from_nuggets");
             removeRecipeByKey("gold_nugget");
             removeRecipeByKey("gold_nugget_from_smelting");
@@ -1207,45 +1196,7 @@ public class RecipeManager {
      */
     @SuppressWarnings("WeakerAccess")
     public void removeRecipeByKey(String recipeKey) {
-        Object key;
-        try {
-            key = keyConstructor.newInstance(recipeKey);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            return;
-        }
-        recipeMap.values().forEach(recipes -> recipes.entrySet().removeIf(entry -> entry.getKey().equals(key)));
-    }
-
-    @SuppressWarnings("unchecked")
-    private Map<?, Map<?, ?>> getRecipeMap() {
-        try {
-            Class<?> CRAFT_SERVER = getCBClass("CraftServer");
-            Method getServer = CRAFT_SERVER.getMethod("getServer");
-            Object dediServer = getServer.invoke(Bukkit.getServer());
-
-            Class<?> DEDI_SERVER = getNMSClass("DedicatedServer");
-            Method getCraftingManager = DEDI_SERVER.getMethod("getCraftingManager");
-            Object craftingManager = getCraftingManager.invoke(dediServer);
-
-            Class<?> CRAFTING_MANAGER = getNMSClass("CraftingManager");
-            Field recipeField = CRAFTING_MANAGER.getField("recipes");
-
-            return ((Map<?, Map<?, ?>>) recipeField.get(craftingManager));
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private Class<?> getNMSClass(String nmsClassString) throws ClassNotFoundException {
-        String name = "net.minecraft.server." + VERSION + "." + nmsClassString;
-        return Class.forName(name);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private Class<?> getCBClass(String cbClassString) throws ClassNotFoundException {
-        String name = "org.bukkit.craftbukkit." + VERSION + "." + cbClassString;
-        return Class.forName(name);
+        Bukkit.removeRecipe(NamespacedKey.minecraft(recipeKey));
     }
 
     private static NamespacedKey key(String key) {
