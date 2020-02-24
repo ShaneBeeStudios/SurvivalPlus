@@ -15,7 +15,10 @@ import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SuspiciousStewMeta;
 import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
@@ -26,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -757,6 +761,15 @@ public class ItemManager {
 				beeBoots.setItemMeta(bbMeta);
 				return beeBoots;
 
+            case SUSPICIOUS_MEAT:
+                ItemStack suspicious_meat = new ItemStack(Items.SUSPICIOUS_MEAT.getMaterialType());
+                SuspiciousStewMeta suspicious_meat_meta = ((SuspiciousStewMeta) suspicious_meat.getItemMeta());
+                suspicious_meat_meta.setCustomModelData(Items.SUSPICIOUS_MEAT.getModelData());
+                suspicious_meat_meta.addCustomEffect(getRandomPotionEffect(), false);
+                suspicious_meat_meta.setDisplayName(Utils.getColoredString(lang.suspicious_meat));
+                suspicious_meat.setItemMeta(suspicious_meat_meta);
+                return suspicious_meat;
+
 			default:
 				return new ItemStack(Material.AIR);
 		}
@@ -814,6 +827,35 @@ public class ItemManager {
             metaFrom.addEnchant(enchantment, enchants.get(enchantment), true);
         }
         itemStack.setItemMeta(metaFrom);
+    }
+
+    private static final List<PotionEffectType> POTION_EFFECTS;
+
+	static {
+	    POTION_EFFECTS = new ArrayList<>();
+	    // BAD
+	    POTION_EFFECTS.add(PotionEffectType.BAD_OMEN);
+	    POTION_EFFECTS.add(PotionEffectType.CONFUSION);
+	    POTION_EFFECTS.add(PotionEffectType.POISON);
+        POTION_EFFECTS.add(PotionEffectType.UNLUCK);
+        POTION_EFFECTS.add(PotionEffectType.HUNGER);
+        POTION_EFFECTS.add(PotionEffectType.HARM);
+        POTION_EFFECTS.add(PotionEffectType.SLOW);
+	    // GOOD
+	    POTION_EFFECTS.add(PotionEffectType.DOLPHINS_GRACE);
+        POTION_EFFECTS.add(PotionEffectType.ABSORPTION);
+        POTION_EFFECTS.add(PotionEffectType.FAST_DIGGING);
+        POTION_EFFECTS.add(PotionEffectType.LUCK);
+        POTION_EFFECTS.add(PotionEffectType.HEALTH_BOOST);
+        POTION_EFFECTS.add(PotionEffectType.REGENERATION);
+        POTION_EFFECTS.add(PotionEffectType.SPEED);
+    }
+
+    private static PotionEffect getRandomPotionEffect() {
+	    Random random = new Random();
+	    int randomEffect = random.nextInt(POTION_EFFECTS.size());
+	    int randomDuration = random.nextInt(200) + 200;
+	    return new PotionEffect(POTION_EFFECTS.get(randomEffect), randomDuration, 0);
     }
 
 }

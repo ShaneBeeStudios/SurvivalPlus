@@ -160,6 +160,7 @@ public class Lang {
     public String golden_greaves;
     public String golden_crown;
     public String fermented_skin;
+    public String suspicious_meat;
     public String medical_kit;
     public String water_bowl;
     public String dirty_water;
@@ -336,6 +337,7 @@ public class Lang {
         golden_greaves = lang.getString("golden-greaves");
         golden_crown = lang.getString("golden-crown");
         fermented_skin = lang.getString("fermented-skin");
+        suspicious_meat = lang.getString("suspicious-meat");
         medical_kit = lang.getString("medical-kit");
         water_bowl = lang.getString("water-bowl");
         dirty_water = lang.getString("dirty-water");

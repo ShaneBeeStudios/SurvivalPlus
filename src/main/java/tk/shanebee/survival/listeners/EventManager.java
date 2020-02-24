@@ -16,6 +16,7 @@ import tk.shanebee.survival.listeners.block.WorkbenchShare;
 import tk.shanebee.survival.listeners.entity.BeeKeeperSuit;
 import tk.shanebee.survival.listeners.entity.ChestPigmen;
 import tk.shanebee.survival.listeners.entity.ChickenSpawn;
+import tk.shanebee.survival.listeners.entity.EntityDeath;
 import tk.shanebee.survival.listeners.entity.LivingSlime;
 import tk.shanebee.survival.listeners.entity.MerchantTrades;
 import tk.shanebee.survival.listeners.item.*;
@@ -133,8 +134,10 @@ public class EventManager {
         if (config.SURVIVAL_UPDATE_MERCHANT_TRADES) {
             pm.registerEvents(new MerchantTrades(this.plugin), this.plugin);
         }
+        // Config handled within this event
+        pm.registerEvents(new EntityDeath(this.plugin), this.plugin);
 
-		Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
+		pm.registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 
 	}
 

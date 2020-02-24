@@ -175,6 +175,8 @@ fermented-skin: "发酵皮革"
 medical-kit: "医疗包"
 water-bowl: "&b装满水的碗"
 
+suspicious-meat: "&e可疑肉"
+
 # 水瓶名称、描述和颜色
 # 查看RGB颜色:
 # http://minecraft.tools/en/potion.php

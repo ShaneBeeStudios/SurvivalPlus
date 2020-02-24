@@ -63,6 +63,7 @@ public enum Items {
     COFFEE_BEAN(Material.COCOA_BEANS, 1),
 
     // FOOD
+    SUSPICIOUS_MEAT(Material.SUSPICIOUS_STEW, 10881),
 
     // DRINKS
     DIRTY_WATER(Material.POTION, 1),

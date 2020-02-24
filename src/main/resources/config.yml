@@ -288,6 +288,12 @@ Entity-Mechanics:
   # When a player has a beekeeper suit on they will not take damage from bee stings
   beekeeper-suit:
     enabled: true
+  # When a player kills a zombie/zombie villager/drowned/husk/zombie horse they may drop suspicious meat
+  # This meat has a random chance of a good or bad effect added to it
+  suspicious-meat:
+    enabled: true
+    # Chance of drops (out of 100)
+    chance: 15
 
 # Enables custom recipes (Overrides vanilla recipes)
 Recipes:

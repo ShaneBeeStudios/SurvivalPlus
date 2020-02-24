@@ -152,6 +152,8 @@ public class Config {
 	public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
 	public double ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
 	public boolean ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED;
+	public boolean ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED;
+	public int ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE;
 
 	// RECIPES
 	public boolean RECIPES_SADDLE;
@@ -385,6 +387,8 @@ public class Config {
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.pigmen-chests.distance");
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.pigmen-chests.speed-modifier");
 		this.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
+		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED = settings.getBoolean("Entity-Mechanics.suspicious-meat.enabled");
+		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE = settings.getInt("Entity-Mechanics.suspicious-meat.chance");
 
 		// RECIPES
 		this.RECIPES_SADDLE = settings.getBoolean("Recipes.Saddle");
