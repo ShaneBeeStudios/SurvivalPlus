@@ -13,20 +13,10 @@ public enum Items {
     MATTOCK(Material.WOODEN_PICKAXE, 1),
     SHIV(Material.WOODEN_HOE, 1),
     HAMMER(Material.WOODEN_SWORD, 1),
-    @Deprecated // remove in the future
-    VALKYRIES_AXE_OLD(Material.GOLDEN_AXE, 1),
     VALKYRIES_AXE(Material.DIAMOND_AXE, 1),
-    @Deprecated // remove in the future
-    QUARTZ_PICKAXE_OLD(Material.GOLDEN_PICKAXE, 1),
     QUARTZ_PICKAXE(Material.DIAMOND_PICKAXE, 1),
-    @Deprecated // remove in the future
-    OBSIDIAN_MACE_OLD(Material.GOLDEN_SHOVEL, 1),
     OBSIDIAN_MACE(Material.DIAMOND_SHOVEL, 1),
-    @Deprecated // remove in the future
-    ENDER_GIANT_BLADE_OLD(Material.GOLDEN_HOE, 1),
     ENDER_GIANT_BLADE(Material.DIAMOND_HOE, 2),
-    @Deprecated // remove in the future
-    BLAZE_SWORD_OLD(Material.GOLDEN_SWORD, 1),
     BLAZE_SWORD(Material.DIAMOND_SWORD, 1),
     WORKBENCH(Material.CRAFTING_TABLE, 0),
     FIRESTRIKER(Material.WOODEN_SHOVEL, 1),
@@ -62,8 +52,6 @@ public enum Items {
 
     FLINT_SICKLE(Material.WOODEN_HOE, 4),
     STONE_SICKLE(Material.WOODEN_HOE, 2),
-    @Deprecated // remove in the future
-            IRON_SICKLE_OLD(Material.WOODEN_HOE, 3),
     IRON_SICKLE(Material.IRON_HOE, 1),
     DIAMOND_SICKLE(Material.DIAMOND_HOE, 1),
 

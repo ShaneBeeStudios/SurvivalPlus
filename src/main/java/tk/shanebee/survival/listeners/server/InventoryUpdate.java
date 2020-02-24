@@ -35,19 +35,6 @@ public class InventoryUpdate implements Listener {
         for (int i = 0; i < inv.getSize(); i++) {
             ItemStack item = inv.getItem(i);
             if (item == null) continue;
-            if (ItemManager.compare(item, Items.IRON_SICKLE_OLD)) {
-                itemUpdate(inv, i, item, Items.IRON_SICKLE);
-            } else if (ItemManager.compare(item, Items.QUARTZ_PICKAXE_OLD)) {
-                itemUpdate(inv, i, item, Items.QUARTZ_PICKAXE);
-            } else if (ItemManager.compare(item, Items.VALKYRIES_AXE_OLD)) {
-                itemUpdate(inv, i, item, Items.VALKYRIES_AXE);
-            } else if (ItemManager.compare(item, Items.OBSIDIAN_MACE_OLD)) {
-                itemUpdate(inv, i, item, Items.OBSIDIAN_MACE);
-            } else if (ItemManager.compare(item, Items.ENDER_GIANT_BLADE_OLD)) {
-            	itemUpdate(inv, i, item, Items.ENDER_GIANT_BLADE);
-			} else if (ItemManager.compare(item, Items.BLAZE_SWORD_OLD)) {
-                itemUpdate(inv, i, item, Items.BLAZE_SWORD);
-            }
         }
     }
 
