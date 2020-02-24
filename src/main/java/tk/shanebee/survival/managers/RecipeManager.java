@@ -18,10 +18,8 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 public class RecipeManager {
 
@@ -743,37 +741,34 @@ public class RecipeManager {
         compass_recipe.setIngredient('2', Material.REDSTONE);
 
         // BEEKEEPER RECIPES
-        // Only run if MC 1.15 is running
-        if (Utils.isRunningMinecraft(1, 15)) {
-            ShapedRecipe beekeeper_helmet = new ShapedRecipe(key("beekeeper_helmet"), ItemManager.get(Items.BEEKEEPER_HELMET));
-            beekeeper_helmet.shape("121", "3 3", "   ");
-            beekeeper_helmet.setIngredient('1', Material.HONEYCOMB);
-            beekeeper_helmet.setIngredient('2', Material.IRON_INGOT);
-            beekeeper_helmet.setIngredient('3', Material.LEATHER);
+        ShapedRecipe beekeeper_helmet = new ShapedRecipe(key("beekeeper_helmet"), ItemManager.get(Items.BEEKEEPER_HELMET));
+        beekeeper_helmet.shape("121", "3 3", "   ");
+        beekeeper_helmet.setIngredient('1', Material.HONEYCOMB);
+        beekeeper_helmet.setIngredient('2', Material.IRON_INGOT);
+        beekeeper_helmet.setIngredient('3', Material.LEATHER);
 
-            ShapedRecipe beekeeper_chest = new ShapedRecipe(key("beekeeper_chestplate"), ItemManager.get(Items.BEEKEEPER_CHESTPLATE));
-            beekeeper_chest.shape("1 1", "232", "323");
-            beekeeper_chest.setIngredient('1', Material.HONEYCOMB);
-            beekeeper_chest.setIngredient('2', Material.IRON_INGOT);
-            beekeeper_chest.setIngredient('3', Material.LEATHER);
+        ShapedRecipe beekeeper_chest = new ShapedRecipe(key("beekeeper_chestplate"), ItemManager.get(Items.BEEKEEPER_CHESTPLATE));
+        beekeeper_chest.shape("1 1", "232", "323");
+        beekeeper_chest.setIngredient('1', Material.HONEYCOMB);
+        beekeeper_chest.setIngredient('2', Material.IRON_INGOT);
+        beekeeper_chest.setIngredient('3', Material.LEATHER);
 
-            ShapedRecipe beekeeper_leg = new ShapedRecipe(key("beekeeper_leggings"), ItemManager.get(Items.BEEKEEPER_LEGGINGS));
-            beekeeper_leg.shape("131", "3 3", "2 2");
-            beekeeper_leg.setIngredient('1', Material.HONEYCOMB);
-            beekeeper_leg.setIngredient('2', Material.IRON_INGOT);
-            beekeeper_leg.setIngredient('3', Material.LEATHER);
+        ShapedRecipe beekeeper_leg = new ShapedRecipe(key("beekeeper_leggings"), ItemManager.get(Items.BEEKEEPER_LEGGINGS));
+        beekeeper_leg.shape("131", "3 3", "2 2");
+        beekeeper_leg.setIngredient('1', Material.HONEYCOMB);
+        beekeeper_leg.setIngredient('2', Material.IRON_INGOT);
+        beekeeper_leg.setIngredient('3', Material.LEATHER);
 
-            ShapedRecipe beekeeper_boot = new ShapedRecipe(key("beekeeper_boots"), ItemManager.get(Items.BEEKEEPER_BOOTS));
-            beekeeper_boot.shape("   ", "1 1", "3 3");
-            beekeeper_boot.setIngredient('1', Material.HONEYCOMB);
-            beekeeper_boot.setIngredient('3', Material.LEATHER);
+        ShapedRecipe beekeeper_boot = new ShapedRecipe(key("beekeeper_boots"), ItemManager.get(Items.BEEKEEPER_BOOTS));
+        beekeeper_boot.shape("   ", "1 1", "3 3");
+        beekeeper_boot.setIngredient('1', Material.HONEYCOMB);
+        beekeeper_boot.setIngredient('3', Material.LEATHER);
 
-            if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
-                server.addRecipe(beekeeper_helmet);
-                server.addRecipe(beekeeper_chest);
-                server.addRecipe(beekeeper_leg);
-                server.addRecipe(beekeeper_boot);
-            }
+        if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
+            server.addRecipe(beekeeper_helmet);
+            server.addRecipe(beekeeper_chest);
+            server.addRecipe(beekeeper_leg);
+            server.addRecipe(beekeeper_boot);
         }
 
 
