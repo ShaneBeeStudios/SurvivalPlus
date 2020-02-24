@@ -47,7 +47,9 @@ public enum Items {
     HOT_MILK(Material.POTION, 5),
     COLD_MILK(Material.POTION, 6),
     COFFEE_BEAN(Material.COCOA_BEANS, 1),
-    WATER_BOWL(Material.BEETROOT_SOUP, 1),
+    @Deprecated // Removed in 3.11.0 - Will remove old water bowl in future
+    WATER_BOWL_OLD(Material.BEETROOT_SOUP, 1),
+    WATER_BOWL(Material.POTION, 10881),
     CAMPFIRE(Material.CAMPFIRE, 1),
 
     FLINT_SICKLE(Material.WOODEN_HOE, 4),

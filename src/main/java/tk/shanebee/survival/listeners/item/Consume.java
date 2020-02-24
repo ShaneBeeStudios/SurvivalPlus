@@ -14,14 +14,14 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.Items;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
-import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -55,15 +55,15 @@ public class Consume implements Listener {
 							change = config.MECHANICS_THIRST_REP_DIRTY_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 5) {
-								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
 							}
 						} else if (ItemManager.compare(item, Items.CLEAN_WATER)) {
 							change = config.MECHANICS_THIRST_REP_CLEAN_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 2) {
-								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
 							}
 						} else if (ItemManager.compare(item, Items.PURIFIED_WATER)) {
 							change = config.MECHANICS_THIRST_REP_PURE_WATER;
@@ -74,27 +74,21 @@ public class Consume implements Listener {
 						} else if (ItemManager.compare(item, Items.HOT_MILK)) {
 							change = config.MECHANICS_THIRST_REP_HOT_MILK;
 							player.damage(2);
-							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0), true);
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0));
 							Utils.sendColoredMsg(player, lang.hot_milk_drink);
-						}
+						} else if (ItemManager.compare(item, Items.WATER_BOWL)) {
+						    event.setCancelled(true);
+						    change = handleWaterBowl(player);
+                        }
 					}
 				} else {
 					change = config.MECHANICS_THIRST_REP_WATER;
 				}
 				break;
-			case BEETROOT_SOUP: //Water Bowl
-				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL)) {
+			case BEETROOT_SOUP: //OLD Water Bowl (removed in 3.11.0 - keep for a few versions)
+				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL_OLD)) {
 					event.setCancelled(true);
-					change = config.MECHANICS_THIRST_REP_WATER_BOWL;
-					player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
-
-					if (config.MECHANICS_THIRST_PURIFY_WATER) {
-						Random rand = new Random();
-						if (rand.nextInt(10) + 1 <= 8) {
-							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
-							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
-						}
-					}
+					change = handleWaterBowl(player);
 				} else {
 					change = config.MECHANICS_THIRST_REP_BEET_SOUP; // Regular beetroot soup (if player somehow gets one)
 				}
@@ -124,6 +118,19 @@ public class Consume implements Listener {
 			}
 		}, 1L);
 	}
+
+	private int handleWaterBowl(Player player) {
+        int change = config.MECHANICS_THIRST_REP_WATER_BOWL;
+        player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
+        if (config.MECHANICS_THIRST_PURIFY_WATER) {
+            Random rand = new Random();
+            if (rand.nextInt(10) + 1 <= 8) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
+            }
+        }
+        return change;
+    }
 
 	@EventHandler
 	private void onRespawn(PlayerRespawnEvent event) {

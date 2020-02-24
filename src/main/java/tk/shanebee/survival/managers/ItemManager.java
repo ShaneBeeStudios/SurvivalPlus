@@ -608,7 +608,8 @@ public class ItemManager {
 				return purified_water;
 			case WATER_BOWL:
 				ItemStack water_bowl = new ItemStack(Items.WATER_BOWL.getMaterialType());
-				ItemMeta water_bowlMeta = water_bowl.getItemMeta();
+				PotionMeta water_bowlMeta = ((PotionMeta) water_bowl.getItemMeta());
+				water_bowlMeta.setBasePotionData(new PotionData(PotionType.WATER));
 				water_bowlMeta.setCustomModelData(Items.WATER_BOWL.getModelData());
 				water_bowlMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.water_bowl));
 				water_bowl.setItemMeta(water_bowlMeta);
