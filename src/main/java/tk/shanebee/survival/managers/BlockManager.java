@@ -68,7 +68,6 @@ public class BlockManager {
 			Lightable torch = ((Lightable) block.getBlockData());
 			torch.setLit(false);
 			block.setBlockData(torch);
-			unsetNonPersistent(block);
 		}, 20 * seconds);
 	}
 

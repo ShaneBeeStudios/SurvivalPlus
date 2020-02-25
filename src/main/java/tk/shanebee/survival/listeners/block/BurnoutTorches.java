@@ -46,7 +46,7 @@ public class BurnoutTorches implements Listener {
     private void onBlockUpdate(BlockPhysicsEvent e) {
         Block block = e.getBlock();
         if (block.getType() == Material.REDSTONE_TORCH || block.getType() == Material.REDSTONE_WALL_TORCH) {
-            if (!((Lightable) block.getBlockData()).isLit()) {
+            if (torchManager.isNonPersistent(block) && !((Lightable) block.getBlockData()).isLit()) {
                 e.setCancelled(true);
             }
         }
@@ -117,6 +117,7 @@ public class BurnoutTorches implements Listener {
             if (((Lightable) block.getBlockData()).isLit()) return;
             e.setDropItems(false);
             loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
+            torchManager.unsetNonPersistent(block);
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
                 e.setDropItems(false);
