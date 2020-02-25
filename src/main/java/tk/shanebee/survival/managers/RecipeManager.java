@@ -1106,9 +1106,6 @@ public class RecipeManager {
                 removeRecipeByKey("crafting_table");
             }
         }
-        if (config.MECHANICS_THIRST_ENABLED) {
-            removeRecipeByKey("beetroot_soup");
-        }
         if (config.MECHANICS_REDUCED_IRON_NUGGET) {
             removeRecipeByKey("iron_ingot");
             removeRecipeByKey("iron_ingot_from_nuggets");
