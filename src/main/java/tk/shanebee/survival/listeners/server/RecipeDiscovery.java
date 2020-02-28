@@ -22,7 +22,6 @@ import tk.shanebee.survival.util.Utils;
 public class RecipeDiscovery implements Listener {
 
     private Survival plugin;
-    private final boolean HAS_BEES = Utils.isRunningMinecraft(1, 15);
 
     public RecipeDiscovery(Survival plugin) {
         this.plugin = plugin;
@@ -102,7 +101,7 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
         } else if (item == Material.REDSTONE) {
             player.discoverRecipes(Recipes.COMPASS.getKeys());
-        } else if (HAS_BEES && item == Material.HONEYCOMB) {
+        } else if (item == Material.HONEYCOMB) {
             player.discoverRecipes(Recipes.BEEKEEPER_SUIT.getKeys());
         }
     }
