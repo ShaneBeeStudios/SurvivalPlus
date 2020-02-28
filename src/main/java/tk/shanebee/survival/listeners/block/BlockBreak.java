@@ -263,7 +263,9 @@ public class BlockBreak implements Listener {
 	private void onWaterBreakCrops(BlockPhysicsEvent event) {
 		if (!settings.BREAK_ONLY_WITH_SICKLE) return;
 		if (event.getSourceBlock().getType() == Material.WATER) {
-			if (Utils.isFarmable(event.getBlock().getType())) {
+		    Material type = event.getBlock().getType();
+			if (Utils.isFarmable(type)) {
+			    if (type == Material.MELON || type == Material.PUMPKIN) return;
 				event.getBlock().setType(Material.AIR);
 			}
 		}
