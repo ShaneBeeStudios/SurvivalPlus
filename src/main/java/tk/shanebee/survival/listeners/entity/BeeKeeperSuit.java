@@ -12,7 +12,7 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 public class BeeKeeperSuit implements Listener {
 
@@ -57,8 +57,8 @@ public class BeeKeeperSuit implements Listener {
 		if (inv.getHelmet() == null || inv.getChestplate() == null || inv.getLeggings() == null || inv.getBoots() == null) {
 			return false;
 		}
-		return ItemManager.compare(inv.getHelmet(), Items.BEEKEEPER_HELMET) && ItemManager.compare(inv.getChestplate(), Items.BEEKEEPER_CHESTPLATE) &&
-				ItemManager.compare(inv.getLeggings(), Items.BEEKEEPER_LEGGINGS) && ItemManager.compare(inv.getBoots(), Items.BEEKEEPER_BOOTS);
+		return ItemManager.compare(inv.getHelmet(), Item.BEEKEEPER_HELMET) && ItemManager.compare(inv.getChestplate(), Item.BEEKEEPER_CHESTPLATE) &&
+				ItemManager.compare(inv.getLeggings(), Item.BEEKEEPER_LEGGINGS) && ItemManager.compare(inv.getBoots(), Item.BEEKEEPER_BOOTS);
 	}
 
 }

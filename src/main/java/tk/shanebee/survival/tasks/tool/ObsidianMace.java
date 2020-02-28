@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 public class ObsidianMace extends BukkitRunnable {
 
@@ -22,7 +22,7 @@ public class ObsidianMace extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
-			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Items.OBSIDIAN_MACE)) {
+			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.OBSIDIAN_MACE)) {
 				player.removePotionEffect(PotionEffectType.SLOW);
 				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
 				Location particleLoc = player.getLocation();

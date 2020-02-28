@@ -12,7 +12,7 @@ import org.bukkit.util.Vector;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.events.ShootRecurvedBowEvent;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -33,16 +33,16 @@ public class RecurvedBow implements Listener {
 			ItemStack mainItem = event.getBow();
 
 			assert mainItem != null;
-			if (ItemManager.compare(mainItem, Items.RECURVE_BOW) || ItemManager.compare(mainItem, Items.RECURVE_CROSSBOW)) {
+			if (ItemManager.compare(mainItem, Item.RECURVE_BOW) || ItemManager.compare(mainItem, Item.RECURVE_CROSSBOW)) {
 				Random rand = new Random();
 				if (event.getForce() >= 1.0F) {
 					final Entity arrow = event.getProjectile();
 					final Vector velocity = player.getLocation().getDirection().add(new Vector(0, 0.025, 0)).multiply(4);
-					Items item;
-					if (ItemManager.compare(mainItem, Items.RECURVE_BOW)) {
-						item = Items.RECURVE_BOW;
+					Item item;
+					if (ItemManager.compare(mainItem, Item.RECURVE_BOW)) {
+						item = Item.RECURVE_BOW;
 					} else {
-						item = Items.RECURVE_CROSSBOW;
+						item = Item.RECURVE_CROSSBOW;
 					}
 					// Call new ShootRecurvedBowEvent
 					ShootRecurvedBowEvent shootEvent = new ShootRecurvedBowEvent(player, mainItem, item);

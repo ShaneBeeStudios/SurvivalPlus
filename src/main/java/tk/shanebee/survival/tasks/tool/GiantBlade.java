@@ -13,7 +13,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.managers.PlayerManager;
 
 public class GiantBlade extends BukkitRunnable {
@@ -57,14 +57,14 @@ public class GiantBlade extends BukkitRunnable {
 			Material mainType = mainItem.getType();
 			Material offType = offItem.getType();
 
-			if (ItemManager.compare(mainItem, Items.ENDER_GIANT_BLADE)) {
+			if (ItemManager.compare(mainItem, Item.ENDER_GIANT_BLADE)) {
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
 				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 
-			if (ItemManager.compare(offItem, Items.ENDER_GIANT_BLADE)) {
+			if (ItemManager.compare(offItem, Item.ENDER_GIANT_BLADE)) {
 				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 				player.addPotionEffect(this.DAMAGE);
 				Location particleLoc = player.getLocation();

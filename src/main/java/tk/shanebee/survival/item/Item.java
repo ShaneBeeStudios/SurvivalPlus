@@ -1,13 +1,14 @@
-package tk.shanebee.survival.managers;
+package tk.shanebee.survival.item;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import tk.shanebee.survival.managers.ItemManager;
 
 /**
  * Custom SurvivalPlus items
  */
 @SuppressWarnings("DeprecatedIsStillUsed")
-public enum Items {
+public enum Item {
 
     // TOOLS
     HATCHET(Material.WOODEN_AXE, 1),
@@ -82,7 +83,7 @@ public enum Items {
     private final Material materialType;
     private final int modelData;
 
-    Items(Material mat, int customModelData) {
+    Item(Material mat, int customModelData) {
         this.modelData = customModelData;
         this.materialType = mat;
     }
@@ -141,9 +142,9 @@ public enum Items {
          */
         LEGENDARY(BLAZE_SWORD, OBSIDIAN_MACE, VALKYRIES_AXE, ENDER_GIANT_BLADE, QUARTZ_PICKAXE);
 
-        private Items[] items;
+        private Item[] items;
 
-        Tags(Items... items) {
+        Tags(Item... items) {
             this.items = items;
         }
 
@@ -152,12 +153,12 @@ public enum Items {
          *
          * @return All items tagged in this group
          */
-        public Items[] getItems() {
+        public Item[] getItems() {
             return items;
         }
 
         /**
-         * Check if an ItemStack is tagged in a group of custom {@link Items}
+         * Check if an ItemStack is tagged in a group of custom {@link Item}
          *
          * @param item ItemStack to check
          * @return True if item matches tag

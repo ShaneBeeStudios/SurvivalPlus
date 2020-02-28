@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -43,7 +43,7 @@ public class ShivPoison implements Listener {
 
 			Random rand = new Random();
 
-			if (ItemManager.compare(mainItem, Items.SHIV)) {
+			if (ItemManager.compare(mainItem, Item.SHIV)) {
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false));
 				assert mainItem.getItemMeta() != null;
 				if (((Damageable) mainItem.getItemMeta()).getDamage() >= 59) {
@@ -52,7 +52,7 @@ public class ShivPoison implements Listener {
 				}
 			}
 
-			if (ItemManager.compare(offItem, Items.SHIV)) {
+			if (ItemManager.compare(offItem, Item.SHIV)) {
 				int chance_poison = rand.nextInt(4) + 1;
 				switch (chance_poison) {
 					case 1:
@@ -80,7 +80,7 @@ public class ShivPoison implements Listener {
             ItemStack tool = event.getItem();
             if (event.getClickedBlock() == null || tool == null) return;
 
-            if (config.SURVIVAL_ENABLED && ItemManager.compare(tool, Items.SHIV)) {
+            if (config.SURVIVAL_ENABLED && ItemManager.compare(tool, Item.SHIV)) {
                 switch (event.getClickedBlock().getType()) {
                     case DIRT:
                     case GRASS_BLOCK:

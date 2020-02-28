@@ -2,11 +2,10 @@ package tk.shanebee.survival.listeners.item;
 
 import tk.shanebee.survival.events.WaterBowlFillEvent;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -31,7 +30,7 @@ public class WaterBowl implements Listener {
 	private void onConsume(PlayerItemConsumeEvent event) {
 		if (!THIRST_ENABLED) {
 			if (event.isCancelled()) return;
-			if (ItemManager.compare(event.getItem(), Items.WATER_BOWL)) {
+			if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
 				event.setCancelled(true);
 			}
 		}
@@ -41,7 +40,7 @@ public class WaterBowl implements Listener {
 	private void onDrop(ItemSpawnEvent event) {
 		if (event.isCancelled()) return;
 		if (THIRST_ENABLED || CLAY_ENABLED) {
-			final Item itemDrop = event.getEntity();
+			final org.bukkit.entity.Item itemDrop = event.getEntity();
 			if (itemDrop.getItemStack().getType() == Material.BOWL) {
 				final Runnable task = () -> {
 					if (itemDrop.getItemStack().getAmount() != 1) return;
@@ -51,7 +50,7 @@ public class WaterBowl implements Listener {
 						Bukkit.getPluginManager().callEvent(bowlFillEvent);
 						if (bowlFillEvent.isCancelled()) return;
 						itemDrop.remove();
-						itemDrop.getWorld().dropItem(itemLocation, ItemManager.get(Items.WATER_BOWL));
+						itemDrop.getWorld().dropItem(itemLocation, ItemManager.get(Item.WATER_BOWL));
 					}
 				};
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20L);

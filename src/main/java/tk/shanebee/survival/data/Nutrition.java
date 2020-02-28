@@ -1,7 +1,7 @@
 package tk.shanebee.survival.data;
 
 import org.bukkit.Material;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 /**
  * Nutritional values for foods
@@ -60,7 +60,7 @@ public enum Nutrition {
 	private int proteins;
 	private int vitamins;
 	private Material material = null;
-	private Items item = null;
+	private Item item = null;
 
 	Nutrition(int carbs, int proteins, int vitamins, Material material) {
 		this.carbs = carbs;
@@ -70,7 +70,7 @@ public enum Nutrition {
 	}
 
 	@SuppressWarnings("unused") // Will be used in the future for custom food items
-	Nutrition(int carbs, int proteins, int vitamins, Items item) {
+	Nutrition(int carbs, int proteins, int vitamins, Item item) {
 		this.carbs = carbs;
 		this.proteins = proteins;
 		this.vitamins = vitamins;
@@ -110,7 +110,7 @@ public enum Nutrition {
 	 * @deprecated Currently unused
 	 */
 	@Deprecated
-	public Items getItem() {
+	public Item getItem() {
 		return item;
 	}
 
@@ -133,7 +133,7 @@ public enum Nutrition {
 	 * @deprecated Currently unused
 	 */
 	@Deprecated
-	public static Nutrition getByItem(Items item) {
+	public static Nutrition getByItem(Item item) {
 		for (Nutrition nutrition : values()) {
 			if (nutrition.getItem() == item) {
 				return nutrition;

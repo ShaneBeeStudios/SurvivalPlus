@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.Metadatable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -746,7 +746,7 @@ public class Utils {
         return ((Damageable) item.getItemMeta()).getDamage();
     }
 
-    public static List<ItemStack> getItemStackDura(Items item, int maxDurability) {
+    public static List<ItemStack> getItemStackDura(Item item, int maxDurability) {
         List<ItemStack> itemStacks = new ArrayList<>();
         for (int i = 0; i < maxDurability; i++) {
             ItemStack stack = ItemManager.get(item);

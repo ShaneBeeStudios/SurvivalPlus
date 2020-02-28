@@ -19,7 +19,7 @@ import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
@@ -51,32 +51,32 @@ public class Consume implements Listener {
 			case POTION:
 				if (config.MECHANICS_THIRST_PURIFY_WATER) {
 					if (checkWaterBottle(item)) {
-						if (ItemManager.compare(item, Items.DIRTY_WATER)) {
+						if (ItemManager.compare(item, Item.DIRTY_WATER)) {
 							change = config.MECHANICS_THIRST_REP_DIRTY_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 5) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
 							}
-						} else if (ItemManager.compare(item, Items.CLEAN_WATER)) {
+						} else if (ItemManager.compare(item, Item.CLEAN_WATER)) {
 							change = config.MECHANICS_THIRST_REP_CLEAN_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 2) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
 								player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
 							}
-						} else if (ItemManager.compare(item, Items.PURIFIED_WATER)) {
+						} else if (ItemManager.compare(item, Item.PURIFIED_WATER)) {
 							change = config.MECHANICS_THIRST_REP_PURE_WATER;
-						} else if (ItemManager.compare(item, Items.COFFEE)) {
+						} else if (ItemManager.compare(item, Item.COFFEE)) {
 							change = config.MECHANICS_THIRST_REP_COFFEE;
-						} else if (ItemManager.compare(item, Items.COLD_MILK)) {
+						} else if (ItemManager.compare(item, Item.COLD_MILK)) {
 							change = config.MECHANICS_THIRST_REP_COLD_MILK;
-						} else if (ItemManager.compare(item, Items.HOT_MILK)) {
+						} else if (ItemManager.compare(item, Item.HOT_MILK)) {
 							change = config.MECHANICS_THIRST_REP_HOT_MILK;
 							player.damage(2);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0));
 							Utils.sendColoredMsg(player, lang.hot_milk_drink);
-						} else if (ItemManager.compare(item, Items.WATER_BOWL)) {
+						} else if (ItemManager.compare(item, Item.WATER_BOWL)) {
 						    event.setCancelled(true);
 						    change = handleWaterBowl(player);
                         }
@@ -86,7 +86,7 @@ public class Consume implements Listener {
 				}
 				break;
 			case BEETROOT_SOUP: //OLD Water Bowl (removed in 3.11.0 - keep for a few versions)
-				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Items.WATER_BOWL_OLD)) {
+				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Item.WATER_BOWL_OLD)) {
 					event.setCancelled(true);
 					change = handleWaterBowl(player);
 				} else {

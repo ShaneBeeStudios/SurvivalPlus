@@ -16,7 +16,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class Campfire implements Listener {
     @EventHandler
     private void onPlaceCampfire(BlockPlaceEvent e) {
         if (e.getBlockPlaced().getType() != Material.CAMPFIRE) return;
-        if (ItemManager.compare(e.getItemInHand(), Items.CAMPFIRE)) {
+        if (ItemManager.compare(e.getItemInHand(), Item.CAMPFIRE)) {
             Lightable camp = ((Lightable) e.getBlock().getBlockData());
             camp.setLit(false);
             e.getBlock().setBlockData(camp);

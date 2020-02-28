@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 import java.util.List;
 import java.util.Random;
@@ -50,7 +50,7 @@ public class EntityDeath implements Listener {
                 items.remove(item);
             }
         }
-        items.add(Items.SUSPICIOUS_MEAT.getItem());
+        items.add(Item.SUSPICIOUS_MEAT.getItem());
     }
 
 }

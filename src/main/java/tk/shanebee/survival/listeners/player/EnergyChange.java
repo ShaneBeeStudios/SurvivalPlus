@@ -18,7 +18,7 @@ import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.EnergyLevelChangeEvent;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.util.Utils;
 
@@ -53,7 +53,7 @@ public class EnergyChange implements Listener {
 		Player player = e.getPlayer();
 		PlayerData playerData = playerManager.getPlayerData(player);
 
-		if (ItemManager.compare(item, Items.COFFEE)) {
+		if (ItemManager.compare(item, Item.COFFEE)) {
 			EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);
 			Bukkit.getPluginManager().callEvent(energyEvent);
 			if (energyEvent.isCancelled()) return;
@@ -64,7 +64,7 @@ public class EnergyChange implements Listener {
 	// Removes empty water bottles from crafting grid when brewing coffee
 	@EventHandler
 	private void onCraftCoffee(CraftItemEvent e) {
-		if (ItemManager.compare(e.getRecipe().getResult(), Items.COFFEE)) {
+		if (ItemManager.compare(e.getRecipe().getResult(), Item.COFFEE)) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> e.getInventory().remove(Material.GLASS_BOTTLE), 2);
 		}
 	}

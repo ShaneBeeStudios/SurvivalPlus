@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
@@ -35,7 +35,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length < 2) return true;
         Player player = Bukkit.getPlayer(args[0]);
         if (player != null) {
-            Items itemName;
+            Item itemName;
             int amount = 1;
             try {
                 if (args.length == 3) {
@@ -43,7 +43,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
                 }
             } catch (IllegalArgumentException ignore) {}
             try {
-                itemName = Items.valueOf(args[1].toUpperCase());
+                itemName = Item.valueOf(args[1].toUpperCase());
                 ItemStack item = ItemManager.get(itemName);
                 item.setAmount(amount);
 
@@ -75,7 +75,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length <= 1) return null;
         if (args.length == 2) {
             ArrayList<String> matches = new ArrayList<>();
-            for (Items name : Items.values()) {
+            for (Item name : Item.values()) {
                 if (StringUtil.startsWithIgnoreCase(name.toString(), args[1])) {
                     matches.add(name.toString());
                 }

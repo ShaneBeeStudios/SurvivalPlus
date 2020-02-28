@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
@@ -44,7 +44,7 @@ public class BlockBreak implements Listener {
 		Material material = block.getType();
 
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (!ItemManager.compare(tool, Items.QUARTZ_PICKAXE)) {
+			if (!ItemManager.compare(tool, Item.QUARTZ_PICKAXE)) {
 				if (settings.BREAK_ONLY_WITH_SHOVEL) {
 					if (!Utils.isShovel(tool.getType())) {
 						if (Utils.requiresShovel(material)) {
@@ -102,7 +102,7 @@ public class BlockBreak implements Listener {
 
 				if (settings.BREAK_ONLY_WITH_SICKLE) {
 					if (Utils.isFarmable(material)) {
-						if (!Items.Tags.SICKLES.isTagged(tool)) {
+						if (!Item.Tags.SICKLES.isTagged(tool)) {
 							event.setCancelled(true);
 							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
 						} else {
@@ -118,16 +118,16 @@ public class BlockBreak implements Listener {
 							}
 
 							// Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
-							if (ItemManager.compare(tool, Items.FLINT_SICKLE)) {
+							if (ItemManager.compare(tool, Item.FLINT_SICKLE)) {
 								multiplier = 4;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
 							}
-							if (ItemManager.compare(tool, Items.STONE_SICKLE)) {
+							if (ItemManager.compare(tool, Item.STONE_SICKLE)) {
 								multiplier = 2;
 								random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
 							}
 							// Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
-							if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+							if (ItemManager.compare(tool, Item.IRON_SICKLE, Item.DIAMOND_SICKLE)) {
 								random = grown ? new Random().nextInt(2) + 3 : 1;
 							}
 
@@ -171,7 +171,7 @@ public class BlockBreak implements Listener {
 				}
 				if (settings.RECIPES_WORKBENCH && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
 					event.setDropItems(false);
-					ItemStack workbench = ItemManager.get(Items.WORKBENCH);
+					ItemStack workbench = ItemManager.get(Item.WORKBENCH);
 					block.getWorld().dropItem(block.getLocation(), workbench);
 				}
 			} else {
@@ -201,7 +201,7 @@ public class BlockBreak implements Listener {
 					return;
 				} else return;
 			}
-			if (!Items.Tags.SICKLES.isTagged(tool)) {
+			if (!Item.Tags.SICKLES.isTagged(tool)) {
 				e.setCancelled(true);
 				player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
 			} else {
@@ -213,12 +213,12 @@ public class BlockBreak implements Listener {
 					e.setCancelled(true);
 					int random = new Random().nextInt(5) + 1;
 
-					if (ItemManager.compare(tool, Items.FLINT_SICKLE)) {
+					if (ItemManager.compare(tool, Item.FLINT_SICKLE)) {
 						if (bush.getAge() == 3) {
 							berries = 1;
 						}
 						multiplier = 4;
-					} else if (ItemManager.compare(tool, Items.STONE_SICKLE)) {
+					} else if (ItemManager.compare(tool, Item.STONE_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 4)
 								berries = 1;
@@ -229,7 +229,7 @@ public class BlockBreak implements Listener {
 								berries = 2;
 						}
 						multiplier = 2;
-					} else if (ItemManager.compare(tool, Items.IRON_SICKLE, Items.DIAMOND_SICKLE)) {
+					} else if (ItemManager.compare(tool, Item.IRON_SICKLE, Item.DIAMOND_SICKLE)) {
 						if (bush.getAge() == 2) {
 							if (random <= 3)
 								berries = 1;

@@ -6,7 +6,7 @@ import java.util.Random;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -41,7 +41,7 @@ public class Valkyrie implements Listener {
 		PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 
-		if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
+		if (ItemManager.compare(mainItem, Item.VALKYRIES_AXE)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
 					if (playerData.getStat(Stat.SPIN) == 0) {
@@ -94,7 +94,7 @@ public class Valkyrie implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
-				if (ItemManager.compare(mainItem, Items.VALKYRIES_AXE)) {
+				if (ItemManager.compare(mainItem, Item.VALKYRIES_AXE)) {
 					if (playerData.getStat(Stat.SPIN) == 0) {
 						if (player.getFoodLevel() > 6) {
 							Random rand = new Random();

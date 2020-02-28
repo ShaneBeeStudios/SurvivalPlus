@@ -1,7 +1,7 @@
 package tk.shanebee.survival.listeners.block;
 
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
@@ -40,12 +40,12 @@ public class NoAnvil implements Listener {
 					ItemStack item = anvil.getContents()[0];
 
 					if (item != null) {
-						if (ItemManager.compare(item, Items.VALKYRIES_AXE)
-								|| ItemManager.compare(item, Items.QUARTZ_PICKAXE) || ItemManager.compare(item, Items.OBSIDIAN_MACE)
-								|| ItemManager.compare(item, Items.ENDER_GIANT_BLADE) || ItemManager.compare(item, Items.BLAZE_SWORD)
-								|| ItemManager.compare(item, Items.HATCHET) || ItemManager.compare(item, Items.MATTOCK)
-								|| ItemManager.compare(item, Items.FIRESTRIKER) || ItemManager.compare(item, Items.SHIV)
-								|| ItemManager.compare(item, Items.HAMMER)) {
+						if (ItemManager.compare(item, Item.VALKYRIES_AXE)
+								|| ItemManager.compare(item, Item.QUARTZ_PICKAXE) || ItemManager.compare(item, Item.OBSIDIAN_MACE)
+								|| ItemManager.compare(item, Item.ENDER_GIANT_BLADE) || ItemManager.compare(item, Item.BLAZE_SWORD)
+								|| ItemManager.compare(item, Item.HATCHET) || ItemManager.compare(item, Item.MATTOCK)
+								|| ItemManager.compare(item, Item.FIRESTRIKER) || ItemManager.compare(item, Item.SHIV)
+								|| ItemManager.compare(item, Item.HAMMER)) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
 							e.getWhoClicked().sendMessage(ChatColor.RED + Utils.getColoredString(lang.no_rename) + item.getItemMeta().getDisplayName() + ChatColor.RED + Utils.getColoredString(lang.period));

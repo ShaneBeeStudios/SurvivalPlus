@@ -4,7 +4,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.Lightable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.*;
@@ -54,7 +54,7 @@ public class FirestrikerClick implements Listener {
 
 			Material clickedBlockType = clickedBlock.getType();
 			Material toolType = tool.getType();
-            if (ItemManager.compare(tool, Items.FIRESTRIKER)) {
+            if (ItemManager.compare(tool, Item.FIRESTRIKER)) {
 				if (player.isSneaking()) {
 					if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
 						if (player.getInventory().getItemInMainHand().getType() == toolType)

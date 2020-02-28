@@ -22,6 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -46,27 +47,27 @@ public class ItemManager {
 	 * @param item The item you would like to get
 	 * @return An ItemStack from a custom item enum
 	 */
-	public static ItemStack get(Items item) {
+	public static ItemStack get(Item item) {
 		switch (item) {
 			case HATCHET:
-				ItemStack i_hatchet = new ItemStack(Items.HATCHET.getMaterialType(), 1);
+				ItemStack i_hatchet = new ItemStack(Item.HATCHET.getMaterialType(), 1);
 				ItemMeta hatchetMeta = i_hatchet.getItemMeta();
 				hatchetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.hatchet));
-				hatchetMeta.setCustomModelData(Items.HATCHET.getModelData());
+				hatchetMeta.setCustomModelData(Item.HATCHET.getModelData());
 				i_hatchet.setItemMeta(hatchetMeta);
 				return i_hatchet;
 			case MATTOCK:
-				ItemStack i_mattock = new ItemStack(Items.MATTOCK.getMaterialType(), 1);
+				ItemStack i_mattock = new ItemStack(Item.MATTOCK.getMaterialType(), 1);
 				ItemMeta mattockMeta = i_mattock.getItemMeta();
 				mattockMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.mattock));
-				mattockMeta.setCustomModelData(Items.MATTOCK.getModelData());
+				mattockMeta.setCustomModelData(Item.MATTOCK.getModelData());
 				i_mattock.setItemMeta(mattockMeta);
 				return i_mattock;
 
 			case SHIV:
-				ItemStack i_shiv = new ItemStack(Items.SHIV.getMaterialType(), 1);
+				ItemStack i_shiv = new ItemStack(Item.SHIV.getMaterialType(), 1);
 				ItemMeta i_shivMeta = i_shiv.getItemMeta();
-				i_shivMeta.setCustomModelData(Items.SHIV.getModelData());
+				i_shivMeta.setCustomModelData(Item.SHIV.getModelData());
 
 				int shiv_dmg = 4;
 				float shiv_spd = 1.8f;
@@ -98,17 +99,17 @@ public class ItemManager {
 				return i_shiv;
 
 			case HAMMER:
-				ItemStack i_hammer = new ItemStack(Items.HAMMER.getMaterialType(), 1);
+				ItemStack i_hammer = new ItemStack(Item.HAMMER.getMaterialType(), 1);
 				ItemMeta hammerMeta = i_hammer.getItemMeta();
 				hammerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.hammer));
-				hammerMeta.setCustomModelData(Items.HAMMER.getModelData());
+				hammerMeta.setCustomModelData(Item.HAMMER.getModelData());
 				i_hammer.setItemMeta(hammerMeta);
 				return i_hammer;
 
 			case VALKYRIES_AXE:
-				ItemStack i_gAxe = new ItemStack(Items.VALKYRIES_AXE.getMaterialType(), 1);
+				ItemStack i_gAxe = new ItemStack(Item.VALKYRIES_AXE.getMaterialType(), 1);
 				ItemMeta i_gAxeMeta = i_gAxe.getItemMeta();
-				i_gAxeMeta.setCustomModelData(Items.VALKYRIES_AXE.getModelData());
+				i_gAxeMeta.setCustomModelData(Item.VALKYRIES_AXE.getModelData());
 
 				int gAxe_spd = 1;
 				int gAxe_dmg = 8;
@@ -136,9 +137,9 @@ public class ItemManager {
 				return i_gAxe;
 
 			case QUARTZ_PICKAXE:
-				ItemStack i_gPickaxe = new ItemStack(Items.QUARTZ_PICKAXE.getMaterialType(), 1);
+				ItemStack i_gPickaxe = new ItemStack(Item.QUARTZ_PICKAXE.getMaterialType(), 1);
 				ItemMeta i_gPickaxeMeta = i_gPickaxe.getItemMeta();
-				i_gPickaxeMeta.setCustomModelData(Items.QUARTZ_PICKAXE.getModelData());
+				i_gPickaxeMeta.setCustomModelData(Item.QUARTZ_PICKAXE.getModelData());
 
 				int gPickaxe_dmg = 5;
 				float gPickaxe_spd = 0.8f;
@@ -169,9 +170,9 @@ public class ItemManager {
 				return i_gPickaxe;
 
 			case OBSIDIAN_MACE:
-				ItemStack i_gSpade = new ItemStack(Items.OBSIDIAN_MACE.getMaterialType(), 1);
+				ItemStack i_gSpade = new ItemStack(Item.OBSIDIAN_MACE.getMaterialType(), 1);
 				ItemMeta i_gSpadeMeta = i_gSpade.getItemMeta();
-				i_gSpadeMeta.setCustomModelData(Items.OBSIDIAN_MACE.getModelData());
+				i_gSpadeMeta.setCustomModelData(Item.OBSIDIAN_MACE.getModelData());
 
 				int gSpade_dmg = 4;
 				float gSpade_spd = 0.8f;
@@ -211,9 +212,9 @@ public class ItemManager {
 				return i_gSpade;
 
 			case ENDER_GIANT_BLADE:
-				ItemStack i_gHoe = new ItemStack(Items.ENDER_GIANT_BLADE.getMaterialType(), 1);
+				ItemStack i_gHoe = new ItemStack(Item.ENDER_GIANT_BLADE.getMaterialType(), 1);
 				ItemMeta i_gHoeMeta = i_gHoe.getItemMeta();
-				i_gHoeMeta.setCustomModelData(Items.ENDER_GIANT_BLADE.getModelData());
+				i_gHoeMeta.setCustomModelData(Item.ENDER_GIANT_BLADE.getModelData());
 
 				int gHoe_dmg = 8;
 				int gHoe_spd = 1;
@@ -255,9 +256,9 @@ public class ItemManager {
 				return i_gHoe;
 
 			case BLAZE_SWORD:
-				ItemStack i_gSword = new ItemStack(Items.BLAZE_SWORD.getMaterialType(), 1);
+				ItemStack i_gSword = new ItemStack(Item.BLAZE_SWORD.getMaterialType(), 1);
 				ItemMeta i_gSwordMeta = i_gSword.getItemMeta();
-				i_gSwordMeta.setCustomModelData(Items.BLAZE_SWORD.getModelData());
+				i_gSwordMeta.setCustomModelData(Item.BLAZE_SWORD.getModelData());
 
 				int gSword_dmg = 6;
 				float gSword_spd = 1.6f;
@@ -297,16 +298,16 @@ public class ItemManager {
 				return i_gSword;
 
 			case WORKBENCH:
-				ItemStack workbench = new ItemStack(Items.WORKBENCH.getMaterialType(), 1);
+				ItemStack workbench = new ItemStack(Item.WORKBENCH.getMaterialType(), 1);
 				ItemMeta workbenchMeta = workbench.getItemMeta();
 				workbenchMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.workbench));
 				workbench.setItemMeta(workbenchMeta);
 				return workbench;
 
 			case FIRESTRIKER:
-				ItemStack i_firestriker = new ItemStack(Items.FIRESTRIKER.getMaterialType(), 1);
+				ItemStack i_firestriker = new ItemStack(Item.FIRESTRIKER.getMaterialType(), 1);
 				ItemMeta i_firestrikerMeta = i_firestriker.getItemMeta();
-				i_firestrikerMeta.setCustomModelData(Items.FIRESTRIKER.getModelData());
+				i_firestrikerMeta.setCustomModelData(Item.FIRESTRIKER.getModelData());
 
 				float firestriker_spd = 4f;
 
@@ -323,24 +324,24 @@ public class ItemManager {
 				return i_firestriker;
 
 			case FERMENTED_SKIN:
-				ItemStack i_fermentedSkin = new ItemStack(Items.FERMENTED_SKIN.getMaterialType(), 1);
+				ItemStack i_fermentedSkin = new ItemStack(Item.FERMENTED_SKIN.getMaterialType(), 1);
 				ItemMeta fermentedSkinMeta = i_fermentedSkin.getItemMeta();
 				fermentedSkinMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.fermented_skin));
 				i_fermentedSkin.setItemMeta(fermentedSkinMeta);
 				return i_fermentedSkin;
 
 			case MEDIC_KIT:
-				ItemStack i_medicKit = new ItemStack(Items.MEDIC_KIT.getMaterialType(), 1);
+				ItemStack i_medicKit = new ItemStack(Item.MEDIC_KIT.getMaterialType(), 1);
 				ItemMeta medicKitMeta = i_medicKit.getItemMeta();
-				medicKitMeta.setCustomModelData(Items.MEDIC_KIT.getModelData());
+				medicKitMeta.setCustomModelData(Item.MEDIC_KIT.getModelData());
 				medicKitMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.medical_kit));
 				i_medicKit.setItemMeta(medicKitMeta);
 				return i_medicKit;
 
 			case REINFORCED_LEATHER_BOOTS:
-				ItemStack i_leatherBoots = new ItemStack(Items.REINFORCED_LEATHER_BOOTS.getMaterialType(), 1);
+				ItemStack i_leatherBoots = new ItemStack(Item.REINFORCED_LEATHER_BOOTS.getMaterialType(), 1);
 				ItemMeta i_leatherBootsMeta = i_leatherBoots.getItemMeta();
-				i_leatherBootsMeta.setCustomModelData(Items.REINFORCED_LEATHER_BOOTS.getModelData());
+				i_leatherBootsMeta.setCustomModelData(Item.REINFORCED_LEATHER_BOOTS.getModelData());
 
 				AttributeModifier i_leatherBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c70"),
 						"generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
@@ -352,20 +353,20 @@ public class ItemManager {
 				return i_leatherBoots;
 
 			case REINFORCED_LEATHER_TUNIC:
-				ItemStack i_leatherChestplate = new ItemStack(Items.REINFORCED_LEATHER_TUNIC.getMaterialType(), 1);
+				ItemStack i_leatherChestplate = new ItemStack(Item.REINFORCED_LEATHER_TUNIC.getMaterialType(), 1);
 
 				ItemMeta leatherChestplateMeta = i_leatherChestplate.getItemMeta();
-				leatherChestplateMeta.setCustomModelData(Items.REINFORCED_LEATHER_TUNIC.getModelData());
+				leatherChestplateMeta.setCustomModelData(Item.REINFORCED_LEATHER_TUNIC.getModelData());
 				leatherChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.reinforced_tunic));
 
 				i_leatherChestplate.setItemMeta(leatherChestplateMeta);
 				return i_leatherChestplate;
 
 			case REINFORCED_LEATHER_TROUSERS:
-				ItemStack i_leatherLeggings = new ItemStack(Items.REINFORCED_LEATHER_TROUSERS.getMaterialType(), 1);
+				ItemStack i_leatherLeggings = new ItemStack(Item.REINFORCED_LEATHER_TROUSERS.getMaterialType(), 1);
 
 				ItemMeta leatherLeggingsMeta = i_leatherLeggings.getItemMeta();
-				leatherLeggingsMeta.setCustomModelData(Items.REINFORCED_LEATHER_TROUSERS.getModelData());
+				leatherLeggingsMeta.setCustomModelData(Item.REINFORCED_LEATHER_TROUSERS.getModelData());
 				leatherLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.reinforced_pants));
 
 				i_leatherLeggings.setItemMeta(leatherLeggingsMeta);
@@ -373,17 +374,17 @@ public class ItemManager {
 
 			case REINFORCED_LEATHER_HELMET:
 				//Reinforced Leather Helmet
-				ItemStack i_leatherHelmet = new ItemStack(Items.REINFORCED_LEATHER_HELMET.getMaterialType(), 1);
+				ItemStack i_leatherHelmet = new ItemStack(Item.REINFORCED_LEATHER_HELMET.getMaterialType(), 1);
 
 				ItemMeta leatherHelmetMeta = i_leatherHelmet.getItemMeta();
-				leatherHelmetMeta.setCustomModelData(Items.REINFORCED_LEATHER_HELMET.getModelData());
+				leatherHelmetMeta.setCustomModelData(Item.REINFORCED_LEATHER_HELMET.getModelData());
 				leatherHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.reinforced_hat));
 
 				i_leatherHelmet.setItemMeta(leatherHelmetMeta);
 				return i_leatherHelmet;
 
 			case GOLDEN_SABATONS:
-				ItemStack i_goldBoots = new ItemStack(Items.GOLDEN_SABATONS.getMaterialType(), 1);
+				ItemStack i_goldBoots = new ItemStack(Item.GOLDEN_SABATONS.getMaterialType(), 1);
 				ItemMeta i_goldBootsMeta = i_goldBoots.getItemMeta();
 
 				AttributeModifier i_goldBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c71"),
@@ -397,7 +398,7 @@ public class ItemManager {
 				return i_goldBoots;
 
 			case GOLDEN_GUARD:
-				ItemStack i_goldChestplate = new ItemStack(Items.GOLDEN_GUARD.getMaterialType(), 1);
+				ItemStack i_goldChestplate = new ItemStack(Item.GOLDEN_GUARD.getMaterialType(), 1);
 				ItemMeta i_goldChestplateMeta = i_goldChestplate.getItemMeta();
 
 				AttributeModifier i_goldChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c72"),
@@ -411,7 +412,7 @@ public class ItemManager {
 				return i_goldChestplate;
 
 			case GOLDEN_GREAVES:
-				ItemStack i_goldLeggings = new ItemStack(Items.GOLDEN_GREAVES.getMaterialType(), 1);
+				ItemStack i_goldLeggings = new ItemStack(Item.GOLDEN_GREAVES.getMaterialType(), 1);
 				ItemMeta i_goldLeggingsMeta = i_goldLeggings.getItemMeta();
 
 				AttributeModifier i_goldLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c73"),
@@ -425,7 +426,7 @@ public class ItemManager {
 				return i_goldLeggings;
 
 			case GOLDEN_CROWN:
-				ItemStack i_goldHelmet = new ItemStack(Items.GOLDEN_CROWN.getMaterialType(), 1);
+				ItemStack i_goldHelmet = new ItemStack(Item.GOLDEN_CROWN.getMaterialType(), 1);
 				ItemMeta i_goldHelmetMeta = i_goldHelmet.getItemMeta();
 
 				AttributeModifier i_goldHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c74"),
@@ -439,7 +440,7 @@ public class ItemManager {
 				return i_goldHelmet;
 
 			case IRON_BOOTS:
-				ItemStack i_ironBoots = new ItemStack(Items.IRON_BOOTS.getMaterialType(), 1);
+				ItemStack i_ironBoots = new ItemStack(Item.IRON_BOOTS.getMaterialType(), 1);
 				ItemMeta i_ironBootsMeta = i_ironBoots.getItemMeta();
 
 				AttributeModifier i_ironBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c75"),
@@ -453,7 +454,7 @@ public class ItemManager {
 				return i_ironBoots;
 
 			case IRON_CHESTPLATE:
-				ItemStack i_ironChestplate = new ItemStack(Items.IRON_CHESTPLATE.getMaterialType(), 1);
+				ItemStack i_ironChestplate = new ItemStack(Item.IRON_CHESTPLATE.getMaterialType(), 1);
 				ItemMeta i_ironChestplateMeta = i_ironChestplate.getItemMeta();
 
 				AttributeModifier i_ironChestMove = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c77"),
@@ -468,7 +469,7 @@ public class ItemManager {
 				return i_ironChestplate;
 
 			case IRON_LEGGINGS:
-				ItemStack i_ironLeggings = new ItemStack(Items.IRON_LEGGINGS.getMaterialType(), 1);
+				ItemStack i_ironLeggings = new ItemStack(Item.IRON_LEGGINGS.getMaterialType(), 1);
 				ItemMeta i_ironLeggingsMeta = i_ironLeggings.getItemMeta();
 
 				AttributeModifier i_ironLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c79"),
@@ -483,7 +484,7 @@ public class ItemManager {
 				return i_ironLeggings;
 
 			case IRON_HELMET:
-				ItemStack i_ironHelmet = new ItemStack(Items.IRON_HELMET.getMaterialType(), 1);
+				ItemStack i_ironHelmet = new ItemStack(Item.IRON_HELMET.getMaterialType(), 1);
 				ItemMeta i_ironHelmetMeta = i_ironHelmet.getItemMeta();
 
 				AttributeModifier i_ironHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c81"),
@@ -498,7 +499,7 @@ public class ItemManager {
 				return i_ironHelmet;
 
 			case DIAMOND_BOOTS:
-				ItemStack i_diamondBoots = new ItemStack(Items.DIAMOND_BOOTS.getMaterialType(), 1);
+				ItemStack i_diamondBoots = new ItemStack(Item.DIAMOND_BOOTS.getMaterialType(), 1);
 				ItemMeta i_diamondBootsMeta = i_diamondBoots.getItemMeta();
 
 				AttributeModifier i_diamondBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c83"),
@@ -513,7 +514,7 @@ public class ItemManager {
 				return i_diamondBoots;
 
 			case DIAMOND_CHESTPLATE:
-				ItemStack i_diamondChestplate = new ItemStack(Items.DIAMOND_CHESTPLATE.getMaterialType(), 1);
+				ItemStack i_diamondChestplate = new ItemStack(Item.DIAMOND_CHESTPLATE.getMaterialType(), 1);
 				ItemMeta i_diamondChestplateMeta = i_diamondChestplate.getItemMeta();
 
 				AttributeModifier i_diamondChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c85"),
@@ -528,7 +529,7 @@ public class ItemManager {
 				return i_diamondChestplate;
 
 			case DIAMOND_LEGGINGS:
-				ItemStack i_diamondLeggings = new ItemStack(Items.DIAMOND_LEGGINGS.getMaterialType(), 1);
+				ItemStack i_diamondLeggings = new ItemStack(Item.DIAMOND_LEGGINGS.getMaterialType(), 1);
 				ItemMeta i_diamondLeggingsMeta = i_diamondLeggings.getItemMeta();
 
 				AttributeModifier i_diamondLegArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c87"),
@@ -543,7 +544,7 @@ public class ItemManager {
 				return i_diamondLeggings;
 
 			case DIAMOND_HELMET:
-				ItemStack i_diamondHelmet = new ItemStack(Items.DIAMOND_HELMET.getMaterialType(), 1);
+				ItemStack i_diamondHelmet = new ItemStack(Item.DIAMOND_HELMET.getMaterialType(), 1);
 				ItemMeta i_diamondHelmetMeta = i_diamondHelmet.getItemMeta();
 
 				AttributeModifier i_diamondHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c89"),
@@ -558,10 +559,10 @@ public class ItemManager {
 				return i_diamondHelmet;
 
 			case RECURVE_BOW:
-				ItemStack i_recurveBow = new ItemStack(Items.RECURVE_BOW.getMaterialType(), 1);
+				ItemStack i_recurveBow = new ItemStack(Item.RECURVE_BOW.getMaterialType(), 1);
 
 				ItemMeta recurveBowMeta = i_recurveBow.getItemMeta();
-				recurveBowMeta.setCustomModelData(Items.RECURVE_BOW.getModelData());
+				recurveBowMeta.setCustomModelData(Item.RECURVE_BOW.getModelData());
 				recurveBowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.recurved_bow));
 				recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
 						Utils.getColoredString(lang.recurved)));
@@ -569,18 +570,18 @@ public class ItemManager {
 				i_recurveBow.setItemMeta(recurveBowMeta);
 				return i_recurveBow;
 			case RECURVE_CROSSBOW:
-				ItemStack recurveCrossbow = new ItemStack(Items.RECURVE_CROSSBOW.getMaterialType(), 1);
+				ItemStack recurveCrossbow = new ItemStack(Item.RECURVE_CROSSBOW.getMaterialType(), 1);
 				ItemMeta recurveCrossbowMeta = recurveCrossbow.getItemMeta();
-				recurveCrossbowMeta.setCustomModelData(Items.RECURVE_BOW.getModelData());
+				recurveCrossbowMeta.setCustomModelData(Item.RECURVE_BOW.getModelData());
 				recurveCrossbowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.recurved_crossbow));
 				recurveCrossbowMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.recurved)));
 				recurveCrossbowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
 				recurveCrossbow.setItemMeta(recurveCrossbowMeta);
 				return recurveCrossbow;
 			case DIRTY_WATER:
-				ItemStack dirty_water = new ItemStack(Items.CLEAN_WATER.getMaterialType());
+				ItemStack dirty_water = new ItemStack(Item.CLEAN_WATER.getMaterialType());
 				ItemMeta dirtyMeta = dirty_water.getItemMeta();
-				dirtyMeta.setCustomModelData(Items.DIRTY_WATER.getModelData());
+				dirtyMeta.setCustomModelData(Item.DIRTY_WATER.getModelData());
 				((PotionMeta) dirtyMeta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) dirtyMeta).setColor(Color.fromRGB(lang.dirty_water_color));
 				dirtyMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.dirty_water));
@@ -589,9 +590,9 @@ public class ItemManager {
 				dirty_water.setItemMeta(dirtyMeta);
 				return dirty_water;
 			case CLEAN_WATER:
-				ItemStack clean_water = new ItemStack(Items.CLEAN_WATER.getMaterialType());
+				ItemStack clean_water = new ItemStack(Item.CLEAN_WATER.getMaterialType());
 				ItemMeta cleanMeta = clean_water.getItemMeta();
-				cleanMeta.setCustomModelData(Items.CLEAN_WATER.getModelData());
+				cleanMeta.setCustomModelData(Item.CLEAN_WATER.getModelData());
 				((PotionMeta) cleanMeta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) cleanMeta).setColor(Color.fromRGB(lang.clean_water_color));
 				cleanMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.clean_water));
@@ -600,9 +601,9 @@ public class ItemManager {
 				clean_water.setItemMeta(cleanMeta);
 				return clean_water;
 			case PURIFIED_WATER:
-				ItemStack purified_water = new ItemStack(Items.PURIFIED_WATER.getMaterialType());
+				ItemStack purified_water = new ItemStack(Item.PURIFIED_WATER.getMaterialType());
 				ItemMeta meta = purified_water.getItemMeta();
-				meta.setCustomModelData(Items.PURIFIED_WATER.getModelData());
+				meta.setCustomModelData(Item.PURIFIED_WATER.getModelData());
 				((PotionMeta) meta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) meta).setColor(Color.fromRGB(lang.purified_water_color));
 				meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.purified_water));
@@ -611,63 +612,63 @@ public class ItemManager {
 				purified_water.setItemMeta(meta);
 				return purified_water;
 			case WATER_BOWL:
-				ItemStack water_bowl = new ItemStack(Items.WATER_BOWL.getMaterialType());
+				ItemStack water_bowl = new ItemStack(Item.WATER_BOWL.getMaterialType());
 				PotionMeta water_bowlMeta = ((PotionMeta) water_bowl.getItemMeta());
 				water_bowlMeta.setBasePotionData(new PotionData(PotionType.WATER));
-				water_bowlMeta.setCustomModelData(Items.WATER_BOWL.getModelData());
+				water_bowlMeta.setCustomModelData(Item.WATER_BOWL.getModelData());
 				water_bowlMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.water_bowl));
 				water_bowl.setItemMeta(water_bowlMeta);
 				return water_bowl;
 			case CAMPFIRE:
-				ItemStack campfire = new ItemStack(Items.CAMPFIRE.getMaterialType());
+				ItemStack campfire = new ItemStack(Item.CAMPFIRE.getMaterialType());
 				ItemMeta campfireMeta = campfire.getItemMeta();
 				campfireMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.campfire_name));
 				campfireMeta.setLore(Arrays.asList(Utils.getColoredString(lang.campfire_lore).split("\\|\\|")));
-				campfireMeta.setCustomModelData(Items.CAMPFIRE.getModelData());
+				campfireMeta.setCustomModelData(Item.CAMPFIRE.getModelData());
 				BlockData data = Material.CAMPFIRE.createBlockData();
 				((Campfire) data).setLit(false);
 				((BlockDataMeta) campfireMeta).setBlockData(data);
 				campfire.setItemMeta(campfireMeta);
 				return campfire;
 			case STONE_SICKLE:
-				ItemStack stone_sickle = new ItemStack(Items.STONE_SICKLE.getMaterialType());
+				ItemStack stone_sickle = new ItemStack(Item.STONE_SICKLE.getMaterialType());
 				ItemMeta stone_sickleMeta = stone_sickle.getItemMeta();
-				stone_sickleMeta.setCustomModelData(Items.STONE_SICKLE.getModelData());
+				stone_sickleMeta.setCustomModelData(Item.STONE_SICKLE.getModelData());
 				stone_sickleMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.stone_sickle));
 				stone_sickle.setItemMeta(stone_sickleMeta);
 				return stone_sickle;
 			case IRON_SICKLE:
-				ItemStack iron_sickle_new = new ItemStack(Items.IRON_SICKLE.getMaterialType());
+				ItemStack iron_sickle_new = new ItemStack(Item.IRON_SICKLE.getMaterialType());
 				ItemMeta iron_sickle_new_meta = iron_sickle_new.getItemMeta();
-				iron_sickle_new_meta.setCustomModelData(Items.IRON_SICKLE.getModelData());
+				iron_sickle_new_meta.setCustomModelData(Item.IRON_SICKLE.getModelData());
 				iron_sickle_new_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.iron_sickle));
 				iron_sickle_new.setItemMeta(iron_sickle_new_meta);
 				return iron_sickle_new;
 			case FLINT_SICKLE:
-				ItemStack flint_sickle = new ItemStack(Items.FLINT_SICKLE.getMaterialType());
+				ItemStack flint_sickle = new ItemStack(Item.FLINT_SICKLE.getMaterialType());
 				ItemMeta flint_sickle_meta = flint_sickle.getItemMeta();
-				flint_sickle_meta.setCustomModelData(Items.FLINT_SICKLE.getModelData());
+				flint_sickle_meta.setCustomModelData(Item.FLINT_SICKLE.getModelData());
 				flint_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.flint_sickle));
 				flint_sickle.setItemMeta(flint_sickle_meta);
 				return flint_sickle;
 			case DIAMOND_SICKLE:
-				ItemStack diamond_sickle = new ItemStack(Items.DIAMOND_SICKLE.getMaterialType());
+				ItemStack diamond_sickle = new ItemStack(Item.DIAMOND_SICKLE.getMaterialType());
 				ItemMeta diamond_sickle_meta = diamond_sickle.getItemMeta();
-				diamond_sickle_meta.setCustomModelData(Items.DIAMOND_SICKLE.getModelData());
+				diamond_sickle_meta.setCustomModelData(Item.DIAMOND_SICKLE.getModelData());
 				diamond_sickle_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.diamond_sickle));
 				diamond_sickle.setItemMeta(diamond_sickle_meta);
 				return diamond_sickle;
 			case GRAPPLING_HOOK:
-				ItemStack grappling_hook = new ItemStack(Items.GRAPPLING_HOOK.getMaterialType());
+				ItemStack grappling_hook = new ItemStack(Item.GRAPPLING_HOOK.getMaterialType());
 				ItemMeta grappling_meta = grappling_hook.getItemMeta();
 				grappling_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.grappling_hook));
-				grappling_meta.setCustomModelData(Items.GRAPPLING_HOOK.getModelData());
+				grappling_meta.setCustomModelData(Item.GRAPPLING_HOOK.getModelData());
 				grappling_hook.setItemMeta(grappling_meta);
 				return grappling_hook;
 			case COFFEE:
-				ItemStack coffee = new ItemStack(Items.COFFEE.getMaterialType());
+				ItemStack coffee = new ItemStack(Item.COFFEE.getMaterialType());
 				ItemMeta coffee_meta = coffee.getItemMeta();
-				coffee_meta.setCustomModelData(Items.COFFEE.getModelData());
+				coffee_meta.setCustomModelData(Item.COFFEE.getModelData());
 				((PotionMeta) coffee_meta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) coffee_meta).setColor(Color.fromRGB(lang.coffee_color));
 				coffee_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.coffee_name));
@@ -675,9 +676,9 @@ public class ItemManager {
 				coffee.setItemMeta(coffee_meta);
 				return coffee;
 			case HOT_MILK:
-				ItemStack hot_milk = new ItemStack(Items.HOT_MILK.getMaterialType());
+				ItemStack hot_milk = new ItemStack(Item.HOT_MILK.getMaterialType());
 				ItemMeta hot_milk_meta = hot_milk.getItemMeta();
-				hot_milk_meta.setCustomModelData(Items.HOT_MILK.getModelData());
+				hot_milk_meta.setCustomModelData(Item.HOT_MILK.getModelData());
 				((PotionMeta) hot_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) hot_milk_meta).setColor(Color.fromRGB(lang.hot_milk_color));
 				hot_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.hot_milk_name));
@@ -685,9 +686,9 @@ public class ItemManager {
 				hot_milk.setItemMeta(hot_milk_meta);
 				return hot_milk;
 			case COLD_MILK:
-				ItemStack cold_milk = new ItemStack(Items.COLD_MILK.getMaterialType());
+				ItemStack cold_milk = new ItemStack(Item.COLD_MILK.getMaterialType());
 				ItemMeta cold_milk_meta = cold_milk.getItemMeta();
-				cold_milk_meta.setCustomModelData(Items.COLD_MILK.getModelData());
+				cold_milk_meta.setCustomModelData(Item.COLD_MILK.getModelData());
 				((PotionMeta) cold_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
 				((PotionMeta) cold_milk_meta).setColor(Color.fromRGB(lang.cold_milk_color));
 				cold_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.cold_milk_name));
@@ -695,14 +696,14 @@ public class ItemManager {
 				cold_milk.setItemMeta(cold_milk_meta);
 				return cold_milk;
 			case COFFEE_BEAN:
-				ItemStack coffee_bean = new ItemStack(Items.COFFEE_BEAN.getMaterialType());
+				ItemStack coffee_bean = new ItemStack(Item.COFFEE_BEAN.getMaterialType());
 				ItemMeta coffee_bean_meta = coffee_bean.getItemMeta();
-				coffee_bean_meta.setCustomModelData(Items.COFFEE_BEAN.getModelData());
+				coffee_bean_meta.setCustomModelData(Item.COFFEE_BEAN.getModelData());
 				coffee_bean_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.coffee_bean_name));
 				coffee_bean.setItemMeta(coffee_bean_meta);
 				return coffee_bean;
 			case COMPASS:
-				ItemStack compass = new ItemStack(Items.COMPASS.getMaterialType());
+				ItemStack compass = new ItemStack(Item.COMPASS.getMaterialType());
 				ItemMeta compass_meta = compass.getItemMeta();
 				List<String> compass_lore = new ArrayList<>();
 				for (int i = 0; i < lang.compass_lore.size(); i++) {
@@ -714,17 +715,17 @@ public class ItemManager {
 
 			case PERSISTENT_TORCH:
 				// TODO Experimental
-				ItemStack persistent_torch = new ItemStack(Items.PERSISTENT_TORCH.getMaterialType());
+				ItemStack persistent_torch = new ItemStack(Item.PERSISTENT_TORCH.getMaterialType());
 				ItemMeta p_torch_meta = persistent_torch.getItemMeta();
-				p_torch_meta.setCustomModelData(Items.PERSISTENT_TORCH.getModelData());
+				p_torch_meta.setCustomModelData(Item.PERSISTENT_TORCH.getModelData());
 				p_torch_meta.setLore(Collections.singletonList(ChatColor.AQUA + "Persistent"));
 				persistent_torch.setItemMeta(p_torch_meta);
 				return persistent_torch;
 
 			case BEEKEEPER_HELMET:
-				ItemStack beeHelmet = new ItemStack(Items.BEEKEEPER_HELMET.getMaterialType());
+				ItemStack beeHelmet = new ItemStack(Item.BEEKEEPER_HELMET.getMaterialType());
 				ItemMeta bhMeta = beeHelmet.getItemMeta();
-				bhMeta.setCustomModelData(Items.BEEKEEPER_HELMET.getModelData());
+				bhMeta.setCustomModelData(Item.BEEKEEPER_HELMET.getModelData());
 				bhMeta.setDisplayName(Utils.getColoredString(lang.bee_helmet_name));
 				bhMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
 				((LeatherArmorMeta) bhMeta).setColor(Color.WHITE);
@@ -732,9 +733,9 @@ public class ItemManager {
 				return beeHelmet;
 
 			case BEEKEEPER_CHESTPLATE:
-				ItemStack beeChest = new ItemStack(Items.BEEKEEPER_CHESTPLATE.getMaterialType());
+				ItemStack beeChest = new ItemStack(Item.BEEKEEPER_CHESTPLATE.getMaterialType());
 				ItemMeta bcMeta = beeChest.getItemMeta();
-				bcMeta.setCustomModelData(Items.BEEKEEPER_CHESTPLATE.getModelData());
+				bcMeta.setCustomModelData(Item.BEEKEEPER_CHESTPLATE.getModelData());
 				bcMeta.setDisplayName(Utils.getColoredString(lang.bee_chest_name));
 				bcMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
 				((LeatherArmorMeta) bcMeta).setColor(Color.WHITE);
@@ -742,9 +743,9 @@ public class ItemManager {
 				return beeChest;
 
 			case BEEKEEPER_LEGGINGS:
-				ItemStack beeLegs = new ItemStack(Items.BEEKEEPER_LEGGINGS.getMaterialType());
+				ItemStack beeLegs = new ItemStack(Item.BEEKEEPER_LEGGINGS.getMaterialType());
 				ItemMeta blMeta = beeLegs.getItemMeta();
-				blMeta.setCustomModelData(Items.BEEKEEPER_LEGGINGS.getModelData());
+				blMeta.setCustomModelData(Item.BEEKEEPER_LEGGINGS.getModelData());
 				blMeta.setDisplayName(Utils.getColoredString(lang.bee_legs_name));
 				blMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
 				((LeatherArmorMeta) blMeta).setColor(Color.WHITE);
@@ -752,9 +753,9 @@ public class ItemManager {
 				return beeLegs;
 
 			case BEEKEEPER_BOOTS:
-				ItemStack beeBoots = new ItemStack(Items.BEEKEEPER_BOOTS.getMaterialType());
+				ItemStack beeBoots = new ItemStack(Item.BEEKEEPER_BOOTS.getMaterialType());
 				ItemMeta bbMeta = beeBoots.getItemMeta();
-				bbMeta.setCustomModelData(Items.BEEKEEPER_BOOTS.getModelData());
+				bbMeta.setCustomModelData(Item.BEEKEEPER_BOOTS.getModelData());
 				bbMeta.setDisplayName(Utils.getColoredString(lang.bee_boots_name));
 				bbMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
 				((LeatherArmorMeta) bbMeta).setColor(Color.WHITE);
@@ -762,9 +763,9 @@ public class ItemManager {
 				return beeBoots;
 
             case SUSPICIOUS_MEAT:
-                ItemStack suspicious_meat = new ItemStack(Items.SUSPICIOUS_MEAT.getMaterialType());
+                ItemStack suspicious_meat = new ItemStack(Item.SUSPICIOUS_MEAT.getMaterialType());
                 SuspiciousStewMeta suspicious_meat_meta = ((SuspiciousStewMeta) suspicious_meat.getItemMeta());
-                suspicious_meat_meta.setCustomModelData(Items.SUSPICIOUS_MEAT.getModelData());
+                suspicious_meat_meta.setCustomModelData(Item.SUSPICIOUS_MEAT.getModelData());
                 suspicious_meat_meta.addCustomEffect(getRandomPotionEffect(), false);
                 suspicious_meat_meta.setDisplayName(Utils.getColoredString(lang.suspicious_meat));
                 suspicious_meat.setItemMeta(suspicious_meat_meta);
@@ -776,7 +777,7 @@ public class ItemManager {
 	}
 
 	/**
-	 * Compare an ItemStack with a custom {@link Items}
+	 * Compare an ItemStack with a custom {@link Item}
 	 * <p>
 	 * <b>NOTE:</b> Will only compare a custom item's {@link Material} and CustomModelData tag
 	 * </p>
@@ -785,7 +786,7 @@ public class ItemManager {
 	 * @param type      The custom item enum to check
 	 * @return Whether these two items match or not
 	 */
-	public static boolean compare(ItemStack itemStack, Items type) {
+	public static boolean compare(ItemStack itemStack, Item type) {
 		if (itemStack.getType() == type.getMaterialType()) {
 			if (itemStack.getItemMeta() != null && itemStack.getItemMeta().hasCustomModelData()) {
 				return itemStack.getItemMeta().getCustomModelData() == type.getModelData();
@@ -797,14 +798,14 @@ public class ItemManager {
 	}
 
 	/**
-	 * Compare an ItemStack with several custom {@link Items}
+	 * Compare an ItemStack with several custom {@link Item}
 	 *
 	 * @param itemStack The ItemStack to check
 	 * @param type      The custom item enums to check
 	 * @return Whether these items match or not
 	 */
-	public static boolean compare(ItemStack itemStack, Items... type) {
-		for (Items item : type) {
+	public static boolean compare(ItemStack itemStack, Item... type) {
+		for (Item item : type) {
 			if (compare(itemStack, item)) {
 				return true;
 			}
@@ -813,12 +814,12 @@ public class ItemManager {
 	}
 
     /**
-     * Apply the attributes from an {@link Items} to an existing ItemStack
+     * Apply the attributes from an {@link Item} to an existing ItemStack
      *
      * @param itemStack Current ItemStack to apply attributes to
      * @param items Item to grab data from
      */
-	public static void applyAttribute(ItemStack itemStack, Items items) {
+	public static void applyAttribute(ItemStack itemStack, Item items) {
 	    ItemStack from = items.getItem();
 	    ItemMeta metaTo = itemStack.getItemMeta();
 	    ItemMeta metaFrom = from.getItemMeta();

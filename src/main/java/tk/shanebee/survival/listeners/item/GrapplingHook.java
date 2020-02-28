@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
@@ -39,7 +39,7 @@ public class GrapplingHook implements Listener {
 			p.getInventory().getItemInOffHand();
 			if (offHand.getType() == Material.AIR) {
 
-				if (ItemManager.compare(mainHand, Items.GRAPPLING_HOOK)) {
+				if (ItemManager.compare(mainHand, Item.GRAPPLING_HOOK)) {
 					if (event.getState() == State.IN_GROUND) {
 						List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
 
@@ -108,7 +108,7 @@ public class GrapplingHook implements Listener {
 				}
 			} else {
 				event.setCancelled(true);
-				if (ItemManager.compare(mainHand, Items.GRAPPLING_HOOK))
+				if (ItemManager.compare(mainHand, Item.GRAPPLING_HOOK))
 					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_off_hand));
 				else
 					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_off_hand));
@@ -116,7 +116,7 @@ public class GrapplingHook implements Listener {
 			}
 		} else {
 			event.setCancelled(true);
-			if (ItemManager.compare(offHand, Items.GRAPPLING_HOOK))
+			if (ItemManager.compare(offHand, Item.GRAPPLING_HOOK))
 				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_main_hand));
 			else
 				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_main_hand));

@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.managers.Items;
+import tk.shanebee.survival.item.Item;
 
 /**
  * Called when a player shoots a recurved bow/crossbow
@@ -16,10 +16,10 @@ public class ShootRecurvedBowEvent extends Event implements Cancellable {
 	private static HandlerList handlers = new HandlerList();
 	private Player player;
 	private ItemStack itemStack;
-	private Items item;
+	private Item item;
 	private boolean isCancelled;
 
-	public ShootRecurvedBowEvent(Player player, ItemStack itemStack, Items item) {
+	public ShootRecurvedBowEvent(Player player, ItemStack itemStack, Item item) {
 		this.player = player;
 		this.itemStack = itemStack;
 		this.item = item;
@@ -41,9 +41,9 @@ public class ShootRecurvedBowEvent extends Event implements Cancellable {
 	}
 
 	/** Get the custom Items type the player shoot
-	 * @return The player's main hand {@link Items} type
+	 * @return The player's main hand {@link Item} type
 	 */
-	public Items getItem() {
+	public Item getItem() {
 		return this.item;
 	}
 
