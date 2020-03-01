@@ -94,12 +94,6 @@ public class Survival extends JavaPlugin implements Listener {
 			}
 		} else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
 
-		if (config.MECHANICS_ALERT_INTERVAL <= 0) {
-			Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "AlertInterval cannot be zero or below! Plugin disabled.");
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
-		}
-
 		Rates.add(config.DROP_RATE_FLINT);
 		Rates.add(config.DROP_RATE_STICK);
 		Rates.add(config.MECHANICS_THIRST_DRAIN_RATE);
