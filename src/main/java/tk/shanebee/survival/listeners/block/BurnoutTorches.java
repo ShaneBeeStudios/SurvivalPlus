@@ -10,6 +10,7 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -88,11 +89,17 @@ public class BurnoutTorches implements Listener {
         torchManager.burnoutTorch(block);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     private void onPlaceTorch(BlockPlaceEvent e) {
+        if (e.isCancelled()) { // If another plugin cancels these, lets get outta here
+            return;
+        }
         Block block = e.getBlock();
         ItemStack mainHand = e.getItemInHand();
-        // TODO add check for creative mode (don't burnout creative torches?!?!)
+        GameMode mode = e.getPlayer().getGameMode();
+        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
+            return;
+        }
         if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (!ItemManager.compare(mainHand, Items.PERSISTENT_TORCH)) {
                 torchManager.burnoutTorch(block);
@@ -101,13 +108,16 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     private void onBreakTorch(BlockBreakEvent e) {
-        Player player = e.getPlayer();
+        if (e.isCancelled()) { // If another plugin cancels these, lets get outta here
+            return;
+        }
         Block block = e.getBlock();
         Location loc = e.getBlock().getLocation();
+        GameMode mode = e.getPlayer().getGameMode();
         assert loc.getWorld() != null;
-        if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) {
+        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
             if (torchManager.isNonPersistent(block)) {
                 torchManager.unsetNonPersistent(block);
             }
