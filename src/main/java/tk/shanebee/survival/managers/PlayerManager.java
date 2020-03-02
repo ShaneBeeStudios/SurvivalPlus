@@ -65,7 +65,7 @@ public class PlayerManager implements Listener {
 		int hunger = plugin.getSurvivalConfig().MECHANICS_HUNGER_START_AMOUNT;
 		setHunger(player, hunger);
 
-		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 0);
+		PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 20.0);
 		playerDataMap.put(uuid, playerData);
 		savePlayerData(playerData);
 	}
