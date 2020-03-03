@@ -7,6 +7,7 @@ softdepend:
    - PlaceholderAPI
    - Multiverse-Core
    - Oh_the_dungeons_youll_go
+   - WorldGuard
 commands:
    reload-survival:
       aliases: [survival-reload]
