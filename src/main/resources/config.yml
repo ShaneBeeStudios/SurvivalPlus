@@ -213,9 +213,12 @@ Mechanics:
     Respawn-Amount: 30
 
   # Players can set a waypoint to a location using a compass
-  CompassWaypoint: true
+  CompassWaypoint:
+    enabled: true
+    # Whether a player is able to set a point for each world
+    per-world: true
   # Players can eat a tropical fish to teleport to their waypoint
-  # (Clownfish was the old type thats why this is still here)
+  # (Clownfish was the old type that's why this is still here)
   Clownfish: true
 
   # Enables fermented skin recipes
