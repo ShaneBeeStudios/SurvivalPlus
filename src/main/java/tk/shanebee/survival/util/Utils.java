@@ -211,6 +211,8 @@ public class Utils {
 				.add(Material.CUT_RED_SANDSTONE)
 				.add(Material.SMOOTH_RED_SANDSTONE)
 				.add(Material.PRISMARINE)
+                .add(Material.PRISMARINE_BRICKS)
+                .add(Material.DARK_PRISMARINE)
 				.add(Material.NETHERRACK)
 				.add(Material.END_STONE)
 				.add(Material.END_STONE_BRICKS)
@@ -532,15 +534,13 @@ public class Utils {
 	 */
     public static boolean requiresPickaxe(Material material) {
         if (REQUIRES_PICKAXE.contains(material)) return true;
+        if (Utils.isStoneTypeBlock(material)) return true;
         if (Utils.isOreBlock(material)) return true;
         if (Utils.isNaturalOreBlock(material)) return true;
         if (Utils.isNonWoodDoor(material)) return true;
-        if (Utils.isNonWoodSlab(material)) return true;
-        if (Utils.isNonWoodStairs(material)) return true;
         if (Utils.isTerracotta(material)) return true;
         if (Utils.isGlazedTerracotta(material)) return true;
         if (Utils.isConcrete(material)) return true;
-        if (Utils.isStoneTypeBlock(material)) return true;
         if (Utils.isCookingBlock(material)) return true;
         if (Tag.WALLS.isTagged(material)) return true;
         if (Tag.ICE.isTagged(material)) return true;

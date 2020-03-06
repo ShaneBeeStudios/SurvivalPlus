@@ -128,6 +128,7 @@ public class Config {
 	public int MECHANICS_HUNGER_RESPAWN_AMOUNT;
 
 	public boolean MECHANICS_COMPASS_WAYPOINT;
+	public boolean MECHANICS_COMPASS_WAYPOINT_WORLDS;
 	public boolean MECHANICS_CLOWN_FISH;
 	public boolean MECHANICS_FERMENTED_SKIN;
 	public boolean MECHANICS_LIVING_SLIME;
@@ -361,7 +362,8 @@ public class Config {
 		this.MECHANICS_HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
 		this.MECHANICS_HUNGER_RESPAWN_AMOUNT = settings.getInt("Mechanics.Hunger.Respawn-Amount");
 
-		this.MECHANICS_COMPASS_WAYPOINT = settings.getBoolean("Mechanics.CompassWaypoint");
+		this.MECHANICS_COMPASS_WAYPOINT = settings.getBoolean("Mechanics.CompassWaypoint.enabled");
+		this.MECHANICS_COMPASS_WAYPOINT_WORLDS = settings.getBoolean("Mechanics.CompassWaypoint.per-world");
 		this.MECHANICS_CLOWN_FISH = settings.getBoolean("Mechanics.Clownfish");
 		this.MECHANICS_FERMENTED_SKIN = settings.getBoolean("Mechanics.FermentedSkin");
 		this.MECHANICS_LIVING_SLIME = settings.getBoolean("Mechanics.LivingSlime");
