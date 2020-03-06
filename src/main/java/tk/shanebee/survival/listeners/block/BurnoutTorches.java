@@ -4,12 +4,14 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -18,8 +20,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.BlockManager;
 import tk.shanebee.survival.util.Utils;
 
@@ -33,7 +35,7 @@ public class BurnoutTorches implements Listener {
     private final boolean PERSISTENT_TORCHES;
     private final boolean DROP_TORCH;
 
-    private BlockManager torchManager;
+    private final BlockManager torchManager;
 
     public BurnoutTorches(Survival plugin) {
         this.torchManager = plugin.getBlockManager();
@@ -60,6 +62,7 @@ public class BurnoutTorches implements Listener {
         Block block = e.getClickedBlock();
         if (block == null || (block.getType() != Material.REDSTONE_TORCH && block.getType() != Material.REDSTONE_WALL_TORCH))
             return;
+        if (!torchManager.isNonPersistent(block)) return;
         if (tool.getType() != Material.FLINT_AND_STEEL && !ItemManager.compare(tool, Item.FIRESTRIKER)) return;
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         e.setCancelled(true);
@@ -88,11 +91,17 @@ public class BurnoutTorches implements Listener {
         torchManager.burnoutTorch(block);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     private void onPlaceTorch(BlockPlaceEvent e) {
+        if (e.isCancelled()) { // If another plugin cancels these, lets get outta here
+            return;
+        }
         Block block = e.getBlock();
         ItemStack mainHand = e.getItemInHand();
-        // TODO add check for creative mode (don't burnout creative torches?!?!)
+        GameMode mode = e.getPlayer().getGameMode();
+        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
+            return;
+        }
         if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (!ItemManager.compare(mainHand, Item.PERSISTENT_TORCH)) {
                 torchManager.burnoutTorch(block);
@@ -101,18 +110,22 @@ public class BurnoutTorches implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     private void onBreakTorch(BlockBreakEvent e) {
-        Player player = e.getPlayer();
+        if (e.isCancelled()) { // If another plugin cancels these, lets get outta here
+            return;
+        }
         Block block = e.getBlock();
         Location loc = e.getBlock().getLocation();
+        GameMode mode = e.getPlayer().getGameMode();
         assert loc.getWorld() != null;
-        if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) {
+        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
             if (torchManager.isNonPersistent(block)) {
                 torchManager.unsetNonPersistent(block);
             }
             return;
         }
+        /*
         if (block.getType() == Material.REDSTONE_WALL_TORCH || block.getType() == Material.REDSTONE_TORCH) {
             if (((Lightable) block.getBlockData()).isLit()) return;
             e.setDropItems(false);
@@ -121,7 +134,7 @@ public class BurnoutTorches implements Listener {
         } else if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
             if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
                 e.setDropItems(false);
-                loc.getWorld().dropItemNaturally(loc, ItemManager.get(Item.PERSISTENT_TORCH));
+                loc.getWorld().dropItemNaturally(loc, ItemManager.get(Items.PERSISTENT_TORCH));
             } else {
                 torchManager.unsetNonPersistent(block);
                 if (!DROP_TORCH) {
@@ -129,7 +142,62 @@ public class BurnoutTorches implements Listener {
                     loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.STICK));
                 }
             }
+        } else {
+            for (BlockFace blockFace : BlockFace.values()) {
+                Block relative = block.getRelative(blockFace);
+                if (torchManager.isNonPersistent(relative)) {
+                    relative.setType(Material.AIR);
+                    dropTorch(relative);
+                }
+            }
         }
+         */
+        switch (block.getType()) {
+            case TORCH:
+            case WALL_TORCH:
+            case REDSTONE_TORCH:
+            case REDSTONE_WALL_TORCH:
+                if (dropTorch(block)) {
+                    e.setDropItems(false);
+                }
+                return;
+            default:
+                for (BlockFace blockFace : BlockFace.values()) {
+                    Block relative = block.getRelative(blockFace);
+                    if (torchManager.isNonPersistent(relative)) {
+                        if (dropTorch(relative)) {
+                            relative.setType(Material.AIR);
+                        }
+                    }
+                }
+        }
+    }
+
+    private boolean dropTorch(Block block) {
+        Location loc = block.getLocation();
+        World world = loc.getWorld();
+        if (world == null) return false;
+        Material mat = block.getType();
+        if (mat == Material.TORCH || mat == Material.WALL_TORCH) {
+            if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
+                world.dropItemNaturally(loc, Item.PERSISTENT_TORCH.getItem());
+            } else if (DROP_TORCH) {
+                //world.dropItemNaturally(loc, new ItemStack(Material.TORCH));
+                return false;
+            } else {
+                world.dropItemNaturally(loc, new ItemStack(Material.STICK));
+            }
+        } else if (mat == Material.REDSTONE_TORCH || mat == Material.REDSTONE_WALL_TORCH) {
+            if (torchManager.isNonPersistent(block)) {
+                world.dropItemNaturally(loc, new ItemStack(Material.STICK));
+            }
+        } else {
+            return false;
+        }
+        if (torchManager.isNonPersistent(block)) {
+            torchManager.unsetNonPersistent(block);
+        }
+        return true;
     }
 
 }

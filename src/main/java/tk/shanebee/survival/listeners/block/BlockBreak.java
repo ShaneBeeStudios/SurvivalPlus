@@ -272,7 +272,7 @@ public class BlockBreak implements Listener {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onTrample(PlayerInteractEvent event) {
 		if (event.isCancelled()) return;
 		if (!settings.BREAK_ONLY_WITH_SICKLE) return;

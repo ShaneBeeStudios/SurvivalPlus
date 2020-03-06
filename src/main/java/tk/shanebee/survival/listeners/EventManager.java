@@ -49,7 +49,7 @@ public class EventManager {
 		PluginManager pm = plugin.getServer().getPluginManager();
 		pm.registerEvents(this.plugin, this.plugin);
 		pm.registerEvents(new RecipeDiscovery(plugin), this.plugin);
-        pm.registerEvents(new PlayerDataListener(this.plugin), this.plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 
 		if (config.SURVIVAL_ENABLED) {
 			pm.registerEvents(new BlockBreak(plugin), this.plugin);
