@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -174,6 +175,18 @@ public class BurnoutTorches implements Listener {
                         }
                     }
                 }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    private void pistonExtend(BlockPistonExtendEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        for (Block block : event.getBlocks()) {
+            if (dropTorch(block)) {
+                block.setType(Material.AIR);
+            }
         }
     }
 
