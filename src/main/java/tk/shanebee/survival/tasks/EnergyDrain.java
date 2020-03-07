@@ -2,6 +2,8 @@ package tk.shanebee.survival.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -15,13 +17,14 @@ import tk.shanebee.survival.util.Utils;
 
 public class EnergyDrain extends BukkitRunnable {
 
-    private PlayerManager playerManager;
-    private Config config;
-    private Lang lang;
-    private double drainRate;
-    private double increaseRate;
-    private double absorb;
-    private double haste;
+    private final PlayerManager playerManager;
+    private final Config config;
+    private final Lang lang;
+    private final double drainRate;
+    private final double increaseRateBed;
+    private final double increaseRateChair;
+    private final double absorb;
+    private final double haste;
 
     public EnergyDrain(Survival plugin) {
         this.playerManager = plugin.getPlayerManager();
@@ -29,7 +32,8 @@ public class EnergyDrain extends BukkitRunnable {
         this.lang = plugin.getLang();
 
         this.drainRate = config.MECHANICS_ENERGY_DRAIN_RATE; // amount of energy to drain every 5 seconds
-        this.increaseRate = config.MECHANICS_ENERGY_REFRESH_RATE; // amount of energy to gain every 5 seconds of sleeping
+        this.increaseRateBed = config.MECHANICS_ENERGY_REFRESH_RATE_BED; // amount of energy to gain every 5 seconds of sleeping
+        this.increaseRateChair = config.MECHANICS_ENERGY_REFRESH_RATE_CHAIR; // amount of energy to gain every 5 seconds of sitting in chair
         this.absorb = 20 - (drainRate * 12); // Roughly 1 minute of absorption hearts after full energy
         this.haste = 20 - (drainRate * 25); // Roughly 2 minutes of haste after full energy
         this.runTaskTimer(plugin, 5 * 20, 5 * 20);
@@ -42,7 +46,9 @@ public class EnergyDrain extends BukkitRunnable {
             GameMode mode = player.getGameMode();
             if (mode == GameMode.SPECTATOR || mode == GameMode.CREATIVE) continue;
             if (player.isSleeping()) {
-                playerData.increaseEnergy(this.increaseRate);
+                playerData.increaseEnergy(this.increaseRateBed);
+            } else if (isSitting(player)) {
+                playerData.increaseEnergy(this.increaseRateChair);
             } else {
                 double oldLevel = playerData.getEnergy();
                 playerData.increaseEnergy(-this.drainRate);
@@ -107,32 +113,43 @@ public class EnergyDrain extends BukkitRunnable {
         double energy = playerData.getEnergy();
 
         if (energy <= 1) {
-            player.addPotionEffect(WITHER_100, true);
+            player.addPotionEffect(WITHER_100);
         } else if (energy <= 2.0) {
-            player.addPotionEffect(SICK_120, true);
-            player.addPotionEffect(NIGHT_120, true);
-            player.addPotionEffect(BLIND_120, true);
-            player.addPotionEffect(MINING_120_3, true);
-            player.addPotionEffect(SLOW_120, true);
+            player.addPotionEffect(SICK_120);
+            player.addPotionEffect(NIGHT_120);
+            player.addPotionEffect(BLIND_120);
+            player.addPotionEffect(MINING_120_3);
+            player.addPotionEffect(SLOW_120);
         } else if (energy <= 3.5) {
-            player.addPotionEffect(SICK_40, true);
-            player.addPotionEffect(NIGHT_10, true);
-            player.addPotionEffect(BLIND_50, true);
-            player.addPotionEffect(MINING_120_3, true);
+            player.addPotionEffect(SICK_40);
+            player.addPotionEffect(NIGHT_10);
+            player.addPotionEffect(BLIND_50);
+            player.addPotionEffect(MINING_120_3);
         } else if (energy <= 6.5) {
-            player.addPotionEffect(MINING_120_3, true);
+            player.addPotionEffect(MINING_120_3);
         } else if (energy < 8) {
-            player.addPotionEffect(MINING_120_2, true);
+            player.addPotionEffect(MINING_120_2);
         } else if (energy < 10.0) {
-            player.addPotionEffect(MINING_120, true);
+            player.addPotionEffect(MINING_120);
         } else if (energy > this.absorb) {
             if (!player.hasPotionEffect(ABSORPTION_500.getType())) {
-                player.addPotionEffect(ABSORPTION_500, true);
+                player.addPotionEffect(ABSORPTION_500);
             }
-            player.addPotionEffect(HASTE_120, true);
+            player.addPotionEffect(HASTE_120);
         } else if (energy > this.haste) {
-            player.addPotionEffect(HASTE_120, true);
+            player.addPotionEffect(HASTE_120);
         }
+    }
+
+    private boolean isSitting(Player player) {
+        if (!config.MECHANICS_CHAIRS_ENABLED) return false;
+        Entity vehicle = player.getVehicle();
+        if (vehicle instanceof ArmorStand) {
+            String name = vehicle.getCustomName();
+            return name != null && name.equalsIgnoreCase("Chair");
+
+        }
+        return false;
     }
 
 }
