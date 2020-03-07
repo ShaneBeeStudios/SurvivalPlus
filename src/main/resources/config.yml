@@ -81,22 +81,6 @@ Mechanics:
   # When enabled the night will not skip to day when players sleep
   Prevent-Night-Skip: false
 
-  # Players will have an energy level out of 20, as it drops, players will get weak and suffer some bad effects
-  Energy:
-    # With this enabled, players will need to sleep often or risk losing energy
-    enabled: true
-    # Warn the player via message when energy starts dropping below 10
-    warning: true
-    # The amount of energy a player loses every 5 seconds of gameplay
-    drain-rate: 0.015 # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
-    # Every 5 seconds a player spends in bed, the level of energy to increase
-    sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
-    # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
-    # Amount to drop per exhaustion reset (when the player's hunger bar drops) (set to 0 to disable)
-    exhaustion: 0.15
-    # Enables coffee recipes and effects (Drink coffee to regain energy)
-    coffee: true
-
   # When enabled, players will slow down when wearing heavy armor such as diamond or gold armor
   SlowArmor: true
   # Enables recipes for reinforced leather armor
@@ -117,6 +101,7 @@ Mechanics:
 
   # Shows the players different status levels in a scoreboard
   StatusScoreboard: true
+  # Interval for alert messages [in seconds] (Currently used to warn players when thirst/nutrients are low)
   AlertInterval: 20
 
   # Applies hunger to players when eating raw meat
@@ -131,7 +116,7 @@ Mechanics:
   # Eating cookies will boost a player's health
   CookieHealthBoost: true
 
-  # Eating beetboots will boost a player's strength
+  # Eating beetroots will boost a player's strength
   BeetrootStrength: true
 
   # Players will need to eat a different variety of foods to stay nourished
@@ -210,6 +195,22 @@ Mechanics:
       # Only used if PurifyWater is disabled
       water: 18
       honey-bottle: 16
+
+  # Players will have an energy level out of 20, as it drops, players will get weak and suffer some bad effects
+  Energy:
+    # With this enabled, players will need to sleep often or risk losing energy
+    enabled: true
+    # Warn the player via message when energy starts dropping below 10
+    warning: true
+    # The amount of energy a player loses every 5 seconds of gameplay
+    drain-rate: 0.015 # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
+    # Every 5 seconds a player spends in bed, the level of energy to increase
+    sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
+    # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
+    # Amount to drop per exhaustion reset (when the player's hunger bar drops) (set to 0 to disable)
+    exhaustion: 0.15
+    # Enables coffee recipes and effects (Drink coffee to regain energy)
+    coffee: true
 
   Hunger:
     # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)

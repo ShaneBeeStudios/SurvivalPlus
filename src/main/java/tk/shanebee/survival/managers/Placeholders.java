@@ -88,7 +88,7 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's energy level (as a number)
         if (identifier.equalsIgnoreCase("player_energy")) {
-            return String.valueOf(playerData.getEnergy());
+            return String.format("%.2f", playerData.getEnergy());
         }
         // Shows player's energy level (as a colored bar)
         if (identifier.equalsIgnoreCase("player_energy_bar")) {
