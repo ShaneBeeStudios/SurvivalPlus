@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -119,12 +120,6 @@ public class BurnoutTorches implements Listener {
         Location loc = e.getBlock().getLocation();
         GameMode mode = e.getPlayer().getGameMode();
         assert loc.getWorld() != null;
-        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
-            if (torchManager.isNonPersistent(block)) {
-                torchManager.unsetNonPersistent(block);
-            }
-            return;
-        }
         /*
         if (block.getType() == Material.REDSTONE_WALL_TORCH || block.getType() == Material.REDSTONE_TORCH) {
             if (((Lightable) block.getBlockData()).isLit()) return;
@@ -157,6 +152,12 @@ public class BurnoutTorches implements Listener {
             case WALL_TORCH:
             case REDSTONE_TORCH:
             case REDSTONE_WALL_TORCH:
+                if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
+                    if (torchManager.isNonPersistent(block)) {
+                        torchManager.unsetNonPersistent(block);
+                    }
+                    return;
+                }
                 if (dropTorch(block)) {
                     e.setDropItems(false);
                 }
@@ -165,11 +166,27 @@ public class BurnoutTorches implements Listener {
                 for (BlockFace blockFace : BlockFace.values()) {
                     Block relative = block.getRelative(blockFace);
                     if (torchManager.isNonPersistent(relative)) {
+                        if (mode != GameMode.SURVIVAL && mode != GameMode.ADVENTURE) {
+                            torchManager.unsetNonPersistent(relative);
+                            continue;
+                        }
                         if (dropTorch(relative)) {
                             relative.setType(Material.AIR);
                         }
                     }
                 }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    private void pistonExtend(BlockPistonExtendEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+        for (Block block : event.getBlocks()) {
+            if (dropTorch(block)) {
+                block.setType(Material.AIR);
+            }
         }
     }
 
@@ -182,7 +199,6 @@ public class BurnoutTorches implements Listener {
             if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
                 world.dropItemNaturally(loc, Item.PERSISTENT_TORCH.getItem());
             } else if (DROP_TORCH) {
-                //world.dropItemNaturally(loc, new ItemStack(Material.TORCH));
                 return false;
             } else {
                 world.dropItemNaturally(loc, new ItemStack(Material.STICK));
@@ -190,6 +206,8 @@ public class BurnoutTorches implements Listener {
         } else if (mat == Material.REDSTONE_TORCH || mat == Material.REDSTONE_WALL_TORCH) {
             if (torchManager.isNonPersistent(block)) {
                 world.dropItemNaturally(loc, new ItemStack(Material.STICK));
+            } else {
+                return false;
             }
         } else {
             return false;

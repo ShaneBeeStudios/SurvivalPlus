@@ -59,7 +59,8 @@ public class Config {
     public boolean MECHANICS_ENERGY_ENABLED;
     public boolean MECHANICS_ENERGY_WARNING;
     public double MECHANICS_ENERGY_DRAIN_RATE;
-    public double MECHANICS_ENERGY_REFRESH_RATE;
+    public double MECHANICS_ENERGY_REFRESH_RATE_BED;
+    public double MECHANICS_ENERGY_REFRESH_RATE_CHAIR;
     public double MECHANICS_ENERGY_EXHAUSTION;
 	public boolean MECHANICS_ENERGY_COFFEE_ENABLED;
 
@@ -292,7 +293,8 @@ public class Config {
 		this.MECHANICS_ENERGY_ENABLED = settings.getBoolean("Mechanics.Energy.enabled");
 		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
-		this.MECHANICS_ENERGY_REFRESH_RATE = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
+		this.MECHANICS_ENERGY_REFRESH_RATE_BED = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
+        this.MECHANICS_ENERGY_REFRESH_RATE_CHAIR = settings.getDouble("Mechanics.Energy.chair-refresh-rate");
 		this.MECHANICS_ENERGY_EXHAUSTION = settings.getDouble("Mechanics.Energy.exhaustion");
 		this.MECHANICS_ENERGY_COFFEE_ENABLED = settings.getBoolean("Mechanics.Energy.coffee");
 

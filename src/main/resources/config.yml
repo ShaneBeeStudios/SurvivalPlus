@@ -206,6 +206,9 @@ Mechanics:
     drain-rate: 0.015 # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
     # Every 5 seconds a player spends in bed, the level of energy to increase
     sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
+    # Every 5 seconds a player spends sitting in a chair, the level of energy to increase
+    # (Will only work if chairs are enabled)
+    chair-refresh-rate: 0.25 # Default (0.41) equivalent to 3 levels in 1 minute
     # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
     # Amount to drop per exhaustion reset (when the player's hunger bar drops) (set to 0 to disable)
     exhaustion: 0.15
