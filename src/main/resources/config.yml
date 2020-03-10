@@ -188,13 +188,16 @@ Mechanics:
       cold-milk: 15
       hot-milk: 10
       milk-bucket: 30
+      honey-bottle: 16
       # Only used if PurifyWater is enabled
       dirty-water: 13
       clean-water: 18
       purified-water: 23
+      # This can be used for any other water bottle (such as custom ones or just vanilla water bottles)
+      # If you do not want players to get thirst from other water bottles leave this at 0
+      other-water: 0
       # Only used if PurifyWater is disabled
       water: 18
-      honey-bottle: 16
 
   # Players will have an energy level out of 20, as it drops, players will get weak and suffer some bad effects
   Energy:

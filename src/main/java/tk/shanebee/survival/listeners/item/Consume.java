@@ -2,10 +2,12 @@ package tk.shanebee.survival.listeners.item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -28,10 +30,10 @@ import java.util.Random;
 
 public class Consume implements Listener {
 
-	private Survival plugin;
-	private Config config;
-	private Lang lang;
-	private PlayerManager playerManager;
+	private final Survival plugin;
+	private final Config config;
+	private final Lang lang;
+	private final PlayerManager playerManager;
 
 	public Consume(Survival plugin) {
 		this.plugin = plugin;
@@ -79,6 +81,8 @@ public class Consume implements Listener {
 						} else if (ItemManager.compare(item, Item.WATER_BOWL)) {
 						    event.setCancelled(true);
 						    change = handleWaterBowl(player);
+                        } else {
+						    change = config.MECHANICS_THIRST_REP_OTHER_WATER;
                         }
 					}
 				} else {
@@ -130,6 +134,22 @@ public class Consume implements Listener {
             }
         }
         return change;
+    }
+
+    @EventHandler //if player catches a water bottle/potion give them dirty water instead
+    private void onFish(PlayerFishEvent event) {
+	    if (!config.MECHANICS_THIRST_PURIFY_WATER) return;
+	    if (event.isCancelled()) return;
+	    if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
+            Entity caught = event.getCaught();
+            if (caught instanceof org.bukkit.entity.Item) {
+                org.bukkit.entity.Item item = ((org.bukkit.entity.Item) caught);
+                ItemStack stack = item.getItemStack();
+                if (stack.getType() == Material.POTION && checkWaterBottle(stack)) {
+                    item.setItemStack(Item.CLEAN_WATER.getItem());
+                }
+            }
+        }
     }
 
 	@EventHandler

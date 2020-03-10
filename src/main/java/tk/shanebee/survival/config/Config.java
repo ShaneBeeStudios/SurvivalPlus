@@ -124,6 +124,7 @@ public class Config {
 	public int MECHANICS_THIRST_REP_MILK_BUCKET;
 	public int MECHANICS_THIRST_REP_WATER;
     public int MECHANICS_THIRST_REP_HONEY_BOTTLE;
+    public int MECHANICS_THIRST_REP_OTHER_WATER;
 
 	public int MECHANICS_HUNGER_START_AMOUNT;
 	public int MECHANICS_HUNGER_RESPAWN_AMOUNT;
@@ -360,6 +361,7 @@ public class Config {
 		this.MECHANICS_THIRST_REP_MILK_BUCKET = settings.getInt("Mechanics.Thirst.Replenish-Level.milk-bucket");
 		this.MECHANICS_THIRST_REP_WATER = settings.getInt("Mechanics.Thirst.Replenish-Level.water");
         this.MECHANICS_THIRST_REP_HONEY_BOTTLE = settings.getInt("Mechanics.Thirst.Replenish-Level.honey-bottle");
+        this.MECHANICS_THIRST_REP_OTHER_WATER = settings.getInt("Mechanics.Thirst.Replenish-Level.other-water");
 
 		this.MECHANICS_HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
 		this.MECHANICS_HUNGER_RESPAWN_AMOUNT = settings.getInt("Mechanics.Hunger.Respawn-Amount");
