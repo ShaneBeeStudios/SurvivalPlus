@@ -12,7 +12,7 @@ MultiWorld:
   # Enable the SurvivalPlus resource pack for players
   EnableResourcePack: true
   # The link to the pack, you can put a custom link here if need be
-  ResourcePackURL: https://www.dropbox.com/s/kg17cg9eoa2fvfx/SP-1.14v5.zip?dl=1
+  ResourcePackURL: https://www.dropbox.com/s/fq6or9vvcup7wvd/SP-1.14v6.zip?dl=1
   # Notify players when they log in if they deny the resource pack
   NotifyMessage: true
 
