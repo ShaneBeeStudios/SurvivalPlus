@@ -56,9 +56,9 @@ public enum Nutrition {
 	ROTTEN_FLESH(0, 25, 25, Material.ROTTEN_FLESH),
 	MILK_BUCKET(0, 250, 0, Material.MILK_BUCKET);
 
-	private int carbs;
-	private int proteins;
-	private int vitamins;
+	private final int carbs;
+	private final int proteins;
+	private final int vitamins;
 	private Material material = null;
 	private Item item = null;
 

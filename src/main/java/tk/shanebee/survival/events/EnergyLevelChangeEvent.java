@@ -12,9 +12,9 @@ import org.bukkit.event.HandlerList;
 public class EnergyLevelChangeEvent extends Event implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
-	private Player player;
-	private double changed;
-	private double level;
+	private final Player player;
+	private final double changed;
+	private final double level;
 	private boolean isCancelled;
 
 	public EnergyLevelChangeEvent(Player player, double changed, double level) {

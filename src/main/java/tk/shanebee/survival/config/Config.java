@@ -12,10 +12,10 @@ import java.util.List;
 
 public class Config {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private FileConfiguration settings;
 	private File configFile;
-	private String prefix;
+	private final String prefix;
 
 	public String LANG;
 

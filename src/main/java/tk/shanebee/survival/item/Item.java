@@ -142,7 +142,7 @@ public enum Item {
          */
         LEGENDARY(BLAZE_SWORD, OBSIDIAN_MACE, VALKYRIES_AXE, ENDER_GIANT_BLADE, QUARTZ_PICKAXE);
 
-        private Item[] items;
+        private final Item[] items;
 
         Tags(Item... items) {
             this.items = items;

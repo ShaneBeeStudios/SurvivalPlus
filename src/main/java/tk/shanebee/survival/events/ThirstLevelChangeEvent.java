@@ -12,9 +12,9 @@ import org.bukkit.event.HandlerList;
 public class ThirstLevelChangeEvent extends Event implements Cancellable {
 
 	private final static HandlerList handlers = new HandlerList();
-	private Player player;
-	private int thirst;
-	private int changed;
+	private final Player player;
+	private final int thirst;
+	private final int changed;
 	private boolean isCancelled;
 
 	public ThirstLevelChangeEvent(Player player, int changed, int thirst) {

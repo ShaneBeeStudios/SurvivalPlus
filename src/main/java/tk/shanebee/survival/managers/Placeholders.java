@@ -9,8 +9,8 @@ import tk.shanebee.survival.data.PlayerData;
 @SuppressWarnings("unused")
 public class Placeholders extends PlaceholderExpansion {
 
-    private Survival plugin;
-    private PlayerManager playerManager;
+    private final Survival plugin;
+    private final PlayerManager playerManager;
 
     public Placeholders(Survival plugin) {
         this.plugin = plugin;

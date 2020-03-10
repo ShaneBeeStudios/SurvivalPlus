@@ -15,9 +15,9 @@ import tk.shanebee.survival.util.Utils;
 
 public class Heal implements CommandExecutor {
 
-    private Survival plugin;
-    private Config config;
-    private Lang lang;
+    private final Survival plugin;
+    private final Config config;
+    private final Lang lang;
 
     public Heal(Survival plugin) {
         this.plugin = plugin;

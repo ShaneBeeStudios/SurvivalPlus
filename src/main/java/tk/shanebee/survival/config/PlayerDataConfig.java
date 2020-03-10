@@ -4,21 +4,18 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
-import tk.shanebee.survival.managers.PlayerManager;
 
 import java.io.File;
 import java.io.IOException;
 
 public class PlayerDataConfig {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private File playerDirectory = null;
-	private PlayerManager playerManager;
 
-	public PlayerDataConfig(Survival plugin) {
+    public PlayerDataConfig(Survival plugin) {
 		this.plugin = plugin;
 		loadPlayerDirectory();
-		this.playerManager = plugin.getPlayerManager();
 	}
 
 	private void loadPlayerDirectory() {

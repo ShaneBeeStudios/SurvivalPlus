@@ -3,7 +3,6 @@ package tk.shanebee.survival.managers;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.tasks.Healthboard;
 
 import java.util.HashMap;
@@ -12,13 +11,11 @@ import java.util.UUID;
 
 public class ScoreBoardManager {
 
-    private Survival plugin;
-    private Config config;
-    private Map<UUID, Healthboard> playerBoards = new HashMap<>();
+    private final Survival plugin;
+    private final Map<UUID, Healthboard> playerBoards = new HashMap<>();
 
     public ScoreBoardManager(Survival plugin) {
         this.plugin = plugin;
-        this.config = plugin.getSurvivalConfig();
     }
 
     /** Sets up a scoreboard for a player

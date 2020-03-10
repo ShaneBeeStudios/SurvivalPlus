@@ -10,7 +10,7 @@ import tk.shanebee.survival.item.Item;
 
 public class Valkyrie extends BukkitRunnable {
 
-	private Survival plugin;
+	private final Survival plugin;
 
 	public Valkyrie(Survival plugin) {
 		this.plugin = plugin;

@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class BlazeSwordSound extends BukkitRunnable {
 
-	private Survival plugin;
+	private final Survival plugin;
 
 	public BlazeSwordSound(Survival plugin) {
 		this.plugin = plugin;

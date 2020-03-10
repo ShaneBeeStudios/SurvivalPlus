@@ -12,7 +12,7 @@ import tk.shanebee.survival.item.Item;
 
 public class BlazeSwordEffects extends BukkitRunnable {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private final PotionEffect FLAME;
 
 	public BlazeSwordEffects(Survival plugin) {

@@ -13,8 +13,8 @@ import tk.shanebee.survival.config.Lang;
 
 class NutrientsAlert extends BukkitRunnable {
 
-	private Lang lang;
-	private PlayerManager playerManager;
+	private final Lang lang;
+	private final PlayerManager playerManager;
 
 	NutrientsAlert(Survival plugin) {
 		this.lang = plugin.getLang();

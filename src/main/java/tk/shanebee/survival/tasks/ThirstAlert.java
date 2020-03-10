@@ -12,8 +12,8 @@ import tk.shanebee.survival.config.Lang;
 
 class ThirstAlert extends BukkitRunnable {
 
-	private PlayerManager playerManager;
-	private Lang lang;
+	private final PlayerManager playerManager;
+	private final Lang lang;
 
 	ThirstAlert(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();

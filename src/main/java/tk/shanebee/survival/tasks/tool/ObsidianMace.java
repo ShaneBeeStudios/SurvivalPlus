@@ -12,7 +12,7 @@ import tk.shanebee.survival.item.Item;
 
 public class ObsidianMace extends BukkitRunnable {
 
-	private Survival plugin;
+	private final Survival plugin;
 
 	public ObsidianMace(Survival plugin) {
 		this.plugin = plugin;

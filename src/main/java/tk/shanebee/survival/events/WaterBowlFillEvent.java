@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 @SuppressWarnings("unused")
 public class WaterBowlFillEvent extends Event implements Cancellable {
 
-	private static HandlerList handlers = new HandlerList();
-	private ItemStack item;
+	private static final HandlerList handlers = new HandlerList();
+	private final ItemStack item;
 	private boolean isCancelled;
 
 	public WaterBowlFillEvent(ItemStack item) {

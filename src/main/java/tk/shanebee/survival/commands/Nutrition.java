@@ -11,7 +11,7 @@ import tk.shanebee.survival.util.Utils;
 
 public class Nutrition implements CommandExecutor {
 
-	private NutritionGUI gui;
+	private final NutritionGUI gui;
 
 	public Nutrition(Survival plugin) {
 		this.gui = new NutritionGUI(plugin);

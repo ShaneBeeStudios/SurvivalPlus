@@ -33,8 +33,8 @@ public class Survival extends JavaPlugin implements Listener {
 	private static Survival instance;
 
 	// Lists & Maps
-	private List<Double> Rates = new ArrayList<>();
-	private List<Material> chairBlocks = new ArrayList<>();
+	private final List<Double> Rates = new ArrayList<>();
+	private final List<Material> chairBlocks = new ArrayList<>();
 	private List<Player> usingPlayers = new ArrayList<>();
 	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
@@ -143,12 +143,9 @@ public class Survival extends JavaPlugin implements Listener {
 		// This is a helper for other plugins that wipe custom recipes - secret hidden config
 		if (config.RECIPE_DELAY > 0) {
 		    Utils.sendColoredConsoleMsg(prefix + "&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
-		    Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-                @Override
-                public void run() {
-                    recipes.loadCustomRecipes();
-                    Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
-                }
+		    Bukkit.getScheduler().runTaskLater(this, () -> {
+                recipes.loadCustomRecipes();
+                Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
             }, config.RECIPE_DELAY * 20);
 
         } else {

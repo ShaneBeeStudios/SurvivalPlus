@@ -14,8 +14,8 @@ import tk.shanebee.survival.listeners.block.SnowGeneration;
 
 public class SnowGen implements CommandExecutor {
 
-	private Survival plugin;
-	private String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
+	private final Survival plugin;
+	private final String prefix = ChatColor.translateAlternateColorCodes('&', "&7[&3SurvivalPlus&7] ");
 
 	public SnowGen(Survival plugin) {
 		this.plugin = plugin;

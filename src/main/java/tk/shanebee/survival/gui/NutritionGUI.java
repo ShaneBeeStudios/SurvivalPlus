@@ -21,7 +21,7 @@ import java.util.List;
 public class NutritionGUI implements InventoryHolder, Listener {
 
 	private final Inventory inv;
-	private Lang lang;
+	private final Lang lang;
 
 	public NutritionGUI(Survival plugin) {
 		this.lang = plugin.getLang();

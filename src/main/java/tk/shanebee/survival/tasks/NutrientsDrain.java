@@ -12,7 +12,7 @@ import tk.shanebee.survival.managers.StatusManager;
 
 class NutrientsDrain extends BukkitRunnable {
 
-	private PlayerManager playerManager;
+	private final PlayerManager playerManager;
 
 	NutrientsDrain(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();

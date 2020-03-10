@@ -9,7 +9,7 @@ public enum Nutrient {
 	PROTEIN("Protein"),
 	SALTS("Salts");
 
-	private String name;
+	private final String name;
 
 	Nutrient(String nutrient){
 		name = nutrient;

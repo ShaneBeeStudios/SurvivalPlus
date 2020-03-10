@@ -35,7 +35,7 @@ import tk.shanebee.survival.util.Utils;
  */
 public class EventManager {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private final int LOCAL_CHAT;
 	private final Config config;
 

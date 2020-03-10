@@ -23,7 +23,7 @@ import java.util.List;
 @SuppressWarnings("NullableProblems")
 public class GiveItem implements CommandExecutor, TabCompleter {
 
-    private Lang lang;
+    private final Lang lang;
 
     public GiveItem(Survival plugin) {
         this.lang = plugin.getLang();
@@ -39,7 +39,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
             int amount = 1;
             try {
                 if (args.length == 3) {
-                    amount = Integer.valueOf(args[2]);
+                    amount = Integer.parseInt(args[2]);
                 }
             } catch (IllegalArgumentException ignore) {}
             try {

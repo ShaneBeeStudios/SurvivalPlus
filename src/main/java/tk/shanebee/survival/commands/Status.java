@@ -20,9 +20,9 @@ import java.util.List;
 @SuppressWarnings("NullableProblems")
 public class Status implements CommandExecutor, TabCompleter {
 
-	private Config config;
-	private Lang lang;
-	private PlayerManager playerManager;
+	private final Config config;
+	private final Lang lang;
+	private final PlayerManager playerManager;
 
 	public Status(Survival plugin) {
 		this.config = plugin.getSurvivalConfig();

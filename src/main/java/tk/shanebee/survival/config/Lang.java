@@ -16,9 +16,8 @@ import java.util.List;
 
 public class Lang {
 
-    private Survival plugin;
-    private String language;
-    private String lang_yml;
+    private final Survival plugin;
+    private final String lang_yml;
 
     public String prefix;
     public String no_perm;
@@ -202,7 +201,6 @@ public class Lang {
     public Lang(Survival main, String language) {
         this.plugin = main;
         this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
-        this.language = language;
     }
 
     public void loadLangFile(CommandSender sender) {

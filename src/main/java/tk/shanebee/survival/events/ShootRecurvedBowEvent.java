@@ -14,9 +14,9 @@ import tk.shanebee.survival.item.Item;
 public class ShootRecurvedBowEvent extends Event implements Cancellable {
 
 	private static HandlerList handlers = new HandlerList();
-	private Player player;
-	private ItemStack itemStack;
-	private Item item;
+	private final Player player;
+	private final ItemStack itemStack;
+	private final Item item;
 	private boolean isCancelled;
 
 	public ShootRecurvedBowEvent(Player player, ItemStack itemStack, Item item) {

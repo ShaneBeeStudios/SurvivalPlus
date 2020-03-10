@@ -97,9 +97,9 @@ public class MerchantManager {
         STONE_SICKLE(Material.STONE_HOE, Item.STONE_SICKLE),
         DIAMOND_SICKLE(Material.DIAMOND_HOE, Item.DIAMOND_SICKLE);
 
-        private Material material;
-        private Item item;
-        private static Map<Material, Recipe> recipeByMaterialMap;
+        private final Material material;
+        private final Item item;
+        private static final Map<Material, Recipe> recipeByMaterialMap;
 
         static {
             recipeByMaterialMap = new HashMap<>();

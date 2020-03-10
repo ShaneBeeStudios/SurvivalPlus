@@ -10,7 +10,7 @@ import tk.shanebee.survival.item.Item;
 
 public class QuartzPickaxe extends BukkitRunnable {
 
-	private Survival plugin;
+	private final Survival plugin;
 
 	public QuartzPickaxe(Survival plugin) {
 		this.plugin = plugin;

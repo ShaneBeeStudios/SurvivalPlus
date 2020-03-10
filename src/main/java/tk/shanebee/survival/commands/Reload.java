@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class Reload implements CommandExecutor {
 
-	private Survival plugin;
-	private Lang lang;
+	private final Survival plugin;
+	private final Lang lang;
 
 	public Reload(Survival plugin) {
 		this.plugin = plugin;

@@ -10,7 +10,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.Info;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -18,45 +17,45 @@ import tk.shanebee.survival.util.Utils;
 
 public class Healthboard extends BukkitRunnable {
 
-	private Player player;
-	private Config config;
-	private Scoreboard stats;
+	private final Player player;
+	private final Config config;
+	private final Scoreboard stats;
 	private Objective status;
-	private PlayerManager pm;
-	private PlayerData playerData;
+	private final PlayerManager pm;
+	private final PlayerData playerData;
 
 	private boolean visible = true;
 	private Team hungerT0;
-	private String hungerS0;
+	private final String hungerS0;
 	private Team hungerT1;
-	private String hungerS1;
+	private final String hungerS1;
 	private Team hungerT2;
-	private String hungerS2;
+	private final String hungerS2;
 
 	private Team thirstT0;
-	private String thirstS0;
+	private final String thirstS0;
 	private Team thirstT1;
-	private String thirstS1;
+	private final String thirstS1;
 	private Team thirstT2;
-	private String thirstS2;
+	private final String thirstS2;
 
 	private Team energyT0;
     private Team energyT1;
-    private String energyS0;
-    private String energyS1;
+    private final String energyS0;
+    private final String energyS1;
 
 	private Team nutritionT0;
-	private String nutritionS0;
+	private final String nutritionS0;
 	private Team nutritionT1;
-	private String nutritionS1;
+	private final String nutritionS1;
 	private Team nutritionT2;
-	private String nutritionS2;
+	private final String nutritionS2;
 
 	private boolean hunger;
 	private boolean thirst;
 	private boolean energy;
 	private boolean nutrients;
-	private String title;
+	private final String title;
 
 	@SuppressWarnings("ConstantConditions")
 	public Healthboard(Survival plugin, Player player) {

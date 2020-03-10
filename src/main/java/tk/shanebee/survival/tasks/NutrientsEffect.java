@@ -14,8 +14,8 @@ import tk.shanebee.survival.managers.PlayerManager;
 
 class NutrientsEffect extends BukkitRunnable {
 
-	private Config config;
-	private PlayerManager playerManager;
+	private final Config config;
+	private final PlayerManager playerManager;
 	private PotionEffect SALTS_NORMAL = null;
 	private PotionEffect SALTS_HARD = null;
 	private PotionEffect PROTEIN_NORMAL = null;

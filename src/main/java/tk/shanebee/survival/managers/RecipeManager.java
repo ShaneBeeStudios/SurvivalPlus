@@ -24,7 +24,7 @@ import java.util.Collection;
 
 public class RecipeManager {
 
-    private Config config;
+    private final Config config;
     private static Survival survival;
 
     public RecipeManager(Survival survival) {

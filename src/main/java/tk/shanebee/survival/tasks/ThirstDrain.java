@@ -14,9 +14,9 @@ import java.util.Random;
 
 class ThirstDrain extends BukkitRunnable {
 
-	private PlayerManager playerManager;
-	private double drain;
-	private double damage;
+	private final PlayerManager playerManager;
+	private final double drain;
+	private final double damage;
 
 	ThirstDrain(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();

@@ -21,12 +21,12 @@ import java.util.Objects;
 
 public class BlockManager {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private FileConfiguration data;
 	private File data_file;
-	private Lang lang;
+	private final Lang lang;
 
-	private int seconds;
+	private final int seconds;
 
 	public BlockManager(Survival plugin) {
 		this.plugin = plugin;

@@ -13,8 +13,8 @@ import tk.shanebee.survival.util.Utils;
 
 public class EffectManager {
 	
-	private Survival plugin;
-	private Config config;
+	private final Survival plugin;
+	private final Config config;
 
 	// Effect Tasks
 	private BlazeSwordEffects blazeSwordEffects = null;

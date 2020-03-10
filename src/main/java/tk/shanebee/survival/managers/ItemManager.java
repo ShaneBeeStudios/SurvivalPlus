@@ -39,7 +39,7 @@ import java.util.UUID;
 @SuppressWarnings("ConstantConditions")
 public class ItemManager {
 	
-	private static Lang lang = Survival.getInstance().getLang();
+	private static final Lang lang = Survival.getInstance().getLang();
 
 	/**
 	 * Get a custom SurvivalPlus item

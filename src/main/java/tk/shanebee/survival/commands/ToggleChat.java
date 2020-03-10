@@ -19,8 +19,8 @@ import java.util.List;
 @SuppressWarnings("NullableProblems")
 public class ToggleChat implements CommandExecutor, TabCompleter {
 
-	private Lang lang;
-	private PlayerManager playerManager;
+	private final Lang lang;
+	private final PlayerManager playerManager;
 	private final int LOCAL_CHAT_DIST;
 	
 	public ToggleChat(Survival plugin) {

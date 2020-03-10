@@ -18,8 +18,8 @@ import tk.shanebee.survival.managers.PlayerManager;
 
 public class GiantBlade extends BukkitRunnable {
 
-	private Survival plugin;
-	private PlayerManager playerManager;
+	private final Survival plugin;
+	private final PlayerManager playerManager;
 	private final ImmutableSet<Material> MAIN_SET;
 	private final ImmutableSet<Material> OFF_SET;
 	private final PotionEffect DAMAGE;
