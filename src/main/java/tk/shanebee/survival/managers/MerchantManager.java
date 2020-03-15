@@ -15,7 +15,6 @@ import java.util.Map;
 /**
  * Manager for Merchant Recipes
  */
-@SuppressWarnings("unused") // TODO remove once done
 public class MerchantManager {
 
     private final Config config;
@@ -51,9 +50,7 @@ public class MerchantManager {
             case CHAINMAIL_CHESTPLATE:
             case CHAINMAIL_LEGGINGS:
             case CHAINMAIL_BOOTS:
-                if (!this.config.MECHANICS_REINFORCED_ARMOR) {
-                    return false;
-                }
+                return this.config.MECHANICS_REINFORCED_ARMOR;
             case IRON_HELMET:
             case IRON_CHESTPLATE:
             case IRON_LEGGINGS:
@@ -62,24 +59,18 @@ public class MerchantManager {
             case DIAMOND_CHESTPLATE:
             case DIAMOND_LEGGINGS:
             case DIAMOND_BOOTS:
-                if (!this.config.MECHANICS_SLOW_ARMOR) {
-                    return false;
-                }
+                return this.config.MECHANICS_SLOW_ARMOR;
             case STONE_HOE:
-                if (!this.config.SURVIVAL_SICKLE_STONE) {
-                    return false;
-                }
+                return this.config.SURVIVAL_SICKLE_STONE;
             case DIAMOND_HOE:
-                if (!this.config.SURVIVAL_SICKLE_DIAMOND) {
-                    return false;
-                }
+                return this.config.SURVIVAL_SICKLE_DIAMOND;
         }
-        return true;
+        return false;
     }
 
     /**
      * Merchant recipes overrides
-     * <p>These will take vanilla recipes and replace them with custom {@link Item}</p>
+     * <p>These will take vanilla recipes and replace them with custom {@link Item}s</p>
      */
     public enum Recipe {
         IRON_HELMET(Material.IRON_HELMET, Item.IRON_HELMET),
