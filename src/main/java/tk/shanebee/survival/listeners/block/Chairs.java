@@ -1,14 +1,12 @@
 package tk.shanebee.survival.listeners.block;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.type.Stairs;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -22,17 +20,17 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.material.Stairs;
 import org.bukkit.util.Vector;
-
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 
-@SuppressWarnings("deprecation") // TODO fix deprecated Stairs stuff
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chairs implements Listener {
 
-	private Survival plugin;
-	private Config config;
+	private final Survival plugin;
+	private final Config config;
 
 	public Chairs(Survival plugin) {
 		this.plugin = plugin;
@@ -47,7 +45,7 @@ public class Chairs implements Listener {
 			assert block != null;
 			if (plugin.getChairBlocks().contains(block.getType())) {
 				Player player = event.getPlayer();
-				Stairs stairs = (Stairs) block.getState().getData();
+                Stairs stairs = (Stairs) block.getBlockData();
 				int chairwidth = 1;
 
 				// Check if block beneath chair is solid.
@@ -68,10 +66,10 @@ public class Chairs implements Listener {
 				boolean sign1 = false;
 				boolean sign2 = false;
 
-				if (stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
+				if (stairs.getFacing() == BlockFace.NORTH || stairs.getFacing() == BlockFace.SOUTH) {
 					sign1 = checkSign(block, BlockFace.EAST);
 					sign2 = checkSign(block, BlockFace.WEST);
-				} else if (stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
+				} else if (stairs.getFacing() == BlockFace.EAST || stairs.getFacing() == BlockFace.WEST) {
 					sign1 = checkSign(block, BlockFace.NORTH);
 					sign2 = checkSign(block, BlockFace.SOUTH);
 				}
@@ -80,10 +78,10 @@ public class Chairs implements Listener {
 					return;
 
 				// Check for maximal chair width.
-				if (stairs.getDescendingDirection() == BlockFace.NORTH || stairs.getDescendingDirection() == BlockFace.SOUTH) {
+				if (stairs.getFacing() == BlockFace.NORTH || stairs.getFacing() == BlockFace.SOUTH) {
 					chairwidth += getChairWidth(block, BlockFace.EAST);
 					chairwidth += getChairWidth(block, BlockFace.WEST);
-				} else if (stairs.getDescendingDirection() == BlockFace.EAST || stairs.getDescendingDirection() == BlockFace.WEST) {
+				} else if (stairs.getFacing() == BlockFace.EAST || stairs.getFacing() == BlockFace.WEST) {
 					chairwidth += getChairWidth(block, BlockFace.NORTH);
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
@@ -108,17 +106,17 @@ public class Chairs implements Listener {
 				// Rotate the player's view to the descending side of the block.
 				Location plocation = player.getLocation();
 
-				switch (stairs.getDescendingDirection()) {
-					case NORTH:
+				switch (stairs.getFacing()) {
+					case SOUTH:
 						plocation.setYaw(180);
 						break;
-					case EAST:
+					case WEST:
 						plocation.setYaw(270);
 						break;
-					case SOUTH:
+					case NORTH:
 						plocation.setYaw(0);
 						break;
-					case WEST:
+					case EAST:
 						plocation.setYaw(90);
 					default:
 				}
@@ -155,7 +153,7 @@ public class Chairs implements Listener {
 	private void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
 		if (plugin.getChairBlocks().contains(event.getBlock().getType())) {
-			ArmorStand drop = dropSeat(event.getBlock(), (Stairs) event.getBlock().getState().getData());
+			ArmorStand drop = dropSeat(event.getBlock(), ((Stairs) event.getBlock().getBlockData()));
 
 			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
 				if (e instanceof ArmorStand && e.getCustomName() != null && e.getCustomName().equals("Chair"))
@@ -193,17 +191,17 @@ public class Chairs implements Listener {
 	private ArmorStand dropSeat(Block chair, Stairs stairs) {
 		Location location = chair.getLocation().add(0.5, (-0.7 - 0.5), 0.5);
 
-		switch (stairs.getDescendingDirection()) {
-			case NORTH:
+		switch (stairs.getFacing()) {
+            case SOUTH:
 				location.setYaw(180);
 				break;
-			case EAST:
+			case WEST:
 				location.setYaw(270);
 				break;
-			case SOUTH:
+			case NORTH:
 				location.setYaw(0);
 				break;
-			case WEST:
+			case EAST:
 				location.setYaw(90);
 			default:
 		}
@@ -244,7 +242,7 @@ public class Chairs implements Listener {
 		for (int i = 1; i <= config.MECHANICS_CHAIRS_MAX_WIDTH; i++) {
 			Block relative = block.getRelative(face, i);
 
-			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getState().getData()).getDescendingDirection() == ((Stairs) block.getState().getData()).getDescendingDirection())
+			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getBlockData()).getFacing() == ((Stairs) block.getBlockData()).getFacing())
 				width++;
 			else
 				break;
@@ -257,7 +255,7 @@ public class Chairs implements Listener {
 		// Go through the blocks next to the clicked block and check if are signs on the end.
 		for (int i = 1; true; i++) {
 			Block relative = block.getRelative(face, i);
-			if (!(plugin.getChairBlocks().contains(relative.getType())) || (block instanceof Stairs && ((Stairs) relative.getState().getData()).getDescendingDirection() != ((Stairs) block.getState().getData()).getDescendingDirection())) {
+			if (!(plugin.getChairBlocks().contains(relative.getType())) || (block.getBlockData() instanceof Stairs && ((Stairs) relative.getBlockData()).getFacing() != ((Stairs) block.getBlockData()).getFacing())) {
 				if (Tag.SIGNS.isTagged(relative.getType())) return true;
 				switch (relative.getType()) {
 					case ITEM_FRAME:
