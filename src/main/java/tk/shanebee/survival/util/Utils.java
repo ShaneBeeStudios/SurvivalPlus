@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.Metadatable;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
 
@@ -682,14 +683,24 @@ public class Utils {
     }
 
 	/** Send a colored console message
+     * <p>This will NOT include plugin prefix</p>
 	 * @param msg Message to send
 	 */
     public static void sendColoredConsoleMsg(String msg) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
+    /** Log a message to console
+     * <p>This will include plugin prefix</p>
+     * @param msg Message to log to console
+     */
 	public static void log(String msg) {
-		sendColoredConsoleMsg(Survival.getInstance().getLang().prefix + msg);
+        Lang lang = Survival.getInstance().getLang();
+        String prefix = "&7[&bSurvival&3Plus&7] ";
+        if (lang != null) {
+            prefix = lang.prefix;
+        }
+		sendColoredConsoleMsg(prefix + msg);
 	}
 
     /** Gets a colored string
@@ -795,6 +806,10 @@ public class Utils {
             rev = 0;
         }
         return maj >= major && min >= minor && rev >= revision;
+    }
+
+    public static boolean isRunningSpigot() {
+        return classExists("org.spigotmc.CustomTimingsHandler");
     }
 
 	/** Check if a class exists
