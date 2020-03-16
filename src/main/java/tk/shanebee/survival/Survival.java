@@ -75,6 +75,17 @@ public class Survival extends JavaPlugin implements Listener {
 			return;
 		}
 
+		// SPIGOT CHECK
+        if (!Utils.isRunningSpigot()) {
+            Utils.log("&c-----------------------------------------------------------");
+            Utils.log("&7Your server software is not supported: &c" + Bukkit.getName());
+            Utils.log("&7This plugin will only work on &aSpigot &7or &aPaper.");
+            Utils.log("&c-----------------------------------------------------------");
+            loaded = false;
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
 		// LOAD CONFIG FILES
 		loadSettings(Bukkit.getConsoleSender());
 
