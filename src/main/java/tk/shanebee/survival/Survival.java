@@ -98,26 +98,24 @@ public class Survival extends JavaPlugin implements Listener {
 		boolean resourcePack = config.RESOURCE_PACK_ENABLED;
 		if (resourcePack) {
 			if (url.isEmpty()) {
-				Utils.sendColoredConsoleMsg(prefix + "&cResource Pack is not set! Plugin disabling");
+				Utils.log("&cResource Pack is not set! Plugin disabling");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			} else {
-				Utils.sendColoredConsoleMsg(prefix + "&7Resource pack &aenabled");
+				Utils.log("&7Resource pack &aenabled");
 			}
-		} else Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + "Resource Pack disabled");
+		} else Utils.log("&eResource Pack disabled");
 
 		Rates.add(config.DROP_RATE_FLINT);
 		Rates.add(config.DROP_RATE_STICK);
 		Rates.add(config.MECHANICS_THIRST_DRAIN_RATE);
 		for (double i : Rates) {
 			if (i <= 0) {
-				Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED +
-						"Rate values cannot be zero or below! (Check config.yml) Plugin disabled.");
+				Utils.log("&cRate values cannot be zero or below! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			} else if (i > 1) {
-				Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED +
-						"Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
+                Utils.log("&cRate values cannot be above 1! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
@@ -141,7 +139,7 @@ public class Survival extends JavaPlugin implements Listener {
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
-            Utils.sendColoredConsoleMsg(prefix + "&7PlaceholderAPI placeholders &aenabled");
+            Utils.log("&7PlaceholderAPI placeholders &aenabled");
         }
 
 		// REGISTER EVENTS & COMMANDS
@@ -153,34 +151,32 @@ public class Survival extends JavaPlugin implements Listener {
 		RecipeManager recipes = new RecipeManager(this);
 		// This is a helper for other plugins that wipe custom recipes - secret hidden config
 		if (config.RECIPE_DELAY > 0) {
-		    Utils.sendColoredConsoleMsg(prefix + "&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
+		    Utils.log("&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
 		    Bukkit.getScheduler().runTaskLater(this, () -> {
                 recipes.loadCustomRecipes();
-                Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+                Utils.log("&7Custom recipes &aloaded");
             }, config.RECIPE_DELAY * 20);
 
         } else {
             recipes.loadCustomRecipes();
-            Utils.sendColoredConsoleMsg(prefix + "&7Custom recipes &aloaded");
+            Utils.log("&7Custom recipes &aloaded");
         }
 
 		// LOAD METRICS
 		Metrics metrics = new Metrics(this);
-		Utils.sendColoredConsoleMsg(prefix + "&7Metrics " + (metrics.isEnabled() ? "&aenabled" : "&cdisabled"));
+		Utils.log("&7Metrics " + (metrics.isEnabled() ? "&aenabled" : "&cdisabled"));
 
-		Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + ChatColor.GREEN + "Successfully loaded &7in " +
-				(System.currentTimeMillis() - time) + " milliseconds");
+		Utils.log("&aSuccessfully loaded &7in " + (System.currentTimeMillis() - time) + " milliseconds");
 
 		// BETA WARNING
 		if (this.getDescription().getVersion().contains("Beta")) {
-			getLogger().warning(ChatColor.translateAlternateColorCodes('&',
-					"&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!"));
+			Utils.log("&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
 		}
 	}
 
 	public void onDisable() {
 		if (!loaded) return;
-		Utils.sendColoredConsoleMsg(prefix + "&eShutting down");
+		Utils.log("&eShutting down");
 		getServer().getScheduler().cancelTasks(this);
 		//getServer().resetRecipes(); <-- why is this even here?
 		usingPlayers = new ArrayList<>();
@@ -211,7 +207,7 @@ public class Survival extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		Utils.sendColoredConsoleMsg(prefix + "&eSuccessfully disabled");
+		Utils.log("&eSuccessfully disabled");
 	}
 
 	private void playerDataLoader(boolean load) {
