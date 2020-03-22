@@ -44,12 +44,7 @@ public class EntityDeath implements Listener {
     }
 
     private void replaceDrops(List<ItemStack> items) {
-        while (items.iterator().hasNext()) {
-            ItemStack item = items.iterator().next();
-            if (item.getType() == Material.ROTTEN_FLESH) {
-                items.remove(item);
-            }
-        }
+        items.removeIf(item -> item.getType() == Material.ROTTEN_FLESH);
         items.add(Item.SUSPICIOUS_MEAT.getItem());
     }
 
