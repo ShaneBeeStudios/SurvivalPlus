@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class EntityDeath implements Listener {
 
-    private Config config;
+    private final Config config;
     private final int SUSPICIOUS_MEAT_CHANCE;
 
     public EntityDeath(Survival plugin) {
