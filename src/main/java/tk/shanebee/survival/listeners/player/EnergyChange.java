@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
@@ -17,17 +17,17 @@ import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.EnergyLevelChangeEvent;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.util.Utils;
 
 public class EnergyChange implements Listener {
 
-	private Survival plugin;
-	private PlayerManager playerManager;
-	private Config config;
-	private Lang lang;
+	private final Survival plugin;
+	private final PlayerManager playerManager;
+	private final Config config;
+	private final Lang lang;
 
 	public EnergyChange(Survival plugin) {
 		this.plugin = plugin;
@@ -37,8 +37,8 @@ public class EnergyChange implements Listener {
 	}
 
 	@EventHandler
-	private void onRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
+	private void onRespawn(PlayerDeathEvent event) {
+		Player player = event.getEntity();
 		PlayerData playerData = playerManager.getPlayerData(player);
 
 		EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);

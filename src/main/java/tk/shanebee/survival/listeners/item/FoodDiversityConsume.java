@@ -9,9 +9,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.Nutrition;
@@ -20,7 +20,7 @@ import tk.shanebee.survival.managers.PlayerManager;
 
 public class FoodDiversityConsume implements Listener {
 
-	private PlayerManager playerManager;
+	private final PlayerManager playerManager;
 
 	public FoodDiversityConsume(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();
@@ -65,8 +65,8 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler
-	private void onRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
+	private void onRespawn(PlayerDeathEvent event) {
+		Player player = event.getEntity();
 		switch (player.getWorld().getDifficulty()) {
 			case PEACEFUL:
 			case EASY:

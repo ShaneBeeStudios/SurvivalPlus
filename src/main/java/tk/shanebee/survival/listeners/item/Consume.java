@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -20,8 +20,8 @@ import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
@@ -153,8 +153,8 @@ public class Consume implements Listener {
     }
 
 	@EventHandler
-	private void onRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
+	private void onRespawn(PlayerDeathEvent event) {
+		Player player = event.getEntity();
 		PlayerData playerData = playerManager.getPlayerData(player);
 
 		int thirst = config.MECHANICS_THIRST_RESPAWN_AMOUNT;
