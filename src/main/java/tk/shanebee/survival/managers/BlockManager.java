@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.command.CommandSender;
@@ -52,22 +53,20 @@ public class BlockManager {
 	@SuppressWarnings("WeakerAccess")
 	public void burnoutTorch(Block block, int seconds) {
 		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-			if (block.getType() == Material.TORCH)
-				block.setType(Material.REDSTONE_TORCH);
-			else if (block.getType() == Material.WALL_TORCH) {
-				BlockFace face = ((Directional) block.getBlockData()).getFacing();
-				block.setType(Material.REDSTONE_WALL_TORCH);
-				Directional dir = ((Directional) block.getBlockData());
-				dir.setFacing(face);
-				block.setBlockData(dir);
+            BlockData data = block.getBlockData();
+			if (data.getMaterial() == Material.TORCH)
+				data = Material.REDSTONE_TORCH.createBlockData();
+			else if (data.getMaterial() == Material.WALL_TORCH) {
+				BlockFace face = ((Directional) data).getFacing();
+				data = Material.REDSTONE_WALL_TORCH.createBlockData();
+                ((Directional) data).setFacing(face);
 			} else {
 				if (isNonPersistent(block))
 					unsetNonPersistent(block);
 				return;
 			}
-			Lightable torch = ((Lightable) block.getBlockData());
-			torch.setLit(false);
-			block.setBlockData(torch);
+            ((Lightable) data).setLit(false);
+			block.setBlockData(data);
 		}, 20 * seconds);
 	}
 
