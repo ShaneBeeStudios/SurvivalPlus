@@ -848,4 +848,12 @@ public class Utils {
 	    return entity.hasMetadata("NPC");
     }
 
+    /** Get a {@link NamespacedKey} linked to this plugin
+     * @param key Key to create
+     * @return New NamespacedKey linked to this plugin
+     */
+    public static NamespacedKey getNamespacedKey(String key) {
+	    return new NamespacedKey(Survival.getInstance(), key);
+    }
+
 }
