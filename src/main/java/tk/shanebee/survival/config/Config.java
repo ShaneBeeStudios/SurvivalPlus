@@ -33,6 +33,7 @@ public class Config {
 	// SURVIVAL
 	public boolean SURVIVAL_ENABLED;
 	public boolean SURVIVAL_LIMITED_CRAFTING;
+    public boolean SURVIVAL_UNLOCK_ALL_RECIPES;
 	public boolean SURVIVAL_TORCH;
 	public boolean SURVIVAL_UPDATE_MERCHANT_TRADES;
 
@@ -246,7 +247,8 @@ public class Config {
 		}
 	}
 
-	public FileConfiguration getSettings() {
+	@SuppressWarnings("unused")
+    public FileConfiguration getSettings() {
 		return this.settings;
 	}
 
@@ -270,6 +272,7 @@ public class Config {
 		// SURVIVAL
 		this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
 		this.SURVIVAL_LIMITED_CRAFTING = settings.getBoolean("Survival.LimitedCrafting");
+        this.SURVIVAL_UNLOCK_ALL_RECIPES = settings.getBoolean("Survival.Unlock-all-recipes-on-join");
 		this.SURVIVAL_TORCH = settings.getBoolean("Survival.Torch");
 		this.SURVIVAL_UPDATE_MERCHANT_TRADES = settings.getBoolean("Survival.UpdateMerchantTrades");
 

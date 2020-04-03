@@ -38,6 +38,10 @@ Survival:
   # With this enabled, players will only be able to craft items which they have unlocked recipes for
   LimitedCrafting: false
 
+  # If true, all custom recipes will be unlocked when a player joins
+  # If false, recipes will be unlocked as a player advances thru the game
+  Unlock-all-recipes-on-join: false
+
   # With these enabled, players will only be able to break most blocks with the correct tools
   BreakOnlyWith:
     Axe: true

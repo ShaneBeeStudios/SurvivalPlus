@@ -14,17 +14,18 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
-import tk.shanebee.survival.util.Utils;
 
 public class RecipeDiscovery implements Listener {
 
-    private Survival plugin;
+    private final Survival plugin;
+    private final boolean UNLOCK_ALL;
 
     public RecipeDiscovery(Survival plugin) {
         this.plugin = plugin;
+        this.UNLOCK_ALL = plugin.getSurvivalConfig().SURVIVAL_UNLOCK_ALL_RECIPES;
     }
 
     // When a player first joins, give them a few recipes after 10 seconds
@@ -32,15 +33,19 @@ public class RecipeDiscovery implements Listener {
     private void onFirstJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            player.discoverRecipes(Recipes.HATCHET.getKeys());
-            player.discoverRecipes(Recipes.MATTOCK.getKeys());
-            player.discoverRecipes(Recipes.SHIV.getKeys());
-            player.discoverRecipes(Recipes.HAMMER.getKeys());
-            player.discoverRecipes(Recipes.GLASS_BOTTLE.getKeys());
-            player.discoverRecipes(Recipes.STICK.getKeys());
-            player.discoverRecipes(Recipes.BREAD.getKeys());
-            player.discoverRecipes(Recipes.STRING.getKeys());
-            player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
+            if (this.UNLOCK_ALL) {
+                this.plugin.getRecipeManager().unlockAllRecipes(player);
+            } else {
+                player.discoverRecipes(Recipes.HATCHET.getKeys());
+                player.discoverRecipes(Recipes.MATTOCK.getKeys());
+                player.discoverRecipes(Recipes.SHIV.getKeys());
+                player.discoverRecipes(Recipes.HAMMER.getKeys());
+                player.discoverRecipes(Recipes.GLASS_BOTTLE.getKeys());
+                player.discoverRecipes(Recipes.STICK.getKeys());
+                player.discoverRecipes(Recipes.BREAD.getKeys());
+                player.discoverRecipes(Recipes.STRING.getKeys());
+                player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
+            }
             player.discoverRecipe(NamespacedKey.minecraft("bowl"));
         }, 200);
     }
@@ -48,6 +53,7 @@ public class RecipeDiscovery implements Listener {
     // When a player picks up items, unlock different item based recipes
     @EventHandler
     private void onPickupItems(EntityPickupItemEvent e) {
+        if (this.UNLOCK_ALL) return;
         if (!(e.getEntity() instanceof Player)) return;
         Player player = ((Player) e.getEntity());
         Material item = e.getItem().getItemStack().getType();
@@ -109,6 +115,7 @@ public class RecipeDiscovery implements Listener {
     // When a player smelts items, unlock different item based recipes
     @EventHandler
     private void onFurnaceExtract(FurnaceExtractEvent event) {
+        if (this.UNLOCK_ALL) return;
         Player player = event.getPlayer();
         if (event.getItemType() == Material.IRON_INGOT) {
             player.discoverRecipes(Recipes.IRON_BOOTS.getKeys());
@@ -134,6 +141,7 @@ public class RecipeDiscovery implements Listener {
     // When a player breaks a block, unlock different item based recipes
     @EventHandler
     private void onPlayerBreakBlock(BlockBreakEvent e) {
+        if (this.UNLOCK_ALL) return;
         Player player = e.getPlayer();
         Material item = e.getBlock().getType();
         if (e.isCancelled()) return;
@@ -156,6 +164,7 @@ public class RecipeDiscovery implements Listener {
     // When a player crafts an item, unlock different item based recipes
     @EventHandler
     private void onCraft(CraftItemEvent e) {
+        if (this.UNLOCK_ALL) return;
         if (!(e.getWhoClicked() instanceof Player)) return;
         Player player = ((Player) e.getWhoClicked());
         ItemStack result = e.getRecipe().getResult();
