@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Server;
 import org.bukkit.Tag;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.BlastingRecipe;
 import org.bukkit.inventory.CampfireRecipe;
 import org.bukkit.inventory.FurnaceRecipe;
@@ -25,24 +26,24 @@ import java.util.Collection;
 public class RecipeManager {
 
     private final Config config;
-    private static Survival survival;
+    private final Survival plugin;
 
-    public RecipeManager(Survival survival) {
-        RecipeManager.survival = survival;
-        this.config = survival.getSurvivalConfig();
+    public RecipeManager(Survival plugin) {
+        this.plugin = plugin;
+        this.config = plugin.getSurvivalConfig();
     }
 
     /**
-     *  Load all custom server recipes
+     * Load all custom server recipes
      */
     @SuppressWarnings("deprecation")
     public void loadCustomRecipes() {
         removeRecipes();
-        Server server = survival.getServer();
+        Server server = plugin.getServer();
 
         // HATCHET RECIPE
-        ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(survival, "hatchet1"), ItemManager.get(Item.HATCHET));
-        ShapedRecipe hatchet2 = new ShapedRecipe(new NamespacedKey(survival, "hatchet2"), ItemManager.get(Item.HATCHET));
+        ShapedRecipe hatchet1 = new ShapedRecipe(new NamespacedKey(plugin, "hatchet1"), ItemManager.get(Item.HATCHET));
+        ShapedRecipe hatchet2 = new ShapedRecipe(new NamespacedKey(plugin, "hatchet2"), ItemManager.get(Item.HATCHET));
 
         hatchet1.shape("@@", " 1");
 
@@ -58,7 +59,7 @@ public class RecipeManager {
 
 
         // MATTOCK RECIPE
-        ShapedRecipe mattock = new ShapedRecipe(new NamespacedKey(survival, "mattock"), ItemManager.get(Item.MATTOCK));
+        ShapedRecipe mattock = new ShapedRecipe(new NamespacedKey(plugin, "mattock"), ItemManager.get(Item.MATTOCK));
 
         mattock.shape("@-", "1@");
         mattock.setIngredient('@', Material.FLINT);
@@ -66,9 +67,8 @@ public class RecipeManager {
         mattock.setIngredient('1', Material.STICK);
 
 
-
         // SHIV RECIPE
-        ShapedRecipe shiv = new ShapedRecipe(new NamespacedKey(survival, "shiv"), ItemManager.get(Item.SHIV));
+        ShapedRecipe shiv = new ShapedRecipe(new NamespacedKey(plugin, "shiv"), ItemManager.get(Item.SHIV));
 
         shiv.shape("*@", "1&");
 
@@ -79,7 +79,7 @@ public class RecipeManager {
 
 
         // HAMMER RECIPE
-        ShapedRecipe hammer = new ShapedRecipe(new NamespacedKey(survival, "hammer"), ItemManager.get(Item.HAMMER));
+        ShapedRecipe hammer = new ShapedRecipe(new NamespacedKey(plugin, "hammer"), ItemManager.get(Item.HAMMER));
 
         hammer.shape("@ ", "1@");
 
@@ -88,7 +88,7 @@ public class RecipeManager {
 
 
         // VALKYRIE's AXE RECIPE
-        ShapedRecipe valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "valkyrie_axe"), ItemManager.get(Item.VALKYRIES_AXE));
+        ShapedRecipe valkyries_axe = new ShapedRecipe(new NamespacedKey(plugin, "valkyrie_axe"), ItemManager.get(Item.VALKYRIES_AXE));
 
         valkyries_axe.shape("@@@", "@*@", " 1 ");
 
@@ -98,7 +98,7 @@ public class RecipeManager {
 
 
         // QUARTZ PICKAXE RECIPE
-        ShapedRecipe quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "quartz_pickaxe"), ItemManager.get(Item.QUARTZ_PICKAXE));
+        ShapedRecipe quartz_pickaxe = new ShapedRecipe(new NamespacedKey(plugin, "quartz_pickaxe"), ItemManager.get(Item.QUARTZ_PICKAXE));
         quartz_pickaxe.shape("@B-", "B# ", "- 1");
 
         quartz_pickaxe.setIngredient('@', Material.QUARTZ_BLOCK);
@@ -109,7 +109,7 @@ public class RecipeManager {
 
 
         //  OBSIDIAN MACE RECIPE
-        ShapedRecipe obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "obsidian_mace"), ItemManager.get(Item.OBSIDIAN_MACE));
+        ShapedRecipe obsidian_mace = new ShapedRecipe(new NamespacedKey(plugin, "obsidian_mace"), ItemManager.get(Item.OBSIDIAN_MACE));
 
         obsidian_mace.shape(" @@", " &@", "1  ");
 
@@ -119,7 +119,7 @@ public class RecipeManager {
 
 
         // ENDER GIANT BLADE RECIPE
-        ShapedRecipe ender_giant_blade = new ShapedRecipe(new NamespacedKey(survival, "ender_giant_blade"), ItemManager.get(Item.ENDER_GIANT_BLADE));
+        ShapedRecipe ender_giant_blade = new ShapedRecipe(new NamespacedKey(plugin, "ender_giant_blade"), ItemManager.get(Item.ENDER_GIANT_BLADE));
 
         ender_giant_blade.shape(" @@", "B*@", "1B ");
 
@@ -130,7 +130,7 @@ public class RecipeManager {
 
 
         //  BLAZE SWORD RECIPE
-        ShapedRecipe blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "blaze_sword"), ItemManager.get(Item.BLAZE_SWORD));
+        ShapedRecipe blaze_sword = new ShapedRecipe(new NamespacedKey(plugin, "blaze_sword"), ItemManager.get(Item.BLAZE_SWORD));
         blaze_sword.shape("*@*", "*@*", "*1*");
 
         blaze_sword.setIngredient('@', Material.GOLD_INGOT);
@@ -139,7 +139,7 @@ public class RecipeManager {
 
 
         //  NOTCH APPLE RECIPE
-        ShapedRecipe notchApple = new ShapedRecipe(new NamespacedKey(survival, "enchanted_golden_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1));
+        ShapedRecipe notchApple = new ShapedRecipe(new NamespacedKey(plugin, "enchanted_golden_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1));
         notchApple.shape("@@@", "@*@", "@@@");
 
         notchApple.setIngredient('@', Material.GOLD_BLOCK);
@@ -147,7 +147,7 @@ public class RecipeManager {
 
 
         //  SADDLE RECIPE
-        ShapedRecipe saddle = new ShapedRecipe(new NamespacedKey(survival, "saddle"), new ItemStack(Material.SADDLE, 1));
+        ShapedRecipe saddle = new ShapedRecipe(new NamespacedKey(plugin, "saddle"), new ItemStack(Material.SADDLE, 1));
 
         saddle.shape("@@@", "*-*", "= =");
 
@@ -158,7 +158,7 @@ public class RecipeManager {
 
 
         //  NAMETAG RECIPE
-        ShapedRecipe nametag = new ShapedRecipe(new NamespacedKey(survival, "nametag"), new ItemStack(Material.NAME_TAG, 1));
+        ShapedRecipe nametag = new ShapedRecipe(new NamespacedKey(plugin, "nametag"), new ItemStack(Material.NAME_TAG, 1));
 
         nametag.shape(" -@", " *-", "*  ");
 
@@ -168,15 +168,15 @@ public class RecipeManager {
 
 
         //  PACKED ICE RECIPE
-        ShapedRecipe packedIce1 = new ShapedRecipe(new NamespacedKey(survival, "packed_ice"), new ItemStack(Material.PACKED_ICE, 1));
+        ShapedRecipe packedIce1 = new ShapedRecipe(new NamespacedKey(plugin, "packed_ice"), new ItemStack(Material.PACKED_ICE, 1));
 
         packedIce1.shape("@@ ", "@@ ");
         packedIce1.setIngredient('@', Material.ICE);
 
 
         //  ICE RECIPE
-        ShapedRecipe ice = new ShapedRecipe(new NamespacedKey(survival, "ice1"), new ItemStack(Material.ICE, 1));
-        ShapelessRecipe ice2 = new ShapelessRecipe(new NamespacedKey(survival, "ice2"), new ItemStack(Material.ICE, 4));
+        ShapedRecipe ice = new ShapedRecipe(new NamespacedKey(plugin, "ice1"), new ItemStack(Material.ICE, 1));
+        ShapelessRecipe ice2 = new ShapelessRecipe(new NamespacedKey(plugin, "ice2"), new ItemStack(Material.ICE, 4));
 
         ice.shape("@@@", "@*@", "@@@");
 
@@ -187,7 +187,7 @@ public class RecipeManager {
 
 
         //  IRON HORSE ARMOR RECIPE
-        ShapedRecipe iron_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "iron_horse_armor"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
+        ShapedRecipe iron_horse_armor = new ShapedRecipe(new NamespacedKey(plugin, "iron_horse_armor"), new ItemStack(Material.IRON_HORSE_ARMOR, 1));
 
         iron_horse_armor.shape("  @", "#-#", "= =");
 
@@ -198,7 +198,7 @@ public class RecipeManager {
 
 
         //  GOLD HORSE ARMOR RECIPE
-        ShapedRecipe goldHorse1 = new ShapedRecipe(new NamespacedKey(survival, "gold_horse_armor"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
+        ShapedRecipe goldHorse1 = new ShapedRecipe(new NamespacedKey(plugin, "gold_horse_armor"), new ItemStack(Material.GOLDEN_HORSE_ARMOR, 1));
 
         goldHorse1.shape("  @", "#-#", "= =");
 
@@ -209,7 +209,7 @@ public class RecipeManager {
 
 
         //  DIAMOND HORSE ARMOR RECIPE
-        ShapedRecipe diamond_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "diamond_horse_armor"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
+        ShapedRecipe diamond_horse_armor = new ShapedRecipe(new NamespacedKey(plugin, "diamond_horse_armor"), new ItemStack(Material.DIAMOND_HORSE_ARMOR, 1));
 
         diamond_horse_armor.shape("  H", "@-@", "B B");
 
@@ -220,7 +220,7 @@ public class RecipeManager {
 
 
         // LEATHER HORSE ARMOR RECIPE
-        ShapedRecipe leather_horse_armor = new ShapedRecipe(new NamespacedKey(survival, "leather_horse_armor"), new ItemStack(Material.LEATHER_HORSE_ARMOR, 1));
+        ShapedRecipe leather_horse_armor = new ShapedRecipe(new NamespacedKey(plugin, "leather_horse_armor"), new ItemStack(Material.LEATHER_HORSE_ARMOR, 1));
 
         leather_horse_armor.shape("  C", "ABA", "A A");
 
@@ -230,20 +230,20 @@ public class RecipeManager {
 
 
         //  CLAY BRICK RECIPE
-        ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(survival, "clay_brick"), new ItemStack(Material.BRICK, 4));
+        ShapelessRecipe clayBrick = new ShapelessRecipe(new NamespacedKey(plugin, "clay_brick"), new ItemStack(Material.BRICK, 4));
 
         clayBrick.addIngredient(Material.BRICKS);
 
 
         //  QUARTZ BLOCK RECIPE
-        ShapelessRecipe quartz = new ShapelessRecipe(new NamespacedKey(survival, "quartz"), new ItemStack(Material.QUARTZ, 4));
+        ShapelessRecipe quartz = new ShapelessRecipe(new NamespacedKey(plugin, "quartz"), new ItemStack(Material.QUARTZ, 4));
 
         quartz.addIngredient(Material.QUARTZ_BLOCK);
 
 
         //  STRING RECIPE
-        ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(survival, "string1"), new ItemStack(Material.STRING, 4));
-        ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(survival, "string2"), new ItemStack(Material.STRING, 2));
+        ShapelessRecipe woolString = new ShapelessRecipe(new NamespacedKey(plugin, "string1"), new ItemStack(Material.STRING, 4));
+        ShapelessRecipe string = new ShapelessRecipe(new NamespacedKey(plugin, "string2"), new ItemStack(Material.STRING, 2));
 
         woolString.addIngredient(new RecipeChoice.MaterialChoice(Tag.WOOL));
 
@@ -251,7 +251,7 @@ public class RecipeManager {
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(survival, "repair_blaze_sword"), ItemManager.get(Item.BLAZE_SWORD));
+        ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(plugin, "repair_blaze_sword"), ItemManager.get(Item.BLAZE_SWORD));
         repair_blaze_sword.shape("123");
 
         repair_blaze_sword.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.BLAZE_SWORD, 32))); //TODO this has to stay a low number for now
@@ -259,9 +259,8 @@ public class RecipeManager {
         repair_blaze_sword.setIngredient('3', Material.BLAZE_POWDER);
 
 
-
         //  REPAIR RECIPE
-        ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(survival, "repair_ender_giant_blaze"), ItemManager.get(Item.ENDER_GIANT_BLADE));
+        ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(plugin, "repair_ender_giant_blaze"), ItemManager.get(Item.ENDER_GIANT_BLADE));
         repair_ender_giant_blaze.shape("123");
         repair_ender_giant_blaze.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.ENDER_GIANT_BLADE, 32))); //TODO this has to stay a low number for now
         repair_ender_giant_blaze.setIngredient('2', Material.ENDER_PEARL);
@@ -269,7 +268,7 @@ public class RecipeManager {
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(survival, "repair_quartz_pickaxe"), ItemManager.get(Item.QUARTZ_PICKAXE));
+        ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(plugin, "repair_quartz_pickaxe"), ItemManager.get(Item.QUARTZ_PICKAXE));
         repair_quartz_pickaxe.shape("123");
         repair_quartz_pickaxe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.QUARTZ_PICKAXE, 32))); //TODO this has to stay a low number for now
         repair_quartz_pickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
@@ -277,21 +276,21 @@ public class RecipeManager {
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(survival, "repair_valkyries_axe"), ItemManager.get(Item.VALKYRIES_AXE));
+        ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(plugin, "repair_valkyries_axe"), ItemManager.get(Item.VALKYRIES_AXE));
         repair_valkyries_axe.shape("12 ");
         repair_valkyries_axe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.VALKYRIES_AXE, 32))); //TODO this has to stay a low number for now
         repair_valkyries_axe.setIngredient('2', Material.NETHER_STAR);
 
 
         //  REPAIR RECIPE
-        ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(survival, "repair_obsidian_mace"), ItemManager.get(Item.OBSIDIAN_MACE));
+        ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(plugin, "repair_obsidian_mace"), ItemManager.get(Item.OBSIDIAN_MACE));
         repair_obsidian_mace.shape("12 ");
         repair_obsidian_mace.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.OBSIDIAN_MACE, 32))); //TODO this has to stay a low number for now
         repair_obsidian_mace.setIngredient('2', Material.END_CRYSTAL);
 
 
         // WORKBENCH RECIPE
-        ShapelessRecipe workbench = new ShapelessRecipe(new NamespacedKey(survival, "workbench"), ItemManager.get(Item.WORKBENCH));
+        ShapelessRecipe workbench = new ShapelessRecipe(new NamespacedKey(plugin, "workbench"), ItemManager.get(Item.WORKBENCH));
 
         workbench.addIngredient(new RecipeChoice.MaterialChoice(Tag.LOGS));
         workbench.addIngredient(Material.LEATHER);
@@ -300,7 +299,7 @@ public class RecipeManager {
 
 
         //  FURNACE RECIPE
-        ShapedRecipe furnace = new ShapedRecipe(new NamespacedKey(survival, "furnace"), new ItemStack(Material.FURNACE, 1));
+        ShapedRecipe furnace = new ShapedRecipe(new NamespacedKey(plugin, "furnace"), new ItemStack(Material.FURNACE, 1));
 
         furnace.shape("@@@", "@*@", "@@@");
 
@@ -309,7 +308,7 @@ public class RecipeManager {
 
 
         //  CHEST RECIPE
-        ShapedRecipe chest = new ShapedRecipe(new NamespacedKey(survival, "chest"), new ItemStack(Material.CHEST, 1));
+        ShapedRecipe chest = new ShapedRecipe(new NamespacedKey(plugin, "chest"), new ItemStack(Material.CHEST, 1));
 
         chest.shape("@@@", "@#@", "@@@");
 
@@ -318,7 +317,7 @@ public class RecipeManager {
 
 
         //  CLAY RECIPE
-        ShapedRecipe clay = new ShapedRecipe(new NamespacedKey(survival, "clay"), new ItemStack(Material.CLAY, 1));
+        ShapedRecipe clay = new ShapedRecipe(new NamespacedKey(plugin, "clay"), new ItemStack(Material.CLAY, 1));
 
         clay.shape("   ", "123", "   ");
         clay.setIngredient('1', Material.DIRT);
@@ -327,28 +326,28 @@ public class RecipeManager {
 
 
         //  DIORITE RECIPE
-        ShapelessRecipe diorite = new ShapelessRecipe(new NamespacedKey(survival, "diorite"), new ItemStack(Material.DIORITE, 1));
+        ShapelessRecipe diorite = new ShapelessRecipe(new NamespacedKey(plugin, "diorite"), new ItemStack(Material.DIORITE, 1));
 
         diorite.addIngredient(new RecipeChoice.MaterialChoice(Material.BONE_MEAL, Material.WHITE_DYE));
         diorite.addIngredient(Material.COBBLESTONE);
 
 
         //  GRANITE RECIPE
-        ShapelessRecipe granite = new ShapelessRecipe(new NamespacedKey(survival, "granite"), new ItemStack(Material.GRANITE, 1));
+        ShapelessRecipe granite = new ShapelessRecipe(new NamespacedKey(plugin, "granite"), new ItemStack(Material.GRANITE, 1));
 
         granite.addIngredient(Material.NETHERRACK);
         granite.addIngredient(Material.COBBLESTONE);
 
 
         //  ANDESITE RECIPE
-        ShapelessRecipe andesite = new ShapelessRecipe(new NamespacedKey(survival, "andesite"), new ItemStack(Material.ANDESITE, 1));
+        ShapelessRecipe andesite = new ShapelessRecipe(new NamespacedKey(plugin, "andesite"), new ItemStack(Material.ANDESITE, 1));
 
         andesite.addIngredient(Material.GRAVEL);
         andesite.addIngredient(Material.COBBLESTONE);
 
 
         //  GRAVEL RECIPE
-        ShapedRecipe gravel = new ShapedRecipe(new NamespacedKey(survival, "gravel"), new ItemStack(Material.GRAVEL, 2));
+        ShapedRecipe gravel = new ShapedRecipe(new NamespacedKey(plugin, "gravel"), new ItemStack(Material.GRAVEL, 2));
 
         gravel.shape("@B", "B@");
 
@@ -357,15 +356,15 @@ public class RecipeManager {
 
 
         //  FIRESTRIKER RECIPE
-        ShapelessRecipe firestriker = new ShapelessRecipe(new NamespacedKey(survival, "firestriker"), ItemManager.get(Item.FIRESTRIKER));
+        ShapelessRecipe firestriker = new ShapelessRecipe(new NamespacedKey(plugin, "firestriker"), ItemManager.get(Item.FIRESTRIKER));
 
         firestriker.addIngredient(Material.FLINT);
         firestriker.addIngredient(new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
 
 
         //  TORCH RECIPE
-        ShapedRecipe torch1 = new ShapedRecipe(new NamespacedKey(survival, "torch1"), new ItemStack(Material.TORCH, 8));
-        ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(survival, "torch2"), new ItemStack(Material.TORCH, 16));
+        ShapedRecipe torch1 = new ShapedRecipe(new NamespacedKey(plugin, "torch1"), new ItemStack(Material.TORCH, 8));
+        ShapedRecipe torch2 = new ShapedRecipe(new NamespacedKey(plugin, "torch2"), new ItemStack(Material.TORCH, 16));
 
         torch1.shape("AAA", "ABA", "AAA");
         torch1.setIngredient('B', new ExactChoice(ItemManager.get(Item.FIRESTRIKER)));
@@ -380,13 +379,13 @@ public class RecipeManager {
 
 
         //  FLINT RECIPE
-        ShapelessRecipe flint = new ShapelessRecipe(new NamespacedKey(survival, "flint"), new ItemStack(Material.FLINT, 1));
+        ShapelessRecipe flint = new ShapelessRecipe(new NamespacedKey(plugin, "flint"), new ItemStack(Material.FLINT, 1));
 
         flint.addIngredient(Material.GRAVEL);
 
 
         //  FERMENTED SPIDER EYE RECIPE
-        ShapelessRecipe fermented_spider_eye = new ShapelessRecipe(new NamespacedKey(survival, "fermented_spider_eye"),
+        ShapelessRecipe fermented_spider_eye = new ShapelessRecipe(new NamespacedKey(plugin, "fermented_spider_eye"),
                 new ItemStack(Material.FERMENTED_SPIDER_EYE, 1));
 
         fermented_spider_eye.addIngredient(Material.SPIDER_EYE);
@@ -395,7 +394,7 @@ public class RecipeManager {
 
 
         //  FERMENTED SKIN RECIPE
-        ShapelessRecipe fermented_skin = new ShapelessRecipe(new NamespacedKey(survival, "fermented_skin"), ItemManager.get(Item.FERMENTED_SKIN));
+        ShapelessRecipe fermented_skin = new ShapelessRecipe(new NamespacedKey(plugin, "fermented_skin"), ItemManager.get(Item.FERMENTED_SKIN));
 
         fermented_skin.addIngredient(Material.ROTTEN_FLESH);
         fermented_skin.addIngredient(Material.SUGAR);
@@ -403,7 +402,7 @@ public class RecipeManager {
 
 
         //  POISONOUS POTATO RECIPE
-        ShapelessRecipe poisonousPotato = new ShapelessRecipe(new NamespacedKey(survival, "poisonous_potato"),
+        ShapelessRecipe poisonousPotato = new ShapelessRecipe(new NamespacedKey(plugin, "poisonous_potato"),
                 new ItemStack(Material.POISONOUS_POTATO, 1));
 
         poisonousPotato.addIngredient(Material.POTATO);
@@ -411,30 +410,30 @@ public class RecipeManager {
 
 
         //  GLASS BOTTLE RECIPE
-        ShapelessRecipe glassBottle = new ShapelessRecipe(new NamespacedKey(survival, "glass_bottle"), new ItemStack(Material.GLASS_BOTTLE, 1));
+        ShapelessRecipe glassBottle = new ShapelessRecipe(new NamespacedKey(plugin, "glass_bottle"), new ItemStack(Material.GLASS_BOTTLE, 1));
 
         glassBottle.addIngredient(Material.POTION);
 
 
         //  BOWL RECIPE
-        ShapedRecipe bowl = new ShapedRecipe(new NamespacedKey(survival, "bowl"), new ItemStack(Material.BOWL, 1));
+        ShapedRecipe bowl = new ShapedRecipe(new NamespacedKey(plugin, "bowl"), new ItemStack(Material.BOWL, 1));
 
         bowl.shape("  ", " 1");
         bowl.setIngredient('1', new ExactChoice(ItemManager.get(Item.WATER_BOWL)));
 
         // CLEAN WATER RECIPES
-        FurnaceRecipe clean_water_furnace = new FurnaceRecipe(new NamespacedKey(survival, "clean_water_furnace"),
+        FurnaceRecipe clean_water_furnace = new FurnaceRecipe(new NamespacedKey(plugin, "clean_water_furnace"),
                 ItemManager.get(Item.CLEAN_WATER), new ExactChoice(ItemManager.get(Item.DIRTY_WATER)), 0, 600);
 
-        SmokingRecipe clean_water_smoker = new SmokingRecipe(new NamespacedKey(survival, "clean_water_smoker"),
+        SmokingRecipe clean_water_smoker = new SmokingRecipe(new NamespacedKey(plugin, "clean_water_smoker"),
                 ItemManager.get(Item.CLEAN_WATER), new ExactChoice(ItemManager.get(Item.DIRTY_WATER)), 0, 300);
 
-        CampfireRecipe clean_water_camp = new CampfireRecipe(new NamespacedKey(survival, "clean_water_campfire"),
+        CampfireRecipe clean_water_camp = new CampfireRecipe(new NamespacedKey(plugin, "clean_water_campfire"),
                 ItemManager.get(Item.CLEAN_WATER), new ExactChoice(ItemManager.get(Item.DIRTY_WATER)), 0, 2400);
 
 
         //  MEDIC KIT RECIPE
-        ShapedRecipe medic_kit = new ShapedRecipe(new NamespacedKey(survival, "medic_kit"), ItemManager.get(Item.MEDIC_KIT));
+        ShapedRecipe medic_kit = new ShapedRecipe(new NamespacedKey(plugin, "medic_kit"), ItemManager.get(Item.MEDIC_KIT));
 
         medic_kit.shape(" @ ", "ABC", " @ ");
 
@@ -444,9 +443,8 @@ public class RecipeManager {
         medic_kit.setIngredient('C', Material.PAPER);
 
 
-
         //  FISHING ROD RECIPE
-        ShapedRecipe fishing_rod = new ShapedRecipe(new NamespacedKey(survival, "fishing_rod"), new ItemStack(Material.FISHING_ROD, 1));
+        ShapedRecipe fishing_rod = new ShapedRecipe(new NamespacedKey(plugin, "fishing_rod"), new ItemStack(Material.FISHING_ROD, 1));
 
         fishing_rod.shape("1- ", "1 -", "1@*");
 
@@ -457,36 +455,36 @@ public class RecipeManager {
 
 
         //  IRON INGOT RECIPE
-        ShapedRecipe ironIngot = new ShapedRecipe(new NamespacedKey(survival, "iron_ingot"), new ItemStack(Material.IRON_INGOT, 1));
+        ShapedRecipe ironIngot = new ShapedRecipe(new NamespacedKey(plugin, "iron_ingot"), new ItemStack(Material.IRON_INGOT, 1));
         ironIngot.shape("@@", "@@");
         ironIngot.setIngredient('@', Material.IRON_NUGGET);
 
         //  IRON NUGGET RECIPE
-        ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(survival, "iron_nugget"), new ItemStack(Material.IRON_NUGGET, 4));
+        ShapelessRecipe ironNugget = new ShapelessRecipe(new NamespacedKey(plugin, "iron_nugget"), new ItemStack(Material.IRON_NUGGET, 4));
         ironNugget.addIngredient(Material.IRON_INGOT);
 
         //  GOLD INGOT RECIPE
-        ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(survival, "gold_ingot"), new ItemStack(Material.GOLD_INGOT, 1));
+        ShapedRecipe goldIngot = new ShapedRecipe(new NamespacedKey(plugin, "gold_ingot"), new ItemStack(Material.GOLD_INGOT, 1));
         goldIngot.shape("@@", "@@");
         goldIngot.setIngredient('@', Material.GOLD_NUGGET);
 
         //  GOLD NUGGET RECIPE
-        ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(survival, "gold_nugget"), new ItemStack(Material.GOLD_NUGGET, 4));
+        ShapelessRecipe goldNugget = new ShapelessRecipe(new NamespacedKey(plugin, "gold_nugget"), new ItemStack(Material.GOLD_NUGGET, 4));
         goldNugget.addIngredient(Material.GOLD_INGOT);
 
         //  SMELTING RECIPES
-        FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_iron_ingot"),
+        FurnaceRecipe smelt_ironIngot = new FurnaceRecipe(new NamespacedKey(plugin, "furnace_iron_ingot"),
                 new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE, 1, 400);
-        FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new NamespacedKey(survival, "furnace_gold_ingot"),
+        FurnaceRecipe smelt_goldIngot = new FurnaceRecipe(new NamespacedKey(plugin, "furnace_gold_ingot"),
                 new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE, 1, 400);
-        BlastingRecipe blast_ironIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_iron_ingot"),
+        BlastingRecipe blast_ironIngot = new BlastingRecipe(new NamespacedKey(plugin, "blast_iron_ingot"),
                 new ItemStack(Material.IRON_INGOT, 1), Material.IRON_ORE, 1, 100);
-        BlastingRecipe blast_goldIngot = new BlastingRecipe(new NamespacedKey(survival, "blast_gold_ingot"),
+        BlastingRecipe blast_goldIngot = new BlastingRecipe(new NamespacedKey(plugin, "blast_gold_ingot"),
                 new ItemStack(Material.GOLD_INGOT, 1), Material.GOLD_ORE, 1, 100);
 
 
         //  BREAD RECIPE
-        ShapedRecipe bread = new ShapedRecipe(new NamespacedKey(survival, "bread"), new ItemStack(Material.BREAD, 2));
+        ShapedRecipe bread = new ShapedRecipe(new NamespacedKey(plugin, "bread"), new ItemStack(Material.BREAD, 2));
 
         bread.shape(" E ", "WWW");
 
@@ -495,7 +493,7 @@ public class RecipeManager {
 
 
         //  COOKIE RECIPE
-        ShapedRecipe cookie = new ShapedRecipe(new NamespacedKey(survival, "cookie"), new ItemStack(Material.COOKIE, 8));
+        ShapedRecipe cookie = new ShapedRecipe(new NamespacedKey(plugin, "cookie"), new ItemStack(Material.COOKIE, 8));
 
         cookie.shape(" E ", "WCW", " S ");
 
@@ -506,27 +504,27 @@ public class RecipeManager {
 
 
         //  SLIME BALL RECIPE
-        ShapelessRecipe slimeball = new ShapelessRecipe(new NamespacedKey(survival, "slimeball"), new ItemStack(Material.SLIME_BALL, 1));
+        ShapelessRecipe slimeball = new ShapelessRecipe(new NamespacedKey(plugin, "slimeball"), new ItemStack(Material.SLIME_BALL, 1));
 
         slimeball.addIngredient(Material.MILK_BUCKET);
         slimeball.addIngredient(8, Material.VINE);
 
 
         //  COBWEB RECIPE
-        ShapelessRecipe cobweb = new ShapelessRecipe(new NamespacedKey(survival, "cobweb"), new ItemStack(Material.COBWEB, 1));
+        ShapelessRecipe cobweb = new ShapelessRecipe(new NamespacedKey(plugin, "cobweb"), new ItemStack(Material.COBWEB, 1));
 
         cobweb.addIngredient(Material.SLIME_BALL);
         cobweb.addIngredient(2, Material.STRING);
 
 
         //  SAPLING RECIPE
-        ShapelessRecipe stick = new ShapelessRecipe(new NamespacedKey(survival, "stick"), new ItemStack(Material.STICK, 4));
+        ShapelessRecipe stick = new ShapelessRecipe(new NamespacedKey(plugin, "stick"), new ItemStack(Material.STICK, 4));
 
         stick.addIngredient(new RecipeChoice.MaterialChoice(Tag.SAPLINGS));
 
 
         // REINFORCED LEATHER BOOTS RECIPE
-        ShapedRecipe reinforced_leather_boots = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_boots"),
+        ShapedRecipe reinforced_leather_boots = new ShapedRecipe(new NamespacedKey(plugin, "reinforced_leather_boots"),
                 ItemManager.get(Item.REINFORCED_LEATHER_BOOTS));
         reinforced_leather_boots.shape("@*@");
 
@@ -535,7 +533,7 @@ public class RecipeManager {
 
 
         // REINFORCED LEATHER TUNIC RECIPE
-        ShapedRecipe reinforced_leather_chestplate = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_chestplate"),
+        ShapedRecipe reinforced_leather_chestplate = new ShapedRecipe(new NamespacedKey(plugin, "reinforced_leather_chestplate"),
                 ItemManager.get(Item.REINFORCED_LEATHER_TUNIC));
         reinforced_leather_chestplate.shape(" @ ", "@*@", " @ ");
 
@@ -544,7 +542,7 @@ public class RecipeManager {
 
 
         // REINFORCED LEATHER TROUSERS RECIPE
-        ShapedRecipe reinforced_leather_leggings = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_leggings"),
+        ShapedRecipe reinforced_leather_leggings = new ShapedRecipe(new NamespacedKey(plugin, "reinforced_leather_leggings"),
                 ItemManager.get(Item.REINFORCED_LEATHER_TROUSERS));
         reinforced_leather_leggings.shape(" @ ", "@*@", " @ ");
 
@@ -553,7 +551,7 @@ public class RecipeManager {
 
 
         // REINFORCED LEATHER HELMET RECIPE
-        ShapedRecipe reinforced_leather_helmet = new ShapedRecipe(new NamespacedKey(survival, "reinforced_leather_helmet"),
+        ShapedRecipe reinforced_leather_helmet = new ShapedRecipe(new NamespacedKey(plugin, "reinforced_leather_helmet"),
                 ItemManager.get(Item.REINFORCED_LEATHER_HELMET));
         reinforced_leather_helmet.shape("@*@");
 
@@ -562,28 +560,28 @@ public class RecipeManager {
 
 
         // GOLDEN SABATONS RECIPE
-        ShapedRecipe gold_sabatons = new ShapedRecipe(new NamespacedKey(survival, "gold_sabatons"), ItemManager.get(Item.GOLDEN_SABATONS));
+        ShapedRecipe gold_sabatons = new ShapedRecipe(new NamespacedKey(plugin, "gold_sabatons"), ItemManager.get(Item.GOLDEN_SABATONS));
         gold_sabatons.shape("@ @", "@ @");
 
         gold_sabatons.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN GUARD RECIPE
-        ShapedRecipe gold_guard = new ShapedRecipe(new NamespacedKey(survival, "gold_guard"), ItemManager.get(Item.GOLDEN_GUARD));
+        ShapedRecipe gold_guard = new ShapedRecipe(new NamespacedKey(plugin, "gold_guard"), ItemManager.get(Item.GOLDEN_GUARD));
         gold_guard.shape("@ @", "@@@", "@@@");
 
         gold_guard.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN GREAVES RECIPE
-        ShapedRecipe gold_greaves = new ShapedRecipe(new NamespacedKey(survival, "gold_greaves"), ItemManager.get(Item.GOLDEN_GREAVES));
+        ShapedRecipe gold_greaves = new ShapedRecipe(new NamespacedKey(plugin, "gold_greaves"), ItemManager.get(Item.GOLDEN_GREAVES));
         gold_greaves.shape("@@@", "@ @", "@ @");
 
         gold_greaves.setIngredient('@', Material.GOLD_INGOT);
 
 
         // GOLDEN CROWN RECIPE
-        ShapedRecipe gold_crown = new ShapedRecipe(new NamespacedKey(survival, "gold_crown"), ItemManager.get(Item.GOLDEN_CROWN));
+        ShapedRecipe gold_crown = new ShapedRecipe(new NamespacedKey(plugin, "gold_crown"), ItemManager.get(Item.GOLDEN_CROWN));
         gold_crown.shape("@*@", "@@@");
 
         gold_crown.setIngredient('@', Material.GOLD_INGOT);
@@ -591,63 +589,63 @@ public class RecipeManager {
 
 
         // IRON BOOTS RECIPE
-        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(survival, "iron_boots"), ItemManager.get(Item.IRON_BOOTS));
+        ShapedRecipe ironBoots = new ShapedRecipe(new NamespacedKey(plugin, "iron_boots"), ItemManager.get(Item.IRON_BOOTS));
         ironBoots.shape("@ @", "@ @");
 
         ironBoots.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON CHESTPLATE RECIPE
-        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(survival, "iron_chestplate"), ItemManager.get(Item.IRON_CHESTPLATE));
+        ShapedRecipe ironChestplate = new ShapedRecipe(new NamespacedKey(plugin, "iron_chestplate"), ItemManager.get(Item.IRON_CHESTPLATE));
         ironChestplate.shape("@ @", "@@@", "@@@");
 
         ironChestplate.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON LEGGINGS RECIPE
-        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(survival, "iron_leggings"), ItemManager.get(Item.IRON_LEGGINGS));
+        ShapedRecipe ironLeggings = new ShapedRecipe(new NamespacedKey(plugin, "iron_leggings"), ItemManager.get(Item.IRON_LEGGINGS));
         ironLeggings.shape("@@@", "@ @", "@ @");
 
         ironLeggings.setIngredient('@', Material.IRON_INGOT);
 
 
         // IRON HELMET RECIPE
-        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(survival, "iron_helmet"), ItemManager.get(Item.IRON_HELMET));
+        ShapedRecipe ironHelmet = new ShapedRecipe(new NamespacedKey(plugin, "iron_helmet"), ItemManager.get(Item.IRON_HELMET));
         ironHelmet.shape("@@@", "@ @");
 
         ironHelmet.setIngredient('@', Material.IRON_INGOT);
 
 
         // DIAMOND BOOTS RECIPE
-        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(survival, "diamond_boots"), ItemManager.get(Item.DIAMOND_BOOTS));
+        ShapedRecipe diamondBoots = new ShapedRecipe(new NamespacedKey(plugin, "diamond_boots"), ItemManager.get(Item.DIAMOND_BOOTS));
         diamondBoots.shape("@ @", "@ @");
 
         diamondBoots.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND CHESTPLATE RECIPE
-        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(survival, "diamond_chestplate"), ItemManager.get(Item.DIAMOND_CHESTPLATE));
+        ShapedRecipe diamondChestplate = new ShapedRecipe(new NamespacedKey(plugin, "diamond_chestplate"), ItemManager.get(Item.DIAMOND_CHESTPLATE));
         diamondChestplate.shape("@ @", "@@@", "@@@");
 
         diamondChestplate.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND LEGGINGS RECIPE
-        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(survival, "diamond_leggings"), ItemManager.get(Item.DIAMOND_LEGGINGS));
+        ShapedRecipe diamondLeggings = new ShapedRecipe(new NamespacedKey(plugin, "diamond_leggings"), ItemManager.get(Item.DIAMOND_LEGGINGS));
         diamondLeggings.shape("@@@", "@ @", "@ @");
 
         diamondLeggings.setIngredient('@', Material.DIAMOND);
 
 
         // DIAMOND HELMET RECIPE
-        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(survival, "diamond_helmet"), ItemManager.get(Item.DIAMOND_HELMET));
+        ShapedRecipe diamondHelmet = new ShapedRecipe(new NamespacedKey(plugin, "diamond_helmet"), ItemManager.get(Item.DIAMOND_HELMET));
         diamondHelmet.shape("@@@", "@ @");
 
         diamondHelmet.setIngredient('@', Material.DIAMOND);
 
 
         // RECURVED BOW RECIPE
-        ShapedRecipe recurvedBow = new ShapedRecipe(new NamespacedKey(survival, "recurved_bow"), ItemManager.get(Item.RECURVE_BOW));
+        ShapedRecipe recurvedBow = new ShapedRecipe(new NamespacedKey(plugin, "recurved_bow"), ItemManager.get(Item.RECURVE_BOW));
 
         recurvedBow.shape(" @1", "#^1", " @1");
         recurvedBow.setIngredient('^', Material.BOW);
@@ -657,7 +655,7 @@ public class RecipeManager {
 
 
         // RECURVED CROSSBOW
-        ShapedRecipe recurvedCrossbow = new ShapedRecipe(new NamespacedKey(survival, "recurved_crossbow"), ItemManager.get(Item.RECURVE_CROSSBOW));
+        ShapedRecipe recurvedCrossbow = new ShapedRecipe(new NamespacedKey(plugin, "recurved_crossbow"), ItemManager.get(Item.RECURVE_CROSSBOW));
 
         recurvedCrossbow.shape(" 12", "342", " 12");
         recurvedCrossbow.setIngredient('1', Material.DIAMOND);
@@ -666,7 +664,7 @@ public class RecipeManager {
         recurvedCrossbow.setIngredient('4', Material.CROSSBOW);
 
         // NEW CAMPFIRE RECIPE
-        ShapedRecipe unlit_campfire = new ShapedRecipe(new NamespacedKey(survival, "unlit_campfire"), ItemManager.get(Item.CAMPFIRE));
+        ShapedRecipe unlit_campfire = new ShapedRecipe(new NamespacedKey(plugin, "unlit_campfire"), ItemManager.get(Item.CAMPFIRE));
 
         unlit_campfire.shape(" 1 ", "121", "333");
         unlit_campfire.setIngredient('1', Material.STICK);
@@ -674,7 +672,7 @@ public class RecipeManager {
         unlit_campfire.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
         // NEW FLINT SICKLE RECIPE
-        ShapedRecipe flint_sickle = new ShapedRecipe(new NamespacedKey(survival, "flint_sickle"), ItemManager.get(Item.FLINT_SICKLE));
+        ShapedRecipe flint_sickle = new ShapedRecipe(new NamespacedKey(plugin, "flint_sickle"), ItemManager.get(Item.FLINT_SICKLE));
 
         flint_sickle.shape("11 ", " 2 ", " 3 ");
         flint_sickle.setIngredient('1', Material.FLINT);
@@ -682,7 +680,7 @@ public class RecipeManager {
         flint_sickle.setIngredient('3', Material.STICK);
 
         // STONE SICKLE RECIPE
-        ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(survival, "stone_sickle"), ItemManager.get(Item.STONE_SICKLE));
+        ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(plugin, "stone_sickle"), ItemManager.get(Item.STONE_SICKLE));
 
         stone_sickle.shape("11 ", " 2 ", " 3 ");
         stone_sickle.setIngredient('1', Material.COBBLESTONE);
@@ -690,7 +688,7 @@ public class RecipeManager {
         stone_sickle.setIngredient('3', Material.STICK);
 
         // NEW IRON SICKLE RECIPE
-        ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(survival, "iron_sickle"), ItemManager.get(Item.IRON_SICKLE));
+        ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(plugin, "iron_sickle"), ItemManager.get(Item.IRON_SICKLE));
 
         iron_sickle.shape("11 ", " 2 ", " 3 ");
         iron_sickle.setIngredient('1', Material.IRON_NUGGET);
@@ -698,14 +696,14 @@ public class RecipeManager {
         iron_sickle.setIngredient('3', Material.STICK);
 
         // NEW DIAMOND SICKLE RECIPE
-        ShapedRecipe diamond_sickle = new ShapedRecipe(new NamespacedKey(survival, "diamond_sickle"), ItemManager.get(Item.DIAMOND_SICKLE));
+        ShapedRecipe diamond_sickle = new ShapedRecipe(new NamespacedKey(plugin, "diamond_sickle"), ItemManager.get(Item.DIAMOND_SICKLE));
         diamond_sickle.shape("11 ", " 2 ", " 3 ");
         diamond_sickle.setIngredient('1', Material.DIAMOND);
         diamond_sickle.setIngredient('2', new ExactChoice(ItemManager.get(Item.STONE_SICKLE)));
         diamond_sickle.setIngredient('3', Material.STICK);
 
         // NEW GRAPPLING HOOK RECIPE
-        ShapedRecipe grappling_hook = new ShapedRecipe(new NamespacedKey(survival, "grappling_hook"), ItemManager.get(Item.GRAPPLING_HOOK));
+        ShapedRecipe grappling_hook = new ShapedRecipe(new NamespacedKey(plugin, "grappling_hook"), ItemManager.get(Item.GRAPPLING_HOOK));
 
         grappling_hook.shape(" 3 ", "121", " 3 ");
         grappling_hook.setIngredient('1', Material.FISHING_ROD);
@@ -713,15 +711,15 @@ public class RecipeManager {
         grappling_hook.setIngredient('3', Material.IRON_INGOT);
 
         // NEW COFFEE RECIPES
-        SmokingRecipe coffee_bean = new SmokingRecipe(new NamespacedKey(survival, "coffee_bean"), ItemManager.get(Item.COFFEE_BEAN),
+        SmokingRecipe coffee_bean = new SmokingRecipe(new NamespacedKey(plugin, "coffee_bean"), ItemManager.get(Item.COFFEE_BEAN),
                 Material.COCOA_BEANS, 0, 200);
 
-        SmokingRecipe hot_milk = new SmokingRecipe(new NamespacedKey(survival, "hot_milk"), ItemManager.get(Item.HOT_MILK),
+        SmokingRecipe hot_milk = new SmokingRecipe(new NamespacedKey(plugin, "hot_milk"), ItemManager.get(Item.HOT_MILK),
                 new ExactChoice(ItemManager.get(Item.COLD_MILK)), 0, 200);
 
         ItemStack COFFEE = ItemManager.get(Item.COFFEE);
         COFFEE.setAmount(2);
-        ShapedRecipe coffee = new ShapedRecipe(new NamespacedKey(survival, "coffee"), COFFEE);
+        ShapedRecipe coffee = new ShapedRecipe(new NamespacedKey(plugin, "coffee"), COFFEE);
 
         coffee.shape("   ", "12 ", "34 ");
         coffee.setIngredient('1', new ExactChoice(ItemManager.get(Item.COFFEE_BEAN)));
@@ -729,14 +727,14 @@ public class RecipeManager {
         coffee.setIngredient('3', new ExactChoice(ItemManager.get(Item.HOT_MILK)));
         coffee.setIngredient('4', new ExactChoice(ItemManager.get(Item.PURIFIED_WATER)));
 
-        ShapedRecipe cold_milk = new ShapedRecipe(new NamespacedKey(survival, "cold_milk"), ItemManager.get(Item.COLD_MILK));
+        ShapedRecipe cold_milk = new ShapedRecipe(new NamespacedKey(plugin, "cold_milk"), ItemManager.get(Item.COLD_MILK));
 
         cold_milk.shape("   ", "12 ", "   ");
         cold_milk.setIngredient('1', Material.MILK_BUCKET);
         cold_milk.setIngredient('2', Material.GLASS_BOTTLE);
 
         // NEW COMPASS RECIPE
-        ShapedRecipe compass_recipe = new ShapedRecipe(new NamespacedKey(survival, "compass"), ItemManager.get(Item.COMPASS));
+        ShapedRecipe compass_recipe = new ShapedRecipe(new NamespacedKey(plugin, "compass"), ItemManager.get(Item.COMPASS));
         compass_recipe.shape(" 1 ", "121", " 1 ");
         compass_recipe.setIngredient('1', Material.IRON_INGOT);
         compass_recipe.setIngredient('2', Material.REDSTONE);
@@ -773,111 +771,110 @@ public class RecipeManager {
         }
 
 
-
         //Add recipes
         if (config.SURVIVAL_ENABLED) {
-            survival.getServer().addRecipe(hatchet1);
-            survival.getServer().addRecipe(hatchet2);
-            survival.getServer().addRecipe(mattock);
-            survival.getServer().addRecipe(shiv);
-            survival.getServer().addRecipe(hammer);
-            survival.getServer().addRecipe(firestriker);
-            survival.getServer().addRecipe(chest);
-            survival.getServer().addRecipe(flint);
-            survival.getServer().addRecipe(unlit_campfire);
+            plugin.getServer().addRecipe(hatchet1);
+            plugin.getServer().addRecipe(hatchet2);
+            plugin.getServer().addRecipe(mattock);
+            plugin.getServer().addRecipe(shiv);
+            plugin.getServer().addRecipe(hammer);
+            plugin.getServer().addRecipe(firestriker);
+            plugin.getServer().addRecipe(chest);
+            plugin.getServer().addRecipe(flint);
+            plugin.getServer().addRecipe(unlit_campfire);
             if (config.BREAK_ONLY_WITH_SICKLE) {
                 if (config.SURVIVAL_SICKLE_FLINT)
-                    survival.getServer().addRecipe(flint_sickle);
+                    plugin.getServer().addRecipe(flint_sickle);
                 if (config.SURVIVAL_SICKLE_STONE)
-                    survival.getServer().addRecipe(stone_sickle);
+                    plugin.getServer().addRecipe(stone_sickle);
                 if (config.SURVIVAL_SICKLE_IRON)
-                    survival.getServer().addRecipe(iron_sickle);
+                    plugin.getServer().addRecipe(iron_sickle);
                 if (config.SURVIVAL_SICKLE_DIAMOND)
-                    survival.getServer().addRecipe(diamond_sickle);
+                    plugin.getServer().addRecipe(diamond_sickle);
             }
             if (config.RECIPES_WORKBENCH) {
-                survival.getServer().addRecipe(workbench);
+                plugin.getServer().addRecipe(workbench);
             }
             if (config.RECIPES_FURNACE) {
-                survival.getServer().addRecipe(furnace);
+                plugin.getServer().addRecipe(furnace);
             }
         }
         if (config.SURVIVAL_TORCH) {
-            survival.getServer().addRecipe(torch1);
-            survival.getServer().addRecipe(torch2);
+            plugin.getServer().addRecipe(torch1);
+            plugin.getServer().addRecipe(torch2);
         }
         if (config.RECIPES_WEB_STRING)
-            survival.getServer().addRecipe(string);
+            plugin.getServer().addRecipe(string);
         if (config.RECIPES_SAPLING_STICK) {
-            survival.getServer().addRecipe(stick);
+            plugin.getServer().addRecipe(stick);
         }
 
         if (config.LEGENDARY_VALKYRIE) {
-            survival.getServer().addRecipe(valkyries_axe);
+            plugin.getServer().addRecipe(valkyries_axe);
             if (config.LEGENDARY_CAN_REPAIR)
-                survival.getServer().addRecipe(repair_valkyries_axe);
+                plugin.getServer().addRecipe(repair_valkyries_axe);
         }
         if (config.LEGENDARY_QUARTZPICKAXE) {
-            survival.getServer().addRecipe(quartz_pickaxe);
+            plugin.getServer().addRecipe(quartz_pickaxe);
             if (config.LEGENDARY_CAN_REPAIR)
-                survival.getServer().addRecipe(repair_quartz_pickaxe);
+                plugin.getServer().addRecipe(repair_quartz_pickaxe);
         }
         if (config.LEGENDARY_OBSIDIAN_MACE) {
-            survival.getServer().addRecipe(obsidian_mace);
+            plugin.getServer().addRecipe(obsidian_mace);
             if (config.LEGENDARY_CAN_REPAIR)
-                survival.getServer().addRecipe(repair_obsidian_mace);
+                plugin.getServer().addRecipe(repair_obsidian_mace);
         }
         if (config.LEGENDARY_GIANTBLADE) {
-            survival.getServer().addRecipe(ender_giant_blade);
+            plugin.getServer().addRecipe(ender_giant_blade);
             if (config.LEGENDARY_CAN_REPAIR)
-                survival.getServer().addRecipe(repair_ender_giant_blaze);
+                plugin.getServer().addRecipe(repair_ender_giant_blaze);
         }
         if (config.LEGENDARY_BLAZESWORD) {
-            survival.getServer().addRecipe(blaze_sword);
+            plugin.getServer().addRecipe(blaze_sword);
             if (config.LEGENDARY_CAN_REPAIR)
-                survival.getServer().addRecipe(repair_blaze_sword);
+                plugin.getServer().addRecipe(repair_blaze_sword);
         }
         if (config.LEGENDARY_NOTCH_APPLE)
-            survival.getServer().addRecipe(notchApple);
+            plugin.getServer().addRecipe(notchApple);
         if (config.RECIPES_SADDLE)
-            survival.getServer().addRecipe(saddle);
+            plugin.getServer().addRecipe(saddle);
         if (config.RECIPES_NAME_TAG) {
-            survival.getServer().addRecipe(nametag);
+            plugin.getServer().addRecipe(nametag);
         }
         if (config.RECIPES_PACKED_ICE) {
-            survival.getServer().addRecipe(packedIce1);
-            survival.getServer().addRecipe(ice2);
+            plugin.getServer().addRecipe(packedIce1);
+            plugin.getServer().addRecipe(ice2);
         }
         if (config.RECIPES_IRON_BARD) {
-            survival.getServer().addRecipe(iron_horse_armor);
+            plugin.getServer().addRecipe(iron_horse_armor);
         }
         if (config.RECIPES_GOLD_BARD) {
-            survival.getServer().addRecipe(goldHorse1);
+            plugin.getServer().addRecipe(goldHorse1);
         }
         if (config.RECIPES_DIAMOND_BARD) {
-            survival.getServer().addRecipe(diamond_horse_armor);
+            plugin.getServer().addRecipe(diamond_horse_armor);
         }
         if (config.RECIPES_LEATHER_BARD) {
-            survival.getServer().addRecipe(leather_horse_armor);
+            plugin.getServer().addRecipe(leather_horse_armor);
         }
         if (config.RECIPES_CLAY_BRICK)
-            survival.getServer().addRecipe(clayBrick);
+            plugin.getServer().addRecipe(clayBrick);
         if (config.RECIPES_QUARTZ_BLOCK)
-            survival.getServer().addRecipe(quartz);
+            plugin.getServer().addRecipe(quartz);
         if (config.RECIPES_WOOL_STRING)
-            survival.getServer().addRecipe(woolString);
+            plugin.getServer().addRecipe(woolString);
         if (config.RECIPES_ICE)
-            survival.getServer().addRecipe(ice);
+            plugin.getServer().addRecipe(ice);
         if (config.RECIPES_CLAY)
-            survival.getServer().addRecipe(clay);
+            plugin.getServer().addRecipe(clay);
         if (config.RECIPES_DIORITE)
-            survival.getServer().addRecipe(diorite);
+            plugin.getServer().addRecipe(diorite);
         if (config.RECIPES_GRANITE)
-            survival.getServer().addRecipe(granite);
+            plugin.getServer().addRecipe(granite);
         if (config.RECIPES_ANDESITE)
-            survival.getServer().addRecipe(andesite);
+            plugin.getServer().addRecipe(andesite);
         if (config.RECIPES_GRAVEL) {
-            survival.getServer().addRecipe(gravel);
+            plugin.getServer().addRecipe(gravel);
         }
         /* There is no setting for this in the config?!?!
         if (settings.getBoolean("Mechanics.RedMushroomFermentation")) {
@@ -886,92 +883,92 @@ public class RecipeManager {
 
          */
         if (config.MECHANICS_FERMENTED_SKIN) {
-            survival.getServer().addRecipe(fermented_skin);
+            plugin.getServer().addRecipe(fermented_skin);
         }
         if (config.MECHANICS_POISON_POTATO)
-            survival.getServer().addRecipe(poisonousPotato);
+            plugin.getServer().addRecipe(poisonousPotato);
         if (config.MECHANICS_EMPTY_POTION) {
-            survival.getServer().addRecipe(glassBottle);
-            survival.getServer().addRecipe(bowl);
+            plugin.getServer().addRecipe(glassBottle);
+            plugin.getServer().addRecipe(bowl);
         }
         if (config.MECHANICS_REINFORCED_ARMOR) {
-            survival.getServer().addRecipe(reinforced_leather_boots);
-            survival.getServer().addRecipe(reinforced_leather_chestplate);
-            survival.getServer().addRecipe(reinforced_leather_leggings);
-            survival.getServer().addRecipe(reinforced_leather_helmet);
+            plugin.getServer().addRecipe(reinforced_leather_boots);
+            plugin.getServer().addRecipe(reinforced_leather_chestplate);
+            plugin.getServer().addRecipe(reinforced_leather_leggings);
+            plugin.getServer().addRecipe(reinforced_leather_helmet);
         }
         if (config.LEGENDARY_GOLDARMORBUFF) {
-            survival.getServer().addRecipe(gold_sabatons);
-            survival.getServer().addRecipe(gold_guard);
-            survival.getServer().addRecipe(gold_greaves);
-            survival.getServer().addRecipe(gold_crown);
+            plugin.getServer().addRecipe(gold_sabatons);
+            plugin.getServer().addRecipe(gold_guard);
+            plugin.getServer().addRecipe(gold_greaves);
+            plugin.getServer().addRecipe(gold_crown);
         }
 
         if (config.MECHANICS_SLOW_ARMOR) {
-            survival.getServer().addRecipe(ironBoots);
-            survival.getServer().addRecipe(ironChestplate);
-            survival.getServer().addRecipe(ironLeggings);
-            survival.getServer().addRecipe(ironHelmet);
-            survival.getServer().addRecipe(diamondBoots);
-            survival.getServer().addRecipe(diamondChestplate);
-            survival.getServer().addRecipe(diamondLeggings);
-            survival.getServer().addRecipe(diamondHelmet);
+            plugin.getServer().addRecipe(ironBoots);
+            plugin.getServer().addRecipe(ironChestplate);
+            plugin.getServer().addRecipe(ironLeggings);
+            plugin.getServer().addRecipe(ironHelmet);
+            plugin.getServer().addRecipe(diamondBoots);
+            plugin.getServer().addRecipe(diamondChestplate);
+            plugin.getServer().addRecipe(diamondLeggings);
+            plugin.getServer().addRecipe(diamondHelmet);
         }
 
         if (config.MECHANICS_MEDIC_KIT) {
-            survival.getServer().addRecipe(medic_kit);
+            plugin.getServer().addRecipe(medic_kit);
         }
 
         if (config.RECIPES_FISHING_ROD) {
-            survival.getServer().addRecipe(fishing_rod);
+            plugin.getServer().addRecipe(fishing_rod);
         }
 
         if (config.MECHANICS_REDUCED_IRON_NUGGET) {
-            survival.getServer().addRecipe(ironNugget);
-            survival.getServer().addRecipe(ironIngot);
-            survival.getServer().addRecipe(smelt_ironIngot);
-            survival.getServer().addRecipe(blast_ironIngot);
+            plugin.getServer().addRecipe(ironNugget);
+            plugin.getServer().addRecipe(ironIngot);
+            plugin.getServer().addRecipe(smelt_ironIngot);
+            plugin.getServer().addRecipe(blast_ironIngot);
         }
 
         if (config.MECHANICS_REDUCED_GOLD_NUGGET) {
-            survival.getServer().addRecipe(goldNugget);
-            survival.getServer().addRecipe(goldIngot);
-            survival.getServer().addRecipe(smelt_goldIngot);
-            survival.getServer().addRecipe(blast_goldIngot);
+            plugin.getServer().addRecipe(goldNugget);
+            plugin.getServer().addRecipe(goldIngot);
+            plugin.getServer().addRecipe(smelt_goldIngot);
+            plugin.getServer().addRecipe(blast_goldIngot);
         }
 
         if (config.MECHANICS_FARMING_PRODUCTS_BREAD)
-            survival.getServer().addRecipe(bread);
+            plugin.getServer().addRecipe(bread);
         if (config.MECHANICS_FARMING_PRODUCTS_COOKIE)
-            survival.getServer().addRecipe(cookie);
+            plugin.getServer().addRecipe(cookie);
         if (config.RECIPES_SLIMEBALL)
-            survival.getServer().addRecipe(slimeball);
+            plugin.getServer().addRecipe(slimeball);
         if (config.RECIPES_COBWEB)
-            survival.getServer().addRecipe(cobweb);
+            plugin.getServer().addRecipe(cobweb);
         if (config.MECHANICS_RECURVED_BOW) {
-            survival.getServer().addRecipe(recurvedBow);
-            survival.getServer().addRecipe(recurvedCrossbow);
+            plugin.getServer().addRecipe(recurvedBow);
+            plugin.getServer().addRecipe(recurvedCrossbow);
         }
         if (config.MECHANICS_GRAPPLING_HOOK)
-            survival.getServer().addRecipe(grappling_hook);
+            plugin.getServer().addRecipe(grappling_hook);
         if (config.MECHANICS_THIRST_PURIFY_WATER) {
-            survival.getServer().addRecipe(clean_water_furnace);
-            survival.getServer().addRecipe(clean_water_smoker);
-            survival.getServer().addRecipe(clean_water_camp);
+            plugin.getServer().addRecipe(clean_water_furnace);
+            plugin.getServer().addRecipe(clean_water_smoker);
+            plugin.getServer().addRecipe(clean_water_camp);
         }
         if (config.MECHANICS_ENERGY_COFFEE_ENABLED) {
-            survival.getServer().addRecipe(coffee_bean);
-            survival.getServer().addRecipe(cold_milk);
-            survival.getServer().addRecipe(hot_milk);
-            survival.getServer().addRecipe(coffee);
+            plugin.getServer().addRecipe(coffee_bean);
+            plugin.getServer().addRecipe(cold_milk);
+            plugin.getServer().addRecipe(hot_milk);
+            plugin.getServer().addRecipe(coffee);
         }
         if (config.MECHANICS_COMPASS_WAYPOINT) {
-            survival.getServer().addRecipe(compass_recipe);
+            plugin.getServer().addRecipe(compass_recipe);
         }
     }
 
-    /** Enums of all custom recipes
-     *
+    /**
+     * Enums of all custom recipes
      */
     public enum Recipes {
         // CUSTOM TOOLS/ITEMS
@@ -1004,7 +1001,7 @@ public class RecipeManager {
         IRON_SICKLE("iron_sickle"),
         DIAMOND_SICKLE("diamond_sickle"),
         GRAPPLING_HOOK("grappling_hook"),
-        WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire" ),
+        WATER_BOTTLES("clean_water_furnace", "clean_water_smoker", "clean_water_campfire"),
         COFFEE_BEAN("coffee_bean"),
         COLD_MILK("cold_milk"),
         HOT_MILK("hot_milk"),
@@ -1073,18 +1070,35 @@ public class RecipeManager {
         BLAST_GOLD_INGOT("blast_gold_ingot");
 
         private final Collection<NamespacedKey> keys;
+        private static final Collection<NamespacedKey> allKeys;
+
+        static {
+            allKeys = new ArrayList<>();
+            for (Recipes recipes : values()) {
+                allKeys.addAll(recipes.keys);
+            }
+        }
 
         Recipes(String... keys) {
             ArrayList<NamespacedKey> list = new ArrayList<>();
-            for(String key : keys) {
+            for (String key : keys) {
                 assert false;
-                list.add(new NamespacedKey(survival, key));
+                list.add(Utils.getNamespacedKey(key));
             }
             this.keys = list;
         }
 
+        /**
+         * Get the {@link NamespacedKey}s for this recipe
+         *
+         * @return NamespacedKeys for this recipe
+         */
         public Collection<NamespacedKey> getKeys() {
             return this.keys;
+        }
+
+        private static Collection<NamespacedKey> getAllKeys() {
+            return allKeys;
         }
     }
 
@@ -1184,7 +1198,18 @@ public class RecipeManager {
         }
     }
 
-    /** Remove a vanilla Minecraft recipe from the server
+    /**
+     * Unlock all custom recipes for a player
+     *
+     * @param player Player to unlock recipes for
+     */
+    public void unlockAllRecipes(Player player) {
+        player.discoverRecipes(Recipes.getAllKeys());
+    }
+
+    /**
+     * Remove a vanilla Minecraft recipe from the server
+     *
      * @param recipeKey Recipe to remove
      */
     @SuppressWarnings("WeakerAccess")
@@ -1192,8 +1217,8 @@ public class RecipeManager {
         Bukkit.removeRecipe(NamespacedKey.minecraft(recipeKey));
     }
 
-    private static NamespacedKey key(String key) {
-        return new NamespacedKey(survival, key);
+    private NamespacedKey key(String key) {
+        return new NamespacedKey(plugin, key);
     }
 
 }
