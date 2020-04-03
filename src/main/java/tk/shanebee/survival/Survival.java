@@ -53,6 +53,7 @@ public class Survival extends JavaPlugin implements Listener {
 	private PlayerManager playerManager;
 	private TaskManager taskManager;
 	private MerchantManager merchantManager;
+	private RecipeManager recipeManager;
 
 	// Other
 	private String prefix;
@@ -131,6 +132,7 @@ public class Survival extends JavaPlugin implements Listener {
 		taskManager = new TaskManager(this);
 		scoreBoardManager = new ScoreBoardManager(this);
 		merchantManager = new MerchantManager(this);
+        recipeManager = new RecipeManager(this);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
@@ -148,17 +150,16 @@ public class Survival extends JavaPlugin implements Listener {
 		eventManager.registerEvents();
 
 		// LOAD CUSTOM RECIPES
-		RecipeManager recipes = new RecipeManager(this);
 		// This is a helper for other plugins that wipe custom recipes - secret hidden config
 		if (config.RECIPE_DELAY > 0) {
 		    Utils.log("&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
 		    Bukkit.getScheduler().runTaskLater(this, () -> {
-                recipes.loadCustomRecipes();
+                this.recipeManager.loadCustomRecipes();
                 Utils.log("&7Custom recipes &aloaded");
             }, config.RECIPE_DELAY * 20);
 
         } else {
-            recipes.loadCustomRecipes();
+            this.recipeManager.loadCustomRecipes();
             Utils.log("&7Custom recipes &aloaded");
         }
 
@@ -330,8 +331,18 @@ public class Survival extends JavaPlugin implements Listener {
 		return this.taskManager;
 	}
 
+    /** Get an instance of the merchant manager
+     * @return Instance of the merchant manager
+     */
     public MerchantManager getMerchantManager() {
         return merchantManager;
+    }
+
+    /** Get an instance of the recipe manager
+     * @return Instance of recipe manager
+     */
+    public RecipeManager getRecipeManager() {
+        return recipeManager;
     }
 
     /** Get the main SurvivalPlus config
