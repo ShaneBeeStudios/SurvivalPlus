@@ -16,7 +16,7 @@ import tk.shanebee.survival.Survival;
 
 public class WaterBowl implements Listener {
 
-	private Survival plugin;
+	private final Survival plugin;
 	private final boolean THIRST_ENABLED;
 	private final boolean CLAY_ENABLED;
 
@@ -43,14 +43,16 @@ public class WaterBowl implements Listener {
 			final org.bukkit.entity.Item itemDrop = event.getEntity();
 			if (itemDrop.getItemStack().getType() == Material.BOWL) {
 				final Runnable task = () -> {
-					if (itemDrop.getItemStack().getAmount() != 1) return;
 					Location itemLocation = itemDrop.getLocation();
 					if (itemLocation.getBlock().getType() == Material.WATER) {
 						WaterBowlFillEvent bowlFillEvent = new WaterBowlFillEvent(itemDrop.getItemStack());
 						Bukkit.getPluginManager().callEvent(bowlFillEvent);
 						if (bowlFillEvent.isCancelled()) return;
+						int amount = itemDrop.getItemStack().getAmount();
 						itemDrop.remove();
-						itemDrop.getWorld().dropItem(itemLocation, ItemManager.get(Item.WATER_BOWL));
+						for (int i = 0; i < amount; i++) {
+                            itemDrop.getWorld().dropItem(itemLocation, Item.WATER_BOWL.getItem());
+                        }
 					}
 				};
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, 20L);
