@@ -2,6 +2,7 @@ package tk.shanebee.survival.item;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.managers.ItemManager;
 
@@ -168,6 +169,24 @@ public class Item {
      */
     public ItemStack getItem() {
         return ItemManager.get(this);
+    }
+
+    /**
+     * Compare this item with an ItemStack
+     *
+     * @param itemStack ItemStack to check
+     * @return True if matched
+     */
+    public boolean compare(@NotNull ItemStack itemStack) {
+        if (itemStack.getType() == materialType) {
+            ItemMeta meta = itemStack.getItemMeta();
+            if (meta != null && meta.hasCustomModelData()) {
+                return meta.getCustomModelData() == modelData;
+            } else {
+                return modelData == 0;
+            }
+        }
+        return false;
     }
 
     /**
