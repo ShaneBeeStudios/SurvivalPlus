@@ -78,6 +78,7 @@
                 <includes>
                     <include>plugin.yml</include>
                     <include>config.yml</include>
+                    <include>items.yml</include>
                     <include>data.yml</include>
                     <include>lang_CN.yml</include>
                     <include>lang_EN.yml</include>

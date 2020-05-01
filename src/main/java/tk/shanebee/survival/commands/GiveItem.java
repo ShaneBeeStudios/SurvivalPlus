@@ -75,9 +75,10 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length <= 1) return null;
         if (args.length == 2) {
             ArrayList<String> matches = new ArrayList<>();
-            for (Item name : Item.values()) {
-                if (StringUtil.startsWithIgnoreCase(name.toString(), args[1])) {
-                    matches.add(name.toString());
+            for (Item item : Item.values()) {
+                String name = item.getKey().toUpperCase();
+                if (StringUtil.startsWithIgnoreCase(name, args[1])) {
+                    matches.add(name);
                 }
             }
             return matches;
