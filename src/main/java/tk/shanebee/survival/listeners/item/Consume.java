@@ -11,10 +11,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
@@ -108,6 +110,24 @@ public class Consume implements Listener {
 				break;
             case HONEY_BOTTLE:
                 change = config.MECHANICS_THIRST_REP_HONEY_BOTTLE;
+                break;
+            case SUSPICIOUS_STEW:
+                if (Item.SUSPICIOUS_MEAT.compare(item)) {
+                    // Remove the bowl from the player's hand afterwards
+                    BukkitRunnable runnable = new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            PlayerInventory inv = player.getInventory();
+                            if (inv.getItemInMainHand().getType() == Material.BOWL) {
+                                inv.setItemInMainHand(null);
+                            } else if (inv.getItemInOffHand().getType() == Material.BOWL) {
+                                inv.setItemInOffHand(null);
+                            }
+                        }
+                    };
+                    runnable.runTaskLater(plugin, 1);
+                    return;
+                }
 		}
 		ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
 		Bukkit.getPluginManager().callEvent(thirstEvent);
