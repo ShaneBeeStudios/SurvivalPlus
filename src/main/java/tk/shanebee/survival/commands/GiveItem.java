@@ -35,7 +35,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length < 2) return true;
         Player player = Bukkit.getPlayer(args[0]);
         if (player != null) {
-            Item itemName;
+            Item item;
             int amount = 1;
             try {
                 if (args.length == 3) {
@@ -43,20 +43,23 @@ public class GiveItem implements CommandExecutor, TabCompleter {
                 }
             } catch (IllegalArgumentException ignore) {}
             try {
-                itemName = Item.valueOf(args[1].toUpperCase());
-                ItemStack item = ItemManager.get(itemName);
-                item.setAmount(amount);
+                item = Item.valueOf(args[1].toUpperCase());
+                ItemStack itemStack = ItemManager.get(item);
+                itemStack.setAmount(amount);
 
                 Location loc = player.getLocation();
                 loc.setY(loc.getY() + 1);
 
-                if (player.getInventory().addItem(item).size() != 0) {
-                    player.getWorld().dropItem(loc, item);
+                if (player.getInventory().addItem(itemStack).size() != 0) {
+                    player.getWorld().dropItem(loc, itemStack);
                 }
-                if (sender instanceof Player) {
-                    Utils.sendColoredMsg(sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
-                } else {
-                    Utils.sendColoredMsg(sender, prefix + "&6CONSOLE gave &b" + itemName + " &6to &b" + player.getName());
+                if (item != null) {
+                    String itemName = item.getKey().replace("_", " ");
+                    if (sender instanceof Player) {
+                        Utils.sendColoredMsg(sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
+                    } else {
+                        Utils.sendColoredMsg(sender, prefix + "&6CONSOLE gave &b" + itemName + " &6to &b" + player.getName());
+                    }
                 }
             } catch (IllegalArgumentException ignore) {
                 Utils.sendColoredMsg(sender, prefix + "&b" + args[1] + "&c is not an item");
