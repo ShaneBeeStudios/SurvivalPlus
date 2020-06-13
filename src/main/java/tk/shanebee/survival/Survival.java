@@ -87,6 +87,20 @@ public class Survival extends JavaPlugin implements Listener {
             return;
         }
 
+        // UP-TO-DATE CHECK
+        // If the Bukkit#removeRecipe method is missing, the plugin will crash.
+        // This method was added sometime in 1.15.2
+        if (!Utils.methodExists(Bukkit.class, "removeRecipe", NamespacedKey.class)) {
+            Utils.log("&c-----------------------------------------------------------");
+            Utils.log("&cIt appears your server version is not up to date");
+            Utils.log("&cPlease update your Spigot/Paper version to");
+            Utils.log("&ccontinue using this plugin.");
+            Utils.log("&c-----------------------------------------------------------");
+            loaded = false;
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
 		// LOAD CONFIG FILES
 		loadSettings(Bukkit.getConsoleSender());
 
