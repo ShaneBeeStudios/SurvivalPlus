@@ -67,10 +67,10 @@ public class Survival extends JavaPlugin implements Listener {
 		// VERSION CHECK
 		if (!Utils.isRunningMinecraft(1, 15, 2)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
-			getLogger().severe("-----------------------------------------------------------");
-			getLogger().severe("Your version is not supported: " + Utils.getColoredString("&b" + ver));
-			getLogger().severe(Utils.getColoredString("This plugin only works on Minecraft &b1.15.2+"));
-			getLogger().severe("-----------------------------------------------------------");
+            Utils.log("&c-----------------------------------------------------------");
+            Utils.log("&cYour version is not supported: &b" + ver);
+            Utils.log("&eThis plugin only works on Minecraft &b1.15.2+");
+            Utils.log("&c-----------------------------------------------------------");
 			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
