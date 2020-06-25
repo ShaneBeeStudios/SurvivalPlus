@@ -126,8 +126,12 @@ public class EventManager {
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 
 		if (config.NO_POS) {
-			Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
-			Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
+		    if (Utils.isRunningMinecraft(1, 16)) {
+                Utils.log("&7NoPos &ccurrently broken. &7Please use the &breducedDebugInfo &7gamerule for the time being");
+            } else {
+                Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
+                Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
+            }
 		}
         if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
