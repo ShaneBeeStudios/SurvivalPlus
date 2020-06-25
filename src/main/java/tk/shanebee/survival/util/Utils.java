@@ -805,7 +805,7 @@ public class Utils {
         } catch (Exception ignore) {
             rev = 0;
         }
-        return maj >= major && min >= minor && rev >= revision;
+        return maj > major || min > minor || (min == minor && rev >= revision);
     }
 
     public static boolean isRunningSpigot() {
