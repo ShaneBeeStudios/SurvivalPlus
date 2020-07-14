@@ -245,13 +245,24 @@ public class Utils {
 				.add(Material.COCOA)
 				.build();
 
-		SHOVEL = ImmutableSet.<Material>builder()
-				.add(Material.STONE_SHOVEL)
-				.add(Material.IRON_SHOVEL)
-				.add(Material.DIAMOND_SHOVEL)
-				.add(Material.GOLDEN_SHOVEL)
-				.add(Material.WOODEN_SHOVEL)
-				.build();
+		if (Utils.isRunningMinecraft(1, 16)) {
+            SHOVEL = ImmutableSet.<Material>builder()
+                    .add(Material.STONE_SHOVEL)
+                    .add(Material.IRON_SHOVEL)
+                    .add(Material.DIAMOND_SHOVEL)
+                    .add(Material.GOLDEN_SHOVEL)
+                    .add(Material.WOODEN_SHOVEL)
+                    .add(Material.NETHERITE_SHOVEL)
+                    .build();
+        } else {
+            SHOVEL = ImmutableSet.<Material>builder()
+                    .add(Material.STONE_SHOVEL)
+                    .add(Material.IRON_SHOVEL)
+                    .add(Material.DIAMOND_SHOVEL)
+                    .add(Material.GOLDEN_SHOVEL)
+                    .add(Material.WOODEN_SHOVEL)
+                    .build();
+        }
 
 		REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
 				.add(Material.GRASS_BLOCK)
@@ -269,13 +280,24 @@ public class Utils {
 				.add(Material.SNOW_BLOCK)
 				.build();
 
-		PICKAXE = ImmutableSet.<Material>builder()
-				.add(Material.GOLDEN_PICKAXE)
-				.add(Material.WOODEN_PICKAXE)
-				.add(Material.DIAMOND_PICKAXE)
-				.add(Material.IRON_PICKAXE)
-				.add(Material.STONE_PICKAXE)
-				.build();
+		if (Utils.isRunningMinecraft(1, 16)) {
+            PICKAXE = ImmutableSet.<Material>builder()
+                    .add(Material.GOLDEN_PICKAXE)
+                    .add(Material.WOODEN_PICKAXE)
+                    .add(Material.DIAMOND_PICKAXE)
+                    .add(Material.IRON_PICKAXE)
+                    .add(Material.STONE_PICKAXE)
+                    .add(Material.NETHERITE_PICKAXE)
+                    .build();
+        } else {
+            PICKAXE = ImmutableSet.<Material>builder()
+                    .add(Material.GOLDEN_PICKAXE)
+                    .add(Material.WOODEN_PICKAXE)
+                    .add(Material.DIAMOND_PICKAXE)
+                    .add(Material.IRON_PICKAXE)
+                    .add(Material.STONE_PICKAXE)
+                    .build();
+        }
 
 		REQUIRES_PICKAXE = ImmutableSet.<Material>builder()
 				.add(Material.NETHER_BRICK_FENCE)
@@ -307,13 +329,24 @@ public class Utils {
 				.add(Material.OBSIDIAN)
 				.build();
 
-		AXE = ImmutableSet.<Material>builder()
-				.add(Material.WOODEN_AXE)
-				.add(Material.STONE_AXE)
-				.add(Material.GOLDEN_AXE)
-				.add(Material.IRON_AXE)
-				.add(Material.DIAMOND_AXE)
-				.build();
+		if (Utils.isRunningMinecraft(1, 16)) {
+            AXE = ImmutableSet.<Material>builder()
+                    .add(Material.WOODEN_AXE)
+                    .add(Material.STONE_AXE)
+                    .add(Material.GOLDEN_AXE)
+                    .add(Material.IRON_AXE)
+                    .add(Material.DIAMOND_AXE)
+                    .add(Material.NETHERITE_AXE)
+                    .build();
+        } else {
+            AXE = ImmutableSet.<Material>builder()
+                    .add(Material.WOODEN_AXE)
+                    .add(Material.STONE_AXE)
+                    .add(Material.GOLDEN_AXE)
+                    .add(Material.IRON_AXE)
+                    .add(Material.DIAMOND_AXE)
+                    .build();
+        }
 
 		REQUIRES_AXE = ImmutableSet.<Material>builder()
 				.add(Material.CHEST)
