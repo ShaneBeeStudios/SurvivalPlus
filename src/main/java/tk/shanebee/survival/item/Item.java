@@ -48,7 +48,7 @@ public class Item {
     public static final Item REINFORCED_LEATHER_HELMET = get("reinforced_leather_helmet", Material.CHAINMAIL_HELMET, 1);
     public static final Item GOLDEN_SABATONS = get("golden_sabatons", Material.GOLDEN_BOOTS, 0);
     public static final Item GOLDEN_GUARD = get("golden_guard", Material.GOLDEN_CHESTPLATE, 0);
-    public static final Item GOLDEN_GREAVES = get("gulden_greaves", Material.GOLDEN_LEGGINGS, 0);
+    public static final Item GOLDEN_GREAVES = get("golden_greaves", Material.GOLDEN_LEGGINGS, 0);
     public static final Item GOLDEN_CROWN = get("golden_crown", Material.GOLDEN_HELMET, 0);
     public static final Item IRON_BOOTS = get("iron_boots", Material.IRON_BOOTS, 0);
     public static final Item IRON_CHESTPLATE = get("iron_chestplate", Material.IRON_CHESTPLATE, 0);
