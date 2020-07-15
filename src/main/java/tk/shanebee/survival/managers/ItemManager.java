@@ -1,5 +1,7 @@
 package tk.shanebee.survival.managers;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -27,6 +29,7 @@ import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -751,6 +754,94 @@ public class ItemManager {
             suspicious_meat_meta.setDisplayName(Utils.getColoredString(lang.suspicious_meat));
             suspicious_meat.setItemMeta(suspicious_meat_meta);
             return suspicious_meat;
+        } else if (item == Item.NETHERITE_HELMET) {
+            ItemStack n_helmet = new ItemStack(Item.NETHERITE_HELMET.getMaterialType());
+            ItemMeta n_h_meta = n_helmet.getItemMeta();
+
+            AttributeModifier n_h_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c91"),
+                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_h_armor);
+
+            AttributeModifier n_h_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c91"),
+                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_h_tough);
+
+            AttributeModifier n_h_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c91"),
+                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_h_knock);
+
+            AttributeModifier n_h_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c91"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_h_speed);
+
+            n_helmet.setItemMeta(n_h_meta);
+            return n_helmet;
+        } else if (item == Item.NETHERITE_CHESTPLATE) {
+            ItemStack n_chest = new ItemStack(Item.NETHERITE_CHESTPLATE.getMaterialType());
+            ItemMeta n_c_meta = n_chest.getItemMeta();
+
+            AttributeModifier n_c_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c92"),
+                    "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_c_armor);
+
+            AttributeModifier n_c_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c92"),
+                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_c_tough);
+
+            AttributeModifier n_c_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c92"),
+                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_c_knock);
+
+            AttributeModifier n_c_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c92"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_c_speed);
+
+            n_chest.setItemMeta(n_c_meta);
+            return n_chest;
+        } else if (item == Item.NETHERITE_LEGGINGS) {
+            ItemStack n_leg = new ItemStack(Item.NETHERITE_LEGGINGS.getMaterialType());
+            ItemMeta n_l_meta = n_leg.getItemMeta();
+
+            AttributeModifier n_l_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c93"),
+                    "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_l_armor);
+
+            AttributeModifier n_l_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c93"),
+                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_l_tough);
+
+            AttributeModifier n_l_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c93"),
+                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_l_knock);
+
+            AttributeModifier n_l_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c93"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_l_speed);
+
+            n_leg.setItemMeta(n_l_meta);
+            return n_leg;
+        } else if (item == Item.NETHERITE_BOOTS) {
+            ItemStack n_boot = new ItemStack(Item.NETHERITE_BOOTS.getMaterialType());
+            ItemMeta n_b_meta = n_boot.getItemMeta();
+
+            AttributeModifier n_b_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c94"),
+                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_b_armor);
+
+            AttributeModifier n_b_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c94"),
+                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_b_tough);
+
+            AttributeModifier n_b_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c94"),
+                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_b_knock);
+
+            AttributeModifier n_b_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c94"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_b_speed);
+
+            n_boot.setItemMeta(n_b_meta);
+            return n_boot;
         } else {
             return new ItemStack(Material.AIR);
         }
