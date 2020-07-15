@@ -374,6 +374,10 @@ public class ItemManager {
                     "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
             i_goldBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldBootsArmor);
 
+            AttributeModifier i_goldBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c71"),
+                    "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+            i_goldBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldBootsSpeed);
+
             i_goldBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_sabatons));
             i_goldBootsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_FALL, 4, true);
 
@@ -386,6 +390,10 @@ public class ItemManager {
             AttributeModifier i_goldChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c72"),
                     "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
             i_goldChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldChestArmor);
+
+            AttributeModifier i_goldChestSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c72"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+            i_goldChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldChestSpeed);
 
             i_goldChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_guard));
             i_goldChestplateMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
@@ -400,6 +408,10 @@ public class ItemManager {
                     "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
             i_goldLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldLeggingsArmor);
 
+            AttributeModifier i_goldLeggingsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c73"),
+                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+            i_goldLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldLeggingsSpeed);
+
             i_goldLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_greaves));
             i_goldLeggingsMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4, true);
 
@@ -412,6 +424,10 @@ public class ItemManager {
             AttributeModifier i_goldHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c74"),
                     "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
             i_goldHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldHelmetArmor);
+
+            AttributeModifier i_goldHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c74"),
+                    "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            i_goldHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldHelmetSpeed);
 
             i_goldHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_crown));
             i_goldHelmetMeta.addEnchant(org.bukkit.enchantments.Enchantment.MENDING, 1, true);
