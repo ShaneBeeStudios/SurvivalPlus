@@ -158,6 +158,10 @@ public class Config {
 	public boolean ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED;
 	public boolean ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED;
 	public int ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE;
+	public boolean ENTITY_MECHANICS_CHICKEN_BREEDING_ENABLED;
+    public int ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS;
+    public boolean ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY;
+    public int ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS;
 
 	// RECIPES
 	public boolean RECIPES_SADDLE;
@@ -398,6 +402,10 @@ public class Config {
 		this.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
 		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED = settings.getBoolean("Entity-Mechanics.suspicious-meat.enabled");
 		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE = settings.getInt("Entity-Mechanics.suspicious-meat.chance");
+		this.ENTITY_MECHANICS_CHICKEN_BREEDING_ENABLED = settings.getBoolean("Entity-Mechanics.chicken-breeding.enabled");
+        this.ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS = settings.getInt("Entity-Mechanics.chicken-breeding.max-eggs");
+        this.ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY = settings.getBoolean("Entity-Mechanics.chicken-breeding.always-baby");
+        this.ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS = settings.getInt("Entity-Mechanics.chicken-breeding.baby-ticks");
 
 		// RECIPES
 		this.RECIPES_SADDLE = settings.getBoolean("Recipes.Saddle");

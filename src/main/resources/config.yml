@@ -308,6 +308,19 @@ Entity-Mechanics:
     enabled: true
     # Chance of drops (out of 100)
     chance: 15
+  # When enabled, breeding chickens will not spawn baby chickens, but rather drop eggs
+  # The eggs that drop during breeding will always spawn a chicken
+  # The eggs that drop naturally by chickens are not affected by this
+  chicken-breeding:
+    enabled: true
+    # The maximum amount of eggs that will drop when breeding (random between 1 and this number)
+    max-eggs: 4
+    # Chickens spawned from eggs will always be a baby
+    always-baby: true
+    # The amount of ticks this chicken will be a baby for
+    # If 'always-baby = false' this time will only be applied to baby chickens
+    # Vanilla default = 24,000 ticks = 20 minutes
+    baby-ticks: 48000
 
 # Enables custom recipes (Overrides vanilla recipes)
 Recipes:
