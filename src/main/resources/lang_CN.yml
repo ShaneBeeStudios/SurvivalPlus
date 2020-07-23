@@ -212,6 +212,10 @@ bee-chest-name: '&6养蜂人胸甲'
 bee-legs-name: '&6养蜂人护腿'
 bee-boots-name: '&6养蜂人靴子'
 bee-suit-lore: '&b可防止被蜜蜂攻击'
+snow-boots-name: '&x&9&E&C&9&C&A雪靴'
+snow-boots-lore: '&b在雪中移动更快'
+rain-boots-name: '&x&D&6&E&7&0&3雨鞋'
+rain-boots-lore: '&b在雨中移动更快'
 
 ####################
 # 指令提醒

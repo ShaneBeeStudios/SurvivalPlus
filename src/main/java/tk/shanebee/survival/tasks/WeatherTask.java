@@ -1,6 +1,7 @@
 package tk.shanebee.survival.tasks;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -10,9 +11,11 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.item.Item;
 
 public class WeatherTask extends BukkitRunnable {
 
@@ -41,14 +44,15 @@ public class WeatherTask extends BukkitRunnable {
 
     private void handleWeather(Player player) {
         World world = player.getWorld();
-        if (world.getEnvironment() == Environment.NORMAL) {
-            if (isInSnowstorm(player)) {
+        GameMode mode = player.getGameMode();
+        if (world.getEnvironment() == Environment.NORMAL && (mode == GameMode.SURVIVAL || mode == GameMode.ADVENTURE)) {
+            if (isInSnowstorm(player) && !hasSnowBoots(player)) {
                 setWalkSpeed(player, snowstormSpeed);
-            } else if (isOnSnow(player)) {
+            } else if (isOnSnow(player) && !hasSnowBoots(player)) {
                 setWalkSpeed(player, snowSpeed);
-            } else if (isInStorm(player)) {
+            } else if (isInStorm(player) && !hasRainBoots(player)) {
                 setWalkSpeed(player, stormSpeed);
-            } else if (isInRain(player)) {
+            } else if (isInRain(player) && !hasRainBoots(player)) {
                 setWalkSpeed(player, rainSpeed);
             } else {
                 setWalkSpeed(player, baseSpeed);
@@ -101,6 +105,16 @@ public class WeatherTask extends BukkitRunnable {
         if (attribute != null) {
             attribute.setBaseValue(speed);
         }
+    }
+
+    private boolean hasRainBoots(Player player) {
+        ItemStack boots = player.getInventory().getBoots();
+        return boots != null && Item.RAIN_BOOTS.compare(boots);
+    }
+
+    private boolean hasSnowBoots(Player player) {
+        ItemStack boots = player.getInventory().getBoots();
+        return boots != null && Item.SNOW_BOOTS.compare(boots);
     }
 
 }

@@ -63,6 +63,8 @@ public class Item {
     public static final Item BEEKEEPER_CHESTPLATE = get("beekeeper_chestplate", Material.LEATHER_CHESTPLATE, 10881);
     public static final Item BEEKEEPER_LEGGINGS = get("beekeeper_leggings", Material.LEATHER_LEGGINGS, 10881);
     public static final Item BEEKEEPER_BOOTS = get("beekeeper_boots", Material.LEATHER_BOOTS, 10881);
+    public static final Item SNOW_BOOTS = get("snow_boots", Material.LEATHER_BOOTS, 10882);
+    public static final Item RAIN_BOOTS = get("rain_boots", Material.LEATHER_BOOTS, 10883);
 
     // BLOCKS
     public static final Item WORKBENCH = get("workbench", Material.CRAFTING_TABLE, 0);

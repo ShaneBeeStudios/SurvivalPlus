@@ -192,6 +192,10 @@ public class Lang {
     public String bee_legs_name;
     public String bee_boots_name;
     public String bee_suit_lore;
+    public String snow_boots_name;
+    public String snow_boots_lore;
+    public String rain_boots_name;
+    public String rain_boots_lore;
 
     public String cmd_player_not_online;
     public String cmd_heal_self;
@@ -368,6 +372,10 @@ public class Lang {
         bee_legs_name = lang.getString("bee-legs-name");
         bee_boots_name = lang.getString("bee-boots-name");
         bee_suit_lore = lang.getString("bee-suit-lore");
+        snow_boots_name = lang.getString("snow-boots-name");
+        snow_boots_lore = lang.getString("snow-boots-lore");
+        rain_boots_name = lang.getString("rain-boots-name");
+        rain_boots_lore = lang.getString("rain-boots-lore");
 
         cmd_player_not_online = lang.getString("cmd-player-not-online");
         cmd_heal_self = lang.getString("cmd-heal-self");

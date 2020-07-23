@@ -211,6 +211,10 @@ bee-chest-name: '&6Beekeeper Chestplate'
 bee-legs-name: '&6Beekeeper Leggings'
 bee-boots-name: '&6Beekeeper Boots'
 bee-suit-lore: '&bPrevent bee stings'
+snow-boots-name: '&x&9&E&C&9&C&ASnow Boots'
+snow-boots-lore: '&bMove quicker in snow'
+rain-boots-name: '&x&D&6&E&7&0&3Rain Boots'
+rain-boots-lore: '&bMove quicker in rain'
 
 ####################
 # Commands

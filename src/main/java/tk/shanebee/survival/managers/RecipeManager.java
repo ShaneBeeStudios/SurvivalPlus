@@ -770,6 +770,20 @@ public class RecipeManager {
             server.addRecipe(beekeeper_boot);
         }
 
+        if (config.MECHANICS_WEATHER_ENABLED) {
+            ShapedRecipe snowBoots = new ShapedRecipe(key("snow_boots"), Item.SNOW_BOOTS.getItem());
+            snowBoots.shape("   ", "121", "   ");
+            snowBoots.setIngredient('1', Material.DIAMOND);
+            snowBoots.setIngredient('2', Material.LEATHER_BOOTS);
+            server.addRecipe(snowBoots);
+
+            ShapedRecipe rainBoots = new ShapedRecipe(key("rain_boots"), Item.RAIN_BOOTS.getItem());
+            rainBoots.shape("   ", "121", "   ");
+            rainBoots.setIngredient('1', Material.IRON_INGOT);
+            rainBoots.setIngredient('2', Material.LEATHER_BOOTS);
+            server.addRecipe(rainBoots);
+        }
+
 
         //Add recipes
         if (config.SURVIVAL_ENABLED) {
@@ -1007,6 +1021,8 @@ public class RecipeManager {
         HOT_MILK("hot_milk"),
         COFFEE("coffee"),
         BEEKEEPER_SUIT("beekeeper_helmet", "beekeeper_chestplate", "beekeeper_leggings", "beekeeper_boots"),
+        SNOW_BOOTS("snow_boots"),
+        RAIN_BOOTS("rain_boots"),
 
         // VANILLA ITEMS
         ENCHANTED_GOLDEN_APPLE("enchanted_golden_apple"),

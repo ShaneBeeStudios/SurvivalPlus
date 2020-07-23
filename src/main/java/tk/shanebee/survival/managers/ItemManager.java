@@ -842,6 +842,30 @@ public class ItemManager {
 
             n_boot.setItemMeta(n_b_meta);
             return n_boot;
+        } else if (item == Item.SNOW_BOOTS) {
+            ItemStack snow_boots = new ItemStack(Item.SNOW_BOOTS.getMaterialType());
+            ItemMeta snow_boots_meta = snow_boots.getItemMeta();
+            if (snow_boots_meta instanceof LeatherArmorMeta) {
+                ((LeatherArmorMeta) snow_boots_meta).setColor(Color.fromRGB(158, 201, 202));
+            }
+            snow_boots_meta.setCustomModelData(Item.SNOW_BOOTS.getModelData());
+            snow_boots_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.snow_boots_name));
+            snow_boots_meta.setLore(Collections.singletonList(Utils.getColoredString(lang.snow_boots_lore)));
+            snow_boots.setItemMeta(snow_boots_meta);
+
+            return snow_boots;
+        } else if (item == Item.RAIN_BOOTS) {
+            ItemStack rain_boots = new ItemStack(Item.RAIN_BOOTS.getMaterialType());
+            ItemMeta rain_boots_meta = rain_boots.getItemMeta();
+            if (rain_boots_meta instanceof LeatherArmorMeta) {
+                ((LeatherArmorMeta) rain_boots_meta).setColor(Color.fromRGB(214, 231, 3));
+            }
+            rain_boots_meta.setCustomModelData(Item.RAIN_BOOTS.getModelData());
+            rain_boots_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.rain_boots_name));
+            rain_boots_meta.setLore(Collections.singletonList(Utils.getColoredString(lang.rain_boots_lore)));
+            rain_boots.setItemMeta(rain_boots_meta);
+
+            return rain_boots;
         } else {
             return new ItemStack(Material.AIR);
         }
