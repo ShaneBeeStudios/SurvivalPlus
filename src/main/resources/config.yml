@@ -290,6 +290,23 @@ Mechanics:
     # If persistent torches are enabled
     PersistentTorches: true
 
+  # WEATHER MECHANICS
+  # These mechanics change how weather affects the player
+  Weather:
+    Enabled: false
+    # Speed modifiers adjust player's speed based on weather
+    speed:
+      # This is the base speed (vanilla speed = 0.10) when a player is in normal conditions
+      base: 0.10
+      # The speed when the player is in the rain
+      rain: 0.085
+      # The speed when the player is in the rain and its thundering
+      storm: 0.075
+      # The speed when the player is walking on snow
+      snow: 0.065
+      # The speed when the player is walking on snow in a storm
+      snowstorm: 0.05
+
 # Mechanics that flow around entities
 Entity-Mechanics:
   # When a player opens a chest in the nether, and it contains gold items, zombie pigmen will attack the player

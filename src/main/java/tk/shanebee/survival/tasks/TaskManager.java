@@ -27,6 +27,10 @@ public class TaskManager {
 				new NutrientsAlert(plugin);
 			}
 		}
+
+		if (config.MECHANICS_WEATHER_ENABLED) {
+            new WeatherTask(plugin);
+        }
 	}
 
 }

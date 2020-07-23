@@ -151,6 +151,13 @@ public class Config {
 	public boolean MECHANICS_BURNOUT_TORCH_DROP;
 	public boolean MECHANICS_BURNOUT_TORCH_PERSIST;
 
+	public boolean MECHANICS_WEATHER_ENABLED;
+	public double MECHANICS_WEATHER_SPEED_BASE;
+    public double MECHANICS_WEATHER_SPEED_RAIN;
+    public double MECHANICS_WEATHER_SPEED_STORM;
+    public double MECHANICS_WEATHER_SPEED_SNOW;
+    public double MECHANICS_WEATHER_SPEED_SNOWSTORM;
+
 	// ENTITY MECHANICS
 	public boolean ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED;
 	public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
@@ -394,6 +401,13 @@ public class Config {
 		this.MECHANICS_BURNOUT_TORCH_RELIGHT = settings.getBoolean("Mechanics.BurnoutTorches.Relightable");
 		this.MECHANICS_BURNOUT_TORCH_DROP = settings.getBoolean("Mechanics.BurnoutTorches.DropTorch");
 		this.MECHANICS_BURNOUT_TORCH_PERSIST = settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
+
+		this.MECHANICS_WEATHER_ENABLED = settings.getBoolean("Mechanics.Weather.Enabled");
+		this.MECHANICS_WEATHER_SPEED_BASE = settings.getDouble("Mechanics.Weather.speed.base");
+		this.MECHANICS_WEATHER_SPEED_RAIN = settings.getDouble("Mechanics.Weather.speed.rain");
+		this.MECHANICS_WEATHER_SPEED_STORM = settings.getDouble("Mechanics.Weather.speed.storm");
+		this.MECHANICS_WEATHER_SPEED_SNOW = settings.getDouble("Mechanics.Weather.speed.snow");
+		this.MECHANICS_WEATHER_SPEED_SNOWSTORM = settings.getDouble("Mechanics.Weather.speed.snowstorm");
 
 		// ENTITY MECHANICS
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.pigmen-chests.enabled");
