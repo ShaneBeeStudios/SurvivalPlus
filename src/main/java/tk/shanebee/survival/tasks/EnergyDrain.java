@@ -2,6 +2,7 @@ package tk.shanebee.survival.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -21,6 +22,7 @@ public class EnergyDrain extends BukkitRunnable {
     private final Config config;
     private final Lang lang;
     private final double drainRate;
+    private final double drainRateCold;
     private final double increaseRateBed;
     private final double increaseRateChair;
     private final double absorb;
@@ -32,6 +34,7 @@ public class EnergyDrain extends BukkitRunnable {
         this.lang = plugin.getLang();
 
         this.drainRate = config.MECHANICS_ENERGY_DRAIN_RATE; // amount of energy to drain every 5 seconds
+        this.drainRateCold = config.MECHANICS_ENERGY_DRAIN_COLD_RATE; // amount of energy to drain every 5 seconds
         this.increaseRateBed = config.MECHANICS_ENERGY_REFRESH_RATE_BED; // amount of energy to gain every 5 seconds of sleeping
         this.increaseRateChair = config.MECHANICS_ENERGY_REFRESH_RATE_CHAIR; // amount of energy to gain every 5 seconds of sitting in chair
         this.absorb = 20 - (drainRate * 12); // Roughly 1 minute of absorption hearts after full energy
@@ -51,7 +54,13 @@ public class EnergyDrain extends BukkitRunnable {
                 playerData.increaseEnergy(this.increaseRateChair);
             } else {
                 double oldLevel = playerData.getEnergy();
-                playerData.increaseEnergy(-this.drainRate);
+                double rate = this.drainRate;
+                if (this.drainRateCold > 0 && player.getWorld().getEnvironment() == Environment.NORMAL) {
+                    if (player.getLocation().getBlock().getTemperature() < 0.15 && Utils.isAtHighest(player)) {
+                        rate += drainRateCold;
+                    }
+                }
+                playerData.increaseEnergy(-rate);
                 double newLevel = playerData.getEnergy();
                 if (config.MECHANICS_ENERGY_WARNING) {
                     if (targetMatch(10.0, oldLevel, newLevel)) {

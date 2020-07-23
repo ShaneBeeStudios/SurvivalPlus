@@ -220,7 +220,12 @@ Mechanics:
     # Warn the player via message when energy starts dropping below 10
     warning: true
     # The amount of energy a player loses every 5 seconds of gameplay
-    drain-rate: 0.015 # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
+    # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
+    drain-rate: 0.015
+    # If the player is in a cold biome, exposed to the sky, drain energy quicker
+    # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
+    # Setting to 0 will disable this
+    cold-drain-rate: 0.015
     # Every 5 seconds a player spends in bed, the level of energy to increase
     sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
     # Every 5 seconds a player spends sitting in a chair, the level of energy to increase
