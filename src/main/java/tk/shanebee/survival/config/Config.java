@@ -105,12 +105,15 @@ public class Config {
 	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP;
 	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION;
 
+	// THIRST
 	public boolean MECHANICS_THIRST_ENABLED;
 	public int MECHANICS_THIRST_START_AMOUNT;
 	public int MECHANICS_THIRST_RESPAWN_AMOUNT;
 	public boolean MECHANICS_THIRST_PURIFY_WATER;
 	public boolean MECHANICS_THIRST_MELT_SNOW;
 	public double MECHANICS_THIRST_DRAIN_RATE;
+	public int MECHANICS_THIRST_DRAIN_HEAT;
+    public int MECHANICS_THIRST_DRAIN_NETHER;
 	public double MECHANICS_THIRST_DAMAGE_RATE;
 	public int MECHANICS_THIRST_REP_BEET_SOUP;
 	public int MECHANICS_THIRST_REP_MELON_SLICE;
@@ -360,6 +363,8 @@ public class Config {
 		this.MECHANICS_THIRST_PURIFY_WATER = settings.getBoolean("Mechanics.Thirst.PurifyWater");
 		this.MECHANICS_THIRST_MELT_SNOW = settings.getBoolean("Mechanics.Thirst.MeltSnow");
 		this.MECHANICS_THIRST_DRAIN_RATE = settings.getDouble("Mechanics.Thirst.DrainRate");
+		this.MECHANICS_THIRST_DRAIN_HEAT = settings.getInt("Mechanics.Thirst.HeatDrain");
+        this.MECHANICS_THIRST_DRAIN_NETHER = settings.getInt("Mechanics.Thirst.NetherDrain");
 		this.MECHANICS_THIRST_DAMAGE_RATE = settings.getDouble("Mechanics.Thirst.DamageRate");
 
 		this.MECHANICS_THIRST_REP_BEET_SOUP = settings.getInt("Mechanics.Thirst.Replenish-Level.beetroot-soup");

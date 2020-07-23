@@ -180,6 +180,16 @@ Mechanics:
     MeltSnow: true
     # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
     DrainRate: 1.0
+    # If player is in a HOT biome, drain 1 extra thirst point every X seconds
+    # This helps speed up thirst draining when a player is in a hot biome like the desert or savannah
+    # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
+    # If set to 0, this will be disabled
+    HeatDrain: 30
+    # If player is in the nether, drain 1 extra thirst point every X seconds
+    # This helps speed up thirst draining when a player is in the nether
+    # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
+    # If set to 0, this will be disabled
+    NetherDrain: 30
     # The amount of damage a player takes when their thirst level is empty
     DamageRate: 1.0
     # The level of thirst that will be replenished when a player consumes this item

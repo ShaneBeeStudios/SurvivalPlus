@@ -31,6 +31,12 @@ public class TaskManager {
 		if (config.MECHANICS_WEATHER_ENABLED) {
             new WeatherTask(plugin);
         }
+		if (config.MECHANICS_THIRST_DRAIN_NETHER > 0) {
+		    new ThirstDrainNether(plugin);
+        }
+		if (config.MECHANICS_THIRST_DRAIN_HEAT > 0) {
+		    new ThirstDrainHeat(plugin);
+        }
 	}
 
 }
