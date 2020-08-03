@@ -236,6 +236,10 @@ Mechanics:
     exhaustion: 0.15
     # Enables coffee recipes and effects (Drink coffee to regain energy)
     coffee: true
+    # Player will get a few minutes of absorption when their energy is high
+    absorption: true
+    # Player will get a few minutes of haste when their energy is high
+    haste: true
 
   Hunger:
     # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)

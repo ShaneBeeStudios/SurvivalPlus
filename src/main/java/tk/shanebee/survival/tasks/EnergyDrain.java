@@ -37,8 +37,8 @@ public class EnergyDrain extends BukkitRunnable {
         this.drainRateCold = config.MECHANICS_ENERGY_DRAIN_COLD_RATE; // amount of energy to drain every 5 seconds
         this.increaseRateBed = config.MECHANICS_ENERGY_REFRESH_RATE_BED; // amount of energy to gain every 5 seconds of sleeping
         this.increaseRateChair = config.MECHANICS_ENERGY_REFRESH_RATE_CHAIR; // amount of energy to gain every 5 seconds of sitting in chair
-        this.absorb = 20 - (drainRate * 12); // Roughly 1 minute of absorption hearts after full energy
-        this.haste = 20 - (drainRate * 25); // Roughly 2 minutes of haste after full energy
+        this.absorb = config.MECHANICS_ENERGY_ABSORPTION ? 20 - (drainRate * 12) : 200; // Roughly 1 minute of absorption hearts after full energy
+        this.haste = config.MECHANICS_ENERGY_HASTE ? 20 - (drainRate * 25): 200; // Roughly 2 minutes of haste after full energy
         this.runTaskTimer(plugin, 5 * 20, 5 * 20);
     }
 
