@@ -230,7 +230,11 @@ public class Survival extends JavaPlugin implements Listener {
 		if (load) {
 			// Load player data - if players are online (useful during reload)
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				playerManager.loadPlayerData(player);
+			    if (playerDataConfig.hasPlayerDataFile(player)) {
+                    playerManager.loadPlayerData(player);
+                } else {
+			        playerManager.createNewPlayerData(player);
+                }
 			}
 			if (size > 0) {
 				Utils.log("Loading player data for &b" + size + " player" + (size != 1 ? "s" : ""));
