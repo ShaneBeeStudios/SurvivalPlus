@@ -130,7 +130,7 @@ public class PlayerData implements ConfigurationSerializable {
             case SALTS:
                 return salts;
             default:
-                throw new IllegalStateException("Unexpected value: " + nutrient);
+                throw new IllegalArgumentException("Unexpected value: " + nutrient);
         }
     }
 
@@ -152,7 +152,7 @@ public class PlayerData implements ConfigurationSerializable {
                 this.salts = Math.clamp(value, 0, this.max_salts);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + nutrient);
+                throw new IllegalArgumentException("Unexpected value: " + nutrient);
         }
     }
 
@@ -187,7 +187,7 @@ public class PlayerData implements ConfigurationSerializable {
                 this.salts = Math.clamp(this.salts + value, 0, this.max_salts);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + nutrient);
+                throw new IllegalArgumentException("Unexpected value: " + nutrient);
         }
     }
 
@@ -278,7 +278,7 @@ public class PlayerData implements ConfigurationSerializable {
             case RECURVE_COOLDOWN:
                 return this.recurveCooldown;
             default:
-                throw new IllegalStateException("Unexpected value: " + stat);
+                throw new IllegalArgumentException("Unexpected value: " + stat);
         }
     }
 
@@ -317,7 +317,7 @@ public class PlayerData implements ConfigurationSerializable {
             case NUTRIENTS:
                 return score_nutrients;
             default:
-                throw new IllegalStateException("Unexpected value: " + info);
+                throw new IllegalArgumentException("Unexpected value: " + info);
         }
     }
 
@@ -342,7 +342,7 @@ public class PlayerData implements ConfigurationSerializable {
                 this.score_nutrients = visible;
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + info);
+                throw new IllegalArgumentException("Unexpected value: " + info);
         }
     }
 
