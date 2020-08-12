@@ -88,7 +88,7 @@ public class SnowballThrow implements Listener {
 								player.getInventory().setItemInMainHand(null);
 							player.updateInventory();
 							block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL,
-									(((Snow) block.getBlockData()).getLayers()) + 1));
+									(((Snow) block.getBlockData()).getLayers())));
 							block.setType(Material.AIR);
 							break;
 						case SNOW_BLOCK:
