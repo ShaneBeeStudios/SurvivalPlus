@@ -76,7 +76,7 @@ public class BlazeSword implements Listener {
 						assert meta != null;
 						((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
 						mainItem.setItemMeta(meta);
-						if (((Damageable) mainItem.getItemMeta()).getDamage() >= 1561) {
+						if (((Damageable) meta).getDamage() >= mainItem.getType().getMaxDurability()) {
 							Random rand = new Random();
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInMainHand(null);

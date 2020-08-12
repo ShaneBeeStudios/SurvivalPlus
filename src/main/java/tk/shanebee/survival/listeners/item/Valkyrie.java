@@ -40,6 +40,8 @@ public class Valkyrie implements Listener {
 		Player player = event.getPlayer();
 		PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
+		ItemMeta mainItemMeta = mainItem.getItemMeta();
+		assert mainItemMeta != null;
 
 		if (ItemManager.compare(mainItem, Item.VALKYRIES_AXE)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
@@ -55,14 +57,12 @@ public class Valkyrie implements Listener {
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
 							if (chance_reduceDur == 1) {
-								ItemMeta meta = mainItem.getItemMeta();
-								((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
-								mainItem.setItemMeta(meta);
+								((Damageable) mainItemMeta).setDamage(((Damageable) mainItemMeta).getDamage() + 1);
+								mainItem.setItemMeta(mainItemMeta);
 							}
 
-							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
-								assert player.getLocation().getWorld() != null;
-								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+							if (((Damageable) mainItemMeta).getDamage() >= mainItem.getType().getMaxDurability()) {
+								player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
 							player.updateInventory();
@@ -92,6 +92,8 @@ public class Valkyrie implements Listener {
 			if (Utils.isCitizensNPC(player)) return;
 			PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
+			ItemMeta mainItemMeta = mainItem.getItemMeta();
+			assert mainItemMeta != null;
 
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (ItemManager.compare(mainItem, Item.VALKYRIES_AXE)) {
@@ -106,12 +108,11 @@ public class Valkyrie implements Listener {
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
 							if (chance_reduceDur == 1) {
-								ItemMeta meta = mainItem.getItemMeta();
-								((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
-								mainItem.setItemMeta(meta);
+								((Damageable) mainItemMeta).setDamage(((Damageable) mainItemMeta).getDamage() + 1);
+								mainItem.setItemMeta(mainItemMeta);
 							}
 
-							if (((Damageable) mainItem.getItemMeta()).getDamage() >= 32) {
+							if (((Damageable) mainItem.getItemMeta()).getDamage() >= mainItem.getType().getMaxDurability()) {
 								assert player.getLocation().getWorld() != null;
 								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);

@@ -44,9 +44,10 @@ public class ShivPoison implements Listener {
 			Random rand = new Random();
 
 			if (ItemManager.compare(mainItem, Item.SHIV)) {
+                ItemMeta mainItemMeta = mainItem.getItemMeta();
 				enemy.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false));
-				assert mainItem.getItemMeta() != null;
-				if (((Damageable) mainItem.getItemMeta()).getDamage() >= 59) {
+				assert mainItemMeta != null;
+				if (((Damageable) mainItemMeta).getDamage() >= mainItem.getType().getMaxDurability()) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInMainHand(null);
 				}
@@ -61,11 +62,11 @@ public class ShivPoison implements Listener {
 						break;
 					default:
 				}
-				ItemMeta meta = offItem.getItemMeta();
-				assert meta != null;
-				((Damageable) meta).setDamage(((Damageable) meta).getDamage() + 1);
-				offItem.setItemMeta(meta);
-				if (((Damageable) offItem.getItemMeta()).getDamage() >= 59) {
+				ItemMeta offItemMeta = offItem.getItemMeta();
+				assert offItemMeta != null;
+				((Damageable) offItemMeta).setDamage(((Damageable) offItemMeta).getDamage() + 1);
+				offItem.setItemMeta(offItemMeta);
+				if (((Damageable) offItem.getItemMeta()).getDamage() >= offItem.getType().getMaxDurability()) {
 					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInOffHand(null);
 				}
