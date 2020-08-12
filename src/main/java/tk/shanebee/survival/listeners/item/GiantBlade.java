@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.bukkit.block.Block;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
@@ -31,9 +32,9 @@ import tk.shanebee.survival.Survival;
 
 public class GiantBlade implements Listener {
 
-	private Survival plugin;
-	private Lang lang;
-	private PlayerManager playerManager;
+	private final Survival plugin;
+	private final Lang lang;
+	private final PlayerManager playerManager;
 
 	public GiantBlade(Survival plugin) {
 		this.plugin = plugin;
@@ -49,6 +50,8 @@ public class GiantBlade implements Listener {
             if (Utils.isCitizensNPC(player)) return;
 			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack offItem = player.getInventory().getItemInOffHand();
+            ItemMeta offItemMeta = offItem.getItemMeta();
+            assert offItemMeta != null;
 
 			if (playerData.getStat(Stat.DUAL_WIELD) == 1) {
 				event.setCancelled(true);
@@ -65,11 +68,12 @@ public class GiantBlade implements Listener {
 
 				int chance_reduceDur = rand.nextInt(10) + 1;
 				if (chance_reduceDur == 1) {
-					((Damageable) offItem.getItemMeta()).setDamage(((Damageable) offItem.getItemMeta()).getDamage() + 1);
+					((Damageable) offItemMeta).setDamage(((Damageable) offItemMeta).getDamage() + 1);
+					offItem.setItemMeta(offItemMeta);
 				}
 
-				if (((Damageable) offItem.getItemMeta()).getDamage() >= 32) {
-					player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+				if (((Damageable) offItemMeta).getDamage() >= offItem.getType().getMaxDurability()) {
+					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 					player.getInventory().setItemInOffHand(null);
 				}
 			}
@@ -84,6 +88,10 @@ public class GiantBlade implements Listener {
 		PlayerData playerData = playerManager.getPlayerData(player);
 		ItemStack mainItem = player.getInventory().getItemInMainHand();
 		ItemStack offItem = player.getInventory().getItemInOffHand();
+		ItemMeta mainItemMeta = mainItem.getItemMeta();
+		ItemMeta offItemMeta = offItem.getItemMeta();;
+		assert mainItemMeta != null;
+		assert offItemMeta != null;
 
 		if (ItemManager.compare(mainItem, Item.ENDER_GIANT_BLADE)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
@@ -106,11 +114,12 @@ public class GiantBlade implements Listener {
 
 							int chance_reduceDur = rand.nextInt(10) + 1;
 							if (chance_reduceDur == 1) {
-								((Damageable) mainItem.getItemMeta()).setDamage(((Damageable) mainItem.getItemMeta()).getDamage() + 1);
+								((Damageable) mainItemMeta).setDamage(((Damageable) mainItemMeta).getDamage() + 1);
+								mainItem.setItemMeta(mainItemMeta);
 							}
 
-							if (((Damageable) event.getItem().getItemMeta()).getDamage() >= 32) {
-								player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+							if (((Damageable) mainItemMeta).getDamage() >= mainItem.getType().getMaxDurability()) {
+								player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 								player.getInventory().setItemInMainHand(null);
 							}
 							player.updateInventory();
