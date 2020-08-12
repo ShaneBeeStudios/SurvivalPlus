@@ -64,23 +64,28 @@ public class WeatherTask extends BukkitRunnable {
 
     private boolean isOnSnow(Player player) {
         Block block = player.getLocation().getBlock();
-        if (block.getType() == Material.SNOW) {
+        Block blockBelow = block.getRelative(BlockFace.DOWN);
+        Material at = block.getType();
+        Material down = blockBelow.getType();
+        Material down2 = blockBelow.getRelative(BlockFace.DOWN).getType();
+        if (at == Material.SNOW) {
             return true;
-        } else return block.getType() == Material.AIR && block.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK;
+        } else if (at == Material.AIR) {
+            return down == Material.SNOW || down == Material.SNOW_BLOCK || down2 == Material.SNOW || down2 == Material.SNOW_BLOCK;
+        }
+        return false;
     }
 
     private boolean isInSnowstorm(Player player) {
         World world = player.getWorld();
-        Location location = player.getLocation();
-        double temp = location.getBlock().getTemperature();
+        double temp = player.getLocation().getBlock().getTemperature();
 
-        return world.hasStorm() && temp < 0.15 && isAtHighest(player) && isOnSnow(player);
+        return world.hasStorm() && temp < 0.15 && isAtHighest(player);
     }
 
     private boolean isInRain(Player player) {
         World world = player.getWorld();
-        Location location = player.getLocation();
-        double temp = location.getBlock().getTemperature();
+        double temp = player.getLocation().getBlock().getTemperature();
 
         // is raining (0.15 – 0.95 for rain)
         if (world.hasStorm() && temp >= 0.15 && temp <= 0.95) {

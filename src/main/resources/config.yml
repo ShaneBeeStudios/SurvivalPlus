@@ -323,7 +323,7 @@ Mechanics:
       storm: 0.075
       # The speed when the player is walking on snow
       snow: 0.065
-      # The speed when the player is walking on snow in a storm
+      # The speed when the player is walking in a snow storm
       snowstorm: 0.05
 
 # Mechanics that flow around entities
