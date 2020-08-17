@@ -1,8 +1,8 @@
 package tk.shanebee.survival.managers;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.data.Board;
 import tk.shanebee.survival.tasks.Healthboard;
 
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class ScoreBoardManager {
             if (enabled)
                 setupScoreboard(player);
             else
-                player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+                Board.removeBoard(player);
         }
     }
 
