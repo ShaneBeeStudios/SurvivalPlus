@@ -264,6 +264,7 @@ Mechanics:
 
   # When a player throws a snowball it will place a snow layer on the ground
   SnowballRevamp: true
+
   # Currently disabled, do not use!!!
   SnowGenerationRevamp: false
   
@@ -359,6 +360,7 @@ Entity-Mechanics:
     baby-ticks: 48000
 
 # Enables custom recipes (Overrides vanilla recipes)
+# Disable these if you prefer to just use the vanilla recipes
 Recipes:
   Saddle: true
   Nametag: true
