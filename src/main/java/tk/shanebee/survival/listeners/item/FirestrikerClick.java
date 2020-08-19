@@ -261,7 +261,7 @@ public class FirestrikerClick implements Listener {
 			if (inv.getItem(0) != null)
 				player.getWorld().dropItem(player.getLocation(), inv.getItem(0));
 			if (inv.getItem(1) != null && inv.getItem(1).getType() != Material.BARRIER)
-				player.getInventory().addItem(inv.getItem(1));
+                player.getWorld().dropItem(player.getLocation(), inv.getItem(1));
 		}
 	}
 
