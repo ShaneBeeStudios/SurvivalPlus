@@ -9,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -56,6 +57,9 @@ public class FoodDiversityConsume implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onDamage(EntityDamageEvent e) {
+	    DamageCause cause = e.getCause();
+	    if (cause == DamageCause.VOID || cause == DamageCause.CUSTOM) return;
+
 		if (e.isCancelled()) return;
 		if (e.getEntity() instanceof Player) {
 			Player player = (Player) e.getEntity();
