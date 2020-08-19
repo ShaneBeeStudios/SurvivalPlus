@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.player.PlayerFishEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
@@ -28,6 +29,8 @@ import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Consume implements Listener {
@@ -172,17 +175,33 @@ public class Consume implements Listener {
         }
     }
 
+    // This map is to tell if the player actually DIED before respawning
+    // Using the portal in the end causes the respawn event to fire
+    // when the player re-enters the overworld
+    private final List<Player> HUNGER_CHANGE = new ArrayList<>();
+
+    @EventHandler
+    private void onRespawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        if (HUNGER_CHANGE.contains(player)) {
+            HUNGER_CHANGE.remove(player);
+
+            PlayerData playerData = playerManager.getPlayerData(player);
+            int thirst = config.MECHANICS_THIRST_RESPAWN_AMOUNT;
+            playerData.setThirst(thirst);
+            playerManager.getPlayerData(player).setThirst(thirst);
+
+            int hunger = config.MECHANICS_HUNGER_RESPAWN_AMOUNT;
+            Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
+        }
+    }
+
 	@EventHandler
-	private void onRespawn(PlayerDeathEvent event) {
+	private void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
-		PlayerData playerData = playerManager.getPlayerData(player);
-
-		int thirst = config.MECHANICS_THIRST_RESPAWN_AMOUNT;
-		playerData.setThirst(thirst);
-		playerManager.getPlayerData(player).setThirst(thirst);
-		int hunger = config.MECHANICS_HUNGER_RESPAWN_AMOUNT;
-		Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
-
+		if (!HUNGER_CHANGE.contains(player)) {
+            HUNGER_CHANGE.add(player);
+        }
 	}
 
 	private boolean checkWaterBottle(ItemStack bottle) {
