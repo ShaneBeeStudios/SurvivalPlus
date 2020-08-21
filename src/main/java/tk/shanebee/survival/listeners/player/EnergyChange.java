@@ -39,6 +39,7 @@ public class EnergyChange implements Listener {
 	@EventHandler
 	private void onRespawn(PlayerDeathEvent event) {
 		Player player = event.getEntity();
+		if (Utils.isCitizensNPC(player)) return;
 		PlayerData playerData = playerManager.getPlayerData(player);
 
 		EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);

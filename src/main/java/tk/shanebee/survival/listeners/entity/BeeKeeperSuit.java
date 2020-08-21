@@ -1,6 +1,7 @@
 package tk.shanebee.survival.listeners.entity;
 
 import org.bukkit.entity.Bee;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,15 +14,17 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.util.Utils;
 
 public class BeeKeeperSuit implements Listener {
 
 	@EventHandler
 	private void onSting(EntityDamageByEntityEvent event) {
-		if (event.getEntity() instanceof Player && event.getDamager() instanceof Bee) {
-			Player player = ((Player) event.getEntity());
-			if (hasBeekeeperSuit(player)) {
-				Bee bee = ((Bee) event.getDamager());
+        Entity entity = event.getEntity();
+        Entity damager = event.getDamager();
+		if (entity instanceof Player && damager instanceof Bee && !Utils.isCitizensNPC(entity)) {
+			if (hasBeekeeperSuit((Player) entity)) {
+				Bee bee = (Bee) damager;
 				event.setCancelled(true);
 				bee.setTarget(null);
 				bee.setAnger(0);
@@ -31,12 +34,12 @@ public class BeeKeeperSuit implements Listener {
 
 	@EventHandler
 	private void onPoison(EntityPotionEffectEvent event) {
-		if (event.getEntity() instanceof Player) {
+	    Entity entity = event.getEntity();
+		if (entity instanceof Player && !Utils.isCitizensNPC(entity)) {
 		    if (event.getCause() != Cause.ATTACK) return;
 		    if (event.getModifiedType() != PotionEffectType.POISON) return;
 		    if (event.getAction() != Action.ADDED) return;
-			Player player = ((Player) event.getEntity());
-			if (hasBeekeeperSuit(player)) {
+			if (hasBeekeeperSuit((Player) entity)) {
 			    event.setCancelled(true);
             }
 		}
@@ -44,9 +47,10 @@ public class BeeKeeperSuit implements Listener {
 
 	@EventHandler
 	private void onTarget(EntityTargetLivingEntityEvent event) {
-		if (event.getTarget() instanceof Player && event.getEntity() instanceof Bee) {
-			Player player = ((Player) event.getTarget());
-			if (hasBeekeeperSuit(player)) {
+	    Entity target = event.getTarget();
+	    Entity entity = event.getEntity();
+		if (target instanceof Player && entity instanceof Bee && !Utils.isCitizensNPC(target)) {
+			if (hasBeekeeperSuit((Player) target)) {
                 event.setCancelled(true);
             }
 		}

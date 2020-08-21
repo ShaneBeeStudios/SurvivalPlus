@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners.item;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,7 @@ import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.Nutrition;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.Utils;
 
 public class FoodDiversityConsume implements Listener {
 
@@ -56,21 +58,22 @@ public class FoodDiversityConsume implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	private void onDamage(EntityDamageEvent e) {
-	    DamageCause cause = e.getCause();
+	private void onDamage(EntityDamageEvent event) {
+	    DamageCause cause = event.getCause();
 	    if (cause == DamageCause.VOID || cause == DamageCause.CUSTOM) return;
+		if (event.isCancelled()) return;
 
-		if (e.isCancelled()) return;
-		if (e.getEntity() instanceof Player) {
-			Player player = (Player) e.getEntity();
-
-			e.setDamage(e.getDamage() * addMultiplier(player));
+        Entity entity = event.getEntity();
+		if (entity instanceof Player && !Utils.isCitizensNPC(entity)) {
+			event.setDamage(event.getDamage() * addMultiplier((Player) entity));
 		}
 	}
 
 	@EventHandler
 	private void onRespawn(PlayerDeathEvent event) {
 		Player player = event.getEntity();
+		if (Utils.isCitizensNPC(player)) return;
+
 		switch (player.getWorld().getDifficulty()) {
 			case PEACEFUL:
 			case EASY:
