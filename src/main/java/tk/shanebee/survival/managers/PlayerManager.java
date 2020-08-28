@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
@@ -23,6 +24,12 @@ public class PlayerManager implements Listener {
     private final Lang lang;
     private final Survival plugin;
     private final PlayerDataConfig playerDataConfig;
+    private final int THIRST;
+    private final int HUNGER;
+    private final double ENERGY;
+    private final int PROTEIN;
+    private final int CARBS;
+    private final int SALTS;
 
     // Store all the active PlayerData
     private final Map<UUID, PlayerData> playerDataMap;
@@ -33,6 +40,13 @@ public class PlayerManager implements Listener {
         this.lang = plugin.getLang();
         this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
         this.playerDataConfig = plugin.getPlayerDataConfig();
+        Config config = plugin.getSurvivalConfig();
+        THIRST = config.MECHANICS_THIRST_START_AMOUNT;
+        HUNGER = config.MECHANICS_HUNGER_START_AMOUNT;
+        ENERGY = config.MECHANICS_ENERGY_START;
+        PROTEIN = config.MECHANICS_FOOD_START_PROTEINS;
+        CARBS = config.MECHANICS_FOOD_START_CARBS;
+        SALTS = config.MECHANICS_FOOD_START_SALTS;
         loadPlayerData();
     }
 
@@ -64,11 +78,9 @@ public class PlayerManager implements Listener {
      */
     public PlayerData createNewPlayerData(Player player) {
         UUID uuid = player.getUniqueId();
-        int thirst = plugin.getSurvivalConfig().MECHANICS_THIRST_START_AMOUNT;
-        int hunger = plugin.getSurvivalConfig().MECHANICS_HUNGER_START_AMOUNT;
-        setHunger(player, hunger);
+        setHunger(player, HUNGER);
 
-        PlayerData playerData = new PlayerData(uuid, thirst, 240, 960, 360, 20.0);
+        PlayerData playerData = new PlayerData(uuid, THIRST, PROTEIN, CARBS, SALTS, ENERGY);
         playerDataMap.put(uuid, playerData);
         savePlayerData(playerData);
         return playerData;

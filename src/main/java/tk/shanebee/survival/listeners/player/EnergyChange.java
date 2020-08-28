@@ -28,12 +28,14 @@ public class EnergyChange implements Listener {
 	private final PlayerManager playerManager;
 	private final Config config;
 	private final Lang lang;
+	private final double ENERGY_RESPAWN;
 
 	public EnergyChange(Survival plugin) {
 		this.plugin = plugin;
 		this.playerManager = plugin.getPlayerManager();
 		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
+		this.ENERGY_RESPAWN = config.MECHANICS_ENERGY_RESPAWN;
 	}
 
 	@EventHandler
@@ -42,10 +44,11 @@ public class EnergyChange implements Listener {
 		if (Utils.isCitizensNPC(player)) return;
 		PlayerData playerData = playerManager.getPlayerData(player);
 
-		EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, 20.0 - playerData.getEnergy(), 20.0);
+		double change = ENERGY_RESPAWN - playerData.getEnergy();
+		EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, change, ENERGY_RESPAWN);
 		Bukkit.getPluginManager().callEvent(energyEvent);
 		if (energyEvent.isCancelled()) return;
-        playerData.setEnergy(20);
+        playerData.setEnergy(ENERGY_RESPAWN);
 	}
 
 	@EventHandler

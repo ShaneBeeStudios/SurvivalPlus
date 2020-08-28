@@ -58,6 +58,8 @@ public class Config {
 
 	// ENERGY
     public boolean MECHANICS_ENERGY_ENABLED;
+    public double MECHANICS_ENERGY_START;
+    public double MECHANICS_ENERGY_RESPAWN;
     public boolean MECHANICS_ENERGY_WARNING;
     public double MECHANICS_ENERGY_DRAIN_RATE;
     public double MECHANICS_ENERGY_DRAIN_COLD_RATE;
@@ -90,6 +92,12 @@ public class Config {
 	public int MECHANICS_FOOD_MAX_PROTEINS;
     public int MECHANICS_FOOD_MAX_SALTS;
     public int MECHANICS_FOOD_MAX_CARBS;
+    public int MECHANICS_FOOD_START_PROTEINS;
+    public int MECHANICS_FOOD_START_SALTS;
+    public int MECHANICS_FOOD_START_CARBS;
+    public int MECHANICS_FOOD_RESPAWN_PROTEINS;
+    public int MECHANICS_FOOD_RESPAWN_SALTS;
+    public int MECHANICS_FOOD_RESPAWN_CARBS;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD;
@@ -312,6 +320,8 @@ public class Config {
 		this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
 		this.MECHANICS_PREVENT_NIGHT_SKIP = settings.getBoolean("Mechanics.Prevent-Night-Skip");
 		this.MECHANICS_ENERGY_ENABLED = settings.getBoolean("Mechanics.Energy.enabled");
+		this.MECHANICS_ENERGY_START = settings.getDouble("Mechanics.Energy.start-level");
+        this.MECHANICS_ENERGY_RESPAWN = settings.getDouble("Mechanics.Energy.respawn-level");
 		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
 		this.MECHANICS_ENERGY_DRAIN_COLD_RATE = settings.getDouble("Mechanics.Energy.cold-drain-rate");
@@ -344,6 +354,14 @@ public class Config {
 		this.MECHANICS_FOOD_MAX_CARBS = settings.getInt("Mechanics.FoodDiversity.max-level.carbs");
         this.MECHANICS_FOOD_MAX_SALTS = settings.getInt("Mechanics.FoodDiversity.max-level.salts");
         this.MECHANICS_FOOD_MAX_PROTEINS = settings.getInt("Mechanics.FoodDiversity.max-level.proteins");
+        this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+        this.MECHANICS_FOOD_START_CARBS = settings.getInt("Mechanics.FoodDiversity.start-level.carbs");
+        this.MECHANICS_FOOD_START_SALTS = settings.getInt("Mechanics.FoodDiversity.start-level.salts");
+        this.MECHANICS_FOOD_START_PROTEINS = settings.getInt("Mechanics.FoodDiversity.start-level.proteins");
+        this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+        this.MECHANICS_FOOD_RESPAWN_CARBS = settings.getInt("Mechanics.FoodDiversity.respawn-level.carbs");
+        this.MECHANICS_FOOD_RESPAWN_SALTS = settings.getInt("Mechanics.FoodDiversity.respawn-level.salts");
+        this.MECHANICS_FOOD_RESPAWN_PROTEINS = settings.getInt("Mechanics.FoodDiversity.respawn-level.proteins");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");

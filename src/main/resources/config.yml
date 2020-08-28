@@ -131,6 +131,16 @@ Mechanics:
       carbs: 50000
       salts: 50000
       proteins: 50000
+    # The level the player will start with
+    start-level:
+      proteins: 240
+      carbs: 960
+      salts: 360
+    # The level the player will get after dying
+    respawn-level:
+      proteins: 120
+      carbs: 480
+      salts: 180
     # Each nutrition section has different effects when player's levels are too low
     effects:
       carbs:
@@ -217,6 +227,10 @@ Mechanics:
   Energy:
     # With this enabled, players will need to sleep often or risk losing energy
     enabled: true
+    # The amount of energy a player will start with (out of 20.0)
+    start-level: 20.0
+    # The amount of energy a player will get after they respawn (out of 20.0)
+    respawn-level: 20.0
     # Warn the player via message when energy starts dropping below 10
     warning: true
     # The amount of energy a player loses every 5 seconds of gameplay

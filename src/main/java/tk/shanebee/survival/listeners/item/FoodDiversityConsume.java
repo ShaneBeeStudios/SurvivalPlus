@@ -15,6 +15,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.Nutrition;
 import tk.shanebee.survival.data.PlayerData;
@@ -24,9 +25,14 @@ import tk.shanebee.survival.util.Utils;
 public class FoodDiversityConsume implements Listener {
 
 	private final PlayerManager playerManager;
+	private final int RESPAWN_PROTEIN, RESPAWN_CARBS, RESPAWN_SALTS;
 
 	public FoodDiversityConsume(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();
+        Config config = plugin.getSurvivalConfig();
+        RESPAWN_PROTEIN = config.MECHANICS_FOOD_RESPAWN_PROTEINS;
+        RESPAWN_CARBS = config.MECHANICS_FOOD_RESPAWN_CARBS;
+        RESPAWN_SALTS = config.MECHANICS_FOOD_RESPAWN_SALTS;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -74,18 +80,7 @@ public class FoodDiversityConsume implements Listener {
 		Player player = event.getEntity();
 		if (Utils.isCitizensNPC(player)) return;
 
-		switch (player.getWorld().getDifficulty()) {
-			case PEACEFUL:
-			case EASY:
-				setStats(player, 960, 240, 360);
-				break;
-			case NORMAL:
-				setStats(player, 480, 120, 180);
-				break;
-			case HARD:
-				setStats(player, 96, 24, 36);
-				break;
-		}
+		setStats(player, RESPAWN_CARBS, RESPAWN_PROTEIN, RESPAWN_SALTS);
 	}
 
 	private void addStats(Player player, Nutrient nutrient, int point) {
