@@ -304,6 +304,8 @@ public class Survival extends JavaPlugin implements Listener {
 		getCommand("nutrition").setPermissionMessage(noPerm);
 		getCommand("heal").setExecutor(new Heal(this));
 		getCommand("heal").setPermissionMessage(noPerm);
+		getCommand("playerdata").setExecutor(new PlayerDataCmd(this));
+        getCommand("playerdata").setPermissionMessage(noPerm);
 	}
 
 	/** Get instance of this plugin

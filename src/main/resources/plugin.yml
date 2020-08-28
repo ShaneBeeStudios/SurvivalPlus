@@ -42,3 +42,7 @@ commands:
       description: Heal a player
       usage: /<command> [player]
       permission: survivalplus.heal
+   playerdata:
+      description: Adjust player data
+      usage: /<command> (player) (add/remove/set) (stat) (amount)
+      permission: survivalplus.playerdata
