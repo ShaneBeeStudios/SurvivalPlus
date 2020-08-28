@@ -468,4 +468,70 @@ public class PlayerData implements ConfigurationSerializable {
         return def;
     }
 
+    /**
+     * Set a data value for this player data
+     *
+     * @param type  DataType to set
+     * @param value Value to set
+     */
+    public void setData(DataType type, Double value) {
+        switch (type) {
+            case THIRST:
+                setThirst(value.intValue());
+                break;
+            case ENERGY:
+                setEnergy(value);
+                break;
+            case PROTEINS:
+                setNutrient(Nutrient.PROTEIN, value.intValue());
+                break;
+            case CARBS:
+                setNutrient(Nutrient.CARBS, value.intValue());
+                break;
+            case SALTS:
+                setNutrient(Nutrient.SALTS, value.intValue());
+            default:
+                throw new IllegalArgumentException("Unknown type: " + type);
+        }
+    }
+
+    /**
+     * Get a data value from this player data
+     *
+     * @param type DataType to get
+     * @return Value from this player data
+     */
+    public double getData(DataType type) {
+        switch (type) {
+            case THIRST:
+                return getThirst();
+            case ENERGY:
+                return getEnergy();
+            case PROTEINS:
+                return getNutrient(Nutrient.PROTEIN);
+            case CARBS:
+                return getNutrient(Nutrient.CARBS);
+            case SALTS:
+                return getNutrient(Nutrient.SALTS);
+            default:
+                throw new IllegalArgumentException("Unknown type: " + type);
+        }
+    }
+
+    public enum DataType {
+        THIRST,
+        ENERGY,
+        PROTEINS,
+        SALTS,
+        CARBS;
+
+        public static DataType getByName(String name) {
+            try {
+                return valueOf(name.toUpperCase());
+            } catch (Exception ignore) {
+                return null;
+            }
+        }
+    }
+
 }
