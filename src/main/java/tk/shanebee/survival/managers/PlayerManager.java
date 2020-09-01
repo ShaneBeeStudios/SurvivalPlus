@@ -343,7 +343,6 @@ public class PlayerManager implements Listener {
                     int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
                     int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
                     int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
-                    int energy = scoreboard.getObjective("Energy").getScore(player.getName()).getScore();
 
                     boolean s_hunger = scoreboard.getObjective("BoardHunger").getScore(player.getName()).getScore() == 0;
                     boolean s_thirst = scoreboard.getObjective("BoardThirst").getScore(player.getName()).getScore() == 0;
@@ -351,7 +350,7 @@ public class PlayerManager implements Listener {
                     boolean s_nutrients = scoreboard.getObjective("BoardNutrients").getScore(player.getName()).getScore() == 0;
 
                     if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
-                        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, energy);
+                        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, 20.0);
                         data.setInfoDisplayed(s_hunger, s_thirst, s_energy, s_nutrients);
                         savePlayerData(data);
                         c++;
