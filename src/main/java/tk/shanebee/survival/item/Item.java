@@ -195,6 +195,18 @@ public class Item {
     }
 
     /**
+     * Get a new ItemStack based on this item
+     *
+     * @param amount Stack size
+     * @return New ItemStack based on this item
+     */
+    public ItemStack getItem(int amount) {
+        ItemStack itemStack = getItem();
+        itemStack.setAmount(amount);
+        return itemStack;
+    }
+
+    /**
      * Compare this item with an ItemStack
      *
      * @param itemStack ItemStack to check
