@@ -671,35 +671,35 @@ public class RecipeManager {
         unlit_campfire.setIngredient('2', new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
         unlit_campfire.setIngredient('3', new RecipeChoice.MaterialChoice(Tag.LOGS));
 
-        // NEW FLINT SICKLE RECIPE
+        // FLINT SICKLE RECIPE
         ShapedRecipe flint_sickle = new ShapedRecipe(new NamespacedKey(plugin, "flint_sickle"), ItemManager.get(Item.FLINT_SICKLE));
 
-        flint_sickle.shape("11 ", " 2 ", " 3 ");
+        flint_sickle.shape("11 ", " 2 ", " 2 ");
         flint_sickle.setIngredient('1', Material.FLINT);
         flint_sickle.setIngredient('2', Material.STICK);
-        flint_sickle.setIngredient('3', Material.STICK);
 
         // STONE SICKLE RECIPE
         ShapedRecipe stone_sickle = new ShapedRecipe(new NamespacedKey(plugin, "stone_sickle"), ItemManager.get(Item.STONE_SICKLE));
 
-        stone_sickle.shape("11 ", " 2 ", " 3 ");
+        stone_sickle.shape("112", "  3", " 3 ");
         stone_sickle.setIngredient('1', Material.COBBLESTONE);
-        stone_sickle.setIngredient('2', new ExactChoice(ItemManager.get(Item.HATCHET)));
+        stone_sickle.setIngredient('2', Material.FLINT);
         stone_sickle.setIngredient('3', Material.STICK);
 
-        // NEW IRON SICKLE RECIPE
+        // IRON SICKLE RECIPE
         ShapedRecipe iron_sickle = new ShapedRecipe(new NamespacedKey(plugin, "iron_sickle"), ItemManager.get(Item.IRON_SICKLE));
 
-        iron_sickle.shape("11 ", " 2 ", " 3 ");
-        iron_sickle.setIngredient('1', Material.IRON_NUGGET);
-        iron_sickle.setIngredient('2', new ExactChoice(ItemManager.get(Item.STONE_SICKLE)));
+        iron_sickle.shape("112", "  3", " 3 ");
+        iron_sickle.setIngredient('1', Material.IRON_INGOT);
+        iron_sickle.setIngredient('2', Material.FLINT);
         iron_sickle.setIngredient('3', Material.STICK);
 
-        // NEW DIAMOND SICKLE RECIPE
+        // DIAMOND SICKLE RECIPE
         ShapedRecipe diamond_sickle = new ShapedRecipe(new NamespacedKey(plugin, "diamond_sickle"), ItemManager.get(Item.DIAMOND_SICKLE));
-        diamond_sickle.shape("11 ", " 2 ", " 3 ");
+
+        diamond_sickle.shape("112", "  3", " 3 ");
         diamond_sickle.setIngredient('1', Material.DIAMOND);
-        diamond_sickle.setIngredient('2', new ExactChoice(ItemManager.get(Item.STONE_SICKLE)));
+        diamond_sickle.setIngredient('2', Material.FLINT);
         diamond_sickle.setIngredient('3', Material.STICK);
 
         // NEW GRAPPLING HOOK RECIPE
