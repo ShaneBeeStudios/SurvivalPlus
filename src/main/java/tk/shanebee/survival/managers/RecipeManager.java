@@ -1122,7 +1122,7 @@ public class RecipeManager {
         if (config.SURVIVAL_ENABLED) {
             removeRecipeByKey("wooden_sword");
             removeRecipeByKey("wooden_hoe");
-            removeRecipeByKey("wooden_shovel");
+            //removeRecipeByKey("wooden_shovel"); (re-implementing wooden shove, but leaving this here just in case)
             removeRecipeByKey("wooden_pickaxe");
             removeRecipeByKey("wooden_axe");
             removeRecipeByKey("campfire");
