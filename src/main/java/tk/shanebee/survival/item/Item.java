@@ -73,6 +73,7 @@ public class Item {
     // MISC
     public static final Item FERMENTED_SKIN = get("fermented_skin", Material.RABBIT_HIDE, 0);
     public static final Item COFFEE_BEAN = get("coffee_bean", Material.COCOA_BEANS, 1);
+    public static final Item BREEDING_EGG = get("breeding_egg", Material.EGG, 10885);
 
     // FOOD
     public static final Item SUSPICIOUS_MEAT = get("suspicious_meat", Material.SUSPICIOUS_STEW, 10881);

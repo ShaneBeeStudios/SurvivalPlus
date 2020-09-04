@@ -179,6 +179,7 @@ public class Lang {
     public String hot_milk_name;
     public int hot_milk_color;
     public String hot_milk_drink;
+    public String breeding_egg_name;
 
     public String flint_sickle;
     public String stone_sickle;
@@ -359,6 +360,7 @@ public class Lang {
         hot_milk_name = lang.getString("hot-milk-name");
         hot_milk_color = lang.getInt("hot-milk-color");
         hot_milk_drink = lang.getString("hot-milk-drink");
+        breeding_egg_name = lang.getString("breeding-egg-name");
 
         flint_sickle = lang.getString("flint_sickle");
         stone_sickle = lang.getString("stone_sickle");

@@ -692,6 +692,13 @@ public class ItemManager {
             coffee_bean_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.coffee_bean_name));
             coffee_bean.setItemMeta(coffee_bean_meta);
             return coffee_bean;
+        } else if (item == Item.BREEDING_EGG) {
+            ItemStack breeding_egg = new ItemStack(Item.BREEDING_EGG.getMaterialType());
+            ItemMeta breeding_egg_meta = breeding_egg.getItemMeta();
+            breeding_egg_meta.setCustomModelData(Item.BREEDING_EGG.getModelData());
+            breeding_egg_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.breeding_egg_name));
+            breeding_egg.setItemMeta(breeding_egg_meta);
+            return breeding_egg;
         } else if (item == Item.COMPASS) {
             ItemStack compass = new ItemStack(Item.COMPASS.getMaterialType());
             ItemMeta compass_meta = compass.getItemMeta();

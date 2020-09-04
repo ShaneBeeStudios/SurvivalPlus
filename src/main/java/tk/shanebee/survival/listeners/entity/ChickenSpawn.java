@@ -1,9 +1,6 @@
 package tk.shanebee.survival.listeners.entity;
 
-import java.util.Random;
-
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -21,6 +18,9 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.item.Item;
+
+import java.util.Random;
 
 public class ChickenSpawn implements Listener {
 
@@ -71,15 +71,7 @@ public class ChickenSpawn implements Listener {
 
     private ItemStack getEgg() {
         int ran = maxEggs > 1 ? rand.nextInt(maxEggs) + 1 : 1;
-        ItemStack itemStack = new ItemStack(Material.EGG, ran);
-        ItemMeta meta = itemStack.getItemMeta();
-
-        assert meta != null;
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        container.set(key, PersistentDataType.BYTE, (byte) 1);
-
-        itemStack.setItemMeta(meta);
-        return itemStack;
+        return Item.BREEDING_EGG.getItem(ran);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -90,7 +82,11 @@ public class ChickenSpawn implements Listener {
         assert meta != null;
         PersistentDataContainer container = meta.getPersistentDataContainer();
         if (container.has(key, PersistentDataType.BYTE)) {
+            // Old egg method (changed on sept 4/2020)
+            // Will keep for a while incase players have old eggs
             return container.get(key, PersistentDataType.BYTE) == (byte) 1;
+        } else if (Item.BREEDING_EGG.compare(itemStack)) {
+            return true;
         }
         return false;
     }
