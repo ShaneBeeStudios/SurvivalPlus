@@ -172,6 +172,9 @@ public class Config {
     public double MECHANICS_WEATHER_SPEED_SNOW;
     public double MECHANICS_WEATHER_SPEED_SNOWSTORM;
 
+    // ITEM MECHANICS
+    public int ITEM_FIRESTRIKER_COOK_TIME;
+
 	// ENTITY MECHANICS
 	public boolean ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED;
 	public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
@@ -437,6 +440,9 @@ public class Config {
 		this.MECHANICS_WEATHER_SPEED_STORM = settings.getDouble("Mechanics.Weather.speed.storm");
 		this.MECHANICS_WEATHER_SPEED_SNOW = settings.getDouble("Mechanics.Weather.speed.snow");
 		this.MECHANICS_WEATHER_SPEED_SNOWSTORM = settings.getDouble("Mechanics.Weather.speed.snowstorm");
+
+		// ITEM MECHANICS
+        this.ITEM_FIRESTRIKER_COOK_TIME = settings.getInt("Item-Mechanics.firestriker.cook-time");
 
 		// ENTITY MECHANICS
 		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.pigmen-chests.enabled");

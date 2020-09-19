@@ -341,6 +341,12 @@ Mechanics:
       # The speed when the player is walking in a snow storm
       snowstorm: 0.05
 
+# Mechanics that flow around items
+Item-Mechanics:
+  firestriker:
+    # The amount of ticks it takes to cook/smelt an item with the FireStriker (default 100 ticks = 5 seconds)
+    cook-time: 100
+
 # Mechanics that flow around entities
 Entity-Mechanics:
   # When a player opens a chest in the nether, and it contains gold items, zombie pigmen will attack the player
