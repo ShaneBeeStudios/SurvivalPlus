@@ -48,7 +48,7 @@ public class Placeholders extends PlaceholderExpansion {
 
         // Shows player's health, kinda useless but here it is
         if (identifier.equalsIgnoreCase("player_health")) {
-            return String.valueOf(p.getHealth());
+            return String.format("%.2f", p.getHealth());
         }
         // Shows a player's total hunger (including saturation)
         if (identifier.equalsIgnoreCase("player_hunger_total")) {
