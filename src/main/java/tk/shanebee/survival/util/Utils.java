@@ -15,10 +15,13 @@ import tk.shanebee.survival.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Utils {
 
+    private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]){6}>");
     private static final ImmutableSet<Material> CONCRETE_BLOCKS;
 	private static final ImmutableSet<Material> CONCRETE_POWDER;
 	private final static ImmutableSet<Material> GLAZED_TERRACOTTA;
@@ -855,11 +858,21 @@ public class Utils {
 	}
 
     /** Gets a colored string
-     * @param string The string including color codes
+     * @param string The string including color codes/HEX color codes
      * @return Returns a formatted string
      */
     public static String getColoredString(String string) {
-        return ChatColor.translateAlternateColorCodes('&', string);
+        if (isRunningMinecraft(1, 16)) {
+            Matcher matcher = HEX_PATTERN.matcher(string);
+            while (matcher.find()) {
+                final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+                final String before = string.substring(0, matcher.start());
+                final String after = string.substring(matcher.end());
+                string = before + hexColor + after;
+                matcher = HEX_PATTERN.matcher(string);
+            }
+        }
+        return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', string);
     }
 
     /** Spawn a particle at a location for all players
