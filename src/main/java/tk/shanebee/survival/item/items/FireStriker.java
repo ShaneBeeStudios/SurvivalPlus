@@ -14,6 +14,7 @@ import org.bukkit.inventory.InventoryView.Property;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
@@ -52,7 +53,7 @@ public class FireStriker implements Runnable, InventoryHolder {
         tick();
     }
 
-    public void tick() {
+    private void tick() {
         if (canCook() && canBurn()) {
             if (cookTime < MAX_COOK_TIME) {
                 cookTime++;
@@ -163,7 +164,7 @@ public class FireStriker implements Runnable, InventoryHolder {
 
     public void close() {
         Bukkit.getScheduler().cancelTask(this.id);
-        Location location = player.getLocation();
+        Location location = player.getEyeLocation().clone().add(0.0, -0.7, 0.0);
         drop(location, inv.getItem(0));
         drop(location, inv.getItem(1));
         drop(location, inv.getItem(2));
@@ -174,7 +175,8 @@ public class FireStriker implements Runnable, InventoryHolder {
         if (itemStack != null && itemStack.getType() != Material.AIR) {
             World world = location.getWorld();
             assert world != null;
-            world.dropItem(location, itemStack);
+            org.bukkit.entity.Item drop = world.dropItem(location, itemStack);
+            drop.setVelocity(new Vector(0, 0, 0));
         }
     }
 
