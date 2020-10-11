@@ -30,10 +30,8 @@ public class Utils {
 	private final static ImmutableSet<Material> ORE_BLOCK;
 	private final static ImmutableSet<Material> COOKING_BLOCK;
 	private final static ImmutableSet<Material> UTILITY_BLOCK;
-	private final static ImmutableSet<Material> SHULKER_BOX;
 	private final static ImmutableSet<Material> STORAGE_BLOCK;
 	private final static ImmutableSet<Material> STONE_TYPE_BLOCK;
-	private final static ImmutableSet<Material> WOOD_GATE;
 	private final static ImmutableSet<Material> FARMABLE;
 	private final static ImmutableSet<Material> SHOVEL;
 	private final static ImmutableSet<Material> REQUIRES_SHOVEL;
@@ -121,57 +119,31 @@ public class Utils {
 				.add(Material.YELLOW_TERRACOTTA)
 				.build();
 
-		if (isRunningMinecraft(1, 16)) {
-            NATURAL_ORE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.COAL_ORE)
-                    .add(Material.DIAMOND_ORE)
-                    .add(Material.EMERALD_ORE)
-                    .add(Material.GOLD_ORE)
-                    .add(Material.IRON_ORE)
-                    .add(Material.LAPIS_ORE)
-                    .add(Material.NETHER_QUARTZ_ORE)
-                    .add(Material.REDSTONE_ORE)
-                    .add(Material.NETHER_GOLD_ORE)
-                    .add(Material.ANCIENT_DEBRIS)
-                    .add(Material.GILDED_BLACKSTONE)
-                    .build();
-        } else {
-            NATURAL_ORE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.COAL_ORE)
-                    .add(Material.DIAMOND_ORE)
-                    .add(Material.EMERALD_ORE)
-                    .add(Material.GOLD_ORE)
-                    .add(Material.IRON_ORE)
-                    .add(Material.LAPIS_ORE)
-                    .add(Material.NETHER_QUARTZ_ORE)
-                    .add(Material.REDSTONE_ORE)
-                    .build();
-        }
+        NATURAL_ORE_BLOCK = ImmutableSet.<Material>builder()
+                .add(Material.COAL_ORE)
+                .add(Material.DIAMOND_ORE)
+                .add(Material.EMERALD_ORE)
+                .add(Material.GOLD_ORE)
+                .add(Material.IRON_ORE)
+                .add(Material.LAPIS_ORE)
+                .add(Material.NETHER_QUARTZ_ORE)
+                .add(Material.REDSTONE_ORE)
+                .add(Material.NETHER_GOLD_ORE)
+                .add(Material.ANCIENT_DEBRIS)
+                .add(Material.GILDED_BLACKSTONE)
+                .build();
 
-		if (isRunningMinecraft(1, 16)) {
-            ORE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.COAL_BLOCK)
-                    .add(Material.DIAMOND_BLOCK)
-                    .add(Material.EMERALD_BLOCK)
-                    .add(Material.GOLD_BLOCK)
-                    .add(Material.IRON_BLOCK)
-                    .add(Material.LAPIS_BLOCK)
-                    .add(Material.QUARTZ_BLOCK)
-                    .add(Material.REDSTONE_BLOCK)
-                    .add(Material.NETHERITE_BLOCK)
-                    .build();
-        } else {
-            ORE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.COAL_BLOCK)
-                    .add(Material.DIAMOND_BLOCK)
-                    .add(Material.EMERALD_BLOCK)
-                    .add(Material.GOLD_BLOCK)
-                    .add(Material.IRON_BLOCK)
-                    .add(Material.LAPIS_BLOCK)
-                    .add(Material.QUARTZ_BLOCK)
-                    .add(Material.REDSTONE_BLOCK)
-                    .build();
-        }
+        ORE_BLOCK = ImmutableSet.<Material>builder()
+                .add(Material.COAL_BLOCK)
+                .add(Material.DIAMOND_BLOCK)
+                .add(Material.EMERALD_BLOCK)
+                .add(Material.GOLD_BLOCK)
+                .add(Material.IRON_BLOCK)
+                .add(Material.LAPIS_BLOCK)
+                .add(Material.QUARTZ_BLOCK)
+                .add(Material.REDSTONE_BLOCK)
+                .add(Material.NETHERITE_BLOCK)
+                .build();
 
 		COOKING_BLOCK = ImmutableSet.<Material>builder()
 				.add(Material.FURNACE)
@@ -179,63 +151,24 @@ public class Utils {
 				.add(Material.SMOKER)
 				.build();
 
-		if (isRunningMinecraft(1, 16)) {
-            UTILITY_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.CARTOGRAPHY_TABLE)
-                    .add(Material.FLETCHING_TABLE)
-                    .add(Material.LECTERN)
-                    .add(Material.LOOM)
-                    .add(Material.STONECUTTER)
-                    .add(Material.GRINDSTONE)
-                    .add(Material.SMITHING_TABLE)
-                    .add(Material.ANVIL)
-                    .add(Material.ENCHANTING_TABLE)
-                    .add(Material.JUKEBOX)
-                    .add(Material.NOTE_BLOCK)
-                    .add(Material.BREWING_STAND)
-                    .add(Material.CAULDRON)
-                    .add(Material.COMPOSTER)
-                    .add(Material.RESPAWN_ANCHOR)
-                    .add(Material.LODESTONE)
-                    .build();
-        } else {
-            UTILITY_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.CARTOGRAPHY_TABLE)
-                    .add(Material.FLETCHING_TABLE)
-                    .add(Material.LECTERN)
-                    .add(Material.LOOM)
-                    .add(Material.STONECUTTER)
-                    .add(Material.GRINDSTONE)
-                    .add(Material.SMITHING_TABLE)
-                    .add(Material.ANVIL)
-                    .add(Material.ENCHANTING_TABLE)
-                    .add(Material.JUKEBOX)
-                    .add(Material.NOTE_BLOCK)
-                    .add(Material.BREWING_STAND)
-                    .add(Material.CAULDRON)
-                    .add(Material.COMPOSTER)
-                    .build();
-        }
-
-		SHULKER_BOX = ImmutableSet.<Material>builder()
-				.add(Material.SHULKER_BOX)
-				.add(Material.BLACK_SHULKER_BOX)
-				.add(Material.BLUE_SHULKER_BOX)
-				.add(Material.BROWN_SHULKER_BOX)
-				.add(Material.CYAN_SHULKER_BOX)
-				.add(Material.GRAY_SHULKER_BOX)
-				.add(Material.GREEN_SHULKER_BOX)
-				.add(Material.LIGHT_BLUE_SHULKER_BOX)
-				.add(Material.LIGHT_GRAY_SHULKER_BOX)
-				.add(Material.LIME_SHULKER_BOX)
-				.add(Material.MAGENTA_SHULKER_BOX)
-				.add(Material.ORANGE_SHULKER_BOX)
-				.add(Material.PINK_SHULKER_BOX)
-				.add(Material.PURPLE_SHULKER_BOX)
-				.add(Material.RED_SHULKER_BOX)
-				.add(Material.WHITE_SHULKER_BOX)
-				.add(Material.YELLOW_SHULKER_BOX)
-				.build();
+        UTILITY_BLOCK = ImmutableSet.<Material>builder()
+                .add(Material.CARTOGRAPHY_TABLE)
+                .add(Material.FLETCHING_TABLE)
+                .add(Material.LECTERN)
+                .add(Material.LOOM)
+                .add(Material.STONECUTTER)
+                .add(Material.GRINDSTONE)
+                .add(Material.SMITHING_TABLE)
+                .add(Material.ANVIL)
+                .add(Material.ENCHANTING_TABLE)
+                .add(Material.JUKEBOX)
+                .add(Material.NOTE_BLOCK)
+                .add(Material.BREWING_STAND)
+                .add(Material.CAULDRON)
+                .add(Material.COMPOSTER)
+                .add(Material.RESPAWN_ANCHOR)
+                .add(Material.LODESTONE)
+                .build();
 
 		STORAGE_BLOCK = ImmutableSet.<Material>builder()
 				.add(Material.CHEST)
@@ -244,87 +177,45 @@ public class Utils {
 				.add(Material.BARREL)
 				.build();
 
-		if (isRunningMinecraft(1, 16)) {
-            STONE_TYPE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.STONE)
-                    .add(Material.COBBLESTONE)
-                    .add(Material.MOSSY_COBBLESTONE)
-                    .add(Material.INFESTED_COBBLESTONE)
-                    .add(Material.ANDESITE)
-                    .add(Material.POLISHED_ANDESITE)
-                    .add(Material.DIORITE)
-                    .add(Material.POLISHED_DIORITE)
-                    .add(Material.GRANITE)
-                    .add(Material.POLISHED_GRANITE)
-                    .add(Material.BRICKS)
-                    .add(Material.NETHER_BRICKS)
-                    .add(Material.SANDSTONE)
-                    .add(Material.CHISELED_SANDSTONE)
-                    .add(Material.SMOOTH_SANDSTONE)
-                    .add(Material.CUT_SANDSTONE)
-                    .add(Material.RED_SANDSTONE)
-                    .add(Material.CHISELED_RED_SANDSTONE)
-                    .add(Material.CUT_RED_SANDSTONE)
-                    .add(Material.SMOOTH_RED_SANDSTONE)
-                    .add(Material.PRISMARINE)
-                    .add(Material.PRISMARINE_BRICKS)
-                    .add(Material.DARK_PRISMARINE)
-                    .add(Material.NETHERRACK)
-                    .add(Material.END_STONE)
-                    .add(Material.END_STONE_BRICKS)
-                    .add(Material.PURPUR_BLOCK)
-                    .add(Material.PURPUR_PILLAR)
-                    // Nether update blocks
-                    .add(Material.BASALT)
-                    .add(Material.POLISHED_BASALT)
-                    .add(Material.BLACKSTONE)
-                    .add(Material.POLISHED_BLACKSTONE)
-                    .add(Material.CHISELED_POLISHED_BLACKSTONE)
-                    .add(Material.CHISELED_NETHER_BRICKS)
-                    .add(Material.CRACKED_NETHER_BRICKS)
-                    .add(Material.QUARTZ_BRICKS)
-                    .build();
-        } else {
-            STONE_TYPE_BLOCK = ImmutableSet.<Material>builder()
-                    .add(Material.STONE)
-                    .add(Material.COBBLESTONE)
-                    .add(Material.MOSSY_COBBLESTONE)
-                    .add(Material.INFESTED_COBBLESTONE)
-                    .add(Material.ANDESITE)
-                    .add(Material.POLISHED_ANDESITE)
-                    .add(Material.DIORITE)
-                    .add(Material.POLISHED_DIORITE)
-                    .add(Material.GRANITE)
-                    .add(Material.POLISHED_GRANITE)
-                    .add(Material.BRICKS)
-                    .add(Material.NETHER_BRICKS)
-                    .add(Material.SANDSTONE)
-                    .add(Material.CHISELED_SANDSTONE)
-                    .add(Material.SMOOTH_SANDSTONE)
-                    .add(Material.CUT_SANDSTONE)
-                    .add(Material.RED_SANDSTONE)
-                    .add(Material.CHISELED_RED_SANDSTONE)
-                    .add(Material.CUT_RED_SANDSTONE)
-                    .add(Material.SMOOTH_RED_SANDSTONE)
-                    .add(Material.PRISMARINE)
-                    .add(Material.PRISMARINE_BRICKS)
-                    .add(Material.DARK_PRISMARINE)
-                    .add(Material.NETHERRACK)
-                    .add(Material.END_STONE)
-                    .add(Material.END_STONE_BRICKS)
-                    .add(Material.PURPUR_BLOCK)
-                    .add(Material.PURPUR_PILLAR)
-                    .build();
-        }
-
-		WOOD_GATE = ImmutableSet.<Material>builder()
-				.add(Material.ACACIA_FENCE_GATE)
-				.add(Material.BIRCH_FENCE_GATE)
-				.add(Material.DARK_OAK_FENCE_GATE)
-				.add(Material.JUNGLE_FENCE_GATE)
-				.add(Material.OAK_FENCE_GATE)
-				.add(Material.SPRUCE_FENCE_GATE)
-				.build();
+        STONE_TYPE_BLOCK = ImmutableSet.<Material>builder()
+                .add(Material.STONE)
+                .add(Material.COBBLESTONE)
+                .add(Material.MOSSY_COBBLESTONE)
+                .add(Material.INFESTED_COBBLESTONE)
+                .add(Material.ANDESITE)
+                .add(Material.POLISHED_ANDESITE)
+                .add(Material.DIORITE)
+                .add(Material.POLISHED_DIORITE)
+                .add(Material.GRANITE)
+                .add(Material.POLISHED_GRANITE)
+                .add(Material.BRICKS)
+                .add(Material.NETHER_BRICKS)
+                .add(Material.SANDSTONE)
+                .add(Material.CHISELED_SANDSTONE)
+                .add(Material.SMOOTH_SANDSTONE)
+                .add(Material.CUT_SANDSTONE)
+                .add(Material.RED_SANDSTONE)
+                .add(Material.CHISELED_RED_SANDSTONE)
+                .add(Material.CUT_RED_SANDSTONE)
+                .add(Material.SMOOTH_RED_SANDSTONE)
+                .add(Material.PRISMARINE)
+                .add(Material.PRISMARINE_BRICKS)
+                .add(Material.DARK_PRISMARINE)
+                .add(Material.NETHERRACK)
+                .add(Material.END_STONE)
+                .add(Material.END_STONE_BRICKS)
+                .add(Material.PURPUR_BLOCK)
+                .add(Material.PURPUR_PILLAR)
+                // Nether update blocks
+                .add(Material.BASALT)
+                .add(Material.POLISHED_BASALT)
+                .add(Material.BLACKSTONE)
+                .add(Material.POLISHED_BLACKSTONE)
+                .add(Material.CHISELED_POLISHED_BLACKSTONE)
+                .add(Material.CHISELED_NETHER_BRICKS)
+                .add(Material.CRACKED_NETHER_BRICKS)
+                .add(Material.QUARTZ_BRICKS)
+                .build();
 
 		FARMABLE = ImmutableSet.<Material>builder()
 				.add(Material.MELON)
@@ -341,78 +232,40 @@ public class Utils {
 				.add(Material.COCOA)
 				.build();
 
-		if (isRunningMinecraft(1, 16)) {
-            SHOVEL = ImmutableSet.<Material>builder()
-                    .add(Material.STONE_SHOVEL)
-                    .add(Material.IRON_SHOVEL)
-                    .add(Material.DIAMOND_SHOVEL)
-                    .add(Material.GOLDEN_SHOVEL)
-                    .add(Material.WOODEN_SHOVEL)
-                    .add(Material.NETHERITE_SHOVEL)
-                    .build();
-        } else {
-            SHOVEL = ImmutableSet.<Material>builder()
-                    .add(Material.STONE_SHOVEL)
-                    .add(Material.IRON_SHOVEL)
-                    .add(Material.DIAMOND_SHOVEL)
-                    .add(Material.GOLDEN_SHOVEL)
-                    .add(Material.WOODEN_SHOVEL)
-                    .build();
-        }
+        SHOVEL = ImmutableSet.<Material>builder()
+                .add(Material.STONE_SHOVEL)
+                .add(Material.IRON_SHOVEL)
+                .add(Material.DIAMOND_SHOVEL)
+                .add(Material.GOLDEN_SHOVEL)
+                .add(Material.WOODEN_SHOVEL)
+                .add(Material.NETHERITE_SHOVEL)
+                .build();
 
-		if (isRunningMinecraft(1, 16)) {
-            REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
-                    .add(Material.GRASS_BLOCK)
-                    .add(Material.DIRT)
-                    .add(Material.PODZOL)
-                    .add(Material.COARSE_DIRT)
-                    .add(Material.GRASS_PATH)
-                    .add(Material.FARMLAND)
-                    .add(Material.SOUL_SAND)
-                    .add(Material.SAND)
-                    .add(Material.RED_SAND)
-                    .add(Material.CLAY)
-                    .add(Material.MYCELIUM)
-                    .add(Material.SNOW)
-                    .add(Material.SNOW_BLOCK)
-                    .add(Material.SOUL_SOIL)
-                    .build();
-        } else {
-            REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
-                    .add(Material.GRASS_BLOCK)
-                    .add(Material.DIRT)
-                    .add(Material.PODZOL)
-                    .add(Material.COARSE_DIRT)
-                    .add(Material.GRASS_PATH)
-                    .add(Material.FARMLAND)
-                    .add(Material.SOUL_SAND)
-                    .add(Material.SAND)
-                    .add(Material.RED_SAND)
-                    .add(Material.CLAY)
-                    .add(Material.MYCELIUM)
-                    .add(Material.SNOW)
-                    .add(Material.SNOW_BLOCK)
-                    .build();
-        }
+        REQUIRES_SHOVEL = ImmutableSet.<Material>builder()
+                .add(Material.GRASS_BLOCK)
+                .add(Material.DIRT)
+                .add(Material.PODZOL)
+                .add(Material.COARSE_DIRT)
+                .add(Material.GRASS_PATH)
+                .add(Material.FARMLAND)
+                .add(Material.SOUL_SAND)
+                .add(Material.SAND)
+                .add(Material.RED_SAND)
+                .add(Material.CLAY)
+                .add(Material.MYCELIUM)
+                .add(Material.SNOW)
+                .add(Material.SNOW_BLOCK)
+                .add(Material.SOUL_SOIL)
+                .build();
 
-		if (isRunningMinecraft(1, 16)) {
-            PICKAXE = ImmutableSet.<Material>builder()
-                    .add(Material.GOLDEN_PICKAXE)
-                    .add(Material.WOODEN_PICKAXE)
-                    .add(Material.DIAMOND_PICKAXE)
-                    .add(Material.IRON_PICKAXE)
-                    .add(Material.STONE_PICKAXE)
-                    .add(Material.NETHERITE_PICKAXE)
-                    .build();
-        } else {
-            PICKAXE = ImmutableSet.<Material>builder()
-                    .add(Material.GOLDEN_PICKAXE)
-                    .add(Material.WOODEN_PICKAXE)
-                    .add(Material.DIAMOND_PICKAXE)
-                    .add(Material.IRON_PICKAXE)
-                    .add(Material.STONE_PICKAXE)
-                    .build();
-        }
+        PICKAXE = ImmutableSet.<Material>builder()
+                .add(Material.GOLDEN_PICKAXE)
+                .add(Material.WOODEN_PICKAXE)
+                .add(Material.DIAMOND_PICKAXE)
+                .add(Material.IRON_PICKAXE)
+                .add(Material.STONE_PICKAXE)
+                .add(Material.NETHERITE_PICKAXE)
+                .build();
 
 		REQUIRES_PICKAXE = ImmutableSet.<Material>builder()
 				.add(Material.NETHER_BRICK_FENCE)
@@ -444,24 +297,14 @@ public class Utils {
 				.add(Material.OBSIDIAN)
 				.build();
 
-		if (isRunningMinecraft(1, 16)) {
-            AXE = ImmutableSet.<Material>builder()
-                    .add(Material.WOODEN_AXE)
-                    .add(Material.STONE_AXE)
-                    .add(Material.GOLDEN_AXE)
-                    .add(Material.IRON_AXE)
-                    .add(Material.DIAMOND_AXE)
-                    .add(Material.NETHERITE_AXE)
-                    .build();
-        } else {
-            AXE = ImmutableSet.<Material>builder()
-                    .add(Material.WOODEN_AXE)
-                    .add(Material.STONE_AXE)
-                    .add(Material.GOLDEN_AXE)
-                    .add(Material.IRON_AXE)
-                    .add(Material.DIAMOND_AXE)
-                    .build();
-        }
+        AXE = ImmutableSet.<Material>builder()
+                .add(Material.WOODEN_AXE)
+                .add(Material.STONE_AXE)
+                .add(Material.GOLDEN_AXE)
+                .add(Material.IRON_AXE)
+                .add(Material.DIAMOND_AXE)
+                .add(Material.NETHERITE_AXE)
+                .build();
 
 		REQUIRES_AXE = ImmutableSet.<Material>builder()
 				.add(Material.CHEST)
@@ -588,10 +431,7 @@ public class Utils {
 	 * @return True if material is shulker box
 	 */
     public static boolean isShulkerBox(Material material) {
-        if (isRunningMinecraft(1, 16)) {
-            return Tag.SHULKER_BOXES.isTagged(material);
-        }
-        return SHULKER_BOX.contains(material);
+        return Tag.SHULKER_BOXES.isTagged(material);
     }
 
 	/** Check if a material is a storage block
@@ -643,10 +483,7 @@ public class Utils {
 	 * @return True if material is wood gate
 	 */
     public static boolean isWoodGate(Material material) {
-        if (isRunningMinecraft(1, 16)) {
-            return Tag.FENCE_GATES.isTagged(material);
-        }
-        return WOOD_GATE.contains(material);
+        return Tag.FENCE_GATES.isTagged(material);
     }
 
 	/** Check if a material is a farmable block
@@ -802,16 +639,14 @@ public class Utils {
             case BEETROOTS:
                 if (grown) {
                     mat.add(Material.BEETROOT);
-                    mat.add(Material.BEETROOT_SEEDS);
                 }
-                else mat.add(Material.BEETROOT_SEEDS);
+                mat.add(Material.BEETROOT_SEEDS);
                 break;
             case WHEAT:
                 if (grown) {
                     mat.add(Material.WHEAT);
-                    mat.add(Material.WHEAT_SEEDS);
                 }
-                else mat.add(Material.WHEAT_SEEDS);
+                mat.add(Material.WHEAT_SEEDS);
                 break;
             case SWEET_BERRY_BUSH:
                 mat.add(Material.SWEET_BERRIES);

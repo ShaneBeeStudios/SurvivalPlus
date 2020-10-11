@@ -5,7 +5,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.util.Utils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -59,6 +58,10 @@ public class Item {
     public static final Item DIAMOND_CHESTPLATE = get("diamond_chestplate", Material.DIAMOND_CHESTPLATE, 0);
     public static final Item DIAMOND_HELMET = get("diamond_helmet", Material.DIAMOND_HELMET, 0);
     public static final Item DIAMOND_LEGGINGS = get("diamond_leggings", Material.DIAMOND_LEGGINGS, 0);
+    public static final Item NETHERITE_HELMET = get("netherite_helmet", Material.NETHERITE_HELMET, 0);
+    public static final Item NETHERITE_CHESTPLATE = get("netherite_chestplate", Material.NETHERITE_CHESTPLATE, 0);
+    public static final Item NETHERITE_LEGGINGS = get("netherite_leggings", Material.NETHERITE_LEGGINGS, 0);
+    public static final Item NETHERITE_BOOTS = get("netherite_boots", Material.NETHERITE_BOOTS, 0);
     public static final Item BEEKEEPER_HELMET = get("beekeeper_helmet", Material.LEATHER_HELMET, 10881);
     public static final Item BEEKEEPER_CHESTPLATE = get("beekeeper_chestplate", Material.LEATHER_CHESTPLATE, 10881);
     public static final Item BEEKEEPER_LEGGINGS = get("beekeeper_leggings", Material.LEATHER_LEGGINGS, 10881);
@@ -96,26 +99,6 @@ public class Item {
 
     // TODO Experimental
     public static final Item PERSISTENT_TORCH = get("persistent_torch", Material.TORCH, 1);
-
-    // 1.16 items (temp null values if running on 1.15, until 1.15 support is removed)
-    public static final Item NETHERITE_HELMET;
-    public static final Item NETHERITE_CHESTPLATE;
-    public static final Item NETHERITE_LEGGINGS;
-    public static final Item NETHERITE_BOOTS;
-
-    static {
-        if (Utils.isRunningMinecraft(1, 16)) {
-            NETHERITE_HELMET = get("netherite_helmet", Material.NETHERITE_HELMET, 0);
-            NETHERITE_CHESTPLATE = get("netherite_chestplate", Material.NETHERITE_CHESTPLATE, 0);
-            NETHERITE_LEGGINGS = get("netherite_leggings", Material.NETHERITE_LEGGINGS, 0);
-            NETHERITE_BOOTS = get("netherite_boots", Material.NETHERITE_BOOTS, 0);
-        } else {
-            NETHERITE_HELMET = null;
-            NETHERITE_CHESTPLATE = null;
-            NETHERITE_LEGGINGS = null;
-            NETHERITE_BOOTS = null;
-        }
-    }
 
     private static Item get(String key, Material material, int defaultData) {
         int data = ITEM_CONFIG.getModelData(key, defaultData);

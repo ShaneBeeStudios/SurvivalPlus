@@ -65,11 +65,11 @@ public class Survival extends JavaPlugin implements Listener {
 		long time = System.currentTimeMillis();
 
 		// VERSION CHECK
-		if (!Utils.isRunningMinecraft(1, 15, 2)) {
+		if (!Utils.isRunningMinecraft(1, 16)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
             Utils.log("&c-----------------------------------------------------------");
             Utils.log("&cYour version is not supported: &b" + ver);
-            Utils.log("&eThis plugin only works on Minecraft &b1.15.2+");
+            Utils.log("&eThis plugin only works on Minecraft &b1.16+");
             Utils.log("&c-----------------------------------------------------------");
 			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
@@ -81,20 +81,6 @@ public class Survival extends JavaPlugin implements Listener {
             Utils.log("&c-----------------------------------------------------------");
             Utils.log("&7Your server software is not supported: &c" + Bukkit.getName());
             Utils.log("&7This plugin will only work on &aSpigot &7or &aPaper.");
-            Utils.log("&c-----------------------------------------------------------");
-            loaded = false;
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        // UP-TO-DATE CHECK
-        // If the Bukkit#removeRecipe method is missing, the plugin will crash.
-        // This method was added sometime in 1.15.2
-        if (!Utils.methodExists(Bukkit.class, "removeRecipe", NamespacedKey.class)) {
-            Utils.log("&c-----------------------------------------------------------");
-            Utils.log("&cIt appears your server version is not up to date");
-            Utils.log("&cPlease update your Spigot/Paper version to");
-            Utils.log("&ccontinue using this plugin.");
             Utils.log("&c-----------------------------------------------------------");
             loaded = false;
             Bukkit.getPluginManager().disablePlugin(this);
@@ -170,7 +156,7 @@ public class Survival extends JavaPlugin implements Listener {
 		    Bukkit.getScheduler().runTaskLater(this, () -> {
                 this.recipeManager.loadCustomRecipes();
                 Utils.log("&7Custom recipes &aloaded");
-            }, config.RECIPE_DELAY * 20);
+            }, config.RECIPE_DELAY * 20L);
 
         } else {
             this.recipeManager.loadCustomRecipes();
