@@ -19,6 +19,7 @@ import tk.shanebee.survival.listeners.entity.ChickenSpawn;
 import tk.shanebee.survival.listeners.entity.EntityDeath;
 import tk.shanebee.survival.listeners.entity.LivingSlime;
 import tk.shanebee.survival.listeners.entity.MerchantTrades;
+import tk.shanebee.survival.listeners.entity.PiglinBarter;
 import tk.shanebee.survival.listeners.item.*;
 import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
@@ -140,6 +141,7 @@ public class EventManager {
         if (config.SURVIVAL_UPDATE_MERCHANT_TRADES) {
             pm.registerEvents(new MerchantTrades(this.plugin), this.plugin);
         }
+        pm.registerEvents(new PiglinBarter(this.plugin), this.plugin);
         // Config handled within this event
         pm.registerEvents(new EntityDeath(this.plugin), this.plugin);
 

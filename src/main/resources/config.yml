@@ -378,6 +378,12 @@ Entity-Mechanics:
     # If 'always-baby = false' this time will only be applied to baby chickens
     # Vanilla default = 24,000 ticks = 20 minutes
     baby-ticks: 48000
+  piglin-barter:
+    # When enabled, if a piglin drops a water bottle they'll drop purified/clean water instead
+    # Thirst needs to be enabled for this to work
+    drop-purified-water: true
+    # When enabled, piglins have a chance of randomly dropping custom SurvivalPlus items
+    alternate-bartering: true
 
 # Enables custom recipes (Overrides vanilla recipes)
 # Disable these if you prefer to just use the vanilla recipes
