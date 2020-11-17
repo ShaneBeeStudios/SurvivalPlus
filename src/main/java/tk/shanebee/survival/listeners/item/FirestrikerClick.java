@@ -175,8 +175,9 @@ public class FirestrikerClick implements Listener {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
             Player player = (Player) event.getDamager();
             ItemStack item = player.getInventory().getItemInMainHand();
-            if (item.getType() == Material.WOODEN_SHOVEL) {
+            if (ItemManager.compare(item, Item.FIRESTRIKER)) {
                 ItemMeta meta = item.getItemMeta();
+                assert meta != null;
                 ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 2);
                 item.setItemMeta(meta);
             }
