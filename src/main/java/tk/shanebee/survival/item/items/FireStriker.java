@@ -114,6 +114,9 @@ public class FireStriker implements Runnable, InventoryHolder {
 
         if (input == null) return false; // nothing to smelt
 
+        Material possibleOutput = getOutput(input.getType());
+        if (possibleOutput == null) return false; // The input can not be smelted
+
         if (output == null) { //output is empty
             return true;
         }
@@ -121,7 +124,7 @@ public class FireStriker implements Runnable, InventoryHolder {
         if (output.getAmount() >= out.getMaxStackSize()) {
             return false;
         }
-        return out == Material.AIR || out == getOutput(input.getType());
+        return out == Material.AIR || out == possibleOutput;
     }
 
     private void cook() {
