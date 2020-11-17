@@ -42,6 +42,10 @@ Survival:
   # If false, recipes will be unlocked as a player advances thru the game
   Unlock-all-recipes-on-join: false
 
+  # When enabled, all vanilla wooden tool recipes will be removed
+  # This makes gameplay a little more difficult
+  Remove-Wooden-Tools: true
+
   # With these enabled, players will only be able to break most blocks with the correct tools
   BreakOnlyWith:
     Axe: true

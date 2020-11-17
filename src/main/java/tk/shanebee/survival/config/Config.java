@@ -34,6 +34,7 @@ public class Config {
 	public boolean SURVIVAL_ENABLED;
 	public boolean SURVIVAL_LIMITED_CRAFTING;
     public boolean SURVIVAL_UNLOCK_ALL_RECIPES;
+    public boolean SURVIVAL_REMOVE_WOOD_TOOLS;
 	public boolean SURVIVAL_TORCH;
 	public boolean SURVIVAL_UPDATE_MERCHANT_TRADES;
 
@@ -303,6 +304,7 @@ public class Config {
 		this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
 		this.SURVIVAL_LIMITED_CRAFTING = settings.getBoolean("Survival.LimitedCrafting");
         this.SURVIVAL_UNLOCK_ALL_RECIPES = settings.getBoolean("Survival.Unlock-all-recipes-on-join");
+        this.SURVIVAL_REMOVE_WOOD_TOOLS = settings.getBoolean("Survival.Remove-Wooden-Tools");
 		this.SURVIVAL_TORCH = settings.getBoolean("Survival.Torch");
 		this.SURVIVAL_UPDATE_MERCHANT_TRADES = settings.getBoolean("Survival.UpdateMerchantTrades");
 

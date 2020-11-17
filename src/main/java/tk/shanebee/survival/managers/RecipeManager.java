@@ -1120,11 +1120,6 @@ public class RecipeManager {
 
     private void removeRecipes() {
         if (config.SURVIVAL_ENABLED) {
-            removeRecipeByKey("wooden_sword");
-            removeRecipeByKey("wooden_hoe");
-            //removeRecipeByKey("wooden_shovel"); (re-implementing wooden shove, but leaving this here just in case)
-            removeRecipeByKey("wooden_pickaxe");
-            removeRecipeByKey("wooden_axe");
             removeRecipeByKey("campfire");
             removeRecipeByKey("chest");
             if (config.SURVIVAL_TORCH) {
@@ -1136,6 +1131,13 @@ public class RecipeManager {
             if (config.RECIPES_WORKBENCH) {
                 removeRecipeByKey("crafting_table");
             }
+        }
+        if (config.SURVIVAL_REMOVE_WOOD_TOOLS) {
+            removeRecipeByKey("wooden_sword");
+            removeRecipeByKey("wooden_hoe");
+            removeRecipeByKey("wooden_shovel");
+            removeRecipeByKey("wooden_pickaxe");
+            removeRecipeByKey("wooden_axe");
         }
         if (config.MECHANICS_REDUCED_IRON_NUGGET) {
             removeRecipeByKey("iron_ingot");
