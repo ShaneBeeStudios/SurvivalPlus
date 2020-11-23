@@ -72,23 +72,24 @@ public class PlayerDataCmd implements TabExecutor {
         return true;
     }
 
+    private final String[] DATA_TYPES = PlayerData.DataType.getNames();
+    private final String[] CHANGE = new String[]{"add", "set", "remove"};
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
             return null; // return player names
         } else if (args.length == 2) {
-            String[] list = {"add", "set", "remove"};
             List<String> matches = new ArrayList<>();
-            for (String name : list) {
+            for (String name : CHANGE) {
                 if (StringUtil.startsWithIgnoreCase(name, args[1])) {
                     matches.add(name);
                 }
             }
             return matches;
         } else if (args.length == 3) {
-            String[] list = {"thirst", "proteins", "salts", "carbs", "energy"};
             List<String> matches = new ArrayList<>();
-            for (String name : list) {
+            for (String name : DATA_TYPES) {
                 if (StringUtil.startsWithIgnoreCase(name, args[2])) {
                     matches.add(name);
                 }
