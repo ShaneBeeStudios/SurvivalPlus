@@ -85,6 +85,7 @@
                     <source>11</source>
                     <links>
                         <link>https://hub.spigotmc.org/javadocs/spigot/</link>
+                        <link>https://commons.apache.org/proper/commons-lang/javadocs/api-2.6</link>
                     </links>
                     <excludePackageNames>*.listeners.*:*.listeners;*.commands:*.metrics</excludePackageNames>
                 </configuration>
