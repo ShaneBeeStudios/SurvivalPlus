@@ -13,6 +13,7 @@ import tk.shanebee.survival.util.Math;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -469,18 +470,52 @@ public class PlayerData implements ConfigurationSerializable {
     }
 
     /**
+     * Get the hunger level of this player data
+     * <p>This is a combination of food level + saturation level</p>
+     *
+     * @return Hunger level from this player data
+     */
+    public double getHunger() {
+        Player player = getPlayer();
+        return player.getFoodLevel() + player.getSaturation();
+    }
+
+    /**
+     * Set the hunger level of this player data
+     * <p>This is a combination of food level + saturation level</p>
+     *
+     * @param hunger Hunger level to set
+     */
+    public void setHunger(double hunger) {
+        double sat = 0.0;
+        double hun = 0.0;
+        if (hunger > 40) {
+            hun = 20;
+            sat = 20;
+        } else if (hunger > 20) {
+            hun = 20;
+            sat = hunger - 20;
+        } else if (hunger >= 0) {
+            hun = hunger;
+        }
+        Player player = getPlayer();
+        player.setFoodLevel((int) hun);
+        player.setSaturation((float) sat);
+    }
+
+    /**
      * Set a data value for this player data
      *
      * @param type  DataType to set
      * @param value Value to set
      */
-    public void setData(DataType type, Double value) {
+    public void setData(DataType type, Number value) {
         switch (type) {
             case THIRST:
                 setThirst(value.intValue());
                 break;
             case ENERGY:
-                setEnergy(value);
+                setEnergy(value.doubleValue());
                 break;
             case PROTEINS:
                 setNutrient(Nutrient.PROTEIN, value.intValue());
@@ -490,6 +525,10 @@ public class PlayerData implements ConfigurationSerializable {
                 break;
             case SALTS:
                 setNutrient(Nutrient.SALTS, value.intValue());
+                break;
+            case HUNGER:
+                setHunger(value.doubleValue());
+                break;
             default:
                 throw new IllegalArgumentException("Unknown type: " + type);
         }
@@ -513,6 +552,8 @@ public class PlayerData implements ConfigurationSerializable {
                 return getNutrient(Nutrient.CARBS);
             case SALTS:
                 return getNutrient(Nutrient.SALTS);
+            case HUNGER:
+                return getHunger();
             default:
                 throw new IllegalArgumentException("Unknown type: " + type);
         }
@@ -523,7 +564,8 @@ public class PlayerData implements ConfigurationSerializable {
         ENERGY,
         PROTEINS,
         SALTS,
-        CARBS;
+        CARBS,
+        HUNGER;
 
         public static DataType getByName(String name) {
             try {
@@ -531,6 +573,14 @@ public class PlayerData implements ConfigurationSerializable {
             } catch (Exception ignore) {
                 return null;
             }
+        }
+
+        public static String[] getNames() {
+            String[] names = new String[values().length];
+            for (int i = 0; i < values().length; i++) {
+                names[i] = values()[i].toString().toLowerCase(Locale.ROOT);
+            }
+            return names;
         }
     }
 
