@@ -295,6 +295,7 @@ public class Utils {
 				.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
 				.add(Material.BEACON)
 				.add(Material.OBSIDIAN)
+                .add(Material.IRON_TRAPDOOR)
 				.build();
 
         AXE = ImmutableSet.<Material>builder()
@@ -555,6 +556,7 @@ public class Utils {
     public static boolean requiresAxe(Material material) {
         if (REQUIRES_AXE.contains(material)) return true;
         if (Tag.WOODEN_DOORS.isTagged(material)) return true;
+        if (Tag.WOODEN_TRAPDOORS.isTagged(material)) return true;
         if (Tag.PLANKS.isTagged(material)) return true;
         if (Tag.LOGS.isTagged(material)) return true;
         if (Tag.WOODEN_STAIRS.isTagged(material)) return true;
