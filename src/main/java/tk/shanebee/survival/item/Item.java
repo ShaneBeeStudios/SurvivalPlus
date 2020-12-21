@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Item {
 
-    private static final ItemConfig ITEM_CONFIG = new ItemConfig();
+    static final ItemConfig ITEM_CONFIG = new ItemConfig();
     private static final Map<String, Item> ALL_ITEMS = new HashMap<>();
 
     // TOOLS

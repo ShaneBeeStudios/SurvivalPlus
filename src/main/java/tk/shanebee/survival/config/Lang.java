@@ -78,6 +78,8 @@ public class Lang {
     public String vitamins;
     public String vitamins_lack;
     public String nutrition_gui;
+    public String nutrition_gui_next_page;
+    public String nutrition_gui_last_page;
 
     public String healing;
     public String healing_self;
@@ -275,6 +277,8 @@ public class Lang {
         vitamins = lang.getString("vitamins");
         vitamins_lack = lang.getString("vitamins-lack");
         nutrition_gui = lang.getString("nutrition-gui");
+        nutrition_gui_next_page = lang.getString("nutrition-gui-next-page");
+        nutrition_gui_last_page = lang.getString("nutrition-gui-last-page");
         healing = lang.getString("healing");
         healing_self = lang.getString("healing-self");
         keep = lang.getString("keep");

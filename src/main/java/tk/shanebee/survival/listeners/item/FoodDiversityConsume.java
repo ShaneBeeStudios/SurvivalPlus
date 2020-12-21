@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.Nutrient;
-import tk.shanebee.survival.data.Nutrition;
+import tk.shanebee.survival.item.Nutrition;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.util.Utils;
@@ -39,9 +39,8 @@ public class FoodDiversityConsume implements Listener {
 	private void onConsume(PlayerItemConsumeEvent event) {
 		if (event.isCancelled()) return;
 		Player player = event.getPlayer();
-		Material material = event.getItem().getType();
 
-		Nutrition nutrition = Nutrition.getByMaterial(material);
+		Nutrition nutrition = Nutrition.getByItemStack(event.getItem());
 		if (nutrition != null) {
 			addStats(player, nutrition);
 		}

@@ -2,3 +2,6 @@
 
 # This file holds certain properties for custom items
 # Only change it if you know what you're doing
+# Nutrition values can be changed. They cannot be removed nor added to
+# Deleting a value will reset to it's default value
+# The values must be >= 0
