@@ -694,6 +694,16 @@ public class Utils {
 		sendColoredConsoleMsg(prefix + msg);
 	}
 
+    /** Log a formatted message to console
+     * <p>Formatted in the same style as {@link String#format(String, Object...)}
+     * <br>This will include plugin prefix</p>
+     * @param format Message format
+     * @param objects Objects in format
+     */
+	public static void log(String format, Object... objects) {
+	    log(String.format(format, objects));
+    }
+
     /** Gets a colored string
      * @param string The string including color codes/HEX color codes
      * @return Returns a formatted string
