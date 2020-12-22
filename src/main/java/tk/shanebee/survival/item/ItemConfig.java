@@ -21,6 +21,7 @@ class ItemConfig {
         loadDefaultSettings();
         Nutrition.setup();
         save();
+        Utils.sendColoredConsoleMsg(prefix + "&7items.yml &aloaded");
     }
 
     private void loadDefaultSettings() {
@@ -34,7 +35,6 @@ class ItemConfig {
         } else {
             settings = YamlConfiguration.loadConfiguration(configFile);
         }
-        Utils.sendColoredConsoleMsg(prefix + "&7items.yml &aloaded");
     }
 
     int getModelData(String key, int defaultValue) {
@@ -70,6 +70,26 @@ class ItemConfig {
             settings.set(paths[2], vitamins);
         }
         return nutritions;
+    }
+
+    double getRepairCost(String key, double defaultValue) {
+        String path = "items." + key + ".repair_cost_multiplier";
+        if (settings.contains(path)) {
+            return settings.getDouble(path);
+        } else {
+            settings.set(path, defaultValue);
+            return defaultValue;
+        }
+    }
+
+    double getRepairPercent(String key, double defaultValue) {
+        String path = "items." + key + ".repair_percent";
+        if (settings.contains(path)) {
+            return settings.getDouble(path);
+        } else {
+            settings.set(path, defaultValue);
+            return defaultValue;
+        }
     }
 
     void save() {

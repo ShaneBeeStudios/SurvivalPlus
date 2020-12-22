@@ -418,7 +418,6 @@ Recipes:
 
 # Enables legendary items
 LegendaryItems:
-  CanRepair: true
   ValkyrieAxe: true
   QuartzPickaxe: true
   ObsidianMace: true

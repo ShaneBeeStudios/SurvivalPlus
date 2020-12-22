@@ -216,7 +216,6 @@ public class Config {
 	public boolean RECIPES_WORKBENCH;
 
 	// LEGENDARY TOOLS
-	public boolean LEGENDARY_CAN_REPAIR;
 	public boolean LEGENDARY_VALKYRIE;
 	public boolean LEGENDARY_QUARTZPICKAXE;
 	public boolean LEGENDARY_OBSIDIAN_MACE;
@@ -488,7 +487,6 @@ public class Config {
 		this.RECIPES_WORKBENCH = settings.getBoolean("Recipes.Workbench");
 
 		// LEGENDARY ITEMS
-		this.LEGENDARY_CAN_REPAIR = settings.getBoolean("LegendaryItems.CanRepair");
 		this.LEGENDARY_VALKYRIE = settings.getBoolean("LegendaryItems.ValkyrieAxe");
 		this.LEGENDARY_QUARTZPICKAXE = settings.getBoolean("LegendaryItems.QuartzPickaxe");
 		this.LEGENDARY_OBSIDIAN_MACE = settings.getBoolean("LegendaryItems.ObsidianMace");

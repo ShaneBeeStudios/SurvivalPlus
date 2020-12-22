@@ -144,6 +144,7 @@ public class EventManager {
         pm.registerEvents(new PiglinBarter(this.plugin), this.plugin);
         // Config handled within this event
         pm.registerEvents(new EntityDeath(this.plugin), this.plugin);
+        pm.registerEvents(new RepairCrafting(), this.plugin);
 
 	}
 

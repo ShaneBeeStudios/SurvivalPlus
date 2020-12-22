@@ -249,46 +249,6 @@ public class RecipeManager {
 
         string.addIngredient(Material.COBWEB);
 
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_blaze_sword = new ShapedRecipe(new NamespacedKey(plugin, "repair_blaze_sword"), ItemManager.get(Item.BLAZE_SWORD));
-        repair_blaze_sword.shape("123");
-
-        repair_blaze_sword.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.BLAZE_SWORD, 32))); //TODO this has to stay a low number for now
-        repair_blaze_sword.setIngredient('2', Material.BLAZE_POWDER);
-        repair_blaze_sword.setIngredient('3', Material.BLAZE_POWDER);
-
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_ender_giant_blaze = new ShapedRecipe(new NamespacedKey(plugin, "repair_ender_giant_blaze"), ItemManager.get(Item.ENDER_GIANT_BLADE));
-        repair_ender_giant_blaze.shape("123");
-        repair_ender_giant_blaze.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.ENDER_GIANT_BLADE, 32))); //TODO this has to stay a low number for now
-        repair_ender_giant_blaze.setIngredient('2', Material.ENDER_PEARL);
-        repair_ender_giant_blaze.setIngredient('3', Material.DIAMOND_BLOCK);
-
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_quartz_pickaxe = new ShapedRecipe(new NamespacedKey(plugin, "repair_quartz_pickaxe"), ItemManager.get(Item.QUARTZ_PICKAXE));
-        repair_quartz_pickaxe.shape("123");
-        repair_quartz_pickaxe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.QUARTZ_PICKAXE, 32))); //TODO this has to stay a low number for now
-        repair_quartz_pickaxe.setIngredient('2', Material.QUARTZ_BLOCK);
-        repair_quartz_pickaxe.setIngredient('3', Material.DIAMOND_BLOCK);
-
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_valkyries_axe = new ShapedRecipe(new NamespacedKey(plugin, "repair_valkyries_axe"), ItemManager.get(Item.VALKYRIES_AXE));
-        repair_valkyries_axe.shape("12 ");
-        repair_valkyries_axe.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.VALKYRIES_AXE, 32))); //TODO this has to stay a low number for now
-        repair_valkyries_axe.setIngredient('2', Material.NETHER_STAR);
-
-
-        //  REPAIR RECIPE
-        ShapedRecipe repair_obsidian_mace = new ShapedRecipe(new NamespacedKey(plugin, "repair_obsidian_mace"), ItemManager.get(Item.OBSIDIAN_MACE));
-        repair_obsidian_mace.shape("12 ");
-        repair_obsidian_mace.setIngredient('1', new ExactChoice(Utils.getItemStackDura(Item.OBSIDIAN_MACE, 32))); //TODO this has to stay a low number for now
-        repair_obsidian_mace.setIngredient('2', Material.END_CRYSTAL);
-
-
         // WORKBENCH RECIPE
         ShapelessRecipe workbench = new ShapelessRecipe(new NamespacedKey(plugin, "workbench"), ItemManager.get(Item.WORKBENCH));
 
@@ -825,28 +785,18 @@ public class RecipeManager {
 
         if (config.LEGENDARY_VALKYRIE) {
             plugin.getServer().addRecipe(valkyries_axe);
-            if (config.LEGENDARY_CAN_REPAIR)
-                plugin.getServer().addRecipe(repair_valkyries_axe);
         }
         if (config.LEGENDARY_QUARTZPICKAXE) {
             plugin.getServer().addRecipe(quartz_pickaxe);
-            if (config.LEGENDARY_CAN_REPAIR)
-                plugin.getServer().addRecipe(repair_quartz_pickaxe);
         }
         if (config.LEGENDARY_OBSIDIAN_MACE) {
             plugin.getServer().addRecipe(obsidian_mace);
-            if (config.LEGENDARY_CAN_REPAIR)
-                plugin.getServer().addRecipe(repair_obsidian_mace);
         }
         if (config.LEGENDARY_GIANTBLADE) {
             plugin.getServer().addRecipe(ender_giant_blade);
-            if (config.LEGENDARY_CAN_REPAIR)
-                plugin.getServer().addRecipe(repair_ender_giant_blaze);
         }
         if (config.LEGENDARY_BLAZESWORD) {
             plugin.getServer().addRecipe(blaze_sword);
-            if (config.LEGENDARY_CAN_REPAIR)
-                plugin.getServer().addRecipe(repair_blaze_sword);
         }
         if (config.LEGENDARY_NOTCH_APPLE)
             plugin.getServer().addRecipe(notchApple);
@@ -1071,13 +1021,6 @@ public class RecipeManager {
         GRAVEL("gravel"),
         ICE("ice1", "ice2"),
         PACKED_ICE("packed_ice"),
-
-        // REPAIR RECIPES
-        REPAIR_BLAZE_SWORD("repair_blaze_sword"),
-        REPAIR_ENDER_GIANT_BLADE("repair_ender_giant_blade"),
-        REPAIR_QUARTZ_PICKAXE("repair_quartz_pickaxe"),
-        REPAIR_VALKYRIES_AXE("repair_valkyries_axe"),
-        REPAIR_OBSIDIAN_MACE("repair_obsidian_mace"),
 
         // SMELTING RECIPES
         FURNACE_IRON_INGOT("furnace_iron_ingot"),

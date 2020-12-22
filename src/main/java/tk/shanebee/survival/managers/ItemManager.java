@@ -1,7 +1,5 @@
 package tk.shanebee.survival.managers;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -29,7 +27,6 @@ import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -724,6 +721,7 @@ public class ItemManager {
             bhMeta.setDisplayName(Utils.getColoredString(lang.bee_helmet_name));
             bhMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
             ((LeatherArmorMeta) bhMeta).setColor(Color.WHITE);
+            bhMeta.addItemFlags(ItemFlag.HIDE_DYE);
             beeHelmet.setItemMeta(bhMeta);
             return beeHelmet;
         } else if (item == Item.BEEKEEPER_CHESTPLATE) {
@@ -733,6 +731,7 @@ public class ItemManager {
             bcMeta.setDisplayName(Utils.getColoredString(lang.bee_chest_name));
             bcMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
             ((LeatherArmorMeta) bcMeta).setColor(Color.WHITE);
+            bcMeta.addItemFlags(ItemFlag.HIDE_DYE);
             beeChest.setItemMeta(bcMeta);
             return beeChest;
         } else if (item == Item.BEEKEEPER_LEGGINGS) {
@@ -742,6 +741,7 @@ public class ItemManager {
             blMeta.setDisplayName(Utils.getColoredString(lang.bee_legs_name));
             blMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
             ((LeatherArmorMeta) blMeta).setColor(Color.WHITE);
+            blMeta.addItemFlags(ItemFlag.HIDE_DYE);
             beeLegs.setItemMeta(blMeta);
             return beeLegs;
         } else if (item == Item.BEEKEEPER_BOOTS) {
@@ -751,6 +751,7 @@ public class ItemManager {
             bbMeta.setDisplayName(Utils.getColoredString(lang.bee_boots_name));
             bbMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.bee_suit_lore)));
             ((LeatherArmorMeta) bbMeta).setColor(Color.WHITE);
+            bbMeta.addItemFlags(ItemFlag.HIDE_DYE);
             beeBoots.setItemMeta(bbMeta);
             return beeBoots;
         } else if (item == Item.SUSPICIOUS_MEAT) {

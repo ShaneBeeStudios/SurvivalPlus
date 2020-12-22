@@ -1,9 +1,11 @@
 package tk.shanebee.survival.item;
 
+import com.google.common.base.Preconditions;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.managers.ItemManager;
 
 import java.util.Collection;
@@ -19,55 +21,55 @@ public class Item {
     private static final Map<String, Item> ALL_ITEMS = new HashMap<>();
 
     // TOOLS
-    public static final Item HATCHET = get("hatchet", Material.WOODEN_AXE, 1);
-    public static final Item MATTOCK = get("mattock", Material.WOODEN_PICKAXE, 1);
-    public static final Item SHIV = get("shiv", Material.WOODEN_HOE, 1);
-    public static final Item HAMMER = get("hammer", Material.WOODEN_SWORD, 1);
-    public static final Item FIRESTRIKER = get("firestriker", Material.WOODEN_SHOVEL, 1);
-    public static final Item GRAPPLING_HOOK = get("grappling_hook", Material.FISHING_ROD, 1);
-    public static final Item COMPASS = get("compass", Material.COMPASS, 1);
-    public static final Item FLINT_SICKLE = get("flint_sickle", Material.WOODEN_HOE, 4);
-    public static final Item STONE_SICKLE = get("stone_sickle", Material.WOODEN_HOE, 2);
-    public static final Item IRON_SICKLE = get("iron_sickle", Material.IRON_HOE, 1);
-    public static final Item DIAMOND_SICKLE = get("diamond_sickle", Material.DIAMOND_HOE, 1);
-    public static final Item MEDIC_KIT = get("medic_kit", Material.CLOCK, 1);
-    public static final Item RECURVE_BOW = get("recurve_bow", Material.BOW, 1);
-    public static final Item RECURVE_CROSSBOW = get("recurve_crossbow", Material.CROSSBOW, 1);
+    public static final Item HATCHET = get("hatchet", Material.WOODEN_AXE, 1, -1, 0.85);
+    public static final Item MATTOCK = get("mattock", Material.WOODEN_PICKAXE, 1, -1, 0.85);
+    public static final Item SHIV = get("shiv", Material.WOODEN_HOE, 1, -1, 0.85);
+    public static final Item HAMMER = get("hammer", Material.WOODEN_SWORD, 1, -1, 0.85);
+    public static final Item FIRESTRIKER = get("firestriker", Material.WOODEN_SHOVEL, 1, -1, 0.0);
+    public static final Item GRAPPLING_HOOK = get("grappling_hook", Material.FISHING_ROD, 1, -1, 0.95);
+    public static final Item COMPASS = get("compass", Material.COMPASS, 1, -1, 0.85);
+    public static final Item FLINT_SICKLE = get("flint_sickle", Material.WOODEN_HOE, 4, -1, 1.0);
+    public static final Item STONE_SICKLE = get("stone_sickle", Material.WOODEN_HOE, 2, -1, 1.0);
+    public static final Item IRON_SICKLE = get("iron_sickle", Material.IRON_HOE, 1, -1, 0.90);
+    public static final Item DIAMOND_SICKLE = get("diamond_sickle", Material.DIAMOND_HOE, 1, -1, 0.90);
+    public static final Item MEDIC_KIT = get("medic_kit", Material.CLOCK, 1, 0, 0);
+    public static final Item RECURVE_BOW = get("recurve_bow", Material.BOW, 1, 1.25, 0.9);
+    public static final Item RECURVE_CROSSBOW = get("recurve_crossbow", Material.CROSSBOW, 1, 1.75, 0.9);
 
     // LEGENDARY TOOLS
-    public static final Item VALKYRIES_AXE = get("valkyries_axe", Material.DIAMOND_AXE, 1);
-    public static final Item QUARTZ_PICKAXE = get("quartz_pickaxe", Material.DIAMOND_PICKAXE, 1);
-    public static final Item OBSIDIAN_MACE = get("obsidian_mace", Material.DIAMOND_SHOVEL, 1);
-    public static final Item ENDER_GIANT_BLADE = get("ender_giant_blade", Material.DIAMOND_HOE, 2);
-    public static final Item BLAZE_SWORD = get("blaze_sword", Material.DIAMOND_SWORD, 1);
+    public static final Item VALKYRIES_AXE = get("valkyries_axe", Material.DIAMOND_AXE, 1, 2.5, 0.95);
+    public static final Item QUARTZ_PICKAXE = get("quartz_pickaxe", Material.DIAMOND_PICKAXE, 1, 2.5, 0.95);
+    public static final Item OBSIDIAN_MACE = get("obsidian_mace", Material.DIAMOND_SHOVEL, 1, 2.5, 0.95);
+    public static final Item ENDER_GIANT_BLADE = get("ender_giant_blade", Material.DIAMOND_HOE, 2, 2.5, 0.95);
+    public static final Item BLAZE_SWORD = get("blaze_sword", Material.DIAMOND_SWORD, 1, 2.5, 0.95);
 
     // ARMOR
-    public static final Item REINFORCED_LEATHER_BOOTS = get("reinforced_leather_boots", Material.CHAINMAIL_BOOTS, 1);
-    public static final Item REINFORCED_LEATHER_TUNIC = get("reinforced_leather_tunic", Material.CHAINMAIL_CHESTPLATE, 1);
-    public static final Item REINFORCED_LEATHER_TROUSERS = get("reinforced_leather_trousers", Material.CHAINMAIL_LEGGINGS, 1);
-    public static final Item REINFORCED_LEATHER_HELMET = get("reinforced_leather_helmet", Material.CHAINMAIL_HELMET, 1);
-    public static final Item GOLDEN_SABATONS = get("golden_sabatons", Material.GOLDEN_BOOTS, 0);
-    public static final Item GOLDEN_GUARD = get("golden_guard", Material.GOLDEN_CHESTPLATE, 0);
-    public static final Item GOLDEN_GREAVES = get("golden_greaves", Material.GOLDEN_LEGGINGS, 0);
-    public static final Item GOLDEN_CROWN = get("golden_crown", Material.GOLDEN_HELMET, 0);
-    public static final Item IRON_BOOTS = get("iron_boots", Material.IRON_BOOTS, 0);
-    public static final Item IRON_CHESTPLATE = get("iron_chestplate", Material.IRON_CHESTPLATE, 0);
-    public static final Item IRON_LEGGINGS = get("iron_leggings", Material.IRON_LEGGINGS, 0);
-    public static final Item IRON_HELMET = get("iron_helmet", Material.IRON_HELMET, 0);
-    public static final Item DIAMOND_BOOTS = get("diamond_boots", Material.DIAMOND_BOOTS, 0);
-    public static final Item DIAMOND_CHESTPLATE = get("diamond_chestplate", Material.DIAMOND_CHESTPLATE, 0);
-    public static final Item DIAMOND_HELMET = get("diamond_helmet", Material.DIAMOND_HELMET, 0);
-    public static final Item DIAMOND_LEGGINGS = get("diamond_leggings", Material.DIAMOND_LEGGINGS, 0);
-    public static final Item NETHERITE_HELMET = get("netherite_helmet", Material.NETHERITE_HELMET, 0);
-    public static final Item NETHERITE_CHESTPLATE = get("netherite_chestplate", Material.NETHERITE_CHESTPLATE, 0);
-    public static final Item NETHERITE_LEGGINGS = get("netherite_leggings", Material.NETHERITE_LEGGINGS, 0);
-    public static final Item NETHERITE_BOOTS = get("netherite_boots", Material.NETHERITE_BOOTS, 0);
-    public static final Item BEEKEEPER_HELMET = get("beekeeper_helmet", Material.LEATHER_HELMET, 10881);
-    public static final Item BEEKEEPER_CHESTPLATE = get("beekeeper_chestplate", Material.LEATHER_CHESTPLATE, 10881);
-    public static final Item BEEKEEPER_LEGGINGS = get("beekeeper_leggings", Material.LEATHER_LEGGINGS, 10881);
-    public static final Item BEEKEEPER_BOOTS = get("beekeeper_boots", Material.LEATHER_BOOTS, 10881);
-    public static final Item SNOW_BOOTS = get("snow_boots", Material.LEATHER_BOOTS, 10882);
-    public static final Item RAIN_BOOTS = get("rain_boots", Material.LEATHER_BOOTS, 10883);
+    public static final Item REINFORCED_LEATHER_BOOTS = get("reinforced_leather_boots", Material.CHAINMAIL_BOOTS, 1, 2, 0.85);
+    public static final Item REINFORCED_LEATHER_TUNIC = get("reinforced_leather_tunic", Material.CHAINMAIL_CHESTPLATE, 1, 2, 0.85);
+    public static final Item REINFORCED_LEATHER_TROUSERS = get("reinforced_leather_trousers", Material.CHAINMAIL_LEGGINGS, 1, 2, 0.85);
+    public static final Item REINFORCED_LEATHER_HELMET = get("reinforced_leather_helmet", Material.CHAINMAIL_HELMET, 1, 2, 0.85);
+    public static final Item GOLDEN_SABATONS = get("golden_sabatons", Material.GOLDEN_BOOTS, 0, -1, 1.0);
+    public static final Item GOLDEN_GUARD = get("golden_guard", Material.GOLDEN_CHESTPLATE, 0, -1, 1.0);
+    public static final Item GOLDEN_GREAVES = get("golden_greaves", Material.GOLDEN_LEGGINGS, 0, -1, 1.0);
+    public static final Item GOLDEN_CROWN = get("golden_crown", Material.GOLDEN_HELMET, 0, -1, 1.0);
+    public static final Item IRON_BOOTS = get("iron_boots", Material.IRON_BOOTS, 0, -1, 1.0);
+    public static final Item IRON_CHESTPLATE = get("iron_chestplate", Material.IRON_CHESTPLATE, 0, -1, 1.0);
+    public static final Item IRON_LEGGINGS = get("iron_leggings", Material.IRON_LEGGINGS, 0, -1, 1.0);
+    public static final Item IRON_HELMET = get("iron_helmet", Material.IRON_HELMET, 0, -1, 1.0);
+    public static final Item DIAMOND_BOOTS = get("diamond_boots", Material.DIAMOND_BOOTS, 0, -1, 1.0);
+    public static final Item DIAMOND_CHESTPLATE = get("diamond_chestplate", Material.DIAMOND_CHESTPLATE, 0, -1, 1.0);
+    public static final Item DIAMOND_HELMET = get("diamond_helmet", Material.DIAMOND_HELMET, 0, -1, 1.0);
+    public static final Item DIAMOND_LEGGINGS = get("diamond_leggings", Material.DIAMOND_LEGGINGS, 0, -1, 1.0);
+    public static final Item NETHERITE_HELMET = get("netherite_helmet", Material.NETHERITE_HELMET, 0, -1, 1.0);
+    public static final Item NETHERITE_CHESTPLATE = get("netherite_chestplate", Material.NETHERITE_CHESTPLATE, 0, -1, 1.0);
+    public static final Item NETHERITE_LEGGINGS = get("netherite_leggings", Material.NETHERITE_LEGGINGS, 0, -1, 1.0);
+    public static final Item NETHERITE_BOOTS = get("netherite_boots", Material.NETHERITE_BOOTS, 0, -1, 1.0);
+    public static final Item BEEKEEPER_HELMET = get("beekeeper_helmet", Material.LEATHER_HELMET, 10881, 1.2, 1.0);
+    public static final Item BEEKEEPER_CHESTPLATE = get("beekeeper_chestplate", Material.LEATHER_CHESTPLATE, 10881, 1.2, 1.0);
+    public static final Item BEEKEEPER_LEGGINGS = get("beekeeper_leggings", Material.LEATHER_LEGGINGS, 10881, 1.2, 1.0);
+    public static final Item BEEKEEPER_BOOTS = get("beekeeper_boots", Material.LEATHER_BOOTS, 10881, 1.2, 1.0);
+    public static final Item SNOW_BOOTS = get("snow_boots", Material.LEATHER_BOOTS, 10882, 1.4, 0.97);
+    public static final Item RAIN_BOOTS = get("rain_boots", Material.LEATHER_BOOTS, 10883, 1.2, 0.97);
 
     // BLOCKS
     public static final Item WORKBENCH = get("workbench", Material.CRAFTING_TABLE, 0);
@@ -100,9 +102,33 @@ public class Item {
     // TODO Experimental
     public static final Item PERSISTENT_TORCH = get("persistent_torch", Material.TORCH, 1);
 
-    private static Item get(String key, Material material, int defaultData) {
-        int data = ITEM_CONFIG.getModelData(key, defaultData);
+    private static Item get(String key, Material material, int model) {
+        String prefix = String.format("Registering Item (%s): ", key);
+        Preconditions.checkArgument(key != null, "%sKey must not be null", prefix);
+
+        int data = ITEM_CONFIG.getModelData(key, model);
+        Preconditions.checkArgument(model >= 0 && model <= 99999999, "%sModel must be between 0 and 99999999, found %s", prefix, data);
+
         Item item = new Item(key, material, data);
+        ALL_ITEMS.put(key, item);
+        return item;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private static Item get(@NotNull String key, @NotNull Material material, int model, double repairCost, double repairPercent) {
+        String prefix = String.format("Registering Item (%s): ", key);
+        Preconditions.checkArgument(key != null, "%sKey must not be null", prefix);
+
+        int data = ITEM_CONFIG.getModelData(key, model);
+        Preconditions.checkArgument(model >= 0 && model <= 99999999, "%sModel must be between 0 and 99999999, found %s", prefix, data);
+
+        double cost = ITEM_CONFIG.getRepairCost(key, repairCost);
+        Preconditions.checkArgument(cost >= -1, "%sCost must be >= -1, found %s", prefix, cost);
+
+        double percent = ITEM_CONFIG.getRepairPercent(key, repairPercent);
+        Preconditions.checkArgument(percent >= 0.0f && percent <= 1.0f, "%sRepair percent must be between 0.0 and 1.0, found %s", prefix, percent);
+
+        Item item = new Item(key, material, data, cost, percent);
         ALL_ITEMS.put(key, item);
         return item;
     }
@@ -134,11 +160,23 @@ public class Item {
     private final String key;
     private final Material materialType;
     private final int modelData;
+    private final double repairCostMultiplier;
+    private final double repairPercent;
 
     Item(@NotNull String key, @NotNull Material mat, int customModelData) {
         this.key = key;
         this.modelData = customModelData;
         this.materialType = mat;
+        this.repairCostMultiplier = -1;
+        this.repairPercent = 0;
+    }
+
+    Item(@NotNull String key, @NotNull Material mat, int customModelData, double repairCost, double repairPercent) {
+        this.key = key;
+        this.modelData = customModelData;
+        this.materialType = mat;
+        this.repairCostMultiplier = repairCost;
+        this.repairPercent = repairPercent;
     }
 
     /**
@@ -167,6 +205,14 @@ public class Item {
      */
     public int getModelData() {
         return modelData;
+    }
+
+    public double getRepairCostMultiplier() {
+        return repairCostMultiplier;
+    }
+
+    public double getRepairPercent() {
+        return repairPercent;
     }
 
     /**
@@ -206,6 +252,16 @@ public class Item {
             }
         }
         return false;
+    }
+
+    @Nullable
+    public static Item getFromStack(@NotNull ItemStack itemStack) {
+        for (Item value : ALL_ITEMS.values()) {
+            if (value.compare(itemStack)) {
+                return value;
+            }
+        }
+        return null;
     }
 
     /**
@@ -258,7 +314,6 @@ public class Item {
          * @param item ItemStack to check
          * @return True if item matches tag
          */
-        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         public boolean isTagged(ItemStack item) {
             return ItemManager.compare(item, items);
         }
