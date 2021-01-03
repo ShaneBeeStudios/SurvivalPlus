@@ -1,18 +1,22 @@
 package tk.shanebee.survival.listeners.item;
 
-import tk.shanebee.survival.events.WaterBowlFillEvent;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-
+import org.bukkit.inventory.CraftingInventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.events.WaterBowlFillEvent;
+import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.managers.ItemManager;
 
 public class WaterBowl implements Listener {
 
@@ -59,5 +63,23 @@ public class WaterBowl implements Listener {
 			}
 		}
 	}
+
+	// Prevent water bowls turning into glass bottles
+	@EventHandler
+    private void onCraft(PrepareItemCraftEvent event) {
+        Recipe recipe = event.getRecipe();
+        if (recipe instanceof Keyed) {
+            String key = ((Keyed) recipe).getKey().getKey();
+            if (key.equalsIgnoreCase("glass_bottle")) {
+                CraftingInventory inventory = event.getInventory();
+                for (ItemStack itemStack : inventory.getMatrix()) {
+                    if (itemStack != null && Item.WATER_BOWL.compare(itemStack)) {
+                        inventory.setResult(null);
+                    }
+                }
+            }
+        }
+
+    }
 
 }
