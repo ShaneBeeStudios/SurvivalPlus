@@ -17,7 +17,7 @@ public class RecurveCrossbow extends Item {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.addEnchant(Enchantment.PUNCH, 1, true);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("recurve_crossbow", itemStack);
+        setupDefaults("recurve_crossbow", itemStack, true);
     }
 
     @Override

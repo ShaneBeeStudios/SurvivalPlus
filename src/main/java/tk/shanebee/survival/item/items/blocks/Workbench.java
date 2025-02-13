@@ -15,7 +15,7 @@ public class Workbench extends Item {
 
     public Workbench() {
         ItemStack itemStack = ItemType.CRAFTING_TABLE.createItemStack();
-        setupDefaults("workbench", itemStack);
+        setupDefaults("workbench", itemStack, true);
     }
 
     @Override

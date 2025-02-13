@@ -36,17 +36,23 @@ public abstract class Item {
         return clone;
     }
 
-    @SuppressWarnings("PatternValidation")
     protected void setupDefaults(String key, ItemStack itemStack) {
+        setupDefaults(key, itemStack, false);
+    }
+
+    @SuppressWarnings("PatternValidation")
+    protected void setupDefaults(String key, ItemStack itemStack, boolean vanillaModel) {
         this.key = Key.key("survival_plus", key);
         this.recipeKey = NamespacedKey.fromString(this.key.toString());
-        itemStack.setData(DataComponentTypes.ITEM_MODEL, this.key);
+        if (!vanillaModel) {
+            itemStack.setData(DataComponentTypes.ITEM_MODEL, this.key);
+        }
 
         // Item Name
         String itemName = ITEM_CONFIG.getName(key);
         if (itemName != null) {
             itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
-        } else {
+        } else if (!vanillaModel) {
             Utils.log("&cFailed to load item name for item &r'&b" + key + "&r'");
         }
 

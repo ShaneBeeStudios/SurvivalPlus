@@ -24,7 +24,7 @@ public class Coffee extends Item {
         ((PotionMeta) itemMeta).setColor(Color.fromRGB(ITEM_CONFIG.getColor("coffee")));
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("coffee", itemStack);
+        setupDefaults("coffee", itemStack, true);
     }
 
     @Override

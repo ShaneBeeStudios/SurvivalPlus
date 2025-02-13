@@ -29,27 +29,28 @@ public class ArmorPiece extends Item {
         this.armorMaterial = armorMaterial;
 
         ItemStack itemStack = armorMaterial.getItemType(armorType).createItemStack();
-
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        AttributeModifier armorMod = new AttributeModifier(NamespacedKey.minecraft("armor." + armorType.key), armor, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+        NamespacedKey modKey = NamespacedKey.minecraft("armor." + armorType.key);
+
+        AttributeModifier armorMod = new AttributeModifier(modKey, armor, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
         itemMeta.addAttributeModifier(Attribute.ARMOR, armorMod);
 
-        AttributeModifier speedMod = new AttributeModifier(BASE_MOVEMENT_SPEED, moveSpeed, Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
+        AttributeModifier speedMod = new AttributeModifier(modKey, moveSpeed, Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
         itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, speedMod);
 
         if (toughness > 0) {
-            AttributeModifier toughnessMod = new AttributeModifier(BASE_ATTACK_TOUGH, toughness, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+            AttributeModifier toughnessMod = new AttributeModifier(modKey, toughness, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
             itemMeta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, toughnessMod);
         }
 
         if (knockback > 0) {
-            AttributeModifier knockbackMod = new AttributeModifier(BASE_ATTACK_KNOCKBACK, knockback, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+            AttributeModifier knockbackMod = new AttributeModifier(modKey, knockback, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
             itemMeta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, knockbackMod);
         }
 
         itemStack.setItemMeta(itemMeta);
-        setupDefaults(armorMaterial.getKey(armorType), itemStack);
+        setupDefaults(armorMaterial.getKey(armorType), itemStack, this.armorMaterial != ArmorMaterial.GOLDEN && this.armorMaterial != ArmorMaterial.LEATHER);
     }
 
     @SuppressWarnings({"DataFlowIssue", "deprecation"})

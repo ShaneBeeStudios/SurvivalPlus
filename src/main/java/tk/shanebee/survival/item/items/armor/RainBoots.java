@@ -18,7 +18,7 @@ public class RainBoots extends Item {
         itemStack.setData(DataComponentTypes.DYED_COLOR,
             DyedItemColor.dyedItemColor(Color.fromRGB(214, 231, 3),
                 false));
-        setupDefaults("rain_boots", itemStack);
+        setupDefaults("rain_boots", itemStack, true);
 
     }
 

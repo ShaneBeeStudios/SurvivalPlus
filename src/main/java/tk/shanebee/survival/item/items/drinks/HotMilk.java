@@ -20,7 +20,7 @@ public class HotMilk extends Item {
         ((PotionMeta) itemMeta).setBasePotionType(PotionType.WATER);
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("hot_milk", itemStack);
+        setupDefaults("hot_milk", itemStack, true);
     }
 
     @Override

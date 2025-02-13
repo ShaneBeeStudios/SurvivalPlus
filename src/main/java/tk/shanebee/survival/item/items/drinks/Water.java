@@ -20,7 +20,7 @@ public class Water extends Item {
         ((PotionMeta) itemMeta).setColor(Color.fromRGB(ITEM_CONFIG.getColor(key)));
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults(key, itemStack);
+        setupDefaults(key, itemStack, true);
     }
 
 }

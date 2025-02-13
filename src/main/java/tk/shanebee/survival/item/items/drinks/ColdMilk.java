@@ -20,7 +20,7 @@ public class ColdMilk extends Item {
         ((PotionMeta) itemMeta).setBasePotionType(PotionType.WATER);
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("cold_milk", itemStack);
+        setupDefaults("cold_milk", itemStack, true);
     }
 
     @Override
