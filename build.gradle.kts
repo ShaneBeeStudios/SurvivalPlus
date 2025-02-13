@@ -1,6 +1,6 @@
 plugins {
-    `java-library`
-    `maven-publish`
+    id("java")
+    id("io.github.goooler.shadow") version "8.1.7"
 }
 
 repositories {
@@ -34,21 +34,44 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
-group = "com.shanebeestudios"
-version = "3.15.0"
-description = "SurvivalPlus"
+// Where this builds on the server
+val serverLocation = "1-21-4"
+// Version of SurvivalPlus
+val projectVersion = "1.0.0"
+
 java.sourceCompatibility = JavaVersion.VERSION_21
 
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
+tasks {
+    register("server", Copy::class) {
+        dependsOn("shadowJar")
+        from("build/libs") {
+            include("SurvivalPlus-*.jar")
+            destinationDir = file("/Users/ShaneBee/Desktop/Server/${serverLocation}/plugins/")
+        }
+
     }
-}
+    processResources {
+        expand("version" to projectVersion)
+    }
+    compileJava {
+        options.release = 21
+    }
+    javadoc {
+        options.encoding = Charsets.UTF_8.name()
+        exclude("com/shanebeestudios/core/plugin")
+        (options as StandardJavadocDocletOptions).links(
+            "https://jd.papermc.io/paper/1.21.1/",
+            "https://jd.advntr.dev/api/4.17.0/"
+        )
 
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType<Javadoc>() {
-    options.encoding = "UTF-8"
+    }
+    shadowJar {
+        relocate("fr.mrmicky.fastboard", "com.shanebeestudios.survival.api.fastboard")
+        relocate("dev.jorel.commandapi", "com.shanebeestudios.survival.api.commandapi")
+        archiveFileName = "SurvivalPlus-${projectVersion}.jar"
+    }
+    jar {
+        dependsOn(shadowJar)
+        archiveFileName.set("SurvivalPlus.jar")
+    }
 }
