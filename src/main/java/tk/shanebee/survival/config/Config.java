@@ -24,7 +24,6 @@ public class Config {
 	public boolean RESOURCE_PACK_NOTIFY;
 
 	public int LOCAL_CHAT_DISTANCE;
-	public boolean NO_POS;
 
 	public boolean WELCOME_GUIDE_ENABLED;
 	public boolean WELCOME_GUIDE_NEW_PLAYERS;
@@ -292,7 +291,6 @@ public class Config {
 		this.RESOURCE_PACK_NOTIFY = settings.getBoolean("MultiWorld.NotifyMessage");
 
 		this.LOCAL_CHAT_DISTANCE = settings.getInt("LocalChatDist");
-		this.NO_POS = settings.getBoolean("NoPos");
 
 		// WELCOME GUIDE
 		this.WELCOME_GUIDE_ENABLED = settings.getBoolean("WelcomeGuide.Enabled");

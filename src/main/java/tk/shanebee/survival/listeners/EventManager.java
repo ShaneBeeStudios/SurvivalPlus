@@ -9,7 +9,6 @@ import tk.shanebee.survival.listeners.block.BlockPlace;
 import tk.shanebee.survival.listeners.block.BurnoutTorches;
 import tk.shanebee.survival.listeners.block.Campfire;
 import tk.shanebee.survival.listeners.block.Chairs;
-import tk.shanebee.survival.listeners.block.NoAnvil;
 import tk.shanebee.survival.listeners.block.SnowGeneration;
 import tk.shanebee.survival.listeners.block.SnowballThrow;
 import tk.shanebee.survival.listeners.block.WorkbenchShare;
@@ -26,7 +25,6 @@ import tk.shanebee.survival.listeners.player.PlayerDataListener;
 import tk.shanebee.survival.listeners.server.Guide;
 import tk.shanebee.survival.listeners.server.InventoryUpdate;
 import tk.shanebee.survival.listeners.server.LocalChat;
-import tk.shanebee.survival.listeners.server.NoPos;
 import tk.shanebee.survival.listeners.server.RecipeDiscovery;
 import tk.shanebee.survival.listeners.server.SetResourcePack;
 import tk.shanebee.survival.util.Utils;
@@ -127,14 +125,6 @@ public class EventManager {
 		if (config.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 
-		if (config.NO_POS) {
-		    if (Utils.isRunningMinecraft(1, 16)) {
-                Utils.log("&7NoPos &ccurrently broken. &7Please use the &breducedDebugInfo &7gamerule for the time being");
-            } else {
-                Bukkit.getPluginManager().registerEvents(new NoPos(), this.plugin);
-                Utils.log("&7NoPos &aimplemented &7- F3 coordinates are disabled!");
-            }
-		}
         if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
         }

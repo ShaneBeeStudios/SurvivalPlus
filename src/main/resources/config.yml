@@ -20,9 +20,6 @@ MultiWorld:
 # -1 = disabled
 LocalChatDist: -1
 
-# Disable player's coords in the Minecraft debug screen
-NoPos: true
-
 # When a player joins, they will get a link to a simple starter guide
 WelcomeGuide:
   Enabled: true
@@ -285,7 +282,7 @@ Mechanics:
 
   # Currently disabled, do not use!!!
   SnowGenerationRevamp: false
-  
+
   FarmingProducts:
     Bread: true
     Cookie: true
