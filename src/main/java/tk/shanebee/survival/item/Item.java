@@ -5,6 +5,7 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import tk.shanebee.survival.util.Utils;
 
 @SuppressWarnings("UnstableApiUsage")
 public abstract class Item {
@@ -42,7 +43,11 @@ public abstract class Item {
 
         // Item Name
         String itemName = ITEM_CONFIG.getName(key);
-        itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
+        if (itemName != null) {
+            itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
+        } else {
+            Utils.log("&cFailed to load item name &r'&b" + key + "&r'");
+        }
 
         // Max Damage
         int maxDamage = ITEM_CONFIG.getMaxDamage(key);

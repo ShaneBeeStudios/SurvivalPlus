@@ -234,7 +234,7 @@ items:
   dirty_water:
     name: "Dirty Water"
     color: 12769874
-  purified_Water:
+  purified_water:
     name: "Purified Water"
     color: 0x00FFFF
   coffee:
