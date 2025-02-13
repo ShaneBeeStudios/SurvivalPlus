@@ -42,9 +42,9 @@ public class GiantBlade extends BukkitRunnable {
 				.add(Material.DIAMOND_SWORD).add(Material.DIAMOND_PICKAXE).add(Material.DIAMOND_SHOVEL)
 				.add(Material.DIAMOND_HOE).add(Material.BOW).build();
 
-		this.DAMAGE = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1, false);
-		this.SLOW = new PotionEffect(PotionEffectType.SLOW, 20, 6, true);
-		this.JUMP = new PotionEffect(PotionEffectType.JUMP, 20, 199, true);
+		this.DAMAGE = new PotionEffect(PotionEffectType.RESISTANCE, 20, 1, false);
+		this.SLOW = new PotionEffect(PotionEffectType.SLOWNESS, 20, 6, true);
+		this.JUMP = new PotionEffect(PotionEffectType.JUMP_BOOST, 20, 199, true);
 
 		this.runTaskTimer(plugin, 1, 10);
 	}
@@ -61,23 +61,23 @@ public class GiantBlade extends BukkitRunnable {
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
-				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
+				particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 
 			if (ItemManager.compare(offItem, Item.ENDER_GIANT_BLADE)) {
-				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+				player.removePotionEffect(PotionEffectType.RESISTANCE);
 				player.addPotionEffect(this.DAMAGE);
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
-				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
+				particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 
 			PlayerData playerData = playerManager.getPlayerData(player);
 			if ((MAIN_SET.contains(mainType) && OFF_SET.contains(offType)) || (MAIN_SET.contains(offType) && OFF_SET.contains(mainType))) {
-				player.removePotionEffect(PotionEffectType.SLOW);
+				player.removePotionEffect(PotionEffectType.SLOWNESS);
 				player.addPotionEffect(this.SLOW);
-				player.removePotionEffect(PotionEffectType.JUMP);
+				player.removePotionEffect(PotionEffectType.JUMP_BOOST);
 				player.addPotionEffect(this.JUMP);
 				playerData.setStat(Stat.DUAL_WIELD, 1);
 			} else {

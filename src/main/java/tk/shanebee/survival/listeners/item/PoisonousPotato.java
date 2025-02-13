@@ -24,7 +24,7 @@ public class PoisonousPotato implements Listener {
 			Random rand = new Random();
 			if (rand.nextInt(10) + 1 <= 6) {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0), true);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0), true);
+				player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0), true);
 			}
 		}
 	}

@@ -22,9 +22,9 @@ import tk.shanebee.survival.Survival;
 import java.util.*;
 
 public class WorkbenchShare implements Listener {
-	
+
 	private Survival plugin;
-	
+
 	public WorkbenchShare(Survival plugin) {
 		this.plugin = plugin;
 	}
@@ -55,7 +55,7 @@ public class WorkbenchShare implements Listener {
 				return;
 
 			// Workaround to get the accessed WorkBench
-			final Block workbench = p.getTargetBlock(ImmutableSet.of(Material.GRASS, Material.SNOW, Material.AIR), 8);
+			final Block workbench = p.getTargetBlock(ImmutableSet.of(Material.SHORT_GRASS, Material.SNOW, Material.AIR), 8);
 
 			if (workbench.getType() != Material.CRAFTING_TABLE) {
 				// Close Inventory if player managed to access the workbench without actually use one.

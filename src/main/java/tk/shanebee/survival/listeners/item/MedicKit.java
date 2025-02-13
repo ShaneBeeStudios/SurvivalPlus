@@ -28,14 +28,14 @@ public class MedicKit implements Listener {
 	private Survival plugin;
 	private Lang lang;
 	private PlayerManager playerManager;
-	
+
 	public MedicKit(Survival plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
 		this.playerManager = plugin.getPlayerManager();
 	}
 
-	
+
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onDamaged(EntityDamageByEntityEvent event) {
@@ -79,17 +79,17 @@ public class MedicKit implements Listener {
 
 												Random rand = new Random();
 
-												player.removePotionEffect(PotionEffectType.SLOW);
-												player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true, false));
-												player.removePotionEffect(PotionEffectType.JUMP);
-												player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true, false));
+												player.removePotionEffect(PotionEffectType.SLOWNESS);
+												player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 6, true, false));
+												player.removePotionEffect(PotionEffectType.JUMP_BOOST);
+												player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20, 199, true, false));
 
 												healed.getWorld().playSound(healed.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-												healed.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
+												healed.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1, 0));
 
 												Location particleLoc = healed.getLocation();
 												particleLoc.setY(particleLoc.getY() + 1);
-												Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
+												Utils.spawnParticle(particleLoc, Particle.HAPPY_VILLAGER, 10, 0.5, 0.5, 0.5);
 
 												Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
 												playerData.setStat(Stat.HEAL_TIMES, times);
@@ -142,17 +142,17 @@ public class MedicKit implements Listener {
 									if (times-- > 0) {
 										Random rand = new Random();
 
-										player.removePotionEffect(PotionEffectType.SLOW);
-										player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 6, true, false));
-										player.removePotionEffect(PotionEffectType.JUMP);
-										player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, 199, true, false));
+										player.removePotionEffect(PotionEffectType.SLOWNESS);
+										player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 6, true, false));
+										player.removePotionEffect(PotionEffectType.JUMP_BOOST);
+										player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20, 199, true, false));
 
 										player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-										player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0));
+										player.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1, 0));
 
 										Location particleLoc = player.getLocation();
 										particleLoc.setY(particleLoc.getY() + 1);
-										Utils.spawnParticle(particleLoc, Particle.VILLAGER_HAPPY, 10, 0.5, 0.5, 0.5);
+										Utils.spawnParticle(particleLoc, Particle.HAPPY_VILLAGER, 10, 0.5, 0.5, 0.5);
 
 										Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
 										playerData.setStat(Stat.HEAL_TIMES, times);

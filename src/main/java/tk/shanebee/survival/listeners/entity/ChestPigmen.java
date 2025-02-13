@@ -67,9 +67,9 @@ public class ChestPigmen implements Listener {
 	}
 
 	private void moveFaster(Attributable entity, double modifier) {
-		if (entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED) != null) {
-			double speed = entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
-			entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed * modifier);
+		if (entity.getAttribute(Attribute.MOVEMENT_SPEED) != null) {
+			double speed = entity.getAttribute(Attribute.MOVEMENT_SPEED).getBaseValue();
+			entity.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(speed * modifier);
 		}
 	}
 

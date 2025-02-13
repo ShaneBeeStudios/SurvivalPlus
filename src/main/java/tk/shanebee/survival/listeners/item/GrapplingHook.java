@@ -22,9 +22,9 @@ import org.bukkit.util.Vector;
 import tk.shanebee.survival.Survival;
 
 public class GrapplingHook implements Listener {
-	
+
 	private Lang lang;
-	
+
 	public GrapplingHook(Survival plugin) {
 		this.lang = plugin.getLang();
 	}
@@ -47,7 +47,7 @@ public class GrapplingHook implements Listener {
 
 						for (Entity e : nearbyEntities) // loop through entities
 						{
-							if (e.getType() == EntityType.FISHING_HOOK) //Hook found
+							if (e.getType() == EntityType.FISHING_BOBBER) //Hook found
 							{
 								hook = e;
 								break;
@@ -76,7 +76,7 @@ public class GrapplingHook implements Listener {
 							playerLoc.setY(playerLoc.getY() + 0.5);
 							entityLoc.setY(entityLoc.getY() + 0.5);
 
-							if (event.getCaught().getType() != EntityType.DROPPED_ITEM) {
+							if (event.getCaught().getType() != EntityType.ITEM) {
 								Vector vector = entityLoc.toVector().subtract(playerLoc.toVector());
 								if (vector.getY() > 0)
 									vector.setY(Math.sqrt(vector.getY()) * 4);
@@ -90,7 +90,7 @@ public class GrapplingHook implements Listener {
 							if (reverseVector.getY() > 0)
 								reverseVector.setY(Math.sqrt(reverseVector.getY()));
 
-							if (event.getCaught().getType() != EntityType.DROPPED_ITEM) {
+							if (event.getCaught().getType() != EntityType.ITEM) {
 								event.getCaught().teleport(entityLoc);
 								event.getCaught().setVelocity(reverseVector.multiply(0.5).multiply(0.125));
 							} else {

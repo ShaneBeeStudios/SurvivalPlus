@@ -135,7 +135,7 @@ public class Valkyrie implements Listener {
 
 		particleCircle(player, 50, 2.5f, Particle.CRIT);
 		particleCircle(player, 25, 2f, Particle.CRIT);
-		particleCircle(player, 10, 2.5f, Particle.CRIT_MAGIC);
+		particleCircle(player, 10, 2.5f, Particle.CRIT);
 
 		Random rand = new Random();
 		assert player.getLocation().getWorld()  != null;

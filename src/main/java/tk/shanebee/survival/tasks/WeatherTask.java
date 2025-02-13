@@ -106,7 +106,7 @@ public class WeatherTask extends BukkitRunnable {
     }
 
     private void setWalkSpeed(Player player, double speed) {
-        AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
+        AttributeInstance attribute = player.getAttribute(Attribute.MOVEMENT_SPEED);
         if (attribute != null) {
             attribute.setBaseValue(speed);
         }

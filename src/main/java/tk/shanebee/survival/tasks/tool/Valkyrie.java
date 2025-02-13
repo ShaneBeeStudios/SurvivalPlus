@@ -24,7 +24,7 @@ public class Valkyrie extends BukkitRunnable {
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;
-				particleLoc.getWorld().spawnParticle(Particle.CRIT_MAGIC, particleLoc, 10, 0.5, 0.5, 0.5);
+				particleLoc.getWorld().spawnParticle(Particle.CRIT, particleLoc, 10, 0.5, 0.5, 0.5);
 			}
 		}
 	}

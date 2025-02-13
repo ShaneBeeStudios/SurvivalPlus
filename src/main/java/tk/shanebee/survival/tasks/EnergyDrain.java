@@ -103,18 +103,18 @@ public class EnergyDrain extends BukkitRunnable {
     private static final PotionEffect ABSORPTION_500;
 
     static {
-        SICK_40 = new PotionEffect(PotionEffectType.CONFUSION, 40, 0);
-        SICK_120 = new PotionEffect(PotionEffectType.CONFUSION, 120, 0);
+        SICK_40 = new PotionEffect(PotionEffectType.NAUSEA, 40, 0);
+        SICK_120 = new PotionEffect(PotionEffectType.NAUSEA, 120, 0);
         BLIND_50 = new PotionEffect(PotionEffectType.BLINDNESS, 50, 0);
         BLIND_120 = new PotionEffect(PotionEffectType.BLINDNESS, 120, 0);
         NIGHT_10 = new PotionEffect(PotionEffectType.NIGHT_VISION, 10, 0);
         NIGHT_120 = new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0);
-        MINING_120 = new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, 0, false, false);
-        MINING_120_2 = new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, 1, false, false);
-        MINING_120_3 = new PotionEffect(PotionEffectType.SLOW_DIGGING, 120, 2, false, false);
-        SLOW_120 = new PotionEffect(PotionEffectType.SLOW, 120, 0, false, false);
+        MINING_120 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 0, false, false);
+        MINING_120_2 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 1, false, false);
+        MINING_120_3 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 2, false, false);
+        SLOW_120 = new PotionEffect(PotionEffectType.SLOWNESS, 120, 0, false, false);
         WITHER_100 = new PotionEffect(PotionEffectType.WITHER, 100, 0);
-        HASTE_120 = new PotionEffect(PotionEffectType.FAST_DIGGING, 120, 0, false, false, true);
+        HASTE_120 = new PotionEffect(PotionEffectType.HASTE, 120, 0, false, false, true);
         ABSORPTION_500 = new PotionEffect(PotionEffectType.ABSORPTION, 500, 1, false, false);
     }
 

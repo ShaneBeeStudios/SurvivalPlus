@@ -12,7 +12,7 @@ import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 public class EffectManager {
-	
+
 	private final Survival plugin;
 	private final Config config;
 
@@ -23,7 +23,7 @@ public class EffectManager {
 	private ObsidianMace obsidianMace = null;
 	private QuartzPickaxe quartzPickaxe = null;
 	private Valkyrie valkyrie = null;
-	
+
 	public EffectManager(Survival plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
@@ -70,7 +70,7 @@ public class EffectManager {
 	 */
 	public void applyObsidianMaceEffects(Player player, LivingEntity enemy) {
 		enemy.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 0, false));
-		enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 0, false));
+		enemy.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 0, false));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 48, 2, true));
 		Location particleLoc = player.getLocation();
 		particleLoc.setY(particleLoc.getY() + 2);

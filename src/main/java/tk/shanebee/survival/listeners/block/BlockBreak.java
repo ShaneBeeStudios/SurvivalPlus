@@ -24,10 +24,10 @@ import tk.shanebee.survival.util.Utils;
 import java.util.Random;
 
 public class BlockBreak implements Listener {
-	
+
 	private Config settings;
 	private Lang lang;
-	
+
 	public BlockBreak(Survival plugin) {
 		this.lang = plugin.getLang();
 		this.settings = plugin.getSurvivalConfig();
@@ -249,7 +249,7 @@ public class BlockBreak implements Listener {
 					block.setBlockData(bush);
 					int durability = Utils.getDurability(tool) + multiplier;
 					Utils.setDurability(tool, durability);
-					player.playSound(loc, Sound.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, 1, 1);
+					player.playSound(loc, Sound.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1, 1);
 					if (durability >= tool.getType().getMaxDurability()) {
                         player.getInventory().setItemInMainHand(null);
                         player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);

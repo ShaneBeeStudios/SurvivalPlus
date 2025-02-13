@@ -36,7 +36,7 @@ import java.util.UUID;
 /**
  * Manager for custom <b>SurvivalPlus</b> items
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "removal"})
 public class ItemManager {
 
     private static final Lang lang = Survival.getInstance().getLang();
@@ -71,12 +71,12 @@ public class ItemManager {
             float shiv_spd = 1.8f;
 
             AttributeModifier i_shivDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c56"),
-                    "generic.attackDamage", shiv_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_shivMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_shivDamage);
+                "generic.attackDamage", shiv_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_shivMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_shivDamage);
 
             AttributeModifier i_shivSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c57"),
-                    "generic.attackSpeed", shiv_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_shivMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_shivSpeed);
+                "generic.attackSpeed", shiv_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_shivMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_shivSpeed);
 
             i_shivMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -91,7 +91,7 @@ public class ItemManager {
                     ChatColor.GRAY + Utils.getColoredString(lang.in_off_hand),
                     ChatColor.GRAY + " " + Utils.getColoredString(lang.poisoned_retain),
                     ChatColor.GRAY + " " + Utils.getColoredString(lang.reduce_50)
-                    )
+                )
             );
             i_shiv.setItemMeta(i_shivMeta);
             return i_shiv;
@@ -111,8 +111,8 @@ public class ItemManager {
             int gAxe_dmg = 8;
 
             AttributeModifier i_gAxeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c58"),
-                    "generic.attackSpeed", gAxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gAxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gAxeSpeed);
+                "generic.attackSpeed", gAxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gAxeMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gAxeSpeed);
 
             i_gAxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -126,9 +126,9 @@ public class ItemManager {
                     ChatColor.RESET + Utils.getColoredString(lang.valkyrie_axe_spin),
                     ChatColor.RESET + "  " + Utils.getColoredString(lang.valkyrie_axe_cooldown),
                     ChatColor.RESET + "  " + Utils.getColoredString(lang.decrease_hunger_value)
-                    )
+                )
             );
-            i_gAxeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
+            i_gAxeMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
             i_gAxe.setItemMeta(i_gAxeMeta);
             return i_gAxe;
         } else if (item == Item.QUARTZ_PICKAXE) {
@@ -140,12 +140,12 @@ public class ItemManager {
             float gPickaxe_spd = 0.8f;
 
             AttributeModifier i_gPickDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c59"),
-                    "generic.attackDamage", gPickaxe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gPickaxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gPickDamage);
+                "generic.attackDamage", gPickaxe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gPickaxeMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gPickDamage);
 
             AttributeModifier i_gPickSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c60"),
-                    "generic.attackSpeed", gPickaxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gPickaxeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gPickSpeed);
+                "generic.attackSpeed", gPickaxe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gPickaxeMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gPickSpeed);
 
             i_gPickaxeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -156,7 +156,7 @@ public class ItemManager {
                     ChatColor.DARK_GREEN + " " + gPickaxe_spd + " " + Utils.getColoredString(lang.attack_speed),
                     ChatColor.DARK_GREEN + " " + gPickaxe_dmg + " " + Utils.getColoredString(lang.attack_damage),
                     ChatColor.GRAY + " " + Utils.getColoredString(lang.haste)
-                    )
+                )
             );
             i_gPickaxeMeta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
             i_gPickaxeMeta.addEnchant(Enchantment.MENDING, 1, false);
@@ -173,16 +173,16 @@ public class ItemManager {
             float gSpade_knockbackPercent = 0.5f;
 
             AttributeModifier i_gSpadeDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c61"),
-                    "generic.attackDamage", gSpade_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gSpadeDamage);
+                "generic.attackDamage", gSpade_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gSpadeMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gSpadeDamage);
 
             AttributeModifier i_gSpadeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c62"),
-                    "generic.attackSpeed", gSpade_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gSpadeSpeed);
+                "generic.attackSpeed", gSpade_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gSpadeMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gSpadeSpeed);
 
             AttributeModifier i_gSpadeKnock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c63"),
-                    "generic.knockbackResistance", gSpade_knockbackPercent, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND);
-            i_gSpadeMeta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, i_gSpadeKnock);
+                "generic.knockbackResistance", gSpade_knockbackPercent, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND);
+            i_gSpadeMeta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, i_gSpadeKnock);
 
             i_gSpadeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -197,10 +197,10 @@ public class ItemManager {
                     ChatColor.RESET + " " + Utils.getColoredString(lang.exhausted_slow),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.expire_disarm),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.knockback_resistance)
-                    )
+                )
             );
             i_gSpadeMeta.addEnchant(Enchantment.KNOCKBACK, 3, true);
-            i_gSpadeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
+            i_gSpadeMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
             i_gSpadeMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
             i_gSpade.setItemMeta(i_gSpadeMeta);
             return i_gSpade;
@@ -214,16 +214,16 @@ public class ItemManager {
             float gHoe_move = -0.5f;
 
             AttributeModifier i_gHoeDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c64"),
-                    "generic.attackDamage", gHoe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gHoeDamage);
+                "generic.attackDamage", gHoe_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gHoeMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gHoeDamage);
 
             AttributeModifier i_gHoeSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c65"),
-                    "generic.attackSpeed", gHoe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gHoeSpeed);
+                "generic.attackSpeed", gHoe_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gHoeMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gHoeSpeed);
 
             AttributeModifier i_gHoeMove = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c66"),
-                    "generic.movementSpeed", gHoe_move, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.OFF_HAND);
-            i_gHoeMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_gHoeMove);
+                "generic.movementSpeed", gHoe_move, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.OFF_HAND);
+            i_gHoeMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_gHoeMove);
 
             i_gHoeMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -242,9 +242,9 @@ public class ItemManager {
                     ChatColor.GRAY + Utils.getColoredString(lang.in_off_hand),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.half_shield_resistance),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.reflecting_coming)
-                    )
+                )
             );
-            i_gHoeMeta.addEnchant(Enchantment.DURABILITY, 5, true);
+            i_gHoeMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
             i_gHoe.setItemMeta(i_gHoeMeta);
             return i_gHoe;
         } else if (item == Item.BLAZE_SWORD) {
@@ -257,16 +257,16 @@ public class ItemManager {
             int gSword_health = -6;
 
             AttributeModifier i_gSwordDamage = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c67"),
-                    "generic.attackDamage", gSword_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, i_gSwordDamage);
+                "generic.attackDamage", gSword_dmg - 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gSwordMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gSwordDamage);
 
             AttributeModifier i_gSwordSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c68"),
-                    "generic.attackSpeed", gSword_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_gSwordSpeed);
+                "generic.attackSpeed", gSword_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gSwordMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gSwordSpeed);
 
             AttributeModifier i_gSwordHealth = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c69"),
-                    "generic.maxHealth", gSword_health, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-            i_gSwordMeta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, i_gSwordHealth);
+                "generic.maxHealth", gSword_health, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+            i_gSwordMeta.addAttributeModifier(Attribute.MAX_HEALTH, i_gSwordHealth);
 
             i_gSwordMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
@@ -282,10 +282,10 @@ public class ItemManager {
                     ChatColor.GRAY + Utils.getColoredString(lang.right_click_sneaking),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.blaze_sword_spread_fire),
                     ChatColor.RESET + " " + Utils.getColoredString(lang.blaze_sword_cost)
-                    )
+                )
             );
             i_gSwordMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
-            i_gSwordMeta.addEnchant(Enchantment.DURABILITY, 3, false);
+            i_gSwordMeta.addEnchant(Enchantment.UNBREAKING, 3, false);
             i_gSword.setItemMeta(i_gSwordMeta);
             return i_gSword;
         } else if (item == Item.WORKBENCH) {
@@ -302,10 +302,10 @@ public class ItemManager {
             float firestriker_spd = 4f;
 
             AttributeModifier i_firestrikerSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c55"),
-                    "generic.attackSpeed",
-                    firestriker_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                "generic.attackSpeed",
+                firestriker_spd - 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 
-            i_firestrikerMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, i_firestrikerSpeed);
+            i_firestrikerMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_firestrikerSpeed);
             i_firestrikerMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             i_firestrikerMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.firestriker));
             String lore = Utils.getColoredString(lang.firestriker_lore);
@@ -331,8 +331,8 @@ public class ItemManager {
             i_leatherBootsMeta.setCustomModelData(Item.REINFORCED_LEATHER_BOOTS.getModelData());
 
             AttributeModifier i_leatherBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c70"),
-                    "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
-            i_leatherBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_leatherBootsArmor);
+                "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+            i_leatherBootsMeta.addAttributeModifier(Attribute.ARMOR, i_leatherBootsArmor);
 
             i_leatherBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.reinforced_boots));
 
@@ -371,15 +371,15 @@ public class ItemManager {
             ItemMeta i_goldBootsMeta = i_goldBoots.getItemMeta();
 
             AttributeModifier i_goldBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c71"),
-                    "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
-            i_goldBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldBootsArmor);
+                "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+            i_goldBootsMeta.addAttributeModifier(Attribute.ARMOR, i_goldBootsArmor);
 
             AttributeModifier i_goldBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c71"),
-                    "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
-            i_goldBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldBootsSpeed);
+                "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+            i_goldBootsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_goldBootsSpeed);
 
             i_goldBootsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_sabatons));
-            i_goldBootsMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_FALL, 4, true);
+            i_goldBootsMeta.addEnchant(Enchantment.FEATHER_FALLING, 4, true);
 
             i_goldBoots.setItemMeta(i_goldBootsMeta);
             return i_goldBoots;
@@ -388,15 +388,15 @@ public class ItemManager {
             ItemMeta i_goldChestplateMeta = i_goldChestplate.getItemMeta();
 
             AttributeModifier i_goldChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c72"),
-                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
-            i_goldChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldChestArmor);
+                "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+            i_goldChestplateMeta.addAttributeModifier(Attribute.ARMOR, i_goldChestArmor);
 
             AttributeModifier i_goldChestSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c72"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
-            i_goldChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldChestSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+            i_goldChestplateMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_goldChestSpeed);
 
             i_goldChestplateMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_guard));
-            i_goldChestplateMeta.addEnchant(org.bukkit.enchantments.Enchantment.PROTECTION_EXPLOSIONS, 4, true);
+            i_goldChestplateMeta.addEnchant(Enchantment.BLAST_PROTECTION, 4, true);
 
             i_goldChestplate.setItemMeta(i_goldChestplateMeta);
             return i_goldChestplate;
@@ -405,15 +405,15 @@ public class ItemManager {
             ItemMeta i_goldLeggingsMeta = i_goldLeggings.getItemMeta();
 
             AttributeModifier i_goldLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c73"),
-                    "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
-            i_goldLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldLeggingsArmor);
+                "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+            i_goldLeggingsMeta.addAttributeModifier(Attribute.ARMOR, i_goldLeggingsArmor);
 
             AttributeModifier i_goldLeggingsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c73"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
-            i_goldLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldLeggingsSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+            i_goldLeggingsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_goldLeggingsSpeed);
 
             i_goldLeggingsMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_greaves));
-            i_goldLeggingsMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 4, true);
+            i_goldLeggingsMeta.addEnchant(Enchantment.BLAST_PROTECTION, 4, true);
 
             i_goldLeggings.setItemMeta(i_goldLeggingsMeta);
             return i_goldLeggings;
@@ -422,15 +422,15 @@ public class ItemManager {
             ItemMeta i_goldHelmetMeta = i_goldHelmet.getItemMeta();
 
             AttributeModifier i_goldHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c74"),
-                    "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            i_goldHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_goldHelmetArmor);
+                "generic.armor", 1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            i_goldHelmetMeta.addAttributeModifier(Attribute.ARMOR, i_goldHelmetArmor);
 
             AttributeModifier i_goldHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f088c74"),
-                    "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            i_goldHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_goldHelmetSpeed);
+                "generic.movementSpeed", -0.0125, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            i_goldHelmetMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_goldHelmetSpeed);
 
             i_goldHelmetMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.golden_crown));
-            i_goldHelmetMeta.addEnchant(org.bukkit.enchantments.Enchantment.MENDING, 1, true);
+            i_goldHelmetMeta.addEnchant(Enchantment.MENDING, 1, true);
 
             i_goldHelmet.setItemMeta(i_goldHelmetMeta);
             return i_goldHelmet;
@@ -439,11 +439,11 @@ public class ItemManager {
             ItemMeta i_ironBootsMeta = i_ironBoots.getItemMeta();
 
             AttributeModifier i_ironBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c75"),
-                    "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
-            i_ironBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironBootsArmor);
+                "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+            i_ironBootsMeta.addAttributeModifier(Attribute.ARMOR, i_ironBootsArmor);
             AttributeModifier i_ironBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c76"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
-            i_ironBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironBootsSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+            i_ironBootsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_ironBootsSpeed);
 
             i_ironBoots.setItemMeta(i_ironBootsMeta);
             return i_ironBoots;
@@ -452,12 +452,12 @@ public class ItemManager {
             ItemMeta i_ironChestplateMeta = i_ironChestplate.getItemMeta();
 
             AttributeModifier i_ironChestMove = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c77"),
-                    "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
-            i_ironChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironChestMove);
+                "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+            i_ironChestplateMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_ironChestMove);
 
             AttributeModifier i_ironChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c78"),
-                    "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
-            i_ironChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironChestArmor);
+                "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+            i_ironChestplateMeta.addAttributeModifier(Attribute.ARMOR, i_ironChestArmor);
 
             i_ironChestplate.setItemMeta(i_ironChestplateMeta);
             return i_ironChestplate;
@@ -466,12 +466,12 @@ public class ItemManager {
             ItemMeta i_ironLeggingsMeta = i_ironLeggings.getItemMeta();
 
             AttributeModifier i_ironLeggingsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c79"),
-                    "generic.armor", 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
-            i_ironLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironLeggingsArmor);
+                "generic.armor", 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+            i_ironLeggingsMeta.addAttributeModifier(Attribute.ARMOR, i_ironLeggingsArmor);
 
             AttributeModifier i_ironLeggingsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c80"),
-                    "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
-            i_ironLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironLeggingsSpeed);
+                "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+            i_ironLeggingsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_ironLeggingsSpeed);
 
             i_ironLeggings.setItemMeta(i_ironLeggingsMeta);
             return i_ironLeggings;
@@ -480,12 +480,12 @@ public class ItemManager {
             ItemMeta i_ironHelmetMeta = i_ironHelmet.getItemMeta();
 
             AttributeModifier i_ironHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c81"),
-                    "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            i_ironHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_ironHelmetArmor);
+                "generic.armor", 2, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            i_ironHelmetMeta.addAttributeModifier(Attribute.ARMOR, i_ironHelmetArmor);
 
             AttributeModifier i_ironHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c82"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            i_ironHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_ironHelmetSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            i_ironHelmetMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_ironHelmetSpeed);
 
             i_ironHelmet.setItemMeta(i_ironHelmetMeta);
             return i_ironHelmet;
@@ -494,12 +494,12 @@ public class ItemManager {
             ItemMeta i_diamondBootsMeta = i_diamondBoots.getItemMeta();
 
             AttributeModifier i_diamondBootsArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c83"),
-                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
-            i_diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondBootsArmor);
+                "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET);
+            i_diamondBootsMeta.addAttributeModifier(Attribute.ARMOR, i_diamondBootsArmor);
 
             AttributeModifier i_diamondBootsSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c84"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
-            i_diamondBootsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondBootsSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.FEET);
+            i_diamondBootsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_diamondBootsSpeed);
 
             i_diamondBoots.setItemMeta(i_diamondBootsMeta);
             return i_diamondBoots;
@@ -508,12 +508,12 @@ public class ItemManager {
             ItemMeta i_diamondChestplateMeta = i_diamondChestplate.getItemMeta();
 
             AttributeModifier i_diamondChestArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c85"),
-                    "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
-            i_diamondChestplateMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondChestArmor);
+                "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST);
+            i_diamondChestplateMeta.addAttributeModifier(Attribute.ARMOR, i_diamondChestArmor);
 
             AttributeModifier i_diamondChestSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c86"),
-                    "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
-            i_diamondChestplateMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondChestSpeed);
+                "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.CHEST);
+            i_diamondChestplateMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_diamondChestSpeed);
 
             i_diamondChestplate.setItemMeta(i_diamondChestplateMeta);
             return i_diamondChestplate;
@@ -522,12 +522,12 @@ public class ItemManager {
             ItemMeta i_diamondLeggingsMeta = i_diamondLeggings.getItemMeta();
 
             AttributeModifier i_diamondLegArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c87"),
-                    "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
-            i_diamondLeggingsMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondLegArmor);
+                "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS);
+            i_diamondLeggingsMeta.addAttributeModifier(Attribute.ARMOR, i_diamondLegArmor);
 
             AttributeModifier i_diamondLegSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c88"),
-                    "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
-            i_diamondLeggingsMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondLegSpeed);
+                "generic.movementSpeed", -0.03, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.LEGS);
+            i_diamondLeggingsMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_diamondLegSpeed);
 
             i_diamondLeggings.setItemMeta(i_diamondLeggingsMeta);
             return i_diamondLeggings;
@@ -536,12 +536,12 @@ public class ItemManager {
             ItemMeta i_diamondHelmetMeta = i_diamondHelmet.getItemMeta();
 
             AttributeModifier i_diamondHelmetArmor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c89"),
-                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            i_diamondHelmetMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, i_diamondHelmetArmor);
+                "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            i_diamondHelmetMeta.addAttributeModifier(Attribute.ARMOR, i_diamondHelmetArmor);
 
             AttributeModifier i_diamondHelmetSpeed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c90"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            i_diamondHelmetMeta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, i_diamondHelmetSpeed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            i_diamondHelmetMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, i_diamondHelmetSpeed);
 
             i_diamondHelmet.setItemMeta(i_diamondHelmetMeta);
             return i_diamondHelmet;
@@ -552,8 +552,8 @@ public class ItemManager {
             recurveBowMeta.setCustomModelData(Item.RECURVE_BOW.getModelData());
             recurveBowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.recurved_bow));
             recurveBowMeta.setLore(Collections.singletonList(ChatColor.RESET + "" + ChatColor.LIGHT_PURPLE +
-                    Utils.getColoredString(lang.recurved)));
-            recurveBowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
+                Utils.getColoredString(lang.recurved)));
+            recurveBowMeta.addEnchant(Enchantment.PUNCH, 1, true);
             i_recurveBow.setItemMeta(recurveBowMeta);
             return i_recurveBow;
         } else if (item == Item.RECURVE_CROSSBOW) {
@@ -562,7 +562,7 @@ public class ItemManager {
             recurveCrossbowMeta.setCustomModelData(Item.RECURVE_BOW.getModelData());
             recurveCrossbowMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.recurved_crossbow));
             recurveCrossbowMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.recurved)));
-            recurveCrossbowMeta.addEnchant(Enchantment.ARROW_KNOCKBACK, 1, true);
+            recurveCrossbowMeta.addEnchant(Enchantment.PUNCH, 1, true);
             recurveCrossbow.setItemMeta(recurveCrossbowMeta);
             return recurveCrossbow;
         } else if (item == Item.DIRTY_WATER) {
@@ -573,7 +573,7 @@ public class ItemManager {
             ((PotionMeta) dirtyMeta).setColor(Color.fromRGB(lang.dirty_water_color));
             dirtyMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.dirty_water));
             dirtyMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.dirty_water_lore)));
-            dirtyMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            dirtyMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             dirty_water.setItemMeta(dirtyMeta);
             return dirty_water;
         } else if (item == Item.CLEAN_WATER) {
@@ -584,7 +584,7 @@ public class ItemManager {
             ((PotionMeta) cleanMeta).setColor(Color.fromRGB(lang.clean_water_color));
             cleanMeta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.clean_water));
             cleanMeta.setLore(Collections.singletonList(Utils.getColoredString(lang.clean_water_lore)));
-            cleanMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            cleanMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             clean_water.setItemMeta(cleanMeta);
             return clean_water;
         } else if (item == Item.PURIFIED_WATER) {
@@ -595,7 +595,7 @@ public class ItemManager {
             ((PotionMeta) meta).setColor(Color.fromRGB(lang.purified_water_color));
             meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.purified_water));
             meta.setLore(Collections.singletonList(Utils.getColoredString(lang.purified_water_lore)));
-            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             purified_water.setItemMeta(meta);
             return purified_water;
         } else if (item == Item.WATER_BOWL) {
@@ -659,7 +659,7 @@ public class ItemManager {
             ((PotionMeta) coffee_meta).setBasePotionData(new PotionData(PotionType.WATER));
             ((PotionMeta) coffee_meta).setColor(Color.fromRGB(lang.coffee_color));
             coffee_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.coffee_name));
-            coffee_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            coffee_meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             coffee.setItemMeta(coffee_meta);
             return coffee;
         } else if (item == Item.HOT_MILK) {
@@ -669,7 +669,7 @@ public class ItemManager {
             ((PotionMeta) hot_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
             ((PotionMeta) hot_milk_meta).setColor(Color.fromRGB(lang.hot_milk_color));
             hot_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.hot_milk_name));
-            hot_milk_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            hot_milk_meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             hot_milk.setItemMeta(hot_milk_meta);
             return hot_milk;
         } else if (item == Item.COLD_MILK) {
@@ -679,7 +679,7 @@ public class ItemManager {
             ((PotionMeta) cold_milk_meta).setBasePotionData(new PotionData(PotionType.WATER));
             ((PotionMeta) cold_milk_meta).setColor(Color.fromRGB(lang.cold_milk_color));
             cold_milk_meta.setDisplayName(ChatColor.RESET + Utils.getColoredString(lang.cold_milk_name));
-            cold_milk_meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            cold_milk_meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
             cold_milk.setItemMeta(cold_milk_meta);
             return cold_milk;
         } else if (item == Item.COFFEE_BEAN) {
@@ -767,20 +767,20 @@ public class ItemManager {
             ItemMeta n_h_meta = n_helmet.getItemMeta();
 
             AttributeModifier n_h_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c91"),
-                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_h_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_h_armor);
+                "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.ARMOR, n_h_armor);
 
             AttributeModifier n_h_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c91"),
-                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_h_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_h_tough);
+                "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, n_h_tough);
 
             AttributeModifier n_h_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c91"),
-                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_h_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_h_knock);
+                "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, n_h_knock);
 
             AttributeModifier n_h_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c91"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            n_h_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_h_speed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_h_meta.addAttributeModifier(Attribute.MOVEMENT_SPEED, n_h_speed);
 
             n_helmet.setItemMeta(n_h_meta);
             return n_helmet;
@@ -789,20 +789,20 @@ public class ItemManager {
             ItemMeta n_c_meta = n_chest.getItemMeta();
 
             AttributeModifier n_c_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c92"),
-                    "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_c_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_c_armor);
+                "generic.armor", 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.ARMOR, n_c_armor);
 
             AttributeModifier n_c_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c92"),
-                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_c_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_c_tough);
+                "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, n_c_tough);
 
             AttributeModifier n_c_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c92"),
-                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_c_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_c_knock);
+                "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, n_c_knock);
 
             AttributeModifier n_c_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c92"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            n_c_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_c_speed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_c_meta.addAttributeModifier(Attribute.MOVEMENT_SPEED, n_c_speed);
 
             n_chest.setItemMeta(n_c_meta);
             return n_chest;
@@ -811,20 +811,20 @@ public class ItemManager {
             ItemMeta n_l_meta = n_leg.getItemMeta();
 
             AttributeModifier n_l_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c93"),
-                    "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_l_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_l_armor);
+                "generic.armor", 6, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.ARMOR, n_l_armor);
 
             AttributeModifier n_l_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c93"),
-                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_l_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_l_tough);
+                "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, n_l_tough);
 
             AttributeModifier n_l_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c93"),
-                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_l_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_l_knock);
+                "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, n_l_knock);
 
             AttributeModifier n_l_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c93"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            n_l_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_l_speed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_l_meta.addAttributeModifier(Attribute.MOVEMENT_SPEED, n_l_speed);
 
             n_leg.setItemMeta(n_l_meta);
             return n_leg;
@@ -833,20 +833,20 @@ public class ItemManager {
             ItemMeta n_b_meta = n_boot.getItemMeta();
 
             AttributeModifier n_b_armor = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f086c94"),
-                    "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_b_meta.addAttributeModifier(Attribute.GENERIC_ARMOR, n_b_armor);
+                "generic.armor", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.ARMOR, n_b_armor);
 
             AttributeModifier n_b_tough = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f085c94"),
-                    "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_b_meta.addAttributeModifier(Attribute.GENERIC_ARMOR_TOUGHNESS, n_b_tough);
+                "generic.toughness", 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, n_b_tough);
 
             AttributeModifier n_b_knock = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f084c94"),
-                    "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
-            n_b_meta.addAttributeModifier(Attribute.GENERIC_KNOCKBACK_RESISTANCE, n_b_knock);
+                "generic.knock", 0.1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, n_b_knock);
 
             AttributeModifier n_b_speed = new AttributeModifier(UUID.fromString("95c4f950-1631-4cc4-9f67-f45d8f087c94"),
-                    "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
-            n_b_meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, n_b_speed);
+                "generic.movementSpeed", -0.02, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD);
+            n_b_meta.addAttributeModifier(Attribute.MOVEMENT_SPEED, n_b_speed);
 
             n_boot.setItemMeta(n_b_meta);
             return n_boot;
@@ -939,16 +939,16 @@ public class ItemManager {
         POTION_EFFECTS = new ArrayList<>();
         // BAD
         POTION_EFFECTS.add(PotionEffectType.BAD_OMEN);
-        POTION_EFFECTS.add(PotionEffectType.CONFUSION);
+        POTION_EFFECTS.add(PotionEffectType.NAUSEA);
         POTION_EFFECTS.add(PotionEffectType.POISON);
         POTION_EFFECTS.add(PotionEffectType.UNLUCK);
         POTION_EFFECTS.add(PotionEffectType.HUNGER);
-        POTION_EFFECTS.add(PotionEffectType.HARM);
-        POTION_EFFECTS.add(PotionEffectType.SLOW);
+        POTION_EFFECTS.add(PotionEffectType.INSTANT_DAMAGE);
+        POTION_EFFECTS.add(PotionEffectType.SLOWNESS);
         // GOOD
         POTION_EFFECTS.add(PotionEffectType.DOLPHINS_GRACE);
         POTION_EFFECTS.add(PotionEffectType.ABSORPTION);
-        POTION_EFFECTS.add(PotionEffectType.FAST_DIGGING);
+        POTION_EFFECTS.add(PotionEffectType.HASTE);
         POTION_EFFECTS.add(PotionEffectType.LUCK);
         POTION_EFFECTS.add(PotionEffectType.HEALTH_BOOST);
         POTION_EFFECTS.add(PotionEffectType.REGENERATION);

@@ -177,7 +177,7 @@ public class GiantBlade implements Listener {
 
 				Random rand = new Random();
 				chargingPlayer.getLocation().getWorld().playSound(chargingPlayer.getLocation(), Sound.ENTITY_SHULKER_BULLET_HIT, 1.5F, rand.nextFloat() * 0.4F + 0.8F);
-				Utils.spawnParticle(chargingPlayer.getLocation(), Particle.EXPLOSION_NORMAL, 10, 0, 0, 0);
+				Utils.spawnParticle(chargingPlayer.getLocation(), Particle.EXPLOSION, 10, 0, 0, 0);
 
 				int times = playerData.getStat(Stat.CHARGING);
 				if (--times > 1)

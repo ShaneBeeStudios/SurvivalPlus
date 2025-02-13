@@ -23,8 +23,8 @@ public class ObsidianMace extends BukkitRunnable {
 	public void run() {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
 			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.OBSIDIAN_MACE)) {
-				player.removePotionEffect(PotionEffectType.SLOW);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false));
+				player.removePotionEffect(PotionEffectType.SLOWNESS);
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1, false));
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;

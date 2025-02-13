@@ -10,13 +10,13 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import tk.shanebee.survival.Survival;
 
 public class SnowGeneration implements Listener {
-	
+
 	private Survival plugin;
-	
+
 	public SnowGeneration(Survival plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	@EventHandler(ignoreCancelled = true)
 	private void chunkLoad(final ChunkLoadEvent event) {
 		if (plugin.isSnowGenOption()) {
@@ -99,7 +99,7 @@ public class SnowGeneration implements Listener {
 
 				// snowable blocks and the stop
 				case STONE:
-				case GRASS:
+                case GRASS_BLOCK:
 				case DIRT:
 				case COBBLESTONE:
 				case BEDROCK:

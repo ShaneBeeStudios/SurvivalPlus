@@ -246,7 +246,7 @@ public class Utils {
                 .add(Material.DIRT)
                 .add(Material.PODZOL)
                 .add(Material.COARSE_DIRT)
-                .add(Material.GRASS_PATH)
+                .add(Material.DIRT_PATH)
                 .add(Material.FARMLAND)
                 .add(Material.SOUL_SAND)
                 .add(Material.SAND)

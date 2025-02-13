@@ -21,8 +21,8 @@ public class QuartzPickaxe extends BukkitRunnable {
 	public void run() {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
 			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.QUARTZ_PICKAXE)) {
-				player.removePotionEffect(PotionEffectType.FAST_DIGGING);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, 9, false));
+				player.removePotionEffect(PotionEffectType.HASTE);
+				player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20, 9, false));
 			}
 		}
 	}

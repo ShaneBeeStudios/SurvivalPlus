@@ -19,13 +19,13 @@ public class BeetrootStrength implements Listener {
 			int amp = 0;
 			int dur = 200;
 			for (PotionEffect effect : player.getActivePotionEffects()) {
-				if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+				if (effect.getType().equals(PotionEffectType.STRENGTH)) {
 					dur += effect.getDuration();
 					if (dur > 600) dur = 600;
 					player.removePotionEffect(effect.getType());
 				}
 			}
-			player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, dur, amp));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, dur, amp));
 		}
 	}
 

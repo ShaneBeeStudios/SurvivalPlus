@@ -1,6 +1,6 @@
 package tk.shanebee.survival.util;
 
-public abstract class Validate extends org.apache.commons.lang.Validate {
+public abstract class Validate {
 
     /**
      * Validate if a value is between a min and max value
@@ -10,7 +10,7 @@ public abstract class Validate extends org.apache.commons.lang.Validate {
      * @param max   Max value amount
      */
     public static void isBetween(int value, int min, int max) {
-        isTrue(value >= min && value <= max, "Value must be between " + min + " and " + max);
+        //
     }
 
 }
