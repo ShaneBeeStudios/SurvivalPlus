@@ -33,19 +33,19 @@ public class ArmorPiece extends Item {
 
         NamespacedKey modKey = NamespacedKey.minecraft("armor." + armorType.key);
 
-        AttributeModifier armorMod = new AttributeModifier(modKey, armor, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+        AttributeModifier armorMod = new AttributeModifier(modKey, armor, Operation.ADD_NUMBER, armorType.slotGroup);
         itemMeta.addAttributeModifier(Attribute.ARMOR, armorMod);
 
-        AttributeModifier speedMod = new AttributeModifier(modKey, moveSpeed, Operation.ADD_SCALAR, EquipmentSlotGroup.FEET);
+        AttributeModifier speedMod = new AttributeModifier(modKey, moveSpeed, Operation.ADD_SCALAR, armorType.slotGroup);
         itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, speedMod);
 
         if (toughness > 0) {
-            AttributeModifier toughnessMod = new AttributeModifier(modKey, toughness, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+            AttributeModifier toughnessMod = new AttributeModifier(modKey, toughness, Operation.ADD_NUMBER, armorType.slotGroup);
             itemMeta.addAttributeModifier(Attribute.ARMOR_TOUGHNESS, toughnessMod);
         }
 
         if (knockback > 0) {
-            AttributeModifier knockbackMod = new AttributeModifier(modKey, knockback, Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD);
+            AttributeModifier knockbackMod = new AttributeModifier(modKey, knockback, Operation.ADD_NUMBER, armorType.slotGroup);
             itemMeta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, knockbackMod);
         }
 
@@ -69,23 +69,29 @@ public class ArmorPiece extends Item {
     }
 
     public enum ArmorType {
-        HELMET("helmet", "crown", "###", "# #"),
-        CHESTPLATE("chestplate", "guard", "# #", "###", "###"),
-        LEGGINGS("leggings", "greaves", "###", "# #", "# #"),
-        BOOTS("boots", "sabatons", "# #", "# #");
+        HELMET("helmet", "crown", EquipmentSlotGroup.HEAD, "###", "# #"),
+        CHESTPLATE("chestplate", "guard",EquipmentSlotGroup.CHEST, "# #", "###", "###"),
+        LEGGINGS("leggings", "greaves",EquipmentSlotGroup.LEGS, "###", "# #", "# #"),
+        BOOTS("boots", "sabatons",EquipmentSlotGroup.FEET, "# #", "# #");
 
         private final String key;
         private final String name;
+        private final EquipmentSlotGroup slotGroup;
         private final String[] shape;
 
-        ArmorType(String key, String name, String... shape) {
+        ArmorType(String key, String name, EquipmentSlotGroup slotGroup, String... shape) {
             this.key = key;
             this.name = name;
+            this.slotGroup = slotGroup;
             this.shape = shape;
         }
 
         public String getKey() {
             return this.key;
+        }
+
+        public EquipmentSlotGroup getSlotGroup() {
+            return this.slotGroup;
         }
     }
 

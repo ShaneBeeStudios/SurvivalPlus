@@ -28,8 +28,8 @@ public class ReinforcedPiece extends Item {
         ItemStack itemStack = itemType().createItemStack();
         if (armorType == ArmorType.BOOTS) {
             ItemMeta itemMeta = itemStack.getItemMeta();
-            AttributeModifier i_leatherBootsArmor = new AttributeModifier(NamespacedKey.minecraft("armor." + armorType.getKey()), 2, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
-            itemMeta.addAttributeModifier(Attribute.ARMOR, i_leatherBootsArmor);
+            AttributeModifier mod = new AttributeModifier(NamespacedKey.minecraft("armor." + armorType.getKey()), 2, Operation.ADD_NUMBER, armorType.getSlotGroup());
+            itemMeta.addAttributeModifier(Attribute.ARMOR, mod);
             itemStack.setItemMeta(itemMeta);
         }
         itemStack.setData(DataComponentTypes.EQUIPPABLE,
