@@ -192,18 +192,22 @@ items:
     name: "Beekeeper Helmet"
     repair_cost: 0
     repair_percent: 1.0
+    color: 16777215
   beekeeper_chestplate:
     name: "Beekeeper Chestplate"
     repair_cost: 0
     repair_percent: 1.0
+    color: 16777215
   beekeeper_leggings:
     name: "Beekeeper Leggings"
     repair_cost: 0
     repair_percent: 1.0
+    color: 16777215
   beekeeper_boots:
     name: "Beekeeper Boots"
     repair_cost: 0
     repair_percent: 1.0
+    color: 16777215
   reinforced_leather_helmet:
     name: "Reinforced Leather Helmet"
     repair_cost: 0
