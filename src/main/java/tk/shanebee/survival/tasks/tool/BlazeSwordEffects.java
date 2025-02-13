@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 public class BlazeSwordEffects extends BukkitRunnable {
 
@@ -24,7 +24,7 @@ public class BlazeSwordEffects extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
-			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.BLAZE_SWORD)) {
+			if (Items.BLAZE_SWORD.is(player.getInventory().getItemInMainHand())) {
 				player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
 				player.addPotionEffect(this.FLAME);
 				Location particleLoc = player.getLocation();

@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Lang;
+import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -41,10 +41,11 @@ public class GiveItem implements CommandExecutor, TabCompleter {
                 if (args.length == 3) {
                     amount = Integer.parseInt(args[2]);
                 }
-            } catch (IllegalArgumentException ignore) {}
+            } catch (IllegalArgumentException ignore) {
+            }
             try {
-                item = Item.valueOf(args[1].toUpperCase());
-                ItemStack itemStack = ItemManager.get(item);
+                item = Items.valueOf(args[1].toUpperCase());
+                ItemStack itemStack = item.getItemStack();
                 itemStack.setAmount(amount);
 
                 Location loc = player.getLocation();
@@ -54,7 +55,7 @@ public class GiveItem implements CommandExecutor, TabCompleter {
                     player.getWorld().dropItem(loc, itemStack);
                 }
                 if (item != null) {
-                    String itemName = item.getKey().replace("_", " ");
+                    String itemName = itemStack.getItemMeta().getDisplayName();
                     if (sender instanceof Player) {
                         Utils.sendColoredMsg(sender, prefix + "&6You gave &b" + itemName + " &6to &b" + player.getName());
                     } else {
@@ -78,8 +79,8 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length <= 1) return null;
         if (args.length == 2) {
             ArrayList<String> matches = new ArrayList<>();
-            for (Item item : Item.values()) {
-                String name = item.getKey().toUpperCase();
+            for (Item item : Items.values()) {
+                String name = item.getKey().toString();
                 if (StringUtil.startsWithIgnoreCase(name, args[1])) {
                     matches.add(name);
                 }

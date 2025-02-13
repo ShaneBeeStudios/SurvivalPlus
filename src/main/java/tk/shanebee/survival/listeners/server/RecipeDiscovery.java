@@ -14,7 +14,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
 
@@ -101,7 +101,7 @@ public class RecipeDiscovery implements Listener {
             player.discoverRecipes(Recipes.CLAY.getKeys());
         } else if (item == Material.EGG) {
             player.discoverRecipes(Recipes.COOKIE.getKeys());
-        } else if (ItemManager.compare(e.getItem().getItemStack(), Item.WATER_BOWL)) {
+        } else if (Items.WATER_BOWL.is(e.getItem().getItemStack())) {
             player.discoverRecipes(Recipes.BOWL.getKeys());
         } else if (item == Material.VINE) {
             player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
@@ -167,7 +167,7 @@ public class RecipeDiscovery implements Listener {
         if (!(e.getWhoClicked() instanceof Player)) return;
         Player player = ((Player) e.getWhoClicked());
         ItemStack result = e.getRecipe().getResult();
-        if (ItemManager.compare(result, Item.FIRESTRIKER)) {
+        if (Items.FIRESTRIKER.is(result)) {
             player.discoverRecipes(Recipes.TORCH.getKeys());
             player.discoverRecipes(Recipes.FURNACE.getKeys());
         } else if (result.getType() == Material.FURNACE) {

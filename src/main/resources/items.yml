@@ -7,10 +7,9 @@
 # model_data is the CustomModalData version of this item which represents the CustomModelData number in the resource pack
 # If you are using a custom resource pack, you can change this number to match
 
-# repair_cost_multiplier = the amount that will multiply when repairing in an anvil
-# -1 = does not require an anvil, can be repaired in a crafting table
-# 0 = requires an anvil, but no multiplier
-# >0 = requires an anvil, multiplier applied
+# repair_cost = The number of experience levels to add to the base level cost when repairing, combining,
+# or renaming this item with an anvil. Must be a non-negative integer, defaults to 0.
+# See https://minecraft.wiki/w/Data_component_format#repair_cost for further details.
 
 # repair_percent = modifier for repair amount
 # Value must be between 0.0 and 1.0 (1.0 = full vanilla healing)
@@ -26,5 +25,238 @@
 # --NUTRITION--
 
 # Nutrition values can be changed. They cannot be removed nor added to
-# Deleting a value will reset to it's default value
+# Deleting a value will reset to its default value
 # The values must be >= 0
+
+items:
+  # TOOLS
+  compass:
+    name: "Compass"
+    repair_cost: 0
+    repair_percent: 0.85
+  firestriker:
+    name: "Firestriker"
+    repair_cost: 0
+    repair_percent: 0.0
+  grappling_hook:
+    name: "Grappling Hook"
+    repair_cost: 0
+    repair_percent: 0.85
+  hammer:
+    name: "Hammer"
+    repair_cost: 0
+    repair_percent: 0.85
+  hatchet:
+    name: "Hatchet"
+    repair_cost: 0
+    repair_percent: 0.85
+  mattock:
+    name: "Mattock"
+    repair_cost: 0
+    repair_percent: 0.85
+  medic_kit:
+    name: "Medic Kit"
+    repair_cost: 0
+    repair_percent: 0.0
+  recurve_bow:
+    name: "Recurve Bow"
+    repair_cost: 1
+    repair_percent: 0.9
+  recurve_crossbow:
+    name: "Recurve Crossbow"
+    repair_cost: 2
+    repair_percent: 0.9
+  shiv:
+    name: "Shiv"
+    repair_cost: 0
+    repair_percent: 0.85
+
+  # SICKLES
+  diamond_sickle:
+    name: "Diamond Sickle"
+    repair_cost: 2
+    repair_percent: 0.85
+    max_damage: 1400
+  flint_sickle:
+    name: "Flint Sickle"
+    repair_cost: 0
+    repair_percent: 1.0
+    max_damage: 700
+  iron_sickle:
+    name: "Iron Sickle"
+    repair_cost: 1
+    repair_percent: 0.9
+    max_damage: 100
+  stone_sickle:
+    name: "Stone Sickle"
+    repair_cost: 0
+    repair_percent: 1.0
+    max_damage: 50
+
+  # LEGENDARY TOOLS
+  blaze_sword:
+    name: "Blaze Sword"
+    repair_cost: 3
+    repair_percent: 0.95
+  ender_giant_blade:
+    name: "Ender Giant Blade"
+    repair_cost: 3
+    repair_percent: 0.95
+  obsidian_mace:
+    name: "Obsidian Mace"
+    repair_cost: 3
+    repair_percent: 0.95
+  quartz_pickaxe:
+    name: "Quartz Pickaxe"
+    repair_cost: 2
+    repair_percent: 0.95
+  valkyries_axe:
+    name: "Valkyries Axe"
+    repair_cost: 2
+    repair_percent: 0.95
+
+  # ARMOR
+  snow_boots:
+    name: "Snow Boots"
+    repair_cost: 1
+    repair_percent: 0.97
+  rain_boots:
+    name: "Rain Boots"
+    repair_cost: 1
+    repair_percent: 0.97
+  diamond_helmet:
+    name: "Diamond Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_chestplate:
+    name: "Diamond Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_leggings:
+    name: "Diamond Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_boots:
+    name: "Diamond Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_helmet:
+    name: "Iron Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_chestplate:
+    name: "Iron Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_leggings:
+    name: "Iron Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_boots:
+    name: "Iron Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_crown:
+    name: "Golden Crown"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_guard:
+    name: "Golden Guard"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_greaves:
+    name: "Golden Greaves"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_sabatons:
+    name: "Golden Sabatons"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_helmet:
+    name: "Netherite Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_chestplate:
+    name: "Netherite Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_leggings:
+    name: "Netherite Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_boots:
+    name: "Netherite Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  beekeeper_helmet:
+    name: "Beekeeper Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  beekeeper_chestplate:
+    name: "Beekeeper Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  beekeeper_leggings:
+    name: "Beekeeper Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  beekeeper_boots:
+    name: "Beekeeper Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  reinforced_leather_helmet:
+    name: "Reinforced Leather Helmet"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_tunic:
+    name: "Reinforced Leather Tunic"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_trousers:
+    name: "Reinforced Leather Trousers"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_boots:
+    name: "Reinforced Leather Boots"
+    repair_cost: 0
+    repair_percent: 0.85
+
+  # BLOCKS
+  unlit_campfire:
+    name: "Campfire"
+  workbench:
+    name: "Workbench"
+
+  # DRINKS
+  clean_water:
+    name: "Clean Water"
+    color: 1213666
+  dirty_water:
+    name: "Dirty Water"
+    color: 12769874
+  purified_Water:
+    name: "Purified Water"
+    color: 0x00FFFF
+  coffee:
+    name: "Coffee"
+    color: 9461779
+  cold_milk:
+    name: "Cold Milk"
+    color: 16250871
+  hot_milk:
+    name: "Hot Milk"
+    color: 15456977
+  water_bowl:
+    name: "Water Bowl"
+
+  # FOOD
+  suspicious_meat:
+    name: "Suspicious Meat"
+
+  # MISC
+  breeding_egg:
+    name: "Breeding Egg"
+  coffee_bean:
+    name: "Coffee Bean"
+  fermented_skin:
+    name: "Fermented Skin"

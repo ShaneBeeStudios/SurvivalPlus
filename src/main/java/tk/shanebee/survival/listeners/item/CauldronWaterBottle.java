@@ -14,8 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Cauldron;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 public class CauldronWaterBottle implements Listener {
 
@@ -35,14 +34,14 @@ public class CauldronWaterBottle implements Listener {
 								Block fire = event.getClickedBlock().getRelative(BlockFace.DOWN);
 								event.setCancelled(true);
 
-								event.getClickedBlock().getState().setData(new Cauldron());
+								event.getClickedBlock().getState().setData(new Cauldron()); // TODO figure you out
 								cauldron.setLevel(cauldron.getLevel() - 1);
 								event.getClickedBlock().setBlockData(cauldron);
 
-								ItemStack waterBottle = ItemManager.get(Item.DIRTY_WATER);
+								ItemStack waterBottle = Items.DIRTY_WATER.getItemStack();
 
 								if (fire.getType() == Material.FIRE) {
-									waterBottle = ItemManager.get(Item.PURIFIED_WATER);
+									waterBottle = Items.PURIFIED_WATER.getItemStack();
 								}
 								player.playSound(event.getClickedBlock().getLocation(), Sound.ITEM_BOTTLE_FILL, 1, 1);
 

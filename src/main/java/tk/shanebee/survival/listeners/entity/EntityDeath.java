@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 import java.util.List;
 import java.util.Random;
@@ -45,7 +45,7 @@ public class EntityDeath implements Listener {
 
     private void replaceDrops(List<ItemStack> items) {
         items.removeIf(item -> item.getType() == Material.ROTTEN_FLESH);
-        items.add(Item.SUSPICIOUS_MEAT.getItem());
+        items.add(Items.SUSPICIOUS_MEAT.getItemStack());
     }
 
 }

@@ -8,7 +8,7 @@ import tk.shanebee.survival.util.Utils;
 import java.io.File;
 import java.io.IOException;
 
-class ItemConfig {
+public class ItemConfig {
 
     static ItemConfig INSTANCE;
     private final Survival plugin = Survival.getInstance();
@@ -37,19 +37,6 @@ class ItemConfig {
         }
     }
 
-    int getModelData(String key, int defaultValue) {
-        int data;
-        String path = "items." + key + ".model_data";
-        if (settings.contains(path)) {
-            data = settings.getInt(path);
-        } else {
-            data = defaultValue;
-            settings.set(path, data);
-            save();
-        }
-        return data;
-    }
-
     int[] getNutritionValues(String key, int carbs, int proteins, int vitamins) {
         String path = "nutritions." + key + ".";
         String[] paths = new String[]{path + "carbs", path + "proteins", path + "vitamins"};
@@ -72,24 +59,40 @@ class ItemConfig {
         return nutritions;
     }
 
-    double getRepairCost(String key, double defaultValue) {
-        String path = "items." + key + ".repair_cost_multiplier";
-        if (settings.contains(path)) {
-            return settings.getDouble(path);
-        } else {
-            settings.set(path, defaultValue);
-            return defaultValue;
-        }
+    String getName(String key) {
+        return this.settings.getString("items." + key + ".name");
     }
 
-    double getRepairPercent(String key, double defaultValue) {
-        String path = "items." + key + ".repair_percent";
-        if (settings.contains(path)) {
-            return settings.getDouble(path);
-        } else {
-            settings.set(path, defaultValue);
-            return defaultValue;
+    int getMaxDamage(String key) {
+        String path = "items." + key + ".max_damage";
+        if (this.settings.contains(path)) {
+            return this.settings.getInt(path);
         }
+        return 0;
+    }
+
+    int getRepairCost(String key) {
+        String path = "items." + key + ".repair_cost";
+        if (this.settings.contains(path)) {
+            return this.settings.getInt(path);
+        }
+        return 0;
+    }
+
+    double getRepairPercent(String key) {
+        String path = "items." + key + ".repair_percent";
+        if (this.settings.contains(path)) {
+            return this.settings.getDouble(path);
+        }
+        return 0;
+    }
+
+    public int getColor(String key) {
+        String path = "items." + key + ".color";
+        if (this.settings.contains(path)) {
+            return this.settings.getInt(path);
+        }
+        return 0;
     }
 
     void save() {

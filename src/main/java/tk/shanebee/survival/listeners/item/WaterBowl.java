@@ -15,8 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.events.WaterBowlFillEvent;
-import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.managers.ItemManager;
+import tk.shanebee.survival.item.Items;
 
 public class WaterBowl implements Listener {
 
@@ -34,7 +33,7 @@ public class WaterBowl implements Listener {
 	private void onConsume(PlayerItemConsumeEvent event) {
 		if (!THIRST_ENABLED) {
 			if (event.isCancelled()) return;
-			if (ItemManager.compare(event.getItem(), Item.WATER_BOWL)) {
+			if (Items.WATER_BOWL.is(event.getItem())) {
 				event.setCancelled(true);
 			}
 		}
@@ -55,7 +54,7 @@ public class WaterBowl implements Listener {
 						int amount = itemDrop.getItemStack().getAmount();
 						itemDrop.remove();
 						for (int i = 0; i < amount; i++) {
-                            itemDrop.getWorld().dropItem(itemLocation, Item.WATER_BOWL.getItem());
+                            itemDrop.getWorld().dropItem(itemLocation, Items.WATER_BOWL.getItemStack());
                         }
 					}
 				};
@@ -73,7 +72,7 @@ public class WaterBowl implements Listener {
             if (key.equalsIgnoreCase("glass_bottle")) {
                 CraftingInventory inventory = event.getInventory();
                 for (ItemStack itemStack : inventory.getMatrix()) {
-                    if (itemStack != null && Item.WATER_BOWL.compare(itemStack)) {
+                    if (itemStack != null && Items.WATER_BOWL.is(itemStack)) {
                         inventory.setResult(null);
                     }
                 }

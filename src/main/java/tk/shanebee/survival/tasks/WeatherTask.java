@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 public class WeatherTask extends BukkitRunnable {
 
@@ -114,12 +114,12 @@ public class WeatherTask extends BukkitRunnable {
 
     private boolean hasRainBoots(Player player) {
         ItemStack boots = player.getInventory().getBoots();
-        return boots != null && Item.RAIN_BOOTS.compare(boots);
+        return boots != null && Items.RAIN_BOOTS.is(boots);
     }
 
     private boolean hasSnowBoots(Player player) {
         ItemStack boots = player.getInventory().getBoots();
-        return boots != null && Item.SNOW_BOOTS.compare(boots);
+        return boots != null && Items.SNOW_BOOTS.is(boots);
     }
 
 }

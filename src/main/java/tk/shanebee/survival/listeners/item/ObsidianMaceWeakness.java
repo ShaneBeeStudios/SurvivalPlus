@@ -1,22 +1,21 @@
 package tk.shanebee.survival.listeners.item;
 
 import org.bukkit.Material;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.managers.EffectManager;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.managers.EffectManager;
+import tk.shanebee.survival.util.Utils;
 
 public class ObsidianMaceWeakness implements Listener {
 
@@ -37,7 +36,7 @@ public class ObsidianMaceWeakness implements Listener {
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
 			LivingEntity enemy = (LivingEntity) event.getEntity();
 
-			if (ItemManager.compare(mainItem, Item.OBSIDIAN_MACE)) {
+			if (Items.OBSIDIAN_MACE.is(mainItem)) {
 				effectManager.applyObsidianMaceEffects(player, enemy);
 			}
 		}
@@ -54,7 +53,7 @@ public class ObsidianMaceWeakness implements Listener {
 
             Material clickedBlock = event.getClickedBlock().getType();
 
-            if (ItemManager.compare(tool, Item.OBSIDIAN_MACE)) {
+            if (Items.OBSIDIAN_MACE.is(tool)) {
                 if (clickedBlock == Material.GRASS_BLOCK || clickedBlock == Material.DIRT) {
                     event.setCancelled(true);
                 }

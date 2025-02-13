@@ -15,8 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
@@ -54,7 +54,7 @@ public class MedicKit implements Listener {
 		PlayerData playerData = playerManager.getPlayerData(player);
 		final ItemStack mainItem = player.getInventory().getItemInMainHand();
 
-		if (ItemManager.compare(mainItem, Item.MEDIC_KIT)) {
+		if (Items.MEDIC_KIT.is(mainItem)) {
 			if (playerData.getStat(Stat.HEALING) <= 0) {
 				if (!player.isSneaking()) {
 					if (event.getRightClicked() instanceof Player) {
@@ -100,7 +100,7 @@ public class MedicKit implements Listener {
 												player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
 												healed.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
 
-												player.getInventory().removeItem(ItemManager.get(Item.MEDIC_KIT));
+												player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
 											}
 										} else {
 											playerData.setStat(Stat.HEALING, 0);
@@ -109,7 +109,7 @@ public class MedicKit implements Listener {
 											player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
 											healed.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
 
-											player.getInventory().removeItem(ItemManager.get(Item.MEDIC_KIT));
+											player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
 										}
 									}
 								};
@@ -128,7 +128,7 @@ public class MedicKit implements Listener {
 			final Player player = event.getPlayer();
 			PlayerData playerData = playerManager.getPlayerData(player);
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if (ItemManager.compare(mainItem, Item.MEDIC_KIT)) {
+			if (Items.MEDIC_KIT.is(mainItem)) {
 				if (playerData.getStat(Stat.HEALING) <= 0) {
 					if (player.isSneaking()) {
 						playerData.setStat(Stat.HEALING, 1);
@@ -138,7 +138,7 @@ public class MedicKit implements Listener {
 						final Runnable task = new Runnable() {
 							public void run() {
 								int times = playerData.getStat(Stat.HEAL_TIMES);
-								if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.MEDIC_KIT) && playerData.getStat(Stat.HEALING) > 0) {
+								if (Items.MEDIC_KIT.is(player.getInventory().getItemInMainHand()) && playerData.getStat(Stat.HEALING) > 0) {
 									if (times-- > 0) {
 										Random rand = new Random();
 
@@ -161,14 +161,14 @@ public class MedicKit implements Listener {
 
 										player.sendMessage(ChatColor.DARK_GREEN + Utils.getColoredString(lang.healing_complete));
 
-										player.getInventory().removeItem(ItemManager.get(Item.MEDIC_KIT));
+										player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
 									}
 								} else {
 									playerData.setStat(Stat.HEALING, 0);
 
 									player.sendMessage(ChatColor.DARK_RED + Utils.getColoredString(lang.healing_interrupted));
 
-									player.getInventory().removeItem(ItemManager.get(Item.MEDIC_KIT));
+									player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
 								}
 							}
 						};

@@ -21,7 +21,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.BlockManager;
 import tk.shanebee.survival.util.Utils;
@@ -64,7 +64,7 @@ public class BurnoutTorches implements Listener {
         if (block == null || (block.getType() != Material.REDSTONE_TORCH && block.getType() != Material.REDSTONE_WALL_TORCH))
             return;
         if (!torchManager.isNonPersistent(block)) return;
-        if (tool.getType() != Material.FLINT_AND_STEEL && !ItemManager.compare(tool, Item.FIRESTRIKER)) return;
+        if (tool.getType() != Material.FLINT_AND_STEEL && !Items.FIRESTRIKER.is(tool)) return;
         if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         e.setCancelled(true);
         if (block.getType() == Material.REDSTONE_WALL_TORCH) {
@@ -104,7 +104,7 @@ public class BurnoutTorches implements Listener {
             return;
         }
         if (block.getType() == Material.TORCH || block.getType() == Material.WALL_TORCH) {
-            if (!ItemManager.compare(mainHand, Item.PERSISTENT_TORCH)) {
+            if (!Items.PERSISTENT_TORCH.is(mainHand)) {
                 torchManager.burnoutTorch(block);
                 torchManager.setNonPersistent(block);
             }
@@ -197,7 +197,7 @@ public class BurnoutTorches implements Listener {
         Material mat = block.getType();
         if (mat == Material.TORCH || mat == Material.WALL_TORCH) {
             if (PERSISTENT_TORCHES && !torchManager.isNonPersistent(block)) {
-                world.dropItemNaturally(loc, Item.PERSISTENT_TORCH.getItem());
+                world.dropItemNaturally(loc, Items.PERSISTENT_TORCH.getItemStack());
             } else if (DROP_TORCH) {
                 return false;
             } else {

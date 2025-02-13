@@ -3,11 +3,13 @@ package tk.shanebee.survival.listeners.item;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -17,14 +19,12 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.event.player.PlayerFishEvent;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
-import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.managers.ItemManager;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
 import tk.shanebee.survival.util.Utils;
@@ -58,32 +58,32 @@ public class Consume implements Listener {
 			case POTION:
 				if (config.MECHANICS_THIRST_PURIFY_WATER) {
 					if (checkWaterBottle(item)) {
-						if (ItemManager.compare(item, Item.DIRTY_WATER)) {
+						if (Items.DIRTY_WATER.is(item)) {
 							change = config.MECHANICS_THIRST_REP_DIRTY_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 5) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
 								player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
 							}
-						} else if (ItemManager.compare(item, Item.CLEAN_WATER)) {
+						} else if (Items.CLEAN_WATER.is(item)) {
 							change = config.MECHANICS_THIRST_REP_CLEAN_WATER;
 							Random rand = new Random();
 							if (rand.nextInt(10) + 1 <= 2) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
 								player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
 							}
-						} else if (ItemManager.compare(item, Item.PURIFIED_WATER)) {
+						} else if (Items.PURIFIED_WATER.is(item)) {
 							change = config.MECHANICS_THIRST_REP_PURE_WATER;
-						} else if (ItemManager.compare(item, Item.COFFEE)) {
+						} else if (Items.COFFEE.is(item)) {
 							change = config.MECHANICS_THIRST_REP_COFFEE;
-						} else if (ItemManager.compare(item, Item.COLD_MILK)) {
+						} else if (Items.COLD_MILK.is(item)) {
 							change = config.MECHANICS_THIRST_REP_COLD_MILK;
-						} else if (ItemManager.compare(item, Item.HOT_MILK)) {
+						} else if (Items.HOT_MILK.is(item)) {
 							change = config.MECHANICS_THIRST_REP_HOT_MILK;
 							player.damage(2);
 							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0));
 							Utils.sendColoredMsg(player, lang.hot_milk_drink);
-						} else if (ItemManager.compare(item, Item.WATER_BOWL)) {
+						} else if (Items.WATER_BOWL.is(item)) {
 						    event.setCancelled(true);
 						    change = handleWaterBowl(player);
                         } else {
@@ -92,14 +92,6 @@ public class Consume implements Listener {
 					}
 				} else {
 					change = config.MECHANICS_THIRST_REP_WATER;
-				}
-				break;
-			case BEETROOT_SOUP: //OLD Water Bowl (removed in 3.11.0 - keep for a few versions)
-				if (ItemManager.compare(event.getPlayer().getInventory().getItemInMainHand(), Item.WATER_BOWL_OLD)) {
-					event.setCancelled(true);
-					change = handleWaterBowl(player);
-				} else {
-					change = config.MECHANICS_THIRST_REP_BEET_SOUP; // Regular beetroot soup (if player somehow gets one)
 				}
 				break;
 			case MILK_BUCKET:
@@ -115,8 +107,8 @@ public class Consume implements Listener {
                 change = config.MECHANICS_THIRST_REP_HONEY_BOTTLE;
                 break;
             case SUSPICIOUS_STEW:
-                if (Item.SUSPICIOUS_MEAT.compare(item)) {
-                    // Remove the bowl from the player's hand afterwards
+                if (Items.SUSPICIOUS_MEAT.is(item)) {
+                    // Remove the bowl from the player's hand afterward
                     BukkitRunnable runnable = new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -165,11 +157,11 @@ public class Consume implements Listener {
 	    if (event.isCancelled()) return;
 	    if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             Entity caught = event.getCaught();
-            if (caught instanceof org.bukkit.entity.Item) {
-                org.bukkit.entity.Item item = ((org.bukkit.entity.Item) caught);
+            if (caught instanceof Item) {
+                Item item = ((Item) caught);
                 ItemStack stack = item.getItemStack();
                 if (stack.getType() == Material.POTION && checkWaterBottle(stack)) {
-                    item.setItemStack(Item.CLEAN_WATER.getItem());
+                    item.setItemStack(Items.CLEAN_WATER.getItemStack());
                 }
             }
         }
@@ -207,15 +199,10 @@ public class Consume implements Listener {
 	private boolean checkWaterBottle(ItemStack bottle) {
 		ItemMeta meta = bottle.getItemMeta();
 		assert meta != null;
-		switch (((PotionMeta) meta).getBasePotionData().getType()) {
-			case WATER:
-			case MUNDANE:
-			case THICK:
-			case AWKWARD:
-				return true;
-			default:
-				return false;
-		}
+        return switch (((PotionMeta) meta).getBasePotionType()) {
+            case WATER, MUNDANE, THICK, AWKWARD -> true;
+            case null, default -> false;
+        };
 	}
 
 }

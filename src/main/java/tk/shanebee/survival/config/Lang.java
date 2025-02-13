@@ -18,6 +18,7 @@ public class Lang {
 
     private final Survival plugin;
     private final String lang_yml;
+    private FileConfiguration lang;
 
     public String prefix;
     public String no_perm;
@@ -212,7 +213,6 @@ public class Lang {
 
     public void loadLangFile(CommandSender sender) {
         String loaded;
-        FileConfiguration lang;
         File lang_file = new File(plugin.getDataFolder(), lang_yml);
         if (!lang_file.exists()) {
             plugin.saveResource(lang_yml, true);
@@ -427,6 +427,10 @@ public class Lang {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getItemName(String key) {
+        return this.lang.getString("item-name." + key);
     }
 
 }

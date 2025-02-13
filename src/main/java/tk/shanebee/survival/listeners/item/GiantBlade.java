@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
@@ -60,7 +60,7 @@ public class GiantBlade implements Listener {
 
 			Random rand = new Random();
 
-			if (ItemManager.compare(offItem, Item.ENDER_GIANT_BLADE)) {
+			if (Items.ENDER_GIANT_BLADE.is(offItem)) {
 				if (event.getDamager() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
 					LivingEntity enemy = (LivingEntity) event.getDamager();
 					enemy.damage(event.getDamage() * 40 / 100, player);
@@ -93,7 +93,7 @@ public class GiantBlade implements Listener {
 		assert mainItemMeta != null;
 		assert offItemMeta != null;
 
-		if (ItemManager.compare(mainItem, Item.ENDER_GIANT_BLADE)) {
+		if (Items.ENDER_GIANT_BLADE.is(mainItem)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) == 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
                     Block clickedBlock = event.getClickedBlock();
@@ -137,7 +137,7 @@ public class GiantBlade implements Listener {
 					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.ender_giant_blade_unable_duel));
 				}
 			}
-		} else if (ItemManager.compare(offItem, Item.ENDER_GIANT_BLADE)) {
+		} else if (Items.ENDER_GIANT_BLADE.is(offItem)) {
 			if (playerData.getStat(Stat.DUAL_WIELD) != 0) {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 1);

@@ -8,6 +8,7 @@ import org.bukkit.inventory.MerchantRecipe;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class MerchantManager {
 
     /**
      * Update a merchants recipes
-     * <p>Replaces existing MerchantRecipes with ones that use custom {@link Item}</p>
+     * <p>Replaces existing MerchantRecipes with ones that use custom {@link Items}</p>
      *
      * @param entity Merchant to update
      */
@@ -70,26 +71,26 @@ public class MerchantManager {
 
     /**
      * Merchant recipes overrides
-     * <p>These will take vanilla recipes and replace them with custom {@link Item}s</p>
+     * <p>These will take vanilla recipes and replace them with custom {@link Items}s</p>
      */
     public enum Recipe {
-        IRON_HELMET(Material.IRON_HELMET, Item.IRON_HELMET),
-        IRON_CHESTPLATE(Material.IRON_CHESTPLATE, Item.IRON_CHESTPLATE),
-        IRON_LEGGINGS(Material.IRON_LEGGINGS, Item.IRON_LEGGINGS),
-        IRON_BOOTS(Material.IRON_BOOTS, Item.IRON_BOOTS),
-        DIAMOND_HELMET(Material.DIAMOND_HELMET, Item.DIAMOND_HELMET),
-        DIAMOND_CHESTPLATE(Material.DIAMOND_CHESTPLATE, Item.DIAMOND_CHESTPLATE),
-        DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, Item.DIAMOND_LEGGINGS),
-        DIAMOND_BOOTS(Material.DIAMOND_BOOTS, Item.DIAMOND_BOOTS),
-        REINFORCED_LEATHER_HELMET(Material.CHAINMAIL_HELMET, Item.REINFORCED_LEATHER_HELMET),
-        REINFORCED_LEATHER_TUNIC(Material.CHAINMAIL_CHESTPLATE, Item.REINFORCED_LEATHER_TUNIC),
-        REINFORCED_LEATHER_TROUSERS(Material.CHAINMAIL_LEGGINGS, Item.REINFORCED_LEATHER_TROUSERS),
-        REINFORCED_LEATHER_BOOTS(Material.CHAINMAIL_BOOTS, Item.REINFORCED_LEATHER_BOOTS),
-        STONE_SICKLE(Material.STONE_HOE, Item.STONE_SICKLE),
-        DIAMOND_SICKLE(Material.DIAMOND_HOE, Item.DIAMOND_SICKLE);
+        IRON_HELMET(Material.IRON_HELMET, Items.IRON_HELMET),
+        IRON_CHESTPLATE(Material.IRON_CHESTPLATE, Items.IRON_CHESTPLATE),
+        IRON_LEGGINGS(Material.IRON_LEGGINGS, Items.IRON_LEGGINGS),
+        IRON_BOOTS(Material.IRON_BOOTS, Items.IRON_BOOTS),
+        DIAMOND_HELMET(Material.DIAMOND_HELMET, Items.DIAMOND_HELMET),
+        DIAMOND_CHESTPLATE(Material.DIAMOND_CHESTPLATE, Items.DIAMOND_CHESTPLATE),
+        DIAMOND_LEGGINGS(Material.DIAMOND_LEGGINGS, Items.DIAMOND_LEGGINGS),
+        DIAMOND_BOOTS(Material.DIAMOND_BOOTS, Items.DIAMOND_BOOTS),
+        REINFORCED_LEATHER_HELMET(Material.CHAINMAIL_HELMET, Items.REINFORCED_LEATHER_HELMET),
+        REINFORCED_LEATHER_TUNIC(Material.CHAINMAIL_CHESTPLATE, Items.REINFORCED_LEATHER_TUNIC),
+        REINFORCED_LEATHER_TROUSERS(Material.CHAINMAIL_LEGGINGS, Items.REINFORCED_LEATHER_TROUSERS),
+        REINFORCED_LEATHER_BOOTS(Material.CHAINMAIL_BOOTS, Items.REINFORCED_LEATHER_BOOTS),
+        STONE_SICKLE(Material.STONE_HOE, Items.STONE_SICKLE),
+        DIAMOND_SICKLE(Material.DIAMOND_HOE, Items.DIAMOND_SICKLE);
 
         private final Material material;
-        private final Item item;
+        private final Item items;
         private static final Map<Material, Recipe> recipeByMaterialMap;
 
         static {
@@ -99,9 +100,9 @@ public class MerchantManager {
             }
         }
 
-        Recipe(Material material, Item item) {
+        Recipe(Material material, Item items) {
             this.material = material;
-            this.item = item;
+            this.items = items;
         }
 
         /**
@@ -113,7 +114,7 @@ public class MerchantManager {
         public MerchantRecipe updateRecipe(MerchantRecipe oldRecipe) {
             ItemStack old = oldRecipe.getResult().clone();
 
-            ItemManager.applyAttribute(old, this.item);
+            ItemManager.applyAttribute(old, this.items);
             MerchantRecipe recipe = new MerchantRecipe(old, oldRecipe.getUses(), oldRecipe.getMaxUses(),
                     oldRecipe.hasExperienceReward(), oldRecipe.getVillagerExperience(),
                     oldRecipe.getPriceMultiplier());

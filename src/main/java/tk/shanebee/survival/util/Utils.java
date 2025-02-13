@@ -1,7 +1,15 @@
 package tk.shanebee.survival.util;
 
 import com.google.common.collect.ImmutableSet;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Statistic;
+import org.bukkit.Tag;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,8 +18,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.Metadatable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -766,19 +772,6 @@ public class Utils {
     public static int getDurability(ItemStack item) {
         assert item.getItemMeta() != null;
         return ((Damageable) item.getItemMeta()).getDamage();
-    }
-
-    public static List<ItemStack> getItemStackDura(Item item, int maxDurability) {
-        List<ItemStack> itemStacks = new ArrayList<>();
-        for (int i = 0; i < maxDurability; i++) {
-            ItemStack stack = ItemManager.get(item);
-            ItemMeta meta = stack.getItemMeta();
-            assert meta != null;
-            ((Damageable) meta).setDamage(i);
-            stack.setItemMeta(meta);
-            itemStacks.add(stack);
-        }
-        return itemStacks;
     }
 
     /** Gets the minutes a player has played on the server

@@ -11,16 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.item.Items;
 
 import java.util.Objects;
 
@@ -68,16 +66,16 @@ public class WaterBottleCrafting implements Listener {
             if (isWaterBlock(targetBlock)) {
 				e.setCancelled(true);
 				if (item.getAmount() > 1) {
-				    if (player.getInventory().addItem(ItemManager.get(Item.DIRTY_WATER)).size() > 0) {
-				        player.getWorld().dropItem(player.getLocation(), Item.DIRTY_WATER.getItem());
+				    if (!player.getInventory().addItem(Items.DIRTY_WATER.getItemStack()).isEmpty()) {
+				        player.getWorld().dropItem(player.getLocation(), Items.DIRTY_WATER.getItemStack());
                     }
 					if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
 						item.setAmount(item.getAmount() - 1);
 				} else {
 					if (player.getInventory().getItemInMainHand().getType() == item.getType())
-						player.getInventory().setItemInMainHand(ItemManager.get(Item.DIRTY_WATER));
+						player.getInventory().setItemInMainHand(Items.DIRTY_WATER.getItemStack());
 					else if (player.getInventory().getItemInOffHand().getType() == item.getType())
-						player.getInventory().setItemInOffHand(ItemManager.get(Item.DIRTY_WATER));
+						player.getInventory().setItemInOffHand(Items.DIRTY_WATER.getItemStack());
 				}
 			}
 		}

@@ -18,10 +18,10 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
 
-public class FireStriker implements Runnable, InventoryHolder {
+public class FireStrikerListen implements Runnable, InventoryHolder {
 
     private final int id;
     private final Inventory inv;
@@ -32,7 +32,7 @@ public class FireStriker implements Runnable, InventoryHolder {
     private int cookTime;
     private int burnTime;
 
-    public FireStriker(Player player, ItemStack item) {
+    public FireStrikerListen(Player player, ItemStack item) {
         Survival plugin = Survival.getInstance();
         Lang lang = plugin.getLang();
         this.inv = Bukkit.createInventory(this, InventoryType.FURNACE, Utils.getColoredString(lang.firestriker));
@@ -78,7 +78,7 @@ public class FireStriker implements Runnable, InventoryHolder {
 
     private void updateFuel() {
         ItemStack fuel = inv.getItem(1);
-        if (fuel != null && Item.FIRESTRIKER.compare(fuel)) {
+        if (fuel != null && Items.FIRESTRIKER.is(fuel)) {
             Damageable meta = ((Damageable) fuel.getItemMeta());
             assert meta != null;
             burnTime = 8 - (meta.getDamage() / 7);
@@ -87,7 +87,7 @@ public class FireStriker implements Runnable, InventoryHolder {
 
     private boolean canBurn() {
         ItemStack fuel = inv.getItem(1);
-        return fuel != null && Item.FIRESTRIKER.compare(fuel) && burnTime > 0;
+        return fuel != null && Items.FIRESTRIKER.is(fuel) && burnTime > 0;
     }
 
     private void burn() {

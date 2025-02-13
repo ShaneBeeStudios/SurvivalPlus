@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 public class Valkyrie extends BukkitRunnable {
 
@@ -19,8 +19,8 @@ public class Valkyrie extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		for (Player player : plugin.getServer().getOnlinePlayers()) {
-			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.VALKYRIES_AXE)) {
+		for (Player player : this.plugin.getServer().getOnlinePlayers()) {
+			if (Items.VALKYRIES_AXE.is(player.getInventory().getItemInMainHand())) {
 				Location particleLoc = player.getLocation();
 				particleLoc.setY(particleLoc.getY() + 1);
 				assert particleLoc.getWorld() != null;

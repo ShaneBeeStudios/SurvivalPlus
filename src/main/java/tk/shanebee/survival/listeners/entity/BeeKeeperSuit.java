@@ -12,8 +12,7 @@ import org.bukkit.event.entity.EntityPotionEffectEvent.Cause;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffectType;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
 
 public class BeeKeeperSuit implements Listener {
@@ -22,9 +21,8 @@ public class BeeKeeperSuit implements Listener {
 	private void onSting(EntityDamageByEntityEvent event) {
         Entity entity = event.getEntity();
         Entity damager = event.getDamager();
-		if (entity instanceof Player && damager instanceof Bee && !Utils.isCitizensNPC(entity)) {
-			if (hasBeekeeperSuit((Player) entity)) {
-				Bee bee = (Bee) damager;
+		if (entity instanceof Player player && damager instanceof Bee bee && !Utils.isCitizensNPC(player)) {
+			if (hasBeekeeperSuit(player)) {
 				event.setCancelled(true);
 				bee.setTarget(null);
 				bee.setAnger(0);
@@ -35,11 +33,11 @@ public class BeeKeeperSuit implements Listener {
 	@EventHandler
 	private void onPoison(EntityPotionEffectEvent event) {
 	    Entity entity = event.getEntity();
-		if (entity instanceof Player && !Utils.isCitizensNPC(entity)) {
+		if (entity instanceof Player player && !Utils.isCitizensNPC(player)) {
 		    if (event.getCause() != Cause.ATTACK) return;
 		    if (event.getModifiedType() != PotionEffectType.POISON) return;
 		    if (event.getAction() != Action.ADDED) return;
-			if (hasBeekeeperSuit((Player) entity)) {
+			if (hasBeekeeperSuit(player)) {
 			    event.setCancelled(true);
             }
 		}
@@ -49,8 +47,8 @@ public class BeeKeeperSuit implements Listener {
 	private void onTarget(EntityTargetLivingEntityEvent event) {
 	    Entity target = event.getTarget();
 	    Entity entity = event.getEntity();
-		if (target instanceof Player && entity instanceof Bee && !Utils.isCitizensNPC(target)) {
-			if (hasBeekeeperSuit((Player) target)) {
+		if (target instanceof Player player && entity instanceof Bee && !Utils.isCitizensNPC(player)) {
+			if (hasBeekeeperSuit(player)) {
                 event.setCancelled(true);
             }
 		}
@@ -61,8 +59,10 @@ public class BeeKeeperSuit implements Listener {
 		if (inv.getHelmet() == null || inv.getChestplate() == null || inv.getLeggings() == null || inv.getBoots() == null) {
 			return false;
 		}
-		return ItemManager.compare(inv.getHelmet(), Item.BEEKEEPER_HELMET) && ItemManager.compare(inv.getChestplate(), Item.BEEKEEPER_CHESTPLATE) &&
-				ItemManager.compare(inv.getLeggings(), Item.BEEKEEPER_LEGGINGS) && ItemManager.compare(inv.getBoots(), Item.BEEKEEPER_BOOTS);
-	}
+        return Items.BEEKEEPER_HELMET.is(inv.getHelmet()) &&
+            Items.BEEKEEPER_CHESTPLATE.is(inv.getChestplate()) &&
+            Items.BEEKEEPER_LEGGINGS.is(inv.getLeggings()) &&
+            Items.BEEKEEPER_BOOTS.is(inv.getBoots());
+    }
 
 }

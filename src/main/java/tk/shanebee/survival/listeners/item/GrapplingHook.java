@@ -1,12 +1,5 @@
 package tk.shanebee.survival.listeners.item;
 
-import java.util.List;
-
-import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.config.Lang;
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,9 +10,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.config.Lang;
+import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.util.Utils;
+
+import java.util.List;
 
 public class GrapplingHook implements Listener {
 
@@ -39,7 +37,7 @@ public class GrapplingHook implements Listener {
 			p.getInventory().getItemInOffHand();
 			if (offHand.getType() == Material.AIR) {
 
-				if (ItemManager.compare(mainHand, Item.GRAPPLING_HOOK)) {
+				if (Items.GRAPPLING_HOOK.is(mainHand)) {
 					if (event.getState() == State.IN_GROUND) {
 						List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
 
@@ -108,7 +106,7 @@ public class GrapplingHook implements Listener {
 				}
 			} else {
 				event.setCancelled(true);
-				if (ItemManager.compare(mainHand, Item.GRAPPLING_HOOK))
+				if (Items.GRAPPLING_HOOK.is(mainHand))
 					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_off_hand));
 				else
 					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_off_hand));
@@ -116,7 +114,7 @@ public class GrapplingHook implements Listener {
 			}
 		} else {
 			event.setCancelled(true);
-			if (ItemManager.compare(offHand, Item.GRAPPLING_HOOK))
+			if (Items.GRAPPLING_HOOK.is(offHand))
 				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_main_hand));
 			else
 				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_main_hand));

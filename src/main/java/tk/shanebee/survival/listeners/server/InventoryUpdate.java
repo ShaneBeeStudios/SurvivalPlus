@@ -9,8 +9,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.managers.ItemManager;
 
 @SuppressWarnings("deprecation")
 public class InventoryUpdate implements Listener {
@@ -41,12 +42,12 @@ public class InventoryUpdate implements Listener {
     private void itemUpdate(Inventory inv, int slot, ItemStack oldItem, Item newItem) {
         assert oldItem.getItemMeta() != null;
         int damage = ((Damageable) oldItem.getItemMeta()).getDamage();
-        ItemStack item = ItemManager.get(newItem);
-        ItemMeta meta = item.getItemMeta();
+        ItemStack itemStack = newItem.getItemStack();
+        ItemMeta meta = itemStack.getItemMeta();
         assert meta != null;
         ((Damageable) meta).setDamage(damage);
-        item.setItemMeta(meta);
-        inv.setItem(slot, item);
+        itemStack.setItemMeta(meta);
+        inv.setItem(slot, itemStack);
     }
 
     private boolean needsUpdate(Inventory inv) {

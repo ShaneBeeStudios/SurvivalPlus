@@ -1,10 +1,10 @@
 package tk.shanebee.survival.listeners.item;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.Tag;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,9 +18,12 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BlazeSword implements Listener {
 
@@ -29,7 +32,7 @@ public class BlazeSword implements Listener {
 		if (event.hasItem()) {
 			Player player = event.getPlayer();
 			ItemStack mainItem = player.getInventory().getItemInMainHand();
-			if (ItemManager.compare(mainItem, Item.BLAZE_SWORD)) {
+			if (Items.BLAZE_SWORD.is(mainItem)) {
 				if (player.isSneaking()) {
 					if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 						if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {

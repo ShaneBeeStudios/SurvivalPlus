@@ -1,6 +1,8 @@
 package tk.shanebee.survival.listeners.block;
 
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,10 +12,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
+import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -42,7 +43,7 @@ public class BlockPlace implements Listener {
 		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 			if (config.PLACE_ONLY_WITH_HAMMER) {
 				if (Utils.requiresHammer(block.getType())) {
-					if (ItemManager.compare(offTool, Item.HAMMER)) {
+					if (Items.HAMMER.is(offTool)) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
 						if (chance_reduceDur == 1) {
@@ -53,7 +54,7 @@ public class BlockPlace implements Listener {
 							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 							player.getInventory().setItemInOffHand(null);
 						}
-					} else if (ItemManager.compare(mainTool, Item.HAMMER)) {
+					} else if (Items.HAMMER.is(mainTool)) {
 						Random rand = new Random();
 						int chance_reduceDur = rand.nextInt(10) + 1;
 						if (chance_reduceDur == 1) {

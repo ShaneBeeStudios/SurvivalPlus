@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 import java.util.Random;
 
@@ -44,11 +44,11 @@ public class PiglinBarter implements Listener {
         if (itemDropMaterial == Material.POTION && THIRST_ENABLED && DROP_WATER) {
             PotionMeta meta = ((PotionMeta) itemDropStack.getItemMeta());
             assert meta != null;
-            if (meta.getBasePotionData().getType() == PotionType.WATER) {
+            if (meta.getBasePotionType() == PotionType.WATER) {
                 if (RANDOM.nextFloat() < 0.25f) {
-                    itemDrop.setItemStack(Item.PURIFIED_WATER.getItem());
+                    itemDrop.setItemStack(Items.PURIFIED_WATER.getItemStack());
                 } else {
-                    itemDrop.setItemStack(Item.CLEAN_WATER.getItem());
+                    itemDrop.setItemStack(Items.CLEAN_WATER.getItemStack());
                 }
                 return;
             }
@@ -59,36 +59,23 @@ public class PiglinBarter implements Listener {
 
         // If slow armor is enabled let's always drop custom iron boots
         if (itemDropMaterial == Material.IRON_BOOTS && SLOW_ARMOR) {
-            ItemStack boots = Item.IRON_BOOTS.getItem();
+            ItemStack boots = Items.IRON_BOOTS.getItemStack();
             boots.addEnchantment(Enchantment.SOUL_SPEED, RANDOM.nextInt(3) + 1);
             itemDrop.setItemStack(boots);
             return;
         }
 
         // If anything else we have some random drops
-        ItemStack altItem = null;
-        switch (itemDropMaterial) {
-            case LEATHER:
-                altItem = Item.SUSPICIOUS_MEAT.getItem();
-                break;
-            case NETHER_BRICK:
-                altItem = Item.COFFEE_BEAN.getItem(RANDOM.nextInt(4) + 1);
-                break;
-            case GRAVEL:
-                altItem = Item.FIRESTRIKER.getItem();
-                break;
-            case SOUL_SAND:
-                altItem = Item.CAMPFIRE.getItem();
-                break;
-            case POTION:
-                altItem = Item.MEDIC_KIT.getItem();
-                break;
-            case SPLASH_POTION:
-                altItem = Item.GRAPPLING_HOOK.getItem();
-                break;
-            case ENCHANTED_BOOK:
-                altItem = Item.RECURVE_CROSSBOW.getItem();
-        }
+        ItemStack altItem = switch (itemDropMaterial) {
+            case LEATHER -> Items.SUSPICIOUS_MEAT.getItemStack();
+            case NETHER_BRICK -> Items.COFFEE_BEAN.getItemStack(RANDOM.nextInt(4) + 1);
+            case GRAVEL -> Items.FIRESTRIKER.getItemStack();
+            case SOUL_SAND -> Items.CAMPFIRE.getItemStack();
+            case POTION -> Items.MEDIC_KIT.getItemStack();
+            case SPLASH_POTION -> Items.GRAPPLING_HOOK.getItemStack();
+            case ENCHANTED_BOOK -> Items.RECURVE_CROSSBOW.getItemStack();
+            default -> null;
+        };
         if (altItem != null && RANDOM.nextFloat() > 0.5f) {
             itemDrop.setItemStack(altItem);
         }

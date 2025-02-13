@@ -5,8 +5,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.item.Item;
+import tk.shanebee.survival.item.Items;
 
 public class QuartzPickaxe extends BukkitRunnable {
 
@@ -20,7 +19,7 @@ public class QuartzPickaxe extends BukkitRunnable {
 	@Override
 	public void run() {
 		for (Player player : plugin.getServer().getOnlinePlayers()) {
-			if (ItemManager.compare(player.getInventory().getItemInMainHand(), Item.QUARTZ_PICKAXE)) {
+			if (Items.QUARTZ_PICKAXE.is(player.getInventory().getItemInMainHand())) {
 				player.removePotionEffect(PotionEffectType.HASTE);
 				player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20, 9, false));
 			}

@@ -28,9 +28,8 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
-import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.item.items.FireStriker;
-import tk.shanebee.survival.managers.ItemManager;
+import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.item.items.FireStrikerListen;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -54,14 +53,14 @@ public class FirestrikerClick implements Listener {
 
             Material clickedBlockType = clickedBlock.getType();
             Material toolType = tool.getType();
-            if (ItemManager.compare(tool, Item.FIRESTRIKER)) {
+            if (Items.FIRESTRIKER.is(tool)) {
                 if (player.isSneaking()) {
                     if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
                         Random rand = new Random();
                         player.getLocation().getWorld().playSound(player.getLocation(), Sound.ITEM_SHOVEL_FLATTEN, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
                         event.setCancelled(true);
-                        FireStriker fireStriker = new FireStriker(player, tool.clone());
+                        FireStrikerListen fireStriker = new FireStrikerListen(player, tool.clone());
                         fireStriker.open();
                         tool.setAmount(0);
                         player.updateInventory();
@@ -163,8 +162,8 @@ public class FirestrikerClick implements Listener {
     private void onCloseInventory(InventoryCloseEvent event) {
         if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(lang.firestriker))) {
             Inventory inv = event.getInventory();
-            if (inv.getHolder() instanceof FireStriker) {
-                ((FireStriker) inv.getHolder()).close();
+            if (inv.getHolder() instanceof FireStrikerListen) {
+                ((FireStrikerListen) inv.getHolder()).close();
             }
         }
     }
@@ -175,7 +174,7 @@ public class FirestrikerClick implements Listener {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
             Player player = (Player) event.getDamager();
             ItemStack item = player.getInventory().getItemInMainHand();
-            if (ItemManager.compare(item, Item.FIRESTRIKER)) {
+            if (Items.FIRESTRIKER.is(item)) {
                 ItemMeta meta = item.getItemMeta();
                 assert meta != null;
                 ((Damageable) meta).setDamage(((Damageable) meta).getDamage() - 2);

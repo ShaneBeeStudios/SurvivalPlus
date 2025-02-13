@@ -159,7 +159,7 @@ public class Nutrition implements Keyed {
         this.proteins = proteins;
         this.vitamins = vitamins;
         this.item = item;
-        this.itemStack = item.getItem();
+        this.itemStack = item.getItemStack();
     }
 
     /**
