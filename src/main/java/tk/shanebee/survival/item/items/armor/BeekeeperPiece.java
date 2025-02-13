@@ -28,7 +28,7 @@ public class BeekeeperPiece extends Item {
                 itemStack.setItemMeta(leatherArmorMeta);
             }
         }
-        setupDefaults(key, itemStack);
+        setupDefaults(key, itemStack, true);
     }
 
     @Override
