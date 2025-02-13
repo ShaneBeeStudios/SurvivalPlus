@@ -1,0 +1,12 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "survival_plus:item/reinforced_leather_boots",
+        "tints": [
+            {
+                "type": "minecraft:dye",
+                "default": -6265536
+            }
+        ]
+    }
+}

@@ -1,0 +1,14 @@
+
+#Survival Plus Resource Pack
+
+A lot of inspiration for this plugin was taken from TerraFirmaCraft
+That being said, we have used some of their textures as well (ex: The sickles are from TFC's Scythe)
+
+
+Licenses for TerraFirmaCraft can be found here
+
+Original Mod:
+- https://github.com/Deadrik/TFCraft/blob/master/license.txt
+
+Revamped Mod:
+- https://github.com/TerraFirmaCraft/TerraFirmaCraft/blob/master/LICENSE.txt

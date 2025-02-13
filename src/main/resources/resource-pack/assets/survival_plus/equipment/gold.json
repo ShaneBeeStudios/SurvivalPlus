@@ -1,0 +1,19 @@
+{
+    "layers": {
+        "horse_body": [
+            {
+                "texture": "minecraft:gold"
+            }
+        ],
+        "humanoid": [
+            {
+                "texture": "survival_plus:gold"
+            }
+        ],
+        "humanoid_leggings": [
+            {
+                "texture": "minecraft:gold"
+            }
+        ]
+    }
+}

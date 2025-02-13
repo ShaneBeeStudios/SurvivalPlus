@@ -50,8 +50,16 @@ tasks {
         }
 
     }
+    register("resourcepack", Zip::class) {
+        archiveFileName = "SurvivalPlusResourcePack-${projectVersion}.zip"
+        from("src/main/resources/resource-pack") {
+            exclude("**/.DS_Store")
+            destinationDirectory = file("build/libs/")
+        }
+    }
     processResources {
         expand("version" to projectVersion)
+        exclude("resource-pack/*")
     }
     compileJava {
         options.release = 21

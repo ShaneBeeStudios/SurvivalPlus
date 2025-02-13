@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "survival_plus:item/flint_sickle"
+    }
+}
