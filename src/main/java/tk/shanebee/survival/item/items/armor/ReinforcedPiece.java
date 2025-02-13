@@ -1,11 +1,15 @@
 package tk.shanebee.survival.item.items.armor;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Equippable;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
@@ -24,10 +28,14 @@ public class ReinforcedPiece extends Item {
         ItemStack itemStack = itemType().createItemStack();
         if (armorType == ArmorType.BOOTS) {
             ItemMeta itemMeta = itemStack.getItemMeta();
-            AttributeModifier i_leatherBootsArmor = new AttributeModifier(NamespacedKey.minecraft("armor.boots"), 2, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
+            AttributeModifier i_leatherBootsArmor = new AttributeModifier(NamespacedKey.minecraft("armor." + armorType.getKey()), 2, Operation.ADD_NUMBER, EquipmentSlotGroup.FEET);
             itemMeta.addAttributeModifier(Attribute.ARMOR, i_leatherBootsArmor);
             itemStack.setItemMeta(itemMeta);
         }
+        itemStack.setData(DataComponentTypes.EQUIPPABLE,
+            Equippable.equippable(getSlotGroup())
+                .assetId(Key.key("survival_plus:reinforced_leather"))
+                .build());
         setupDefaults(key(), itemStack);
     }
 
@@ -71,6 +79,15 @@ public class ReinforcedPiece extends Item {
             case CHESTPLATE -> "tunic";
             case LEGGINGS -> "trousers";
             case BOOTS -> "boots";
+        };
+    }
+
+    private EquipmentSlot getSlotGroup() {
+        return switch (this.armorType) {
+            case HELMET -> EquipmentSlot.HEAD;
+            case CHESTPLATE -> EquipmentSlot.CHEST;
+            case LEGGINGS -> EquipmentSlot.LEGS;
+            case BOOTS -> EquipmentSlot.FEET;
         };
     }
 
