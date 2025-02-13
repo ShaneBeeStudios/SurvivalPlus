@@ -7,7 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.util.Utils;
 
-@SuppressWarnings("UnstableApiUsage")
+@SuppressWarnings({"UnstableApiUsage", "PatternValidation"})
 public abstract class Item {
 
     protected static final ItemConfig ITEM_CONFIG = new ItemConfig();
@@ -21,7 +21,7 @@ public abstract class Item {
     // Non-official keys
     protected static final NamespacedKey BASE_MOVEMENT_SPEED = NamespacedKey.minecraft("base_movement_speed");
 
-    private Key modelKey;
+    private Key key;
     protected NamespacedKey recipeKey;
     private ItemStack itemStack;
     private double repairPercent; // TODO figure this out
@@ -36,17 +36,18 @@ public abstract class Item {
         return clone;
     }
 
+    @SuppressWarnings("PatternValidation")
     protected void setupDefaults(String key, ItemStack itemStack) {
-        this.modelKey = Key.key("survival_plus", key);
-        this.recipeKey = NamespacedKey.fromString("survival_plus:" + key);
-        itemStack.setData(DataComponentTypes.ITEM_MODEL, this.modelKey);
+        this.key = Key.key("survival_plus", key);
+        this.recipeKey = NamespacedKey.fromString(this.key.toString());
+        itemStack.setData(DataComponentTypes.ITEM_MODEL, this.key);
 
         // Item Name
         String itemName = ITEM_CONFIG.getName(key);
         if (itemName != null) {
             itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
         } else {
-            Utils.log("&cFailed to load item name &r'&b" + key + "&r'");
+            Utils.log("&cFailed to load item name for item &r'&b" + key + "&r'");
         }
 
         // Max Damage
@@ -64,7 +65,7 @@ public abstract class Item {
         // Repair Percent
         this.repairPercent = ITEM_CONFIG.getRepairPercent(key);
         this.itemStack = itemStack;
-        Items.ALL_ITEMS.put(key, this);
+        Items.ALL_ITEMS.put(this.key, this);
     }
 
     public void registerRecipe() {
@@ -73,13 +74,13 @@ public abstract class Item {
     public boolean is(ItemStack itemStack) {
         if (itemStack.hasData(DataComponentTypes.ITEM_MODEL)) {
             Key data = itemStack.getData(DataComponentTypes.ITEM_MODEL);
-            return data != null && data.equals(this.modelKey);
+            return data != null && data.equals(this.key);
         }
         return false;
     }
 
     public Key getKey() {
-        return this.modelKey;
+        return this.key;
     }
 
 }

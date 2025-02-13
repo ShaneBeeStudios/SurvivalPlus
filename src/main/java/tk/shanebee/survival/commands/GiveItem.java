@@ -1,6 +1,7 @@
 package tk.shanebee.survival.commands;
 
 import com.google.common.collect.ImmutableList;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -19,6 +20,7 @@ import tk.shanebee.survival.util.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @SuppressWarnings("NullableProblems")
 public class GiveItem implements CommandExecutor, TabCompleter {
@@ -44,14 +46,14 @@ public class GiveItem implements CommandExecutor, TabCompleter {
             } catch (IllegalArgumentException ignore) {
             }
             try {
-                item = Items.valueOf(args[1].toUpperCase());
+                item = Items.getByKey(args[1].toLowerCase(Locale.ROOT));
                 ItemStack itemStack = item.getItemStack();
                 itemStack.setAmount(amount);
 
                 Location loc = player.getLocation();
                 loc.setY(loc.getY() + 1);
 
-                if (player.getInventory().addItem(itemStack).size() != 0) {
+                if (!player.getInventory().addItem(itemStack).isEmpty()) {
                     player.getWorld().dropItem(loc, itemStack);
                 }
                 if (item != null) {
@@ -79,8 +81,8 @@ public class GiveItem implements CommandExecutor, TabCompleter {
         if (args.length <= 1) return null;
         if (args.length == 2) {
             ArrayList<String> matches = new ArrayList<>();
-            for (Item item : Items.values()) {
-                String name = item.getKey().toString();
+            for (Key key : Items.allItemKeys()) {
+                String name = key.toString();
                 if (StringUtil.startsWithIgnoreCase(name, args[1])) {
                     matches.add(name);
                 }

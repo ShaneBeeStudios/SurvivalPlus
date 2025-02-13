@@ -1,5 +1,7 @@
 package tk.shanebee.survival.item;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -39,16 +41,18 @@ import tk.shanebee.survival.item.items.tools.RecurveCrossbow;
 import tk.shanebee.survival.item.items.tools.Shiv;
 import tk.shanebee.survival.item.items.tools.Sickle;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Custom SurvivalPlus items
  */
+@SuppressWarnings("UnstableApiUsage")
 public class Items {
 
-    static final Map<String, Item> ALL_ITEMS = new HashMap<>();
+    static final Map<Key, Item> ALL_ITEMS = new HashMap<>();
 
     // TOOLS
     public static final Item HATCHET = new Hatchet();
@@ -130,35 +134,33 @@ public class Items {
     // TODO Experimental
     public static final Item PERSISTENT_TORCH = null;
 
-    /**
-     * Get an {@link Item} based on a key
-     *
-     * @param value Key for item
-     * @return Item based on key
-     */
-    public static Item valueOf(String value) {
-        if (ALL_ITEMS.containsKey(value.toLowerCase())) {
-            return ALL_ITEMS.get(value.toLowerCase());
-        }
-        return null;
+    public static Set<Key> allItemKeys() {
+        return ALL_ITEMS.keySet();
     }
 
     /**
-     * Get a collection of all registered {@link Item Items}
+     * Get an {@link Item} by {@link Key}
      *
-     * @return Collection of all registered Items
+     * @param key Key of item
+     * @return Item if available
      */
-    public static Collection<Item> values() {
-        return ALL_ITEMS.values();
+    @SuppressWarnings("PatternValidation")
+    @Nullable
+    public static Item getByKey(@NotNull String key) {
+        return ALL_ITEMS.get(Key.key(key.toLowerCase(Locale.ROOT)));
     }
 
+    /**
+     * Get an {@link Item} from an {@link ItemStack}
+     *
+     * @param itemStack ItemStack to grab item from
+     * @return Item if ItemStack has linked item
+     */
     @Nullable
     public static Item getFromStack(@NotNull ItemStack itemStack) {
-        // TODO refactor this to use keys instead of strings
-        for (Item item : ALL_ITEMS.values()) {
-            if (item.is(itemStack)) {
-                return item;
-            }
+        if (itemStack.hasData(DataComponentTypes.ITEM_MODEL)) {
+            Key data = itemStack.getData(DataComponentTypes.ITEM_MODEL);
+            if (data != null) return ALL_ITEMS.get(data);
         }
         return null;
     }
