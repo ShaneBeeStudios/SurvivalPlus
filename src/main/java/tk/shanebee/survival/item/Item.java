@@ -51,7 +51,12 @@ public abstract class Item {
         // Item Name
         String itemName = ITEM_CONFIG.getName(key);
         if (itemName != null) {
-            itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
+            if (itemStack.hasData(DataComponentTypes.POTION_CONTENTS)) {
+                // Stupid workaround because potion names override item_name
+                itemStack.setData(DataComponentTypes.CUSTOM_NAME, MINI.deserialize("<!italic>" + itemName));
+            } else {
+                itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
+            }
         } else if (!vanillaModel) {
             Utils.log("&cFailed to load item name for item &r'&b" + key + "&r'");
         }
