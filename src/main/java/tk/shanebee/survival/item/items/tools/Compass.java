@@ -12,7 +12,7 @@ public class Compass extends Item {
 
     public Compass() {
         ItemStack itemStack = ItemType.COMPASS.createItemStack();
-        setupDefaults("compass", itemStack);
+        setupDefaults("compass", itemStack, true);
     }
 
     @Override
