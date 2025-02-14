@@ -1,7 +1,6 @@
 
 package tk.shanebee.survival.listeners.block;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -30,8 +29,8 @@ import java.util.Random;
 
 public class BlockBreak implements Listener {
 
-    private Config settings;
-    private Lang lang;
+    private final Config settings;
+    private final Lang lang;
 
     public BlockBreak(Survival plugin) {
         this.lang = plugin.getLang();
@@ -55,7 +54,7 @@ public class BlockBreak implements Listener {
                         if (Utils.requiresShovel(material)) {
                             event.setCancelled(true);
                             player.updateInventory();
-                            player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_shovel));
+                            Utils.sendColoredMini(player, "<red>" + lang.task_must_use_shovel);
                         }
                         //Flint
                         if (material == Material.GRAVEL) {
@@ -65,7 +64,7 @@ public class BlockBreak implements Listener {
                             double chance = rand.nextDouble();
 
                             if (chance <= settings.DROP_RATE_FLINT)
-                                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.FLINT));
+                                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.1, 0.5), new ItemStack(Material.FLINT));
                         }
                     } else {
                         Block above = block.getRelative(BlockFace.UP);
@@ -86,7 +85,7 @@ public class BlockBreak implements Listener {
                     if (Utils.requiresAxe(material)) {
                         event.setCancelled(true);
                         player.updateInventory();
-                        player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_axe));
+                        Utils.sendColoredMini(player, "<red>" + lang.task_must_use_axe);
                     }
 
                     //Fix half door glitch
@@ -101,7 +100,7 @@ public class BlockBreak implements Listener {
                     if (Utils.requiresPickaxe(material)) {
                         event.setCancelled(true);
                         player.updateInventory();
-                        player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_pick));
+                        Utils.sendColoredMini(player, "<red>" + lang.task_must_use_pick);
                     }
                 }
 
@@ -109,40 +108,39 @@ public class BlockBreak implements Listener {
                     if (Utils.isFarmable(material)) {
                         if (!Items.Tags.SICKLES.isTagged(tool)) {
                             event.setCancelled(true);
-                            player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
+                            Utils.sendColoredMini(player, "<red>" + lang.task_must_use_sickle);
                         } else {
                             event.setDropItems(false);
                             Location loc = event.getBlock().getLocation();
                             int random = 1;
                             int multiplier = 1;
-                            boolean grown = true;
+                            boolean fullyGrown = true;
 
-                            if (event.getBlock().getBlockData() instanceof Ageable) {
-                                Ageable crop = ((Ageable) event.getBlock().getBlockData());
-                                grown = crop.getAge() == crop.getMaximumAge();
+                            if (event.getBlock().getBlockData() instanceof Ageable crop) {
+                                fullyGrown = crop.getAge() == crop.getMaximumAge();
                             }
 
                             // Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
                             if (Items.FLINT_SICKLE.is(tool)) {
                                 multiplier = 4;
-                                random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+                                random = fullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
                             }
                             if (Items.STONE_SICKLE.is(tool)) {
                                 multiplier = 2;
-                                random = grown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+                                random = fullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
                             }
                             // Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
                             if (Items.IRON_SICKLE.is(tool) || Items.DIAMOND_SICKLE.is(tool)) {
-                                random = grown ? new Random().nextInt(2) + 3 : 1;
+                                random = fullyGrown ? new Random().nextInt(2) + 3 : 1;
                             }
 
-                            for (Material drop : Utils.getDrops(material, grown)) {
+                            for (Material drop : Utils.getDrops(material, fullyGrown)) {
                                 if (drop != Material.AIR && random != 0) {
                                     assert loc.getWorld() != null;
                                     if (drop == Material.PUMPKIN) { // prevent duping pumpkins
                                         random = 1;
                                     }
-                                    loc.getWorld().dropItemNaturally(loc, new ItemStack(drop, random));
+                                    loc.getWorld().dropItemNaturally(loc.add(0.5,0.1,0.5), new ItemStack(drop, random));
                                 }
                             }
                             if (tool.getType().getMaxDurability() < Utils.getDurability(tool) + multiplier) {
@@ -161,7 +159,7 @@ public class BlockBreak implements Listener {
                         if (Utils.requiresShears(material)) {
                             event.setCancelled(true);
                             player.updateInventory();
-                            player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_shear));
+                            Utils.sendColoredMini(player, "<red>" + lang.task_must_use_shear);
                         }
                     }
 
@@ -171,7 +169,7 @@ public class BlockBreak implements Listener {
                         double chance = rand.nextDouble();
 
                         if (chance <= settings.DROP_RATE_STICK)
-                            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(Material.STICK));
+                            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5,0.1,0.5), new ItemStack(Material.STICK));
                     }
                 }
                 if (settings.RECIPES_WORKBENCH && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
@@ -181,7 +179,7 @@ public class BlockBreak implements Listener {
                 }
             } else {
                 if (Utils.isOreBlock(material) || Utils.isNaturalOreBlock(material)) {
-                    event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(material));
+                    event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5,0.1,0.5), new ItemStack(material));
                 }
             }
         }
@@ -208,7 +206,7 @@ public class BlockBreak implements Listener {
             }
             if (!Items.Tags.SICKLES.isTagged(tool)) {
                 e.setCancelled(true);
-                player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_sickle));
+                Utils.sendColoredMini(player, "<red>" + lang.task_must_use_sickle);
             } else {
                 if (bush.getAge() >= 2) {
                     int berries = 0;
@@ -248,7 +246,7 @@ public class BlockBreak implements Listener {
                         }
                     }
                     if (berries != 0)
-                        loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.SWEET_BERRIES, berries));
+                        loc.getWorld().dropItemNaturally(loc.add(0.5, 0.1, 0.5), new ItemStack(Material.SWEET_BERRIES, berries));
 
                     bush.setAge(1);
                     block.setBlockData(bush);
