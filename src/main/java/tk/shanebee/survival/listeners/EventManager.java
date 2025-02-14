@@ -27,7 +27,6 @@ import tk.shanebee.survival.listeners.server.InventoryUpdate;
 import tk.shanebee.survival.listeners.server.LocalChat;
 import tk.shanebee.survival.listeners.server.RecipeDiscovery;
 import tk.shanebee.survival.listeners.server.SetResourcePack;
-import tk.shanebee.survival.util.Utils;
 
 /**
  * Internal use only
@@ -101,7 +100,7 @@ public class EventManager {
 		if (config.MECHANICS_BEET_STRENGTH)
 			pm.registerEvents(new BeetrootStrength(), this.plugin);
 		if (config.MECHANICS_CLOWN_FISH)
-			pm.registerEvents(new Clownfish(), this.plugin);
+			pm.registerEvents(new TropicalFish(this.plugin), this.plugin);
 		if (config.MECHANICS_LIVING_SLIME)
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
 		if (config.MECHANICS_ENERGY_ENABLED)
