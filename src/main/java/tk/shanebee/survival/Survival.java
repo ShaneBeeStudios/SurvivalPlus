@@ -109,7 +109,7 @@ public class Survival extends JavaPlugin implements Listener {
 
 		Rates.add(config.DROP_RATE_FLINT);
 		Rates.add(config.DROP_RATE_STICK);
-		Rates.add(config.MECHANICS_THIRST_DRAIN_RATE);
+		Rates.add(config.mechanics_thirst_drain_rate);
 		for (double i : Rates) {
 			if (i <= 0) {
 				Utils.log("&cRate values cannot be zero or below! (Check config.yml) Plugin disabled.");

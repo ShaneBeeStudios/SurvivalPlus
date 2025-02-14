@@ -16,7 +16,7 @@ class ThirstDrainNether extends BukkitRunnable {
 
     ThirstDrainNether(Survival plugin) {
         this.playerManager = plugin.getPlayerManager();
-        this.runTaskTimer(plugin, 0, 20 * plugin.getSurvivalConfig().MECHANICS_THIRST_DRAIN_NETHER);
+        this.runTaskTimer(plugin, 0, 20L * plugin.getSurvivalConfig().mechanics_thirst_nether_drain);
     }
 
     @Override

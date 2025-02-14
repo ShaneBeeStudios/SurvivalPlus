@@ -23,7 +23,7 @@ public class WaterBowl implements Listener {
 
     public WaterBowl(Survival plugin) {
         this.plugin = plugin;
-        this.thirstEnabled = plugin.getSurvivalConfig().MECHANICS_THIRST_ENABLED;
+        this.thirstEnabled = plugin.getSurvivalConfig().mechanics_thirst_enabled;
         this.clayEnabled = plugin.getSurvivalConfig().RECIPES_CLAY;
     }
 

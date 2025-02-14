@@ -45,7 +45,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					player.sendMessage(playerManager.ShowHunger(player).get(1) +
 							playerManager.ShowHunger(player).get(2) + " " +
 							playerManager.ShowHunger(player).get(0).toUpperCase());
-					if (config.MECHANICS_THIRST_ENABLED)
+					if (config.mechanics_thirst_enabled)
 						player.sendMessage(playerManager.ShowThirst(player).get(1) +
 								playerManager.ShowThirst(player).get(2) + " " +
 								playerManager.ShowThirst(player).get(0).toUpperCase());
@@ -61,7 +61,7 @@ public class Status implements CommandExecutor, TabCompleter {
 							player.sendMessage(playerManager.ShowHunger(player).get(1) +
 									playerManager.ShowHunger(player).get(2) + " " +
 									playerManager.ShowHunger(player).get(0).toUpperCase());
-							if (config.MECHANICS_THIRST_ENABLED)
+							if (config.mechanics_thirst_enabled)
 								player.sendMessage(playerManager.ShowThirst(player).get(1) +
 										playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());
@@ -74,7 +74,7 @@ public class Status implements CommandExecutor, TabCompleter {
 							}
 						} else {
 							playerData.setInfoDisplayed(Info.HUNGER, true);
-							if (config.MECHANICS_THIRST_ENABLED)
+							if (config.mechanics_thirst_enabled)
 								playerData.setInfoDisplayed(Info.THIRST, true);
 							if (config.MECHANICS_ENERGY_ENABLED)
 								playerData.setInfoDisplayed(Info.ENERGY, true);
@@ -101,7 +101,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "thirst":
 					case "t":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
-							if (config.MECHANICS_THIRST_ENABLED)
+							if (config.mechanics_thirst_enabled)
 								player.sendMessage(playerManager.ShowThirst(player).get(1) +
 										playerManager.ShowThirst(player).get(2) + " " +
 										playerManager.ShowThirst(player).get(0).toUpperCase());

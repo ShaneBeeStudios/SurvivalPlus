@@ -530,7 +530,7 @@ public class RecipeManager {
         }
         if (config.MECHANICS_GRAPPLING_HOOK)
             Items.GRAPPLING_HOOK.registerRecipe();
-        if (config.MECHANICS_THIRST_PURIFY_WATER) {
+        if (config.mechanics_thirst_purify_water) {
             plugin.getServer().addRecipe(clean_water_furnace);
             plugin.getServer().addRecipe(clean_water_smoker);
             plugin.getServer().addRecipe(clean_water_camp);

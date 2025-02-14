@@ -41,7 +41,7 @@ public class PlayerManager implements Listener {
         this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
         this.playerDataConfig = plugin.getPlayerDataConfig();
         Config config = plugin.getSurvivalConfig();
-        THIRST = config.MECHANICS_THIRST_START_AMOUNT;
+        THIRST = config.mechanics_thirst_starting_amount;
         HUNGER = config.MECHANICS_HUNGER_START_AMOUNT;
         ENERGY = config.MECHANICS_ENERGY_START;
         PROTEIN = config.MECHANICS_FOOD_START_PROTEINS;

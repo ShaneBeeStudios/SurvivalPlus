@@ -9,21 +9,15 @@ import tk.shanebee.survival.config.Config;
 public class TaskManager {
 
 	public TaskManager(Survival plugin) {
-		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
+		final int alertInterval = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		Config config = plugin.getSurvivalConfig();
 		if (config.MECHANICS_ENERGY_ENABLED) {
 		    new EnergyDrain(plugin);
         }
-		if (config.MECHANICS_THIRST_ENABLED) {
-			new ThirstDrain(plugin);
-			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
-				new ThirstAlert(plugin);
-			}
-		}
 		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
 			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
-			if (!config.MECHANICS_STATUS_SCOREBOARD && ALERT_INTERVAL > 0) {
+			if (!config.MECHANICS_STATUS_SCOREBOARD && alertInterval > 0) {
 				new NutrientsAlert(plugin);
 			}
 		}
@@ -31,10 +25,17 @@ public class TaskManager {
 		if (config.MECHANICS_WEATHER_ENABLED) {
             new WeatherTask(plugin);
         }
-		if (config.MECHANICS_THIRST_DRAIN_NETHER > 0) {
+        // Thirst
+        if (config.mechanics_thirst_enabled) {
+            new ThirstDrain(plugin);
+            if (!config.MECHANICS_STATUS_SCOREBOARD && alertInterval > 0) {
+                new ThirstAlert(plugin);
+            }
+        }
+		if (config.mechanics_thirst_nether_drain > 0) {
 		    new ThirstDrainNether(plugin);
         }
-		if (config.MECHANICS_THIRST_DRAIN_HEAT > 0) {
+		if (config.mechanics_thirst_heat_drain > 0) {
 		    new ThirstDrainHeat(plugin);
         }
 	}

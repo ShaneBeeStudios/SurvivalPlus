@@ -57,7 +57,7 @@ public class WaterBottleCrafting implements Listener {
 
 	@EventHandler
 	private void onFillWaterBottle(PlayerInteractEvent e) {
-		if (!config.MECHANICS_THIRST_PURIFY_WATER) return;
+		if (!config.mechanics_thirst_purify_water) return;
 		Player player = e.getPlayer();
 		ItemStack item = e.getItem();
 		if (item != null && item.getType() == Material.GLASS_BOTTLE) {

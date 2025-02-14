@@ -83,9 +83,9 @@ public class EventManager {
 
 		if (config.MECHANICS_RAW_MEAT_HUNGER)
 			pm.registerEvents(new RawMeatHunger(), this.plugin);
-		if (config.MECHANICS_THIRST_ENABLED) {
-			pm.registerEvents(new Consume(this.plugin), this.plugin);
-			if (config.MECHANICS_THIRST_PURIFY_WATER)
+		if (config.mechanics_thirst_enabled) {
+			pm.registerEvents(new ThirstListener(this.plugin), this.plugin);
+			if (config.mechanics_thirst_purify_water)
 				pm.registerEvents(new CauldronWaterBottle(), this.plugin);
 		}
 		if (config.MECHANICS_POISON_POTATO)

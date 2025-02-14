@@ -85,7 +85,7 @@ public class Healthboard extends BukkitRunnable {
             board.deleteLine(9);
         }
 
-        if (config.MECHANICS_THIRST_ENABLED && thirst) {
+        if (config.mechanics_thirst_enabled && thirst) {
             board.setLine(8, pm.ShowThirst(player).get(0));
             board.setLine(7, pm.ShowThirst(player).get(1));
             board.setLine(6, pm.ShowThirst(player).get(2));

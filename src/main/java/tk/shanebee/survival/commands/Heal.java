@@ -59,7 +59,7 @@ public class Heal implements CommandExecutor {
         player.setFoodLevel(20);
         player.setSaturation(5);
         PlayerData playerData = plugin.getPlayerManager().getPlayerData(player);
-        if (config.MECHANICS_THIRST_ENABLED) {
+        if (config.mechanics_thirst_enabled) {
             playerData.setThirst(40);
         }
         if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {

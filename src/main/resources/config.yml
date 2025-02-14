@@ -181,30 +181,33 @@ Mechanics:
 
   # When enabled, players will need to drink water to replenish their thirst levels
   Thirst:
-    Enabled: true
+    enabled: true
     # The level of thirst a player starts out with (max = 40)
-    Starting-Amount: 30
-    # The level of thirst a player gets after respawning after death (max = 40)
-    Respawn-Amount: 30
+    starting-amount: 30
+    # The level of thirst a player gets after respawning (max = 40)
+    respawn-amount: 30
     # Enables 3 different levels of water (dirty, clean, purified)
-    PurifyWater: true
-    MeltSnow: true
+    purify-water: true
+    # Unused (maybe for the future?!?!)
+    melt-snow: true
     # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
-    DrainRate: 1.0
+    # The player will lose thirst levels when they reach exhaustion
+    # This happens when the player does exhausting tasks such as running, mining, etc.
+    drain-rate: 1.0
     # If player is in a HOT biome, drain 1 extra thirst point every X seconds
-    # This helps speed up thirst draining when a player is in a hot biome like the desert or savannah
+    # This helps speed up thirst draining when a player is in a hot biome like the desert or savanna
     # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
     # If set to 0, this will be disabled
-    HeatDrain: 30
+    heat-drain: 30
     # If player is in the nether, drain 1 extra thirst point every X seconds
     # This helps speed up thirst draining when a player is in the nether
     # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
     # If set to 0, this will be disabled
-    NetherDrain: 30
+    nether-drain: 30
     # The amount of damage a player takes when their thirst level is empty
-    DamageRate: 1.0
+    damage-rate: 1.0
     # The level of thirst that will be replenished when a player consumes this item
-    Replenish-Level:
+    replenish-level:
       beetroot-soup: 6
       melon-slice: 6
       mushroom-stew: 12
@@ -215,9 +218,9 @@ Mechanics:
       milk-bucket: 30
       honey-bottle: 16
       # Only used if PurifyWater is enabled
-      dirty-water: 13
-      clean-water: 18
-      purified-water: 23
+      dirty-water: 7
+      clean-water: 14
+      purified-water: 24
       # This can be used for any other water bottle (such as custom ones or just vanilla water bottles)
       # If you do not want players to get thirst from other water bottles leave this at 0
       other-water: 0
