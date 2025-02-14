@@ -1,17 +1,21 @@
 package tk.shanebee.survival.listeners.player;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitScheduler;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
+
+import java.util.Objects;
 
 public class PlayerDataListener implements Listener {
 
@@ -20,6 +24,7 @@ public class PlayerDataListener implements Listener {
     private final PlayerDataConfig playerDataConfig;
     private final ScoreBoardManager scoreboardManager;
     private final Config config;
+    private final BukkitScheduler scheduler = Bukkit.getScheduler();
 
     public PlayerDataListener(Survival plugin) {
         this.plugin = plugin;
@@ -43,12 +48,10 @@ public class PlayerDataListener implements Listener {
 
         // Appears you can only set a compass target after a delay
         if (config.MECHANICS_COMPASS_WAYPOINT) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    player.setCompassTarget(playerData.getCompassWaypoint(player.getWorld()));
-                }
-            }.runTaskLater(this.plugin, 1);
+            this.scheduler.runTaskLater(this.plugin, () -> {
+                Location waypoint = playerData.getCompassWaypoint(player.getWorld());
+                player.setCompassTarget(Objects.requireNonNullElseGet(waypoint, () -> player.getWorld().getSpawnLocation()));
+            }, 1);
         }
 
     }

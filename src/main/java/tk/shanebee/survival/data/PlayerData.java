@@ -385,12 +385,11 @@ public class PlayerData implements ConfigurationSerializable {
      * @param world World to grab waypoint from
      * @return Location of waypoint
      */
-    @NotNull
     public Location getCompassWaypoint(World world) {
         if (this.compassMap.containsKey(world.getName())) {
             return this.compassMap.get(world.getName());
         }
-        return world.getSpawnLocation();
+        return null;
     }
 
     /**
