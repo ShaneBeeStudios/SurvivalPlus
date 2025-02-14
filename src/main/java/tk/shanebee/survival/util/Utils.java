@@ -1,7 +1,6 @@
 package tk.shanebee.survival.util;
 
 import com.google.common.collect.ImmutableSet;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -43,6 +42,8 @@ public class Utils {
     private final static ImmutableSet<Material> FARMABLE;
     private final static ImmutableSet<Material> REQUIRES_SHEARS;
     private final static ImmutableSet<Material> REQUIRES_HAMMER;
+    private final static ImmutableSet<Material> REQUIRES_SHOVEL;
+    private final static ImmutableSet<Material> REQUIRES_AXE;
 
     static {
         CONCRETE_BLOCKS = ImmutableSet.<Material>builder()
@@ -226,6 +227,18 @@ public class Utils {
             .add(Material.IRON_BARS)
             .add(Material.SCAFFOLDING)
             .build();
+
+        ImmutableSet.Builder<Material> requiresShovelBuilder = ImmutableSet.builder();
+        for (Material value : Tag.MINEABLE_SHOVEL.getValues()) {
+            if (value != Material.GRAVEL) requiresShovelBuilder.add(value);
+        }
+        REQUIRES_SHOVEL = requiresShovelBuilder.build();
+
+        ImmutableSet.Builder<Material> requiresAxeBuilder = ImmutableSet.builder();
+        for (Material value : Tag.MINEABLE_AXE.getValues()) {
+            if (!Tag.REPLACEABLE.isTagged(value)) requiresAxeBuilder.add(value);
+        }
+        REQUIRES_AXE = requiresAxeBuilder.build();
     }
 
     /**
@@ -414,7 +427,7 @@ public class Utils {
      * @return True if material requires a shovel
      */
     public static boolean requiresShovel(Material material) {
-        return Tag.MINEABLE_SHOVEL.isTagged(material);
+        return REQUIRES_SHOVEL.contains(material);
     }
 
     /**
@@ -455,7 +468,7 @@ public class Utils {
      * @return True if material requires axe
      */
     public static boolean requiresAxe(Material material) {
-        return Tag.MINEABLE_AXE.isTagged(material);
+        return REQUIRES_AXE.contains(material);
     }
 
     /**
