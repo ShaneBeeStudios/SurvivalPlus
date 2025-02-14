@@ -18,7 +18,7 @@ public class SnowBoots extends Item {
         itemStack.setData(DataComponentTypes.DYED_COLOR,
             DyedItemColor.dyedItemColor(Color.fromRGB(158, 201, 202),
                 false));
-        setupDefaults("snow_boots", itemStack, true);
+        setupDefaults("snow_boots", itemStack);
     }
 
     @Override

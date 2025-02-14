@@ -17,7 +17,7 @@ public class RecurveBow extends Item {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.addEnchant(Enchantment.PUNCH, 1, true);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("recurve_bow", itemStack, true);
+        setupDefaults("recurve_bow", itemStack);
     }
 
     @Override

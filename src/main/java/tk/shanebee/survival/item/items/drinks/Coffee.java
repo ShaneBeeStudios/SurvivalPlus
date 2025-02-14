@@ -21,10 +21,9 @@ public class Coffee extends Item {
         ItemStack itemStack = ItemType.POTION.createItemStack();
         ItemMeta itemMeta = itemStack.getItemMeta();
         ((PotionMeta) itemMeta).setBasePotionType(PotionType.WATER);
-        ((PotionMeta) itemMeta).setColor(Color.fromRGB(ITEM_CONFIG.getColor("coffee")));
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("coffee", itemStack, true);
+        setupDefaults("coffee", itemStack);
     }
 
     @Override

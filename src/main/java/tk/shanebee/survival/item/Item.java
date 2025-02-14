@@ -20,8 +20,6 @@ public abstract class Item {
     // Minecraft default keys
     protected static final NamespacedKey BASE_ATTACK_DAMAGE = NamespacedKey.minecraft("base_attack_damage");
     protected static final NamespacedKey BASE_ATTACK_SPEED = NamespacedKey.minecraft("base_attack_speed");
-    protected static final NamespacedKey BASE_ATTACK_TOUGH = NamespacedKey.minecraft("base_attack_toughness");
-    protected static final NamespacedKey BASE_ATTACK_KNOCKBACK = NamespacedKey.minecraft("base_attack_knockback");
     // Non-official keys
     protected static final NamespacedKey BASE_MOVEMENT_SPEED = NamespacedKey.minecraft("base_movement_speed");
 

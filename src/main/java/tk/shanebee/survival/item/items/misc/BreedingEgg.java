@@ -9,7 +9,7 @@ public class BreedingEgg extends Item {
 
     public BreedingEgg() {
         ItemStack itemStack = ItemType.EGG.createItemStack();
-        setupDefaults("breeding_egg", itemStack, true);
+        setupDefaults("breeding_egg", itemStack);
     }
 
 }

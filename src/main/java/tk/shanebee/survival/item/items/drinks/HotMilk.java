@@ -1,6 +1,7 @@
 package tk.shanebee.survival.item.items.drinks;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
@@ -18,9 +19,10 @@ public class HotMilk extends Item {
         ItemStack itemStack = ItemType.POTION.createItemStack();
         ItemMeta itemMeta = itemStack.getItemMeta();
         ((PotionMeta) itemMeta).setBasePotionType(PotionType.WATER);
+        ((PotionMeta) itemMeta).setColor(Color.fromRGB(ITEM_CONFIG.getColor("hot_milk")));
         itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         itemStack.setItemMeta(itemMeta);
-        setupDefaults("hot_milk", itemStack, true);
+        setupDefaults("hot_milk", itemStack);
     }
 
     @Override
