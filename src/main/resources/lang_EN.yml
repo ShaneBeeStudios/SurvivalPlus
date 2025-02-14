@@ -58,14 +58,9 @@ fishing-main-hand: "&cYou must use a fishing pole with your main hand."
 grappling-off-hand: "&cYou must use a grappling hook with an empty off hand."
 grappling-main-hand: "&cYou must use a grappling hook with your main hand."
 
-compass-pointed: "Compass has pointed at"
-compass-coords: "Your coordinates are"
-compass-lore:
-  - ' '
-  - '&7Left-Click:'
-  - '&2  See coords of current location'
-  - '&7Shift-Right-Click:'
-  - '&2  Set waypoint for compass'
+compass-waypoint-set: "Compass has pointed at %s"
+compass-waypoint-get: "You are %s blocks away from your waypoint at %s"
+compass-waypoint-unset: "You do not have a waypoint set for this world."
 
 players-only: "Works on players only."
 toggle-chat-local: "&bToggled to &aLocal&b Chat."

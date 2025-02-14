@@ -2,10 +2,14 @@ package tk.shanebee.survival.item;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"UnstableApiUsage", "PatternValidation"})
 public abstract class Item {
@@ -59,6 +63,15 @@ public abstract class Item {
             }
         } else if (!vanillaModel) {
             Utils.log("&cFailed to load item name for item &r'&b" + key + "&r'");
+        }
+
+        List<String> lore = ITEM_CONFIG.getLore(key);
+        if (lore != null && !lore.isEmpty()) {
+            List<Component> loreComponents = new ArrayList<>();
+            for (String line : lore) {
+                loreComponents.add(MINI.deserialize("<!italic>" + line));
+            }
+            itemStack.lore(loreComponents);
         }
 
         // Max Damage

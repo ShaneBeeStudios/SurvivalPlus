@@ -34,6 +34,11 @@ items:
     name: "Compass"
     repair_cost: 0
     repair_percent: 0.85
+    lore:
+      - '<#B1BBBE>Shift-Right-Click:'
+      - '<#17DA4F>  Set waypoint to current location'
+      - '<#B1BBBE>Left-Click:'
+      - '<#17DA4F>  See coords of waypoint'
   firestriker:
     name: "Firestriker"
     repair_cost: 0

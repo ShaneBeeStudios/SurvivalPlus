@@ -1,6 +1,8 @@
 package tk.shanebee.survival.util;
 
 import com.google.common.collect.ImmutableSet;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -26,6 +28,8 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Utils {
+
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
 
     private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]){6}>");
     private static final ImmutableSet<Material> CONCRETE_BLOCKS;
@@ -565,6 +569,11 @@ public class Utils {
      */
     public static void sendColoredMsg(CommandSender player, String msg) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+    }
+
+    public static void sendColoredMini(CommandSender player, String format, Object... args) {
+        String f = String.format(format, args);
+        player.sendMessage(MINI_MESSAGE.deserialize(f));
     }
 
     /**

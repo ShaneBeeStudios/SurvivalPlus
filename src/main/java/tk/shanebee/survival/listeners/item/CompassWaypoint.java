@@ -3,6 +3,7 @@ package tk.shanebee.survival.listeners.item;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,10 +41,11 @@ public class CompassWaypoint implements Listener {
                 else if (offItem.getType() == Material.COMPASS && event.getHand() == EquipmentSlot.HAND) return;
 
                 if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    Block clickedBlock = event.getClickedBlock();
                     if (!player.isSneaking())
                         return; // To prevent accidentally resetting waypoint, player needs to sneak
-                    assert event.getClickedBlock() != null;
-                    switch (event.getClickedBlock().getType()) {
+                    assert clickedBlock != null;
+                    switch (clickedBlock.getType()) {
                         case HOPPER:
                         case CRAFTING_TABLE:
                         case DROPPER:
@@ -51,22 +53,29 @@ public class CompassWaypoint implements Listener {
                             return;
                         default:
                     }
-                    if (Tag.BEDS.isTagged(event.getClickedBlock().getType())) return;
-                    if (Utils.isWoodGate(event.getClickedBlock().getType())) return;
-                    if (Tag.DOORS.isTagged(event.getClickedBlock().getType())) return;
-                    if (Utils.isCookingBlock(event.getClickedBlock().getType())) return;
-                    if (Utils.isStorageBlock(event.getClickedBlock().getType())) return;
-                    if (Utils.isUtilityBlock(event.getClickedBlock().getType())) return;
+                    if (Tag.BEDS.isTagged(clickedBlock.getType())) return;
+                    if (Utils.isWoodGate(clickedBlock.getType())) return;
+                    if (Tag.DOORS.isTagged(clickedBlock.getType())) return;
+                    if (Utils.isCookingBlock(clickedBlock.getType())) return;
+                    if (Utils.isStorageBlock(clickedBlock.getType())) return;
+                    if (Utils.isUtilityBlock(clickedBlock.getType())) return;
 
-                    Location loc = event.getClickedBlock().getRelative(event.getBlockFace()).getLocation();
-                    player.sendMessage(Utils.getColoredString("&d" + lang.compass_pointed + locToString(loc)));
+                    Location loc = clickedBlock.getRelative(event.getBlockFace()).getLocation();
+                    Utils.sendColoredMini(player,  lang.compass_waypoint_set, locToString(loc));
                     loc.add(0.5, 0.5, 0.5);
-                    playerManager.setWaypoint(player, loc, true);
+                    this.playerManager.setWaypoint(player, loc, true);
                 }
 
                 if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                    Location loc = player.getLocation().getBlock().getLocation();
-                    player.sendMessage(Utils.getColoredString("&d" + lang.compass_coords + locToString(loc)));
+                    PlayerData playerData = this.playerManager.getPlayerData(player);
+                    Location waypoint = playerData.getCompassWaypoint(player.getWorld());
+                    if (waypoint != null) {
+                        int distance = (int) player.getLocation().distance(waypoint);
+                        String s = locToString(waypoint);
+                        Utils.sendColoredMini(player, lang.compass_waypoint_get, distance, s);
+                    } else {
+                        Utils.sendColoredMini(player, lang.compass_waypoint_unset);
+                    }
                 }
             }
         }

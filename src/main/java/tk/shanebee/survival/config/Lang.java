@@ -1,7 +1,6 @@
 package tk.shanebee.survival.config;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,7 +16,7 @@ import java.util.List;
 public class Lang {
 
     private final Survival plugin;
-    private final String lang_yml;
+    private final String langFilePath;
     private FileConfiguration lang;
 
     public String prefix;
@@ -57,8 +56,9 @@ public class Lang {
     public String fishing_main_hand;
     public String grappling_off_hand;
     public String grappling_main_hand;
-    public String compass_pointed;
-    public String compass_coords;
+    public String compass_waypoint_set;
+    public String compass_waypoint_get;
+    public String compass_waypoint_unset;
     public List<String> compass_lore;
     public String players_only;
     public String toggle_chat_local;
@@ -208,17 +208,17 @@ public class Lang {
 
     public Lang(Survival main, String language) {
         this.plugin = main;
-        this.lang_yml = language.equals("CN") ? "lang_CN.yml" : "lang_EN.yml";
+        this.langFilePath = "lang_" + language + ".yml";
     }
 
     public void loadLangFile(CommandSender sender) {
         String loaded;
-        File lang_file = new File(plugin.getDataFolder(), lang_yml);
+        File lang_file = new File(plugin.getDataFolder(), langFilePath);
         if (!lang_file.exists()) {
-            plugin.saveResource(lang_yml, true);
-            loaded = "&aNew " + lang_yml + " created";
+            plugin.saveResource(langFilePath, true);
+            loaded = "&aNew " + langFilePath + " created";
         } else {
-            loaded = "&7" + lang_yml + " &aloaded";
+            loaded = "&7" + langFilePath + " &aloaded";
             //updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
             matchConfig(YamlConfiguration.loadConfiguration(lang_file), lang_file);
         }
@@ -256,8 +256,9 @@ public class Lang {
         fishing_main_hand = lang.getString("fishing-main-hand");
         grappling_off_hand = lang.getString("grappling-off-hand");
         grappling_main_hand = lang.getString("grappling-main-hand");
-        compass_pointed = lang.getString("compass-pointed");
-        compass_coords = lang.getString("compass-coords");
+        compass_waypoint_set = lang.getString("compass-waypoint-set");
+        compass_waypoint_get = lang.getString("compass-waypoint-get");
+        compass_waypoint_unset = lang.getString("compass-waypoint-unset");
         compass_lore = lang.getStringList("compass-lore");
         players_only = lang.getString("players-only");
         toggle_chat_local = lang.getString("toggle-chat-local");
@@ -423,7 +424,7 @@ public class Lang {
         try {
             lang.save(file);
             String prefix = lang.getString("prefix");
-            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7" + lang_yml + " &aUpdated");
+            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7" + langFilePath + " &aUpdated");
         } catch (IOException e) {
             e.printStackTrace();
         }

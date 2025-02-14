@@ -7,6 +7,7 @@ import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class ItemConfig {
 
@@ -61,6 +62,14 @@ public class ItemConfig {
 
     String getName(String key) {
         return this.settings.getString("items." + key + ".name");
+    }
+
+    List<String> getLore(String key) {
+        String path = "items." + key + ".lore";
+        if (this.settings.contains(path)) {
+            return this.settings.getStringList(path);
+        }
+        return null;
     }
 
     int getMaxDamage(String key) {
