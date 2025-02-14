@@ -446,9 +446,9 @@ public class Config {
         this.ITEM_FIRESTRIKER_COOK_TIME = settings.getInt("Item-Mechanics.firestriker.cook-time");
 
 		// ENTITY MECHANICS
-		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.pigmen-chests.enabled");
-		this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.pigmen-chests.distance");
-		this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.pigmen-chests.speed-modifier");
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.zombified-piglin-chests.enabled");
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.zombified-piglin-chests.distance");
+		this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.zombified-piglin-chests.speed-modifier");
 		this.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
 		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED = settings.getBoolean("Entity-Mechanics.suspicious-meat.enabled");
 		this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE = settings.getInt("Entity-Mechanics.suspicious-meat.chance");

@@ -350,13 +350,14 @@ Item-Mechanics:
 
 # Mechanics that flow around entities
 Entity-Mechanics:
-  # When a player opens a chest in the nether, and it contains gold items, zombie pigmen will attack the player
-  pigmen-chests:
-    enabled: false
-    # Max radius to check for zombie pigmen around chests
+  # When a player opens a chest in the nether, and it contains gold items, zombified piglins will attack the player
+  zombified-piglin-chests:
+    enabled: true
+    # Max radius to check for zombified piglin around chests
     distance: 24
-    # Speeds up the pigmen when they are triggered (1.0 = no increase in speed)
-    speed-modifier: 1.3
+    # Speeds up the zombified piglin when they are triggered
+    # 0.0 = no increase in speed, 0.25 = 25% faster
+    speed-modifier: 0.25
   # When a player has a beekeeper suit on they will not take damage from bee stings
   beekeeper-suit:
     enabled: true

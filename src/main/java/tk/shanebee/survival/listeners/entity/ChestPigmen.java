@@ -1,15 +1,20 @@
 package tk.shanebee.survival.listeners.entity;
 
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.attribute.Attributable;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
@@ -19,58 +24,72 @@ import java.util.List;
 
 public class ChestPigmen implements Listener {
 
-	private final List<Material> GOLD_ITEMS;
-	private final int RADIUS;
-	private double SPEED;
+    private final List<Material> goldItems;
+    private final int radius;
+    private final NamespacedKey key = NamespacedKey.fromString("survival_plus:chest_pigmen");
+    private final AttributeModifier mod;
 
-	public ChestPigmen(Survival plugin) {
-		GOLD_ITEMS = new ArrayList<>();
-		GOLD_ITEMS.add(Material.GOLDEN_SWORD);
-		GOLD_ITEMS.add(Material.GOLDEN_SHOVEL);
-		GOLD_ITEMS.add(Material.GOLDEN_PICKAXE);
-		GOLD_ITEMS.add(Material.GOLDEN_AXE);
-		GOLD_ITEMS.add(Material.GOLDEN_HOE);
-		GOLD_ITEMS.add(Material.GOLDEN_HELMET);
-		GOLD_ITEMS.add(Material.GOLDEN_CHESTPLATE);
-		GOLD_ITEMS.add(Material.GOLDEN_LEGGINGS);
-		GOLD_ITEMS.add(Material.GOLDEN_BOOTS);
-		GOLD_ITEMS.add(Material.GOLD_BLOCK);
-		GOLD_ITEMS.add(Material.GOLD_INGOT);
-		GOLD_ITEMS.add(Material.GOLD_NUGGET);
-		RADIUS = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
-		SPEED = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
-	}
 
-	@EventHandler
-	private void onOpenChest(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		if (player.getWorld().getEnvironment() != World.Environment.NETHER) return;
-		if (event.getClickedBlock() == null) return;
-		if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock().getType() != Material.CHEST) return;
-		Chest chest = ((Chest) event.getClickedBlock().getState());
-		if (chestContainsGold(chest)) {
-			player.getNearbyEntities(RADIUS, RADIUS, RADIUS).forEach(entity -> {
-				if (entity instanceof PigZombie) {
-					((PigZombie) entity).setTarget(player);
-					moveFaster((Attributable) entity, SPEED);
-				}
-			});
-		}
-	}
+    public ChestPigmen(Survival plugin) {
+        this.goldItems = new ArrayList<>();
+        for (Material material : Registry.MATERIAL) {
+            if (material.isItem() && material.getKey().toString().contains("gold")) {
+                this.goldItems.add(material);
+            }
+        }
+        this.radius = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
+        double speedModifier = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
+        assert this.key != null;
+        this.mod = speedModifier > 0 ? new AttributeModifier(this.key, speedModifier, Operation.ADD_SCALAR) : null;
 
-	private boolean chestContainsGold(Chest block) {
-		for (ItemStack item : block.getInventory().getContents()) {
-			if (item == null) continue;
-			if (GOLD_ITEMS.contains(item.getType())) return true;
-		}
-		return false;
-	}
+    }
 
-	private void moveFaster(Attributable entity, double modifier) {
-		if (entity.getAttribute(Attribute.MOVEMENT_SPEED) != null) {
-			double speed = entity.getAttribute(Attribute.MOVEMENT_SPEED).getBaseValue();
-			entity.getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(speed * modifier);
-		}
-	}
+    @EventHandler
+    private void onOpenChest(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        //if (player.getWorld().getEnvironment() != World.Environment.NETHER) return;
+        if (event.getClickedBlock() == null) return;
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock().getType() != Material.CHEST)
+            return;
+        Chest chest = ((Chest) event.getClickedBlock().getState());
+        if (chestContainsGold(chest)) {
+            player.getNearbyEntities(this.radius, this.radius, this.radius).forEach(entity -> {
+                if (entity instanceof PigZombie pigZombie) {
+                    pigZombie.setTarget(player);
+                    moveFaster(pigZombie);
+                }
+            });
+        }
+    }
+
+    private boolean chestContainsGold(Chest block) {
+        for (ItemStack item : block.getInventory().getContents()) {
+            if (item == null) continue;
+            if (this.goldItems.contains(item.getType())) return true;
+        }
+        return false;
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    private void moveFaster(Mob mob) {
+        if (this.mod == null) return;
+
+        AttributeInstance attribute = mob.getAttribute(Attribute.MOVEMENT_SPEED);
+        if (attribute != null && attribute.getModifier(this.key.key()) == null) {
+            attribute.addTransientModifier(this.mod);
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @EventHandler
+    private void onStopTarget(EntityTargetEvent event) {
+        // Remove speed when they stop targeting the player
+        if (event.getEntity() instanceof PigZombie pigZombie && event.getTarget() == null) {
+            AttributeInstance attribute = pigZombie.getAttribute(Attribute.MOVEMENT_SPEED);
+            if (attribute != null && attribute.getModifier(this.key.key()) != null) {
+                attribute.removeModifier(this.mod);
+            }
+        }
+    }
 
 }

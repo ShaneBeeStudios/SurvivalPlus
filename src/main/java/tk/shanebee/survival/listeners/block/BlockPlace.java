@@ -1,6 +1,5 @@
 package tk.shanebee.survival.listeners.block;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -21,58 +20,58 @@ import java.util.Random;
 
 public class BlockPlace implements Listener {
 
-	private Config config;
-	private Lang lang;
+    private final Config config;
+    private final Lang lang;
 
-	public BlockPlace(Survival plugin) {
-		this.config = plugin.getSurvivalConfig();
-		this.lang = plugin.getLang();
-	}
+    public BlockPlace(Survival plugin) {
+        this.config = plugin.getSurvivalConfig();
+        this.lang = plugin.getLang();
+    }
 
-	@SuppressWarnings("ConstantConditions")
-	@EventHandler(priority = EventPriority.HIGHEST)
-	private void onBlockPlace(BlockPlaceEvent event) {
-		if (event.isCancelled()) return;
-		Player player = event.getPlayer();
+    @SuppressWarnings("ConstantConditions")
+    @EventHandler(priority = EventPriority.HIGHEST)
+    private void onBlockPlace(BlockPlaceEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
 
-		ItemStack mainTool = player.getInventory().getItemInMainHand();
-		ItemStack offTool = player.getInventory().getItemInOffHand();
+        ItemStack mainTool = player.getInventory().getItemInMainHand();
+        ItemStack offTool = player.getInventory().getItemInOffHand();
 
-		Block block = event.getBlock();
+        Block block = event.getBlock();
 
-		if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-			if (config.PLACE_ONLY_WITH_HAMMER) {
-				if (Utils.requiresHammer(block.getType())) {
-					if (Items.HAMMER.is(offTool)) {
-						Random rand = new Random();
-						int chance_reduceDur = rand.nextInt(10) + 1;
-						if (chance_reduceDur == 1) {
-							Utils.setDurability(offTool, Utils.getDurability(offTool) + 1);
-						}
+        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+            if (config.PLACE_ONLY_WITH_HAMMER) {
+                if (Utils.requiresHammer(block.getType())) {
+                    if (Items.HAMMER.is(offTool)) {
+                        Random rand = new Random();
+                        int chance_reduceDur = rand.nextInt(10) + 1;
+                        if (chance_reduceDur == 1) {
+                            Utils.setDurability(offTool, Utils.getDurability(offTool) + 1);
+                        }
 
-						if (Utils.getDurability(offTool) >= offTool.getType().getMaxDurability()) {
-							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-							player.getInventory().setItemInOffHand(null);
-						}
-					} else if (Items.HAMMER.is(mainTool)) {
-						Random rand = new Random();
-						int chance_reduceDur = rand.nextInt(10) + 1;
-						if (chance_reduceDur == 1) {
-							Utils.setDurability(mainTool, ((Damageable) mainTool.getItemMeta()).getDamage() + 1);
-						}
+                        if (Utils.getDurability(offTool) >= offTool.getType().getMaxDurability()) {
+                            player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+                            player.getInventory().setItemInOffHand(null);
+                        }
+                    } else if (Items.HAMMER.is(mainTool)) {
+                        Random rand = new Random();
+                        int chance_reduceDur = rand.nextInt(10) + 1;
+                        if (chance_reduceDur == 1) {
+                            Utils.setDurability(mainTool, ((Damageable) mainTool.getItemMeta()).getDamage() + 1);
+                        }
 
-						if (Utils.getDurability(mainTool) >= mainTool.getType().getMaxDurability()) {
-							player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-							player.getInventory().setItemInMainHand(null);
-						}
-					} else {
-						event.setCancelled(true);
-						player.updateInventory();
-						player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.task_must_use_hammer));
-					}
-				}
-			}
-		}
-	}
+                        if (Utils.getDurability(mainTool) >= mainTool.getType().getMaxDurability()) {
+                            player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+                            player.getInventory().setItemInMainHand(null);
+                        }
+                    } else {
+                        event.setCancelled(true);
+                        player.updateInventory();
+                        Utils.sendColoredMini(player, "<red>" + lang.task_must_use_hammer);
+                    }
+                }
+            }
+        }
+    }
 
 }

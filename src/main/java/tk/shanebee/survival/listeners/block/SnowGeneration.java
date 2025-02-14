@@ -11,7 +11,7 @@ import tk.shanebee.survival.Survival;
 
 public class SnowGeneration implements Listener {
 
-	private Survival plugin;
+	private final Survival plugin;
 
 	public SnowGeneration(Survival plugin) {
 		this.plugin = plugin;

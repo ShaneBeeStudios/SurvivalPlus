@@ -20,11 +20,10 @@ import org.bukkit.util.BlockIterator;
 public class SnowballThrow implements Listener {
 
 	@EventHandler
-	private void onThrowingSnowball(ProjectileHitEvent e) {
-		if (e.getEntity() instanceof Snowball) {
-			Snowball snowball = (Snowball) e.getEntity();
+	private void onThrowingSnowball(ProjectileHitEvent event) {
+		if (event.getEntity() instanceof Snowball snowball) {
 
-			BlockIterator iterator = new BlockIterator(snowball.getWorld(), snowball.getLocation().toVector(),
+            BlockIterator iterator = new BlockIterator(snowball.getWorld(), snowball.getLocation().toVector(),
 					snowball.getVelocity().normalize(), 0.0D, 4);
 			Block actual = null;
 			while (iterator.hasNext()) {
