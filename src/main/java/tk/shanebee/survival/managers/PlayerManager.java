@@ -1,18 +1,25 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.scoreboard.Scoreboard;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Manager for players
@@ -24,12 +31,15 @@ public class PlayerManager implements Listener {
     private final Lang lang;
     private final Survival plugin;
     private final PlayerDataConfig playerDataConfig;
-    private final int THIRST;
-    private final int HUNGER;
-    private final double ENERGY;
-    private final int PROTEIN;
-    private final int CARBS;
-    private final int SALTS;
+    private final int thirstStartingAmount;
+    private final int hungerStartingAmount;
+    private final double energyStartingAmount;
+    private final int proteinStartingAmount;
+    private final int carbsStartingAmount;
+    private final int saltsStartingAmount;
+    private final int maxProtein;
+    private final int maxCarbs;
+    private final int maxSalts;
 
     // Store all the active PlayerData
     private final Map<UUID, PlayerData> playerDataMap;
@@ -41,13 +51,15 @@ public class PlayerManager implements Listener {
         this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
         this.playerDataConfig = plugin.getPlayerDataConfig();
         Config config = plugin.getSurvivalConfig();
-        THIRST = config.mechanics_thirst_starting_amount;
-        HUNGER = config.MECHANICS_HUNGER_START_AMOUNT;
-        ENERGY = config.MECHANICS_ENERGY_START;
-        PROTEIN = config.MECHANICS_FOOD_START_PROTEINS;
-        CARBS = config.MECHANICS_FOOD_START_CARBS;
-        SALTS = config.MECHANICS_FOOD_START_SALTS;
-        loadPlayerData();
+        this.thirstStartingAmount = config.mechanics_thirst_starting_amount;
+        this.hungerStartingAmount = config.MECHANICS_HUNGER_START_AMOUNT;
+        this.energyStartingAmount = config.MECHANICS_ENERGY_START;
+        this.proteinStartingAmount = config.MECHANICS_FOOD_START_PROTEINS;
+        this.carbsStartingAmount = config.MECHANICS_FOOD_START_CARBS;
+        this.saltsStartingAmount = config.MECHANICS_FOOD_START_SALTS;
+        this.maxCarbs = config.MECHANICS_FOOD_MAX_CARBS;
+        this.maxProtein = config.MECHANICS_FOOD_MAX_PROTEINS;
+        this.maxSalts = config.MECHANICS_FOOD_MAX_SALTS;
     }
 
     /**
@@ -57,7 +69,7 @@ public class PlayerManager implements Listener {
      * @return PlayerData for player
      */
     public PlayerData getPlayerData(Player player) {
-        return playerDataMap.get(player.getUniqueId());
+        return this.playerDataMap.get(player.getUniqueId());
     }
 
     /**
@@ -67,7 +79,7 @@ public class PlayerManager implements Listener {
      */
     @SuppressWarnings("unused")
     public Collection<PlayerData> getAllPlayerData() {
-        return playerDataMap.values();
+        return this.playerDataMap.values();
     }
 
     /**
@@ -78,10 +90,10 @@ public class PlayerManager implements Listener {
      */
     public PlayerData createNewPlayerData(Player player) {
         UUID uuid = player.getUniqueId();
-        setHunger(player, HUNGER);
+        setHunger(player, hungerStartingAmount);
 
-        PlayerData playerData = new PlayerData(uuid, THIRST, PROTEIN, CARBS, SALTS, ENERGY);
-        playerDataMap.put(uuid, playerData);
+        PlayerData playerData = new PlayerData(uuid, this.thirstStartingAmount, this.proteinStartingAmount, this.carbsStartingAmount, this.saltsStartingAmount, this.energyStartingAmount);
+        this.playerDataMap.put(uuid, playerData);
         savePlayerData(playerData);
         return playerData;
     }
@@ -100,7 +112,7 @@ public class PlayerManager implements Listener {
      * @param data PlayerData to save
      */
     private void savePlayerData(PlayerData data) {
-        playerDataConfig.savePlayerDataToFile(data);
+        this.playerDataConfig.savePlayerDataToFile(data);
     }
 
     /**
@@ -110,8 +122,8 @@ public class PlayerManager implements Listener {
      * @return Loaded player data
      */
     public PlayerData loadPlayerData(Player player) {
-        PlayerData playerData = playerDataConfig.getPlayerDataFromFile(player);
-        playerDataMap.put(player.getUniqueId(), playerData);
+        PlayerData playerData = this.playerDataConfig.getPlayerDataFromFile(player);
+        this.playerDataMap.put(player.getUniqueId(), playerData);
         return playerData;
     }
 
@@ -124,8 +136,8 @@ public class PlayerManager implements Listener {
      */
     public void unloadPlayerData(Player player) {
         PlayerData playerData = getPlayerData(player);
-        playerDataConfig.savePlayerDataToFile(playerData);
-        playerDataMap.remove(player.getUniqueId());
+        this.playerDataConfig.savePlayerDataToFile(playerData);
+        this.playerDataMap.remove(player.getUniqueId());
     }
 
     /**
@@ -161,16 +173,16 @@ public class PlayerManager implements Listener {
      * @param delay  A delay in ticks
      */
     public void applyResourcePack(Player player, int delay) {
-        if (url != null) {
+        if (this.url != null) {
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 try {
                     player.setResourcePack(url);
                 } catch (Exception e) {
                     Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
-                    Bukkit.getPluginManager().disablePlugin(plugin);
+                    Bukkit.getPluginManager().disablePlugin(this.plugin);
                     return;
                 }
-                plugin.getUsingPlayers().add(player);
+                this.plugin.getUsingPlayers().add(player);
             }, delay);
         }
     }
@@ -209,104 +221,82 @@ public class PlayerManager implements Listener {
         return loc;
     }
 
-    public List<String> ShowThirst(Player player) {
-        StringBuilder thirstBar = new StringBuilder();
+    public List<String> getThirstVisual(Player player) {
         PlayerData data = getPlayerData(player);
         int thirst = data.getThirst();
+        double grad = ((double) thirst / 40) - 1;
 
-        for (int i = 0; i < thirst; i++) {
-            thirstBar.append("|");
+        // green - green - green - yellow - orange - red
+        StringBuilder thirstLineOne = new StringBuilder("<transition:#02FF4E:#02FF4E:#02FF4E:#FBFF02:#FF9F02:#FF0202:" + grad + ">");
+        StringBuilder thirstLineTwo = new StringBuilder("<transition:#02FF4E:#02FF4E:#02FF4E:#FBFF02:#FF9F02:#FF0202:" + grad + ">");
+
+        if (thirst > 20) {
+            thirstLineOne.append("|".repeat(20));
+            thirstLineTwo.append("|".repeat(thirst - 20));
+            thirstLineTwo.append(".".repeat(20 - (thirst - 20)));
+        } else {
+            thirstLineOne.append("|".repeat(thirst));
+            thirstLineOne.append(".".repeat(20 - thirst));
+            thirstLineTwo.append(".".repeat(20));
         }
-        for (int i = thirst; i < 20; i++) {
-            thirstBar.append(".");
-        }
 
-        if (thirst >= 40)
-            thirstBar.insert(0, ChatColor.GREEN);
-        else if (thirst <= 6)
-            thirstBar.insert(0, ChatColor.RED);
-        else
-            thirstBar.insert(0, ChatColor.AQUA);
-
-        return Arrays.asList(ChatColor.AQUA + lang.thirst, (thirstBar.length() <= 22 ? thirstBar.toString() : thirstBar.substring(0, 22)),
-                thirstBar.substring(0, 2) + (thirstBar.length() > 22 ? thirstBar.substring(22) : "") + ChatColor.RESET + ChatColor.RESET);
+        return Arrays.asList("<aqua><bold>" + this.lang.thirst, thirstLineOne.toString(), thirstLineTwo.toString());
     }
 
-    public List<String> ShowHunger(Player player) {
-        int hunger = player.getFoodLevel();
-        int saturation = Math.round(player.getSaturation());
-        StringBuilder hungerBar = new StringBuilder();
-        StringBuilder saturationBar = new StringBuilder(ChatColor.YELLOW + "");
-        for (int i = 0; i < hunger; i++) {
-            hungerBar.append("|");
-        }
-        for (int i = hunger; i < 20; i++) {
-            hungerBar.append(".");
-        }
-        for (int i = 0; i < saturation; i++) {
-            saturationBar.append("|");
-        }
+    @SuppressWarnings("StringBufferReplaceableByString")
+    public List<String> getHungerVisual(Player player) {
+        int hunger = Math.clamp(player.getFoodLevel(), 0, 20);
+        int saturation = Math.clamp((int) player.getSaturation(), 0, 20);
+        double grad = ((double) hunger / 20) - 1;
 
-        if (hunger >= 20)
-            hungerBar.insert(0, ChatColor.GREEN);
-        else if (hunger <= 6)
-            hungerBar.insert(0, ChatColor.RED);
-        else
-            hungerBar.insert(0, ChatColor.GOLD);
+        // green - green - yellow - red
+        StringBuilder hungerBar = new StringBuilder("<transition:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + grad + ">");
+        StringBuilder saturationBar = new StringBuilder("<yellow>");
 
-        return Arrays.asList(ChatColor.GOLD + lang.hunger, hungerBar.toString() + ChatColor.RESET, saturationBar.toString());
+        hungerBar.append("|".repeat(Math.max(0, hunger)));
+        hungerBar.append(".".repeat(Math.max(0, 20 - hunger)));
+        saturationBar.append("|".repeat(Math.max(0, saturation)));
+        saturationBar.append(".".repeat(Math.max(0, 20 - saturation)));
+
+        return Arrays.asList("<#63F9A7><bold>" + this.lang.hunger, hungerBar.toString(), saturationBar.toString());
     }
 
-    public List<String> ShowNutrients(Player player) {
+    public List<String> getNutrientsVisual(Player player) {
         List<String> nutrients = new ArrayList<>();
         PlayerData data = getPlayerData(player);
 
-        int carbon = data.getNutrient(Nutrient.CARBS);
+        int carbs = data.getNutrient(Nutrient.CARBS);
         int protein = data.getNutrient(Nutrient.PROTEIN);
         int salts = data.getNutrient(Nutrient.SALTS);
 
-        String showCarbon = Integer.toString(carbon);
-        if (carbon >= 480)
-            showCarbon = ChatColor.GREEN + showCarbon;
-        else
-            showCarbon = ChatColor.RED + showCarbon;
-        nutrients.add(showCarbon + " " + ChatColor.DARK_GREEN + lang.carbohydrates);
+        nutrients.add("<#A0E853>" + this.lang.carbohydrates);
+        nutrients.add("<#CE784D>" + this.lang.protein);
+        nutrients.add("<#53DDE8>" + this.lang.vitamins);
 
-        String showProtein = Integer.toString(protein);
-        if (protein >= 120)
-            showProtein = ChatColor.GREEN + showProtein;
-        else
-            showProtein = ChatColor.RED + showProtein;
-        nutrients.add(showProtein + " " + ChatColor.DARK_RED + lang.protein);
+        double carbGrad = ((double) carbs / this.maxCarbs) - 1;
+        double proteinGrad = ((double) protein / this.maxProtein) - 1;
+        double saltsGrad = ((double) salts / this.maxSalts) - 1;
 
-        String showSalts = Integer.toString(salts);
-        if (salts >= 180)
-            showSalts = ChatColor.GREEN + showSalts;
-        else
-            showSalts = ChatColor.RED + showSalts;
-        nutrients.add(showSalts + " " + ChatColor.BLUE + lang.vitamins);
+        // green - green - green - yellow - red
+        nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + carbGrad + ">" + carbs);
+        nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + proteinGrad + ">" + protein);
+        nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + saltsGrad + ">" + salts);
 
         return nutrients;
     }
 
-    public List<String> showEnergy(Player player) {
+    @SuppressWarnings("StringBufferReplaceableByString")
+    public List<String> getEnergyVisual(Player player) {
         PlayerData playerData = getPlayerData(player);
         double energy = Math.floor(playerData.getEnergy());
-        StringBuilder energyBar = new StringBuilder();
-        for (int i = 0; i < energy; i++) {
-            energyBar.append("|");
-        }
-        for (int i = ((int) energy); i < 20; i++) {
-            energyBar.append(".");
-        }
-        if (energy >= 16) {
-            energyBar.insert(0, ChatColor.GREEN);
-        } else if (energy <= 3) {
-            energyBar.insert(0, ChatColor.RED);
-        } else {
-            energyBar.insert(0, ChatColor.GOLD);
-        }
-        return Arrays.asList(Utils.getColoredString(lang.energy), energyBar.toString());
+        double grad = (energy / 20) - 1;
+
+        // green - green - green - yellow - red
+        StringBuilder energyBar = new StringBuilder("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + grad + ">");
+        energyBar.append("|".repeat((int) Math.max(0, Math.ceil(energy))));
+        energyBar.append(".".repeat((int) Math.max(0, 20 - Math.ceil(energy))));
+
+        return Arrays.asList("<#F963F2><bold>" + this.lang.energy, energyBar.toString());
     }
 
     /**
@@ -320,47 +310,8 @@ public class PlayerManager implements Listener {
         Material offHand = player.getInventory().getItemInOffHand().getType();
         if (mainHand == Material.CROSSBOW)
             return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW
-                    || offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
+                || offHand == Material.TIPPED_ARROW || offHand == Material.FIREWORK_ROCKET;
         return offHand == Material.ARROW || offHand == Material.SPECTRAL_ARROW || offHand == Material.TIPPED_ARROW;
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private void loadPlayerData() {
-        OfflinePlayer[] players = Bukkit.getOfflinePlayers();
-        Scoreboard scoreboard = plugin.getMainBoard();
-
-        // Convert previous player data
-        if (playerDataConfig.needsConversion()) {
-            int c = 0;
-            if (scoreboard.getObjective("Thirst") != null) {
-                Utils.log("&bConverting player data!");
-                long time = System.currentTimeMillis();
-
-                for (OfflinePlayer player : players) {
-                    UUID uuid = player.getUniqueId();
-                    assert player.getName() != null;
-                    int thirst = scoreboard.getObjective("Thirst").getScore(player.getName()).getScore();
-                    int proteins = scoreboard.getObjective("Protein").getScore(player.getName()).getScore();
-                    int carbs = scoreboard.getObjective("Carbs").getScore(player.getName()).getScore();
-                    int salts = scoreboard.getObjective("Salts").getScore(player.getName()).getScore();
-
-                    boolean s_hunger = scoreboard.getObjective("BoardHunger").getScore(player.getName()).getScore() == 0;
-                    boolean s_thirst = scoreboard.getObjective("BoardThirst").getScore(player.getName()).getScore() == 0;
-                    boolean s_energy = scoreboard.getObjective("BoardEnergy").getScore(player.getName()).getScore() == 0;
-                    boolean s_nutrients = scoreboard.getObjective("BoardNutrients").getScore(player.getName()).getScore() == 0;
-
-                    if (thirst > 0 || proteins > 0 || carbs > 0 || salts > 0) {
-                        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, 20.0);
-                        data.setInfoDisplayed(s_hunger, s_thirst, s_energy, s_nutrients);
-                        savePlayerData(data);
-                        c++;
-                    }
-                }
-                Utils.log("Converted players: &b" + c);
-                Utils.log("&aPlayer data conversion completed in " + (System.currentTimeMillis() - time) + " milliseconds!");
-            }
-            playerDataConfig.createConvertedFile(c);
-        }
     }
 
 }

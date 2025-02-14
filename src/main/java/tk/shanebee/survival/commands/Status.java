@@ -42,13 +42,13 @@ public class Status implements CommandExecutor, TabCompleter {
 
 			if (args.length == 0) {
 				if (!config.MECHANICS_STATUS_SCOREBOARD) {
-					player.sendMessage(playerManager.ShowHunger(player).get(1) +
-							playerManager.ShowHunger(player).get(2) + " " +
-							playerManager.ShowHunger(player).get(0).toUpperCase());
+					player.sendMessage(playerManager.getHungerVisual(player).get(1) +
+							playerManager.getHungerVisual(player).get(2) + " " +
+							playerManager.getHungerVisual(player).get(0).toUpperCase());
 					if (config.mechanics_thirst_enabled)
-						player.sendMessage(playerManager.ShowThirst(player).get(1) +
-								playerManager.ShowThirst(player).get(2) + " " +
-								playerManager.ShowThirst(player).get(0).toUpperCase());
+						player.sendMessage(playerManager.getThirstVisual(player).get(1) +
+								playerManager.getThirstVisual(player).get(2) + " " +
+								playerManager.getThirstVisual(player).get(0).toUpperCase());
 				} else {
 					sendHelp(player);
 				}
@@ -58,18 +58,18 @@ public class Status implements CommandExecutor, TabCompleter {
 				switch (args[0]) {
 					case "all":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
-							player.sendMessage(playerManager.ShowHunger(player).get(1) +
-									playerManager.ShowHunger(player).get(2) + " " +
-									playerManager.ShowHunger(player).get(0).toUpperCase());
+							player.sendMessage(playerManager.getHungerVisual(player).get(1) +
+									playerManager.getHungerVisual(player).get(2) + " " +
+									playerManager.getHungerVisual(player).get(0).toUpperCase());
 							if (config.mechanics_thirst_enabled)
-								player.sendMessage(playerManager.ShowThirst(player).get(1) +
-										playerManager.ShowThirst(player).get(2) + " " +
-										playerManager.ShowThirst(player).get(0).toUpperCase());
+								player.sendMessage(playerManager.getThirstVisual(player).get(1) +
+										playerManager.getThirstVisual(player).get(2) + " " +
+										playerManager.getThirstVisual(player).get(0).toUpperCase());
 							if (config.MECHANICS_ENERGY_ENABLED)
-							    player.sendMessage(playerManager.showEnergy(player).get(1) +
-                                        " " + playerManager.showEnergy(player).get(0).toUpperCase());
+							    player.sendMessage(playerManager.getEnergyVisual(player).get(1) +
+                                        " " + playerManager.getEnergyVisual(player).get(0).toUpperCase());
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
-								for (String s : playerManager.ShowNutrients(player))
+								for (String s : playerManager.getNutrientsVisual(player))
 									player.sendMessage(s);
 							}
 						} else {
@@ -92,9 +92,9 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "hunger":
 					case "h":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
-							player.sendMessage(playerManager.ShowHunger(player).get(1) +
-									playerManager.ShowHunger(player).get(2) + " " +
-									playerManager.ShowHunger(player).get(0).toUpperCase());
+							player.sendMessage(playerManager.getHungerVisual(player).get(1) +
+									playerManager.getHungerVisual(player).get(2) + " " +
+									playerManager.getHungerVisual(player).get(0).toUpperCase());
 						} else
 							playerData.setInfoDisplayed(Info.HUNGER, !playerData.isInfoDisplayed(Info.HUNGER));
 						break;
@@ -102,9 +102,9 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "t":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							if (config.mechanics_thirst_enabled)
-								player.sendMessage(playerManager.ShowThirst(player).get(1) +
-										playerManager.ShowThirst(player).get(2) + " " +
-										playerManager.ShowThirst(player).get(0).toUpperCase());
+								player.sendMessage(playerManager.getThirstVisual(player).get(1) +
+										playerManager.getThirstVisual(player).get(2) + " " +
+										playerManager.getThirstVisual(player).get(0).toUpperCase());
 						} else
 							playerData.setInfoDisplayed(Info.THIRST, !playerData.isInfoDisplayed(Info.THIRST));
 						break;
@@ -114,8 +114,8 @@ public class Status implements CommandExecutor, TabCompleter {
                     case "e":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							if (config.MECHANICS_ENERGY_ENABLED)
-                                player.sendMessage(playerManager.showEnergy(player).get(1) +
-                                        " " + playerManager.showEnergy(player).get(0).toUpperCase());
+                                player.sendMessage(playerManager.getEnergyVisual(player).get(1) +
+                                        " " + playerManager.getEnergyVisual(player).get(0).toUpperCase());
 						} else
 							playerData.setInfoDisplayed(Info.ENERGY, !playerData.isInfoDisplayed(Info.ENERGY));
 						break;
@@ -123,7 +123,7 @@ public class Status implements CommandExecutor, TabCompleter {
 					case "n":
 						if (!config.MECHANICS_STATUS_SCOREBOARD) {
 							if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
-								for (String s : playerManager.ShowNutrients(player))
+								for (String s : playerManager.getNutrientsVisual(player))
 									player.sendMessage(s);
 							}
 						} else

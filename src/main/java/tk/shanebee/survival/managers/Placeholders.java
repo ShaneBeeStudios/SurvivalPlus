@@ -64,11 +64,11 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's hunger bar (hunger part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_1")) {
-            return playerManager.ShowHunger(p).get(1);
+            return playerManager.getHungerVisual(p).get(1);
         }
         // Shows player's hunger bar (saturation part)
         if (identifier.equalsIgnoreCase("player_hunger_bar_2")) {
-            return playerManager.ShowHunger(p).get(2);
+            return playerManager.getHungerVisual(p).get(2);
         }
         // Shows player's thirst
         if (identifier.equalsIgnoreCase("player_thirst")) {
@@ -76,11 +76,11 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's thirst bar (top part - first half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_1")) {
-            return playerManager.ShowThirst(p).get(1);
+            return playerManager.getThirstVisual(p).get(1);
         }
         // Shows player's thirst bar (bottom part - second half out of 40)
         if (identifier.equalsIgnoreCase("player_thirst_bar_2")) {
-            return playerManager.ShowThirst(p).get(2);
+            return playerManager.getThirstVisual(p).get(2);
         }
         // Shows player's fatigue // Deprecated
         if (identifier.equalsIgnoreCase("player_fatigue")) {
@@ -92,17 +92,17 @@ public class Placeholders extends PlaceholderExpansion {
         }
         // Shows player's energy level (as a colored bar)
         if (identifier.equalsIgnoreCase("player_energy_bar")) {
-            return playerManager.showEnergy(p).get(1);
+            return playerManager.getEnergyVisual(p).get(1);
         }
         // Shows player's nutrients bars (<amount> <nutrient>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs_bar")) {
-            return playerManager.ShowNutrients(p).get(0);
+            return playerManager.getNutrientsVisual(p).get(0);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_proteins_bar")) {
-            return playerManager.ShowNutrients(p).get(1);
+            return playerManager.getNutrientsVisual(p).get(1);
         }
         if (identifier.equalsIgnoreCase("player_nutrients_salts_bar")) {
-            return playerManager.ShowNutrients(p).get(2);
+            return playerManager.getNutrientsVisual(p).get(2);
         }
         // Shows player's nutrients (just the <amount>)
         if (identifier.equalsIgnoreCase("player_nutrients_carbs")) {

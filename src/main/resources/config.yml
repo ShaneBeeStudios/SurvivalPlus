@@ -129,9 +129,9 @@ Mechanics:
     enabled: true
     # Max level for each nutritional value
     max-level:
-      carbs: 50000
-      salts: 50000
-      proteins: 50000
+      carbs: 1000
+      salts: 1000
+      proteins: 1000
     # The level the player will start with
     start-level:
       proteins: 240

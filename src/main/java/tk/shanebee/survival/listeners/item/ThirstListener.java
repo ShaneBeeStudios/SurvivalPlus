@@ -136,8 +136,8 @@ public class ThirstListener implements Listener {
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if (!config.MECHANICS_STATUS_SCOREBOARD) {
-                player.sendMessage(plugin.getPlayerManager().ShowHunger(player).get(1) + plugin.getPlayerManager().ShowHunger(player).get(2) + " " + plugin.getPlayerManager().ShowHunger(player).get(0).toUpperCase());
-                player.sendMessage(plugin.getPlayerManager().ShowThirst(player).get(1) + plugin.getPlayerManager().ShowThirst(player).get(2) + " " + plugin.getPlayerManager().ShowThirst(player).get(0).toUpperCase());
+                player.sendMessage(plugin.getPlayerManager().getHungerVisual(player).get(1) + plugin.getPlayerManager().getHungerVisual(player).get(2) + " " + plugin.getPlayerManager().getHungerVisual(player).get(0).toUpperCase());
+                player.sendMessage(plugin.getPlayerManager().getThirstVisual(player).get(1) + plugin.getPlayerManager().getThirstVisual(player).get(2) + " " + plugin.getPlayerManager().getThirstVisual(player).get(0).toUpperCase());
             }
         }, 1L);
     }
