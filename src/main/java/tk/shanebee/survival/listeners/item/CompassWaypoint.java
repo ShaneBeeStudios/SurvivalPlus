@@ -85,7 +85,10 @@ public class CompassWaypoint implements Listener {
     private void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         PlayerData playerData = this.playerManager.getPlayerData(player);
-        player.setCompassTarget(playerData.getCompassWaypoint(player.getWorld()));
+        Location waypoint = playerData.getCompassWaypoint(player.getWorld());
+        if (waypoint != null) {
+            player.setCompassTarget(waypoint);
+        }
     }
 
     private String locToString(Location loc) {
