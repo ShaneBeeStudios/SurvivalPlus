@@ -1,11 +1,9 @@
 package tk.shanebee.survival.listeners.entity;
 
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Chicken;
-import org.bukkit.entity.Egg;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +11,6 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
@@ -24,71 +19,52 @@ import java.util.Random;
 
 public class ChickenSpawn implements Listener {
 
-    private final Random rand = new Random();
-    private final NamespacedKey key;
+    private final Random random = new Random();
     private final int maxEggs;
     private final boolean alwaysBaby;
     private final int babyTicks;
 
     public ChickenSpawn(Survival plugin) {
         Config config = plugin.getSurvivalConfig();
-        this.key = new NamespacedKey(plugin, "fromBreeding");
         this.maxEggs = config.ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS;
         this.alwaysBaby = config.ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY;
         this.babyTicks = config.ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS;
     }
 
     @EventHandler
-    private void onChickenSpawn(CreatureSpawnEvent e) {
-        if (e.getEntityType() == EntityType.CHICKEN) {
-            SpawnReason reason = e.getSpawnReason();
+    private void onChickenSpawn(CreatureSpawnEvent event) {
+        if (event.getEntityType() == EntityType.CHICKEN) {
+            SpawnReason reason = event.getSpawnReason();
             if (reason == SpawnReason.BREEDING) {
-                e.setCancelled(true);
-                Location loc = e.getLocation();
+                event.setCancelled(true);
+                Location loc = event.getLocation();
                 World world = loc.getWorld();
                 assert world != null;
                 world.dropItem(loc, getEgg());
-                world.playSound(loc, Sound.ENTITY_CHICKEN_EGG, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+                world.playSound(loc, Sound.ENTITY_CHICKEN_EGG, 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
             } else if (reason == SpawnReason.EGG) {
-                Chicken chicken = ((Chicken) e.getEntity());
-                if (alwaysBaby) {
+                Chicken chicken = ((Chicken) event.getEntity());
+                if (this.alwaysBaby) {
                     chicken.setBaby();
-                    chicken.setAge(-babyTicks);
+                    chicken.setAge(-this.babyTicks);
                 } else if (!chicken.isAdult()) {
-                    chicken.setAge(-babyTicks);
+                    chicken.setAge(-this.babyTicks);
                 }
             }
         }
     }
 
     @EventHandler
-    private void onEggThrown(PlayerEggThrowEvent e) {
-        if (isFromBreeding(e.getEgg())) {
-            e.setHatching(true);
-            e.setNumHatches((byte) 1);
+    private void onEggThrown(PlayerEggThrowEvent event) {
+        if (Items.BREEDING_EGG.is(event.getEgg().getItem())) {
+            event.setHatching(true);
+            event.setNumHatches((byte) 1);
         }
     }
 
     private ItemStack getEgg() {
-        int ran = maxEggs > 1 ? rand.nextInt(maxEggs) + 1 : 1;
+        int ran = maxEggs > 1 ? this.random.nextInt(maxEggs) + 1 : 1;
         return Items.BREEDING_EGG.getItemStack(ran);
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private boolean isFromBreeding(Egg egg) {
-        ItemStack itemStack = egg.getItem();
-        ItemMeta meta = itemStack.getItemMeta();
-
-        assert meta != null;
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        if (container.has(key, PersistentDataType.BYTE)) {
-            // Old egg method (changed on sept 4/2020)
-            // Will keep for a while incase players have old eggs
-            return container.get(key, PersistentDataType.BYTE) == (byte) 1;
-        } else if (Items.BREEDING_EGG.is(itemStack)) {
-            return true;
-        }
-        return false;
     }
 
 }
