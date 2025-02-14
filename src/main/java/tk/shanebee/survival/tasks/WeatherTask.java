@@ -2,7 +2,6 @@ package tk.shanebee.survival.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -17,6 +16,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class WeatherTask extends BukkitRunnable {
 
     private final double baseSpeed;
@@ -47,18 +47,18 @@ public class WeatherTask extends BukkitRunnable {
         GameMode mode = player.getGameMode();
         if (world.getEnvironment() == Environment.NORMAL && (mode == GameMode.SURVIVAL || mode == GameMode.ADVENTURE)) {
             if (isInSnowstorm(player) && !hasSnowBoots(player)) {
-                setWalkSpeed(player, snowstormSpeed);
+                setWalkSpeed(player, this.snowstormSpeed);
             } else if (isOnSnow(player) && !hasSnowBoots(player)) {
-                setWalkSpeed(player, snowSpeed);
+                setWalkSpeed(player, this.snowSpeed);
             } else if (isInStorm(player) && !hasRainBoots(player)) {
-                setWalkSpeed(player, stormSpeed);
-            } else if (isInRain(player) && !hasRainBoots(player)) {
-                setWalkSpeed(player, rainSpeed);
+                setWalkSpeed(player, this.stormSpeed);
+            } else if (player.isInRain() && !hasRainBoots(player)) {
+                setWalkSpeed(player, this.rainSpeed);
             } else {
-                setWalkSpeed(player, baseSpeed);
+                setWalkSpeed(player, this.baseSpeed);
             }
         } else {
-            setWalkSpeed(player, baseSpeed);
+            setWalkSpeed(player, this.baseSpeed);
         }
     }
 
@@ -78,31 +78,15 @@ public class WeatherTask extends BukkitRunnable {
 
     private boolean isInSnowstorm(Player player) {
         World world = player.getWorld();
-        double temp = player.getLocation().getBlock().getTemperature();
+        Block block = player.getLocation().getBlock();
+        double temp = block.getTemperature();
+        byte lightFromSky = block.getLightFromSky();
 
-        return world.hasStorm() && temp < 0.15 && isAtHighest(player);
-    }
-
-    private boolean isInRain(Player player) {
-        World world = player.getWorld();
-        double temp = player.getLocation().getBlock().getTemperature();
-
-        // is raining (0.15 – 0.95 for rain)
-        if (world.hasStorm() && temp >= 0.15 && temp <= 0.95) {
-            // sky is above
-            return isAtHighest(player);
-        }
-        return false;
+        return world.hasStorm() && temp < 0.15 && lightFromSky == 15;
     }
 
     private boolean isInStorm(Player player) {
-        return isInRain(player) && player.getWorld().isThundering();
-    }
-
-    private boolean isAtHighest(Player player) {
-        Location location = player.getLocation();
-        World world = player.getWorld();
-        return location.getY() > world.getHighestBlockAt(location).getY();
+        return player.isInRain() && player.getWorld().isThundering();
     }
 
     private void setWalkSpeed(Player player, double speed) {
