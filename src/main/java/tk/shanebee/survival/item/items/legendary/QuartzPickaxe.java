@@ -1,5 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -32,6 +33,9 @@ public class QuartzPickaxe extends Item {
         itemMeta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
         itemMeta.addEnchant(Enchantment.MENDING, 1, false);
         itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+        itemStack.setItemMeta(itemMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("quartz_pickaxe", itemStack);
     }
 

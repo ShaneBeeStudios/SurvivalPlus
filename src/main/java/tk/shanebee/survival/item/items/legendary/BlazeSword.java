@@ -1,27 +1,19 @@
 package tk.shanebee.survival.item.items.legendary;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
-import tk.shanebee.survival.util.Utils;
-
-import java.util.Arrays;
-import java.util.UUID;
 
 @SuppressWarnings("UnstableApiUsage")
 public class BlazeSword extends Item {
@@ -46,6 +38,8 @@ public class BlazeSword extends Item {
         itemMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
         itemMeta.addEnchant(Enchantment.UNBREAKING, 3, false);
         itemStack.setItemMeta(itemMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("blaze_sword", itemStack);
     }
 

@@ -1,8 +1,8 @@
 package tk.shanebee.survival.item.items.legendary;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -38,6 +38,8 @@ public class EnderGiantBlade extends Item {
 
         itemMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
         itemStack.setItemMeta(itemMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("ender_giant_blade", itemStack);
     }
 

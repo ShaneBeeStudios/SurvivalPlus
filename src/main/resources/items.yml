@@ -101,23 +101,23 @@ items:
   # LEGENDARY TOOLS
   blaze_sword:
     name: "Blaze Sword"
-    repair_cost: 3
+    repair_cost: 5
     repair_percent: 0.95
   ender_giant_blade:
     name: "Ender Giant Blade"
-    repair_cost: 3
+    repair_cost: 5
     repair_percent: 0.95
   obsidian_mace:
     name: "Obsidian Mace"
-    repair_cost: 3
+    repair_cost: 5
     repair_percent: 0.95
   quartz_pickaxe:
     name: "Quartz Pickaxe"
-    repair_cost: 2
+    repair_cost: 5
     repair_percent: 0.95
   valkyries_axe:
     name: "Valkyries Axe"
-    repair_cost: 2
+    repair_cost: 5
     repair_percent: 0.95
 
   # ARMOR

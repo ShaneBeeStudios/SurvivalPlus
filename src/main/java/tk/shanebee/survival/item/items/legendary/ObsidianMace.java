@@ -1,5 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -37,6 +38,9 @@ public class ObsidianMace extends Item {
         itemMeta.addEnchant(Enchantment.KNOCKBACK, 3, true);
         itemMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
         itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+        itemStack.setItemMeta(itemMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("obsidian_mace", itemStack);
     }
 

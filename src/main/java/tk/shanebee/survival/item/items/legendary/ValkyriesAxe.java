@@ -1,5 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -28,6 +29,8 @@ public class ValkyriesAxe extends Item {
 
         itemMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
         itemStack.setItemMeta(itemMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("valkyries_axe", itemStack);
     }
 

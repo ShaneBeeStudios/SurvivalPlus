@@ -1,5 +1,6 @@
 package tk.shanebee.survival.item.items.tools;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,7 @@ public class Hatchet extends Item {
 
     public Hatchet() {
         ItemStack itemStack = ItemType.WOODEN_AXE.createItemStack();
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("hatchet", itemStack);
     }
 

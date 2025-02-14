@@ -1,5 +1,6 @@
 package tk.shanebee.survival.item.items.tools;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,8 @@ public class Hammer extends Item {
         ItemStack itemStack = ItemType.WOODEN_SWORD.createItemStack();
         ItemMeta hammerMeta = itemStack.getItemMeta();
         itemStack.setItemMeta(hammerMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("hammer", itemStack);
     }
 

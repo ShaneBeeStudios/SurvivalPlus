@@ -58,7 +58,6 @@ public class EventManager {
 			pm.registerEvents(new Campfire(plugin), this.plugin);
 			//pm.registerEvents(new Backpack(), this.plugin); needs to be reworked
 		}
-//		pm.registerEvents(new NoAnvil(plugin), this.plugin); // TODO see class
 		if (config.MECHANICS_BOW)
 			pm.registerEvents(new Bow(plugin), this.plugin);
 		if (config.MECHANICS_GRAPPLING_HOOK)
