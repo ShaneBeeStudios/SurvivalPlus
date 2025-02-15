@@ -1,20 +1,19 @@
 # Settings
 
 # Notes in this config are lost on updates if the config file changes
-# If you would like to see the notes, delete this file and it will regenerate with notes
-# (Make sure to backup your config file)
+# If you would like to see the notes, delete this file, and it will regenerate with notes
+# (Make sure to back up your config file)
 
-# Preset language file includes in-game messages, item names, lore, etc.
-# Language options are EN (English) or CN (Chinese)
+# Preset language file includes in-game messages.
+# Language options are EN (English)
 Language: EN
 
-MultiWorld:
+Settings:
   # Enable the SurvivalPlus resource pack for players
-  EnableResourcePack: true
+  # You can disable this if you wish to supply it yourself
+  enable-resource-pack: true
   # The link to the pack, you can put a custom link here if need be
-  ResourcePackURL: https://www.dropbox.com/s/fq6or9vvcup7wvd/SP-1.14v6.zip?dl=1
-  # Notify players when they log in if they deny the resource pack
-  NotifyMessage: true
+  resource-pack-url: https://www.dropbox.com/s/fq6or9vvcup7wvd/SP-1.14v6.zip?dl=1
 
 # The distance from the player at which other players will see their chat messages
 # -1 = disabled

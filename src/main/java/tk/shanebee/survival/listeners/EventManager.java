@@ -19,14 +19,35 @@ import tk.shanebee.survival.listeners.entity.EntityDeath;
 import tk.shanebee.survival.listeners.entity.LivingSlime;
 import tk.shanebee.survival.listeners.entity.MerchantTrades;
 import tk.shanebee.survival.listeners.entity.PiglinBarter;
-import tk.shanebee.survival.listeners.item.*;
+import tk.shanebee.survival.listeners.item.BeetrootStrength;
+import tk.shanebee.survival.listeners.item.BlazeSword;
+import tk.shanebee.survival.listeners.item.Bow;
+import tk.shanebee.survival.listeners.item.CauldronWaterBottle;
+import tk.shanebee.survival.listeners.item.CompassWaypoint;
+import tk.shanebee.survival.listeners.item.CookieHealthBoost;
+import tk.shanebee.survival.listeners.item.FirestrikerClick;
+import tk.shanebee.survival.listeners.item.FoodDiversityConsume;
+import tk.shanebee.survival.listeners.item.GiantBlade;
+import tk.shanebee.survival.listeners.item.GrapplingHook;
+import tk.shanebee.survival.listeners.item.MedicKit;
+import tk.shanebee.survival.listeners.item.ObsidianMaceWeakness;
+import tk.shanebee.survival.listeners.item.PoisonousPotato;
+import tk.shanebee.survival.listeners.item.RawMeatHunger;
+import tk.shanebee.survival.listeners.item.RecurvedBow;
+import tk.shanebee.survival.listeners.item.RepairCrafting;
+import tk.shanebee.survival.listeners.item.ShivPoison;
+import tk.shanebee.survival.listeners.item.ThirstListener;
+import tk.shanebee.survival.listeners.item.TropicalFish;
+import tk.shanebee.survival.listeners.item.Valkyrie;
+import tk.shanebee.survival.listeners.item.WaterBottleCrafting;
+import tk.shanebee.survival.listeners.item.WaterBowl;
 import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
 import tk.shanebee.survival.listeners.server.Guide;
 import tk.shanebee.survival.listeners.server.InventoryUpdate;
 import tk.shanebee.survival.listeners.server.LocalChat;
 import tk.shanebee.survival.listeners.server.RecipeDiscovery;
-import tk.shanebee.survival.listeners.server.SetResourcePack;
+import tk.shanebee.survival.listeners.server.ResourcePackListener;
 
 /**
  * Internal use only
@@ -79,7 +100,9 @@ public class EventManager {
 
 		pm.registerEvents(new WaterBottleCrafting(plugin), this.plugin);
 
-		pm.registerEvents(new SetResourcePack(plugin), this.plugin);
+        if (config.settings_resource_pack_enabled) {
+            pm.registerEvents(new ResourcePackListener(plugin), this.plugin);
+        }
 
 		if (config.MECHANICS_RAW_MEAT_HUNGER)
 			pm.registerEvents(new RawMeatHunger(), this.plugin);

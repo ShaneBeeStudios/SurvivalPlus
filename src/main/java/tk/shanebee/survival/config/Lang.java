@@ -26,10 +26,8 @@ public class Lang {
     public String survival_guide_hover_msg;
     public String survival_guide_link;
 
-    public String resource_pack_accepted;
-    public String resource_pack_declined;
     public String resource_pack_apply;
-    public String resource_pack_required;
+    public String resource_pack_fail_download;
 
     public String task_must_use_shovel;
     public String task_must_use_axe;
@@ -230,10 +228,8 @@ public class Lang {
         survival_guide_click_msg = lang.getString("survival-guide-click-msg");
         survival_guide_hover_msg = lang.getString("survival-guide-hover-msg");
         survival_guide_link = lang.getString("survival-guide-link");
-        resource_pack_accepted = lang.getString("resource-pack-accepted");
-        resource_pack_declined = lang.getString("resource-pack-declined");
         resource_pack_apply = lang.getString("resource-pack-apply");
-        resource_pack_required = lang.getString("resource-pack-required");
+        resource_pack_fail_download = lang.getString("resource-pack-fail-download");
         task_must_use_shovel = lang.getString("task-must-use-shovel");
         task_must_use_axe = lang.getString("task-must-use-axe");
         task_must_use_pick = lang.getString("task-must-use-pick");

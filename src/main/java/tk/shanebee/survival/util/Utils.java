@@ -1,6 +1,7 @@
 package tk.shanebee.survival.util;
 
 import com.google.common.collect.ImmutableSet;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -589,6 +590,11 @@ public class Utils {
         player.sendMessage(MINI_MESSAGE.deserialize(f));
     }
 
+    public static Component getMini(String format, Object... args) {
+        String msg = args != null ? String.format(format, args) : format;
+        return MINI_MESSAGE.deserialize(msg);
+    }
+
     /**
      * Send a colored console message
      * <p>This will NOT include plugin prefix</p>
@@ -624,6 +630,33 @@ public class Utils {
      */
     public static void log(String format, Object... objects) {
         log(String.format(format, objects));
+    }
+
+    /**
+     * Log a message to console
+     * <p>This will include plugin prefix</p>
+     *
+     * @param msg Message to log to console
+     */
+    public static void logMini(String msg) {
+        Lang lang = Survival.getInstance().getLang();
+        String prefix = "<grey>[<aqua>Survival<dark_aqua>Plus<grey>] ";
+        if (lang != null) {
+            prefix = lang.prefix;
+        }
+        sendColoredMini(Bukkit.getConsoleSender(), prefix + msg);
+    }
+
+    /**
+     * Log a formatted message to console
+     * <p>Formatted in the same style as {@link String#format(String, Object...)}
+     * <br>This will include plugin prefix</p>
+     *
+     * @param format  Message format
+     * @param objects Objects in format
+     */
+    public static void logMini(String format, Object... objects) {
+        logMini(String.format(format, objects));
     }
 
     /**

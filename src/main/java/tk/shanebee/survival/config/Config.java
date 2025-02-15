@@ -19,9 +19,8 @@ public class Config {
 
 	public String LANG;
 
-	public String RESOURCE_PACK_URL;
-	public boolean RESOURCE_PACK_ENABLED;
-	public boolean RESOURCE_PACK_NOTIFY;
+	public String settings_resource_pack_url;
+	public boolean settings_resource_pack_enabled;
 
 	public int LOCAL_CHAT_DISTANCE;
 
@@ -285,10 +284,9 @@ public class Config {
 
 		this.LANG = settings.getString("Language");
 
-		// MULTIWORLD
-		this.RESOURCE_PACK_URL = settings.getString("MultiWorld.ResourcePackURL");
-		this.RESOURCE_PACK_ENABLED = settings.getBoolean("MultiWorld.EnableResourcePack");
-		this.RESOURCE_PACK_NOTIFY = settings.getBoolean("MultiWorld.NotifyMessage");
+		// SETTINGS
+        this.settings_resource_pack_enabled = settings.getBoolean("Settings.enable-resource-pack");
+		this.settings_resource_pack_url = settings.getString("Settings.resource-pack-url");
 
 		this.LOCAL_CHAT_DISTANCE = settings.getInt("LocalChatDist");
 

@@ -1,6 +1,5 @@
 package tk.shanebee.survival.managers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -27,9 +26,8 @@ import java.util.UUID;
  */
 public class PlayerManager implements Listener {
 
-    private final String url;
+
     private final Lang lang;
-    private final Survival plugin;
     private final PlayerDataConfig playerDataConfig;
     private final int thirstStartingAmount;
     private final int hungerStartingAmount;
@@ -45,10 +43,8 @@ public class PlayerManager implements Listener {
     private final Map<UUID, PlayerData> playerDataMap;
 
     public PlayerManager(Survival plugin, Map<UUID, PlayerData> playerDataMap) {
-        this.plugin = plugin;
         this.playerDataMap = playerDataMap;
         this.lang = plugin.getLang();
-        this.url = plugin.getSurvivalConfig().RESOURCE_PACK_URL;
         this.playerDataConfig = plugin.getPlayerDataConfig();
         Config config = plugin.getSurvivalConfig();
         this.thirstStartingAmount = config.mechanics_thirst_starting_amount;
@@ -166,26 +162,6 @@ public class PlayerManager implements Listener {
         savePlayerData(playerData);
     }
 
-    /**
-     * Apply SurvivalPlus' resource pack to a player
-     *
-     * @param player The player to apply the resource pack to
-     * @param delay  A delay in ticks
-     */
-    public void applyResourcePack(Player player, int delay) {
-        if (this.url != null) {
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                try {
-                    player.setResourcePack(url);
-                } catch (Exception e) {
-                    Bukkit.getConsoleSender().sendMessage("ResourcePackURL is null or URL is too long! Plugin disabled.");
-                    Bukkit.getPluginManager().disablePlugin(this.plugin);
-                    return;
-                }
-                this.plugin.getUsingPlayers().add(player);
-            }, delay);
-        }
-    }
 
     public Location lookAt(Location loc, Location lookat) {
         //Clone the loc to prevent applied changes to the input loc

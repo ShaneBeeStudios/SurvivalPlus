@@ -35,16 +35,12 @@ public class Survival extends JavaPlugin implements Listener {
 	// Lists & Maps
 	private final List<Double> Rates = new ArrayList<>();
 	private final List<Material> chairBlocks = new ArrayList<>();
-	private List<Player> usingPlayers = new ArrayList<>();
 	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
 	// Configs
 	private Config config;
 	private Lang lang;
 	private PlayerDataConfig playerDataConfig;
-
-	// Scoreboards
-	private Scoreboard mainBoard;
 
 	// Managers
 	private BlockManager blockManager;
@@ -95,17 +91,17 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		// LOAD RESOURCE PACK
-		String url = config.RESOURCE_PACK_URL;
-		boolean resourcePack = config.RESOURCE_PACK_ENABLED;
-		if (resourcePack) {
-			if (url.isEmpty()) {
+		if (config.settings_resource_pack_enabled) {
+			if (config.settings_resource_pack_url.isEmpty()) {
 				Utils.log("&cResource Pack is not set! Plugin disabling");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			} else {
 				Utils.log("&7Resource pack &aenabled");
 			}
-		} else Utils.log("&eResource Pack disabled");
+		} else {
+            Utils.log("&eResource Pack disabled");
+        }
 
 		Rates.add(config.DROP_RATE_FLINT);
 		Rates.add(config.DROP_RATE_STICK);
@@ -121,9 +117,6 @@ public class Survival extends JavaPlugin implements Listener {
 				return;
 			}
 		}
-
-		// LOAD SCOREBOARDS
-		mainBoard = Bukkit.getScoreboardManager().getMainScoreboard();
 
 		// LOAD MANAGERS
 		blockManager = new BlockManager(this);
@@ -180,7 +173,6 @@ public class Survival extends JavaPlugin implements Listener {
 		Utils.log("&eShutting down");
 		getServer().getScheduler().cancelTasks(this);
 		//getServer().resetRecipes(); <-- why is this even here?
-		usingPlayers = new ArrayList<>();
 
 		// Remove limited crafting when server shuts down (important if server removes this plugin)
 		for (World world : getServer().getWorlds()) {
@@ -365,13 +357,6 @@ public class Survival extends JavaPlugin implements Listener {
 		return lang;
 	}
 
-	/** Get the main server scoreboard
-	 * @return Main server scoreboard
-	 */
-	public Scoreboard getMainBoard() {
-		return mainBoard;
-	}
-
 	public boolean isSnowGenOption() {
 		return snowGenOption;
 	}
@@ -385,13 +370,6 @@ public class Survival extends JavaPlugin implements Listener {
 	 */
 	public List<Material> getChairBlocks() {
 		return chairBlocks;
-	}
-
-	/** Get a list of players using the plugin's resource pack
-	 * @return List of players using the plugin's resource pack
-	 */
-	public List<Player> getUsingPlayers() {
-		return usingPlayers;
 	}
 
 	public PlayerDataConfig getPlayerDataConfig() {
