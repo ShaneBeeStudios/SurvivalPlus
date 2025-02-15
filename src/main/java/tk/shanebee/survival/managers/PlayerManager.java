@@ -26,18 +26,9 @@ import java.util.UUID;
  */
 public class PlayerManager implements Listener {
 
-
     private final Lang lang;
+    private final Config config;
     private final PlayerDataConfig playerDataConfig;
-    private final int thirstStartingAmount;
-    private final int hungerStartingAmount;
-    private final double energyStartingAmount;
-    private final int proteinStartingAmount;
-    private final int carbsStartingAmount;
-    private final int saltsStartingAmount;
-    private final int maxProtein;
-    private final int maxCarbs;
-    private final int maxSalts;
 
     // Store all the active PlayerData
     private final Map<UUID, PlayerData> playerDataMap;
@@ -46,16 +37,7 @@ public class PlayerManager implements Listener {
         this.playerDataMap = playerDataMap;
         this.lang = plugin.getLang();
         this.playerDataConfig = plugin.getPlayerDataConfig();
-        Config config = plugin.getSurvivalConfig();
-        this.thirstStartingAmount = config.mechanics_thirst_starting_amount;
-        this.hungerStartingAmount = config.MECHANICS_HUNGER_START_AMOUNT;
-        this.energyStartingAmount = config.MECHANICS_ENERGY_START;
-        this.proteinStartingAmount = config.MECHANICS_FOOD_START_PROTEINS;
-        this.carbsStartingAmount = config.MECHANICS_FOOD_START_CARBS;
-        this.saltsStartingAmount = config.MECHANICS_FOOD_START_SALTS;
-        this.maxCarbs = config.MECHANICS_FOOD_MAX_CARBS;
-        this.maxProtein = config.MECHANICS_FOOD_MAX_PROTEINS;
-        this.maxSalts = config.MECHANICS_FOOD_MAX_SALTS;
+        this.config = plugin.getSurvivalConfig();
     }
 
     /**
@@ -86,9 +68,14 @@ public class PlayerManager implements Listener {
      */
     public PlayerData createNewPlayerData(Player player) {
         UUID uuid = player.getUniqueId();
-        setHunger(player, hungerStartingAmount);
+        setHunger(player, this.config.mechanics_hunger_start_amount);
 
-        PlayerData playerData = new PlayerData(uuid, this.thirstStartingAmount, this.proteinStartingAmount, this.carbsStartingAmount, this.saltsStartingAmount, this.energyStartingAmount);
+        PlayerData playerData = new PlayerData(uuid,
+            this.config.mechanics_thirst_starting_amount,
+            this.config.mechanics_food_start_protein,
+            this.config.mechanics_food_start_carbs,
+            this.config.mechanics_food_start_vitamins,
+            this.config.mechanics_energy_start);
         this.playerDataMap.put(uuid, playerData);
         savePlayerData(playerData);
         return playerData;
@@ -243,20 +230,20 @@ public class PlayerManager implements Listener {
 
         int carbs = data.getNutrient(Nutrient.CARBS);
         int protein = data.getNutrient(Nutrient.PROTEIN);
-        int salts = data.getNutrient(Nutrient.SALTS);
+        int vitamins = data.getNutrient(Nutrient.VITAMINS);
 
         nutrients.add("<#A0E853>" + this.lang.carbohydrates);
         nutrients.add("<#CE784D>" + this.lang.protein);
         nutrients.add("<#53DDE8>" + this.lang.vitamins);
 
-        double carbGrad = ((double) carbs / this.maxCarbs) - 1;
-        double proteinGrad = ((double) protein / this.maxProtein) - 1;
-        double saltsGrad = ((double) salts / this.maxSalts) - 1;
+        double carbGrad = ((double) carbs / this.config.mechanics_food_max_level) - 1;
+        double proteinGrad = ((double) protein / this.config.mechanics_food_max_level) - 1;
+        double vitaminsGrad = ((double) vitamins / this.config.mechanics_food_max_level) - 1;
 
         // green - green - green - yellow - red
         nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + carbGrad + ">" + carbs);
         nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + proteinGrad + ">" + protein);
-        nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + saltsGrad + ">" + salts);
+        nutrients.add("<transition:#02FF4E:#02FF4E:#02FF4E:#FF9F02:#FF0202:" + vitaminsGrad + ">" + vitamins);
 
         return nutrients;
     }

@@ -7,7 +7,7 @@ public enum Nutrient {
 
 	CARBS("Carbs"),
 	PROTEIN("Protein"),
-	SALTS("Salts");
+	VITAMINS("Vitamins");
 
 	private final String name;
 

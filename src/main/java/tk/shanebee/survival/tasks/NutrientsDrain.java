@@ -8,7 +8,6 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.managers.StatusManager;
 
 class NutrientsDrain extends BukkitRunnable {
 
@@ -28,7 +27,7 @@ class NutrientsDrain extends BukkitRunnable {
 
 					playerData.increaseNutrient(Nutrient.CARBS, -8);
 					playerData.increaseNutrient(Nutrient.PROTEIN, -2);
-					playerData.increaseNutrient(Nutrient.SALTS, -3);
+					playerData.increaseNutrient(Nutrient.VITAMINS, -3);
 				}
 			}
 		}

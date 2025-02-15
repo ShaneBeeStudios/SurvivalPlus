@@ -127,20 +127,17 @@ Mechanics:
   FoodDiversity:
     enabled: true
     # Max level for each nutritional value
-    max-level:
-      carbs: 1000
-      salts: 1000
-      proteins: 1000
+    max-level: 1000
     # The level the player will start with
     start-level:
       proteins: 240
       carbs: 960
-      salts: 360
+      vitamins: 360
     # The level the player will get after dying
     respawn-level:
       proteins: 120
       carbs: 480
-      salts: 180
+      vitamins: 180
     # Each nutrition section has different effects when player's levels are too low
     effects:
       carbs:
@@ -149,20 +146,19 @@ Mechanics:
           easy: 2
           normal: 4
           hard: 8
-      salts:
+      vitamins:
         exhaustion-amplifier: 1
         # Status effects/amplifiers can differ based on server difficulty level
         status-effects:
           normal:
             # The effect (uses Bukkit PotionEffectTypes)
-            # You can find these effects here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
-            effect: WEAKNESS
+            effect: "minecraft:weakness"
             # The amplifying level (0 = tier 1, 1 = tier 2)
             amplifier: 0
             # The time in seconds this effect will last for
             duration: 20
           hard:
-            effect: WEAKNESS
+            effect: "minecraft:weakness"
             amplifier: 1
             duration: 20
       proteins:
@@ -170,11 +166,11 @@ Mechanics:
         # Status effects/amplifiers can differ based on server difficulty level
         status-effects:
           normal:
-            effect: WEAKNESS
+            effect: "minecraft:weakness"
             amplifier: 0
             duration: 20
           hard:
-            effect: WEAKNESS
+            effect: "minecraft:weakness"
             amplifier: 1
             duration: 20
 

@@ -112,7 +112,7 @@ public class Placeholders extends PlaceholderExpansion {
             return String.valueOf(playerData.getNutrient(Nutrient.PROTEIN));
         }
         if (identifier.equalsIgnoreCase("player_nutrients_salts")) {
-            return String.valueOf(playerData.getNutrient(Nutrient.SALTS));
+            return String.valueOf(playerData.getNutrient(Nutrient.VITAMINS));
         }
         return null;
     }

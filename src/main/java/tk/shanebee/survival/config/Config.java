@@ -57,7 +57,7 @@ public class Config {
 
 	// ENERGY
     public boolean mechanics_energy_enabled;
-    public double MECHANICS_ENERGY_START;
+    public double mechanics_energy_start;
     public double mechanics_energy_respawn;
     public boolean MECHANICS_ENERGY_WARNING;
     public double MECHANICS_ENERGY_DRAIN_RATE;
@@ -88,32 +88,30 @@ public class Config {
 	public boolean MECHANICS_BEET_STRENGTH;
 
 	public boolean mechanics_food_diversity_enabled;
-	public int MECHANICS_FOOD_MAX_PROTEINS;
-    public int MECHANICS_FOOD_MAX_SALTS;
-    public int MECHANICS_FOOD_MAX_CARBS;
-    public int MECHANICS_FOOD_START_PROTEINS;
-    public int MECHANICS_FOOD_START_SALTS;
-    public int MECHANICS_FOOD_START_CARBS;
+    public int mechanics_food_max_level;
+    public int mechanics_food_start_carbs;
+    public int mechanics_food_start_protein;
+    public int mechanics_food_start_vitamins;
     public int mechanics_food_respawn_proteins;
-    public int mechanics_food_respawn_salts;
+    public int mechanics_food_respawn_vitamins;
     public int mechanics_food_respawn_carbs;
-	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY;
-	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM;
-	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD;
-	public int MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP;
-	public String MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_EFFECT;
-	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_AMP;
-	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_DURATION;
-	public String MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_EFFECT;
-	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP;
-	public int MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION;
-	public int MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP;
-	public String MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT;
-	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_AMP;
-	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_DURATION;
-	public String MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_EFFECT;
-	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP;
-	public int MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION;
+	public int mechanics_food_effects_carbs_ex_amp_easy;
+	public int mechanics_food_effects_carbs_ex_amp_medium;
+	public int mechanics_food_effects_carbs_ex_amp_hard;
+	public int mechanics_food_effects_vitamins_ex_amp;
+	public String mechanics_food_effects_vitamins_se_normal_effect;
+	public int mechanics_food_effects_vitamins_se_normal_amp;
+	public int mechanics_food_effects_vitamins_se_normal_duration;
+	public String mechanics_food_effects_vitamins_se_hard_effect;
+	public int mechanics_food_effects_vitamins_se_hard_amp;
+	public int mechanics_food_effects_vitamins_se_hard_duration;
+	public int mechanics_food_effects_protein_ex_amp;
+	public String mechanics_food_effects_protein_se_normal_effect;
+	public int mechanics_food_effects_protein_se_normal_amp;
+	public int mechanics_food_effects_protein_se_normal_duration;
+	public String mechanics_food_effects_protein_se_hard_effect;
+	public int mechanics_food_effects_protein_se_hard_amp;
+	public int mechanics_food_effects_protein_se_hard_duration;
 
 	// THIRST
 	public boolean mechanics_thirst_enabled;
@@ -140,7 +138,7 @@ public class Config {
     public int mechanics_thirst_rep_honey_bottle;
     public int mechanics_thirst_rep_other_water;
 
-	public int MECHANICS_HUNGER_START_AMOUNT;
+	public int mechanics_hunger_start_amount;
 	public int mechanics_hunger_respawn_amount;
 
 	public boolean MECHANICS_COMPASS_WAYPOINT;
@@ -321,7 +319,7 @@ public class Config {
 		this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
 		this.MECHANICS_PREVENT_NIGHT_SKIP = settings.getBoolean("Mechanics.Prevent-Night-Skip");
 		this.mechanics_energy_enabled = settings.getBoolean("Mechanics.Energy.enabled");
-		this.MECHANICS_ENERGY_START = settings.getDouble("Mechanics.Energy.start-level");
+		this.mechanics_energy_start = settings.getDouble("Mechanics.Energy.start-level");
         this.mechanics_energy_respawn = settings.getDouble("Mechanics.Energy.respawn-level");
 		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
@@ -352,35 +350,33 @@ public class Config {
 		this.MECHANICS_BEET_STRENGTH = settings.getBoolean("Mechanics.BeetrootStrength");
 
 		this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-		this.MECHANICS_FOOD_MAX_CARBS = settings.getInt("Mechanics.FoodDiversity.max-level.carbs");
-        this.MECHANICS_FOOD_MAX_SALTS = settings.getInt("Mechanics.FoodDiversity.max-level.salts");
-        this.MECHANICS_FOOD_MAX_PROTEINS = settings.getInt("Mechanics.FoodDiversity.max-level.proteins");
+		this.mechanics_food_max_level = settings.getInt("Mechanics.FoodDiversity.max-level");
         this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-        this.MECHANICS_FOOD_START_CARBS = settings.getInt("Mechanics.FoodDiversity.start-level.carbs");
-        this.MECHANICS_FOOD_START_SALTS = settings.getInt("Mechanics.FoodDiversity.start-level.salts");
-        this.MECHANICS_FOOD_START_PROTEINS = settings.getInt("Mechanics.FoodDiversity.start-level.proteins");
+        this.mechanics_food_start_carbs = settings.getInt("Mechanics.FoodDiversity.start-level.carbs");
+        this.mechanics_food_start_vitamins = settings.getInt("Mechanics.FoodDiversity.start-level.vitamins");
+        this.mechanics_food_start_protein = settings.getInt("Mechanics.FoodDiversity.start-level.proteins");
         this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
         this.mechanics_food_respawn_carbs = settings.getInt("Mechanics.FoodDiversity.respawn-level.carbs");
-        this.mechanics_food_respawn_salts = settings.getInt("Mechanics.FoodDiversity.respawn-level.salts");
+        this.mechanics_food_respawn_vitamins = settings.getInt("Mechanics.FoodDiversity.respawn-level.vitamins");
         this.mechanics_food_respawn_proteins = settings.getInt("Mechanics.FoodDiversity.respawn-level.proteins");
-		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
-		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
-		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_EX_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.exhaustion-amplifier");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.salts.status-effects.normal.effect");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.normal.amplifier");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_NORMAL_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.normal.duration");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.salts.status-effects.hard.effect");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_AMP = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.hard.amplifier");
-		this.MECHANICS_FOOD_EFFECTS_SALTS_SE_HARD_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.salts.status-effects.hard.duration");
+		this.mechanics_food_effects_carbs_ex_amp_easy = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
+		this.mechanics_food_effects_carbs_ex_amp_medium = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
+		this.mechanics_food_effects_carbs_ex_amp_hard = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");
+		this.mechanics_food_effects_vitamins_ex_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.exhaustion-amplifier");
+		this.mechanics_food_effects_vitamins_se_normal_effect = settings.getString("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.effect");
+		this.mechanics_food_effects_vitamins_se_normal_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.amplifier");
+		this.mechanics_food_effects_vitamins_se_normal_duration = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.duration");
+		this.mechanics_food_effects_vitamins_se_hard_effect = settings.getString("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.effect");
+		this.mechanics_food_effects_vitamins_se_hard_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.amplifier");
+		this.mechanics_food_effects_vitamins_se_hard_duration = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.duration");
 
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_EX_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.exhaustion-amplifier");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.effect");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.amplifier");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_NORMAL_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.duration");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_EFFECT = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.effect");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_AMP = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.amplifier");
-		this.MECHANICS_FOOD_EFFECTS_PROTEIN_SE_HARD_DURATION = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.duration");
+		this.mechanics_food_effects_protein_ex_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.exhaustion-amplifier");
+		this.mechanics_food_effects_protein_se_normal_effect = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.effect");
+		this.mechanics_food_effects_protein_se_normal_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.amplifier");
+		this.mechanics_food_effects_protein_se_normal_duration = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.duration");
+		this.mechanics_food_effects_protein_se_hard_effect = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.effect");
+		this.mechanics_food_effects_protein_se_hard_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.amplifier");
+		this.mechanics_food_effects_protein_se_hard_duration = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.duration");
 
 		this.mechanics_thirst_enabled = settings.getBoolean("Mechanics.Thirst.enabled");
 		this.mechanics_thirst_starting_amount = settings.getInt("Mechanics.Thirst.starting-amount");
@@ -407,7 +403,7 @@ public class Config {
         this.mechanics_thirst_rep_other_water = settings.getInt("Mechanics.Thirst.replenish-level.other-water");
         this.mechanics_thirst_rep_water = settings.getInt("Mechanics.Thirst.replenish-level.water");
 
-		this.MECHANICS_HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
+		this.mechanics_hunger_start_amount = settings.getInt("Mechanics.Hunger.Starting-Amount");
 		this.mechanics_hunger_respawn_amount = settings.getInt("Mechanics.Hunger.Respawn-Amount");
 
 		this.MECHANICS_COMPASS_WAYPOINT = settings.getBoolean("Mechanics.CompassWaypoint.enabled");

@@ -32,7 +32,7 @@ public class FoodDiversityConsume implements Listener {
         Config config = plugin.getSurvivalConfig();
         RESPAWN_PROTEIN = config.mechanics_food_respawn_proteins;
         RESPAWN_CARBS = config.mechanics_food_respawn_carbs;
-        RESPAWN_SALTS = config.mechanics_food_respawn_salts;
+        RESPAWN_SALTS = config.mechanics_food_respawn_vitamins;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -90,14 +90,14 @@ public class FoodDiversityConsume implements Listener {
 	private void addStats(Player player, Nutrition nutrition) {
 		addStats(player, Nutrient.CARBS, nutrition.getCarbs());
 		addStats(player, Nutrient.PROTEIN, nutrition.getProteins());
-		addStats(player, Nutrient.SALTS, nutrition.getVitamins());
+		addStats(player, Nutrient.VITAMINS, nutrition.getVitamins());
 	}
 
 	private void setStats(Player player, int carbs, int proteins, int vitamins) {
 		PlayerData playerData = playerManager.getPlayerData(player);
 		playerData.setNutrient(Nutrient.CARBS, carbs);
 		playerData.setNutrient(Nutrient.PROTEIN, proteins);
-		playerData.setNutrient(Nutrient.SALTS, vitamins);
+		playerData.setNutrient(Nutrient.VITAMINS, vitamins);
 	}
 
 	private double addMultiplier(Player player) {
@@ -118,7 +118,7 @@ public class FoodDiversityConsume implements Listener {
 				default:
 			}
 		}
-		if (playerData.getNutrient(Nutrient.SALTS) <= 100) {
+		if (playerData.getNutrient(Nutrient.VITAMINS) <= 100) {
 			switch (player.getWorld().getDifficulty()) {
 				case EASY:
 					damageMultiplier *= 1.25;

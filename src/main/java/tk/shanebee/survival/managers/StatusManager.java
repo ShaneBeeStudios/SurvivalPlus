@@ -78,7 +78,7 @@ public class StatusManager {
         PlayerData pd = playerManager.getPlayerData(player);
         switch (nutrient) {
             case SALTS:
-                pd.setNutrient(Nutrient.SALTS, level);
+                pd.setNutrient(Nutrient.VITAMINS, level);
                 break;
             case CARBS:
                 pd.setNutrient(Nutrient.CARBS, level);
@@ -97,7 +97,7 @@ public class StatusManager {
         PlayerData pd = playerManager.getPlayerData(player);
         switch (nutrient) {
             case SALTS:
-                return pd.getNutrient(Nutrient.SALTS);
+                return pd.getNutrient(Nutrient.VITAMINS);
             case CARBS:
                 return pd.getNutrient(Nutrient.CARBS);
             case PROTEIN:

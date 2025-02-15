@@ -6,7 +6,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Math;
@@ -25,17 +24,14 @@ import java.util.UUID;
 public class PlayerData implements ConfigurationSerializable {
 
     private final Config config = Survival.getInstance().getSurvivalConfig();
-    private final int max_carbs = config.MECHANICS_FOOD_MAX_CARBS;
-    private final int max_proteins = config.MECHANICS_FOOD_MAX_PROTEINS;
-    private final int max_salts = config.MECHANICS_FOOD_MAX_SALTS;
     private final UUID uuid;
     private int thirst;
     private Map<String, Location> compassMap = new HashMap<>();
 
     // Nutrients
-    private int proteins;
     private int carbs;
-    private int salts;
+    private int proteins;
+    private int vitamins;
     private double energy;
 
     // Dunno yet
@@ -58,16 +54,16 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean score_energy = true;
     private boolean score_nutrients = true;
 
-    public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int salts, double energy) {
-        this(player.getUniqueId(), thirst, proteins, carbs, salts, energy);
+    public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int vitamins, double energy) {
+        this(player.getUniqueId(), thirst, proteins, carbs, vitamins, energy);
     }
 
-    public PlayerData(UUID uuid, int thirst, int proteins, int carbs, int salts, double energy) {
+    public PlayerData(UUID uuid, int thirst, int proteins, int carbs, int vitamins, double energy) {
         this.uuid = uuid;
         this.thirst = thirst;
         this.proteins = proteins;
         this.carbs = carbs;
-        this.salts = salts;
+        this.vitamins = vitamins;
         this.energy = energy;
     }
 
@@ -123,16 +119,11 @@ public class PlayerData implements ConfigurationSerializable {
      * @return Level of the nutrient
      */
     public int getNutrient(Nutrient nutrient) {
-        switch (nutrient) {
-            case PROTEIN:
-                return proteins;
-            case CARBS:
-                return carbs;
-            case SALTS:
-                return salts;
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + nutrient);
-        }
+        return switch (nutrient) {
+            case PROTEIN -> proteins;
+            case CARBS -> carbs;
+            case VITAMINS -> vitamins;
+        };
     }
 
     /**
@@ -144,13 +135,13 @@ public class PlayerData implements ConfigurationSerializable {
     public void setNutrient(Nutrient nutrient, int value) {
         switch (nutrient) {
             case PROTEIN:
-                this.proteins = Math.clamp(value, 0, this.max_proteins);
+                this.proteins = Math.clamp(value, 0, this.config.mechanics_food_max_level);
                 break;
             case CARBS:
-                this.carbs = Math.clamp(value, 0, this.max_carbs);
+                this.carbs = Math.clamp(value, 0, this.config.mechanics_food_max_level);
                 break;
-            case SALTS:
-                this.salts = Math.clamp(value, 0, this.max_salts);
+            case VITAMINS:
+                this.vitamins = Math.clamp(value, 0, this.config.mechanics_food_max_level);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + nutrient);
@@ -162,12 +153,12 @@ public class PlayerData implements ConfigurationSerializable {
      *
      * @param carbs    Level of carbs to set
      * @param proteins Level of proteins to set
-     * @param salts    Level of salts to set
+     * @param vitamins Level of vitamins to set
      */
-    public void setNutrients(int carbs, int proteins, int salts) {
+    public void setNutrients(int carbs, int proteins, int vitamins) {
         setNutrient(Nutrient.CARBS, carbs);
         setNutrient(Nutrient.PROTEIN, proteins);
-        setNutrient(Nutrient.SALTS, salts);
+        setNutrient(Nutrient.VITAMINS, vitamins);
     }
 
     /**
@@ -179,13 +170,13 @@ public class PlayerData implements ConfigurationSerializable {
     public void increaseNutrient(Nutrient nutrient, int value) {
         switch (nutrient) {
             case PROTEIN:
-                this.proteins = Math.clamp(this.proteins + value, 0, this.max_proteins);
+                this.proteins = Math.clamp(this.proteins + value, 0, this.config.mechanics_food_max_level);
                 break;
             case CARBS:
-                this.carbs = Math.clamp(this.carbs + value, 0, this.max_carbs);
+                this.carbs = Math.clamp(this.carbs + value, 0, this.config.mechanics_food_max_level);
                 break;
-            case SALTS:
-                this.salts = Math.clamp(this.salts + value, 0, this.max_salts);
+            case VITAMINS:
+                this.vitamins = Math.clamp(this.vitamins + value, 0, this.config.mechanics_food_max_level);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + nutrient);
@@ -261,26 +252,17 @@ public class PlayerData implements ConfigurationSerializable {
      * @return Value of stat
      */
     public int getStat(Stat stat) {
-        switch (stat) {
-            case CHARGE:
-                return this.charge;
-            case CHARGING:
-                return this.charging;
-            case SPIN:
-                return this.spin;
-            case DUAL_WIELD:
-                return this.dualWield;
-            case HEALING:
-                return this.healing;
-            case HEAL_TIMES:
-                return this.healTimes;
-            case RECURVE_FIRING:
-                return this.recurveFiring;
-            case RECURVE_COOLDOWN:
-                return this.recurveCooldown;
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + stat);
-        }
+        return switch (stat) {
+            case CHARGE -> this.charge;
+            case CHARGING -> this.charging;
+            case SPIN -> this.spin;
+            case DUAL_WIELD -> this.dualWield;
+            case HEALING -> this.healing;
+            case HEAL_TIMES -> this.healTimes;
+            case RECURVE_FIRING -> this.recurveFiring;
+            case RECURVE_COOLDOWN -> this.recurveCooldown;
+            default -> throw new IllegalArgumentException("Unexpected value: " + stat);
+        };
     }
 
     /**
@@ -308,18 +290,13 @@ public class PlayerData implements ConfigurationSerializable {
      * @return True if this info is displayed on the player's scoreboard
      */
     public boolean isInfoDisplayed(Info info) {
-        switch (info) {
-            case HUNGER:
-                return score_hunger;
-            case THIRST:
-                return score_thirst;
-            case ENERGY:
-                return score_energy;
-            case NUTRIENTS:
-                return score_nutrients;
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + info);
-        }
+        return switch (info) {
+            case HUNGER -> this.score_hunger;
+            case THIRST -> this.score_thirst;
+            case ENERGY -> this.score_energy;
+            case NUTRIENTS -> this.score_nutrients;
+            default -> throw new IllegalArgumentException("Unexpected value: " + info);
+        };
     }
 
     /**
@@ -401,18 +378,18 @@ public class PlayerData implements ConfigurationSerializable {
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("uuid", uuid.toString());
-        result.put("thirst", thirst);
-        result.put("energy", energy);
-        result.put("nutrients.proteins", proteins);
-        result.put("nutrients.carbs", carbs);
-        result.put("nutrients.salts", salts);
-        result.put("local-chat", localChat);
-        result.put("score.hunger", score_hunger);
-        result.put("score.thirst", score_thirst);
-        result.put("score.energy", score_energy);
-        result.put("score.nutrients", score_nutrients);
-        result.put("compass", compassMap);
+        result.put("uuid", this.uuid.toString());
+        result.put("thirst", this.thirst);
+        result.put("energy", this.energy);
+        result.put("nutrients.proteins", this.proteins);
+        result.put("nutrients.carbs", this.carbs);
+        result.put("nutrients.vitamins", this.vitamins);
+        result.put("local-chat", this.localChat);
+        result.put("score.hunger", this.score_hunger);
+        result.put("score.thirst", this.score_thirst);
+        result.put("score.energy", this.score_energy);
+        result.put("score.nutrients", this.score_nutrients);
+        result.put("compass", this.compassMap);
         return result;
     }
 
@@ -428,9 +405,9 @@ public class PlayerData implements ConfigurationSerializable {
         double energy = getDouble(args, "energy", 20.0);
         int proteins = ((Integer) args.get("nutrients.proteins"));
         int carbs = ((Integer) args.get("nutrients.carbs"));
-        int salts = ((Integer) args.get("nutrients.salts"));
+        int vitamins = ((Integer) args.get("nutrients.vitamins"));
 
-        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, salts, energy);
+        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, vitamins, energy);
 
         boolean localChat = getBool(args, "local-chat", false);
         data.setLocalChat(localChat);
@@ -522,8 +499,8 @@ public class PlayerData implements ConfigurationSerializable {
             case CARBS:
                 setNutrient(Nutrient.CARBS, value.intValue());
                 break;
-            case SALTS:
-                setNutrient(Nutrient.SALTS, value.intValue());
+            case VITAMINS:
+                setNutrient(Nutrient.VITAMINS, value.intValue());
                 break;
             case HUNGER:
                 setHunger(value.doubleValue());
@@ -540,29 +517,22 @@ public class PlayerData implements ConfigurationSerializable {
      * @return Value from this player data
      */
     public double getData(DataType type) {
-        switch (type) {
-            case THIRST:
-                return getThirst();
-            case ENERGY:
-                return getEnergy();
-            case PROTEINS:
-                return getNutrient(Nutrient.PROTEIN);
-            case CARBS:
-                return getNutrient(Nutrient.CARBS);
-            case SALTS:
-                return getNutrient(Nutrient.SALTS);
-            case HUNGER:
-                return getHunger();
-            default:
-                throw new IllegalArgumentException("Unknown type: " + type);
-        }
+        return switch (type) {
+            case THIRST -> getThirst();
+            case ENERGY -> getEnergy();
+            case PROTEINS -> getNutrient(Nutrient.PROTEIN);
+            case CARBS -> getNutrient(Nutrient.CARBS);
+            case VITAMINS -> getNutrient(Nutrient.VITAMINS);
+            case HUNGER -> getHunger();
+            default -> throw new IllegalArgumentException("Unknown type: " + type);
+        };
     }
 
     public enum DataType {
         THIRST,
         ENERGY,
         PROTEINS,
-        SALTS,
+        VITAMINS,
         CARBS,
         HUNGER;
 

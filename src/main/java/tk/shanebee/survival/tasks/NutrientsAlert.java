@@ -33,7 +33,7 @@ class NutrientsAlert extends BukkitRunnable {
 					player.sendMessage(ChatColor.DARK_GREEN + lang.carbohydrates_lack);
 				}
 
-				if (playerData.getNutrient(Nutrient.SALTS) <= 180) {
+				if (playerData.getNutrient(Nutrient.VITAMINS) <= 180) {
 					player.sendMessage(ChatColor.BLUE + lang.vitamins_lack);
 				}
 

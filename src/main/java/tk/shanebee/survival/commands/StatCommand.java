@@ -93,7 +93,7 @@ public class StatCommand extends BaseCommand {
                 this.lang.protein,
                 playerData.getNutrient(Nutrient.PROTEIN),
                 this.lang.vitamins,
-                playerData.getNutrient(Nutrient.SALTS));
+                playerData.getNutrient(Nutrient.VITAMINS));
         };
 
         Utils.sendColoredMini(player, message);

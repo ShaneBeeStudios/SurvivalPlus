@@ -58,7 +58,7 @@ public class HealCommand extends BaseCommand {
         if (this.config.mechanics_food_diversity_enabled) {
             int carbs = this.config.mechanics_food_respawn_carbs;
             int proteins = this.config.mechanics_food_respawn_proteins;
-            int salts = this.config.mechanics_food_respawn_salts;
+            int salts = this.config.mechanics_food_respawn_vitamins;
             playerData.setNutrients(carbs, proteins, salts);
         }
         if (this.config.mechanics_energy_enabled) {
