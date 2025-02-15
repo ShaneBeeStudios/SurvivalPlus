@@ -124,8 +124,10 @@ public class HealthBoard {
             this.fastBoard = new FastBoard(this.player);
             this.on = true;
         } else {
-            this.fastBoard.delete();
-            this.fastBoard = null;
+            if (this.fastBoard != null) {
+                this.fastBoard.delete();
+                this.fastBoard = null;
+            }
             this.on = false;
             // Force resends the vanilla scoreboard
             this.player.setScoreboard(DUMMY);
