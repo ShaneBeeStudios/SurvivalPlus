@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -78,7 +79,7 @@ public class Nutrition implements Keyed {
     private static Nutrition register(int carbs, int proteins, int vitamins, Material material) {
         String key = material.toString().toLowerCase(Locale.ROOT);
         int[] nutritions = ItemConfig.INSTANCE.getNutritionValues(key, carbs, proteins, vitamins);
-        NamespacedKey namespacedKey = new NamespacedKey(Survival.getInstance(), "nutrition_" + key);
+        NamespacedKey namespacedKey = Utils.getNamespacedKey( "nutrition_" + key);
         ItemStack itemStack = new ItemStack(material);
         return register(namespacedKey, false, itemStack, nutritions[0], nutritions[1], nutritions[2]);
     }

@@ -830,7 +830,7 @@ public class Utils {
      * @return New NamespacedKey linked to this plugin
      */
     public static NamespacedKey getNamespacedKey(String key) {
-        return new NamespacedKey(Survival.getInstance(), key);
+        return new NamespacedKey("survival_plus", key);
     }
 
     /**
