@@ -147,7 +147,11 @@ public class Items {
     @SuppressWarnings("PatternValidation")
     @Nullable
     public static Item getByKey(@NotNull String key) {
-        return ALL_ITEMS.get(Key.key(key.toLowerCase(Locale.ROOT)));
+        key = key.toLowerCase(Locale.ROOT);
+        if (!key.contains("survival_plus:")) {
+            key = "survival_plus:" + key;
+        }
+        return ALL_ITEMS.get(Key.key(key));
     }
 
     /**
