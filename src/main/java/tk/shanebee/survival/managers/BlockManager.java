@@ -67,7 +67,7 @@ public class BlockManager {
 			}
             ((Lightable) data).setLit(false);
 			block.setBlockData(data);
-		}, 20 * seconds);
+		}, 20L * seconds);
 	}
 
 	private void loadDataFile(CommandSender sender) {
@@ -75,23 +75,23 @@ public class BlockManager {
 		data_file = new File(plugin.getDataFolder(), "data.yml");
 		if (!data_file.exists()) {
 			plugin.saveResource("data.yml", true);
-			loaded = "&aNew data.yml created";
+			loaded = "<green>New data.yml created";
 		} else {
-			loaded = "&7data.yml &aloaded";
+			loaded = "<grey>data.yml <green>loaded";
 		}
 		data = YamlConfiguration.loadConfiguration(data_file);
-		Utils.sendColoredMsg(sender, lang.prefix + loaded);
+		Utils.sendColoredMini(sender, lang.prefix + loaded);
 	}
 
 	/**
-	 * Adds a non persistent torch to the data.yml file
+	 * Adds a non-persistent torch to the data.yml file
 	 *
-	 * @param block The torch to make non persistent
+	 * @param block The torch to make non-persistent
 	 */
 	public void setNonPersistent(Block block) {
 		List<String> list = data.getStringList("NonPersistent Torches");
 		long time = System.currentTimeMillis();
-		time = time + (1000 * seconds);
+		time = time + (1000L * seconds);
 		list.add(locToString(block.getLocation()) + " time:" + time);
 		data.set("NonPersistent Torches", list);
 		try {
@@ -102,7 +102,7 @@ public class BlockManager {
 	}
 
 	/**
-	 * Removes a non persistent torch from the data.yml file
+	 * Removes a non-persistent torch from the data.yml file
 	 *
 	 * @param block The torch to remove as non persistent
 	 */
@@ -122,10 +122,10 @@ public class BlockManager {
 	}
 
 	/**
-	 * Checks if a torch is non persistent
+	 * Checks if a torch is non-persistent
 	 *
 	 * @param block The torch to check
-	 * @return Whether its persistent or not
+	 * @return Whether it's persistent or not
 	 */
 	public boolean isNonPersistent(Block block) {
 		return containsLoc(block.getLocation());

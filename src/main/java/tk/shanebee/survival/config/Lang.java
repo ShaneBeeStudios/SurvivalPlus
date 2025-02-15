@@ -214,10 +214,9 @@ public class Lang {
         File lang_file = new File(plugin.getDataFolder(), langFilePath);
         if (!lang_file.exists()) {
             plugin.saveResource(langFilePath, true);
-            loaded = "&aNew " + langFilePath + " created";
+            loaded = "<green>New " + langFilePath + " created";
         } else {
-            loaded = "&7" + langFilePath + " &aloaded";
-            //updateLang(YamlConfiguration.loadConfiguration(lang_file), lang_file);
+            loaded = "<grey>" + langFilePath + " <green>loaded";
             matchConfig(YamlConfiguration.loadConfiguration(lang_file), lang_file);
         }
         lang = YamlConfiguration.loadConfiguration(lang_file);
@@ -385,7 +384,7 @@ public class Lang {
         cmd_heal_by = lang.getString("cmd-heal-by");
         cmd_heal_other = lang.getString("cmd-heal-other");
 
-        Utils.sendColoredMsg(sender, prefix + loaded);
+        Utils.sendColoredMini(sender, prefix + loaded);
     }
 
     // Used to update config
@@ -420,7 +419,7 @@ public class Lang {
         try {
             lang.save(file);
             String prefix = lang.getString("prefix");
-            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "&7" + langFilePath + " &aUpdated");
+            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "<grey>" + langFilePath + " <green>Updated");
         } catch (IOException e) {
             e.printStackTrace();
         }

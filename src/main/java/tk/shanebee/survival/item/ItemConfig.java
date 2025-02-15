@@ -13,7 +13,6 @@ public class ItemConfig {
 
     static ItemConfig INSTANCE;
     private final Survival plugin = Survival.getInstance();
-    private final String prefix = plugin.getLang().prefix;
     private FileConfiguration settings;
     private File configFile;
 
@@ -22,7 +21,7 @@ public class ItemConfig {
         loadDefaultSettings();
         Nutrition.setup();
         save();
-        Utils.sendColoredConsoleMsg(prefix + "&7items.yml &aloaded");
+        Utils.logMini("<grey>items.yml <green>loaded");
     }
 
     private void loadDefaultSettings() {
@@ -32,7 +31,7 @@ public class ItemConfig {
         if (!configFile.exists()) {
             plugin.saveResource("items.yml", false);
             settings = YamlConfiguration.loadConfiguration(configFile);
-            Utils.sendColoredConsoleMsg(prefix + "&aNew items.yml created");
+            Utils.logMini("<green>New items.yml created");
         } else {
             settings = YamlConfiguration.loadConfiguration(configFile);
         }

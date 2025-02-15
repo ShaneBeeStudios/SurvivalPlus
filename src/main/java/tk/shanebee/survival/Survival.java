@@ -80,7 +80,7 @@ public class Survival extends JavaPlugin implements Listener {
                 .silentLogs(true)
                 .skipReloadDatapacks(true));
         } catch (UnsupportedVersionException ignore) {
-            Utils.log("CommandAPI does not support this version of Minecraft, will update soon.");
+            Utils.logMini("CommandAPI does not support this version of Minecraft, will update soon.");
         }
     }
 
@@ -91,10 +91,10 @@ public class Survival extends JavaPlugin implements Listener {
 		// VERSION CHECK
 		if (!Utils.isRunningMinecraft(1, 16)) {
 			String ver = Bukkit.getServer().getBukkitVersion().split("-")[0];
-            Utils.log("&c-----------------------------------------------------------");
-            Utils.log("&cYour version is not supported: &b" + ver);
-            Utils.log("&eThis plugin only works on Minecraft &b1.16+");
-            Utils.log("&c-----------------------------------------------------------");
+            Utils.logMini("<red>-----------------------------------------------------------");
+            Utils.logMini("<red>Your version is not supported: <aqua>" + ver);
+            Utils.logMini("<yellow>This plugin only works on Minecraft <aqua>1.16+");
+            Utils.logMini("<red>-----------------------------------------------------------");
 			loaded = false;
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
@@ -102,10 +102,10 @@ public class Survival extends JavaPlugin implements Listener {
 
 		// SPIGOT CHECK
         if (!Utils.isRunningSpigot()) {
-            Utils.log("&c-----------------------------------------------------------");
-            Utils.log("&7Your server software is not supported: &c" + Bukkit.getName());
-            Utils.log("&7This plugin will only work on &aSpigot &7or &aPaper.");
-            Utils.log("&c-----------------------------------------------------------");
+            Utils.logMini("<red>-----------------------------------------------------------");
+            Utils.logMini("<grey>Your server software is not supported: <red>" + Bukkit.getName());
+            Utils.logMini("<grey>This plugin will only work on <green>Spigot <grey>or <green>Paper.");
+            Utils.logMini("<red>-----------------------------------------------------------");
             loaded = false;
             Bukkit.getPluginManager().disablePlugin(this);
             return;
@@ -121,14 +121,14 @@ public class Survival extends JavaPlugin implements Listener {
 		// LOAD RESOURCE PACK
 		if (config.settings_resource_pack_enabled) {
 			if (config.settings_resource_pack_url.isEmpty()) {
-				Utils.log("&cResource Pack is not set! Plugin disabling");
+				Utils.logMini("<red>Resource Pack is not set! Plugin disabling");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			} else {
-				Utils.log("&7Resource pack &aenabled");
+				Utils.logMini("<grey>Resource pack <green>enabled");
 			}
 		} else {
-            Utils.log("&eResource Pack disabled");
+            Utils.logMini("<yellow>Resource Pack disabled");
         }
 
 		Rates.add(config.DROP_RATE_FLINT);
@@ -136,11 +136,11 @@ public class Survival extends JavaPlugin implements Listener {
 		Rates.add(config.mechanics_thirst_drain_rate);
 		for (double i : Rates) {
 			if (i <= 0) {
-				Utils.log("&cRate values cannot be zero or below! (Check config.yml) Plugin disabled.");
+				Utils.logMini("<red>Rate values cannot be zero or below! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			} else if (i > 1) {
-                Utils.log("&cRate values cannot be above 1! (Check config.yml) Plugin disabled.");
+                Utils.logMini("<red>Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
@@ -162,7 +162,7 @@ public class Survival extends JavaPlugin implements Listener {
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
-            Utils.log("&7PlaceholderAPI placeholders &aenabled");
+            Utils.logMini("<grey>PlaceholderAPI placeholders <green>enabled");
         }
 
 		// REGISTER EVENTS & COMMANDS
@@ -173,32 +173,32 @@ public class Survival extends JavaPlugin implements Listener {
 		// LOAD CUSTOM RECIPES
 		// This is a helper for other plugins that wipe custom recipes - secret hidden config
 		if (config.RECIPE_DELAY > 0) {
-		    Utils.log("&7Custom recipe loading delayed... will load in &b" + config.RECIPE_DELAY + "&7 second[s]");
+		    Utils.logMini("<grey>Custom recipe loading delayed... will load in <aqua>" + config.RECIPE_DELAY + "<grey> second[s]");
 		    Bukkit.getScheduler().runTaskLater(this, () -> {
                 this.recipeManager.loadCustomRecipes();
-                Utils.log("&7Custom recipes &aloaded");
+                Utils.logMini("<grey>Custom recipes <green>loaded");
             }, config.RECIPE_DELAY * 20L);
 
         } else {
             this.recipeManager.loadCustomRecipes();
-            Utils.log("&7Custom recipes &aloaded");
+            Utils.logMini("<grey>Custom recipes <green>loaded");
         }
 
 		// LOAD METRICS
 		Metrics metrics = new Metrics(this);
-		Utils.log("&7Metrics " + (metrics.isEnabled() ? "&aenabled" : "&cdisabled"));
+		Utils.logMini("<grey>Metrics " + (metrics.isEnabled() ? "<green>enabled" : "<red>disabled"));
 
-		Utils.log("&aSuccessfully loaded &7in " + (System.currentTimeMillis() - time) + " milliseconds");
+		Utils.logMini("<green>Successfully loaded <grey>in " + (System.currentTimeMillis() - time) + " milliseconds");
 
 		// BETA WARNING
 		if (this.getDescription().getVersion().contains("Beta")) {
-			Utils.log("&eYOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
+			Utils.logMini("<yellow>YOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
 		}
 	}
 
 	public void onDisable() {
 		if (!loaded) return;
-		Utils.log("&eShutting down");
+		Utils.logMini("<yellow>Shutting down");
 		getServer().getScheduler().cancelTasks(this);
 		//getServer().resetRecipes(); <-- why is this even here?
 
@@ -228,7 +228,7 @@ public class Survival extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		Utils.log("&eSuccessfully disabled");
+		Utils.logMini("<yellow>Successfully disabled");
 	}
 
 	private void playerDataLoader(boolean load) {
@@ -243,7 +243,7 @@ public class Survival extends JavaPlugin implements Listener {
                 }
 			}
 			if (size > 0) {
-				Utils.log("Loading player data for &b" + size + " player" + (size != 1 ? "s" : ""));
+				Utils.logMini("Loading player data for <aqua>" + size + " player" + (size != 1 ? "s" : ""));
 			}
 		} else {
 			// Unload player data - if players are still online
@@ -253,7 +253,7 @@ public class Survival extends JavaPlugin implements Listener {
 			// Clear/delete player data map to prevent memory leaks
 			playerDataMap.clear();
 			playerDataMap = null;
-			Utils.log("Unloading player data for &b" + size + " player" + (size != 1 ? "s" : ""));
+			Utils.logMini("Unloading player data for <aqua>" + size + " player" + (size != 1 ? "s" : ""));
 		}
 	}
 
@@ -277,7 +277,7 @@ public class Survival extends JavaPlugin implements Listener {
 			if (mat != null) {
 				chairBlocks.add(mat);
 			} else {
-				Utils.log("&cInvalid chair block material: &7" + type);
+				Utils.logMini("<red>Invalid chair block material: <grey>" + type);
 			}
 		}
 		this.playerDataConfig = new PlayerDataConfig(this);
@@ -287,14 +287,14 @@ public class Survival extends JavaPlugin implements Listener {
 	private void onServerReload(ServerLoadEvent e) {
 		if (e.getType() == ServerLoadEvent.LoadType.RELOAD) {
 			for (Player player : getServer().getOnlinePlayers()) {
-				Utils.sendColoredMsg(player, prefix + "&cDETECTED SERVER RELOAD");
-				Utils.sendColoredMsg(player, "    &6Recipes may have been impacted");
-				Utils.sendColoredMsg(player, "    &6Relog to update your recipes");
+				Utils.sendColoredMsg(player, prefix + "<red>DETECTED SERVER RELOAD");
+				Utils.sendColoredMsg(player, "    <gold>Recipes may have been impacted");
+				Utils.sendColoredMsg(player, "    <gold>Relog to update your recipes");
 			}
-			Utils.sendColoredConsoleMsg(prefix + "&cDETECTED SERVER RELOAD");
-			Utils.sendColoredConsoleMsg("    &7- &6Server reloads will impact recipes");
-			Utils.sendColoredConsoleMsg("    &7- &6Players will need to relog to re-enable custom recipes");
-			Utils.sendColoredConsoleMsg("    &7- &6A warning has been sent to each player that is online right now");
+			Utils.sendColoredConsoleMsg(prefix + "<red>DETECTED SERVER RELOAD");
+			Utils.sendColoredConsoleMsg("    <grey>- <gold>Server reloads will impact recipes");
+			Utils.sendColoredConsoleMsg("    <grey>- <gold>Players will need to relog to re-enable custom recipes");
+			Utils.sendColoredConsoleMsg("    <grey>- <gold>A warning has been sent to each player that is online right now");
 		}
 	}
 
