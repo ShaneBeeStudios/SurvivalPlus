@@ -43,7 +43,7 @@ public class PlayerDataListener implements Listener {
         } else {
             playerData = playerManager.loadPlayerData(player);
         }
-        if (config.MECHANICS_STATUS_SCOREBOARD)
+        if (config.mechanics_status_scoreboard)
             scoreboardManager.setupScoreboard(player);
 
         // Appears you can only set a compass target after a delay

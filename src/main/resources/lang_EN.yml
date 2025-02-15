@@ -20,7 +20,7 @@ no-perm: "<red>You do not have permission to perform this command"
 # When a player joins, they will see this message which links them to a guide to help get them started
 # IF you want, you can create your own guide and change the link
 survival-guide-msg: "&6Our server changes a bunch of vanilla Minecraft mechanics, &6To see our survival guide "
-survival-guide-click-msg: "&bClick Here"
+survival-guide-click-msg: "<aqua>Click Here"
 survival-guide-hover-msg: "Click for Guide"
 survival-guide-link: "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started"
 
@@ -43,26 +43,26 @@ charge-unable: "Unable to charge immediately."
 
 lack-of-energy: "Lack of energy, unable to spin."
 
-arrows-off-hand: "&cYou must have arrows in your off hand."
-arrows-off-hand-crossbow: "&cYou must load arrows from your off hand."
-bow-main-hand: "&cYou must use a bow with your main hand."
+arrows-off-hand: "<red>You must have arrows in your off hand."
+arrows-off-hand-crossbow: "<red>You must load arrows from your off hand."
+bow-main-hand: "<red>You must use a bow with your main hand."
 recurved-bow: "&3Bow"
 recurved-crossbow: "&3Crossbow"
 recurved: "&7Recurved"
 
-fishing-off-hand: "&cYou must use a fishing pole with an empty off hand."
-fishing-main-hand: "&cYou must use a fishing pole with your main hand."
-grappling-off-hand: "&cYou must use a grappling hook with an empty off hand."
-grappling-main-hand: "&cYou must use a grappling hook with your main hand."
+fishing-off-hand: "<red>You must use a fishing pole with an empty off hand."
+fishing-main-hand: "<red>You must use a fishing pole with your main hand."
+grappling-off-hand: "<red>You must use a grappling hook with an empty off hand."
+grappling-main-hand: "<red>You must use a grappling hook with your main hand."
 
 compass-waypoint-set: "Compass has pointed at %s"
 compass-waypoint-get: "You are %s blocks away from your waypoint at %s"
 compass-waypoint-unset: "You do not have a waypoint set for this world."
 
 players-only: "Works on players only."
-toggle-chat-local: "&bToggled to &aLocal&b Chat."
-toggle-chat-global: "&bToggled to &2Global&b Chat."
-toggle-chat-disabled: "&cChat toggle has been disabled on this server."
+toggle-chat-local: "<grey>Toggled to <aqua>Local<grey> Chat."
+toggle-chat-global: "<grey>Toggled to <aqua>Global<grey> Chat."
+toggle-chat-disabled: "<red>Chat toggle has been disabled on this server."
 invalid-arg: "Invalid Arguments."
 
 starved-eat: "You are starving, eat some food."
@@ -71,22 +71,23 @@ healthboard-title: "Status"
 hunger: "Hunger"
 thirst: "Thirst"
 energy: "Energy"
-carbohydrates: "Carbohydrates"
+nutrients: "Nutrients"
+carbohydrates: "Carbs"
 protein: "Protein"
-vitamins: "Vitamins and Minerals"
+vitamins: "Vitamins"
 nutrition-gui: "Nutrition GUI"
-nutrition-gui-next-page: "&bNext Page"
-nutrition-gui-last-page: "&bLast Page"
+nutrition-gui-next-page: "<aqua>Next Page"
+nutrition-gui-last-page: "<aqua>Last Page"
 carbohydrates-lack: "Eat your grains and sugar."
 vitamins-lack: "Eat your vegetables and fruit."
 protein-lack: "Eat your meat, poultry, and dairy."
 
-healing: "&aHealing "
-healing-self: "&aHealing &ryourself"
-keep: "&a, keep "
-on-hand: "&a on hand."
-being-healed: "&aYou are being healed by "
-stay-still: "&a, stay still."
+healing: "<green>Healing "
+healing-self: "<green>Healing &ryourself"
+keep: "<green>, keep "
+on-hand: "<green> on hand."
+being-healed: "<green>You are being healed by "
+stay-still: "<green>, stay still."
 healing-complete: "Healing complete."
 healing-interrupted: "Healing interrupted."
 
@@ -94,8 +95,8 @@ healing-interrupted: "Healing interrupted."
 energy-level-10: "&6You are starting to feel a little tired."
 energy-level-6-5: "&6You are starting to feel a little worn out and weak."
 energy-level-3-5: "&eYou are starting to feel a little nauseous, maybe it's time to get some sleep."
-energy-level-2: "&cYou are starting to feel really sick, you should get some rest."
-energy-level-1: "&cYour lack of sleep is really taking a toll on you."
+energy-level-2: "<red>You are starting to feel really sick, you should get some rest."
+energy-level-1: "<red>Your lack of sleep is really taking a toll on you."
 
 locked: "Locked"
 missing-component: "Missing Component"
@@ -116,10 +117,10 @@ hatchet: "Hatchet"
 mattock: "Mattock"
 firestriker: "Firestriker"
 firestriker-damaged: "Damaged Firestriker"
-firestriker-lore: "&7Right-Click to burn things||&bSneak-Right-Click for portable smelter||&7 -Put smeltable into input slot||&7 -Click output slot to smelt"
+firestriker-lore: "&7Right-Click to burn things||<aqua>Sneak-Right-Click for portable smelter||&7 -Put smeltable into input slot||&7 -Click output slot to smelt"
 shiv: "Shiv"
-poisoned-enemy: "&2Poisoned: Poison enemy on hit"
-poisoned-retain: "&2Poisoning Effect &7retains"
+poisoned-enemy: "<dark_green>Poisoned: Poison enemy on hit"
+poisoned-retain: "<dark_green>Poisoning Effect &7retains"
 reduce-50: "&7> Reduce chance by 50%"
 grappling-hook: "Grappling Hook"
 
@@ -127,8 +128,8 @@ hammer: "Hammer"
 workbench: "Workbench"
 
 valkyrie-axe: "Valkyrie's Axe"
-valkyrie-axe-unable-dual: "&cUnable to dual-wield with Valkyrie's Axe"
-valkyrie-axe-spin: "&aSpin: Spin your axe in a circle to attack all nearby enemies!"
+valkyrie-axe-unable-dual: "<red>Unable to dual-wield with Valkyrie's Axe"
+valkyrie-axe-spin: "<green>Spin: Spin your axe in a circle to attack all nearby enemies!"
 valkyrie-axe-cooldown: "&7> Cooldown: 1 second"
 
 quartz-breaker: "Quartz Breaker"
@@ -136,21 +137,21 @@ haste: "&eHaste"
 
 obsidian-mace: "Obsidian Mace"
 cripple-hit: "&dCripple: Enemies hit become &8weakened"
-drain-hit: "&aDrain: Gain &b2 hearts&a per hit"
-exhausted-slow: "&8Exhausted: &cSlowness II"
+drain-hit: "<green>Drain: Gain <aqua>2 hearts<green> per hit"
+exhausted-slow: "&8Exhausted: <red>Slowness II"
 expire-disarm: "&7> Expires after disarming for 5 seconds"
 knockback-resistance: "&9+50% Knockback Resistance"
 
 ender-giant-blade: "Ender Giant Blade"
-ender-giant-blade-unable-duel: "&cUnable to dual-wield with the Ender Giant Blade"
-ender-giant-blade-charge: "&aCharge: Sprint forward, attack enemies in the way"
+ender-giant-blade-unable-duel: "<red>Unable to dual-wield with the Ender Giant Blade"
+ender-giant-blade-charge: "<green>Charge: Sprint forward, attack enemies in the way"
 ender-giant-blade-cooldown: "&7> Cooldown: 5 seconds"
-half-shield-resistance: "&aHalf-Shield: Gains &4Resistance II"
+half-shield-resistance: "<green>Half-Shield: Gains &4Resistance II"
 reflecting-coming: "&7> Reflecting incoming damage by 40%"
 
 blaze-sword: "Blaze Sword"
 blaze-sword-fire-resistance: "&6Fire Resistance"
-blaze-sword-fiery: "&cFiery: -3 Hearts"
+blaze-sword-fiery: "<red>Fiery: -3 Hearts"
 blaze-sword-spread-fire: "&6Spread fire on the ground"
 blaze-sword-cost: "&7> Costs 1 Durability"
 
@@ -166,7 +167,7 @@ golden-crown: "Golden Crown"
 
 fermented-skin: "Fermented Skin"
 medical-kit: "Medical Kit"
-water-bowl: "&bWater Bowl"
+water-bowl: "<aqua>Water Bowl"
 
 suspicious-meat: "&eSuspicious Meat"
 
@@ -176,47 +177,46 @@ suspicious-meat: "&eSuspicious Meat"
 dirty-water: "Water Bottle"
 dirty-water-lore: "&7Dirty"
 dirty-water-color: 12769874
-clean-water: "&bWater Bottle"
+clean-water: "<aqua>Water Bottle"
 clean-water-lore: "&7Clean"
 clean-water-color: 1213666
-purified-water: "&bWater Bottle"
+purified-water: "<aqua>Water Bottle"
 purified-water-lore: "&7Purified"
 purified-water-color: 0x00FFFF
 
 coffee-bean-name: "Coffee Bean"
 coffee-name: "&3Coffee"
 coffee-color: 9461779
-cold-milk-name: "&bCold Milk"
+cold-milk-name: "<aqua>Cold Milk"
 cold-milk-color: 16250871
-hot-milk-name: "&cHot Milk"
+hot-milk-name: "<red>Hot Milk"
 hot-milk-color: 15456977
-hot-milk-drink: "&cOUCH, that was hot!"
+hot-milk-drink: "<red>OUCH, that was hot!"
 breeding-egg-name: "Breeding Egg"
 
 flint_sickle: "&8Flint Sickle"
 stone_sickle: "&7Stone Sickle"
 iron_sickle: "&3Iron Sickle"
-diamond_sickle: "&bDiamond Sickle"
+diamond_sickle: "<aqua>Diamond Sickle"
 
-campfire-name: "&aCampfire"
-campfire-lore: "&bUnlit||&7Hit with a stick a few times||&7to light the campfire"
+campfire-name: "<green>Campfire"
+campfire-lore: "<aqua>Unlit||&7Hit with a stick a few times||&7to light the campfire"
 
 bee-helmet-name: '&6Beekeeper Helmet'
 bee-chest-name: '&6Beekeeper Chestplate'
 bee-legs-name: '&6Beekeeper Leggings'
 bee-boots-name: '&6Beekeeper Boots'
-bee-suit-lore: '&bPrevent bee stings'
-snow-boots-name: '&x&9&E&C&9&C&ASnow Boots'
-snow-boots-lore: '&bMove quicker in snow'
+bee-suit-lore: '<aqua>Prevent bee stings'
+snow-boots-name: '&x&9&E<red>&9<red><green>Snow Boots'
+snow-boots-lore: '<aqua>Move quicker in snow'
 rain-boots-name: '&x&D&6&E&7&0&3Rain Boots'
-rain-boots-lore: '&bMove quicker in rain'
+rain-boots-lore: '<aqua>Move quicker in rain'
 
 ####################
 # Commands
 ####################
 
-# <player> will be replaced with a player name!
-cmd-player-not-online: "&cIt appears <player> is not online!"
-cmd-heal-self: "&aYou have been healed!"
-cmd-heal-by: "&aYou have been healed by <player>!"
-cmd-heal-other: "&aYou have headed <player>!"
+# %s will be replaced with a player name!
+cmd-heal-self: "<green>You have been healed!"
+cmd-heal-by: "<green>You have been healed by <aqua>%s!"
+cmd-heal-other: "<green>You have healed <aqua>%s!"

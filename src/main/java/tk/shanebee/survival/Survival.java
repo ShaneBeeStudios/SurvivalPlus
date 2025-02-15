@@ -1,6 +1,12 @@
 package tk.shanebee.survival;
 
-import org.bukkit.*;
+import dev.jorel.commandapi.CommandAPI;
+import dev.jorel.commandapi.CommandAPIBukkitConfig;
+import dev.jorel.commandapi.exceptions.UnsupportedVersionException;
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -9,19 +15,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Scoreboard;
-import tk.shanebee.survival.commands.*;
+import tk.shanebee.survival.commands.SurvivalCommand;
+import tk.shanebee.survival.config.Config;
+import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.listeners.EventManager;
-import tk.shanebee.survival.managers.*;
+import tk.shanebee.survival.managers.BlockManager;
+import tk.shanebee.survival.managers.EffectManager;
+import tk.shanebee.survival.managers.MerchantManager;
+import tk.shanebee.survival.managers.Placeholders;
+import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.managers.RecipeManager;
+import tk.shanebee.survival.managers.ScoreBoardManager;
 import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
-import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
 public class Survival extends JavaPlugin implements Listener {
@@ -55,6 +70,19 @@ public class Survival extends JavaPlugin implements Listener {
 	private String prefix;
 	private boolean loaded = true;
 	private boolean snowGenOption = true;
+
+    @Override
+    public void onLoad() {
+        try {
+            CommandAPI.onLoad(new CommandAPIBukkitConfig(this)
+                .setNamespace("survivalplus")
+                .verboseOutput(false)
+                .silentLogs(true)
+                .skipReloadDatapacks(true));
+        } catch (UnsupportedVersionException ignore) {
+            Utils.log("CommandAPI does not support this version of Minecraft, will update soon.");
+        }
+    }
 
 	public void onEnable() {
 		instance = this;
@@ -129,7 +157,7 @@ public class Survival extends JavaPlugin implements Listener {
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
-		scoreBoardManager.resetStatusScoreboard(config.MECHANICS_STATUS_SCOREBOARD);
+		scoreBoardManager.resetStatusScoreboard(config.mechanics_status_scoreboard);
 
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
@@ -234,8 +262,14 @@ public class Survival extends JavaPlugin implements Listener {
 	 * @param sender The person/console loading config
 	 */
 	public void loadSettings(CommandSender sender) {
-		this.config = new Config(this);
-		this.lang = new Lang(this, config.LANG);
+        if (this.config == null) {
+            this.config = new Config(this);
+        } else {
+            this.config.loadDefaultSettings();
+        }
+        if (this.lang == null) {
+            this.lang = new Lang(this, config.LANG);
+        }
 		this.lang.loadLangFile(sender);
 		this.prefix = lang.prefix;
 		for (String type : config.MECHANICS_CHAIRS_BLOCKS) {
@@ -265,25 +299,10 @@ public class Survival extends JavaPlugin implements Listener {
 	}
 
 	private void registerCommands() {
-		String noPerm = Utils.getColoredString(prefix + lang.no_perm);
-		getCommand("recipes").setExecutor(new Recipes());
-		getCommand("togglechat").setExecutor(new ToggleChat(this));
-		getCommand("togglechat").setPermissionMessage(noPerm);
-		getCommand("status").setExecutor(new Status(this));
-		getCommand("reload-survival").setExecutor(new Reload(this));
-		getCommand("reload-survival").setPermissionMessage(noPerm);
-		if (config.MECHANICS_SNOW_GEN_REVAMP) {
-			getCommand("snowgen").setExecutor(new SnowGen(this));
-			getCommand("snowgen").setPermissionMessage(noPerm);
-		}
-		getCommand("giveitem").setExecutor(new GiveItem(this));
-		getCommand("giveitem").setPermissionMessage(noPerm);
-		getCommand("nutrition").setExecutor(new Nutrition(this));
-		getCommand("nutrition").setPermissionMessage(noPerm);
-		getCommand("heal").setExecutor(new Heal(this));
-		getCommand("heal").setPermissionMessage(noPerm);
-		getCommand("playerdata").setExecutor(new PlayerDataCmd(this));
-        getCommand("playerdata").setPermissionMessage(noPerm);
+        if (CommandAPI.isLoaded()) {
+            CommandAPI.onEnable();
+            new SurvivalCommand(this, "survival");
+        }
 	}
 
 	/** Get instance of this plugin

@@ -51,7 +51,7 @@ public class LocalChat implements Listener {
 		event.setCancelled(true);
 
 		Bukkit.getConsoleSender().sendMessage("<" + player.getDisplayName() + "> " + msg);
-		double maxDist = config.LOCAL_CHAT_DISTANCE;
+		double maxDist = config.settings_local_chat_distance;
 		for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 			if (other.getLocation().getWorld() == player.getLocation().getWorld()) {
 				if (other.getLocation().distance(player.getLocation()) <= maxDist) {

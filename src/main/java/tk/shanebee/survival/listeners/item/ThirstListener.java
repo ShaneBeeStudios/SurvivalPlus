@@ -135,7 +135,7 @@ public class ThirstListener implements Listener {
         }
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            if (!config.MECHANICS_STATUS_SCOREBOARD) {
+            if (!config.mechanics_status_scoreboard) {
                 player.sendMessage(plugin.getPlayerManager().getHungerVisual(player).get(1) + plugin.getPlayerManager().getHungerVisual(player).get(2) + " " + plugin.getPlayerManager().getHungerVisual(player).get(0).toUpperCase());
                 player.sendMessage(plugin.getPlayerManager().getThirstVisual(player).get(1) + plugin.getPlayerManager().getThirstVisual(player).get(2) + " " + plugin.getPlayerManager().getThirstVisual(player).get(0).toUpperCase());
             }
@@ -206,7 +206,7 @@ public class ThirstListener implements Listener {
             playerData.setThirst(thirst);
             playerManager.getPlayerData(player).setThirst(thirst);
 
-            int hunger = config.MECHANICS_HUNGER_RESPAWN_AMOUNT;
+            int hunger = config.mechanics_hunger_respawn_amount;
             Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
         }
     }

@@ -70,6 +70,7 @@ public class Lang {
     public String hunger;
     public String thirst;
     public String energy;
+    public String nutrients;
     public String carbohydrates;
     public String carbohydrates_lack;
     public String protein;
@@ -199,7 +200,6 @@ public class Lang {
     public String rain_boots_name;
     public String rain_boots_lore;
 
-    public String cmd_player_not_online;
     public String cmd_heal_self;
     public String cmd_heal_by;
     public String cmd_heal_other;
@@ -267,6 +267,7 @@ public class Lang {
         hunger = lang.getString("hunger");
         thirst = lang.getString("thirst");
         energy = lang.getString("energy");
+        nutrients = lang.getString("nutrients");
         carbohydrates = lang.getString("carbohydrates");
         carbohydrates_lack = lang.getString("carbohydrates-lack");
         protein = lang.getString("protein");
@@ -380,7 +381,6 @@ public class Lang {
         rain_boots_name = lang.getString("rain-boots-name");
         rain_boots_lore = lang.getString("rain-boots-lore");
 
-        cmd_player_not_online = lang.getString("cmd-player-not-online");
         cmd_heal_self = lang.getString("cmd-heal-self");
         cmd_heal_by = lang.getString("cmd-heal-by");
         cmd_heal_other = lang.getString("cmd-heal-other");

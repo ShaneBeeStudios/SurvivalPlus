@@ -30,9 +30,9 @@ public class FoodDiversityConsume implements Listener {
 	public FoodDiversityConsume(Survival plugin) {
 		this.playerManager = plugin.getPlayerManager();
         Config config = plugin.getSurvivalConfig();
-        RESPAWN_PROTEIN = config.MECHANICS_FOOD_RESPAWN_PROTEINS;
-        RESPAWN_CARBS = config.MECHANICS_FOOD_RESPAWN_CARBS;
-        RESPAWN_SALTS = config.MECHANICS_FOOD_RESPAWN_SALTS;
+        RESPAWN_PROTEIN = config.mechanics_food_respawn_proteins;
+        RESPAWN_CARBS = config.mechanics_food_respawn_carbs;
+        RESPAWN_SALTS = config.mechanics_food_respawn_salts;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

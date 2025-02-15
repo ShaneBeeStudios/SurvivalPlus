@@ -22,7 +22,7 @@ public class Config {
 	public String settings_resource_pack_url;
 	public boolean settings_resource_pack_enabled;
 
-	public int LOCAL_CHAT_DISTANCE;
+	public int settings_local_chat_distance;
 
 	public boolean WELCOME_GUIDE_ENABLED;
 	public boolean WELCOME_GUIDE_NEW_PLAYERS;
@@ -56,9 +56,9 @@ public class Config {
 	public boolean MECHANICS_PREVENT_NIGHT_SKIP;
 
 	// ENERGY
-    public boolean MECHANICS_ENERGY_ENABLED;
+    public boolean mechanics_energy_enabled;
     public double MECHANICS_ENERGY_START;
-    public double MECHANICS_ENERGY_RESPAWN;
+    public double mechanics_energy_respawn;
     public boolean MECHANICS_ENERGY_WARNING;
     public double MECHANICS_ENERGY_DRAIN_RATE;
     public double MECHANICS_ENERGY_DRAIN_COLD_RATE;
@@ -78,7 +78,7 @@ public class Config {
 	public boolean MECHANICS_REDUCED_IRON_NUGGET;
 	public boolean MECHANICS_REDUCED_GOLD_NUGGET;
 
-	public boolean MECHANICS_STATUS_SCOREBOARD;
+	public boolean mechanics_status_scoreboard;
 	public int MECHANICS_ALERT_INTERVAL;
 
 	public boolean MECHANICS_RAW_MEAT_HUNGER;
@@ -87,16 +87,16 @@ public class Config {
 	public boolean MECHANICS_COOKIE_BOOST;
 	public boolean MECHANICS_BEET_STRENGTH;
 
-	public boolean MECHANICS_FOOD_DIVERSITY_ENABLED;
+	public boolean mechanics_food_diversity_enabled;
 	public int MECHANICS_FOOD_MAX_PROTEINS;
     public int MECHANICS_FOOD_MAX_SALTS;
     public int MECHANICS_FOOD_MAX_CARBS;
     public int MECHANICS_FOOD_START_PROTEINS;
     public int MECHANICS_FOOD_START_SALTS;
     public int MECHANICS_FOOD_START_CARBS;
-    public int MECHANICS_FOOD_RESPAWN_PROTEINS;
-    public int MECHANICS_FOOD_RESPAWN_SALTS;
-    public int MECHANICS_FOOD_RESPAWN_CARBS;
+    public int mechanics_food_respawn_proteins;
+    public int mechanics_food_respawn_salts;
+    public int mechanics_food_respawn_carbs;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM;
 	public int MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD;
@@ -141,7 +141,7 @@ public class Config {
     public int mechanics_thirst_rep_other_water;
 
 	public int MECHANICS_HUNGER_START_AMOUNT;
-	public int MECHANICS_HUNGER_RESPAWN_AMOUNT;
+	public int mechanics_hunger_respawn_amount;
 
 	public boolean MECHANICS_COMPASS_WAYPOINT;
 	public boolean MECHANICS_COMPASS_WAYPOINT_WORLDS;
@@ -231,7 +231,7 @@ public class Config {
 		loadDefaultSettings();
 	}
 
-	private void loadDefaultSettings() {
+	public void loadDefaultSettings() {
 		if (configFile == null) {
 			configFile = new File(plugin.getDataFolder(), "config.yml");
 		}
@@ -287,8 +287,7 @@ public class Config {
 		// SETTINGS
         this.settings_resource_pack_enabled = settings.getBoolean("Settings.enable-resource-pack");
 		this.settings_resource_pack_url = settings.getString("Settings.resource-pack-url");
-
-		this.LOCAL_CHAT_DISTANCE = settings.getInt("LocalChatDist");
+		this.settings_local_chat_distance = settings.getInt("settings.local-chat-distance");
 
 		// WELCOME GUIDE
 		this.WELCOME_GUIDE_ENABLED = settings.getBoolean("WelcomeGuide.Enabled");
@@ -321,9 +320,9 @@ public class Config {
 		// MECHANICS
 		this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
 		this.MECHANICS_PREVENT_NIGHT_SKIP = settings.getBoolean("Mechanics.Prevent-Night-Skip");
-		this.MECHANICS_ENERGY_ENABLED = settings.getBoolean("Mechanics.Energy.enabled");
+		this.mechanics_energy_enabled = settings.getBoolean("Mechanics.Energy.enabled");
 		this.MECHANICS_ENERGY_START = settings.getDouble("Mechanics.Energy.start-level");
-        this.MECHANICS_ENERGY_RESPAWN = settings.getDouble("Mechanics.Energy.respawn-level");
+        this.mechanics_energy_respawn = settings.getDouble("Mechanics.Energy.respawn-level");
 		this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
 		this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
 		this.MECHANICS_ENERGY_DRAIN_COLD_RATE = settings.getDouble("Mechanics.Energy.cold-drain-rate");
@@ -343,7 +342,7 @@ public class Config {
 		this.MECHANICS_REDUCED_IRON_NUGGET = settings.getBoolean("Mechanics.ReducedIronNugget");
 		this.MECHANICS_REDUCED_GOLD_NUGGET = settings.getBoolean("Mechanics.ReducedGoldNugget");
 
-		this.MECHANICS_STATUS_SCOREBOARD = settings.getBoolean("Mechanics.StatusScoreboard");
+		this.mechanics_status_scoreboard = settings.getBoolean("Mechanics.StatusScoreboard");
 		this.MECHANICS_ALERT_INTERVAL = settings.getInt("Mechanics.AlertInterval");
 
 		this.MECHANICS_RAW_MEAT_HUNGER = settings.getBoolean("Mechanics.RawMeatHunger");
@@ -352,18 +351,18 @@ public class Config {
 		this.MECHANICS_COOKIE_BOOST = settings.getBoolean("Mechanics.CookieHealthBoost");
 		this.MECHANICS_BEET_STRENGTH = settings.getBoolean("Mechanics.BeetrootStrength");
 
-		this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+		this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
 		this.MECHANICS_FOOD_MAX_CARBS = settings.getInt("Mechanics.FoodDiversity.max-level.carbs");
         this.MECHANICS_FOOD_MAX_SALTS = settings.getInt("Mechanics.FoodDiversity.max-level.salts");
         this.MECHANICS_FOOD_MAX_PROTEINS = settings.getInt("Mechanics.FoodDiversity.max-level.proteins");
-        this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+        this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
         this.MECHANICS_FOOD_START_CARBS = settings.getInt("Mechanics.FoodDiversity.start-level.carbs");
         this.MECHANICS_FOOD_START_SALTS = settings.getInt("Mechanics.FoodDiversity.start-level.salts");
         this.MECHANICS_FOOD_START_PROTEINS = settings.getInt("Mechanics.FoodDiversity.start-level.proteins");
-        this.MECHANICS_FOOD_DIVERSITY_ENABLED = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-        this.MECHANICS_FOOD_RESPAWN_CARBS = settings.getInt("Mechanics.FoodDiversity.respawn-level.carbs");
-        this.MECHANICS_FOOD_RESPAWN_SALTS = settings.getInt("Mechanics.FoodDiversity.respawn-level.salts");
-        this.MECHANICS_FOOD_RESPAWN_PROTEINS = settings.getInt("Mechanics.FoodDiversity.respawn-level.proteins");
+        this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
+        this.mechanics_food_respawn_carbs = settings.getInt("Mechanics.FoodDiversity.respawn-level.carbs");
+        this.mechanics_food_respawn_salts = settings.getInt("Mechanics.FoodDiversity.respawn-level.salts");
+        this.mechanics_food_respawn_proteins = settings.getInt("Mechanics.FoodDiversity.respawn-level.proteins");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_EASY = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_MEDIUM = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
 		this.MECHANICS_FOOD_EFFECTS_CARBS_EX_AMP_HARD = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");
@@ -409,7 +408,7 @@ public class Config {
         this.mechanics_thirst_rep_water = settings.getInt("Mechanics.Thirst.replenish-level.water");
 
 		this.MECHANICS_HUNGER_START_AMOUNT = settings.getInt("Mechanics.Hunger.Starting-Amount");
-		this.MECHANICS_HUNGER_RESPAWN_AMOUNT = settings.getInt("Mechanics.Hunger.Respawn-Amount");
+		this.mechanics_hunger_respawn_amount = settings.getInt("Mechanics.Hunger.Respawn-Amount");
 
 		this.MECHANICS_COMPASS_WAYPOINT = settings.getBoolean("Mechanics.CompassWaypoint.enabled");
 		this.MECHANICS_COMPASS_WAYPOINT_WORLDS = settings.getBoolean("Mechanics.CompassWaypoint.per-world");

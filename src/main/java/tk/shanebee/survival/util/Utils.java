@@ -3,6 +3,7 @@ package tk.shanebee.survival.util;
 import com.google.common.collect.ImmutableSet;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -30,6 +31,7 @@ import java.util.regex.Pattern;
 public class Utils {
 
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final LegacyComponentSerializer COMPONENT_SERIALIZER = LegacyComponentSerializer.legacySection();
 
     private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]){6}>");
     private static final ImmutableSet<Material> CONCRETE_BLOCKS;
@@ -593,6 +595,10 @@ public class Utils {
     public static Component getMini(String format, Object... args) {
         String msg = args != null ? String.format(format, args) : format;
         return MINI_MESSAGE.deserialize(msg);
+    }
+
+    public static String reverseComponent(Component component) {
+        return COMPONENT_SERIALIZER.serialize(component);
     }
 
     /**

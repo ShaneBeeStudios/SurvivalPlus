@@ -15,9 +15,9 @@ Settings:
   # The link to the pack, you can put a custom link here if need be
   resource-pack-url: https://www.dropbox.com/s/fq6or9vvcup7wvd/SP-1.14v6.zip?dl=1
 
-# The distance from the player at which other players will see their chat messages
-# -1 = disabled
-LocalChatDist: -1
+  # The distance from the player at which other players will see their chat messages
+  # -1 = disabled
+  local-chat-distance: -1
 
 # When a player joins, they will get a link to a simple starter guide
 WelcomeGuide:

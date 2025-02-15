@@ -18,7 +18,6 @@ import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.EnergyLevelChangeEvent;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.util.Utils;
 
@@ -35,7 +34,7 @@ public class EnergyChange implements Listener {
 		this.playerManager = plugin.getPlayerManager();
 		this.config = plugin.getSurvivalConfig();
 		this.lang = plugin.getLang();
-		this.ENERGY_RESPAWN = config.MECHANICS_ENERGY_RESPAWN;
+		this.ENERGY_RESPAWN = config.mechanics_energy_respawn;
 	}
 
 	@EventHandler

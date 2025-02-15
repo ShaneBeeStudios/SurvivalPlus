@@ -61,7 +61,7 @@ public class EventManager {
 	public EventManager(Survival plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
-		this.LOCAL_CHAT = config.LOCAL_CHAT_DISTANCE;
+		this.LOCAL_CHAT = config.settings_local_chat_distance;
 	}
 
 	public void registerEvents() {
@@ -125,9 +125,9 @@ public class EventManager {
 			pm.registerEvents(new TropicalFish(this.plugin), this.plugin);
 		if (config.MECHANICS_LIVING_SLIME)
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
-		if (config.MECHANICS_ENERGY_ENABLED)
+		if (config.mechanics_energy_enabled)
 			pm.registerEvents(new EnergyChange(plugin), this.plugin);
-		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED)
+		if (config.mechanics_food_diversity_enabled)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (config.MECHANICS_RECURVED_BOW)
 			pm.registerEvents(new RecurvedBow(plugin), this.plugin);

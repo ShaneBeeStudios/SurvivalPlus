@@ -11,13 +11,13 @@ public class TaskManager {
 	public TaskManager(Survival plugin) {
 		final int alertInterval = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		Config config = plugin.getSurvivalConfig();
-		if (config.MECHANICS_ENERGY_ENABLED) {
+		if (config.mechanics_energy_enabled) {
 		    new EnergyDrain(plugin);
         }
-		if (config.MECHANICS_FOOD_DIVERSITY_ENABLED) {
+		if (config.mechanics_food_diversity_enabled) {
 			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
-			if (!config.MECHANICS_STATUS_SCOREBOARD && alertInterval > 0) {
+			if (!config.mechanics_status_scoreboard && alertInterval > 0) {
 				new NutrientsAlert(plugin);
 			}
 		}
@@ -28,7 +28,7 @@ public class TaskManager {
         // Thirst
         if (config.mechanics_thirst_enabled) {
             new ThirstDrain(plugin);
-            if (!config.MECHANICS_STATUS_SCOREBOARD && alertInterval > 0) {
+            if (!config.mechanics_status_scoreboard && alertInterval > 0) {
                 new ThirstAlert(plugin);
             }
         }

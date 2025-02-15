@@ -104,7 +104,7 @@ public class HealthBoardTask extends BukkitRunnable {
             this.healthBoard.deleteLine(8);
         }
 
-        if (config.MECHANICS_ENERGY_ENABLED && energyEnabled) {
+        if (config.mechanics_energy_enabled && energyEnabled) {
             this.healthBoard.setLine(9, this.playerManager.getEnergyVisual(this.player).get(0));
             this.healthBoard.setLine(10, this.playerManager.getEnergyVisual(this.player).get(1));
             this.healthBoard.setLine(11, "");
@@ -114,7 +114,7 @@ public class HealthBoardTask extends BukkitRunnable {
             this.healthBoard.deleteLine(11);
         }
 
-        if (config.MECHANICS_FOOD_DIVERSITY_ENABLED && nutrientsEnabled) {
+        if (config.mechanics_food_diversity_enabled && nutrientsEnabled) {
             List<String> nutrients = this.playerManager.getNutrientsVisual(this.player);
             this.healthBoard.setLine(12, nutrients.get(0), nutrients.get(3));
             this.healthBoard.setLine(13, nutrients.get(1), nutrients.get(4));
