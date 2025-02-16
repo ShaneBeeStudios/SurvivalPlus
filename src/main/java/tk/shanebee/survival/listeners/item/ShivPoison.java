@@ -80,7 +80,7 @@ public class ShivPoison implements Listener {
             ItemStack tool = event.getItem();
             if (event.getClickedBlock() == null || tool == null) return;
 
-            if (config.SURVIVAL_ENABLED && Items.SHIV.is(tool)) {
+            if (config.survival_enabled && Items.SHIV.is(tool)) {
                 switch (event.getClickedBlock().getType()) {
                     case DIRT:
                     case GRASS_BLOCK:

@@ -51,7 +51,7 @@ public class MerchantManager {
             case CHAINMAIL_CHESTPLATE:
             case CHAINMAIL_LEGGINGS:
             case CHAINMAIL_BOOTS:
-                return this.config.MECHANICS_REINFORCED_ARMOR;
+                return this.config.mechanics_reinforced_armor;
             case IRON_HELMET:
             case IRON_CHESTPLATE:
             case IRON_LEGGINGS:
@@ -60,11 +60,11 @@ public class MerchantManager {
             case DIAMOND_CHESTPLATE:
             case DIAMOND_LEGGINGS:
             case DIAMOND_BOOTS:
-                return this.config.MECHANICS_SLOW_ARMOR;
+                return this.config.mechanics_slow_armor;
             case STONE_HOE:
-                return this.config.SURVIVAL_SICKLE_STONE;
+                return this.config.survival_sickle_stone;
             case DIAMOND_HOE:
-                return this.config.SURVIVAL_SICKLE_DIAMOND;
+                return this.config.survival_sickle_diamond;
         }
         return false;
     }

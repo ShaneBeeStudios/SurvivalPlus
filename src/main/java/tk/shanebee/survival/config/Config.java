@@ -28,24 +28,24 @@ public class Config {
     public int welcome_guide_delay;
 
     // SURVIVAL
-    public boolean SURVIVAL_ENABLED;
+    public boolean survival_enabled;
     public boolean SURVIVAL_LIMITED_CRAFTING;
-    public boolean SURVIVAL_UNLOCK_ALL_RECIPES;
-    public boolean SURVIVAL_REMOVE_WOOD_TOOLS;
-    public boolean SURVIVAL_TORCH;
+    public boolean survival_unlock_all_recipes;
+    public boolean survival_remove_wood_tools;
+    public boolean survival_torch;
     public boolean SURVIVAL_UPDATE_MERCHANT_TRADES;
 
-    public boolean BREAK_ONLY_WITH_SICKLE;
+    public boolean break_only_with_sickle;
     public boolean BREAK_ONLY_WITH_SHOVEL;
     public boolean BREAK_ONLY_WITH_AXE;
     public boolean BREAK_ONLY_WITH_PICKAXE;
     public boolean BREAK_ONLY_WITH_SHEARS;
     public boolean PLACE_ONLY_WITH_HAMMER;
 
-    public boolean SURVIVAL_SICKLE_FLINT;
-    public boolean SURVIVAL_SICKLE_STONE;
-    public boolean SURVIVAL_SICKLE_IRON;
-    public boolean SURVIVAL_SICKLE_DIAMOND;
+    public boolean survival_sickle_flint;
+    public boolean survival_sickle_stone;
+    public boolean survival_sickle_iron;
+    public boolean survival_sickle_diamond;
 
     public double DROP_RATE_STICK;
     public double DROP_RATE_FLINT;
@@ -64,25 +64,25 @@ public class Config {
     public double MECHANICS_ENERGY_REFRESH_RATE_BED;
     public double MECHANICS_ENERGY_REFRESH_RATE_CHAIR;
     public double MECHANICS_ENERGY_EXHAUSTION;
-    public boolean MECHANICS_ENERGY_COFFEE_ENABLED;
+    public boolean mechanics_energy_coffee_enabled;
     public boolean MECHANICS_ENERGY_ABSORPTION;
     public boolean MECHANICS_ENERGY_HASTE;
 
-    public boolean MECHANICS_SLOW_ARMOR;
-    public boolean MECHANICS_REINFORCED_ARMOR;
+    public boolean mechanics_slow_armor;
+    public boolean mechanics_reinforced_armor;
     public boolean MECHANICS_BOW;
-    public boolean MECHANICS_RECURVED_BOW;
-    public boolean MECHANICS_GRAPPLING_HOOK;
-    public boolean MECHANICS_MEDIC_KIT;
-    public boolean MECHANICS_REDUCED_IRON_NUGGET;
-    public boolean MECHANICS_REDUCED_GOLD_NUGGET;
+    public boolean mechanics_recurved_bow;
+    public boolean mechanics_grappling_hook;
+    public boolean mechanics_medic_kit;
+    public boolean mechanics_reduced_iron_nugget;
+    public boolean mechanics_reduced_gold_nugget;
 
     public boolean mechanics_status_scoreboard;
     public int MECHANICS_ALERT_INTERVAL;
 
     public boolean MECHANICS_RAW_MEAT_HUNGER;
-    public boolean MECHANICS_EMPTY_POTION;
-    public boolean MECHANICS_POISON_POTATO;
+    public boolean mechanics_empty_potion;
+    public boolean mechanics_poison_potato;
     public boolean MECHANICS_COOKIE_BOOST;
     public boolean MECHANICS_BEET_STRENGTH;
 
@@ -140,16 +140,16 @@ public class Config {
     public int mechanics_hunger_start_amount;
     public int mechanics_hunger_respawn_amount;
 
-    public boolean MECHANICS_COMPASS_WAYPOINT;
+    public boolean mechanics_compass_waypoint;
     public boolean MECHANICS_COMPASS_WAYPOINT_WORLDS;
     public boolean MECHANICS_CLOWN_FISH;
-    public boolean MECHANICS_FERMENTED_SKIN;
+    public boolean mechanics_fermented_skin;
     public boolean MECHANICS_LIVING_SLIME;
-    public boolean MECHANICS_SNOWBALL_REVAMP;
+    public boolean mechanics_snowball_revamp;
     public boolean MECHANICS_SNOW_GEN_REVAMP;
 
-    public boolean MECHANICS_FARMING_PRODUCTS_COOKIE;
-    public boolean MECHANICS_FARMING_PRODUCTS_BREAD;
+    public boolean mechanics_farming_products_cookie;
+    public boolean mechanics_farming_products_bread;
 
     public boolean MECHANICS_CHAIRS_ENABLED;
     public int MECHANICS_CHAIRS_MAX_WIDTH;
@@ -161,7 +161,7 @@ public class Config {
     public boolean MECHANICS_BURNOUT_TORCH_DROP;
     public boolean MECHANICS_BURNOUT_TORCH_PERSIST;
 
-    public boolean MECHANICS_WEATHER_ENABLED;
+    public boolean mechanics_weather_enabled;
     public double MECHANICS_WEATHER_SPEED_BASE;
     public double MECHANICS_WEATHER_SPEED_RAIN;
     public double MECHANICS_WEATHER_SPEED_STORM;
@@ -175,7 +175,7 @@ public class Config {
     public boolean ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED;
     public int ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
     public double ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
-    public boolean ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED;
+    public boolean entity_mechanics_beekeeper_suit_enabled;
     public boolean ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED;
     public int ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE;
     public boolean ENTITY_MECHANICS_CHICKEN_BREEDING_ENABLED;
@@ -186,38 +186,38 @@ public class Config {
     public boolean ENTITY_MECHANICS_PIGLIN_ALT_DROP;
 
     // RECIPES
-    public boolean RECIPES_SADDLE;
-    public boolean RECIPES_NAME_TAG;
-    public boolean RECIPES_PACKED_ICE;
-    public boolean RECIPES_LEATHER_BARD;
-    public boolean RECIPES_IRON_BARD;
-    public boolean RECIPES_GOLD_BARD;
-    public boolean RECIPES_DIAMOND_BARD;
-    public boolean RECIPES_CLAY_BRICK;
-    public boolean RECIPES_QUARTZ_BLOCK;
-    public boolean RECIPES_WOOL_STRING;
-    public boolean RECIPES_WEB_STRING;
-    public boolean RECIPES_ICE;
-    public boolean RECIPES_CLAY;
-    public boolean RECIPES_DIORITE;
-    public boolean RECIPES_GRANITE;
-    public boolean RECIPES_ANDESITE;
-    public boolean RECIPES_GRAVEL;
-    public boolean RECIPES_SLIMEBALL;
-    public boolean RECIPES_COBWEB;
-    public boolean RECIPES_SAPLING_STICK;
-    public boolean RECIPES_FISHING_ROD;
-    public boolean RECIPES_FURNACE;
-    public boolean RECIPES_WORKBENCH;
+    public boolean recipes_saddle;
+    public boolean recipes_name_tag;
+    public boolean recipes_packed_ice;
+    public boolean recipes_leather_bard;
+    public boolean recipes_iron_bard;
+    public boolean recipes_gold_bard;
+    public boolean recipes_diamond_bard;
+    public boolean recipes_clay_brick;
+    public boolean recipes_quartz_block;
+    public boolean recipes_wool_string;
+    public boolean recipes_web_string;
+    public boolean recipes_ice;
+    public boolean recipes_clay;
+    public boolean recipes_diorite;
+    public boolean recipes_granite;
+    public boolean recipes_andesite;
+    public boolean recipes_gravel;
+    public boolean recipes_slimeball;
+    public boolean recipes_cobweb;
+    public boolean recipes_sapling_stick;
+    public boolean recipes_fishing_rod;
+    public boolean recipes_furnace;
+    public boolean recipes_workbench;
 
     // LEGENDARY TOOLS
-    public boolean LEGENDARY_VALKYRIE;
-    public boolean LEGENDARY_QUARTZPICKAXE;
-    public boolean LEGENDARY_OBSIDIAN_MACE;
-    public boolean LEGENDARY_GIANTBLADE;
-    public boolean LEGENDARY_BLAZESWORD;
-    public boolean LEGENDARY_NOTCH_APPLE;
-    public boolean LEGENDARY_GOLDARMORBUFF;
+    public boolean legendary_valkyrie;
+    public boolean legendary_quartzpickaxe;
+    public boolean legendary_obsidian_mace;
+    public boolean legendary_giantblade;
+    public boolean legendary_blazesword;
+    public boolean legendary_notch_apple;
+    public boolean legendary_goldarmorbuff;
 
     // HIDDEN CONFIG
     public int RECIPE_DELAY;
@@ -291,24 +291,24 @@ public class Config {
         this.welcome_guide_delay = settings.getInt("WelcomeGuide.Delay");
 
         // SURVIVAL
-        this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
+        this.survival_enabled = settings.getBoolean("Survival.Enabled");
         this.SURVIVAL_LIMITED_CRAFTING = settings.getBoolean("Survival.LimitedCrafting");
-        this.SURVIVAL_UNLOCK_ALL_RECIPES = settings.getBoolean("Survival.Unlock-all-recipes-on-join");
-        this.SURVIVAL_REMOVE_WOOD_TOOLS = settings.getBoolean("Survival.Remove-Wooden-Tools");
-        this.SURVIVAL_TORCH = settings.getBoolean("Survival.Torch");
+        this.survival_unlock_all_recipes = settings.getBoolean("Survival.Unlock-all-recipes-on-join");
+        this.survival_remove_wood_tools = settings.getBoolean("Survival.Remove-Wooden-Tools");
+        this.survival_torch = settings.getBoolean("Survival.Torch");
         this.SURVIVAL_UPDATE_MERCHANT_TRADES = settings.getBoolean("Survival.UpdateMerchantTrades");
 
-        this.BREAK_ONLY_WITH_SICKLE = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
+        this.break_only_with_sickle = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
         this.BREAK_ONLY_WITH_SHOVEL = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
         this.BREAK_ONLY_WITH_AXE = settings.getBoolean("Survival.BreakOnlyWith.Axe");
         this.BREAK_ONLY_WITH_PICKAXE = settings.getBoolean("Survival.BreakOnlyWith.Pickaxe");
         this.BREAK_ONLY_WITH_SHEARS = settings.getBoolean("Survival.BreakOnlyWith.Shears");
         this.PLACE_ONLY_WITH_HAMMER = settings.getBoolean("Survival.PlaceOnlyWith.Hammer");
 
-        this.SURVIVAL_SICKLE_FLINT = settings.getBoolean("Survival.Sickles.Flint");
-        this.SURVIVAL_SICKLE_STONE = settings.getBoolean("Survival.Sickles.Stone");
-        this.SURVIVAL_SICKLE_IRON = settings.getBoolean("Survival.Sickles.Iron");
-        this.SURVIVAL_SICKLE_DIAMOND = settings.getBoolean("Survival.Sickles.Diamond");
+        this.survival_sickle_flint = settings.getBoolean("Survival.Sickles.Flint");
+        this.survival_sickle_stone = settings.getBoolean("Survival.Sickles.Stone");
+        this.survival_sickle_iron = settings.getBoolean("Survival.Sickles.Iron");
+        this.survival_sickle_diamond = settings.getBoolean("Survival.Sickles.Diamond");
 
         this.DROP_RATE_STICK = settings.getDouble("Survival.DropRate.Stick");
         this.DROP_RATE_FLINT = settings.getDouble("Survival.DropRate.Flint");
@@ -325,25 +325,25 @@ public class Config {
         this.MECHANICS_ENERGY_REFRESH_RATE_BED = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
         this.MECHANICS_ENERGY_REFRESH_RATE_CHAIR = settings.getDouble("Mechanics.Energy.chair-refresh-rate");
         this.MECHANICS_ENERGY_EXHAUSTION = settings.getDouble("Mechanics.Energy.exhaustion");
-        this.MECHANICS_ENERGY_COFFEE_ENABLED = settings.getBoolean("Mechanics.Energy.coffee");
+        this.mechanics_energy_coffee_enabled = settings.getBoolean("Mechanics.Energy.coffee");
         this.MECHANICS_ENERGY_ABSORPTION = settings.getBoolean("Mechanics.Energy.absorption");
         this.MECHANICS_ENERGY_HASTE = settings.getBoolean("Mechanics.Energy.haste");
 
-        this.MECHANICS_SLOW_ARMOR = settings.getBoolean("Mechanics.SlowArmor");
-        this.MECHANICS_REINFORCED_ARMOR = settings.getBoolean("Mechanics.ReinforcedLeatherArmor");
+        this.mechanics_slow_armor = settings.getBoolean("Mechanics.SlowArmor");
+        this.mechanics_reinforced_armor = settings.getBoolean("Mechanics.ReinforcedLeatherArmor");
         this.MECHANICS_BOW = settings.getBoolean("Mechanics.Bow");
-        this.MECHANICS_RECURVED_BOW = settings.getBoolean("Mechanics.RecurveBow");
-        this.MECHANICS_GRAPPLING_HOOK = settings.getBoolean("Mechanics.GrapplingHook");
-        this.MECHANICS_MEDIC_KIT = settings.getBoolean("Mechanics.MedicalKit");
-        this.MECHANICS_REDUCED_IRON_NUGGET = settings.getBoolean("Mechanics.ReducedIronNugget");
-        this.MECHANICS_REDUCED_GOLD_NUGGET = settings.getBoolean("Mechanics.ReducedGoldNugget");
+        this.mechanics_recurved_bow = settings.getBoolean("Mechanics.RecurveBow");
+        this.mechanics_grappling_hook = settings.getBoolean("Mechanics.GrapplingHook");
+        this.mechanics_medic_kit = settings.getBoolean("Mechanics.MedicalKit");
+        this.mechanics_reduced_iron_nugget = settings.getBoolean("Mechanics.ReducedIronNugget");
+        this.mechanics_reduced_gold_nugget = settings.getBoolean("Mechanics.ReducedGoldNugget");
 
         this.mechanics_status_scoreboard = settings.getBoolean("Mechanics.StatusScoreboard");
         this.MECHANICS_ALERT_INTERVAL = settings.getInt("Mechanics.AlertInterval");
 
         this.MECHANICS_RAW_MEAT_HUNGER = settings.getBoolean("Mechanics.RawMeatHunger");
-        this.MECHANICS_EMPTY_POTION = settings.getBoolean("Mechanics.EmptyPotions");
-        this.MECHANICS_POISON_POTATO = settings.getBoolean("Mechanics.PoisonousPotato");
+        this.mechanics_empty_potion = settings.getBoolean("Mechanics.EmptyPotions");
+        this.mechanics_poison_potato = settings.getBoolean("Mechanics.PoisonousPotato");
         this.MECHANICS_COOKIE_BOOST = settings.getBoolean("Mechanics.CookieHealthBoost");
         this.MECHANICS_BEET_STRENGTH = settings.getBoolean("Mechanics.BeetrootStrength");
 
@@ -404,17 +404,17 @@ public class Config {
         this.mechanics_hunger_start_amount = settings.getInt("Mechanics.Hunger.Starting-Amount");
         this.mechanics_hunger_respawn_amount = settings.getInt("Mechanics.Hunger.Respawn-Amount");
 
-        this.MECHANICS_COMPASS_WAYPOINT = settings.getBoolean("Mechanics.CompassWaypoint.enabled");
+        this.mechanics_compass_waypoint = settings.getBoolean("Mechanics.CompassWaypoint.enabled");
         this.MECHANICS_COMPASS_WAYPOINT_WORLDS = settings.getBoolean("Mechanics.CompassWaypoint.per-world");
         this.MECHANICS_CLOWN_FISH = settings.getBoolean("Mechanics.Clownfish");
-        this.MECHANICS_FERMENTED_SKIN = settings.getBoolean("Mechanics.FermentedSkin");
+        this.mechanics_fermented_skin = settings.getBoolean("Mechanics.FermentedSkin");
         this.MECHANICS_LIVING_SLIME = settings.getBoolean("Mechanics.LivingSlime");
 
-        this.MECHANICS_SNOWBALL_REVAMP = settings.getBoolean("Mechanics.SnowballRevamp");
+        this.mechanics_snowball_revamp = settings.getBoolean("Mechanics.SnowballRevamp");
         this.MECHANICS_SNOW_GEN_REVAMP = settings.getBoolean("Mechanics.SnowGenerationRevamp");
 
-        this.MECHANICS_FARMING_PRODUCTS_COOKIE = settings.getBoolean("Mechanics.FarmingProducts.Cookie");
-        this.MECHANICS_FARMING_PRODUCTS_BREAD = settings.getBoolean("Mechanics.FarmingProducts.Bread");
+        this.mechanics_farming_products_cookie = settings.getBoolean("Mechanics.FarmingProducts.Cookie");
+        this.mechanics_farming_products_bread = settings.getBoolean("Mechanics.FarmingProducts.Bread");
 
         this.MECHANICS_CHAIRS_ENABLED = settings.getBoolean("Mechanics.Chairs.Enabled");
         this.MECHANICS_CHAIRS_MAX_WIDTH = settings.getInt("Mechanics.Chairs.MaxChairWidth");
@@ -426,7 +426,7 @@ public class Config {
         this.MECHANICS_BURNOUT_TORCH_DROP = settings.getBoolean("Mechanics.BurnoutTorches.DropTorch");
         this.MECHANICS_BURNOUT_TORCH_PERSIST = settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
 
-        this.MECHANICS_WEATHER_ENABLED = settings.getBoolean("Mechanics.Weather.Enabled");
+        this.mechanics_weather_enabled = settings.getBoolean("Mechanics.Weather.Enabled");
         this.MECHANICS_WEATHER_SPEED_BASE = settings.getDouble("Mechanics.Weather.speed.base");
         this.MECHANICS_WEATHER_SPEED_RAIN = settings.getDouble("Mechanics.Weather.speed.rain");
         this.MECHANICS_WEATHER_SPEED_STORM = settings.getDouble("Mechanics.Weather.speed.storm");
@@ -440,7 +440,7 @@ public class Config {
         this.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED = settings.getBoolean("Entity-Mechanics.zombified-piglin-chests.enabled");
         this.ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS = settings.getInt("Entity-Mechanics.zombified-piglin-chests.distance");
         this.ENTITY_MECHANICS_PIGMEN_CHEST_SPEED = settings.getDouble("Entity-Mechanics.zombified-piglin-chests.speed-modifier");
-        this.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
+        this.entity_mechanics_beekeeper_suit_enabled = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
         this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED = settings.getBoolean("Entity-Mechanics.suspicious-meat.enabled");
         this.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE = settings.getInt("Entity-Mechanics.suspicious-meat.chance");
         this.ENTITY_MECHANICS_CHICKEN_BREEDING_ENABLED = settings.getBoolean("Entity-Mechanics.chicken-breeding.enabled");
@@ -451,38 +451,38 @@ public class Config {
         this.ENTITY_MECHANICS_PIGLIN_ALT_DROP = settings.getBoolean("Entity-Mechanics.piglin-barter.alternate-bartering");
 
         // RECIPES
-        this.RECIPES_SADDLE = settings.getBoolean("Recipes.Saddle");
-        this.RECIPES_NAME_TAG = settings.getBoolean("Recipes.Nametag");
-        this.RECIPES_PACKED_ICE = settings.getBoolean("Recipes.PackedIce");
-        this.RECIPES_LEATHER_BARD = settings.getBoolean("Recipes.LeatherBard");
-        this.RECIPES_IRON_BARD = settings.getBoolean("Recipes.IronBard");
-        this.RECIPES_GOLD_BARD = settings.getBoolean("Recipes.GoldBard");
-        this.RECIPES_DIAMOND_BARD = settings.getBoolean("Recipes.DiamondBard");
-        this.RECIPES_CLAY_BRICK = settings.getBoolean("Recipes.ClayBrick");
-        this.RECIPES_QUARTZ_BLOCK = settings.getBoolean("Recipes.QuartzBlock");
-        this.RECIPES_WOOL_STRING = settings.getBoolean("Recipes.WoolString");
-        this.RECIPES_WEB_STRING = settings.getBoolean("Recipes.WebString");
-        this.RECIPES_ICE = settings.getBoolean("Recipes.Ice");
-        this.RECIPES_CLAY = settings.getBoolean("Recipes.Clay");
-        this.RECIPES_DIORITE = settings.getBoolean("Recipes.Diorite");
-        this.RECIPES_GRANITE = settings.getBoolean("Recipes.Granite");
-        this.RECIPES_ANDESITE = settings.getBoolean("Recipes.Andesite");
-        this.RECIPES_GRAVEL = settings.getBoolean("Recipes.Gravel");
-        this.RECIPES_SLIMEBALL = settings.getBoolean("Recipes.Slimeball");
-        this.RECIPES_COBWEB = settings.getBoolean("Recipes.Cobweb");
-        this.RECIPES_SAPLING_STICK = settings.getBoolean("Recipes.SaplingToSticks");
-        this.RECIPES_FISHING_ROD = settings.getBoolean("Recipes.FishingRod");
-        this.RECIPES_FURNACE = settings.getBoolean("Recipes.Furnace");
-        this.RECIPES_WORKBENCH = settings.getBoolean("Recipes.Workbench");
+        this.recipes_saddle = settings.getBoolean("Recipes.Saddle");
+        this.recipes_name_tag = settings.getBoolean("Recipes.Nametag");
+        this.recipes_packed_ice = settings.getBoolean("Recipes.PackedIce");
+        this.recipes_leather_bard = settings.getBoolean("Recipes.LeatherBard");
+        this.recipes_iron_bard = settings.getBoolean("Recipes.IronBard");
+        this.recipes_gold_bard = settings.getBoolean("Recipes.GoldBard");
+        this.recipes_diamond_bard = settings.getBoolean("Recipes.DiamondBard");
+        this.recipes_clay_brick = settings.getBoolean("Recipes.ClayBrick");
+        this.recipes_quartz_block = settings.getBoolean("Recipes.QuartzBlock");
+        this.recipes_wool_string = settings.getBoolean("Recipes.WoolString");
+        this.recipes_web_string = settings.getBoolean("Recipes.WebString");
+        this.recipes_ice = settings.getBoolean("Recipes.Ice");
+        this.recipes_clay = settings.getBoolean("Recipes.Clay");
+        this.recipes_diorite = settings.getBoolean("Recipes.Diorite");
+        this.recipes_granite = settings.getBoolean("Recipes.Granite");
+        this.recipes_andesite = settings.getBoolean("Recipes.Andesite");
+        this.recipes_gravel = settings.getBoolean("Recipes.Gravel");
+        this.recipes_slimeball = settings.getBoolean("Recipes.Slimeball");
+        this.recipes_cobweb = settings.getBoolean("Recipes.Cobweb");
+        this.recipes_sapling_stick = settings.getBoolean("Recipes.SaplingToSticks");
+        this.recipes_fishing_rod = settings.getBoolean("Recipes.FishingRod");
+        this.recipes_furnace = settings.getBoolean("Recipes.Furnace");
+        this.recipes_workbench = settings.getBoolean("Recipes.Workbench");
 
         // LEGENDARY ITEMS
-        this.LEGENDARY_VALKYRIE = settings.getBoolean("LegendaryItems.ValkyrieAxe");
-        this.LEGENDARY_QUARTZPICKAXE = settings.getBoolean("LegendaryItems.QuartzPickaxe");
-        this.LEGENDARY_OBSIDIAN_MACE = settings.getBoolean("LegendaryItems.ObsidianMace");
-        this.LEGENDARY_GIANTBLADE = settings.getBoolean("LegendaryItems.GiantBlade");
-        this.LEGENDARY_BLAZESWORD = settings.getBoolean("LegendaryItems.BlazeSword");
-        this.LEGENDARY_NOTCH_APPLE = settings.getBoolean("LegendaryItems.NotchApple");
-        this.LEGENDARY_GOLDARMORBUFF = settings.getBoolean("LegendaryItems.GoldArmorBuff");
+        this.legendary_valkyrie = settings.getBoolean("LegendaryItems.ValkyrieAxe");
+        this.legendary_quartzpickaxe = settings.getBoolean("LegendaryItems.QuartzPickaxe");
+        this.legendary_obsidian_mace = settings.getBoolean("LegendaryItems.ObsidianMace");
+        this.legendary_giantblade = settings.getBoolean("LegendaryItems.GiantBlade");
+        this.legendary_blazesword = settings.getBoolean("LegendaryItems.BlazeSword");
+        this.legendary_notch_apple = settings.getBoolean("LegendaryItems.NotchApple");
+        this.legendary_goldarmorbuff = settings.getBoolean("LegendaryItems.GoldArmorBuff");
 
         // HIDDEN CONFIG
         this.RECIPE_DELAY = settings.getInt("recipe-delay", 0);

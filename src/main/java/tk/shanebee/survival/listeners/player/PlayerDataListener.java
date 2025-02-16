@@ -47,7 +47,7 @@ public class PlayerDataListener implements Listener {
             scoreboardManager.setupScoreboard(player);
 
         // Appears you can only set a compass target after a delay
-        if (config.MECHANICS_COMPASS_WAYPOINT) {
+        if (config.mechanics_compass_waypoint) {
             this.scheduler.runTaskLater(this.plugin, () -> {
                 Location waypoint = playerData.getCompassWaypoint(player.getWorld());
                 player.setCompassTarget(Objects.requireNonNullElseGet(waypoint, () -> player.getWorld().getSpawnLocation()));

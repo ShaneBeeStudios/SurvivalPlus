@@ -24,7 +24,7 @@ public class WaterBowl implements Listener {
     public WaterBowl(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.thirstEnabled = plugin.getSurvivalConfig().mechanics_thirst_enabled;
-        this.clayEnabled = plugin.getSurvivalConfig().RECIPES_CLAY;
+        this.clayEnabled = plugin.getSurvivalConfig().recipes_clay;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

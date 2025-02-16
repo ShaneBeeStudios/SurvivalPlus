@@ -22,7 +22,7 @@ public class TaskManager {
 			}
 		}
 
-		if (config.MECHANICS_WEATHER_ENABLED) {
+		if (config.mechanics_weather_enabled) {
             new WeatherTask(plugin);
         }
         // Thirst

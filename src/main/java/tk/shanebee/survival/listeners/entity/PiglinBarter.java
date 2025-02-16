@@ -25,7 +25,7 @@ public class PiglinBarter implements Listener {
 
     public PiglinBarter(SurvivalPlugin plugin) {
         Config config = plugin.getSurvivalConfig();
-        this.SLOW_ARMOR = config.MECHANICS_SLOW_ARMOR;
+        this.SLOW_ARMOR = config.mechanics_slow_armor;
         this.THIRST_ENABLED = config.mechanics_thirst_enabled;
         this.DROP_WATER = config.ENTITY_MECHANICS_PIGLIN_DROP_WATER;
         this.ALT_DROPS = config.ENTITY_MECHANICS_PIGLIN_ALT_DROP;

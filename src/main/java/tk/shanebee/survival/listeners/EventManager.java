@@ -70,7 +70,7 @@ public class EventManager {
 		pm.registerEvents(new RecipeDiscovery(plugin), this.plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 
-		if (config.SURVIVAL_ENABLED) {
+		if (config.survival_enabled) {
 			pm.registerEvents(new BlockBreak(plugin), this.plugin);
 			pm.registerEvents(new BlockPlace(plugin), this.plugin);
 			pm.registerEvents(new FirestrikerListener(plugin), this.plugin);
@@ -81,21 +81,21 @@ public class EventManager {
 		}
 		if (config.MECHANICS_BOW)
 			pm.registerEvents(new Bow(plugin), this.plugin);
-		if (config.MECHANICS_GRAPPLING_HOOK)
+		if (config.mechanics_grappling_hook)
 			pm.registerEvents(new GrapplingHook(plugin), this.plugin);
-		if (config.LEGENDARY_OBSIDIAN_MACE)
+		if (config.legendary_obsidian_mace)
 			pm.registerEvents(new ObsidianMaceWeakness(plugin), this.plugin);
-		if (config.LEGENDARY_VALKYRIE)
+		if (config.legendary_valkyrie)
 			pm.registerEvents(new Valkyrie(plugin), this.plugin);
-		if (config.LEGENDARY_GIANTBLADE)
+		if (config.legendary_giantblade)
 			pm.registerEvents(new GiantBlade(plugin), this.plugin);
-		if (config.LEGENDARY_BLAZESWORD)
+		if (config.legendary_blazesword)
 			pm.registerEvents(new BlazeSword(), this.plugin);
 		if (LOCAL_CHAT > -1)
 			pm.registerEvents(new LocalChat(plugin), this.plugin);
-		if (config.MECHANICS_COMPASS_WAYPOINT)
+		if (config.mechanics_compass_waypoint)
 			pm.registerEvents(new CompassWaypoint(this.plugin), this.plugin);
-		if (config.MECHANICS_MEDIC_KIT)
+		if (config.mechanics_medic_kit)
 			pm.registerEvents(new MedicKit(plugin), this.plugin);
 
 		pm.registerEvents(new WaterBottleCrafting(plugin), this.plugin);
@@ -111,7 +111,7 @@ public class EventManager {
 			if (config.mechanics_thirst_purify_water)
 				pm.registerEvents(new CauldronWaterBottle(), this.plugin);
 		}
-		if (config.MECHANICS_POISON_POTATO)
+		if (config.mechanics_poison_potato)
 			pm.registerEvents(new PoisonousPotato(), this.plugin);
 		if (config.MECHANICS_SHARED_WORKBENCH)
 			pm.registerEvents(new WorkbenchShare(plugin), this.plugin);
@@ -129,9 +129,9 @@ public class EventManager {
 			pm.registerEvents(new EnergyChange(plugin), this.plugin);
 		if (config.mechanics_food_diversity_enabled)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
-		if (config.MECHANICS_RECURVED_BOW)
+		if (config.mechanics_recurved_bow)
 			pm.registerEvents(new RecurvedBow(plugin), this.plugin);
-		if (config.MECHANICS_SNOWBALL_REVAMP)
+		if (config.mechanics_snowball_revamp)
 			pm.registerEvents(new SnowballThrow(), this.plugin);
 		if (config.MECHANICS_SNOW_GEN_REVAMP)
 			pm.registerEvents(new SnowGeneration(plugin), this.plugin);
@@ -146,7 +146,7 @@ public class EventManager {
 		if (config.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 
-        if (config.ENTITY_MECHANICS_BEEKEEPER_SUIT_ENABLED) {
+        if (config.entity_mechanics_beekeeper_suit_enabled) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
         }
         if (config.SURVIVAL_UPDATE_MERCHANT_TRADES) {

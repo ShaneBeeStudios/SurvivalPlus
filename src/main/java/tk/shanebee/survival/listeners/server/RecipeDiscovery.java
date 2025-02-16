@@ -20,11 +20,11 @@ import tk.shanebee.survival.managers.RecipeManager.Recipes;
 public class RecipeDiscovery implements Listener {
 
     private final SurvivalPlugin plugin;
-    private final boolean UNLOCK_ALL;
+    private final boolean unlockAllRecipes;
 
     public RecipeDiscovery(SurvivalPlugin plugin) {
         this.plugin = plugin;
-        this.UNLOCK_ALL = plugin.getSurvivalConfig().SURVIVAL_UNLOCK_ALL_RECIPES;
+        this.unlockAllRecipes = plugin.getSurvivalConfig().survival_unlock_all_recipes;
     }
 
     // When a player first joins, give them a few recipes after 10 seconds
@@ -32,7 +32,7 @@ public class RecipeDiscovery implements Listener {
     private void onFirstJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            if (this.UNLOCK_ALL) {
+            if (this.unlockAllRecipes) {
                 this.plugin.getRecipeManager().unlockAllRecipes(player);
             } else {
                 player.discoverRecipes(Recipes.HATCHET.getKeys());
@@ -46,15 +46,14 @@ public class RecipeDiscovery implements Listener {
                 player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
             }
             player.discoverRecipe(NamespacedKey.minecraft("bowl"));
-        }, 200);
+        }, 100);
     }
 
     // When a player picks up items, unlock different item based recipes
     @EventHandler
     private void onPickupItems(EntityPickupItemEvent e) {
-        if (this.UNLOCK_ALL) return;
-        if (!(e.getEntity() instanceof Player)) return;
-        Player player = ((Player) e.getEntity());
+        if (this.unlockAllRecipes) return;
+        if (!(e.getEntity() instanceof Player player)) return;
         Material item = e.getItem().getItemStack().getType();
         if (item == Material.DIAMOND) {
             player.discoverRecipes(Recipes.DIAMOND_BOOTS.getKeys());
@@ -114,7 +113,7 @@ public class RecipeDiscovery implements Listener {
     // When a player smelts items, unlock different item based recipes
     @EventHandler
     private void onFurnaceExtract(FurnaceExtractEvent event) {
-        if (this.UNLOCK_ALL) return;
+        if (this.unlockAllRecipes) return;
         Player player = event.getPlayer();
         if (event.getItemType() == Material.IRON_INGOT) {
             player.discoverRecipes(Recipes.IRON_BOOTS.getKeys());
@@ -140,7 +139,7 @@ public class RecipeDiscovery implements Listener {
     // When a player breaks a block, unlock different item based recipes
     @EventHandler
     private void onPlayerBreakBlock(BlockBreakEvent e) {
-        if (this.UNLOCK_ALL) return;
+        if (this.unlockAllRecipes) return;
         Player player = e.getPlayer();
         Material item = e.getBlock().getType();
         if (e.isCancelled()) return;
@@ -162,9 +161,9 @@ public class RecipeDiscovery implements Listener {
     // When a player crafts an item, unlock different item based recipes
     @EventHandler
     private void onCraft(CraftItemEvent e) {
-        if (this.UNLOCK_ALL) return;
-        if (!(e.getWhoClicked() instanceof Player)) return;
-        Player player = ((Player) e.getWhoClicked());
+        if (this.unlockAllRecipes) return;
+        if (!(e.getWhoClicked() instanceof Player player)) return;
+
         ItemStack result = e.getRecipe().getResult();
         if (Items.FIRESTRIKER.is(result)) {
             player.discoverRecipes(Recipes.TORCH.getKeys());

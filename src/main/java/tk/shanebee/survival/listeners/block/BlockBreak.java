@@ -106,7 +106,7 @@ public class BlockBreak implements Listener {
                     }
                 }
 
-                if (settings.BREAK_ONLY_WITH_SICKLE) {
+                if (settings.break_only_with_sickle) {
                     if (BlockTags.FARMABLE.isTagged(material)) {
                         if (!Items.Tags.SICKLES.isTagged(tool)) {
                             event.setCancelled(true);
@@ -174,7 +174,7 @@ public class BlockBreak implements Listener {
                             event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5,0.1,0.5), new ItemStack(Material.STICK));
                     }
                 }
-                if (settings.RECIPES_WORKBENCH && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
+                if (settings.recipes_workbench && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
                     event.setDropItems(false);
                     ItemStack workbench = Items.WORKBENCH.getItemStack();
                     block.getWorld().dropItem(block.getLocation(), workbench);
@@ -191,7 +191,7 @@ public class BlockBreak implements Listener {
     @EventHandler
     private void onHarvest(PlayerInteractEvent e) {
         if (e.isCancelled()) return;
-        if (!settings.BREAK_ONLY_WITH_SICKLE) return;
+        if (!settings.break_only_with_sickle) return;
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR
             || e.getAction() == Action.LEFT_CLICK_BLOCK) return;
         Player player = e.getPlayer();
@@ -266,7 +266,7 @@ public class BlockBreak implements Listener {
 
     @EventHandler
     private void onWaterBreakCrops(BlockPhysicsEvent event) {
-        if (!settings.BREAK_ONLY_WITH_SICKLE) return;
+        if (!settings.break_only_with_sickle) return;
         if (event.getSourceBlock().getType() == Material.WATER) {
             Material type = event.getBlock().getType();
             if (BlockTags.FARMABLE.isTagged(type)) {
@@ -280,7 +280,7 @@ public class BlockBreak implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onTrample(PlayerInteractEvent event) {
         if (event.isCancelled()) return;
-        if (!settings.BREAK_ONLY_WITH_SICKLE) return;
+        if (!settings.break_only_with_sickle) return;
         if (event.getAction() == Action.PHYSICAL) {
             if (event.getClickedBlock() == null) return;
             if (event.getClickedBlock().getType() == Material.FARMLAND) {

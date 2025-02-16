@@ -31,7 +31,7 @@ public class LocalChat implements Listener {
 		PlayerData playerData = playerManager.getPlayerData(player);
 		String msg = event.getMessage();
 
-		if (config.LEGENDARY_GOLDARMORBUFF) {
+		if (config.legendary_goldarmorbuff) {
 			if (player.getInventory().getHelmet() != null) {
 				if (player.getInventory().getHelmet().getType() == Material.GOLDEN_HELMET) {
 					event.setCancelled(false);

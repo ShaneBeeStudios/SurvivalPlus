@@ -45,7 +45,7 @@ public class ObsidianMaceWeakness implements Listener {
 	// Prevent obsidian mace turning dirt/grass block into farmland
     @EventHandler
     private void onInteractBlock(PlayerInteractEvent event) {
-	    if (!this.config.LEGENDARY_OBSIDIAN_MACE) return;
+	    if (!this.config.legendary_obsidian_mace) return;
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack tool = event.getItem();
