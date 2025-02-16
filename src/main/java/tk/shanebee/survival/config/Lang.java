@@ -118,117 +118,106 @@ public class Lang {
         this.langFilePath = "lang_" + language + ".yml";
     }
 
-//    public void loadLangFile(CommandSender sender) {
-//        String loaded;
-//        File lang_file = new File(plugin.getDataFolder(), langFilePath);
-//        if (!lang_file.exists()) {
-//            plugin.saveResource(langFilePath, true);
-//            loaded = "<green>New " + langFilePath + " created";
-//        } else {
-//            loaded = "<grey>" + langFilePath + " <green>loaded";
-//            matchConfig(YamlConfiguration.loadConfiguration(lang_file), lang_file);
-//        }
-//        lang = YamlConfiguration.loadConfiguration(lang_file);
-//
-//        prefix = lang.getString("prefix");
-//        no_perm = lang.getString("no-perm");
-//        survival_guide_msg = lang.getString("survival-guide-msg");
-//        resource_pack_apply = lang.getString("resource-pack-apply");
-//        resource_pack_fail_download = lang.getString("resource-pack-fail-download");
-//        task_must_use_shovel = lang.getString("task-must-use-shovel");
-//        task_must_use_axe = lang.getString("task-must-use-axe");
-//        task_must_use_pick = lang.getString("task-must-use-pick");
-//        task_must_use_sickle = lang.getString("task-must-use-sickle");
-//        task_must_use_shear = lang.getString("task-must-use-shear");
-//        task_must_use_hammer = lang.getString("task-must-use-hammer");
-//        no_rename = lang.getString("no-rename");
-//        period = lang.getString("period");
-//        charge = lang.getString("charge");
-//        charge_ready = lang.getString("charge-ready");
-//        charge_unable = lang.getString("charge-unable");
-//        lack_of_energy = lang.getString("lack-of-energy");
-//        arrows_off_hand = lang.getString("arrows-off-hand");
-//        arrows_off_hand_crossbow = lang.getString("arrows-off-hand-crossbow");
-//        bow_main_hand = lang.getString("bow-main-hand");
-//        recurved_bow = lang.getString("recurved-bow");
-//        recurved_crossbow = lang.getString("recurved-crossbow");
-//        recurved = lang.getString("recurved");
-//        fishing_off_hand = lang.getString("fishing-off-hand");
-//        fishing_main_hand = lang.getString("fishing-main-hand");
-//        grappling_off_hand = lang.getString("grappling-off-hand");
-//        grappling_main_hand = lang.getString("grappling-main-hand");
-//        compass_waypoint_set = lang.getString("compass-waypoint-set");
-//        compass_waypoint_get = lang.getString("compass-waypoint-get");
-//        compass_waypoint_unset = lang.getString("compass-waypoint-unset");
-//        compass_lore = lang.getStringList("compass-lore");
-//        players_only = lang.getString("players-only");
-//        toggle_chat_local = lang.getString("toggle-chat-local");
-//        toggle_chat_global = lang.getString("toggle-chat-global");
-//        toggle_chat_disabled = lang.getString("toggle-chat-disabled");
-//        invalid_arg = lang.getString("invalid-arg");
-//        starved_eat = lang.getString("starved-eat");
-//        dehydrated_drink = lang.getString("dehydrated-drink");
-//        healthboard_title = lang.getString("healthboard-title");
-//        hunger = lang.getString("hunger");
-//        thirst = lang.getString("thirst");
-//        energy = lang.getString("energy");
-//        nutrients = lang.getString("nutrients");
-//        carbohydrates = lang.getString("carbohydrates");
-//        carbohydrates_lack = lang.getString("carbohydrates-lack");
-//        protein = lang.getString("protein");
-//        protein_lack = lang.getString("protein-lack");
-//        vitamins = lang.getString("vitamins");
-//        vitamins_lack = lang.getString("vitamins-lack");
-//        nutrition_gui = lang.getString("nutrition-gui");
-//        nutrition_gui_next_page = lang.getString("nutrition-gui-next-page");
-//        nutrition_gui_last_page = lang.getString("nutrition-gui-last-page");
-//        healing_other = lang.getString("healing-other");
-//        healing_self = lang.getString("healing-self");
-//        healing_being_healed = lang.getString("healing-being-healed");
-//        healing_complete = lang.getString("healing-complete");
-//        healing_interrupted = lang.getString("healing-interrupted");
-//        energy_level_10 = lang.getString("energy-level-10");
-//        energy_level_6_5 = lang.getString("energy-level-6-5");
-//        energy_level_3_5 = lang.getString("energy-level-3-5");
-//        energy_level_2 = lang.getString("energy-level-2");
-//        energy_level_1 = lang.getString("energy-level-1");
-//        locked = lang.getString("locked");
-//        missing_component = lang.getString("missing-component");
-//        right_click_sneaking = lang.getString("right-click-sneaking");
-//        right_click_sprinting = lang.getString("right-click-sprinting");
-//        decrease_hunger_value = lang.getString("decrease-hunger-value");
-//        firestriker = lang.getString("firestriker");
-//        poisoned_enemy = lang.getString("poisoned-enemy");
-//        poisoned_retain = lang.getString("poisoned-retain");
-//        reduce_50 = lang.getString("reduce-50");
-//        valkyrie_axe_unable_dual = lang.getString("valkyrie-axe-unable-dual");
-//        valkyrie_axe_spin = lang.getString("valkyrie-axe-spin");
-//        valkyrie_axe_cooldown = lang.getString("valkyrie-axe-cooldown");
-//        quartz_breaker = lang.getString("quartz-breaker");
-//        haste = lang.getString("haste");
-//        cripple_hit = lang.getString("cripple-hit");
-//        drain_hit = lang.getString("drain-hit");
-//        exhausted_slow = lang.getString("exhausted-slow");
-//        expire_disarm = lang.getString("expire-disarm");
-//        knockback_resistance = lang.getString("knockback-resistance");
-//        ender_giant_blade = lang.getString("ender-giant-blade");
-//        ender_giant_blade_unable_duel = lang.getString("ender-giant-blade-unable-duel");
-//        ender_giant_blade_charge = lang.getString("ender-giant-blade-charge");
-//        ender_giant_blade_cooldown = lang.getString("ender-giant-blade-cooldown");
-//        half_shield_resistance = lang.getString("half-shield-resistance");
-//        reflecting_coming = lang.getString("reflecting-coming");
-//        blaze_sword_fire_resistance = lang.getString("blaze-sword-fire-resistance");
-//        blaze_sword_fiery = lang.getString("blaze-sword-fiery");
-//        blaze_sword_spread_fire = lang.getString("blaze-sword-spread-fire");
-//        blaze_sword_cost = lang.getString("blaze-sword-cost");
-//        hot_milk_drink = lang.getString("hot-milk-drink");
-//
-//        cmd_heal_self = lang.getString("cmd-heal-self");
-//        cmd_heal_by = lang.getString("cmd-heal-by");
-//        cmd_heal_other = lang.getString("cmd-heal-other");
-//
-//        Utils.sendColoredMini(sender, prefix + loaded);
-//    }
+    public void loadLangFile(CommandSender sender) {
+        String loaded;
+        File lang_file = new File(plugin.getDataFolder(), langFilePath);
+        if (!lang_file.exists()) {
+            plugin.saveResource(langFilePath, true);
+            loaded = "<green>New " + langFilePath + " created";
+        } else {
+            loaded = "<grey>" + langFilePath + " <green>loaded";
+            matchConfig(YamlConfiguration.loadConfiguration(lang_file), lang_file);
+        }
+        lang = YamlConfiguration.loadConfiguration(lang_file);
+
+        prefix = lang.getString("prefix");
+        no_perm = lang.getString("no-perm");
+        survival_guide_msg = lang.getString("survival-guide-msg");
+        resource_pack_apply = lang.getString("resource-pack-apply");
+        resource_pack_fail_download = lang.getString("resource-pack-fail-download");
+        task_must_use_shovel = lang.getString("task-must-use-shovel");
+        task_must_use_axe = lang.getString("task-must-use-axe");
+        task_must_use_pick = lang.getString("task-must-use-pick");
+        task_must_use_sickle = lang.getString("task-must-use-sickle");
+        task_must_use_shear = lang.getString("task-must-use-shear");
+        task_must_use_hammer = lang.getString("task-must-use-hammer");
+        charge = lang.getString("charge");
+        charge_ready = lang.getString("charge-ready");
+        charge_unable = lang.getString("charge-unable");
+        lack_of_energy = lang.getString("lack-of-energy");
+        arrows_off_hand = lang.getString("arrows-off-hand");
+        arrows_off_hand_crossbow = lang.getString("arrows-off-hand-crossbow");
+        bow_main_hand = lang.getString("bow-main-hand");
+        fishing_off_hand = lang.getString("fishing-off-hand");
+        fishing_main_hand = lang.getString("fishing-main-hand");
+        grappling_off_hand = lang.getString("grappling-off-hand");
+        grappling_main_hand = lang.getString("grappling-main-hand");
+        compass_waypoint_set = lang.getString("compass-waypoint-set");
+        compass_waypoint_get = lang.getString("compass-waypoint-get");
+        compass_waypoint_unset = lang.getString("compass-waypoint-unset");
+        toggle_chat_local = lang.getString("toggle-chat-local");
+        toggle_chat_global = lang.getString("toggle-chat-global");
+        starved_eat = lang.getString("starved-eat");
+        dehydrated_drink = lang.getString("dehydrated-drink");
+        healthboard_title = lang.getString("healthboard-title");
+        hunger = lang.getString("hunger");
+        thirst = lang.getString("thirst");
+        energy = lang.getString("energy");
+        nutrients = lang.getString("nutrients");
+        carbohydrates = lang.getString("carbohydrates");
+        carbohydrates_lack = lang.getString("carbohydrates-lack");
+        protein = lang.getString("protein");
+        protein_lack = lang.getString("protein-lack");
+        vitamins = lang.getString("vitamins");
+        vitamins_lack = lang.getString("vitamins-lack");
+        nutrition_gui = lang.getString("nutrition-gui");
+        nutrition_gui_next_page = lang.getString("nutrition-gui-next-page");
+        nutrition_gui_last_page = lang.getString("nutrition-gui-last-page");
+        healing_other = lang.getString("healing-other");
+        healing_self = lang.getString("healing-self");
+        healing_being_healed = lang.getString("healing-being-healed");
+        healing_complete = lang.getString("healing-complete");
+        healing_interrupted = lang.getString("healing-interrupted");
+        energy_level_10 = lang.getString("energy-level-10");
+        energy_level_6_5 = lang.getString("energy-level-6-5");
+        energy_level_3_5 = lang.getString("energy-level-3-5");
+        energy_level_2 = lang.getString("energy-level-2");
+        energy_level_1 = lang.getString("energy-level-1");
+        right_click_sneaking = lang.getString("right-click-sneaking");
+        right_click_sprinting = lang.getString("right-click-sprinting");
+        decrease_hunger_value = lang.getString("decrease-hunger-value");
+        firestriker = lang.getString("firestriker");
+        poisoned_enemy = lang.getString("poisoned-enemy");
+        poisoned_retain = lang.getString("poisoned-retain");
+        reduce_50 = lang.getString("reduce-50");
+        valkyrie_axe_unable_dual = lang.getString("valkyrie-axe-unable-dual");
+        valkyrie_axe_spin = lang.getString("valkyrie-axe-spin");
+        valkyrie_axe_cooldown = lang.getString("valkyrie-axe-cooldown");
+        quartz_breaker = lang.getString("quartz-breaker");
+        haste = lang.getString("haste");
+        cripple_hit = lang.getString("cripple-hit");
+        drain_hit = lang.getString("drain-hit");
+        exhausted_slow = lang.getString("exhausted-slow");
+        expire_disarm = lang.getString("expire-disarm");
+        knockback_resistance = lang.getString("knockback-resistance");
+        ender_giant_blade = lang.getString("ender-giant-blade");
+        ender_giant_blade_unable_duel = lang.getString("ender-giant-blade-unable-duel");
+        ender_giant_blade_charge = lang.getString("ender-giant-blade-charge");
+        ender_giant_blade_cooldown = lang.getString("ender-giant-blade-cooldown");
+        half_shield_resistance = lang.getString("half-shield-resistance");
+        reflecting_coming = lang.getString("reflecting-coming");
+        blaze_sword_fire_resistance = lang.getString("blaze-sword-fire-resistance");
+        blaze_sword_fiery = lang.getString("blaze-sword-fiery");
+        blaze_sword_spread_fire = lang.getString("blaze-sword-spread-fire");
+        blaze_sword_cost = lang.getString("blaze-sword-cost");
+        hot_milk_drink = lang.getString("hot-milk-drink");
+
+        cmd_heal_self = lang.getString("cmd-heal-self");
+        cmd_heal_by = lang.getString("cmd-heal-by");
+        cmd_heal_other = lang.getString("cmd-heal-other");
+
+        Utils.sendColoredMini(sender, prefix + loaded);
+    }
 
     // Used to update config
     @SuppressWarnings("ConstantConditions")
