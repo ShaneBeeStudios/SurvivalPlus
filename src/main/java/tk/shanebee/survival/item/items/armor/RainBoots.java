@@ -2,11 +2,11 @@ package tk.shanebee.survival.item.items.armor;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.DyedItemColor;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import tk.shanebee.survival.item.Item;
 
@@ -23,13 +23,12 @@ public class RainBoots extends Item {
     }
 
     @Override
-    public void registerRecipe() {
-        ShapedRecipe rainBoots = new ShapedRecipe(this.recipeKey, this.getItemStack());
-        rainBoots.shape("ili");
-        rainBoots.setIngredient('i', Material.IRON_INGOT);
-        rainBoots.setIngredient('l', Material.LEATHER_BOOTS);
-        Bukkit.addRecipe(rainBoots);
-
+    public Recipe getRecipe() {
+        ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
+        recipe.shape("ili");
+        recipe.setIngredient('i', Material.IRON_INGOT);
+        recipe.setIngredient('l', Material.LEATHER_BOOTS);
+        return recipe;
     }
 
 }

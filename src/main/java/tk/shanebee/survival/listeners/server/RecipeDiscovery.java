@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.RecipeManager.Recipes;
+import tk.shanebee.survival.item.Recipes;
 
 public class RecipeDiscovery implements Listener {
 
@@ -35,15 +35,15 @@ public class RecipeDiscovery implements Listener {
             if (this.unlockAllRecipes) {
                 this.plugin.getRecipeManager().unlockAllRecipes(player);
             } else {
-                player.discoverRecipes(Recipes.HATCHET.getKeys());
-                player.discoverRecipes(Recipes.MATTOCK.getKeys());
-                player.discoverRecipes(Recipes.SHIV.getKeys());
-                player.discoverRecipes(Recipes.HAMMER.getKeys());
-                player.discoverRecipes(Recipes.GLASS_BOTTLE.getKeys());
-                player.discoverRecipes(Recipes.STICK.getKeys());
-                player.discoverRecipes(Recipes.BREAD.getKeys());
-                player.discoverRecipes(Recipes.STRING.getKeys());
-                player.discoverRecipes(Recipes.WATER_BOTTLES.getKeys());
+                Recipes.HATCHET.unlock(player);
+                Recipes.MATTOCK.unlock(player);
+                Recipes.SHIV.unlock(player);
+                Recipes.HAMMER.unlock(player);
+                Recipes.GLASS_BOTTLE.unlock(player);
+                Recipes.STICK.unlock(player);
+                Recipes.BREAD.unlock(player);
+                Recipes.STRING_FROM_WEB.unlock(player);
+                Recipes.CLEAN_WATER_BOTTLES.unlock(player);
             }
             player.discoverRecipe(NamespacedKey.minecraft("bowl"));
         }, 100);
@@ -56,57 +56,57 @@ public class RecipeDiscovery implements Listener {
         if (!(e.getEntity() instanceof Player player)) return;
         Material item = e.getItem().getItemStack().getType();
         if (item == Material.DIAMOND) {
-            player.discoverRecipes(Recipes.DIAMOND_BOOTS.getKeys());
-            player.discoverRecipes(Recipes.DIAMOND_CHESTPLATE.getKeys());
-            player.discoverRecipes(Recipes.DIAMOND_LEGGINGS.getKeys());
-            player.discoverRecipes(Recipes.DIAMOND_HELMET.getKeys());
-            player.discoverRecipes(Recipes.DIAMOND_HORSE_ARMOR.getKeys());
-            player.discoverRecipes(Recipes.VALKYRIES_AXE.getKeys());
-            player.discoverRecipes(Recipes.QUARTZ_PICKAXE.getKeys());
-            player.discoverRecipes(Recipes.ENDER_GIANT_BLADE.getKeys());
-            player.discoverRecipes(Recipes.DIAMOND_SICKLE.getKeys());
+            Recipes.DIAMOND_BOOTS.unlock(player);
+            Recipes.DIAMOND_CHESTPLATE.unlock(player);
+            Recipes.DIAMOND_LEGGINGS.unlock(player);
+            Recipes.DIAMOND_HELMET.unlock(player);
+            Recipes.DIAMOND_HORSE_ARMOR.unlock(player);
+            Recipes.VALKYRIES_AXE.unlock(player);
+            Recipes.QUARTZ_PICKAXE.unlock(player);
+            Recipes.ENDER_GIANT_BLADE.unlock(player);
+            Recipes.DIAMOND_SICKLE.unlock(player);
         } else if (item == Material.FLINT) {
-            player.discoverRecipes(Recipes.FIRESTRIKER.getKeys());
-            player.discoverRecipes(Recipes.GRAVEL.getKeys());
-            player.discoverRecipes(Recipes.FLINT_SICKLE.getKeys());
+            Recipes.FIRESTRIKER.unlock(player);
+            Recipes.GRAVEL.unlock(player);
+            Recipes.FLINT_SICKLE.unlock(player);
         } else if (item == Material.FEATHER) {
-            player.discoverRecipes(Recipes.MEDIC_KIT.getKeys());
-            player.discoverRecipes(Recipes.FISHING_ROD.getKeys());
+            Recipes.MEDIC_KIT.unlock(player);
+            Recipes.FISHING_ROD.unlock(player);
         } else if (item == Material.BLAZE_POWDER || item == Material.BLAZE_ROD) {
-            player.discoverRecipes(Recipes.BLAZE_SWORD.getKeys());
+            Recipes.BLAZE_SWORD.unlock(player);
         } else if (item == Material.LEATHER) {
-            player.discoverRecipes(Recipes.SADDLE.getKeys());
-            player.discoverRecipes(Recipes.LEATHER_HORSE_ARMOR.getKeys());
+            Recipes.SADDLE.unlock(player);
+            Recipes.LEATHER_HORSE_ARMOR.unlock(player);
         } else if (item == Material.GRAVEL) {
-            player.discoverRecipes(Recipes.FLINT.getKeys());
+            Recipes.FLINT.unlock(player);
         } else if (item == Material.ROTTEN_FLESH) {
-            player.discoverRecipes(Recipes.FERMENTED_SKIN.getKeys());
+            Recipes.FERMENTED_SKIN.unlock(player);
         } else if (item == Material.STRING) {
-            player.discoverRecipes(Recipes.COBWEB.getKeys());
-            player.discoverRecipes(Recipes.RECURVED_BOW.getKeys());
+            Recipes.COBWEB.unlock(player);
+            Recipes.RECURVED_BOW.unlock(player);
         } else if (item == Material.SPIDER_EYE) {
-            player.discoverRecipes(Recipes.FERMENTED_SPIDER_EYE.getKeys());
+            Recipes.FERMENTED_SPIDER_EYE.unlock(player);
         } else if (item == Material.POTATO) {
-            player.discoverRecipes(Recipes.POISONOUS_POTATO.getKeys());
+            Recipes.POISONOUS_POTATO.unlock(player);
         } else if (item == Material.COBBLESTONE) {
-            player.discoverRecipes(Recipes.ANDESITE.getKeys());
-            player.discoverRecipes(Recipes.DIORITE.getKeys());
-            player.discoverRecipes(Recipes.GRANITE.getKeys());
-            player.discoverRecipes(Recipes.STONE_SICKLE.getKeys());
+            Recipes.ANDESITE.unlock(player);
+            Recipes.DIORITE.unlock(player);
+            Recipes.GRANITE.unlock(player);
+            Recipes.STONE_SICKLE.unlock(player);
         } else if (item == Material.QUARTZ) {
-            player.discoverRecipes(Recipes.QUARTZ.getKeys());
+            Recipes.QUARTZ.unlock(player);
         } else if (item == Material.DIRT) {
-            player.discoverRecipes(Recipes.CLAY.getKeys());
+            Recipes.CLAY.unlock(player);
         } else if (item == Material.EGG) {
-            player.discoverRecipes(Recipes.COOKIE.getKeys());
+            Recipes.COOKIE.unlock(player);
         } else if (Items.WATER_BOWL.is(e.getItem().getItemStack())) {
-            player.discoverRecipes(Recipes.BOWL.getKeys());
+            Recipes.BOWL.unlock(player);
         } else if (item == Material.VINE) {
-            player.discoverRecipes(Recipes.SLIMEBALL.getKeys());
+            Recipes.SLIMEBALL.unlock(player);
         } else if (item == Material.REDSTONE) {
-            player.discoverRecipes(Recipes.COMPASS.getKeys());
+            Recipes.COMPASS.unlock(player);
         } else if (item == Material.HONEYCOMB) {
-            player.discoverRecipes(Recipes.BEEKEEPER_SUIT.getKeys());
+            Recipes.BEEKEEPER_SUIT.unlock(player);
         }
     }
 
@@ -116,23 +116,23 @@ public class RecipeDiscovery implements Listener {
         if (this.unlockAllRecipes) return;
         Player player = event.getPlayer();
         if (event.getItemType() == Material.IRON_INGOT) {
-            player.discoverRecipes(Recipes.IRON_BOOTS.getKeys());
-            player.discoverRecipes(Recipes.IRON_CHESTPLATE.getKeys());
-            player.discoverRecipes(Recipes.IRON_HELMET.getKeys());
-            player.discoverRecipes(Recipes.IRON_LEGGINGS.getKeys());
-            player.discoverRecipes(Recipes.IRON_HORSE_ARMOR.getKeys());
-            player.discoverRecipes(Recipes.IRON_INGOT.getKeys());
-            player.discoverRecipes(Recipes.IRON_SICKLE.getKeys());
-            player.discoverRecipes(Recipes.IRON_NUGGET.getKeys());
+            Recipes.IRON_BOOTS.unlock(player);
+            Recipes.IRON_CHESTPLATE.unlock(player);
+            Recipes.IRON_HELMET.unlock(player);
+            Recipes.IRON_LEGGINGS.unlock(player);
+            Recipes.IRON_HORSE_ARMOR.unlock(player);
+            Recipes.IRON_INGOT.unlock(player);
+            Recipes.IRON_SICKLE.unlock(player);
+            Recipes.IRON_NUGGET.unlock(player);
         } else if (event.getItemType() == Material.GOLD_INGOT) {
-            player.discoverRecipes(Recipes.GOLD_NUGGET.getKeys());
-            player.discoverRecipes(Recipes.GOLD_INGOT.getKeys());
-            player.discoverRecipes(Recipes.GOLD_CROWN.getKeys());
-            player.discoverRecipes(Recipes.GOLD_GREAVES.getKeys());
-            player.discoverRecipes(Recipes.GOLD_GUARD.getKeys());
-            player.discoverRecipes(Recipes.GOLD_SABATONS.getKeys());
-            player.discoverRecipes(Recipes.GOLD_HORSE_ARMOR.getKeys());
-            player.discoverRecipes(Recipes.ENCHANTED_GOLDEN_APPLE.getKeys());
+            Recipes.GOLD_NUGGET.unlock(player);
+            Recipes.GOLD_INGOT.unlock(player);
+            Recipes.GOLD_CROWN.unlock(player);
+            Recipes.GOLD_GREAVES.unlock(player);
+            Recipes.GOLD_GUARD.unlock(player);
+            Recipes.GOLD_SABATONS.unlock(player);
+            Recipes.GOLD_HORSE_ARMOR.unlock(player);
+            Recipes.ENCHANTED_GOLDEN_APPLE.unlock(player);
         }
     }
 
@@ -141,20 +141,17 @@ public class RecipeDiscovery implements Listener {
     private void onPlayerBreakBlock(BlockBreakEvent e) {
         if (this.unlockAllRecipes) return;
         Player player = e.getPlayer();
-        Material item = e.getBlock().getType();
+        Material blockType = e.getBlock().getType();
         if (e.isCancelled()) return;
-        if (Tag.LOGS.isTagged(item)) {
-            player.discoverRecipes(Recipes.WORKBENCH.getKeys());
-            player.discoverRecipe(NamespacedKey.minecraft("crafting_table")); //unlocks vanilla recipe if custom workbench recipe is set to false
-            player.discoverRecipes(Recipes.CHEST.getKeys());
-            player.discoverRecipes(Recipes.UNLIT_CAMPFIRE.getKeys());
-        } else if (item == Material.OBSIDIAN) {
-            player.discoverRecipes(Recipes.OBSIDIAN_MACE.getKeys());
-        } else if (item == Material.ICE || item == Material.BLUE_ICE || item == Material.FROSTED_ICE || item == Material.PACKED_ICE) {
-            player.discoverRecipes(Recipes.ICE.getKeys());
-            player.discoverRecipes(Recipes.PACKED_ICE.getKeys());
-        } else if (item == Material.STONE) {
-            player.discoverRecipe(NamespacedKey.minecraft("furnace")); //unlocks vanilla recipe if custom furnace recipe is set to false
+        if (Tag.LOGS.isTagged(blockType)) {
+            Recipes.WORKBENCH.unlock(player);
+            Recipes.CHEST.unlock(player);
+            Recipes.UNLIT_CAMPFIRE.unlock(player);
+        } else if (blockType == Material.OBSIDIAN) {
+            Recipes.OBSIDIAN_MACE.unlock(player);
+        } else if (blockType == Material.ICE || blockType == Material.BLUE_ICE || blockType == Material.FROSTED_ICE || blockType == Material.PACKED_ICE) {
+            Recipes.ICE.unlock(player);
+            Recipes.PACKED_ICE.unlock(player);
         }
     }
 
@@ -166,37 +163,37 @@ public class RecipeDiscovery implements Listener {
 
         ItemStack result = e.getRecipe().getResult();
         if (Items.FIRESTRIKER.is(result)) {
-            player.discoverRecipes(Recipes.TORCH.getKeys());
-            player.discoverRecipes(Recipes.FURNACE.getKeys());
+            Recipes.TORCH.unlock(player);
+            Recipes.FURNACE.unlock(player);
         } else if (result.getType() == Material.FURNACE) {
-            player.discoverRecipes(Recipes.FURNACE_GOLD_INGOT.getKeys());
-            player.discoverRecipes(Recipes.FURNACE_IRON_INGOT.getKeys());
+            Recipes.FURNACE_GOLD_INGOT.unlock(player);
+            Recipes.FURNACE_IRON_INGOT.unlock(player);
         } else if (result.getType() == Material.BLAST_FURNACE) {
-            player.discoverRecipes(Recipes.BLAST_GOLD_INGOT.getKeys());
-            player.discoverRecipes(Recipes.BLAST_IRON_INGOT.getKeys());
+            Recipes.BLAST_GOLD_INGOT.unlock(player);
+            Recipes.BLAST_IRON_INGOT.unlock(player);
         } else if (result.getType() == Material.CROSSBOW) {
-            player.discoverRecipes(Recipes.RECURVED_CROSSBOW.getKeys());
+            Recipes.RECURVED_CROSSBOW.unlock(player);
         } else if (result.getType() == Material.LEATHER_HELMET || result.getType() == Material.LEATHER_CHESTPLATE
-                || result.getType() == Material.LEATHER_LEGGINGS || result.getType() == Material.LEATHER_BOOTS) {
-            player.discoverRecipes(Recipes.REINFORCED_LEATHER_HELMET.getKeys());
-            player.discoverRecipes(Recipes.REINFORCED_LEATHER_CHESTPLATE.getKeys());
-            player.discoverRecipes(Recipes.REINFORCED_LEATHER_LEGGINGS.getKeys());
-            player.discoverRecipes(Recipes.REINFORCED_LEATHER_BOOTS.getKeys());
+            || result.getType() == Material.LEATHER_LEGGINGS || result.getType() == Material.LEATHER_BOOTS) {
+            Recipes.REINFORCED_LEATHER_HELMET.unlock(player);
+            Recipes.REINFORCED_LEATHER_CHESTPLATE.unlock(player);
+            Recipes.REINFORCED_LEATHER_LEGGINGS.unlock(player);
+            Recipes.REINFORCED_LEATHER_BOOTS.unlock(player);
         } else if (result.getType() == Material.PAPER) {
-            player.discoverRecipes(Recipes.NAMETAG.getKeys());
-            player.discoverRecipes(Recipes.MEDIC_KIT.getKeys());
+            Recipes.NAMETAG.unlock(player);
+            Recipes.MEDIC_KIT.unlock(player);
         } else if (result.getType() == Material.STRING) {
-            player.discoverRecipes(Recipes.COBWEB.getKeys());
-            player.discoverRecipes(Recipes.RECURVED_BOW.getKeys());
+            Recipes.COBWEB.unlock(player);
+            Recipes.RECURVED_BOW.unlock(player);
         } else if (result.getType() == Material.BRICK || result.getType() == Material.BRICKS) {
-            player.discoverRecipes(Recipes.CLAY_BRICK.getKeys());
+            Recipes.CLAY_BRICK.unlock(player);
         } else if (result.getType() == Material.FISHING_ROD) {
-            player.discoverRecipes(Recipes.GRAPPLING_HOOK.getKeys());
+            Recipes.GRAPPLING_HOOK.unlock(player);
         } else if (result.getType() == Material.GLASS_BOTTLE) {
-            player.discoverRecipes(Recipes.COFFEE.getKeys());
-            player.discoverRecipes(Recipes.COFFEE_BEAN.getKeys());
-            player.discoverRecipes(Recipes.HOT_MILK.getKeys());
-            player.discoverRecipes(Recipes.COLD_MILK.getKeys());
+            Recipes.COFFEE.unlock(player);
+            Recipes.COFFEE_BEAN.unlock(player);
+            Recipes.HOT_MILK.unlock(player);
+            Recipes.COLD_MILK.unlock(player);
         }
     }
 

@@ -1,10 +1,10 @@
 package tk.shanebee.survival.item.items.drinks;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.SmokingRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,10 +26,9 @@ public class HotMilk extends Item {
     }
 
     @Override
-    public void registerRecipe() {
-        SmokingRecipe recipe = new SmokingRecipe(this.recipeKey, this.getItemStack(),
+    public Recipe getRecipe() {
+        return new SmokingRecipe(this.recipeKey, this.getItemStack(),
             new RecipeChoice.ExactChoice(Items.COLD_MILK.getItemStack()), 0, 200);
-        Bukkit.addRecipe(recipe);
     }
 
 }

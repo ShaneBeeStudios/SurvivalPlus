@@ -1,10 +1,10 @@
 package tk.shanebee.survival.item.items.tools;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -21,7 +21,7 @@ public class RecurveCrossbow extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         recipe.shape(" 12", "342", " 12");
@@ -29,7 +29,7 @@ public class RecurveCrossbow extends Item {
         recipe.setIngredient('2', Material.PHANTOM_MEMBRANE);
         recipe.setIngredient('3', Material.PISTON);
         recipe.setIngredient('4', Material.CROSSBOW);
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

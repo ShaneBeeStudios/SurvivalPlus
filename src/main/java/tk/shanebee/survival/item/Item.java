@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -91,7 +92,8 @@ public abstract class Item {
         Items.ALL_ITEMS.put(this.key, this);
     }
 
-    public void registerRecipe() {
+    public Recipe getRecipe() {
+        return null;
     }
 
     public boolean is(ItemStack itemStack) {

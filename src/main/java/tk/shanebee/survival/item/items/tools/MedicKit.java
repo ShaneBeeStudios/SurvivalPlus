@@ -1,9 +1,9 @@
 package tk.shanebee.survival.item.items.tools;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import tk.shanebee.survival.item.Item;
 
@@ -16,7 +16,7 @@ public class MedicKit extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         recipe.shape(" g ", "fgp", " g ");
@@ -25,7 +25,7 @@ public class MedicKit extends Item {
         recipe.setIngredient('f', Material.FEATHER);
         recipe.setIngredient('g', Material.GLISTERING_MELON_SLICE);
         recipe.setIngredient('p', Material.PAPER);
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

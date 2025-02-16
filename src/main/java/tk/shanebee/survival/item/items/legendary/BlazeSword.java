@@ -1,7 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -11,6 +10,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -44,14 +44,14 @@ public class BlazeSword extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe blaze_sword = new ShapedRecipe(this.recipeKey, this.getItemStack());
         blaze_sword.shape("BgB", "BgB", "BbB");
 
         blaze_sword.setIngredient('g', Material.GOLD_INGOT);
         blaze_sword.setIngredient('b', Material.BLAZE_ROD);
         blaze_sword.setIngredient('B', Material.BLAZE_POWDER);
-        Bukkit.addRecipe(blaze_sword);
+        return blaze_sword;
     }
 
 }

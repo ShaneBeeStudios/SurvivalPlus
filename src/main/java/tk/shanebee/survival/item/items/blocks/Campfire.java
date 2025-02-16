@@ -6,6 +6,7 @@ import org.bukkit.Tag;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.BlockDataMeta;
@@ -25,14 +26,14 @@ public class Campfire extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         recipe.shape(" s ", "scs", "lll");
         recipe.setIngredient('s', Material.STICK);
         recipe.setIngredient('c', new MaterialChoice(Tag.ITEMS_COALS));
         recipe.setIngredient('l', new MaterialChoice(Tag.LOGS));
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

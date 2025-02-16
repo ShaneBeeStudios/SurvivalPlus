@@ -1,10 +1,10 @@
 package tk.shanebee.survival.item.items.tools;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -21,7 +21,7 @@ public class RecurveBow extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         recipe.shape(" @1", "#^1", " @1");
@@ -29,7 +29,7 @@ public class RecurveBow extends Item {
         recipe.setIngredient('#', Material.PISTON);
         recipe.setIngredient('@', Material.IRON_INGOT);
         recipe.setIngredient('1', Material.STRING);
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

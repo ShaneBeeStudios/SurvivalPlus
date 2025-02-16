@@ -1,7 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -10,6 +9,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -40,7 +40,7 @@ public class QuartzPickaxe extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
         recipe.shape("qDd", "De ", "d s");
 
@@ -49,8 +49,7 @@ public class QuartzPickaxe extends Item {
         recipe.setIngredient('D', Material.DIAMOND_BLOCK);
         recipe.setIngredient('s', Material.STICK);
         recipe.setIngredient('e', Material.DRAGON_EGG);
-
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

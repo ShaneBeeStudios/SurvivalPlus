@@ -1,10 +1,10 @@
 package tk.shanebee.survival.item.items.armor;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import tk.shanebee.survival.item.Item;
@@ -32,7 +32,7 @@ public class BeekeeperPiece extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         switch (this.armorType) {
             case HELMET -> {
                 ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
@@ -40,7 +40,7 @@ public class BeekeeperPiece extends Item {
                 recipe.setIngredient('1', Material.HONEYCOMB);
                 recipe.setIngredient('2', Material.IRON_INGOT);
                 recipe.setIngredient('3', Material.LEATHER);
-                Bukkit.addRecipe(recipe);
+                return recipe;
             }
             case CHESTPLATE -> {
                 ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
@@ -48,7 +48,7 @@ public class BeekeeperPiece extends Item {
                 recipe.setIngredient('1', Material.HONEYCOMB);
                 recipe.setIngredient('2', Material.IRON_INGOT);
                 recipe.setIngredient('3', Material.LEATHER);
-                Bukkit.addRecipe(recipe);
+                return recipe;
             }
             case LEGGINGS -> {
                 ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
@@ -56,16 +56,17 @@ public class BeekeeperPiece extends Item {
                 recipe.setIngredient('1', Material.HONEYCOMB);
                 recipe.setIngredient('2', Material.IRON_INGOT);
                 recipe.setIngredient('3', Material.LEATHER);
-                Bukkit.addRecipe(recipe);
+                return recipe;
             }
             case BOOTS -> {
                 ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
                 recipe.shape("   ", "1 1", "3 3");
                 recipe.setIngredient('1', Material.HONEYCOMB);
                 recipe.setIngredient('3', Material.LEATHER);
-                Bukkit.addRecipe(recipe);
+                return recipe;
             }
         }
+        return null;
     }
 
 }

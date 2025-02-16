@@ -1,7 +1,6 @@
 package tk.shanebee.survival.item.items.legendary;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -11,6 +10,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -45,16 +45,13 @@ public class ObsidianMace extends Item {
     }
 
     @Override
-    public void registerRecipe() {
-        ShapedRecipe obsidian_mace = new ShapedRecipe(this.recipeKey, this.getItemStack());
-
-        obsidian_mace.shape(" oo", " eo", "s  ");
-
-        obsidian_mace.setIngredient('o', Material.OBSIDIAN);
-        obsidian_mace.setIngredient('e', Material.END_CRYSTAL);
-        obsidian_mace.setIngredient('s', Material.STICK);
-        Bukkit.addRecipe(obsidian_mace);
-
+    public Recipe getRecipe() {
+        ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
+        recipe.shape(" oo", " eo", "s  ");
+        recipe.setIngredient('o', Material.OBSIDIAN);
+        recipe.setIngredient('e', Material.END_CRYSTAL);
+        recipe.setIngredient('s', Material.STICK);
+        return recipe;
     }
 
 }

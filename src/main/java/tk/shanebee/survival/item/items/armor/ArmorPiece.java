@@ -1,6 +1,5 @@
 package tk.shanebee.survival.item.items.armor;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -10,6 +9,7 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
@@ -55,7 +55,7 @@ public class ArmorPiece extends Item {
 
     @SuppressWarnings({"DataFlowIssue", "deprecation"})
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         if (this.armorMaterial == ArmorMaterial.GOLDEN && this.armorType == ArmorType.HELMET) {
@@ -65,14 +65,14 @@ public class ArmorPiece extends Item {
             recipe.shape(this.armorType.shape);
         }
         recipe.setIngredient('#', this.armorMaterial.recipeMaterial.asMaterial());
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
     public enum ArmorType {
         HELMET("helmet", "crown", EquipmentSlotGroup.HEAD, "###", "# #"),
-        CHESTPLATE("chestplate", "guard",EquipmentSlotGroup.CHEST, "# #", "###", "###"),
-        LEGGINGS("leggings", "greaves",EquipmentSlotGroup.LEGS, "###", "# #", "# #"),
-        BOOTS("boots", "sabatons",EquipmentSlotGroup.FEET, "# #", "# #");
+        CHESTPLATE("chestplate", "guard", EquipmentSlotGroup.CHEST, "# #", "###", "###"),
+        LEGGINGS("leggings", "greaves", EquipmentSlotGroup.LEGS, "###", "# #", "# #"),
+        BOOTS("boots", "sabatons", EquipmentSlotGroup.FEET, "# #", "# #");
 
         private final String key;
         private final String name;

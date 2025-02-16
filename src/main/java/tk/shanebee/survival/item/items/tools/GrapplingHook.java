@@ -1,9 +1,9 @@
 package tk.shanebee.survival.item.items.tools;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import tk.shanebee.survival.item.Item;
 
@@ -16,14 +16,14 @@ public class GrapplingHook extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
 
         recipe.shape(" i ", "fsf", " i ");
         recipe.setIngredient('f', Material.FISHING_ROD);
         recipe.setIngredient('s', Material.STRING);
         recipe.setIngredient('i', Material.IRON_INGOT);
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }

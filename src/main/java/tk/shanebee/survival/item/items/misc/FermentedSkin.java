@@ -1,9 +1,9 @@
 package tk.shanebee.survival.item.items.misc;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapelessRecipe;
 import tk.shanebee.survival.item.Item;
@@ -18,12 +18,12 @@ public class FermentedSkin extends Item {
     }
 
     @Override
-    public void registerRecipe() {
+    public Recipe getRecipe() {
         ShapelessRecipe recipe = new ShapelessRecipe(this.recipeKey, this.getItemStack());
         recipe.addIngredient(Material.ROTTEN_FLESH);
         recipe.addIngredient(Material.SUGAR);
         recipe.addIngredient(new RecipeChoice.MaterialChoice(Material.BROWN_MUSHROOM, Material.RED_MUSHROOM));
-        Bukkit.addRecipe(recipe);
+        return recipe;
     }
 
 }
