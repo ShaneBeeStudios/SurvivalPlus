@@ -6,7 +6,7 @@ import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.MultiLiteralArgument;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.util.Utils;
 
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class PlayerDataCommand extends BaseCommand {
 
-    public PlayerDataCommand(Survival plugin) {
+    public PlayerDataCommand(SurvivalPlugin plugin) {
         super(plugin);
     }
 

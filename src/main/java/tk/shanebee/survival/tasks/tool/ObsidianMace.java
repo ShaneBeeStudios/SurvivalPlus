@@ -6,14 +6,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 
 public class ObsidianMace extends BukkitRunnable {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 
-	public ObsidianMace(Survival plugin) {
+	public ObsidianMace(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.runTaskTimer(plugin, 1, 10);
 	}

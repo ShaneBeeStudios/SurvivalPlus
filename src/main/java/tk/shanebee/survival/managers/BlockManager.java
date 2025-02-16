@@ -11,7 +11,7 @@ import org.bukkit.block.data.Lightable;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
@@ -22,14 +22,14 @@ import java.util.Objects;
 
 public class BlockManager {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private FileConfiguration data;
 	private File data_file;
 	private final Lang lang;
 
 	private final int seconds;
 
-	public BlockManager(Survival plugin) {
+	public BlockManager(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
 		this.seconds = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_TIME;

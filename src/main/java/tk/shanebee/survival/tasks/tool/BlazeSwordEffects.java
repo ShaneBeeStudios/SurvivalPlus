@@ -6,15 +6,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 
 public class BlazeSwordEffects extends BukkitRunnable {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final PotionEffect FLAME;
 
-	public BlazeSwordEffects(Survival plugin) {
+	public BlazeSwordEffects(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.FLAME = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 20, 0, false);
 		this.runTaskTimer(plugin, 1, 10);

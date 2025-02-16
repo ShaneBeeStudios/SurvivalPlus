@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
@@ -23,7 +23,7 @@ public class PiglinBarter implements Listener {
     private final boolean ALT_DROPS;
     private final Random RANDOM;
 
-    public PiglinBarter(Survival plugin) {
+    public PiglinBarter(SurvivalPlugin plugin) {
         Config config = plugin.getSurvivalConfig();
         this.SLOW_ARMOR = config.MECHANICS_SLOW_ARMOR;
         this.THIRST_ENABLED = config.mechanics_thirst_enabled;

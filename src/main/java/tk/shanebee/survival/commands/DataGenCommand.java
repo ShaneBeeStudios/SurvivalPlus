@@ -2,7 +2,7 @@ package tk.shanebee.survival.commands;
 
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.generator.BlockTagFileGenerator;
 import tk.shanebee.survival.util.Utils;
 
@@ -10,7 +10,7 @@ public class DataGenCommand extends BaseCommand {
 
     private final BlockTagFileGenerator blockTagFileGenerator;
 
-    public DataGenCommand(Survival plugin) {
+    public DataGenCommand(SurvivalPlugin plugin) {
         super(plugin);
         this.blockTagFileGenerator = new BlockTagFileGenerator();
     }

@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitScheduler;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.PlayerDataConfig;
 import tk.shanebee.survival.data.PlayerData;
@@ -19,14 +19,14 @@ import java.util.Objects;
 
 public class PlayerDataListener implements Listener {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final PlayerManager playerManager;
     private final PlayerDataConfig playerDataConfig;
     private final ScoreBoardManager scoreboardManager;
     private final Config config;
     private final BukkitScheduler scheduler = Bukkit.getScheduler();
 
-    public PlayerDataListener(Survival plugin) {
+    public PlayerDataListener(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.playerManager = plugin.getPlayerManager();
         this.playerDataConfig = plugin.getPlayerDataConfig();

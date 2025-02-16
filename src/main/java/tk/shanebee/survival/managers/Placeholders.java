@@ -2,17 +2,17 @@ package tk.shanebee.survival.managers;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 
 @SuppressWarnings("unused")
 public class Placeholders extends PlaceholderExpansion {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final PlayerManager playerManager;
 
-    public Placeholders(Survival plugin) {
+    public Placeholders(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.playerManager = plugin.getPlayerManager();
     }

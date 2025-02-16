@@ -3,14 +3,14 @@ package tk.shanebee.survival.commands;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.gui.NutritionGUI;
 import tk.shanebee.survival.item.Nutrition;
 import tk.shanebee.survival.util.Utils;
 
 public class NutritionCommand extends BaseCommand{
 
-    public NutritionCommand(Survival plugin) {
+    public NutritionCommand(SurvivalPlugin plugin) {
         super(plugin);
     }
 

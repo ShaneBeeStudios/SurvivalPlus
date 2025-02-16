@@ -3,7 +3,7 @@ package tk.shanebee.survival.tasks;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.HealthBoard;
 import tk.shanebee.survival.data.Info;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HealthBoardTask extends BukkitRunnable {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final Config config;
     private final PlayerManager playerManager;
     private final Player player;
@@ -27,7 +27,7 @@ public class HealthBoardTask extends BukkitRunnable {
     private boolean energyEnabled;
     private boolean nutrientsEnabled;
 
-    public HealthBoardTask(Survival plugin, Player player) {
+    public HealthBoardTask(SurvivalPlugin plugin, Player player) {
         this.plugin = plugin;
         this.config = plugin.getSurvivalConfig();
         this.playerManager = plugin.getPlayerManager();

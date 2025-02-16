@@ -20,7 +20,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.BlockManager;
 import tk.shanebee.survival.util.ItemUtils;
@@ -37,7 +37,7 @@ public class BurnoutTorches implements Listener {
 
     private final BlockManager torchManager;
 
-    public BurnoutTorches(Survival plugin) {
+    public BurnoutTorches(SurvivalPlugin plugin) {
         this.torchManager = plugin.getBlockManager();
         this.RELIGHTABLE = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_RELIGHT;
         this.PERSISTENT_TORCHES = plugin.getSurvivalConfig().MECHANICS_BURNOUT_TORCH_PERSIST;

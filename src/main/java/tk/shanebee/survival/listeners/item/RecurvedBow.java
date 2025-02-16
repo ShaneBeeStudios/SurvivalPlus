@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.events.ShootRecurvedBowEvent;
 import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
@@ -19,9 +19,9 @@ import java.util.Random;
 
 public class RecurvedBow implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 
-	public RecurvedBow(Survival plugin) {
+	public RecurvedBow(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 	}
 

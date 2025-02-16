@@ -2,7 +2,7 @@ package tk.shanebee.survival.item;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.List;
 public class ItemConfig {
 
     static ItemConfig INSTANCE;
-    private final Survival plugin = Survival.getInstance();
+    private final SurvivalPlugin plugin = SurvivalPlugin.getInstance();
     private FileConfiguration settings;
     private File configFile;
 

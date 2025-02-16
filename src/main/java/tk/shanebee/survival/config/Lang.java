@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Lang {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final String langFilePath;
     private FileConfiguration lang;
 
@@ -204,7 +204,7 @@ public class Lang {
     public String cmd_heal_by;
     public String cmd_heal_other;
 
-    public Lang(Survival main, String language) {
+    public Lang(SurvivalPlugin main, String language) {
         this.plugin = main;
         this.langFilePath = "lang_" + language + ".yml";
     }

@@ -2,7 +2,7 @@ package tk.shanebee.survival.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.HealthBoard;
 import tk.shanebee.survival.tasks.HealthBoardTask;
 
@@ -12,11 +12,11 @@ import java.util.UUID;
 
 public class ScoreBoardManager {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final Map<UUID, HealthBoardTask> healthBoardTaskMap = new HashMap<>();
     private final Map<Player, HealthBoard> boardMap = new HashMap<>();
 
-    public ScoreBoardManager(Survival plugin) {
+    public ScoreBoardManager(SurvivalPlugin plugin) {
         this.plugin = plugin;
     }
 

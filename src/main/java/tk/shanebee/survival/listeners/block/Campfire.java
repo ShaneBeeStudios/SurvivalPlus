@@ -12,16 +12,16 @@ import org.bukkit.event.block.BlockCookEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 
 import java.util.Random;
 
 public class Campfire implements Listener {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
 
-    public Campfire(Survival plugin) {
+    public Campfire(SurvivalPlugin plugin) {
         this.plugin = plugin;
     }
 

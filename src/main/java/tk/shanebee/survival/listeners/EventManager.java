@@ -2,7 +2,7 @@ package tk.shanebee.survival.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.listeners.block.BlockBreak;
 import tk.shanebee.survival.listeners.block.BlockPlace;
@@ -54,11 +54,11 @@ import tk.shanebee.survival.listeners.server.ResourcePackListener;
  */
 public class EventManager {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final int LOCAL_CHAT;
 	private final Config config;
 
-	public EventManager(Survival plugin) {
+	public EventManager(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
 		this.LOCAL_CHAT = config.settings_local_chat_distance;

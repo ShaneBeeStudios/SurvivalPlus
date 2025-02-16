@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
@@ -30,7 +30,7 @@ public class GiveItemCommand extends BaseCommand {
 
     private final List<String> names = new ArrayList<>();
 
-    public GiveItemCommand(Survival plugin) {
+    public GiveItemCommand(SurvivalPlugin plugin) {
         super(plugin);
         Items.allItemKeys().forEach(key -> this.names.add(key.value()));
     }

@@ -19,7 +19,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
@@ -34,7 +34,7 @@ public class BlockBreak implements Listener {
     private final Config settings;
     private final Lang lang;
 
-    public BlockBreak(Survival plugin) {
+    public BlockBreak(SurvivalPlugin plugin) {
         this.lang = plugin.getLang();
         this.settings = plugin.getSurvivalConfig();
     }

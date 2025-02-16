@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
@@ -33,7 +33,7 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
     private int burnTime;
 
     public FireStrikerListen(Player player, ItemStack item) {
-        Survival plugin = Survival.getInstance();
+        SurvivalPlugin plugin = SurvivalPlugin.getInstance();
         Lang lang = plugin.getLang();
         this.inv = Bukkit.createInventory(this, InventoryType.FURNACE, Utils.getColoredString(lang.firestriker));
         this.player = player;

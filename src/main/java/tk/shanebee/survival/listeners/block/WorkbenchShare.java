@@ -17,15 +17,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 import java.util.*;
 
 public class WorkbenchShare implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 
-	public WorkbenchShare(Survival plugin) {
+	public WorkbenchShare(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 	}
 

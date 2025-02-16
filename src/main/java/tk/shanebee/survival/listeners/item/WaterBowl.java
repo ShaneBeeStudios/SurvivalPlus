@@ -10,18 +10,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.scheduler.BukkitScheduler;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.events.WaterBowlFillEvent;
 import tk.shanebee.survival.item.Items;
 
 public class WaterBowl implements Listener {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final boolean thirstEnabled;
     private final boolean clayEnabled;
     private final BukkitScheduler scheduler = Bukkit.getScheduler();
 
-    public WaterBowl(Survival plugin) {
+    public WaterBowl(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.thirstEnabled = plugin.getSurvivalConfig().mechanics_thirst_enabled;
         this.clayEnabled = plugin.getSurvivalConfig().RECIPES_CLAY;

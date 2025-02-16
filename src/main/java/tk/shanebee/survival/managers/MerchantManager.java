@@ -5,7 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
@@ -20,7 +20,7 @@ public class MerchantManager {
 
     private final Config config;
 
-    public MerchantManager(Survival plugin) {
+    public MerchantManager(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
     }
 

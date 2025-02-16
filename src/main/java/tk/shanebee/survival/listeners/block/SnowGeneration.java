@@ -7,13 +7,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 public class SnowGeneration implements Listener {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 
-	public SnowGeneration(Survival plugin) {
+	public SnowGeneration(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 	}
 

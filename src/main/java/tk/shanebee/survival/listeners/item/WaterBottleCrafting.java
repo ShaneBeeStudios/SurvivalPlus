@@ -16,7 +16,7 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
@@ -25,10 +25,10 @@ import java.util.Objects;
 
 public class WaterBottleCrafting implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 	private Config config;
 
-	public WaterBottleCrafting(Survival plugin) {
+	public WaterBottleCrafting(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
 	}

@@ -6,7 +6,7 @@ import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 
@@ -16,7 +16,7 @@ class ThirstDrain extends BukkitRunnable {
     private final PlayerManager playerManager;
     private final double damageRate;
 
-    ThirstDrain(Survival plugin) {
+    ThirstDrain(SurvivalPlugin plugin) {
         this.playerManager = plugin.getPlayerManager();
         this.damageRate = plugin.getSurvivalConfig().mechanics_thirst_damage_rate;
         this.runTaskTimer(plugin, 20, 20);

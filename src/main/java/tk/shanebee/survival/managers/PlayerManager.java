@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.config.PlayerDataConfig;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 /**
  * Manager for players
- * <p>Get an instance of this class from <b>{@link Survival#getPlayerManager()}</b></p>
+ * <p>Get an instance of this class from <b>{@link SurvivalPlugin#getPlayerManager()}</b></p>
  */
 public class PlayerManager implements Listener {
 
@@ -33,7 +33,7 @@ public class PlayerManager implements Listener {
     // Store all the active PlayerData
     private final Map<UUID, PlayerData> playerDataMap;
 
-    public PlayerManager(Survival plugin, Map<UUID, PlayerData> playerDataMap) {
+    public PlayerManager(SurvivalPlugin plugin, Map<UUID, PlayerData> playerDataMap) {
         this.playerDataMap = playerDataMap;
         this.lang = plugin.getLang();
         this.playerDataConfig = plugin.getPlayerDataConfig();

@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 
@@ -20,7 +20,7 @@ public class TropicalFish implements Listener {
     private final PlayerManager playerManager;
     private final Random random = new Random();
 
-    public TropicalFish(Survival plugin) {
+    public TropicalFish(SurvivalPlugin plugin) {
         this.playerManager = plugin.getPlayerManager();
     }
 

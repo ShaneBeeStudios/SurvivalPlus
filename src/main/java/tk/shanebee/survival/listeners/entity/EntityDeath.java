@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
@@ -19,7 +19,7 @@ public class EntityDeath implements Listener {
     private final Config config;
     private final int SUSPICIOUS_MEAT_CHANCE;
 
-    public EntityDeath(Survival plugin) {
+    public EntityDeath(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
         this.SUSPICIOUS_MEAT_CHANCE = Math.max(0, this.config.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE);
     }

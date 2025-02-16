@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
@@ -28,7 +28,7 @@ public class EnergyDrain extends BukkitRunnable {
     private final double absorb;
     private final double haste;
 
-    public EnergyDrain(Survival plugin) {
+    public EnergyDrain(SurvivalPlugin plugin) {
         this.playerManager = plugin.getPlayerManager();
         this.config = plugin.getSurvivalConfig();
         this.lang = plugin.getLang();

@@ -6,7 +6,7 @@ import dev.jorel.commandapi.arguments.LiteralArgument;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.util.Utils;
 
@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 
 public class HealCommand extends BaseCommand {
 
-    public HealCommand(Survival plugin) {
+    public HealCommand(SurvivalPlugin plugin) {
         super(plugin);
     }
 

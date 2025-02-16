@@ -11,7 +11,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
@@ -24,7 +24,7 @@ public class ChickenSpawn implements Listener {
     private final boolean alwaysBaby;
     private final int babyTicks;
 
-    public ChickenSpawn(Survival plugin) {
+    public ChickenSpawn(SurvivalPlugin plugin) {
         Config config = plugin.getSurvivalConfig();
         this.maxEggs = config.ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS;
         this.alwaysBaby = config.ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY;

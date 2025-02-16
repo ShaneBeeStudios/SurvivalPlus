@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
@@ -26,7 +26,7 @@ public class ShivPoison implements Listener {
 
     private Config config;
 
-    public ShivPoison(Survival plugin) {
+    public ShivPoison(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
     }
 

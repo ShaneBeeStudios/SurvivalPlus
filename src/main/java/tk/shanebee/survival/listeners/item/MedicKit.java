@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.item.Items;
@@ -24,11 +24,11 @@ import java.util.Random;
 
 public class MedicKit implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 	private Lang lang;
 	private PlayerManager playerManager;
 
-	public MedicKit(Survival plugin) {
+	public MedicKit(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
 		this.playerManager = plugin.getPlayerManager();

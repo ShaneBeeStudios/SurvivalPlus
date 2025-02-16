@@ -22,14 +22,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 public class Valkyrie implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 	private Lang lang;
 
-	public Valkyrie(Survival plugin) {
+	public Valkyrie(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
 	}

@@ -12,7 +12,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 
@@ -25,7 +25,7 @@ public class WeatherTask extends BukkitRunnable {
     private final double snowSpeed;
     private final double snowstormSpeed;
 
-    public WeatherTask(Survival plugin) {
+    public WeatherTask(SurvivalPlugin plugin) {
         Config config = plugin.getSurvivalConfig();
         this.baseSpeed = config.MECHANICS_WEATHER_SPEED_BASE;
         this.rainSpeed = config.MECHANICS_WEATHER_SPEED_RAIN;

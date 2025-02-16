@@ -15,7 +15,7 @@ import org.bukkit.inventory.RecipeChoice.ExactChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.SmokingRecipe;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
@@ -27,9 +27,9 @@ import java.util.Collection;
 public class RecipeManager {
 
     private final Config config;
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
 
-    public RecipeManager(Survival plugin) {
+    public RecipeManager(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.config = plugin.getSurvivalConfig();
     }

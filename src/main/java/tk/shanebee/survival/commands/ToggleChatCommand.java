@@ -7,7 +7,7 @@ import dev.jorel.commandapi.arguments.ArgumentSuggestions;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.util.Utils;
 
@@ -18,7 +18,7 @@ public class ToggleChatCommand extends BaseCommand {
 
     private final List<IStringTooltip> typeTooltips = new ArrayList<>();
 
-    public ToggleChatCommand(Survival plugin) {
+    public ToggleChatCommand(SurvivalPlugin plugin) {
         super(plugin);
         setupInfos("global", "Set chat to global chat");
         setupInfos("local", "Set chat to local chat");

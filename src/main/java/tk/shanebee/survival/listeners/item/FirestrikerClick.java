@@ -26,7 +26,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.item.items.FireStrikerListen;
@@ -38,7 +38,7 @@ public class FirestrikerClick implements Listener {
 
     private final Lang lang;
 
-    public FirestrikerClick(Survival plugin) {
+    public FirestrikerClick(SurvivalPlugin plugin) {
         this.lang = plugin.getLang();
     }
 

@@ -1,7 +1,7 @@
 package tk.shanebee.survival.managers;
 
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 
@@ -13,7 +13,7 @@ import tk.shanebee.survival.data.PlayerData;
 @Deprecated
 public class StatusManager {
 
-    private static PlayerManager playerManager = Survival.getInstance().getPlayerManager();
+    private static PlayerManager playerManager = SurvivalPlugin.getInstance().getPlayerManager();
 
     /**
      * Enums for Nutrient types

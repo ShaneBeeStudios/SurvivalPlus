@@ -17,7 +17,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ChestPigmen implements Listener {
     private final AttributeModifier mod;
 
 
-    public ChestPigmen(Survival plugin) {
+    public ChestPigmen(SurvivalPlugin plugin) {
         this.goldItems = new ArrayList<>();
         for (Material material : Registry.MATERIAL) {
             if (material.isItem() && material.getKey().toString().contains("gold")) {

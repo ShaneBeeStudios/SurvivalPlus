@@ -1,14 +1,14 @@
 package tk.shanebee.survival.commands;
 
 import dev.jorel.commandapi.CommandTree;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SurvivalCommand {
 
-    public SurvivalCommand(Survival plugin, String commandName) {
+    public SurvivalCommand(SurvivalPlugin plugin, String commandName) {
         List<BaseCommand> arguments = new ArrayList<>();
 
         arguments.add(new GiveItemCommand(plugin));

@@ -13,16 +13,16 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
 
 public class RecipeDiscovery implements Listener {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final boolean UNLOCK_ALL;
 
-    public RecipeDiscovery(Survival plugin) {
+    public RecipeDiscovery(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.UNLOCK_ALL = plugin.getSurvivalConfig().SURVIVAL_UNLOCK_ALL_RECIPES;
     }

@@ -5,7 +5,7 @@ import org.bukkit.GameMode;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -14,7 +14,7 @@ class ThirstDrainNether extends BukkitRunnable {
 
     private final PlayerManager playerManager;
 
-    ThirstDrainNether(Survival plugin) {
+    ThirstDrainNether(SurvivalPlugin plugin) {
         this.playerManager = plugin.getPlayerManager();
         this.runTaskTimer(plugin, 0, 20L * plugin.getSurvivalConfig().mechanics_thirst_nether_drain);
     }

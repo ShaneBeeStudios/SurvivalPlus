@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.EffectManager;
@@ -22,7 +22,7 @@ public class ObsidianMaceWeakness implements Listener {
 	private EffectManager effectManager;
 	private Config config;
 
-	public ObsidianMaceWeakness(Survival plugin) {
+	public ObsidianMaceWeakness(SurvivalPlugin plugin) {
 		this.effectManager = plugin.getEffectManager();
 		this.config = plugin.getSurvivalConfig();
 	}

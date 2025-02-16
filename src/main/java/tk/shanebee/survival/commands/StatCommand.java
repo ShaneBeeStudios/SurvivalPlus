@@ -10,7 +10,7 @@ import dev.jorel.commandapi.executors.CommandArguments;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.Info;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
@@ -25,7 +25,7 @@ public class StatCommand extends BaseCommand {
     private final List<IStringTooltip> infoTooltips = new ArrayList<>();
     private final List<IStringTooltip> typeTooltips = new ArrayList<>();
 
-    public StatCommand(Survival plugin) {
+    public StatCommand(SurvivalPlugin plugin) {
         super(plugin);
 
         setupInfos("all", "Manage all stats");

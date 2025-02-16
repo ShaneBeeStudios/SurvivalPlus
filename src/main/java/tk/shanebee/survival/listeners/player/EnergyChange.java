@@ -12,7 +12,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
@@ -23,13 +23,13 @@ import tk.shanebee.survival.util.Utils;
 
 public class EnergyChange implements Listener {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final PlayerManager playerManager;
 	private final Config config;
 	private final Lang lang;
 	private final double ENERGY_RESPAWN;
 
-	public EnergyChange(Survival plugin) {
+	public EnergyChange(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.playerManager = plugin.getPlayerManager();
 		this.config = plugin.getSurvivalConfig();

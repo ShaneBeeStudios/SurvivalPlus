@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.util.Utils;
@@ -23,7 +23,7 @@ public class GrapplingHook implements Listener {
 
 	private Lang lang;
 
-	public GrapplingHook(Survival plugin) {
+	public GrapplingHook(SurvivalPlugin plugin) {
 		this.lang = plugin.getLang();
 	}
 

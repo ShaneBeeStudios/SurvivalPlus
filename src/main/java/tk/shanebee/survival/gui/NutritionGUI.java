@@ -11,7 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Nutrition;
 import tk.shanebee.survival.util.Utils;
@@ -28,7 +28,7 @@ public class NutritionGUI implements InventoryHolder, Listener {
     private final ItemStack LAST_PAGE_BUTTON;
     private final ItemStack NEXT_PAGE_BUTTON;
 
-    public NutritionGUI(Survival plugin) {
+    public NutritionGUI(SurvivalPlugin plugin) {
         this.lang = plugin.getLang();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         LAST_PAGE_BUTTON = getButton(Material.PAPER, Utils.getColoredString(lang.nutrition_gui_last_page));

@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.config.Config;
@@ -19,7 +19,7 @@ public class LocalChat implements Listener {
 	private Config config;
 	private PlayerManager playerManager;
 
-	public LocalChat(Survival plugin) {
+	public LocalChat(SurvivalPlugin plugin) {
 		this.config = plugin.getSurvivalConfig();
 		this.playerManager = plugin.getPlayerManager();
 	}

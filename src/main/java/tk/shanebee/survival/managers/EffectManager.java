@@ -6,14 +6,14 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.tasks.tool.*;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Utils;
 
 public class EffectManager {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final Config config;
 
 	// Effect Tasks
@@ -24,7 +24,7 @@ public class EffectManager {
 	private QuartzPickaxe quartzPickaxe = null;
 	private Valkyrie valkyrie = null;
 
-	public EffectManager(Survival plugin) {
+	public EffectManager(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
 		loadEffects();

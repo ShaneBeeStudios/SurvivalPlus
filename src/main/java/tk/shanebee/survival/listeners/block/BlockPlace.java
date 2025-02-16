@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
@@ -25,7 +25,7 @@ public class BlockPlace implements Listener {
     private final Config config;
     private final Lang lang;
 
-    public BlockPlace(Survival plugin) {
+    public BlockPlace(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
         this.lang = plugin.getLang();
     }

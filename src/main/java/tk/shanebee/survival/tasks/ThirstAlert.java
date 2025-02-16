@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.config.Lang;
@@ -15,7 +15,7 @@ class ThirstAlert extends BukkitRunnable {
 	private final PlayerManager playerManager;
 	private final Lang lang;
 
-	ThirstAlert(Survival plugin) {
+	ThirstAlert(SurvivalPlugin plugin) {
 		this.playerManager = plugin.getPlayerManager();
 		this.lang = plugin.getLang();
 		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;

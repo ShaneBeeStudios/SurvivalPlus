@@ -14,7 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.item.Nutrition;
@@ -27,7 +27,7 @@ public class FoodDiversityConsume implements Listener {
 	private final PlayerManager playerManager;
 	private final int RESPAWN_PROTEIN, RESPAWN_CARBS, RESPAWN_SALTS;
 
-	public FoodDiversityConsume(Survival plugin) {
+	public FoodDiversityConsume(SurvivalPlugin plugin) {
 		this.playerManager = plugin.getPlayerManager();
         Config config = plugin.getSurvivalConfig();
         RESPAWN_PROTEIN = config.mechanics_food_respawn_proteins;

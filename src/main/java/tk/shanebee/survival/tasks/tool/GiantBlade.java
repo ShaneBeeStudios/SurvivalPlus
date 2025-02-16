@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.item.Items;
@@ -17,7 +17,7 @@ import tk.shanebee.survival.managers.PlayerManager;
 
 public class GiantBlade extends BukkitRunnable {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final PlayerManager playerManager;
 	private final ImmutableSet<Material> MAIN_SET;
 	private final ImmutableSet<Material> OFF_SET;
@@ -25,7 +25,7 @@ public class GiantBlade extends BukkitRunnable {
 	private final PotionEffect SLOW;
 	private final PotionEffect JUMP;
 
-	public GiantBlade(Survival plugin) {
+	public GiantBlade(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.playerManager = plugin.getPlayerManager();
 		this.MAIN_SET = ImmutableSet.<Material>builder()

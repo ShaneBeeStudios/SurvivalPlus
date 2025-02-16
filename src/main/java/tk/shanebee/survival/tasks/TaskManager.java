@@ -1,6 +1,6 @@
 package tk.shanebee.survival.tasks;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 
 /**
@@ -8,7 +8,7 @@ import tk.shanebee.survival.config.Config;
  */
 public class TaskManager {
 
-	public TaskManager(Survival plugin) {
+	public TaskManager(SurvivalPlugin plugin) {
 		final int alertInterval = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		Config config = plugin.getSurvivalConfig();
 		if (config.mechanics_energy_enabled) {

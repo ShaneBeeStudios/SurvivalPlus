@@ -4,16 +4,16 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.item.Items;
 
 import java.util.Random;
 
 public class BlazeSwordSound extends BukkitRunnable {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
 
-    public BlazeSwordSound(Survival plugin) {
+    public BlazeSwordSound(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.runTaskTimer(plugin, 1, 50);
     }

@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
@@ -20,7 +20,7 @@ public class ResourcePackListener implements Listener {
     private final Component kickMessage;
     private final Component resourcePackMessage;
 
-    public ResourcePackListener(Survival plugin) {
+    public ResourcePackListener(SurvivalPlugin plugin) {
         Config config = plugin.getSurvivalConfig();
         Lang lang = plugin.getLang();
         this.resourcePackUrl = config.settings_resource_pack_url;

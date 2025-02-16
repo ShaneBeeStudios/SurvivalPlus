@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -24,7 +24,7 @@ public class CompassWaypoint implements Listener {
     private final Lang lang;
     private final PlayerManager playerManager;
 
-    public CompassWaypoint(Survival plugin) {
+    public CompassWaypoint(SurvivalPlugin plugin) {
         this.lang = plugin.getLang();
         this.playerManager = plugin.getPlayerManager();
     }

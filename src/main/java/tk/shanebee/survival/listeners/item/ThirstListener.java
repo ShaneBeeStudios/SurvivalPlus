@@ -20,7 +20,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
@@ -36,14 +36,14 @@ import java.util.Random;
 
 public class ThirstListener implements Listener {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private final Config config;
     private final Lang lang;
     private final PlayerManager playerManager;
     private final Random random = new Random();
     private final double drain;
 
-    public ThirstListener(Survival plugin) {
+    public ThirstListener(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.config = plugin.getSurvivalConfig();
         this.lang = plugin.getLang();

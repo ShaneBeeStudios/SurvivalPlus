@@ -2,7 +2,7 @@ package tk.shanebee.survival.config;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.PlayerData;
 
 import java.io.File;
@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class PlayerDataConfig {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private File playerDirectory = null;
 
-    public PlayerDataConfig(Survival plugin) {
+    public PlayerDataConfig(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		loadPlayerDirectory();
 	}

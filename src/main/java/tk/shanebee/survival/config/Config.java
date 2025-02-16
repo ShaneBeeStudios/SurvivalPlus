@@ -2,7 +2,7 @@ package tk.shanebee.survival.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Config {
 
-    private final Survival plugin;
+    private final SurvivalPlugin plugin;
     private FileConfiguration settings;
     private File configFile;
 
@@ -222,7 +222,7 @@ public class Config {
     // HIDDEN CONFIG
     public int RECIPE_DELAY;
 
-    public Config(Survival plugin) {
+    public Config(SurvivalPlugin plugin) {
         this.plugin = plugin;
         loadDefaultSettings();
     }

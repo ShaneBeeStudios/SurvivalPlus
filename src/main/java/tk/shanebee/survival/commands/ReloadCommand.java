@@ -2,12 +2,12 @@ package tk.shanebee.survival.commands;
 
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.util.Utils;
 
 public class ReloadCommand extends BaseCommand {
 
-    public ReloadCommand(Survival plugin) {
+    public ReloadCommand(SurvivalPlugin plugin) {
         super(plugin);
     }
 

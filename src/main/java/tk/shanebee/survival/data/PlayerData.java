@@ -7,7 +7,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.util.Math;
 
@@ -25,7 +25,7 @@ import java.util.UUID;
 @SerializableAs("PlayerData")
 public class PlayerData implements ConfigurationSerializable {
 
-    private final Config config = Survival.getInstance().getSurvivalConfig();
+    private final Config config = SurvivalPlugin.getInstance().getSurvivalConfig();
     private final UUID uuid;
     private int thirst;
     private Map<String, Location> compassMap = new HashMap<>();

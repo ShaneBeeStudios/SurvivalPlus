@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
@@ -26,7 +26,7 @@ class NutrientsEffect extends BukkitRunnable {
     private PotionEffect PROTEIN_NORMAL = null;
     private PotionEffect PROTEIN_HARD = null;
 
-    NutrientsEffect(Survival plugin) {
+    NutrientsEffect(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
         this.playerManager = plugin.getPlayerManager();
         loadEffects();

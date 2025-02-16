@@ -21,7 +21,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 
 import java.util.ArrayList;
@@ -29,10 +29,10 @@ import java.util.List;
 
 public class Chairs implements Listener {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final Config config;
 
-	public Chairs(Survival plugin) {
+	public Chairs(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.config = plugin.getSurvivalConfig();
 	}

@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -16,7 +16,7 @@ class NutrientsAlert extends BukkitRunnable {
 	private final Lang lang;
 	private final PlayerManager playerManager;
 
-	NutrientsAlert(Survival plugin) {
+	NutrientsAlert(SurvivalPlugin plugin) {
 		this.lang = plugin.getLang();
 		final int ALERT_INTERVAL = plugin.getSurvivalConfig().MECHANICS_ALERT_INTERVAL;
 		this.playerManager = plugin.getPlayerManager();

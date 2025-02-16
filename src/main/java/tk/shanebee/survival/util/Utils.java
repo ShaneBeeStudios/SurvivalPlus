@@ -14,7 +14,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.Metadatable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 
 import java.util.ArrayList;
@@ -129,7 +129,7 @@ public class Utils {
      * @param msg Message to log to console
      */
     public static void log(String msg) {
-        Lang lang = Survival.getInstance().getLang();
+        Lang lang = SurvivalPlugin.getInstance().getLang();
         String prefix = "&7[&bSurvival&3Plus&7] ";
         if (lang != null) {
             prefix = lang.prefix;
@@ -156,7 +156,7 @@ public class Utils {
      * @param msg Message to log to console
      */
     public static void logMini(String msg) {
-        Survival plugin = Survival.getInstance();
+        SurvivalPlugin plugin = SurvivalPlugin.getInstance();
         String prefix = "<grey>[<aqua>Survival<dark_aqua>Plus<grey>] ";
         if (plugin != null && plugin.getLang() != null) {
             prefix = plugin.getLang().prefix;

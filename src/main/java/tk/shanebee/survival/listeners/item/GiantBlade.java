@@ -27,15 +27,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.util.Vector;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 public class GiantBlade implements Listener {
 
-	private final Survival plugin;
+	private final SurvivalPlugin plugin;
 	private final Lang lang;
 	private final PlayerManager playerManager;
 
-	public GiantBlade(Survival plugin) {
+	public GiantBlade(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 		this.lang = plugin.getLang();
 		this.playerManager = plugin.getPlayerManager();

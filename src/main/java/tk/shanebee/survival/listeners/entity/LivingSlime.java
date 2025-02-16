@@ -17,13 +17,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 
 public class LivingSlime implements Listener {
 
-	private Survival plugin;
+	private SurvivalPlugin plugin;
 
-	public LivingSlime(Survival plugin) {
+	public LivingSlime(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 	}
 

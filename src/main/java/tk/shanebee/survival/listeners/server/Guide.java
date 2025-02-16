@@ -9,18 +9,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 public class Guide implements Listener {
 
-    private Survival plugin;
+    private SurvivalPlugin plugin;
     private Lang lang;
     private Config config;
 
-    public Guide(Survival plugin) {
+    public Guide(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();
         this.config = plugin.getSurvivalConfig();

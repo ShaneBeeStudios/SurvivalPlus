@@ -40,13 +40,13 @@ import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
-public class Survival extends JavaPlugin implements Listener {
+public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 	static {
 		ConfigurationSerialization.registerClass(PlayerData.class);
 	}
 
-	private static Survival instance;
+	private static SurvivalPlugin instance;
 
 	// Lists & Maps
 	private final List<Double> Rates = new ArrayList<>();
@@ -221,12 +221,12 @@ public class Survival extends JavaPlugin implements Listener {
 
 					if (workbench != null && workbench.getType() == Material.CRAFTING_TABLE) {
 						if (workbench.hasMetadata("shared_players"))
-							workbench.removeMetadata("shared_players", Survival.instance);
+							workbench.removeMetadata("shared_players", SurvivalPlugin.instance);
 						else
 							p.getOpenInventory().getTopInventory().clear();
 						p.closeInventory();
 					}
-					p.removeMetadata("shared_workbench", Survival.instance);
+					p.removeMetadata("shared_workbench", SurvivalPlugin.instance);
 				}
 			}
 		}
@@ -310,7 +310,7 @@ public class Survival extends JavaPlugin implements Listener {
 	/** Get instance of this plugin
 	 * @return Instance of this plugin
 	 */
-	public static Survival getInstance() {
+	public static SurvivalPlugin getInstance() {
 		return instance;
 	}
 

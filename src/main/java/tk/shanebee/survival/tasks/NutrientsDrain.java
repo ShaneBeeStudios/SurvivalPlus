@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.data.Nutrient;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
@@ -13,7 +13,7 @@ class NutrientsDrain extends BukkitRunnable {
 
 	private final PlayerManager playerManager;
 
-	NutrientsDrain(Survival plugin) {
+	NutrientsDrain(SurvivalPlugin plugin) {
 		this.playerManager = plugin.getPlayerManager();
 		this.runTaskTimer(plugin, -1, 1);
 	}
