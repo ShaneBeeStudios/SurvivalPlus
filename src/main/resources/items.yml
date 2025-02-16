@@ -3,9 +3,12 @@
 # This file holds certain properties for custom items
 # Only change it if you know what you're doing
 
+# This file supports MiniMessage formatting
+# See the website for more info: https://docs.advntr.dev/minimessage/format
+#
+# Using legacy color codes '&' or '§' are not supported and will error
+
 # --ITEMS--
-# model_data is the CustomModalData version of this item which represents the CustomModelData number in the resource pack
-# If you are using a custom resource pack, you can change this number to match
 
 # repair_cost = The number of experience levels to add to the base level cost when repairing, combining,
 # or renaming this item with an anvil. Must be a non-negative integer, defaults to 0.
@@ -70,6 +73,11 @@ items:
     name: "Medic Kit"
     repair_cost: 0
     repair_percent: 0.0
+    # The amount of times the medic kit can heal 1 heart
+    max_heals: 10
+    lore:
+      - "<#38E29F>Right-Click a player to heal them"
+      - "<#38AEE2>Sneak-Right-Click to heal yourself"
   recurve_bow:
     name: "Recurve Bow"
     repair_cost: 1

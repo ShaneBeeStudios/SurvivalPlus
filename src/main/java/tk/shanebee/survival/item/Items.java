@@ -66,7 +66,7 @@ public class Items {
     public static final Item STONE_SICKLE = new Sickle("stone", Material.STONE);
     public static final Item IRON_SICKLE = new Sickle("iron", Material.IRON_INGOT);
     public static final Item DIAMOND_SICKLE = new Sickle("diamond", Material.DIAMOND);
-    public static final Item MEDIC_KIT = new MedicKit();
+    public static final MedicKit MEDIC_KIT = new MedicKit();
     public static final Item RECURVE_BOW = new RecurveBow();
     public static final Item RECURVE_CROSSBOW = new RecurveCrossbow();
 

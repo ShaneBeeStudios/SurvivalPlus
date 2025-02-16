@@ -14,6 +14,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.Metadatable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.SurvivalPlugin;
 
 import java.util.ArrayList;
@@ -89,7 +91,8 @@ public class Utils {
         return MINI_MESSAGE.deserialize(msg);
     }
 
-    public static void sendColoredMini(Audience receiver, String format, Object... args) {
+    public static void sendColoredMini(@Nullable Audience receiver, @NotNull String format, Object... args) {
+        if (receiver == null) return;
         String f = String.format(format, args);
         receiver.sendMessage(MINI_MESSAGE.deserialize(f));
     }

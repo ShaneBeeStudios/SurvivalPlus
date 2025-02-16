@@ -98,6 +98,9 @@ Mechanics:
   # Enables grappling hooks
   GrapplingHook: true
   # Enables the medical kit
+  # Players will be able to heal themselves and other players
+  # The items.yml file allows you to modify how many uses it has
+  # Each use (1 durability) will add 2 health points (1 heart)
   MedicalKit: true
   # Reduced recipes for iron/gold nuggets
   ReducedIronNugget: true

@@ -1,10 +1,12 @@
 package tk.shanebee.survival.listeners.item;
 
+import io.papermc.paper.entity.LookAnchor;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,24 +15,28 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.ItemUtils;
+import tk.shanebee.survival.util.PlayerUtils;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class MedicKit implements Listener {
 
     private final SurvivalPlugin plugin;
     private final Lang lang;
     private final PlayerManager playerManager;
+    private final Random random = new Random();
 
     public MedicKit(SurvivalPlugin plugin) {
         this.plugin = plugin;
@@ -38,12 +44,11 @@ public class MedicKit implements Listener {
         this.playerManager = plugin.getPlayerManager();
     }
 
-
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onDamaged(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) return;
         if (event.getEntity() instanceof Player player) {
-            PlayerData playerData = playerManager.getPlayerData(player);
+            PlayerData playerData = this.playerManager.getPlayerData(player);
             playerData.setStat(Stat.HEALING, 0);
         }
     }
@@ -53,131 +58,112 @@ public class MedicKit implements Listener {
     private void onClickEntity(PlayerInteractEntityEvent event) {
         if (event.isCancelled()) return;
         final Player player = event.getPlayer();
-        PlayerData playerData = playerManager.getPlayerData(player);
-        final ItemStack mainItem = player.getInventory().getItemInMainHand();
+        PlayerData playerData = this.playerManager.getPlayerData(player);
+        ItemStack mainItem = player.getInventory().getItemInMainHand();
 
-        if (!Items.MEDIC_KIT.is(mainItem)) return;
+        if (!Items.MEDIC_KIT.is(mainItem) || !Items.MEDIC_KIT.canHeal(mainItem)) return;
         if (playerData.getStat(Stat.HEALING) > 0) return;
         if (player.isSneaking()) return;
-        if (!(event.getRightClicked() instanceof Player healed)) return;
-        if (player.getLocation().distance(healed.getLocation()) > 4) return;
+        if (!(event.getRightClicked() instanceof Player patient)) return;
+        if (!canBeHealed(patient)) return;
 
-        PlayerData healedData = playerManager.getPlayerData(healed);
+        PlayerData patientData = this.playerManager.getPlayerData(patient);
 
-        if (healedData.getStat(Stat.HEALING) > 0) return;
+        if (patientData.getStat(Stat.HEALING) > 0) return;
 
         playerData.setStat(Stat.HEALING, 1);
-        healedData.setStat(Stat.HEALING, 1);
-        healed.teleport(playerManager.lookAt(healed.getLocation(), player.getLocation()));
+        patientData.setStat(Stat.HEALING, 1);
 
-        Utils.sendColoredMini(player, lang.healing_other, healed.getDisplayName());
-        Utils.sendColoredMini(healed, lang.healing_being_healed, player.getDisplayName());
+        Utils.sendColoredMini(player, this.lang.healing_other, patient.getDisplayName());
+        Utils.sendColoredMini(patient, this.lang.healing_being_healed, player.getDisplayName());
 
-        playerData.setStat(Stat.HEAL_TIMES, 5);
-        final Runnable task = new Runnable() {
+        Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable() {
+            @Override
             public void run() {
-                int times = playerData.getStat(Stat.HEAL_TIMES);
-                if (player.getInventory().getItemInMainHand().getType() == Material.CLOCK && player.getLocation().distance(healed.getLocation()) <= 4 && playerData.getStat(Stat.HEALING) > 0 && healedData.getStat(Stat.HEALING) > 0) {
-                    if (times-- > 0) {
-                        player.teleport(playerManager.lookAt(player.getLocation(), healed.getLocation()));
-
-                        Random rand = new Random();
-
-                        player.removePotionEffect(PotionEffectType.SLOWNESS);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 6, true, false));
-                        player.removePotionEffect(PotionEffectType.JUMP_BOOST);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20, 199, true, false));
-
-                        healed.getWorld().playSound(healed.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-                        healed.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1, 0));
-
-                        Location particleLoc = healed.getLocation();
-                        particleLoc.setY(particleLoc.getY() + 1);
-                        Utils.spawnParticle(particleLoc, Particle.HAPPY_VILLAGER, 10, 0.5, 0.5, 0.5);
-
-                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
-                        playerData.setStat(Stat.HEAL_TIMES, times);
-                    } else {
-                        playerData.setStat(Stat.HEALING, 0);
-                        healedData.setStat(Stat.HEALING, 0);
-
-                        Utils.sendColoredMini(player, lang.healing_complete);
-                        Utils.sendColoredMini(healed, lang.healing_complete);
-
-                        player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
-                    }
-                } else {
-                    playerData.setStat(Stat.HEALING, 0);
-                    healedData.setStat(Stat.HEALING, 0);
-
-                    Utils.sendColoredMini(player, lang.healing_interrupted);
-                    Utils.sendColoredMini(healed, lang.healing_interrupted);
-
-                    player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
-                }
+                heal(player, patient, playerData, patientData, this);
             }
-        };
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
+        }, 20);
     }
 
     @EventHandler
     private void onSelfClick(PlayerInteractEvent event) {
+        if (event.getHand() != EquipmentSlot.HAND) return;
         if (event.hasItem() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             final Player player = event.getPlayer();
-            PlayerData playerData = playerManager.getPlayerData(player);
             ItemStack mainItem = player.getInventory().getItemInMainHand();
-            if (Items.MEDIC_KIT.is(mainItem)) {
-                if (playerData.getStat(Stat.HEALING) <= 0) {
-                    if (player.isSneaking()) {
-                        playerData.setStat(Stat.HEALING, 1);
+            if (!canBeHealed(player)) return;
+            if (!Items.MEDIC_KIT.is(mainItem) || !Items.MEDIC_KIT.canHeal(mainItem)) return;
 
-                        Utils.sendColoredMini(player, lang.healing_self);
+            PlayerData playerData = this.playerManager.getPlayerData(player);
+            if (playerData.getStat(Stat.HEALING) > 0) return;
+            if (!player.isSneaking()) return;
 
-                        playerData.setStat(Stat.HEAL_TIMES, 5);
-                        final Runnable task = new Runnable() {
-                            public void run() {
-                                int times = playerData.getStat(Stat.HEAL_TIMES);
-                                if (Items.MEDIC_KIT.is(player.getInventory().getItemInMainHand()) && playerData.getStat(Stat.HEALING) > 0) {
-                                    if (times-- > 0) {
-                                        Random rand = new Random();
+            playerData.setStat(Stat.HEALING, 1);
+            Utils.sendColoredMini(player, this.lang.healing_self);
 
-                                        player.removePotionEffect(PotionEffectType.SLOWNESS);
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 6, true, false));
-                                        player.removePotionEffect(PotionEffectType.JUMP_BOOST);
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 20, 199, true, false));
-
-                                        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_LEASH_KNOT_PLACE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-                                        player.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_HEALTH, 1, 0));
-
-                                        Location particleLoc = player.getLocation();
-                                        particleLoc.setY(particleLoc.getY() + 1);
-                                        Utils.spawnParticle(particleLoc, Particle.HAPPY_VILLAGER, 10, 0.5, 0.5, 0.5);
-
-                                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, this, 20L);
-                                        playerData.setStat(Stat.HEAL_TIMES, times);
-                                    } else {
-                                        playerData.setStat(Stat.HEALING, 0);
-
-                                        Utils.sendColoredMini(player, lang.healing_complete);
-
-                                        player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
-                                    }
-                                } else {
-                                    playerData.setStat(Stat.HEALING, 0);
-
-                                    Utils.sendColoredMini(player, lang.healing_interrupted);
-
-                                    player.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
-                                }
-                            }
-                        };
-
-                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, task, -1L);
-                    }
+            Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable() {
+                @Override
+                public void run() {
+                    heal(player, player, playerData, playerData, this);
                 }
-            }
+            }, 20);
         }
     }
 
+    private void heal(@NotNull Player doctor, @NotNull Player patient, @NotNull PlayerData doctorData, @NotNull PlayerData patientData, @NotNull Runnable task) {
+        int times = doctorData.getStat(Stat.HEAL_TIMES);
+        boolean healingOther = doctor != patient;
+        ItemStack medicKitItemStack = doctor.getInventory().getItemInMainHand();
+        if (Items.MEDIC_KIT.is(medicKitItemStack) && Items.MEDIC_KIT.canHeal(medicKitItemStack) && canBeHealed(patient)) {
+            World world = doctor.getWorld();
+            if (healingOther) {
+                doctor.lookAt(patient, LookAnchor.EYES, LookAnchor.EYES);
+                patient.lookAt(doctor, LookAnchor.EYES, LookAnchor.EYES);
+            }
+            PlayerUtils.freezePlayer(doctor, true);
+            PlayerUtils.freezePlayer(patient, true);
+            float volume = healingOther ? (float) doctor.getLocation().distance(patient.getLocation()) : 1f;
+            world.playSound(doctor.getLocation(), Sound.ENTITY_BREEZE_CHARGE, volume, this.random.nextFloat() * 0.4F + 0.8F);
+
+            healPlayer(patient, 2.0);
+            ItemUtils.damageItem(doctor, medicKitItemStack, 1);
+
+            Utils.spawnParticle(patient.getLocation(), Particle.HAPPY_VILLAGER, 10, 0.25, 2, 0.25);
+            if (healingOther) {
+                Utils.spawnParticle(doctor.getLocation(), Particle.HAPPY_VILLAGER, 10, 0.25, 2, 0.25);
+            }
+
+            // Repeat
+            Bukkit.getServer().getScheduler().runTaskLater(this.plugin, task, 20L);
+            doctorData.setStat(Stat.HEAL_TIMES, times);
+        } else {
+            doctorData.setStat(Stat.HEALING, 0);
+            if (healingOther) {
+                patientData.setStat(Stat.HEALING, 0);
+                Utils.sendColoredMini(patient, this.lang.healing_complete);
+                PlayerUtils.freezePlayer(patient, false);
+            }
+
+            Utils.sendColoredMini(doctor, this.lang.healing_complete);
+            PlayerUtils.freezePlayer(doctor, false);
+
+            doctor.getInventory().removeItem(Items.MEDIC_KIT.getItemStack());
+        }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private void healPlayer(Player player, double amount) {
+        AttributeInstance attribute = player.getAttribute(Attribute.MAX_HEALTH);
+        assert attribute != null;
+        if (attribute.getValue() - player.getHealth() > amount) {
+            player.setHealth(player.getHealth() + amount);
+        }
+    }
+
+    private boolean canBeHealed(Player player) {
+        AttributeInstance attribute = player.getAttribute(Attribute.MAX_HEALTH);
+        assert attribute != null;
+        return player.getHealth() < (attribute.getValue() * 0.9);
+    }
 
 }

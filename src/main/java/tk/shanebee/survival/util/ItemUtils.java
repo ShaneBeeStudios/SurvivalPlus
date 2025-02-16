@@ -2,15 +2,21 @@ package tk.shanebee.survival.util;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Random;
 
 /**
  * Utility methods for {@link ItemStack ItemStacks}
  */
 @SuppressWarnings("UnstableApiUsage")
 public class ItemUtils {
+
+    private static final Random RANDOM = new Random();
 
     /**
      * Set the durability of an ItemStack
@@ -40,6 +46,14 @@ public class ItemUtils {
             return maxDamage - damage;
         }
         return 0;
+    }
+
+    public static void damageItem(Player player, ItemStack item, int damage) {
+        player.damageItemStack(item, damage);
+        if (getDurability(item) <= 0) {
+            item.setAmount(0);
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+        }
     }
 
     @SuppressWarnings({"UnstableApiUsage", "deprecation"})
