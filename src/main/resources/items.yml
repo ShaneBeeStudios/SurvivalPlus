@@ -41,6 +41,11 @@ items:
       - '<#17DA4F>  See coords of waypoint'
   firestriker:
     name: "Firestriker"
+    lore:
+      - "<grey>Right-Click to burn things"
+      - "<aqua>Sneak-Right-Click for portable smelter"
+      - "<grey> - Put smeltable into input slot"
+      - "<grey> - Click output slot to smelt"
     repair_cost: 0
     repair_percent: 0.0
   grappling_hook:
@@ -123,10 +128,14 @@ items:
   # ARMOR
   snow_boots:
     name: "Snow Boots"
+    lore:
+      - '<aqua>Move quicker in snow'
     repair_cost: 1
     repair_percent: 0.97
   rain_boots:
     name: "Rain Boots"
+    lore:
+      - '<aqua>Move quicker in rain'
     repair_cost: 1
     repair_percent: 0.97
   diamond_helmet:
@@ -195,21 +204,29 @@ items:
     repair_percent: 1.0
   beekeeper_helmet:
     name: "Beekeeper Helmet"
+    lore:
+      - '<aqua>Prevent bee stings'
     repair_cost: 0
     repair_percent: 1.0
     color: 16777215
   beekeeper_chestplate:
     name: "Beekeeper Chestplate"
+    lore:
+      - '<aqua>Prevent bee stings'
     repair_cost: 0
     repair_percent: 1.0
     color: 16777215
   beekeeper_leggings:
     name: "Beekeeper Leggings"
+    lore:
+      - '<aqua>Prevent bee stings'
     repair_cost: 0
     repair_percent: 1.0
     color: 16777215
   beekeeper_boots:
     name: "Beekeeper Boots"
+    lore:
+      - '<aqua>Prevent bee stings'
     repair_cost: 0
     repair_percent: 1.0
     color: 16777215
@@ -233,6 +250,10 @@ items:
   # BLOCKS
   unlit_campfire:
     name: "Campfire"
+    lore:
+      - "<aqua>Unlit"
+      - "<grey>Hit with a stick a few times"
+      - "<grey>to light the campfire"
   workbench:
     name: "Workbench"
 

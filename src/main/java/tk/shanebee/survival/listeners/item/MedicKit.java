@@ -71,7 +71,7 @@ public class MedicKit implements Listener {
         healed.teleport(playerManager.lookAt(healed.getLocation(), player.getLocation()));
 
         Utils.sendColoredMini(player, lang.healing_other, healed.getDisplayName());
-        Utils.sendColoredMini(healed, lang.being_healed, player.getDisplayName());
+        Utils.sendColoredMini(healed, lang.healing_being_healed, player.getDisplayName());
 
         playerData.setStat(Stat.HEAL_TIMES, 5);
         final Runnable task = new Runnable() {
