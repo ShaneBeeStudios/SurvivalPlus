@@ -35,7 +35,7 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
     public FireStrikerListen(Player player, ItemStack item) {
         SurvivalPlugin plugin = SurvivalPlugin.getInstance();
         Lang lang = plugin.getLang();
-        this.inv = Bukkit.createInventory(this, InventoryType.FURNACE, Utils.getColoredString(lang.firestriker));
+        this.inv = Bukkit.createInventory(this, InventoryType.FURNACE, Utils.getMini(lang.firestriker));
         this.player = player;
         this.item = item;
         this.MAX_COOK_TIME = plugin.getSurvivalConfig().ITEM_FIRESTRIKER_COOK_TIME;

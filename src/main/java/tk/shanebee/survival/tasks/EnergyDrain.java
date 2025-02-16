@@ -64,15 +64,15 @@ public class EnergyDrain extends BukkitRunnable {
                 double newLevel = playerData.getEnergy();
                 if (config.MECHANICS_ENERGY_WARNING) {
                     if (targetMatch(10.0, oldLevel, newLevel)) {
-                        Utils.sendColoredMsg(player, lang.energy_level_10);
+                        Utils.sendColoredMini(player, lang.energy_level_10);
                     } else if (targetMatch(6.5, oldLevel, newLevel)) {
-                        Utils.sendColoredMsg(player, lang.energy_level_6_5);
+                        Utils.sendColoredMini(player, lang.energy_level_6_5);
                     } else if (targetMatch(3.5, oldLevel, newLevel)) {
-                        Utils.sendColoredMsg(player, lang.energy_level_3_5);
+                        Utils.sendColoredMini(player, lang.energy_level_3_5);
                     } else if (targetMatch(2, oldLevel, newLevel)) {
-                        Utils.sendColoredMsg(player, lang.energy_level_2);
+                        Utils.sendColoredMini(player, lang.energy_level_2);
                     } else if (targetMatch(1, oldLevel, newLevel)) {
-                        Utils.sendColoredMsg(player, lang.energy_level_1);
+                        Utils.sendColoredMini(player, lang.energy_level_1);
                     }
                 }
                 effects(player, playerData);

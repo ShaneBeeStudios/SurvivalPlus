@@ -86,7 +86,7 @@ public class ThirstListener implements Listener {
                             change = config.mechanics_thirst_rep_hot_milk;
                             player.damage(2);
                             player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0));
-                            Utils.sendColoredMsg(player, lang.hot_milk_drink);
+                            Utils.sendColoredMini(player, lang.hot_milk_drink);
                         } else if (Items.WATER_BOWL.is(item)) {
                             event.setCancelled(true);
                             change = handleWaterBowl(player);

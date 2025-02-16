@@ -1,6 +1,5 @@
 package tk.shanebee.survival.listeners.item;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -21,105 +20,105 @@ import java.util.List;
 
 public class GrapplingHook implements Listener {
 
-	private Lang lang;
+    private final Lang lang;
 
-	public GrapplingHook(SurvivalPlugin plugin) {
-		this.lang = plugin.getLang();
-	}
+    public GrapplingHook(SurvivalPlugin plugin) {
+        this.lang = plugin.getLang();
+    }
 
-	@EventHandler
-	private void onPlayerFish(PlayerFishEvent event) {
-		Player p = event.getPlayer();
-		ItemStack mainHand = p.getInventory().getItemInMainHand();
-		ItemStack offHand = p.getInventory().getItemInOffHand();
+    @EventHandler
+    private void onPlayerFish(PlayerFishEvent event) {
+        Player player = event.getPlayer();
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = player.getInventory().getItemInOffHand();
 
-		if (mainHand.getType() == Material.FISHING_ROD) {
-			p.getInventory().getItemInOffHand();
-			if (offHand.getType() == Material.AIR) {
+        if (mainHand.getType() == Material.FISHING_ROD) {
+            player.getInventory().getItemInOffHand();
+            if (offHand.getType() == Material.AIR) {
 
-				if (Items.GRAPPLING_HOOK.is(mainHand)) {
-					if (event.getState() == State.IN_GROUND) {
-						List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
+                if (Items.GRAPPLING_HOOK.is(mainHand)) {
+                    if (event.getState() == State.IN_GROUND) {
+                        List<Entity> nearbyEntities = player.getNearbyEntities(50, 50, 50);
 
-						Entity hook = null;
+                        Entity hook = null;
 
-						for (Entity e : nearbyEntities) // loop through entities
-						{
-							if (e.getType() == EntityType.FISHING_BOBBER) //Hook found
-							{
-								hook = e;
-								break;
-							}
-						}
+                        for (Entity e : nearbyEntities) // loop through entities
+                        {
+                            if (e.getType() == EntityType.FISHING_BOBBER) //Hook found
+                            {
+                                hook = e;
+                                break;
+                            }
+                        }
 
-						if (hook != null) {
-							Location hookLoc = hook.getLocation();
-							Location playerLoc = p.getLocation();
+                        if (hook != null) {
+                            Location hookLoc = hook.getLocation();
+                            Location playerLoc = player.getLocation();
 
-							playerLoc.setY(playerLoc.getY() + 0.5);
+                            playerLoc.setY(playerLoc.getY() + 0.5);
 
 
-							Vector vector = hookLoc.toVector().subtract(playerLoc.toVector());
-							if (vector.getY() > 0)
-								vector.setY(Math.sqrt(vector.getY()));
+                            Vector vector = hookLoc.toVector().subtract(playerLoc.toVector());
+                            if (vector.getY() > 0)
+                                vector.setY(Math.sqrt(vector.getY()));
 
-							p.teleport(playerLoc);
-							p.setVelocity(vector.multiply(0.5));
-						}
-					} else if (event.getState() == State.CAUGHT_ENTITY) {
-						if (event.getCaught() != null) {
-							Location playerLoc = p.getLocation();
-							Location entityLoc = event.getCaught().getLocation();
+                            player.teleport(playerLoc);
+                            player.setVelocity(vector.multiply(0.5));
+                        }
+                    } else if (event.getState() == State.CAUGHT_ENTITY) {
+                        if (event.getCaught() != null) {
+                            Location playerLoc = player.getLocation();
+                            Location entityLoc = event.getCaught().getLocation();
 
-							playerLoc.setY(playerLoc.getY() + 0.5);
-							entityLoc.setY(entityLoc.getY() + 0.5);
+                            playerLoc.setY(playerLoc.getY() + 0.5);
+                            entityLoc.setY(entityLoc.getY() + 0.5);
 
-							if (event.getCaught().getType() != EntityType.ITEM) {
-								Vector vector = entityLoc.toVector().subtract(playerLoc.toVector());
-								if (vector.getY() > 0)
-									vector.setY(Math.sqrt(vector.getY()) * 4);
+                            if (event.getCaught().getType() != EntityType.ITEM) {
+                                Vector vector = entityLoc.toVector().subtract(playerLoc.toVector());
+                                if (vector.getY() > 0)
+                                    vector.setY(Math.sqrt(vector.getY()) * 4);
 
-								p.teleport(playerLoc);
-								p.setVelocity(vector.multiply(0.5).multiply(0.25));
-							}
+                                player.teleport(playerLoc);
+                                player.setVelocity(vector.multiply(0.5).multiply(0.25));
+                            }
 
-							Vector reverseVector = playerLoc.toVector().subtract(entityLoc.toVector());
+                            Vector reverseVector = playerLoc.toVector().subtract(entityLoc.toVector());
 
-							if (reverseVector.getY() > 0)
-								reverseVector.setY(Math.sqrt(reverseVector.getY()));
+                            if (reverseVector.getY() > 0)
+                                reverseVector.setY(Math.sqrt(reverseVector.getY()));
 
-							if (event.getCaught().getType() != EntityType.ITEM) {
-								event.getCaught().teleport(entityLoc);
-								event.getCaught().setVelocity(reverseVector.multiply(0.5).multiply(0.125));
-							} else {
-								if (reverseVector.getY() > 0)
-									reverseVector.setY(Math.sqrt(reverseVector.getY()) * 0.5);
+                            if (event.getCaught().getType() != EntityType.ITEM) {
+                                event.getCaught().teleport(entityLoc);
+                                event.getCaught().setVelocity(reverseVector.multiply(0.5).multiply(0.125));
+                            } else {
+                                if (reverseVector.getY() > 0)
+                                    reverseVector.setY(Math.sqrt(reverseVector.getY()) * 0.5);
 
-								event.getCaught().teleport(entityLoc);
-								event.getCaught().setVelocity(reverseVector.multiply(0.5).multiply(0.00625));
-							}
-						}
-					} else if (event.getState() == State.BITE || event.getState() == State.CAUGHT_FISH) {
-						event.setCancelled(true);
-						p.updateInventory();
-					}
-				}
-			} else {
-				event.setCancelled(true);
-				if (Items.GRAPPLING_HOOK.is(mainHand))
-					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_off_hand));
-				else
-					p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_off_hand));
-				p.updateInventory();
-			}
-		} else {
-			event.setCancelled(true);
-			if (Items.GRAPPLING_HOOK.is(offHand))
-				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.grappling_main_hand));
-			else
-				p.sendMessage(ChatColor.RED + Utils.getColoredString(lang.fishing_main_hand));
-			p.updateInventory();
-		}
-	}
+                                event.getCaught().teleport(entityLoc);
+                                event.getCaught().setVelocity(reverseVector.multiply(0.5).multiply(0.00625));
+                            }
+                        }
+                    } else if (event.getState() == State.BITE || event.getState() == State.CAUGHT_FISH) {
+                        event.setCancelled(true);
+                        player.updateInventory();
+                    }
+                }
+            } else {
+                event.setCancelled(true);
+                if (Items.GRAPPLING_HOOK.is(mainHand))
+                    Utils.sendColoredMini(player, "<red>" + this.lang.grappling_off_hand);
+                else
+                    Utils.sendColoredMini(player, "<red>" + this.lang.fishing_off_hand);
+                player.updateInventory();
+            }
+        } else {
+            event.setCancelled(true);
+            if (Items.GRAPPLING_HOOK.is(offHand))
+                Utils.sendColoredMini(player, "<red>" + this.lang.grappling_main_hand);
+            else
+                Utils.sendColoredMini(player, "<red>" + this.lang.fishing_main_hand);
+            player.updateInventory();
+        }
+    }
 
 }

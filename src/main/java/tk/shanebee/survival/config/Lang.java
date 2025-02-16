@@ -1,6 +1,5 @@
 package tk.shanebee.survival.config;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,9 +21,6 @@ public class Lang {
     public String prefix;
     public String no_perm;
     public String survival_guide_msg;
-    public String survival_guide_click_msg;
-    public String survival_guide_hover_msg;
-    public String survival_guide_link;
 
     public String resource_pack_apply;
     public String resource_pack_fail_download;
@@ -81,7 +77,7 @@ public class Lang {
     public String nutrition_gui_next_page;
     public String nutrition_gui_last_page;
 
-    public String healing;
+    public String healing_other;
     public String healing_self;
     public String keep;
     public String on_hand;
@@ -224,9 +220,6 @@ public class Lang {
         prefix = lang.getString("prefix");
         no_perm = lang.getString("no-perm");
         survival_guide_msg = lang.getString("survival-guide-msg");
-        survival_guide_click_msg = lang.getString("survival-guide-click-msg");
-        survival_guide_hover_msg = lang.getString("survival-guide-hover-msg");
-        survival_guide_link = lang.getString("survival-guide-link");
         resource_pack_apply = lang.getString("resource-pack-apply");
         resource_pack_fail_download = lang.getString("resource-pack-fail-download");
         task_must_use_shovel = lang.getString("task-must-use-shovel");
@@ -276,7 +269,7 @@ public class Lang {
         nutrition_gui = lang.getString("nutrition-gui");
         nutrition_gui_next_page = lang.getString("nutrition-gui-next-page");
         nutrition_gui_last_page = lang.getString("nutrition-gui-last-page");
-        healing = lang.getString("healing");
+        healing_other = lang.getString("healing-other");
         healing_self = lang.getString("healing-self");
         keep = lang.getString("keep");
         on_hand = lang.getString("on-hand");
@@ -418,8 +411,7 @@ public class Lang {
     private void saveLang(YamlConfiguration lang, File file) {
         try {
             lang.save(file);
-            String prefix = lang.getString("prefix");
-            Utils.sendColoredMsg(Bukkit.getConsoleSender(), prefix + "<grey>" + langFilePath + " <green>Updated");
+            Utils.logMini( "<grey>%s <green>Updated", this.langFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

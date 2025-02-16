@@ -1,5 +1,6 @@
 package tk.shanebee.survival.gui;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,8 +32,8 @@ public class NutritionGUI implements InventoryHolder, Listener {
     public NutritionGUI(SurvivalPlugin plugin) {
         this.lang = plugin.getLang();
         Bukkit.getPluginManager().registerEvents(this, plugin);
-        LAST_PAGE_BUTTON = getButton(Material.PAPER, Utils.getColoredString(lang.nutrition_gui_last_page));
-        NEXT_PAGE_BUTTON = getButton(Material.PAPER, Utils.getColoredString(lang.nutrition_gui_next_page));
+        LAST_PAGE_BUTTON = getButton(Material.PAPER, Utils.getMini(this.lang.nutrition_gui_last_page));
+        NEXT_PAGE_BUTTON = getButton(Material.PAPER, Utils.getMini(this.lang.nutrition_gui_next_page));
     }
 
     @NotNull
@@ -54,7 +55,7 @@ public class NutritionGUI implements InventoryHolder, Listener {
             listSize = nutritions.size() - p;
             rows = listSize > 45 ? 6 : (int) Math.ceil((double) listSize / 9) + 1;
         }
-        this.inv = Bukkit.createInventory(this, rows * 9, Utils.getColoredString(lang.nutrition_gui));
+        this.inv = Bukkit.createInventory(this, rows * 9, Utils.getMini(this.lang.nutrition_gui));
 
         for (int i = 0; i < (Math.min(listSize, pages ? 45 : 54)); i++) {
             Nutrition nutrition = nutritions.get(i + p);
@@ -69,11 +70,12 @@ public class NutritionGUI implements InventoryHolder, Listener {
         player.openInventory(inv);
     }
 
-    private ItemStack getButton(Material material, String name) {
+    @SuppressWarnings("SameParameterValue")
+    private ItemStack getButton(Material material, Component name) {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(Utils.getColoredString(name));
+        meta.displayName(name);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
@@ -83,12 +85,13 @@ public class NutritionGUI implements InventoryHolder, Listener {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
 
-        List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<>();
-        lore.add(" ");
-        lore.add(Utils.getColoredString("&2" + lang.carbohydrates + ": &7" + nutrition.getCarbs()));
-        lore.add(Utils.getColoredString("&4" + lang.protein + ": &7" + nutrition.getProteins()));
-        lore.add(Utils.getColoredString("&5" + lang.vitamins + ": &7" + nutrition.getVitamins()));
-        meta.setLore(lore);
+        List<Component> oldLore = meta.lore();
+        List<Component> lore = oldLore != null ? oldLore : new ArrayList<>();
+        lore.add(Component.empty());
+        lore.add(Utils.getMini("<#A0E853><!italic>%s: <grey>%s", this.lang.carbohydrates, nutrition.getCarbs()));
+        lore.add(Utils.getMini("<#CE784D><!italic>%s: <grey>%s", this.lang.protein, nutrition.getProteins()));
+        lore.add(Utils.getMini("<#53DDE8><!italic>%s: <grey>%s", this.lang.vitamins, nutrition.getVitamins()));
+        meta.lore(lore);
 
         item.setItemMeta(meta);
         return item;

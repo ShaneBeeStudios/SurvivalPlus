@@ -101,15 +101,15 @@ public class EnergyChange implements Listener {
             double newLevel = playerData.getEnergy();
 
 	        if (targetMatch(10.0, level, newLevel)) {
-                Utils.sendColoredMsg(player, lang.energy_level_10);
+                Utils.sendColoredMini(player, lang.energy_level_10);
             } else if (targetMatch(6.5, level, newLevel)) {
-                Utils.sendColoredMsg(player, lang.energy_level_6_5);
+                Utils.sendColoredMini(player, lang.energy_level_6_5);
             } else if (targetMatch(3.5, level, newLevel)) {
-                Utils.sendColoredMsg(player, lang.energy_level_3_5);
+                Utils.sendColoredMini(player, lang.energy_level_3_5);
             } else if (targetMatch(2, level, newLevel)) {
-                Utils.sendColoredMsg(player, lang.energy_level_2);
+                Utils.sendColoredMini(player, lang.energy_level_2);
             } else if (targetMatch(1, level, newLevel)) {
-                Utils.sendColoredMsg(player, lang.energy_level_1);
+                Utils.sendColoredMini(player, lang.energy_level_1);
             }
         }
     }

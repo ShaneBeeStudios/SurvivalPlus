@@ -60,7 +60,7 @@ public abstract class Item {
                 itemStack.setData(DataComponentTypes.ITEM_NAME, MINI.deserialize(itemName));
             }
         } else if (!vanillaModel) {
-            Utils.log("&cFailed to load item name for item &r'&b" + key + "&r'");
+            Utils.logMini("<red>Failed to load item name for item <white>'<aqua>" + key + "<white>'");
         }
 
         List<String> lore = ITEM_CONFIG.getLore(key);

@@ -26,8 +26,8 @@ import tk.shanebee.survival.SurvivalPlugin;
 
 public class Valkyrie implements Listener {
 
-	private SurvivalPlugin plugin;
-	private Lang lang;
+	private final SurvivalPlugin plugin;
+	private final Lang lang;
 
 	public Valkyrie(SurvivalPlugin plugin) {
 		this.plugin = plugin;
@@ -66,7 +66,7 @@ public class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.lack_of_energy));
+                            Utils.sendColoredMini(player,"<red>" + this.lang.lack_of_energy);
 						}
 					}
 				}
@@ -76,7 +76,7 @@ public class Valkyrie implements Listener {
 				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
 					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 2);
 				if (playerData.getStat(Stat.DUAL_WIELD_MSG) == 2) {
-					player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.valkyrie_axe_unable_dual));
+                    Utils.sendColoredMini(player,"<red>" + this.lang.valkyrie_axe_unable_dual);
 				}
 			}
 		}
@@ -118,7 +118,7 @@ public class Valkyrie implements Listener {
 							}
 							player.updateInventory();
 						} else {
-							player.sendMessage(ChatColor.RED + Utils.getColoredString(lang.lack_of_energy));
+                            Utils.sendColoredMini(player,"<red>" + this.lang.lack_of_energy);
 						}
 					}
 				}

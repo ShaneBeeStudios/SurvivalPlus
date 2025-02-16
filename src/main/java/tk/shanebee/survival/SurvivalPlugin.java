@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -289,14 +290,15 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	private void onServerReload(ServerLoadEvent e) {
 		if (e.getType() == ServerLoadEvent.LoadType.RELOAD) {
 			for (Player player : getServer().getOnlinePlayers()) {
-				Utils.sendColoredMsg(player, prefix + "<red>DETECTED SERVER RELOAD");
-				Utils.sendColoredMsg(player, "    <gold>Recipes may have been impacted");
-				Utils.sendColoredMsg(player, "    <gold>Relog to update your recipes");
+				Utils.sendColoredMini(player, prefix + "<red>DETECTED SERVER RELOAD");
+				Utils.sendColoredMini(player, "    <gold>Recipes may have been impacted");
+				Utils.sendColoredMini(player, "    <gold>Relog to update your recipes");
 			}
-			Utils.sendColoredConsoleMsg(prefix + "<red>DETECTED SERVER RELOAD");
-			Utils.sendColoredConsoleMsg("    <grey>- <gold>Server reloads will impact recipes");
-			Utils.sendColoredConsoleMsg("    <grey>- <gold>Players will need to relog to re-enable custom recipes");
-			Utils.sendColoredConsoleMsg("    <grey>- <gold>A warning has been sent to each player that is online right now");
+            ConsoleCommandSender console = Bukkit.getConsoleSender();
+            Utils.sendColoredMini(console,prefix + "<red>DETECTED SERVER RELOAD");
+			Utils.sendColoredMini(console, "    <grey>- <gold>Server reloads will impact recipes");
+			Utils.sendColoredMini(console, "    <grey>- <gold>Players will need to relog to re-enable custom recipes");
+			Utils.sendColoredMini(console, "    <grey>- <gold>A warning has been sent to each player that is online right now");
 		}
 	}
 

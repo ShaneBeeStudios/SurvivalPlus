@@ -27,19 +27,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.SurvivalPlugin;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.item.items.FireStrikerListen;
-import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
 
 public class FirestrikerClick implements Listener {
 
-    private final Lang lang;
-
     public FirestrikerClick(SurvivalPlugin plugin) {
-        this.lang = plugin.getLang();
     }
 
     @EventHandler
@@ -134,7 +129,7 @@ public class FirestrikerClick implements Listener {
         loc.add(0.5, 0.5, 0.5);
 
         BlockIgniteEvent igniteEvent = new BlockIgniteEvent(loc.getBlock(),
-                IgniteCause.FLINT_AND_STEEL, igniter);
+            IgniteCause.FLINT_AND_STEEL, igniter);
         Bukkit.getServer().getPluginManager().callEvent(igniteEvent);
         if (igniteEvent.isCancelled()) {
             return false;
@@ -143,7 +138,7 @@ public class FirestrikerClick implements Listener {
         BlockState blockState = loc.getBlock().getState();
 
         BlockPlaceEvent placeEvent = new BlockPlaceEvent(loc.getBlock(),
-                blockState, loc.getBlock(), igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
+            blockState, loc.getBlock(), igniter.getInventory().getItemInMainHand(), igniter, true, EquipmentSlot.HAND);
         Bukkit.getServer().getPluginManager().callEvent(placeEvent);
 
         if (placeEvent.isCancelled() || !placeEvent.canBuild()) {
@@ -160,19 +155,16 @@ public class FirestrikerClick implements Listener {
 
     @EventHandler
     private void onCloseInventory(InventoryCloseEvent event) {
-        if (event.getView().getTitle().equalsIgnoreCase(Utils.getColoredString(lang.firestriker))) {
-            Inventory inv = event.getInventory();
-            if (inv.getHolder() instanceof FireStrikerListen) {
-                ((FireStrikerListen) inv.getHolder()).close();
-            }
+        Inventory inv = event.getInventory();
+        if (inv.getHolder() instanceof FireStrikerListen fireStriker) {
+            fireStriker.close();
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onAttack(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) return;
-        if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
-            Player player = (Player) event.getDamager();
+        if (event.getDamager() instanceof Player player && event.getEntity() instanceof LivingEntity && event.getCause() == DamageCause.ENTITY_ATTACK) {
             ItemStack item = player.getInventory().getItemInMainHand();
             if (Items.FIRESTRIKER.is(item)) {
                 ItemMeta meta = item.getItemMeta();

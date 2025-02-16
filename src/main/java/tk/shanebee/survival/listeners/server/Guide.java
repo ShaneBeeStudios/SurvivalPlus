@@ -1,9 +1,5 @@
 package tk.shanebee.survival.listeners.server;
 
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,9 +12,9 @@ import tk.shanebee.survival.util.Utils;
 
 public class Guide implements Listener {
 
-    private SurvivalPlugin plugin;
-    private Lang lang;
-    private Config config;
+    private final SurvivalPlugin plugin;
+    private final Lang lang;
+    private final Config config;
 
     public Guide(SurvivalPlugin plugin) {
         this.plugin = plugin;
@@ -28,17 +24,19 @@ public class Guide implements Listener {
 
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
-        if (e.getPlayer().hasPlayedBefore() && config.WELCOME_GUIDE_NEW_PLAYERS) return;
-        int delay = config.WELCOME_GUIDE_DELAY;
+        if (e.getPlayer().hasPlayedBefore() && this.config.welcome_guide_new_players) return;
+
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             Player player = e.getPlayer();
-            TextComponent msg = new TextComponent(Utils.getColoredString(lang.survival_guide_msg));
-            TextComponent link = new TextComponent(Utils.getColoredString(lang.survival_guide_click_msg));
-            link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, lang.survival_guide_link));
-            link.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ComponentBuilder(Utils.getColoredString(lang.survival_guide_hover_msg)).create()));
-            player.spigot().sendMessage(msg, link);
-        }, 20 * delay);
+
+//            Component component = Utils.getMini(this.lang.survival_guide_msg);
+//            Component hover = Utils.getMini(this.lang.survival_guide_hover_msg);
+//            Component link = Utils.getMini(this.lang.survival_guide_click_msg)
+//                .hoverEvent(HoverEvent.showText(hover))
+//                .clickEvent(ClickEvent.openUrl(this.lang.survival_guide_link));
+//            player.sendMessage(component);
+            Utils.sendColoredMini(player, this.lang.survival_guide_msg);
+        }, 20L * this.config.welcome_guide_delay);
     }
 
 }

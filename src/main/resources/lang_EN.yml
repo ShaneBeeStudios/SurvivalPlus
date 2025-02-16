@@ -1,12 +1,13 @@
 # SurvivalPlus Language File
 
 ####################
-# Language: English (EN)
-# Authors: FattyMieo, ShaneBee
-# Date: 28/4/2016 (Refreshed 13/3/2019)
-####################
 #
 # Edit this file to your liking
+#
+# This file supports MiniMessage formatting
+# See the website for more info: https://docs.advntr.dev/minimessage/format
+#
+# Using legacy color codes with '&' or '§' are not supported and will error
 #
 ####################
 
@@ -19,10 +20,7 @@ no-perm: "<red>You do not have permission to perform this command"
 
 # When a player joins, they will see this message which links them to a guide to help get them started
 # IF you want, you can create your own guide and change the link
-survival-guide-msg: "&6Our server changes a bunch of vanilla Minecraft mechanics, &6To see our survival guide "
-survival-guide-click-msg: "<aqua>Click Here"
-survival-guide-hover-msg: "Click for Guide"
-survival-guide-link: "https://bitbucket.org/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started"
+survival-guide-msg: "<#E2E238>Our server changes a bunch of vanilla Minecraft mechanics, to see our survival guide <click:open_url:'https://github.com/ShaneBeeStudios/SurvivalPlus/wiki/Getting-Started'><hover:show_text:'Click for Guide!'><aqua>Click Here"
 
 resource-pack-apply: "<aqua>Please apply the requested Resource Pack."
 resource-pack-fail-download: "<red>Failed to download resource pack, talk to server owner!"
@@ -46,9 +44,9 @@ lack-of-energy: "Lack of energy, unable to spin."
 arrows-off-hand: "<red>You must have arrows in your off hand."
 arrows-off-hand-crossbow: "<red>You must load arrows from your off hand."
 bow-main-hand: "<red>You must use a bow with your main hand."
-recurved-bow: "&3Bow"
-recurved-crossbow: "&3Crossbow"
-recurved: "&7Recurved"
+recurved-bow: "<dark_aqua>Bow"
+recurved-crossbow: "<dark_aqua>Crossbow"
+recurved: "<grey>Recurved"
 
 fishing-off-hand: "<red>You must use a fishing pole with an empty off hand."
 fishing-main-hand: "<red>You must use a fishing pole with your main hand."
@@ -82,19 +80,20 @@ carbohydrates-lack: "Eat your grains and sugar."
 vitamins-lack: "Eat your vegetables and fruit."
 protein-lack: "Eat your meat, poultry, and dairy."
 
+healing-other: "Healing %s, heep Medic Kit on hand."
 healing: "<green>Healing "
-healing-self: "<green>Healing &ryourself"
+healing-self: "<gray>Healing <aqua>yourself<gray>, keep <green>Medic Kit<grey> on hand."
 keep: "<green>, keep "
 on-hand: "<green> on hand."
 being-healed: "<green>You are being healed by "
 stay-still: "<green>, stay still."
-healing-complete: "Healing complete."
-healing-interrupted: "Healing interrupted."
+healing-complete: "<green>Healing complete."
+healing-interrupted: "<red>Healing interrupted."
 
 # Energy Level
-energy-level-10: "&6You are starting to feel a little tired."
-energy-level-6-5: "&6You are starting to feel a little worn out and weak."
-energy-level-3-5: "&eYou are starting to feel a little nauseous, maybe it's time to get some sleep."
+energy-level-10: "<gold>You are starting to feel a little tired."
+energy-level-6-5: "<gold>You are starting to feel a little worn out and weak."
+energy-level-3-5: "<yellow>You are starting to feel a little nauseous, maybe it's time to get some sleep."
 energy-level-2: "<red>You are starting to feel really sick, you should get some rest."
 energy-level-1: "<red>Your lack of sleep is really taking a toll on you."
 
@@ -111,17 +110,17 @@ attack-speed: "Attack Speed"
 attack-damage: "Attack Damage"
 right-click-sprinting: "Right Click when sprinting:"
 right-click-sneaking: "Right Click when sneaking:"
-decrease-hunger-value: "&7> Decreases hunger value"
+decrease-hunger-value: "<gray> Decreases hunger value"
 
 hatchet: "Hatchet"
 mattock: "Mattock"
 firestriker: "Firestriker"
 firestriker-damaged: "Damaged Firestriker"
-firestriker-lore: "&7Right-Click to burn things||<aqua>Sneak-Right-Click for portable smelter||&7 -Put smeltable into input slot||&7 -Click output slot to smelt"
+firestriker-lore: "<grey>Right-Click to burn things||<aqua>Sneak-Right-Click for portable smelter||<grey> -Put smeltable into input slot||<grey> -Click output slot to smelt"
 shiv: "Shiv"
 poisoned-enemy: "<dark_green>Poisoned: Poison enemy on hit"
-poisoned-retain: "<dark_green>Poisoning Effect &7retains"
-reduce-50: "&7> Reduce chance by 50%"
+poisoned-retain: "<dark_green>Poisoning Effect <grey>retains"
+reduce-50: "<gray> Reduce chance by 50%"
 grappling-hook: "Grappling Hook"
 
 hammer: "Hammer"
@@ -130,30 +129,30 @@ workbench: "Workbench"
 valkyrie-axe: "Valkyrie's Axe"
 valkyrie-axe-unable-dual: "<red>Unable to dual-wield with Valkyrie's Axe"
 valkyrie-axe-spin: "<green>Spin: Spin your axe in a circle to attack all nearby enemies!"
-valkyrie-axe-cooldown: "&7> Cooldown: 1 second"
+valkyrie-axe-cooldown: "<gray> Cooldown: 1 second"
 
 quartz-breaker: "Quartz Breaker"
-haste: "&eHaste"
+haste: "<yellow>Haste"
 
 obsidian-mace: "Obsidian Mace"
-cripple-hit: "&dCripple: Enemies hit become &8weakened"
+cripple-hit: "<light_purple>Cripple: Enemies hit become <dark_gray>weakened"
 drain-hit: "<green>Drain: Gain <aqua>2 hearts<green> per hit"
-exhausted-slow: "&8Exhausted: <red>Slowness II"
-expire-disarm: "&7> Expires after disarming for 5 seconds"
-knockback-resistance: "&9+50% Knockback Resistance"
+exhausted-slow: "<dark_gray>Exhausted: <red>Slowness II"
+expire-disarm: "<gray> Expires after disarming for 5 seconds"
+knockback-resistance: "<blue>+50% Knockback Resistance"
 
 ender-giant-blade: "Ender Giant Blade"
 ender-giant-blade-unable-duel: "<red>Unable to dual-wield with the Ender Giant Blade"
 ender-giant-blade-charge: "<green>Charge: Sprint forward, attack enemies in the way"
-ender-giant-blade-cooldown: "&7> Cooldown: 5 seconds"
-half-shield-resistance: "<green>Half-Shield: Gains &4Resistance II"
-reflecting-coming: "&7> Reflecting incoming damage by 40%"
+ender-giant-blade-cooldown: "<gray> Cooldown: 5 seconds"
+half-shield-resistance: "<green>Half-Shield: Gains <dark_red>Resistance II"
+reflecting-coming: "<gray> Reflecting incoming damage by 40%"
 
 blaze-sword: "Blaze Sword"
-blaze-sword-fire-resistance: "&6Fire Resistance"
+blaze-sword-fire-resistance: "<gold>Fire Resistance"
 blaze-sword-fiery: "<red>Fiery: -3 Hearts"
-blaze-sword-spread-fire: "&6Spread fire on the ground"
-blaze-sword-cost: "&7> Costs 1 Durability"
+blaze-sword-spread-fire: "<gold>Spread fire on the ground"
+blaze-sword-cost: "<gray> Costs 1 Durability"
 
 reinforced-boots: "Reinforced Leather Boots"
 reinforced-tunic: "Reinforced Leather Tunic"
@@ -169,23 +168,23 @@ fermented-skin: "Fermented Skin"
 medical-kit: "Medical Kit"
 water-bowl: "<aqua>Water Bowl"
 
-suspicious-meat: "&eSuspicious Meat"
+suspicious-meat: "<yellow>Suspicious Meat"
 
 # Water bottle names, lore and color
 # I used this site to get the RGB color codes:
 # http://minecraft.tools/en/potion.php
 dirty-water: "Water Bottle"
-dirty-water-lore: "&7Dirty"
+dirty-water-lore: "<grey>Dirty"
 dirty-water-color: 12769874
 clean-water: "<aqua>Water Bottle"
-clean-water-lore: "&7Clean"
+clean-water-lore: "<grey>Clean"
 clean-water-color: 1213666
 purified-water: "<aqua>Water Bottle"
-purified-water-lore: "&7Purified"
+purified-water-lore: "<grey>Purified"
 purified-water-color: 0x00FFFF
 
 coffee-bean-name: "Coffee Bean"
-coffee-name: "&3Coffee"
+coffee-name: "<dark_aqua>Coffee"
 coffee-color: 9461779
 cold-milk-name: "<aqua>Cold Milk"
 cold-milk-color: 16250871
@@ -194,22 +193,22 @@ hot-milk-color: 15456977
 hot-milk-drink: "<red>OUCH, that was hot!"
 breeding-egg-name: "Breeding Egg"
 
-flint_sickle: "&8Flint Sickle"
-stone_sickle: "&7Stone Sickle"
-iron_sickle: "&3Iron Sickle"
+flint_sickle: "<dark_gray>Flint Sickle"
+stone_sickle: "<grey>Stone Sickle"
+iron_sickle: "<dark_aqua>Iron Sickle"
 diamond_sickle: "<aqua>Diamond Sickle"
 
 campfire-name: "<green>Campfire"
-campfire-lore: "<aqua>Unlit||&7Hit with a stick a few times||&7to light the campfire"
+campfire-lore: "<aqua>Unlit||<grey>Hit with a stick a few times||<grey>to light the campfire"
 
-bee-helmet-name: '&6Beekeeper Helmet'
-bee-chest-name: '&6Beekeeper Chestplate'
-bee-legs-name: '&6Beekeeper Leggings'
-bee-boots-name: '&6Beekeeper Boots'
+bee-helmet-name: '<gold>Beekeeper Helmet'
+bee-chest-name: '<gold>Beekeeper Chestplate'
+bee-legs-name: '<gold>Beekeeper Leggings'
+bee-boots-name: '<gold>Beekeeper Boots'
 bee-suit-lore: '<aqua>Prevent bee stings'
-snow-boots-name: '&x&9&E<red>&9<red><green>Snow Boots'
+snow-boots-name: 'Snow Boots'
 snow-boots-lore: '<aqua>Move quicker in snow'
-rain-boots-name: '&x&D&6&E&7&0&3Rain Boots'
+rain-boots-name: 'Rain Boots'
 rain-boots-lore: '<aqua>Move quicker in rain'
 
 ####################

@@ -1,10 +1,10 @@
 package tk.shanebee.survival.util;
 
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -15,7 +15,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.Metadatable;
 import tk.shanebee.survival.SurvivalPlugin;
-import tk.shanebee.survival.config.Lang;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,73 +84,28 @@ public class Utils {
         return mat;
     }
 
-    /**
-     * Send a colored string to a Player
-     * <p>
-     * Does not require ChatColor methods
-     * </p>
-     *
-     * @param player The player to send a colored string to
-     * @param msg    The string to send including color codes
-     */
-    public static void sendColoredMsg(CommandSender player, String msg) {
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-    }
-
-    public static void sendColoredMini(CommandSender player, String format, Object... args) {
-        String f = String.format(format, args);
-        player.sendMessage(MINI_MESSAGE.deserialize(f));
-    }
-
     public static Component getMini(String format, Object... args) {
         String msg = args != null ? String.format(format, args) : format;
         return MINI_MESSAGE.deserialize(msg);
     }
 
+    public static void sendColoredMini(Audience receiver, String format, Object... args) {
+        String f = String.format(format, args);
+        receiver.sendMessage(MINI_MESSAGE.deserialize(f));
+    }
+
+    /**
+     * Convert a component into a string
+     *
+     * @param component Component to convert
+     * @return String version of component
+     */
     public static String reverseComponent(Component component) {
         return COMPONENT_SERIALIZER.serialize(component);
     }
 
     /**
-     * Send a colored console message
-     * <p>This will NOT include plugin prefix</p>
-     *
-     * @param msg Message to send
-     */
-    public static void sendColoredConsoleMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-    }
-
-    /**
-     * Log a message to console
-     * <p>This will include plugin prefix</p>
-     *
-     * @param msg Message to log to console
-     */
-    public static void log(String msg) {
-        Lang lang = SurvivalPlugin.getInstance().getLang();
-        String prefix = "&7[&bSurvival&3Plus&7] ";
-        if (lang != null) {
-            prefix = lang.prefix;
-        }
-        sendColoredConsoleMsg(prefix + msg);
-    }
-
-    /**
-     * Log a formatted message to console
-     * <p>Formatted in the same style as {@link String#format(String, Object...)}
-     * <br>This will include plugin prefix</p>
-     *
-     * @param format  Message format
-     * @param objects Objects in format
-     */
-    public static void log(String format, Object... objects) {
-        log(String.format(format, objects));
-    }
-
-    /**
-     * Log a message to console
-     * <p>This will include plugin prefix</p>
+     * Log a prefixed message to console
      *
      * @param msg Message to log to console
      */
@@ -165,35 +119,14 @@ public class Utils {
     }
 
     /**
-     * Log a formatted message to console
+     * Log a prefixed formatted message to console
      * <p>Formatted in the same style as {@link String#format(String, Object...)}
-     * <br>This will include plugin prefix</p>
      *
      * @param format  Message format
      * @param objects Objects in format
      */
     public static void logMini(String format, Object... objects) {
         logMini(String.format(format, objects));
-    }
-
-    /**
-     * Gets a colored string
-     *
-     * @param string The string including color codes/HEX color codes
-     * @return Returns a formatted string
-     */
-    public static String getColoredString(String string) {
-        if (isRunningMinecraft(1, 16)) {
-            Matcher matcher = HEX_PATTERN.matcher(string);
-            while (matcher.find()) {
-                final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
-                final String before = string.substring(0, matcher.start());
-                final String after = string.substring(matcher.end());
-                string = before + hexColor + after;
-                matcher = HEX_PATTERN.matcher(string);
-            }
-        }
-        return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', string);
     }
 
     /**

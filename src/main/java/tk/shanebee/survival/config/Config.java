@@ -24,8 +24,8 @@ public class Config {
     public int settings_local_chat_distance;
 
     public boolean WELCOME_GUIDE_ENABLED;
-    public boolean WELCOME_GUIDE_NEW_PLAYERS;
-    public int WELCOME_GUIDE_DELAY;
+    public boolean welcome_guide_new_players;
+    public int welcome_guide_delay;
 
     // SURVIVAL
     public boolean SURVIVAL_ENABLED;
@@ -287,8 +287,8 @@ public class Config {
 
         // WELCOME GUIDE
         this.WELCOME_GUIDE_ENABLED = settings.getBoolean("WelcomeGuide.Enabled");
-        this.WELCOME_GUIDE_NEW_PLAYERS = settings.getBoolean("WelcomeGuide.NewPlayersOnly");
-        this.WELCOME_GUIDE_DELAY = settings.getInt("WelcomeGuide.Delay");
+        this.welcome_guide_new_players = settings.getBoolean("WelcomeGuide.NewPlayersOnly");
+        this.welcome_guide_delay = settings.getInt("WelcomeGuide.Delay");
 
         // SURVIVAL
         this.SURVIVAL_ENABLED = settings.getBoolean("Survival.Enabled");
