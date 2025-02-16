@@ -1,5 +1,7 @@
 package tk.shanebee.survival.util;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -7,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 /**
  * Utility methods for {@link ItemStack ItemStacks}
  */
+@SuppressWarnings("UnstableApiUsage")
 public class ItemUtils {
 
     /**
@@ -29,8 +32,38 @@ public class ItemUtils {
      * @return The durability of the ItemStack
      */
     public static int getDurability(ItemStack item) {
-        assert item.getItemMeta() != null;
-        return ((Damageable) item.getItemMeta()).getDamage();
+        if (item.hasData(DataComponentTypes.MAX_DAMAGE) && item.hasData(DataComponentTypes.DAMAGE)) {
+            Integer maxDamage = item.getData(DataComponentTypes.MAX_DAMAGE);
+            Integer damage = item.getData(DataComponentTypes.DAMAGE);
+            assert maxDamage != null;
+            assert damage != null;
+            return maxDamage - damage;
+        }
+        return 0;
+    }
+
+    @SuppressWarnings({"UnstableApiUsage", "deprecation"})
+    public static String getItemName(ItemStack itemStack) {
+        if (itemStack.hasData(DataComponentTypes.CUSTOM_NAME)) {
+            Component data = itemStack.getData(DataComponentTypes.CUSTOM_NAME);
+            if (data != null) return Utils.reverseComponent(data);
+        } else if (itemStack.hasData(DataComponentTypes.ITEM_NAME)) {
+            Component data = itemStack.getData(DataComponentTypes.ITEM_NAME);
+            if (data != null) return Utils.reverseComponent(data);
+        }
+        return itemStack.getItemMeta().getDisplayName();
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    public static Component getItemNameComponent(ItemStack itemStack) {
+        if (itemStack.hasData(DataComponentTypes.CUSTOM_NAME)) {
+            Component data = itemStack.getData(DataComponentTypes.CUSTOM_NAME);
+            if (data != null) return data;
+        } else if (itemStack.hasData(DataComponentTypes.ITEM_NAME)) {
+            Component data = itemStack.getData(DataComponentTypes.ITEM_NAME);
+            if (data != null) return data;
+        }
+        return itemStack.getItemMeta().displayName();
     }
 
 }

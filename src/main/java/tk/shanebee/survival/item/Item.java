@@ -63,6 +63,7 @@ public abstract class Item {
             Utils.logMini("<red>Failed to load item name for item <white>'<aqua>" + key + "<white>'");
         }
 
+        // Lore
         List<String> lore = ITEM_CONFIG.getLore(key);
         if (lore != null && !lore.isEmpty()) {
             List<Component> loreComponents = new ArrayList<>();

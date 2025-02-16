@@ -42,12 +42,14 @@ items:
   firestriker:
     name: "Firestriker"
     lore:
-      - "<grey>Right-Click to burn things"
-      - "<aqua>Sneak-Right-Click for portable smelter"
-      - "<grey> - Put smeltable into input slot"
-      - "<grey> - Click output slot to smelt"
+      - "<green>Right-Click to burn things"
+      - "<grey> - You can also light campfires"
+      - "<aqua>Sneak-Right-Click to smelt things"
+      - "<grey> - Put a smeltable item into input slot"
+      - "<grey> - Keep it open and watch it cook"
     repair_cost: 0
     repair_percent: 0.0
+    max_cooks: 10
   grappling_hook:
     name: "Grappling Hook"
     repair_cost: 0

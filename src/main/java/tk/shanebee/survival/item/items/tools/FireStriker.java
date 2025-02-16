@@ -1,13 +1,9 @@
 package tk.shanebee.survival.item.items.tools;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Tag;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.attribute.AttributeModifier.Operation;
-import org.bukkit.inventory.EquipmentSlotGroup;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.RecipeChoice;
@@ -18,16 +14,16 @@ import tk.shanebee.survival.item.Item;
 @SuppressWarnings("UnstableApiUsage")
 public class FireStriker extends Item {
 
+    private final int maxCooks;
+
     public FireStriker() {
-        ItemStack itemStack = ItemType.WOODEN_SHOVEL.createItemStack();
+        ItemStack itemStack = ItemType.STICK.createItemStack();
+        this.maxCooks = ITEM_CONFIG.getInt("firestriker", "max_cooks", 8);
+        itemStack.setData(DataComponentTypes.MAX_DAMAGE, this.maxCooks);
+        itemStack.setData(DataComponentTypes.DAMAGE, 0);
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        float firestriker_spd = 4f;
-
-        AttributeModifier i_firestrikerSpeed = new AttributeModifier(BASE_ATTACK_SPEED, firestriker_spd - 4, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_firestrikerSpeed);
-
-        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemStack.setItemMeta(itemMeta);
         setupDefaults("firestriker", itemStack);
     }
@@ -38,6 +34,10 @@ public class FireStriker extends Item {
         recipe.addIngredient(Material.FLINT);
         recipe.addIngredient(new RecipeChoice.MaterialChoice(Tag.ITEMS_COALS));
         Bukkit.addRecipe(recipe);
+    }
+
+    public int getMaxCooks() {
+        return this.maxCooks;
     }
 
 }

@@ -1,50 +1,63 @@
-package tk.shanebee.survival.item.items;
+package tk.shanebee.survival.gui;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.Tag;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.InventoryView.Property;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MenuType;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.view.FurnaceView;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.SurvivalPlugin;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.util.Utils;
+import tk.shanebee.survival.util.ItemUtils;
 
-public class FireStrikerListen implements Runnable, InventoryHolder {
+import java.util.Random;
+
+@SuppressWarnings("UnstableApiUsage")
+public class FireStrikerGUI implements Runnable, InventoryHolder {
+
+    public static @Nullable FireStrikerGUI create(Player player, ItemStack itemStack) {
+        FireStrikerGUI fireStrikerGUI = new FireStrikerGUI(player, itemStack);
+        if (fireStrikerGUI.burnTime > 0) return fireStrikerGUI;
+        return null;
+    }
 
     private final int id;
+    private final FurnaceView furnaceView;
     private final Inventory inv;
     private final Player player;
-    private final ItemStack item;
+    private final ItemStack firestrikerItemStack;
+    private final Random random = new Random();
 
-    private final int MAX_COOK_TIME;
+    private final int maxCookTime;
+    private final int maxBurnTime;
     private int cookTime;
     private int burnTime;
 
-    public FireStrikerListen(Player player, ItemStack item) {
+    private FireStrikerGUI(Player player, ItemStack itemStack) {
         SurvivalPlugin plugin = SurvivalPlugin.getInstance();
-        Lang lang = plugin.getLang();
-        this.inv = Bukkit.createInventory(this, InventoryType.FURNACE, Utils.getMini(lang.firestriker));
+        this.furnaceView = MenuType.FURNACE.create(player, ItemUtils.getItemNameComponent(itemStack));
+        this.inv = this.furnaceView.getTopInventory();
         this.player = player;
-        this.item = item;
-        this.MAX_COOK_TIME = plugin.getSurvivalConfig().ITEM_FIRESTRIKER_COOK_TIME;
+        this.firestrikerItemStack = itemStack;
+        this.maxCookTime = plugin.getSurvivalConfig().ITEM_FIRESTRIKER_COOK_TIME;
         this.cookTime = 0;
 
-        ItemMeta itemMeta = item.getItemMeta();
+        ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
 
-        this.burnTime = 8 - (((Damageable) itemMeta).getDamage() / 7);
+        this.maxBurnTime = Items.FIRESTRIKER.getMaxCooks();
+        this.burnTime = ItemUtils.getDurability(itemStack);
         this.id = Bukkit.getScheduler().runTaskTimer(plugin, this, 0, 1).getTaskId();
     }
 
@@ -55,7 +68,7 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
 
     private void tick() {
         if (canCook() && canBurn()) {
-            if (cookTime < MAX_COOK_TIME) {
+            if (cookTime < maxCookTime) {
                 cookTime++;
             } else {
                 cook();
@@ -77,11 +90,9 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
     }
 
     private void updateFuel() {
-        ItemStack fuel = inv.getItem(1);
+        ItemStack fuel = this.inv.getItem(1);
         if (fuel != null && Items.FIRESTRIKER.is(fuel)) {
-            Damageable meta = ((Damageable) fuel.getItemMeta());
-            assert meta != null;
-            burnTime = 8 - (meta.getDamage() / 7);
+            this.burnTime = this.maxBurnTime - ItemUtils.getDurability(fuel);
         }
     }
 
@@ -91,20 +102,20 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
     }
 
     private void burn() {
-        ItemStack fuel = inv.getItem(1);
-        assert fuel != null;
-        ItemMeta itemMeta = fuel.getItemMeta();
-        assert itemMeta != null;
+        ItemStack fuelItemStack = this.inv.getItem(1);
+        assert fuelItemStack != null;
+        ItemMeta itemMeta = fuelItemStack.getItemMeta();
         int damage = ((Damageable) itemMeta).getDamage();
-        damage += 7;
-        if (damage <= 52) {
+        damage++;
+        if (damage < this.maxBurnTime) {
             ((Damageable) itemMeta).setDamage(damage);
-            fuel.setItemMeta(itemMeta);
-            inv.setItem(1, fuel);
-            burnTime--;
+            fuelItemStack.setItemMeta(itemMeta);
+            this.inv.setItem(1, fuelItemStack);
+            this.burnTime--;
         } else {
-            inv.setItem(1, null);
-            burnTime = 0;
+            this.inv.setItem(1, null);
+            this.player.getWorld().playSound(this.player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
+            this.burnTime = 0;
         }
     }
 
@@ -152,17 +163,15 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
         inv.setItem(0, input);
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     private void updateView() {
-        InventoryView view = player.getOpenInventory();
-        view.setProperty(Property.COOK_TIME, cookTime);
-        view.setProperty(Property.TICKS_FOR_CURRENT_SMELTING, MAX_COOK_TIME);
-        view.setProperty(Property.BURN_TIME, burnTime);
-        view.setProperty(Property.TICKS_FOR_CURRENT_FUEL, 8);
+        this.furnaceView.setCookTime(this.cookTime, this.maxCookTime);
+        this.furnaceView.setBurnTime(this.burnTime, 8);
     }
 
     public void open() {
-        inv.setItem(1, this.item);
-        player.openInventory(inv);
+        inv.setItem(1, this.firestrikerItemStack);
+        player.openInventory(this.furnaceView);
     }
 
     public void close() {
@@ -214,7 +223,11 @@ public class FireStrikerListen implements Runnable, InventoryHolder {
 
     @Override
     public @NotNull Inventory getInventory() {
-        return inv;
+        return this.inv;
+    }
+
+    public FurnaceView getFurnaceView() {
+        return this.furnaceView;
     }
 
 }

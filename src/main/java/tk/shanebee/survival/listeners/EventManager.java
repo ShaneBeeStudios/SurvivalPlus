@@ -25,7 +25,7 @@ import tk.shanebee.survival.listeners.item.Bow;
 import tk.shanebee.survival.listeners.item.CauldronWaterBottle;
 import tk.shanebee.survival.listeners.item.CompassWaypoint;
 import tk.shanebee.survival.listeners.item.CookieHealthBoost;
-import tk.shanebee.survival.listeners.item.FirestrikerClick;
+import tk.shanebee.survival.listeners.item.FirestrikerListener;
 import tk.shanebee.survival.listeners.item.FoodDiversityConsume;
 import tk.shanebee.survival.listeners.item.GiantBlade;
 import tk.shanebee.survival.listeners.item.GrapplingHook;
@@ -73,7 +73,7 @@ public class EventManager {
 		if (config.SURVIVAL_ENABLED) {
 			pm.registerEvents(new BlockBreak(plugin), this.plugin);
 			pm.registerEvents(new BlockPlace(plugin), this.plugin);
-			pm.registerEvents(new FirestrikerClick(plugin), this.plugin);
+			pm.registerEvents(new FirestrikerListener(plugin), this.plugin);
 			pm.registerEvents(new ShivPoison(this.plugin), this.plugin);
 			pm.registerEvents(new WaterBowl(plugin), this.plugin);
 			pm.registerEvents(new Campfire(plugin), this.plugin);

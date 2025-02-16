@@ -59,7 +59,7 @@ public class Items {
     public static final Item MATTOCK = new Mattock();
     public static final Item SHIV = new Shiv();
     public static final Item HAMMER = new Hammer();
-    public static final Item FIRESTRIKER = new FireStriker();
+    public static final FireStriker FIRESTRIKER = new FireStriker();
     public static final Item GRAPPLING_HOOK = new GrapplingHook();
     public static final Item COMPASS = new Compass();
     public static final Item FLINT_SICKLE = new Sickle("flint", Material.FLINT);

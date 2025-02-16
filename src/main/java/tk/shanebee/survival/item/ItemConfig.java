@@ -103,6 +103,30 @@ public class ItemConfig {
         return 0;
     }
 
+    public int getInt(String itemKey, String valueKey, int defaultValue) {
+        String path = "items." + itemKey + "." + valueKey;
+        if (this.settings.contains(path)) {
+            return this.settings.getInt(path);
+        }
+        return defaultValue;
+    }
+
+    public double getDouble(String itemKey, String valueKey, double defaultValue) {
+        String path = "items." + itemKey + "." + valueKey;
+        if (this.settings.contains(path)) {
+            return this.settings.getDouble(path);
+        }
+        return defaultValue;
+    }
+
+    public String getString(String itemKey, String valueKey, String defaultValue) {
+        String path = "items." + itemKey + "." + valueKey;
+        if (this.settings.contains(path)) {
+            return this.settings.getString(path);
+        }
+        return defaultValue;
+    }
+
     void save() {
         try {
             settings.save(configFile);
