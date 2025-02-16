@@ -1,0 +1,28 @@
+package tk.shanebee.survival.commands;
+
+import dev.jorel.commandapi.arguments.Argument;
+import dev.jorel.commandapi.arguments.LiteralArgument;
+import tk.shanebee.survival.Survival;
+import tk.shanebee.survival.generator.BlockTagFileGenerator;
+import tk.shanebee.survival.util.Utils;
+
+public class DataGenCommand extends BaseCommand {
+
+    private final BlockTagFileGenerator blockTagFileGenerator;
+
+    public DataGenCommand(Survival plugin) {
+        super(plugin);
+        this.blockTagFileGenerator = new BlockTagFileGenerator();
+    }
+
+    @Override
+    Argument<?> register() {
+        return LiteralArgument.literal("datagen")
+            .executes(info -> {
+                this.blockTagFileGenerator.generateBlockTags(this.plugin.getDataFolder(), "generated/block-tags.yml");
+                Utils.sendColoredMini(info.sender(), "Finished generating block-tags.yml");
+            });
+    }
+
+
+}

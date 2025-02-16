@@ -23,6 +23,8 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.util.BlockTags;
+import tk.shanebee.survival.util.ItemUtils;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -50,8 +52,8 @@ public class BlockBreak implements Listener {
         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
             if (!Items.QUARTZ_PICKAXE.is(tool)) {
                 if (settings.BREAK_ONLY_WITH_SHOVEL) {
-                    if (!Utils.isShovel(tool.getType())) {
-                        if (Utils.requiresShovel(material)) {
+                    if (!Tag.ITEMS_SHOVELS.isTagged(tool.getType())) {
+                        if (BlockTags.REQUIRES_SHOVEL.isTagged(material)) {
                             event.setCancelled(true);
                             player.updateInventory();
                             Utils.sendColoredMini(player, "<red>" + lang.task_must_use_shovel);
@@ -74,15 +76,15 @@ public class BlockBreak implements Listener {
                             case PODZOL:
                             case COARSE_DIRT:
                             case FARMLAND:
-                                if (Utils.isFarmable(above.getType())) {
+                                if (BlockTags.FARMABLE.isTagged(above.getType())) {
                                     above.setType(Material.AIR);
                                 }
                         }
                     }
                 }
 
-                if (settings.BREAK_ONLY_WITH_AXE && !Utils.isAxe(tool.getType())) {
-                    if (Utils.requiresAxe(material)) {
+                if (settings.BREAK_ONLY_WITH_AXE && !Tag.ITEMS_AXES.isTagged(tool.getType())) {
+                    if (BlockTags.REQUIRES_AXE.isTagged(material)) {
                         event.setCancelled(true);
                         player.updateInventory();
                         Utils.sendColoredMini(player, "<red>" + lang.task_must_use_axe);
@@ -96,8 +98,8 @@ public class BlockBreak implements Listener {
                             block.getRelative(BlockFace.DOWN).getState().update(true);
                     }
                 }
-                if (settings.BREAK_ONLY_WITH_PICKAXE && !Utils.isPickaxe(tool.getType())) {
-                    if (Utils.requiresPickaxe(material)) {
+                if (settings.BREAK_ONLY_WITH_PICKAXE && !Tag.ITEMS_PICKAXES.isTagged(tool.getType())) {
+                    if (BlockTags.REQUIRES_PICKAXE.isTagged(material)) {
                         event.setCancelled(true);
                         player.updateInventory();
                         Utils.sendColoredMini(player, "<red>" + lang.task_must_use_pick);
@@ -105,7 +107,7 @@ public class BlockBreak implements Listener {
                 }
 
                 if (settings.BREAK_ONLY_WITH_SICKLE) {
-                    if (Utils.isFarmable(material)) {
+                    if (BlockTags.FARMABLE.isTagged(material)) {
                         if (!Items.Tags.SICKLES.isTagged(tool)) {
                             event.setCancelled(true);
                             Utils.sendColoredMini(player, "<red>" + lang.task_must_use_sickle);
@@ -143,12 +145,12 @@ public class BlockBreak implements Listener {
                                     loc.getWorld().dropItemNaturally(loc.add(0.5,0.1,0.5), new ItemStack(drop, random));
                                 }
                             }
-                            if (tool.getType().getMaxDurability() < Utils.getDurability(tool) + multiplier) {
+                            if (tool.getType().getMaxDurability() < ItemUtils.getDurability(tool) + multiplier) {
                                 player.getInventory().setItemInMainHand(null);
                                 player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
                                 return;
                             }
-                            Utils.setDurability(tool, Utils.getDurability(tool) + multiplier);
+                            ItemUtils.setDurability(tool, ItemUtils.getDurability(tool) + multiplier);
                             player.updateInventory();
                         }
                     }
@@ -156,7 +158,7 @@ public class BlockBreak implements Listener {
 
                 if (!(tool.getType() == Material.SHEARS)) {
                     if (settings.BREAK_ONLY_WITH_SHEARS) {
-                        if (Utils.requiresShears(material)) {
+                        if (BlockTags.REQUIRES_SHEARS.isTagged(material)) {
                             event.setCancelled(true);
                             player.updateInventory();
                             Utils.sendColoredMini(player, "<red>" + lang.task_must_use_shear);
@@ -178,7 +180,7 @@ public class BlockBreak implements Listener {
                     block.getWorld().dropItem(block.getLocation(), workbench);
                 }
             } else {
-                if (Utils.isOreBlock(material) || Utils.isNaturalOreBlock(material)) {
+                if (BlockTags.ORE_TYPE_BLOCK.isTagged(material) || BlockTags.ORES.isTagged(material)) {
                     event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5,0.1,0.5), new ItemStack(material));
                 }
             }
@@ -250,8 +252,8 @@ public class BlockBreak implements Listener {
 
                     bush.setAge(1);
                     block.setBlockData(bush);
-                    int durability = Utils.getDurability(tool) + multiplier;
-                    Utils.setDurability(tool, durability);
+                    int durability = ItemUtils.getDurability(tool) + multiplier;
+                    ItemUtils.setDurability(tool, durability);
                     player.playSound(loc, Sound.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1, 1);
                     if (durability >= tool.getType().getMaxDurability()) {
                         player.getInventory().setItemInMainHand(null);
@@ -267,7 +269,7 @@ public class BlockBreak implements Listener {
         if (!settings.BREAK_ONLY_WITH_SICKLE) return;
         if (event.getSourceBlock().getType() == Material.WATER) {
             Material type = event.getBlock().getType();
-            if (Utils.isFarmable(type)) {
+            if (BlockTags.FARMABLE.isTagged(type)) {
                 if (type == Material.MELON || type == Material.PUMPKIN) return;
                 event.getBlock().setType(Material.AIR);
             }

@@ -5,7 +5,6 @@ import java.util.Random;
 
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.data.Stat;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;

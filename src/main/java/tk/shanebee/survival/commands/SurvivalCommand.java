@@ -22,6 +22,9 @@ public class SurvivalCommand {
             arguments.add(new ToggleChatCommand(plugin));
         }
 
+        // TODO comment out
+        arguments.add(new DataGenCommand(plugin));
+
         register(commandName, arguments);
     }
 

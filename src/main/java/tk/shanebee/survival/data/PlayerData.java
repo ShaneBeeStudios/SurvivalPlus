@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
@@ -21,6 +22,7 @@ import java.util.UUID;
  * <p>You can get an instance of PlayerData from <b>{@link tk.shanebee.survival.managers.PlayerManager}</b></p>
  */
 @SuppressWarnings({"unused", "FieldCanBeLocal", "SameParameterValue"})
+@SerializableAs("PlayerData")
 public class PlayerData implements ConfigurationSerializable {
 
     private final Config config = Survival.getInstance().getSurvivalConfig();

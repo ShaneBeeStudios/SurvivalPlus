@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.RecipeManager.Recipes;
 
 public class RecipeDiscovery implements Listener {

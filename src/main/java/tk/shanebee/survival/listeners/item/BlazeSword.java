@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class BlazeSword implements Listener {
 					if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
 						if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 							Material mat = event.getClickedBlock().getType();
-							if (Tag.BEDS.isTagged(mat) || Tag.DOORS.isTagged(mat) || Tag.TRAPDOORS.isTagged(mat) || Utils.isWoodGate(mat)) {
+							if (Tag.BEDS.isTagged(mat) || Tag.DOORS.isTagged(mat) || Tag.TRAPDOORS.isTagged(mat) || Tag.FENCE_GATES.isTagged(mat)) {
 								return;
 							}
 							switch (event.getClickedBlock().getType()) {

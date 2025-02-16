@@ -18,7 +18,6 @@ import org.bukkit.potion.PotionEffectType;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;

@@ -30,6 +30,7 @@ import tk.shanebee.survival.managers.RecipeManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
 import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
+import tk.shanebee.survival.util.BlockTags;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import java.util.UUID;
 public class Survival extends JavaPlugin implements Listener {
 
 	static {
-		ConfigurationSerialization.registerClass(PlayerData.class, "PlayerData");
+		ConfigurationSerialization.registerClass(PlayerData.class);
 	}
 
 	private static Survival instance;
@@ -147,6 +148,7 @@ public class Survival extends JavaPlugin implements Listener {
 		}
 
 		// LOAD MANAGERS
+        BlockTags.initialize();
 		blockManager = new BlockManager(this);
 		playerManager = new PlayerManager(this, playerDataMap);
 		effectManager = new EffectManager(this);

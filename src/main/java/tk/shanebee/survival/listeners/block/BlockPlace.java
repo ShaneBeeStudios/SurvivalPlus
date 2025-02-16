@@ -14,6 +14,8 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.util.BlockTags;
+import tk.shanebee.survival.util.ItemUtils;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -41,15 +43,15 @@ public class BlockPlace implements Listener {
 
         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
             if (config.PLACE_ONLY_WITH_HAMMER) {
-                if (Utils.requiresHammer(block.getType())) {
+                if (BlockTags.REQUIRES_HAMMER.isTagged(block.getType())) {
                     if (Items.HAMMER.is(offTool)) {
                         Random rand = new Random();
                         int chance_reduceDur = rand.nextInt(10) + 1;
                         if (chance_reduceDur == 1) {
-                            Utils.setDurability(offTool, Utils.getDurability(offTool) + 1);
+                            ItemUtils.setDurability(offTool, ItemUtils.getDurability(offTool) + 1);
                         }
 
-                        if (Utils.getDurability(offTool) >= offTool.getType().getMaxDurability()) {
+                        if (ItemUtils.getDurability(offTool) >= offTool.getType().getMaxDurability()) {
                             player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
                             player.getInventory().setItemInOffHand(null);
                         }
@@ -57,10 +59,10 @@ public class BlockPlace implements Listener {
                         Random rand = new Random();
                         int chance_reduceDur = rand.nextInt(10) + 1;
                         if (chance_reduceDur == 1) {
-                            Utils.setDurability(mainTool, ((Damageable) mainTool.getItemMeta()).getDamage() + 1);
+                            ItemUtils.setDurability(mainTool, ((Damageable) mainTool.getItemMeta()).getDamage() + 1);
                         }
 
-                        if (Utils.getDurability(mainTool) >= mainTool.getType().getMaxDurability()) {
+                        if (ItemUtils.getDurability(mainTool) >= mainTool.getType().getMaxDurability()) {
                             player.getLocation().getWorld().playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
                             player.getInventory().setItemInMainHand(null);
                         }

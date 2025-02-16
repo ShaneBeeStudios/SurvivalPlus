@@ -93,7 +93,7 @@ public class FirestrikerClick implements Listener {
                             default:
                         }
                         if (Tag.BEDS.isTagged(clickedBlockType)) return;
-                        if (Utils.isWoodGate(clickedBlockType)) return;
+                        if (Tag.FENCE_GATES.isTagged(clickedBlockType)) return;
                         if (Tag.TRAPDOORS.isTagged(clickedBlockType)) return;
                         if (clickedBlockType == Material.CAMPFIRE) {
                             Lightable camp = ((Lightable) clickedBlock.getBlockData());

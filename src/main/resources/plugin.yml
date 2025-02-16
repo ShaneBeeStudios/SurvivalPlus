@@ -1,9 +1,0 @@
-name: SurvivalPlus
-main: tk.shanebee.survival.Survival
-authors: [FattyMieo, ShaneBee]
-version: '${version}'
-api-version: '1.15'
-softdepend:
-   - PlaceholderAPI
-   - Multiverse-Core
-   - Oh_the_dungeons_youll_go

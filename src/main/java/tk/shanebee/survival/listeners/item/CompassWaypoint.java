@@ -16,6 +16,7 @@ import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.managers.PlayerManager;
+import tk.shanebee.survival.util.BlockTags;
 import tk.shanebee.survival.util.Utils;
 
 public class CompassWaypoint implements Listener {
@@ -54,11 +55,11 @@ public class CompassWaypoint implements Listener {
                         default:
                     }
                     if (Tag.BEDS.isTagged(clickedBlock.getType())) return;
-                    if (Utils.isWoodGate(clickedBlock.getType())) return;
+                    if (Tag.FENCE_GATES.isTagged(clickedBlock.getType())) return;
                     if (Tag.DOORS.isTagged(clickedBlock.getType())) return;
-                    if (Utils.isCookingBlock(clickedBlock.getType())) return;
-                    if (Utils.isStorageBlock(clickedBlock.getType())) return;
-                    if (Utils.isUtilityBlock(clickedBlock.getType())) return;
+                    if (BlockTags.COOKING_BLOCK.isTagged(clickedBlock.getType())) return;
+                    if (BlockTags.STORAGE_BLOCK.isTagged(clickedBlock.getType())) return;
+                    if (BlockTags.UTILITY_BLOCK.isTagged(clickedBlock.getType())) return;
 
                     Location loc = clickedBlock.getRelative(event.getBlockFace()).getLocation();
                     Utils.sendColoredMini(player,  lang.compass_waypoint_set, locToString(loc));

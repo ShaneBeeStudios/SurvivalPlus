@@ -22,9 +22,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.managers.BlockManager;
-import tk.shanebee.survival.util.Utils;
+import tk.shanebee.survival.util.ItemUtils;
 
 import java.util.Random;
 
@@ -81,8 +80,8 @@ public class BurnoutTorches implements Listener {
         assert loc.getWorld() != null;
         loc.getWorld().playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0F, rand.nextFloat() * 0.4F + 0.8F);
 
-        if ((Utils.getDurability(tool) + 1) < tool.getType().getMaxDurability())
-            Utils.setDurability(tool, Utils.getDurability(tool) + 1);
+        if ((ItemUtils.getDurability(tool) + 1) < tool.getType().getMaxDurability())
+            ItemUtils.setDurability(tool, ItemUtils.getDurability(tool) + 1);
         else {
             player.getInventory().setItemInMainHand(null);
             assert player.getLocation().getWorld() != null;

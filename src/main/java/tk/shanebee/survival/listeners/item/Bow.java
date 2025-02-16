@@ -15,9 +15,9 @@ import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 public class Bow implements Listener {
-	
+
 	private Lang lang;
-	
+
 	public Bow(Survival plugin) {
 		this.lang = plugin.getLang();
 	}

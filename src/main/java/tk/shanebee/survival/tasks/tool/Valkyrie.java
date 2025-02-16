@@ -5,7 +5,6 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Items;
 
 public class Valkyrie extends BukkitRunnable {

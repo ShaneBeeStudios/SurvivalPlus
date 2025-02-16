@@ -7,7 +7,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.Survival;
-import tk.shanebee.survival.managers.ItemManager;
 import tk.shanebee.survival.item.Items;
 
 public class BlazeSwordEffects extends BukkitRunnable {

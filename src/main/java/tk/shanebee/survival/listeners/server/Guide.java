@@ -15,11 +15,11 @@ import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.util.Utils;
 
 public class Guide implements Listener {
-    
+
     private Survival plugin;
     private Lang lang;
     private Config config;
-    
+
     public Guide(Survival plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();

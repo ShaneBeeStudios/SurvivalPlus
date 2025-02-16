@@ -7,7 +7,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tk.shanebee.survival.Survival;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
