@@ -40,7 +40,7 @@ import tk.shanebee.survival.listeners.item.ThirstListener;
 import tk.shanebee.survival.listeners.item.TropicalFish;
 import tk.shanebee.survival.listeners.item.Valkyrie;
 import tk.shanebee.survival.listeners.item.WaterBottleCrafting;
-import tk.shanebee.survival.listeners.item.WaterBowl;
+import tk.shanebee.survival.listeners.item.WaterBowlListener;
 import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
 import tk.shanebee.survival.listeners.server.Guide;
@@ -75,7 +75,7 @@ public class EventManager {
 			pm.registerEvents(new BlockPlace(plugin), this.plugin);
 			pm.registerEvents(new FirestrikerListener(plugin), this.plugin);
 			pm.registerEvents(new ShivPoison(this.plugin), this.plugin);
-			pm.registerEvents(new WaterBowl(plugin), this.plugin);
+			pm.registerEvents(new WaterBowlListener(plugin), this.plugin);
 			pm.registerEvents(new Campfire(plugin), this.plugin);
 			//pm.registerEvents(new Backpack(), this.plugin); needs to be reworked
 		}
