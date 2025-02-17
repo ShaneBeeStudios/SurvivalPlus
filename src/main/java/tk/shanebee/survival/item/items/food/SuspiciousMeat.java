@@ -24,9 +24,9 @@ public class SuspiciousMeat extends Item {
     }
 
     @Override
-    public ItemStack getItemStack() {
+    public ItemStack getItemStack(int amount) {
         // Add random effect when item is requested
-        ItemStack itemStack = super.getItemStack();
+        ItemStack itemStack = super.getItemStack(amount);
         itemStack.setData(DataComponentTypes.SUSPICIOUS_STEW_EFFECTS, SuspiciousStewEffects.suspiciousStewEffects().add(getRandomEffect()).build());
         return itemStack;
     }
