@@ -1,9 +1,15 @@
 package tk.shanebee.survival.item;
 
+import com.google.common.collect.Lists;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.key.Key;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,8 +46,10 @@ import tk.shanebee.survival.item.items.tools.RecurveBow;
 import tk.shanebee.survival.item.items.tools.RecurveCrossbow;
 import tk.shanebee.survival.item.items.tools.Shiv;
 import tk.shanebee.survival.item.items.tools.Sickle;
+import tk.shanebee.survival.util.Utils;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +60,7 @@ import java.util.Set;
 @SuppressWarnings("UnstableApiUsage")
 public class Items {
 
-    static final Map<Key, Item> ALL_ITEMS = new HashMap<>();
+    static final Map<Key, Item> ALL_ITEMS = new LinkedHashMap<>();
 
     // TOOLS
     public static final Item HATCHET = new Hatchet();
@@ -187,6 +195,41 @@ public class Items {
             return Items.PURIFIED_WATER;
         }
         return Items.DIRTY_WATER;
+    }
+
+    private static final List<Entity> DEBUG_DISPLAYS = Lists.newArrayList();
+
+    /**
+     * Spawn {@link ItemDisplay ItemDisplays} for each item at the provided player
+     * <p>Leaving player null will remove the previous spawned entities</p>
+     *
+     * @param player Player to spawn at, or null to clear previous spawns
+     */
+    public static void debug(@Nullable Player player) {
+        if (player == null) {
+            DEBUG_DISPLAYS.forEach(Entity::remove);
+            DEBUG_DISPLAYS.clear();
+            return;
+        }
+        Location location = player.getLocation().getBlock().getLocation().clone().add(0, 1, 0);
+
+        double x = 0;
+        double y = 0;
+        World world = player.getWorld();
+        for (Item item : ALL_ITEMS.values()) {
+            Location loc = location.clone().add(x, y, 0);
+            ItemDisplay itemDisplay = world.spawn(loc, ItemDisplay.class, display -> {
+                display.setItemStack(item.getItemStack());
+                display.customName(Utils.getMini(item.getName()));
+                display.setCustomNameVisible(true);
+            });
+            DEBUG_DISPLAYS.add(itemDisplay);
+            x += 3;
+            if (x > 20) {
+                x = 0;
+                y += 1.5;
+            }
+        }
     }
 
     /**

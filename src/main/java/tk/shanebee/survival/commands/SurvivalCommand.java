@@ -24,6 +24,7 @@ public class SurvivalCommand {
 
         // TODO comment out
         arguments.add(new DataGenCommand(plugin));
+        arguments.add(new DebugCommand(plugin));
 
         register(commandName, arguments);
     }

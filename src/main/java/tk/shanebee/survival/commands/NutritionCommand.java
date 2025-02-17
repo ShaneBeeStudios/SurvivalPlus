@@ -5,7 +5,6 @@ import dev.jorel.commandapi.arguments.LiteralArgument;
 import org.bukkit.entity.Player;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.gui.NutritionGUI;
-import tk.shanebee.survival.item.Nutrition;
 
 public class NutritionCommand extends BaseCommand {
 
@@ -21,12 +20,7 @@ public class NutritionCommand extends BaseCommand {
                 Player player = info.sender();
                 NutritionGUI gui = new NutritionGUI(this.plugin);
                 gui.openInventory(player, 0);
-            })
-            .then(LiteralArgument.literal("debug")
-                .withPermission(Permissions.COMMAND_NUTRITION_DEBUG)
-                .executes(info -> {
-                    Nutrition.debug();
-                }));
+            });
     }
 
 }

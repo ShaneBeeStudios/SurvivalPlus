@@ -9,6 +9,7 @@ import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.config.ItemConfig;
 import tk.shanebee.survival.util.Utils;
 
@@ -30,6 +31,7 @@ public abstract class Item {
     private Key key;
     protected NamespacedKey recipeKey;
     private ItemStack itemStack;
+    private String name;
 
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private double repairPercent; // TODO figure this out
@@ -75,6 +77,7 @@ public abstract class Item {
         } else if (!vanillaModel) {
             Utils.logMini("<red>Failed to load item name for item <white>'<aqua>" + key + "<white>'");
         }
+        this.name = itemName;
 
         // Lore
         List<String> lore = ITEM_CONFIG.getLore(key);
@@ -119,6 +122,10 @@ public abstract class Item {
 
     public Key getKey() {
         return this.key;
+    }
+
+    public @Nullable String getName() {
+        return this.name;
     }
 
 }
