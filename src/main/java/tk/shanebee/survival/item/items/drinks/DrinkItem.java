@@ -20,17 +20,17 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public abstract class DrinkItem extends Item {
 
-    private int thirstLevel;
+    private double thirstLevel;
 
     @Override
     protected void setupDefaults(String key, ItemStack itemStack) {
-        this.thirstLevel = ITEM_CONFIG.getInt(key, "thirst_level", 1);
+        this.thirstLevel = ITEM_CONFIG.getDouble(key, "thirst_level", 1);
         super.setupDefaults(key, itemStack);
     }
 
     @Override
     protected void setupDefaults(String key, ItemStack itemStack, boolean vanillaModel) {
-        this.thirstLevel = ITEM_CONFIG.getInt(key, "thirst_level", 1);
+        this.thirstLevel = ITEM_CONFIG.getDouble(key, "thirst_level", 1);
         super.setupDefaults(key, itemStack, vanillaModel);
     }
 
@@ -54,7 +54,7 @@ public abstract class DrinkItem extends Item {
         setupDefaults(key, itemStack);
     }
 
-    public int getThirstLevel() {
+    public double getThirstLevel() {
         return this.thirstLevel;
     }
 

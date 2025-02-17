@@ -113,21 +113,21 @@ public class Config {
 
     // THIRST
     public boolean mechanics_thirst_enabled;
-    public int mechanics_thirst_starting_amount;
-    public int mechanics_thirst_respawn_amount;
+    public double mechanics_thirst_starting_amount;
+    public double mechanics_thirst_respawn_amount;
     public boolean mechanics_thirst_purify_water;
     public boolean mechanics_thirst_melt_snow;
     public double mechanics_thirst_drain_rate;
     public int mechanics_thirst_heat_drain;
     public int mechanics_thirst_nether_drain;
     public double mechanics_thirst_damage_rate;
-    public int mechanics_thirst_rep_beetroot_soup;
-    public int mechanics_thirst_rep_melon_slice;
-    public int mechanics_thirst_rep_mush_stew;
-    public int mechanics_thirst_rep_milk_bucket;
-    public int mechanics_thirst_rep_water;
-    public int mechanics_thirst_rep_honey_bottle;
-    public int mechanics_thirst_rep_other_water;
+    public double mechanics_thirst_rep_beetroot_soup;
+    public double mechanics_thirst_rep_melon_slice;
+    public double mechanics_thirst_rep_mush_stew;
+    public double mechanics_thirst_rep_milk_bucket;
+    public double mechanics_thirst_rep_water;
+    public double mechanics_thirst_rep_honey_bottle;
+    public double mechanics_thirst_rep_other_water;
 
     public int mechanics_hunger_start_amount;
     public int mechanics_hunger_respawn_amount;
@@ -377,13 +377,13 @@ public class Config {
         this.mechanics_thirst_nether_drain = settings.getInt("Mechanics.Thirst.nether-drain");
         this.mechanics_thirst_damage_rate = settings.getDouble("Mechanics.Thirst.damage-rate");
 
-        this.mechanics_thirst_rep_beetroot_soup = settings.getInt("Mechanics.Thirst.replenish-level.beetroot-soup");
-        this.mechanics_thirst_rep_melon_slice = settings.getInt("Mechanics.Thirst.replenish-level.melon-slice");
-        this.mechanics_thirst_rep_mush_stew = settings.getInt("Mechanics.Thirst.replenish-level.mushroom-stew");
-        this.mechanics_thirst_rep_milk_bucket = settings.getInt("Mechanics.Thirst.replenish-level.milk-bucket");
-        this.mechanics_thirst_rep_honey_bottle = settings.getInt("Mechanics.Thirst.replenish-level.honey-bottle");
-        this.mechanics_thirst_rep_other_water = settings.getInt("Mechanics.Thirst.replenish-level.other-water");
-        this.mechanics_thirst_rep_water = settings.getInt("Mechanics.Thirst.replenish-level.water");
+        this.mechanics_thirst_rep_beetroot_soup = settings.getDouble("Mechanics.Thirst.replenish-level.beetroot-soup");
+        this.mechanics_thirst_rep_melon_slice = settings.getDouble("Mechanics.Thirst.replenish-level.melon-slice");
+        this.mechanics_thirst_rep_mush_stew = settings.getDouble("Mechanics.Thirst.replenish-level.mushroom-stew");
+        this.mechanics_thirst_rep_milk_bucket = settings.getDouble("Mechanics.Thirst.replenish-level.milk-bucket");
+        this.mechanics_thirst_rep_honey_bottle = settings.getDouble("Mechanics.Thirst.replenish-level.honey-bottle");
+        this.mechanics_thirst_rep_other_water = settings.getDouble("Mechanics.Thirst.replenish-level.other-water");
+        this.mechanics_thirst_rep_water = settings.getDouble("Mechanics.Thirst.replenish-level.water");
 
         this.mechanics_hunger_start_amount = settings.getInt("Mechanics.Hunger.Starting-Amount");
         this.mechanics_hunger_respawn_amount = settings.getInt("Mechanics.Hunger.Respawn-Amount");

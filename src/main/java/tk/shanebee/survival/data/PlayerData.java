@@ -27,7 +27,6 @@ public class PlayerData implements ConfigurationSerializable {
 
     private final Config config = SurvivalPlugin.getInstance().getSurvivalConfig();
     private final UUID uuid;
-    private int thirst;
     private Map<String, Location> compassMap = new HashMap<>();
 
     // Nutrients
@@ -35,6 +34,7 @@ public class PlayerData implements ConfigurationSerializable {
     private int proteins;
     private int vitamins;
     private double energy;
+    private double thirst;
 
     // Dunno yet
     private boolean localChat = false;
@@ -56,11 +56,11 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean score_energy = true;
     private boolean score_nutrients = true;
 
-    public PlayerData(OfflinePlayer player, int thirst, int proteins, int carbs, int vitamins, double energy) {
+    public PlayerData(OfflinePlayer player, double thirst, int proteins, int carbs, int vitamins, double energy) {
         this(player.getUniqueId(), thirst, proteins, carbs, vitamins, energy);
     }
 
-    public PlayerData(UUID uuid, int thirst, int proteins, int carbs, int vitamins, double energy) {
+    public PlayerData(UUID uuid, double thirst, int proteins, int carbs, int vitamins, double energy) {
         this.uuid = uuid;
         this.thirst = thirst;
         this.proteins = proteins;
@@ -92,8 +92,8 @@ public class PlayerData implements ConfigurationSerializable {
      *
      * @return Thirst of this data
      */
-    public int getThirst() {
-        return thirst;
+    public double getThirst() {
+        return this.thirst;
     }
 
     /**
@@ -101,7 +101,7 @@ public class PlayerData implements ConfigurationSerializable {
      *
      * @param thirst Level of thirst to set
      */
-    public void setThirst(int thirst) {
+    public void setThirst(double thirst) {
         this.thirst = Math.clamp(thirst, 0, 40);
     }
 
@@ -403,7 +403,7 @@ public class PlayerData implements ConfigurationSerializable {
      */
     public static PlayerData deserialize(Map<String, Object> args) {
         UUID uuid = UUID.fromString(args.get("uuid").toString());
-        int thirst = ((Integer) args.get("thirst"));
+        double thirst = getDouble(args, "thirst", 20.0);
         double energy = getDouble(args, "energy", 20.0);
         int proteins = ((Integer) args.get("nutrients.proteins"));
         int carbs = ((Integer) args.get("nutrients.carbs"));

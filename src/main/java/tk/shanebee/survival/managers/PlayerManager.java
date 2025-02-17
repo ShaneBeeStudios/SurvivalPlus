@@ -186,7 +186,7 @@ public class PlayerManager implements Listener {
 
     public List<String> getThirstVisual(Player player) {
         PlayerData data = getPlayerData(player);
-        int thirst = data.getThirst();
+        int thirst = (int) data.getThirst();
         double grad = ((double) thirst / 40) - 1;
 
         // green - green - green - yellow - orange - red

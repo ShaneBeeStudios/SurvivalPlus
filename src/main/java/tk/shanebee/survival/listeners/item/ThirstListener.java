@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExhaustionEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -17,24 +16,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
-import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
 import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
 import tk.shanebee.survival.item.items.drinks.DrinkItem;
 import tk.shanebee.survival.managers.PlayerManager;
-import tk.shanebee.survival.managers.StatusManager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ThirstListener implements Listener {
 
     private final SurvivalPlugin plugin;
     private final Config config;
-    private final Lang lang;
     private final PlayerManager playerManager;
     private final Random random = new Random();
     private final double drain;
@@ -42,7 +36,6 @@ public class ThirstListener implements Listener {
     public ThirstListener(SurvivalPlugin plugin) {
         this.plugin = plugin;
         this.config = plugin.getSurvivalConfig();
-        this.lang = plugin.getLang();
         this.playerManager = plugin.getPlayerManager();
         this.drain = config.mechanics_thirst_drain_rate;
     }
@@ -53,30 +46,30 @@ public class ThirstListener implements Listener {
         final Player player = event.getPlayer();
         PlayerData playerData = playerManager.getPlayerData(player);
         ItemStack itemStack = event.getItem();
-        int change = 0;
+        double change = 0;
         Item item = Items.getFromStack(itemStack);
         if (item instanceof DrinkItem drinkItem) {
             change = drinkItem.getThirstLevel();
         } else {
             switch (event.getItem().getType()) {
                 case POTION:
-                    if (config.mechanics_thirst_purify_water) {
-                        change = config.mechanics_thirst_rep_other_water;
+                    if (this.config.mechanics_thirst_purify_water) {
+                        change = this.config.mechanics_thirst_rep_other_water;
                     } else {
-                        change = config.mechanics_thirst_rep_water;
+                        change = this.config.mechanics_thirst_rep_water;
                     }
                     break;
                 case MILK_BUCKET:
-                    change = config.mechanics_thirst_rep_milk_bucket;
+                    change = this.config.mechanics_thirst_rep_milk_bucket;
                     break;
                 case MELON_SLICE:
-                    change = config.mechanics_thirst_rep_melon_slice;
+                    change = this.config.mechanics_thirst_rep_melon_slice;
                     break;
                 case MUSHROOM_STEW:
-                    change = config.mechanics_thirst_rep_mush_stew;
+                    change = this.config.mechanics_thirst_rep_mush_stew;
                     break;
                 case HONEY_BOTTLE:
-                    change = config.mechanics_thirst_rep_honey_bottle;
+                    change = this.config.mechanics_thirst_rep_honey_bottle;
                     break;
             }
         }
@@ -113,48 +106,31 @@ public class ThirstListener implements Listener {
     }
 
 
-    @EventHandler //if player catches a water bottle/potion give them dirty water instead
+    @EventHandler // if player catches a water bottle/potion give them dirty water instead
     private void onFish(PlayerFishEvent event) {
-        if (!config.mechanics_thirst_purify_water) return;
-        if (event.isCancelled()) return;
-        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
-            Entity caught = event.getCaught();
-            if (caught instanceof org.bukkit.entity.Item item) {
-                ItemStack stack = item.getItemStack();
-                if (stack.getType() == Material.POTION && checkWaterBottle(stack)) {
-                    item.setItemStack(Items.DIRTY_WATER.getItemStack());
-                }
+        if (event.isCancelled() || !config.mechanics_thirst_purify_water) return;
+        if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
+
+        Entity caught = event.getCaught();
+        if (caught instanceof org.bukkit.entity.Item item) {
+            ItemStack stack = item.getItemStack();
+            if (stack.getType() == Material.POTION && checkWaterBottle(stack)) {
+                item.setItemStack(Items.getBiomeBasedWaterBottle(caught.getLocation().getBlock().getBiome()).getItemStack());
             }
         }
     }
 
-    // This map is to tell if the player actually DIED before respawning
-    // Using the portal in the end causes the respawn event to fire
-    // when the player re-enters the overworld
-    private final List<Player> HUNGER_CHANGE = new ArrayList<>();
-
     @EventHandler
     private void onRespawn(PlayerRespawnEvent event) {
+        if (event.getRespawnReason() != PlayerRespawnEvent.RespawnReason.DEATH) return;
         Player player = event.getPlayer();
-        if (HUNGER_CHANGE.contains(player)) {
-            HUNGER_CHANGE.remove(player);
+        PlayerData playerData = playerManager.getPlayerData(player);
+        double thirst = config.mechanics_thirst_respawn_amount;
+        playerData.setThirst(thirst);
+        playerManager.getPlayerData(player).setThirst(thirst);
 
-            PlayerData playerData = playerManager.getPlayerData(player);
-            int thirst = config.mechanics_thirst_respawn_amount;
-            playerData.setThirst(thirst);
-            playerManager.getPlayerData(player).setThirst(thirst);
-
-            int hunger = config.mechanics_hunger_respawn_amount;
-            Bukkit.getScheduler().runTaskLater(plugin, () -> StatusManager.setHunger(player, hunger), 1);
-        }
-    }
-
-    @EventHandler
-    private void onDeath(PlayerDeathEvent event) {
-        Player player = event.getEntity();
-        if (!HUNGER_CHANGE.contains(player)) {
-            HUNGER_CHANGE.add(player);
-        }
+        double hunger = this.config.mechanics_hunger_respawn_amount;
+        Bukkit.getScheduler().runTaskLater(plugin, () -> playerData.setHunger(hunger), 1);
     }
 
     private boolean checkWaterBottle(ItemStack bottle) {

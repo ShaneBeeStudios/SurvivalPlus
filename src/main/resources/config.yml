@@ -178,17 +178,16 @@ Mechanics:
   Thirst:
     enabled: true
     # The level of thirst a player starts out with (max = 40)
-    starting-amount: 30
+    starting-amount: 30.0
     # The level of thirst a player gets after respawning (max = 40)
-    respawn-amount: 30
-    # Enables 3 different levels of water (dirty, clean, purified)
+    respawn-amount: 30.0
+    # Enables 5 different levels of water (dirty, salty, murky, clean, purified)
     purify-water: true
     # Unused (maybe for the future?!?!)
     melt-snow: true
-    # The rate at which a player's thirst level will drop (value from 0.01 -> 1.0)
-    # The player will lose thirst levels when they reach exhaustion
-    # This happens when the player does exhausting tasks such as running, mining, etc.
-    drain-rate: 1.0
+    # The amount of thirst to drop when doing exhaustive tasks such as running, mining, etc.
+    # (When exhaustion reaches 4 and resets, this amount will be removed from the player's thirst)
+    drain-rate: 0.5
     # If player is in a HOT biome, drain 1 extra thirst point every X seconds
     # This helps speed up thirst draining when a player is in a hot biome like the desert or savanna
     # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
