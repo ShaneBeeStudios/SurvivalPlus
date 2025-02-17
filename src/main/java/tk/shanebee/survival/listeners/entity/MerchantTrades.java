@@ -10,7 +10,7 @@ import tk.shanebee.survival.managers.MerchantManager;
 
 public class MerchantTrades implements Listener {
 
-    private MerchantManager merchantManager;
+    private final MerchantManager merchantManager;
 
     public MerchantTrades(SurvivalPlugin plugin) {
         this.merchantManager = plugin.getMerchantManager();
@@ -19,8 +19,8 @@ public class MerchantTrades implements Listener {
     @EventHandler
     private void onClickVillager(PlayerInteractEntityEvent event) {
         Entity entity = event.getRightClicked();
-        if (entity instanceof Merchant) {
-            this.merchantManager.updateRecipes(entity);
+        if (entity instanceof Merchant merchant) {
+            this.merchantManager.updateRecipes(merchant);
         }
     }
 

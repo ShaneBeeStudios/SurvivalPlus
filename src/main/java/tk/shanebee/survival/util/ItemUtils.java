@@ -3,11 +3,14 @@ package tk.shanebee.survival.util;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import tk.shanebee.survival.item.Item;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -78,6 +81,23 @@ public class ItemUtils {
             if (data != null) return data;
         }
         return itemStack.getItemMeta().displayName();
+    }
+
+    /**
+     * Apply the enchantments from an {@link Item} to an existing ItemStack
+     *
+     * @param itemStack Current ItemStack to apply enchantments to
+     * @param item     Item to grab data from
+     */
+    public static void applyEnchantments(ItemStack itemStack, Item item) {
+        ItemStack from = item.getItemStack();
+        ItemMeta metaTo = itemStack.getItemMeta();
+        ItemMeta metaFrom = from.getItemMeta();
+        Map<Enchantment, Integer> enchants = metaTo.getEnchants();
+        for (Enchantment enchantment : enchants.keySet()) {
+            metaFrom.addEnchant(enchantment, enchants.get(enchantment), true);
+        }
+        itemStack.setItemMeta(metaFrom);
     }
 
 }

@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import tk.shanebee.survival.item.Item;
-import tk.shanebee.survival.item.Items;
-import tk.shanebee.survival.managers.ItemManager;
 
 @SuppressWarnings("deprecation")
 public class InventoryUpdate implements Listener {

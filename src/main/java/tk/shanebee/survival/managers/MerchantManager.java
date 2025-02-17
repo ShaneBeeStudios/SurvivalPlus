@@ -1,7 +1,6 @@
 package tk.shanebee.survival.managers;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
@@ -9,6 +8,7 @@ import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.util.ItemUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,45 +28,29 @@ public class MerchantManager {
      * Update a merchants recipes
      * <p>Replaces existing MerchantRecipes with ones that use custom {@link Items}</p>
      *
-     * @param entity Merchant to update
+     * @param merchant Merchant to update
      */
-    public void updateRecipes(Entity entity) {
-        if (entity instanceof Merchant) {
-            Merchant merchant = ((Merchant) entity);
-
-            for (int i = 0; i < merchant.getRecipes().size(); i++) {
-                MerchantRecipe merchantRecipe = merchant.getRecipe(i);
-                Material result = merchantRecipe.getResult().getType();
-                Recipe recipe = Recipe.getByMaterial(result);
-                if (recipe != null && canUpdate(result)) {
-                    merchant.setRecipe(i, recipe.updateRecipe(merchantRecipe));
-                }
+    public void updateRecipes(Merchant merchant) {
+        for (int i = 0; i < merchant.getRecipes().size(); i++) {
+            MerchantRecipe merchantRecipe = merchant.getRecipe(i);
+            Material result = merchantRecipe.getResult().getType();
+            Recipe recipe = Recipe.getByMaterial(result);
+            if (recipe != null && canUpdate(result)) {
+                merchant.setRecipe(i, recipe.updateRecipe(merchantRecipe));
             }
         }
     }
 
     private boolean canUpdate(Material material) {
-        switch (material) {
-            case CHAINMAIL_HELMET:
-            case CHAINMAIL_CHESTPLATE:
-            case CHAINMAIL_LEGGINGS:
-            case CHAINMAIL_BOOTS:
-                return this.config.mechanics_reinforced_armor;
-            case IRON_HELMET:
-            case IRON_CHESTPLATE:
-            case IRON_LEGGINGS:
-            case IRON_BOOTS:
-            case DIAMOND_HELMET:
-            case DIAMOND_CHESTPLATE:
-            case DIAMOND_LEGGINGS:
-            case DIAMOND_BOOTS:
-                return this.config.mechanics_slow_armor;
-            case STONE_HOE:
-                return this.config.survival_sickle_stone;
-            case DIAMOND_HOE:
-                return this.config.survival_sickle_diamond;
-        }
-        return false;
+        return switch (material) {
+            case CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS ->
+                this.config.mechanics_reinforced_armor;
+            case IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS, DIAMOND_HELMET, DIAMOND_CHESTPLATE,
+                 DIAMOND_LEGGINGS, DIAMOND_BOOTS -> this.config.mechanics_slow_armor;
+            case STONE_HOE -> this.config.survival_sickle_stone;
+            case DIAMOND_HOE -> this.config.survival_sickle_diamond;
+            default -> false;
+        };
     }
 
     /**
@@ -114,10 +98,10 @@ public class MerchantManager {
         public MerchantRecipe updateRecipe(MerchantRecipe oldRecipe) {
             ItemStack old = oldRecipe.getResult().clone();
 
-            ItemManager.applyAttribute(old, this.items);
+            ItemUtils.applyEnchantments(old, this.items);
             MerchantRecipe recipe = new MerchantRecipe(old, oldRecipe.getUses(), oldRecipe.getMaxUses(),
-                    oldRecipe.hasExperienceReward(), oldRecipe.getVillagerExperience(),
-                    oldRecipe.getPriceMultiplier());
+                oldRecipe.hasExperienceReward(), oldRecipe.getVillagerExperience(),
+                oldRecipe.getPriceMultiplier());
             recipe.setIngredients(oldRecipe.getIngredients());
             return recipe;
         }
