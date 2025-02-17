@@ -1,10 +1,5 @@
 package tk.shanebee.survival.listeners.entity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import tk.shanebee.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -16,12 +11,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
-
 import tk.shanebee.survival.SurvivalPlugin;
+import tk.shanebee.survival.util.Utils;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class LivingSlime implements Listener {
 
-	private SurvivalPlugin plugin;
+	private final SurvivalPlugin plugin;
 
 	public LivingSlime(SurvivalPlugin plugin) {
 		this.plugin = plugin;
@@ -30,48 +29,45 @@ public class LivingSlime implements Listener {
 	@EventHandler
 	private void onGhastTearSlimeBlock(ItemSpawnEvent e) {
 		if (e.getEntityType() == EntityType.ITEM) {
-			Item i = e.getEntity();
-			if (i.getItemStack().getType() == Material.GHAST_TEAR) {
-				Bukkit.getScheduler().runTaskLater(plugin, initRunnable(i), 20);
+			Item itemEntity = e.getEntity();
+			if (itemEntity.getItemStack().getType() == Material.GHAST_TEAR) {
+				Bukkit.getScheduler().runTaskLater(this.plugin, initRunnable(itemEntity), 20);
 			}
 		}
 	}
 
-	private Runnable initRunnable(Item i) {
-		final Item f_i = i;
+	private Runnable initRunnable(Item itemEntity) {
 		return () -> {
 			List<Block> slimeBlocks = new ArrayList<>();
-			slimeBlocks.add(f_i.getLocation().add(0, -1, 0).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(0, -1, 1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(0, -1, -1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(1, -1, 0).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(-1, -1, 0).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(0, 0, 1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(0, 0, -1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(1, 0, 0).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(-1, 0, 0).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(1, 0, 1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(1, 0, -1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(-1, 0, 1).getBlock());
-			slimeBlocks.add(f_i.getLocation().add(-1, 0, -1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(0, -1, 0).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(0, -1, 1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(0, -1, -1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(1, -1, 0).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(-1, -1, 0).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(0, 0, 1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(0, 0, -1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(1, 0, 0).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(-1, 0, 0).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(1, 0, 1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(1, 0, -1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(-1, 0, 1).getBlock());
+			slimeBlocks.add(itemEntity.getLocation().add(-1, 0, -1).getBlock());
 
-			ItemStack i_f_i = f_i.getItemStack();
-			Iterator<Block> it = slimeBlocks.iterator();
+			ItemStack itemStack = itemEntity.getItemStack();
+			Iterator<Block> blockIterator = slimeBlocks.iterator();
 			Block slimeBlock;
-			while (it.hasNext()) {
-				slimeBlock = it.next();
-				if (slimeBlock != null && slimeBlock.getType() == Material.SLIME_BLOCK && f_i.isOnGround()) {
-					if (i_f_i.getAmount() > 1)
-						i_f_i.setAmount(i_f_i.getAmount() - 1);
-					else
-						f_i.remove();
+			while (blockIterator.hasNext()) {
+				slimeBlock = blockIterator.next();
+				if (slimeBlock != null && slimeBlock.getType() == Material.SLIME_BLOCK && itemEntity.isOnGround()) {
+					if (itemStack.getAmount() > 1)
+						itemStack.setAmount(itemStack.getAmount() - 1);
 
-					if (i_f_i.getAmount() <= 0)
-						f_i.remove();
+					if (itemStack.getAmount() <= 0)
+						itemEntity.remove();
 
 					slimeBlock.setType(Material.AIR);
 
-					Slime slime = (Slime) f_i.getWorld().spawnEntity(slimeBlock.getLocation(), EntityType.SLIME);
+					Slime slime = itemEntity.getWorld().spawn(slimeBlock.getLocation(), Slime.class);
 					slime.setSize(2);
 
 					Utils.spawnParticle(slimeBlock.getLocation().add(0.5, 0.5, 0.5), Particle.CLOUD, 20, 0.5, 0.5, 0.5);
