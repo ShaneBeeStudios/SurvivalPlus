@@ -52,21 +52,20 @@ public class Config {
 
     // MECHANICS
     public boolean MECHANICS_SHARED_WORKBENCH;
-    public boolean MECHANICS_PREVENT_NIGHT_SKIP;
 
     // ENERGY
     public boolean mechanics_energy_enabled;
     public double mechanics_energy_start;
     public double mechanics_energy_respawn;
-    public boolean MECHANICS_ENERGY_WARNING;
-    public double MECHANICS_ENERGY_DRAIN_RATE;
-    public double MECHANICS_ENERGY_DRAIN_COLD_RATE;
-    public double MECHANICS_ENERGY_REFRESH_RATE_BED;
-    public double MECHANICS_ENERGY_REFRESH_RATE_CHAIR;
-    public double MECHANICS_ENERGY_EXHAUSTION;
+    public boolean mechanics_energy_warning;
+    public double mechanics_energy_drain_rate;
+    public double mechanics_energy_drain_cold_rate;
+    public double mechanics_energy_refresh_rate_bed;
+    public double mechanics_energy_refresh_rate_chair;
+    public double mechanics_energy_exhaustion;
     public boolean mechanics_energy_coffee_enabled;
-    public boolean MECHANICS_ENERGY_ABSORPTION;
-    public boolean MECHANICS_ENERGY_HASTE;
+    public boolean mechanics_energy_absorption;
+    public boolean mechanics_energy_haste;
 
     public boolean mechanics_slow_armor;
     public boolean mechanics_reinforced_armor;
@@ -144,7 +143,7 @@ public class Config {
     public boolean mechanics_farming_products_cookie;
     public boolean mechanics_farming_products_bread;
 
-    public boolean MECHANICS_CHAIRS_ENABLED;
+    public boolean mechanics_chairs_enabled;
     public int MECHANICS_CHAIRS_MAX_WIDTH;
     public List<String> MECHANICS_CHAIRS_BLOCKS;
 
@@ -308,19 +307,18 @@ public class Config {
 
         // MECHANICS
         this.MECHANICS_SHARED_WORKBENCH = settings.getBoolean("Mechanics.SharedWorkbench");
-        this.MECHANICS_PREVENT_NIGHT_SKIP = settings.getBoolean("Mechanics.Prevent-Night-Skip");
         this.mechanics_energy_enabled = settings.getBoolean("Mechanics.Energy.enabled");
         this.mechanics_energy_start = settings.getDouble("Mechanics.Energy.start-level");
         this.mechanics_energy_respawn = settings.getDouble("Mechanics.Energy.respawn-level");
-        this.MECHANICS_ENERGY_WARNING = settings.getBoolean("Mechanics.Energy.warning");
-        this.MECHANICS_ENERGY_DRAIN_RATE = settings.getDouble("Mechanics.Energy.drain-rate");
-        this.MECHANICS_ENERGY_DRAIN_COLD_RATE = settings.getDouble("Mechanics.Energy.cold-drain-rate");
-        this.MECHANICS_ENERGY_REFRESH_RATE_BED = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
-        this.MECHANICS_ENERGY_REFRESH_RATE_CHAIR = settings.getDouble("Mechanics.Energy.chair-refresh-rate");
-        this.MECHANICS_ENERGY_EXHAUSTION = settings.getDouble("Mechanics.Energy.exhaustion");
+        this.mechanics_energy_warning = settings.getBoolean("Mechanics.Energy.warning");
+        this.mechanics_energy_drain_rate = settings.getDouble("Mechanics.Energy.drain-rate");
+        this.mechanics_energy_drain_cold_rate = settings.getDouble("Mechanics.Energy.cold-drain-rate");
+        this.mechanics_energy_refresh_rate_bed = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
+        this.mechanics_energy_refresh_rate_chair = settings.getDouble("Mechanics.Energy.chair-refresh-rate");
+        this.mechanics_energy_exhaustion = settings.getDouble("Mechanics.Energy.exhaustion");
         this.mechanics_energy_coffee_enabled = settings.getBoolean("Mechanics.Energy.coffee");
-        this.MECHANICS_ENERGY_ABSORPTION = settings.getBoolean("Mechanics.Energy.absorption");
-        this.MECHANICS_ENERGY_HASTE = settings.getBoolean("Mechanics.Energy.haste");
+        this.mechanics_energy_absorption = settings.getBoolean("Mechanics.Energy.absorption");
+        this.mechanics_energy_haste = settings.getBoolean("Mechanics.Energy.haste");
 
         this.mechanics_slow_armor = settings.getBoolean("Mechanics.SlowArmor");
         this.mechanics_reinforced_armor = settings.getBoolean("Mechanics.ReinforcedLeatherArmor");
@@ -402,7 +400,7 @@ public class Config {
         this.mechanics_farming_products_cookie = settings.getBoolean("Mechanics.FarmingProducts.Cookie");
         this.mechanics_farming_products_bread = settings.getBoolean("Mechanics.FarmingProducts.Bread");
 
-        this.MECHANICS_CHAIRS_ENABLED = settings.getBoolean("Mechanics.Chairs.Enabled");
+        this.mechanics_chairs_enabled = settings.getBoolean("Mechanics.Chairs.Enabled");
         this.MECHANICS_CHAIRS_MAX_WIDTH = settings.getInt("Mechanics.Chairs.MaxChairWidth");
         this.MECHANICS_CHAIRS_BLOCKS = settings.getStringList("Mechanics.Chairs.AllowedBlocks");
 

@@ -3,6 +3,7 @@ package tk.shanebee.survival.tasks;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.World.Environment;
+import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -21,10 +22,6 @@ public class EnergyDrain extends BukkitRunnable {
     private final PlayerManager playerManager;
     private final Config config;
     private final Lang lang;
-    private final double drainRate;
-    private final double drainRateCold;
-    private final double increaseRateBed;
-    private final double increaseRateChair;
     private final double absorb;
     private final double haste;
 
@@ -33,12 +30,8 @@ public class EnergyDrain extends BukkitRunnable {
         this.config = plugin.getSurvivalConfig();
         this.lang = plugin.getLang();
 
-        this.drainRate = config.MECHANICS_ENERGY_DRAIN_RATE; // amount of energy to drain every 5 seconds
-        this.drainRateCold = config.MECHANICS_ENERGY_DRAIN_COLD_RATE; // amount of energy to drain every 5 seconds
-        this.increaseRateBed = config.MECHANICS_ENERGY_REFRESH_RATE_BED; // amount of energy to gain every 5 seconds of sleeping
-        this.increaseRateChair = config.MECHANICS_ENERGY_REFRESH_RATE_CHAIR; // amount of energy to gain every 5 seconds of sitting in chair
-        this.absorb = config.MECHANICS_ENERGY_ABSORPTION ? 20 - (drainRate * 12) : 200; // Roughly 1 minute of absorption hearts after full energy
-        this.haste = config.MECHANICS_ENERGY_HASTE ? 20 - (drainRate * 25): 200; // Roughly 2 minutes of haste after full energy
+        this.absorb = this.config.mechanics_energy_absorption ? 20 - (this.config.mechanics_energy_drain_rate * 12) : 200; // Roughly 1 minute of absorption hearts after full energy
+        this.haste = this.config.mechanics_energy_haste ? 20 - (this.config.mechanics_energy_drain_rate * 25): 200; // Roughly 2 minutes of haste after full energy
         this.runTaskTimer(plugin, 5 * 20, 5 * 20);
     }
 
@@ -48,31 +41,34 @@ public class EnergyDrain extends BukkitRunnable {
             PlayerData playerData = playerManager.getPlayerData(player);
             GameMode mode = player.getGameMode();
             if (mode == GameMode.SPECTATOR || mode == GameMode.CREATIVE) continue;
+
             if (player.isSleeping()) {
-                playerData.increaseEnergy(this.increaseRateBed);
+                playerData.increaseEnergy(this.config.mechanics_energy_refresh_rate_bed);
             } else if (isSitting(player)) {
-                playerData.increaseEnergy(this.increaseRateChair);
+                playerData.increaseEnergy(this.config.mechanics_energy_refresh_rate_chair);
             } else {
                 double oldLevel = playerData.getEnergy();
-                double rate = this.drainRate;
-                if (this.drainRateCold > 0 && player.getWorld().getEnvironment() == Environment.NORMAL) {
-                    if (player.getLocation().getBlock().getTemperature() < 0.15 && Utils.isAtHighest(player)) {
-                        rate += drainRateCold;
+                double rate = this.config.mechanics_energy_drain_rate;
+                if (this.config.mechanics_energy_drain_cold_rate > 0 && player.getWorld().getEnvironment() == Environment.NORMAL) {
+                    Block block = player.getLocation().getBlock();
+                    // In a cold biome and under direct sun or close to
+                    if (block.getTemperature() < 0.15 && block.getLightFromSky() > 13) {
+                        rate += this.config.mechanics_energy_drain_cold_rate;
                     }
                 }
                 playerData.increaseEnergy(-rate);
                 double newLevel = playerData.getEnergy();
-                if (config.MECHANICS_ENERGY_WARNING) {
+                if (this.config.mechanics_energy_warning) {
                     if (targetMatch(10.0, oldLevel, newLevel)) {
-                        Utils.sendColoredMini(player, lang.energy_level_10);
+                        Utils.sendColoredMini(player, this.lang.energy_level_10);
                     } else if (targetMatch(6.5, oldLevel, newLevel)) {
-                        Utils.sendColoredMini(player, lang.energy_level_6_5);
+                        Utils.sendColoredMini(player, this.lang.energy_level_6_5);
                     } else if (targetMatch(3.5, oldLevel, newLevel)) {
-                        Utils.sendColoredMini(player, lang.energy_level_3_5);
+                        Utils.sendColoredMini(player, this.lang.energy_level_3_5);
                     } else if (targetMatch(2, oldLevel, newLevel)) {
-                        Utils.sendColoredMini(player, lang.energy_level_2);
+                        Utils.sendColoredMini(player, this.lang.energy_level_2);
                     } else if (targetMatch(1, oldLevel, newLevel)) {
-                        Utils.sendColoredMini(player, lang.energy_level_1);
+                        Utils.sendColoredMini(player, this.lang.energy_level_1);
                     }
                 }
                 effects(player, playerData);
@@ -88,10 +84,8 @@ public class EnergyDrain extends BukkitRunnable {
     // BAD EFFECTS
     private static final PotionEffect SICK_40;
     private static final PotionEffect SICK_120;
-    private static final PotionEffect BLIND_50;
-    private static final PotionEffect BLIND_120;
-    private static final PotionEffect NIGHT_10;
-    private static final PotionEffect NIGHT_120;
+    private static final PotionEffect DARK_50;
+    private static final PotionEffect DARK_120;
     private static final PotionEffect MINING_120;
     private static final PotionEffect MINING_120_2;
     private static final PotionEffect MINING_120_3;
@@ -105,19 +99,19 @@ public class EnergyDrain extends BukkitRunnable {
     static {
         SICK_40 = new PotionEffect(PotionEffectType.NAUSEA, 40, 0);
         SICK_120 = new PotionEffect(PotionEffectType.NAUSEA, 120, 0);
-        BLIND_50 = new PotionEffect(PotionEffectType.BLINDNESS, 50, 0);
-        BLIND_120 = new PotionEffect(PotionEffectType.BLINDNESS, 120, 0);
-        NIGHT_10 = new PotionEffect(PotionEffectType.NIGHT_VISION, 10, 0);
-        NIGHT_120 = new PotionEffect(PotionEffectType.NIGHT_VISION, 120, 0);
+        DARK_50 = new PotionEffect(PotionEffectType.DARKNESS, 50, 0);
+        DARK_120 = new PotionEffect(PotionEffectType.DARKNESS, 120, 0);
         MINING_120 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 0, false, false);
         MINING_120_2 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 1, false, false);
         MINING_120_3 = new PotionEffect(PotionEffectType.MINING_FATIGUE, 120, 2, false, false);
         SLOW_120 = new PotionEffect(PotionEffectType.SLOWNESS, 120, 0, false, false);
-        WITHER_100 = new PotionEffect(PotionEffectType.WITHER, 100, 0);
-        HASTE_120 = new PotionEffect(PotionEffectType.HASTE, 120, 0, false, false, true);
+        WITHER_100 = new PotionEffect(PotionEffectType.WITHER, 100, 0, false, true, false);
+        HASTE_120 = new PotionEffect(PotionEffectType.HASTE, 120, 0, false, false, false);
         ABSORPTION_500 = new PotionEffect(PotionEffectType.ABSORPTION, 500, 1, false, false);
     }
 
+    // TODO I want to eventually redo this.
+    // maybe with attributes instead?
     private void effects(Player player, PlayerData playerData) {
         double energy = playerData.getEnergy();
 
@@ -125,14 +119,12 @@ public class EnergyDrain extends BukkitRunnable {
             player.addPotionEffect(WITHER_100);
         } else if (energy <= 2.0) {
             player.addPotionEffect(SICK_120);
-            player.addPotionEffect(NIGHT_120);
-            player.addPotionEffect(BLIND_120);
+            player.addPotionEffect(DARK_120);
             player.addPotionEffect(MINING_120_3);
             player.addPotionEffect(SLOW_120);
         } else if (energy <= 3.5) {
             player.addPotionEffect(SICK_40);
-            player.addPotionEffect(NIGHT_10);
-            player.addPotionEffect(BLIND_50);
+            player.addPotionEffect(DARK_50);
             player.addPotionEffect(MINING_120_3);
         } else if (energy <= 6.5) {
             player.addPotionEffect(MINING_120_3);
@@ -150,8 +142,9 @@ public class EnergyDrain extends BukkitRunnable {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private boolean isSitting(Player player) {
-        if (!config.MECHANICS_CHAIRS_ENABLED) return false;
+        if (!this.config.mechanics_chairs_enabled) return false;
         Entity vehicle = player.getVehicle();
         if (vehicle instanceof ArmorStand) {
             String name = vehicle.getCustomName();

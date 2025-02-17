@@ -262,16 +262,4 @@ public class Utils {
         return new NamespacedKey("survival_plus", key);
     }
 
-    /**
-     * Check if the player is at the highest block (exposed to sun)
-     *
-     * @param player Player to check
-     * @return True if player is exposed to sun
-     */
-    public static boolean isAtHighest(Player player) {
-        Location location = player.getLocation();
-        World world = player.getWorld();
-        return location.getY() > world.getHighestBlockYAt(location);
-    }
-
 }

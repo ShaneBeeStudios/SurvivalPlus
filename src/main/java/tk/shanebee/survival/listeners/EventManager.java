@@ -115,7 +115,7 @@ public class EventManager {
 			pm.registerEvents(new PoisonousPotato(), this.plugin);
 		if (config.MECHANICS_SHARED_WORKBENCH)
 			pm.registerEvents(new WorkbenchShare(plugin), this.plugin);
-		if (config.MECHANICS_CHAIRS_ENABLED)
+		if (config.mechanics_chairs_enabled)
 			pm.registerEvents(new Chairs(plugin), this.plugin);
 		if (config.MECHANICS_COOKIE_BOOST)
 			pm.registerEvents(new CookieHealthBoost(), this.plugin);

@@ -82,9 +82,6 @@ Mechanics:
   # This is an experimental feature, I recommend not using it
   SharedWorkbench: false
 
-  # When enabled the night will not skip to day when players sleep
-  Prevent-Night-Skip: false
-
   # When enabled, players will slow down when wearing heavy armor such as diamond or gold armor
   SlowArmor: true
   # Enables recipes for reinforced leather armor
@@ -241,7 +238,7 @@ Mechanics:
     # (Will only work if chairs are enabled)
     chair-refresh-rate: 0.25 # Default (0.41) equivalent to 3 levels in 1 minute
     # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
-    # Amount to drop per exhaustion reset (when the player's hunger bar drops) (set to 0 to disable)
+    # Amount to drop per exhaustion reset (set to 0 to disable)
     exhaustion: 0.15
     # Enables coffee recipes and effects (Drink coffee to regain energy)
     coffee: true
