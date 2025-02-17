@@ -1,7 +1,6 @@
 package tk.shanebee.survival.listeners.block;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -9,11 +8,9 @@ import org.bukkit.block.data.Lightable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCookEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import tk.shanebee.survival.SurvivalPlugin;
-import tk.shanebee.survival.item.Items;
 
 import java.util.Random;
 
@@ -23,21 +20,6 @@ public class Campfire implements Listener {
 
     public Campfire(SurvivalPlugin plugin) {
         this.plugin = plugin;
-    }
-
-    // When placing a campfire, turn it off (Requiring a player to light it manually)
-    @EventHandler
-    private void onPlaceCampfire(BlockPlaceEvent event) {
-        if (event.getBlockPlaced().getType() != Material.CAMPFIRE) return;
-        if (Items.CAMPFIRE.is(event.getItemInHand())) {
-            Lightable camp = ((Lightable) event.getBlock().getBlockData());
-            camp.setLit(false);
-            event.getBlock().setBlockData(camp);
-
-        } else {
-            if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
-            event.setCancelled(true);
-        }
     }
 
     // Hit an unlit campfire with a stick to light it
