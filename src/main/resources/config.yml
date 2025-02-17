@@ -280,26 +280,11 @@ Mechanics:
   Chairs:
     Enabled: true
     MaxChairWidth: 2
-    # These must be Bukkit material Enums
-    # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+    # Blocks that can be used as chairs
+    # Has to be a stair block
+    # Accepts Minecraft namespaced keys and tags
     AllowedBlocks:
-      - OAK_STAIRS
-      - SPRUCE_STAIRS
-      - JUNGLE_STAIRS
-      - BIRCH_STAIRS
-      - ACACIA_STAIRS
-      - DARK_OAK_STAIRS
-      - SANDSTONE_STAIRS
-      - COBBLESTONE_STAIRS
-      - BRICK_STAIRS
-      - STONE_BRICK_STAIRS
-      - NETHER_BRICK_STAIRS
-      - QUARTZ_STAIRS
-      - RED_SANDSTONE_STAIRS
-      - PURPUR_STAIRS
-      - PRISMARINE_STAIRS
-      - PRISMARINE_BRICK_STAIRS
-      - DARK_PRISMARINE_STAIRS
+      - '#minecraft:stairs'
 
   # EXPERIMENTAL FEATURE
   # DO NOT USE
@@ -309,7 +294,7 @@ Mechanics:
     BurnoutTime: 60
     # If burnout torches can be re-lit
     Relightable: true
-    # If non persistent torches will drop a torch when broken, if disabled will drop a stick
+    # If non-persistent torches will drop a torch when broken, if disabled will drop a stick
     DropTorch: true
     # If persistent torches are enabled
     PersistentTorches: true

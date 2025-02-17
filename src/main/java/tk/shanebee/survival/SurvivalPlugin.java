@@ -51,7 +51,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 	// Lists & Maps
 	private final List<Double> Rates = new ArrayList<>();
-	private final List<Material> chairBlocks = new ArrayList<>();
 	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
 	// Configs
@@ -275,14 +274,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
         }
 		this.lang.loadLangFile(sender);
 		this.prefix = lang.prefix;
-		for (String type : config.MECHANICS_CHAIRS_BLOCKS) {
-			Material mat = Material.getMaterial(type);
-			if (mat != null) {
-				chairBlocks.add(mat);
-			} else {
-				Utils.logMini("<red>Invalid chair block material: <grey>" + type);
-			}
-		}
 		this.playerDataConfig = new PlayerDataConfig(this);
 	}
 
@@ -386,13 +377,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 	public void setSnowGenOption(boolean snowGenOption) {
 		this.snowGenOption = snowGenOption;
-	}
-
-	/** Get acceptable chair blocks
-	 * @return List of chair blocks
-	 */
-	public List<Material> getChairBlocks() {
-		return chairBlocks;
 	}
 
 	public PlayerDataConfig getPlayerDataConfig() {

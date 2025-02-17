@@ -43,7 +43,7 @@ public class Chairs implements Listener {
 			Block block = event.getClickedBlock();
 
 			assert block != null;
-			if (plugin.getChairBlocks().contains(block.getType())) {
+			if (this.config.mechanics_chairs_blocks.contains(block.getType())) {
 				Player player = event.getPlayer();
                 Stairs stairs = (Stairs) block.getBlockData();
 				int chairwidth = 1;
@@ -58,7 +58,7 @@ public class Chairs implements Listener {
 					return;
 				}
 
-				// Check for distance distance between player and chair.
+				// Check for distance between player and chair.
 				if (player.getLocation().distance(block.getLocation().add(0.5, 0, 0.5)) > 2)
 					return;
 
@@ -86,7 +86,7 @@ public class Chairs implements Listener {
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
 
-				if (chairwidth > config.mechanics_chairs_max_width)
+				if (chairwidth > this.config.mechanics_chairs_max_width)
 					return;
 
 				// Sit-down process.
@@ -152,7 +152,7 @@ public class Chairs implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onBlockBreak(BlockBreakEvent event) {
 		if (event.isCancelled()) return;
-		if (plugin.getChairBlocks().contains(event.getBlock().getType())) {
+		if (this.config.mechanics_chairs_blocks.contains(event.getBlock().getType())) {
 			ArmorStand drop = dropSeat(event.getBlock(), ((Stairs) event.getBlock().getBlockData()));
 
 			for (Entity e : drop.getNearbyEntities(0.5, 0.5, 0.5)) {
@@ -239,10 +239,10 @@ public class Chairs implements Listener {
 		int width = 0;
 
 		// Go through the blocks next to the clicked block and check if there are any further stairs.
-		for (int i = 1; i <= config.mechanics_chairs_max_width; i++) {
+		for (int i = 1; i <= this.config.mechanics_chairs_max_width; i++) {
 			Block relative = block.getRelative(face, i);
 
-			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getBlockData()).getFacing() == ((Stairs) block.getBlockData()).getFacing())
+			if (this.config.mechanics_chairs_blocks.contains(relative.getType()) && ((Stairs) relative.getBlockData()).getFacing() == ((Stairs) block.getBlockData()).getFacing())
 				width++;
 			else
 				break;
@@ -255,22 +255,16 @@ public class Chairs implements Listener {
 		// Go through the blocks next to the clicked block and check if are signs on the end.
 		for (int i = 1; true; i++) {
 			Block relative = block.getRelative(face, i);
-			if (!(plugin.getChairBlocks().contains(relative.getType())) || (block.getBlockData() instanceof Stairs && ((Stairs) relative.getBlockData()).getFacing() != ((Stairs) block.getBlockData()).getFacing())) {
-				if (Tag.SIGNS.isTagged(relative.getType())) return true;
-				switch (relative.getType()) {
-					case ITEM_FRAME:
-					case PAINTING:
-					case ACACIA_TRAPDOOR:
-					case BIRCH_TRAPDOOR:
-					case JUNGLE_TRAPDOOR:
-					case OAK_TRAPDOOR:
-					case SPRUCE_TRAPDOOR:
-					case DARK_OAK_TRAPDOOR:
-					case IRON_TRAPDOOR:
-						return true;
-					default:
-						return false;
-				}
+			if (!(this.config.mechanics_chairs_blocks.contains(relative.getType())) ||
+                (block.getBlockData() instanceof Stairs &&
+                    ((Stairs) relative.getBlockData()).getFacing() != ((Stairs) block.getBlockData()).getFacing())) {
+                Material relativeType = relative.getType();
+                if (Tag.SIGNS.isTagged(relativeType)) return true;
+                if (Tag.TRAPDOORS.isTagged(relativeType)) return true;
+                return switch (relativeType) {
+                    case ITEM_FRAME, PAINTING -> true;
+                    default -> false;
+                };
 			}
 		}
 	}

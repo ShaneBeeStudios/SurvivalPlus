@@ -1,5 +1,10 @@
 package tk.shanebee.survival.config;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
+import org.bukkit.Tag;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.SurvivalPlugin;
@@ -8,8 +13,10 @@ import tk.shanebee.survival.util.Utils;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 public class Config {
 
     private final SurvivalPlugin plugin;
@@ -145,7 +152,7 @@ public class Config {
 
     public boolean mechanics_chairs_enabled;
     public int mechanics_chairs_max_width;
-    public List<String> MECHANICS_CHAIRS_BLOCKS;
+    public List<Material> mechanics_chairs_blocks;
 
     public boolean MECHANICS_BURNOUT_TORCH_ENABLED;
     public int MECHANICS_BURNOUT_TORCH_TIME;
@@ -402,7 +409,7 @@ public class Config {
 
         this.mechanics_chairs_enabled = settings.getBoolean("Mechanics.Chairs.Enabled");
         this.mechanics_chairs_max_width = settings.getInt("Mechanics.Chairs.MaxChairWidth");
-        this.MECHANICS_CHAIRS_BLOCKS = settings.getStringList("Mechanics.Chairs.AllowedBlocks");
+        this.mechanics_chairs_blocks = getChairBlocks();
 
         this.MECHANICS_BURNOUT_TORCH_ENABLED = settings.getBoolean("Mechanics.BurnoutTorches.Enabled");
         this.MECHANICS_BURNOUT_TORCH_TIME = settings.getInt("Mechanics.BurnoutTorches.BurnoutTime");
@@ -470,6 +477,48 @@ public class Config {
 
         // HIDDEN CONFIG
         this.RECIPE_DELAY = settings.getInt("recipe-delay", 0);
+    }
+
+    private List<Material> getChairBlocks() {
+        List<Material> materials = new ArrayList<>();
+        List<String> allowedByStrings = settings.getStringList("Mechanics.Chairs.AllowedBlocks");
+        for (String string : allowedByStrings) {
+            if (string.startsWith("#")) {
+                NamespacedKey key;
+                if (string.contains(":")) key = NamespacedKey.fromString(string.substring(1));
+                else key = NamespacedKey.minecraft(string.substring(1));
+
+                if (key != null) {
+                    Tag<Material> tag = Bukkit.getTag(Tag.REGISTRY_BLOCKS, key, Material.class);
+                    if (tag != null) {
+                        for (Material material : tag.getValues()) {
+                            if (Tag.STAIRS.isTagged(material)) {
+                                materials.add(material);
+                            } else {
+                                Utils.logMini("<red>Invalid chair material<white>: <yellow>%s", key.toString());
+                            }
+                        }
+                    }
+                }
+            } else {
+                NamespacedKey key;
+                if (string.contains(":")) key = NamespacedKey.fromString(string);
+                else key = NamespacedKey.minecraft(string);
+
+                if (key != null) {
+                    Material material = Registry.MATERIAL.get(key);
+                    if (material != null) {
+                        if (Tag.STAIRS.isTagged(material)) {
+                            materials.add(material);
+                        } else {
+                            Utils.logMini("<red>Invalid chair material<white>: <yellow>%s", key.toString());
+                        }
+                    }
+
+                }
+            }
+        }
+        return materials;
     }
 
 }
