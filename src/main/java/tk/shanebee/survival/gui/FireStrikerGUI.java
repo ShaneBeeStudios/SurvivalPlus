@@ -50,7 +50,7 @@ public class FireStrikerGUI implements Runnable, InventoryHolder {
         this.inv = this.furnaceView.getTopInventory();
         this.player = player;
         this.firestrikerItemStack = itemStack;
-        this.maxCookTime = plugin.getSurvivalConfig().ITEM_FIRESTRIKER_COOK_TIME;
+        this.maxCookTime = plugin.getSurvivalConfig().item_mechanics_firestriker_cook_time;
         this.cookTime = 0;
 
         ItemMeta itemMeta = itemStack.getItemMeta();

@@ -19,19 +19,10 @@ import tk.shanebee.survival.item.Items;
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class WeatherTask extends BukkitRunnable {
 
-    private final double baseSpeed;
-    private final double rainSpeed;
-    private final double stormSpeed;
-    private final double snowSpeed;
-    private final double snowstormSpeed;
+    private final Config config;
 
     public WeatherTask(SurvivalPlugin plugin) {
-        Config config = plugin.getSurvivalConfig();
-        this.baseSpeed = config.MECHANICS_WEATHER_SPEED_BASE;
-        this.rainSpeed = config.MECHANICS_WEATHER_SPEED_RAIN;
-        this.stormSpeed = config.MECHANICS_WEATHER_SPEED_STORM;
-        this.snowSpeed = config.MECHANICS_WEATHER_SPEED_SNOW;
-        this.snowstormSpeed = config.MECHANICS_WEATHER_SPEED_SNOWSTORM;
+        this.config = plugin.getSurvivalConfig();
         this.runTaskTimer(plugin, 20, 10);
     }
 
@@ -47,18 +38,18 @@ public class WeatherTask extends BukkitRunnable {
         GameMode mode = player.getGameMode();
         if (world.getEnvironment() == Environment.NORMAL && (mode == GameMode.SURVIVAL || mode == GameMode.ADVENTURE)) {
             if (isInSnowstorm(player) && !hasSnowBoots(player)) {
-                setWalkSpeed(player, this.snowstormSpeed);
+                setWalkSpeed(player, this.config.mechanics_weather_speed_snowstorm);
             } else if (isOnSnow(player) && !hasSnowBoots(player)) {
-                setWalkSpeed(player, this.snowSpeed);
+                setWalkSpeed(player, this.config.mechanics_weather_speed_snow);
             } else if (isInStorm(player) && !hasRainBoots(player)) {
-                setWalkSpeed(player, this.stormSpeed);
+                setWalkSpeed(player, this.config.mechanics_weather_speed_storm);
             } else if (player.isInRain() && !hasRainBoots(player)) {
-                setWalkSpeed(player, this.rainSpeed);
+                setWalkSpeed(player, this.config.mechanics_weather_speed_rain);
             } else {
-                setWalkSpeed(player, this.baseSpeed);
+                setWalkSpeed(player, this.config.mechanics_weather_speed_base);
             }
         } else {
-            setWalkSpeed(player, this.baseSpeed);
+            setWalkSpeed(player, this.config.mechanics_weather_speed_base);
         }
     }
 

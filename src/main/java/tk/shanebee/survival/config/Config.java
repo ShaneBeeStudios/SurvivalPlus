@@ -16,21 +16,20 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("NullableProblems")
 public class Config {
 
     private final SurvivalPlugin plugin;
     private FileConfiguration settings;
     private File configFile;
 
-    public String LANG;
+    public String lang;
 
     public String settings_resource_pack_url;
     public boolean settings_resource_pack_enabled;
 
     public int settings_local_chat_distance;
 
-    public boolean WELCOME_GUIDE_ENABLED;
+    public boolean welcome_guide_enabled;
     public boolean welcome_guide_new_players;
     public int welcome_guide_delay;
 
@@ -161,14 +160,14 @@ public class Config {
     public boolean MECHANICS_BURNOUT_TORCH_PERSIST;
 
     public boolean mechanics_weather_enabled;
-    public double MECHANICS_WEATHER_SPEED_BASE;
-    public double MECHANICS_WEATHER_SPEED_RAIN;
-    public double MECHANICS_WEATHER_SPEED_STORM;
-    public double MECHANICS_WEATHER_SPEED_SNOW;
-    public double MECHANICS_WEATHER_SPEED_SNOWSTORM;
+    public double mechanics_weather_speed_base;
+    public double mechanics_weather_speed_rain;
+    public double mechanics_weather_speed_storm;
+    public double mechanics_weather_speed_snow;
+    public double mechanics_weather_speed_snowstorm;
 
     // ITEM MECHANICS
-    public int ITEM_FIRESTRIKER_COOK_TIME;
+    public int item_mechanics_firestriker_cook_time;
 
     // ENTITY MECHANICS
     public boolean entity_mechanics_pigmen_chest_enabled;
@@ -219,25 +218,24 @@ public class Config {
     public boolean legendary_gold_armor_buff;
 
     // HIDDEN CONFIG
-    public int RECIPE_DELAY;
+    public int recipe_delay;
 
     public Config(SurvivalPlugin plugin) {
         this.plugin = plugin;
-        loadDefaultSettings();
     }
 
     public void loadDefaultSettings() {
-        if (configFile == null) {
-            configFile = new File(plugin.getDataFolder(), "config.yml");
+        if (this.configFile == null) {
+            this.configFile = new File(plugin.getDataFolder(), "config.yml");
         }
-        if (!configFile.exists()) {
-            plugin.saveResource("config.yml", false);
-            settings = YamlConfiguration.loadConfiguration(configFile);
+        if (!this.configFile.exists()) {
+            this.plugin.saveResource("config.yml", false);
+            this.settings = YamlConfiguration.loadConfiguration(this.configFile);
             Utils.logMini("new config.yml created");
         } else {
-            settings = YamlConfiguration.loadConfiguration(configFile);
+            this.settings = YamlConfiguration.loadConfiguration(this.configFile);
         }
-        matchConfig(settings, configFile);
+        matchConfig(this.settings, this.configFile);
         loadSettings();
         Utils.logMini("<grey>config.yml <green>loaded");
     }
@@ -277,7 +275,7 @@ public class Config {
 
     private void loadSettings() {
 
-        this.LANG = settings.getString("Language");
+        this.lang = settings.getString("Language");
 
         // SETTINGS
         this.settings_resource_pack_enabled = settings.getBoolean("Settings.enable-resource-pack");
@@ -285,7 +283,7 @@ public class Config {
         this.settings_local_chat_distance = settings.getInt("settings.local-chat-distance");
 
         // WELCOME GUIDE
-        this.WELCOME_GUIDE_ENABLED = settings.getBoolean("WelcomeGuide.Enabled");
+        this.welcome_guide_enabled = settings.getBoolean("WelcomeGuide.Enabled");
         this.welcome_guide_new_players = settings.getBoolean("WelcomeGuide.NewPlayersOnly");
         this.welcome_guide_delay = settings.getInt("WelcomeGuide.Delay");
 
@@ -418,14 +416,14 @@ public class Config {
         this.MECHANICS_BURNOUT_TORCH_PERSIST = settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
 
         this.mechanics_weather_enabled = settings.getBoolean("Mechanics.Weather.Enabled");
-        this.MECHANICS_WEATHER_SPEED_BASE = settings.getDouble("Mechanics.Weather.speed.base");
-        this.MECHANICS_WEATHER_SPEED_RAIN = settings.getDouble("Mechanics.Weather.speed.rain");
-        this.MECHANICS_WEATHER_SPEED_STORM = settings.getDouble("Mechanics.Weather.speed.storm");
-        this.MECHANICS_WEATHER_SPEED_SNOW = settings.getDouble("Mechanics.Weather.speed.snow");
-        this.MECHANICS_WEATHER_SPEED_SNOWSTORM = settings.getDouble("Mechanics.Weather.speed.snowstorm");
+        this.mechanics_weather_speed_base = settings.getDouble("Mechanics.Weather.speed.base");
+        this.mechanics_weather_speed_rain = settings.getDouble("Mechanics.Weather.speed.rain");
+        this.mechanics_weather_speed_storm = settings.getDouble("Mechanics.Weather.speed.storm");
+        this.mechanics_weather_speed_snow = settings.getDouble("Mechanics.Weather.speed.snow");
+        this.mechanics_weather_speed_snowstorm = settings.getDouble("Mechanics.Weather.speed.snowstorm");
 
         // ITEM MECHANICS
-        this.ITEM_FIRESTRIKER_COOK_TIME = settings.getInt("Item-Mechanics.firestriker.cook-time");
+        this.item_mechanics_firestriker_cook_time = settings.getInt("Item-Mechanics.firestriker.cook-time");
 
         // ENTITY MECHANICS
         this.entity_mechanics_pigmen_chest_enabled = settings.getBoolean("Entity-Mechanics.zombified-piglin-chests.enabled");
@@ -476,7 +474,7 @@ public class Config {
         this.legendary_gold_armor_buff = settings.getBoolean("LegendaryItems.GoldArmorBuff");
 
         // HIDDEN CONFIG
-        this.RECIPE_DELAY = settings.getInt("recipe-delay", 0);
+        this.recipe_delay = settings.getInt("recipe-delay", 0);
     }
 
     private List<Material> getChairBlocks() {

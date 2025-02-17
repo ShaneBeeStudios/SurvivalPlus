@@ -136,7 +136,7 @@ public class EventManager {
 			pm.registerEvents(new SnowGeneration(plugin), this.plugin);
 		if (config.entity_mechanics_chicken_breeding_enabled)
 		    pm.registerEvents(new ChickenSpawn(this.plugin), this.plugin);
-		if (config.WELCOME_GUIDE_ENABLED)
+		if (config.welcome_guide_enabled)
 			pm.registerEvents(new Guide(plugin), this.plugin);
 		if (config.MECHANICS_BURNOUT_TORCH_ENABLED) // TODO experimental feature, not 100% sure about this
 			pm.registerEvents(new BurnoutTorches(this.plugin), this.plugin);

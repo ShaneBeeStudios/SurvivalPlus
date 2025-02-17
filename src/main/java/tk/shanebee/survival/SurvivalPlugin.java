@@ -34,13 +34,11 @@ import tk.shanebee.survival.tasks.TaskManager;
 import tk.shanebee.survival.util.BlockTags;
 import tk.shanebee.survival.util.Utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings("UnstableApiUsage")
 public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 	static {
@@ -49,8 +47,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 	private static SurvivalPlugin instance;
 
-	// Lists & Maps
-	private final List<Double> Rates = new ArrayList<>();
+	// Lists & Map
 	private Map<UUID, PlayerData> playerDataMap = new HashMap<>();
 
 	// Configs
@@ -132,21 +129,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
             Utils.logMini("<yellow>Resource Pack disabled");
         }
 
-		Rates.add(config.survival_drop_rate_flint);
-		Rates.add(config.survival_drop_rate_stick);
-		Rates.add(config.mechanics_thirst_drain_rate);
-		for (double i : Rates) {
-			if (i <= 0) {
-				Utils.logMini("<red>Rate values cannot be zero or below! (Check config.yml) Plugin disabled.");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			} else if (i > 1) {
-                Utils.logMini("<red>Rate values cannot be above 1! (Check config.yml) Plugin disabled.");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			}
-		}
-
 		// LOAD MANAGERS
         BlockTags.initialize();
 		blockManager = new BlockManager(this);
@@ -174,12 +156,12 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 		// LOAD CUSTOM RECIPES
 		// This is a helper for other plugins that wipe custom recipes - secret hidden config
-		if (config.RECIPE_DELAY > 0) {
-		    Utils.logMini("<grey>Custom recipe loading delayed... will load in <aqua>" + config.RECIPE_DELAY + "<grey> second[s]");
+		if (config.recipe_delay > 0) {
+		    Utils.logMini("<grey>Custom recipe loading delayed... will load in <aqua>" + config.recipe_delay + "<grey> second[s]");
 		    Bukkit.getScheduler().runTaskLater(this, () -> {
                 this.recipeManager.loadCustomRecipes();
                 Utils.logMini("<grey>Custom recipes <green>loaded");
-            }, config.RECIPE_DELAY * 20L);
+            }, config.recipe_delay * 20L);
 
         } else {
             this.recipeManager.loadCustomRecipes();
@@ -193,7 +175,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		Utils.logMini("<green>Successfully loaded <grey>in " + (System.currentTimeMillis() - time) + " milliseconds");
 
 		// BETA WARNING
-		if (this.getDescription().getVersion().contains("Beta")) {
+		if (this.getPluginMeta().getVersion().contains("Beta")) {
 			Utils.logMini("<yellow>YOU ARE RUNNING A BETA VERSION, PLEASE USE WITH CAUTION!");
 		}
 	}
@@ -213,11 +195,11 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		playerDataLoader(false);
 
 		//Avoid WorkbenchShare glitch
-		if (config.mechanics_shared_workbench) {
+		if (this.config.mechanics_shared_workbench) {
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (p.hasMetadata("shared_workbench")) {
-					Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)
-							p.getMetadata("shared_workbench").get(0).value() : null;
+					Block workbench = (p.getMetadata("shared_workbench").getFirst().value() instanceof Block) ? (Block)
+							p.getMetadata("shared_workbench").getFirst().value() : null;
 
 					if (workbench != null && workbench.getType() == Material.CRAFTING_TABLE) {
 						if (workbench.hasMetadata("shared_players"))
@@ -266,11 +248,10 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	public void loadSettings(CommandSender sender) {
         if (this.config == null) {
             this.config = new Config(this);
-        } else {
-            this.config.loadDefaultSettings();
         }
+        this.config.loadDefaultSettings();
         if (this.lang == null) {
-            this.lang = new Lang(this, config.LANG);
+            this.lang = new Lang(this, this.config.lang);
         }
 		this.lang.loadLangFile(sender);
 		this.prefix = lang.prefix;
