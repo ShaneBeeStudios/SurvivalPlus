@@ -44,7 +44,6 @@ import tk.shanebee.survival.listeners.item.WaterBowlListener;
 import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
 import tk.shanebee.survival.listeners.server.Guide;
-import tk.shanebee.survival.listeners.server.InventoryUpdate;
 import tk.shanebee.survival.listeners.server.LocalChat;
 import tk.shanebee.survival.listeners.server.RecipeDiscovery;
 import tk.shanebee.survival.listeners.server.ResourcePackListener;
@@ -141,7 +140,6 @@ public class EventManager {
 			pm.registerEvents(new Guide(plugin), this.plugin);
 		if (config.MECHANICS_BURNOUT_TORCH_ENABLED) // TODO experimental feature, not 100% sure about this
 			pm.registerEvents(new BurnoutTorches(this.plugin), this.plugin);
-		pm.registerEvents(new InventoryUpdate(), this.plugin);
 
 		if (config.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
