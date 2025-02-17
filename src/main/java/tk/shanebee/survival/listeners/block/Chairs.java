@@ -86,7 +86,7 @@ public class Chairs implements Listener {
 					chairwidth += getChairWidth(block, BlockFace.SOUTH);
 				}
 
-				if (chairwidth > config.MECHANICS_CHAIRS_MAX_WIDTH)
+				if (chairwidth > config.mechanics_chairs_max_width)
 					return;
 
 				// Sit-down process.
@@ -239,7 +239,7 @@ public class Chairs implements Listener {
 		int width = 0;
 
 		// Go through the blocks next to the clicked block and check if there are any further stairs.
-		for (int i = 1; i <= config.MECHANICS_CHAIRS_MAX_WIDTH; i++) {
+		for (int i = 1; i <= config.mechanics_chairs_max_width; i++) {
 			Block relative = block.getRelative(face, i);
 
 			if (plugin.getChairBlocks().contains(relative.getType()) && ((Stairs) relative.getBlockData()).getFacing() == ((Stairs) block.getBlockData()).getFacing())

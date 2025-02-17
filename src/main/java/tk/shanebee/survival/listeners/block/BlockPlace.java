@@ -42,7 +42,7 @@ public class BlockPlace implements Listener {
         Block block = event.getBlock();
 
         if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-            if (config.PLACE_ONLY_WITH_HAMMER) {
+            if (config.survival_place_only_with_hammer) {
                 if (BlockTags.REQUIRES_HAMMER.isTagged(block.getType())) {
                     if (Items.HAMMER.is(offTool)) {
                         Random rand = new Random();

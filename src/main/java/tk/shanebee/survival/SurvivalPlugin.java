@@ -117,7 +117,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		loadSettings(Bukkit.getConsoleSender());
 
 		for (World world : getServer().getWorlds()) {
-			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, config.SURVIVAL_LIMITED_CRAFTING);
+			world.setGameRule(GameRule.DO_LIMITED_CRAFTING, this.config.survival_limited_crafting);
 		}
 
 		// LOAD RESOURCE PACK
@@ -133,8 +133,8 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
             Utils.logMini("<yellow>Resource Pack disabled");
         }
 
-		Rates.add(config.DROP_RATE_FLINT);
-		Rates.add(config.DROP_RATE_STICK);
+		Rates.add(config.survival_drop_rate_flint);
+		Rates.add(config.survival_drop_rate_stick);
 		Rates.add(config.mechanics_thirst_drain_rate);
 		for (double i : Rates) {
 			if (i <= 0) {
@@ -214,7 +214,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		playerDataLoader(false);
 
 		//Avoid WorkbenchShare glitch
-		if (config.MECHANICS_SHARED_WORKBENCH) {
+		if (config.mechanics_shared_workbench) {
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (p.hasMetadata("shared_workbench")) {
 					Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block)

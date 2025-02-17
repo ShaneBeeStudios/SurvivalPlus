@@ -86,9 +86,9 @@ public class EventManager {
 			pm.registerEvents(new ObsidianMaceWeakness(plugin), this.plugin);
 		if (config.legendary_valkyrie)
 			pm.registerEvents(new Valkyrie(plugin), this.plugin);
-		if (config.legendary_giantblade)
+		if (config.legendary_giant_blade)
 			pm.registerEvents(new GiantBlade(plugin), this.plugin);
-		if (config.legendary_blazesword)
+		if (config.legendary_blaze_sword)
 			pm.registerEvents(new BlazeSword(), this.plugin);
 		if (LOCAL_CHAT > -1)
 			pm.registerEvents(new LocalChat(plugin), this.plugin);
@@ -103,7 +103,7 @@ public class EventManager {
             pm.registerEvents(new ResourcePackListener(plugin), this.plugin);
         }
 
-		if (config.MECHANICS_RAW_MEAT_HUNGER)
+		if (config.mechanics_raw_meat_hunger)
 			pm.registerEvents(new RawMeatHunger(), this.plugin);
 		if (config.mechanics_thirst_enabled) {
 			pm.registerEvents(new ThirstListener(this.plugin), this.plugin);
@@ -112,17 +112,17 @@ public class EventManager {
 		}
 		if (config.mechanics_poison_potato)
 			pm.registerEvents(new PoisonousPotato(), this.plugin);
-		if (config.MECHANICS_SHARED_WORKBENCH)
+		if (config.mechanics_shared_workbench)
 			pm.registerEvents(new WorkbenchShare(plugin), this.plugin);
 		if (config.mechanics_chairs_enabled)
 			pm.registerEvents(new Chairs(plugin), this.plugin);
-		if (config.MECHANICS_COOKIE_BOOST)
+		if (config.mechanics_cookie_boost)
 			pm.registerEvents(new CookieHealthBoost(), this.plugin);
-		if (config.MECHANICS_BEET_STRENGTH)
+		if (config.mechanics_beet_strength)
 			pm.registerEvents(new BeetrootStrength(), this.plugin);
-		if (config.MECHANICS_CLOWN_FISH)
+		if (config.mechanics_tropical_fish)
 			pm.registerEvents(new TropicalFish(this.plugin), this.plugin);
-		if (config.MECHANICS_LIVING_SLIME)
+		if (config.mechanics_living_slime)
 			pm.registerEvents(new LivingSlime(plugin), this.plugin);
 		if (config.mechanics_energy_enabled)
 			pm.registerEvents(new EnergyChange(plugin), this.plugin);
@@ -134,20 +134,20 @@ public class EventManager {
 			pm.registerEvents(new SnowballThrow(), this.plugin);
 		if (config.MECHANICS_SNOW_GEN_REVAMP)
 			pm.registerEvents(new SnowGeneration(plugin), this.plugin);
-		if (config.ENTITY_MECHANICS_CHICKEN_BREEDING_ENABLED)
+		if (config.entity_mechanics_chicken_breeding_enabled)
 		    pm.registerEvents(new ChickenSpawn(this.plugin), this.plugin);
 		if (config.WELCOME_GUIDE_ENABLED)
 			pm.registerEvents(new Guide(plugin), this.plugin);
 		if (config.MECHANICS_BURNOUT_TORCH_ENABLED) // TODO experimental feature, not 100% sure about this
 			pm.registerEvents(new BurnoutTorches(this.plugin), this.plugin);
 
-		if (config.ENTITY_MECHANICS_PIGMEN_CHEST_ENABLED)
+		if (config.entity_mechanics_pigmen_chest_enabled)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 
         if (config.entity_mechanics_beekeeper_suit_enabled) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
         }
-        if (config.SURVIVAL_UPDATE_MERCHANT_TRADES) {
+        if (config.survival_update_merchant_trades) {
             pm.registerEvents(new MerchantTrades(this.plugin), this.plugin);
         }
         pm.registerEvents(new PiglinBarter(this.plugin), this.plugin);

@@ -77,19 +77,19 @@ public class RecipeManager {
         if (this.config.mechanics_farming_products_bread) {
             removeRecipeByKey("bread");
         }
-        if (this.config.legendary_goldarmorbuff) {
+        if (this.config.legendary_gold_armor_buff) {
             removeRecipeByKey("golden_helmet");
             removeRecipeByKey("golden_chestplate");
             removeRecipeByKey("golden_boots");
             removeRecipeByKey("golden_leggings");
         }
-        if (this.config.legendary_blazesword) {
+        if (this.config.legendary_blaze_sword) {
             removeRecipeByKey("golden_sword");
         }
-        if (this.config.legendary_giantblade) {
+        if (this.config.legendary_giant_blade) {
             removeRecipeByKey("golden_hoe");
         }
-        if (this.config.legendary_quartzpickaxe) {
+        if (this.config.legendary_quartz_pickaxe) {
             removeRecipeByKey("golden_pickaxe");
         }
         if (this.config.legendary_obsidian_mace) {

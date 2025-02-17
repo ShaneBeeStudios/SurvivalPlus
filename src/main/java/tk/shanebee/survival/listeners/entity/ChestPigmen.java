@@ -37,8 +37,8 @@ public class ChestPigmen implements Listener {
                 this.goldItems.add(material);
             }
         }
-        this.radius = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_RADIUS;
-        double speedModifier = plugin.getSurvivalConfig().ENTITY_MECHANICS_PIGMEN_CHEST_SPEED;
+        this.radius = plugin.getSurvivalConfig().entity_mechanics_pigmen_chest_radius;
+        double speedModifier = plugin.getSurvivalConfig().entity_mechanics_pigmen_chest_speed;
         assert this.key != null;
         this.mod = speedModifier > 0 ? new AttributeModifier(this.key, speedModifier, Operation.ADD_SCALAR) : null;
 

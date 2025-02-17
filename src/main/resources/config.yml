@@ -258,8 +258,7 @@ Mechanics:
     # Whether a player is able to set a point for each world
     per-world: true
   # Players can eat a tropical fish to teleport to their waypoint
-  # (Clownfish was the old type that's why this is still here)
-  Clownfish: true
+  TropicalFish: true
 
   # Enables fermented skin recipes
   FermentedSkin: true

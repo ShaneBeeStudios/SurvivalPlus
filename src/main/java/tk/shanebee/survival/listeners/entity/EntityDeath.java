@@ -17,21 +17,19 @@ import java.util.Random;
 public class EntityDeath implements Listener {
 
     private final Config config;
-    private final int SUSPICIOUS_MEAT_CHANCE;
 
     public EntityDeath(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
-        this.SUSPICIOUS_MEAT_CHANCE = Math.max(0, this.config.ENTITY_MECHANICS_SUSPICIOUS_MEAT_CHANCE);
     }
 
     @EventHandler
     private void onEntityDeath(EntityDeathEvent event) {
-        if (!this.config.ENTITY_MECHANICS_SUSPICIOUS_MEAT_ENABLED) return; // May need to move if we add more items to drop in the future
+        if (!this.config.entity_mechanics_suspicious_meat_enabled) return; // May need to move if we add more items to drop in the future
         LivingEntity entity = event.getEntity();
         Player killer = entity.getKiller();
         if (killer != null) {
             int random = new Random().nextInt(100) + 1;
-            if (random > this.SUSPICIOUS_MEAT_CHANCE) return;
+            if (random > this.config.entity_mechanics_suspicious_meat_chance) return;
             switch (entity.getType()) {
                 case ZOMBIE:
                 case DROWNED:

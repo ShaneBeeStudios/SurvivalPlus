@@ -31,17 +31,17 @@ public class EffectManager {
 	}
 
 	private void loadEffects() {
-		if (config.legendary_blazesword) {
+		if (config.legendary_blaze_sword) {
 			this.blazeSwordEffects = new BlazeSwordEffects(plugin);
 			this.blazeSwordSound = new BlazeSwordSound(plugin);
 		}
-		if (config.legendary_giantblade)
+		if (config.legendary_giant_blade)
 			this.giantBlade = new GiantBlade(plugin);
 		if (config.legendary_obsidian_mace)
 			this.obsidianMace = new ObsidianMace(plugin);
 		if (config.legendary_valkyrie)
 			this.valkyrie = new Valkyrie(plugin);
-		if (config.legendary_quartzpickaxe)
+		if (config.legendary_quartz_pickaxe)
 			this.quartzPickaxe = new QuartzPickaxe(plugin);
 	}
 

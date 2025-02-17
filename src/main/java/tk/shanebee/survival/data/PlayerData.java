@@ -351,7 +351,7 @@ public class PlayerData implements ConfigurationSerializable {
     public void setCompassWaypoint(Location location) {
         World world = location.getWorld();
         if (world == null) return;
-        if (!config.MECHANICS_COMPASS_WAYPOINT_WORLDS) {
+        if (!this.config.mechanics_compass_waypoint_worlds) {
             this.compassMap.clear();
         }
         this.compassMap.put(world.getName(), location);
