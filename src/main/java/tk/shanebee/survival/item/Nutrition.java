@@ -1,16 +1,20 @@
 package tk.shanebee.survival.item;
 
 import com.google.common.base.Preconditions;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tk.shanebee.survival.config.ItemConfig;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +45,7 @@ public class Nutrition implements Keyed {
     public static final Nutrition BEETROOT = register(0, 0, 35, Material.BEETROOT);
     public static final Nutrition DRIED_KELP = register(15, 50, 50, Material.DRIED_KELP);
     public static final Nutrition SWEET_BERRIES = register(40, 0, 60, Material.SWEET_BERRIES);
+    public static final Nutrition GLOW_BERRIES = register(40, 0, 60, Material.GLOW_BERRIES);
 
     // PREPARED FOODS
     public static final Nutrition BREAD = register(300, 25, 12, Material.BREAD);
@@ -74,12 +79,13 @@ public class Nutrition implements Keyed {
     public static final Nutrition SPIDER_EYE = register(0, 50, 0, Material.SPIDER_EYE);
     public static final Nutrition ROTTEN_FLESH = register(0, 25, 25, Material.ROTTEN_FLESH);
     public static final Nutrition MILK_BUCKET = register(0, 250, 0, Material.MILK_BUCKET);
+    public static final Nutrition HONEY_BOTTLE = register(17, 0, 60, Material.HONEY_BOTTLE);
 
     @NotNull
     private static Nutrition register(int carbs, int proteins, int vitamins, Material material) {
         String key = material.toString().toLowerCase(Locale.ROOT);
         int[] nutritions = ItemConfig.INSTANCE.getNutritionValues(key, carbs, proteins, vitamins);
-        NamespacedKey namespacedKey = Utils.getNamespacedKey( "nutrition_" + key);
+        NamespacedKey namespacedKey = Utils.getNamespacedKey("nutrition_" + key);
         ItemStack itemStack = new ItemStack(material);
         return register(namespacedKey, false, itemStack, nutritions[0], nutritions[1], nutritions[2]);
     }
@@ -133,6 +139,42 @@ public class Nutrition implements Keyed {
             return true;
         }
         return false;
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    public static void debug() {
+        Nutrition.getAllNutritions().stream().sorted(Comparator.comparing(nutrition -> nutrition.getKey().toString()))
+            .forEach(nutrition -> {
+                String nutritionKey = nutrition.getKey().toString().replace(":", "<reset>:<green>");
+                String itemKey = nutrition.getItemStack().getType().getKey().toString().replace(":", "<reset>:<yellow>");
+                Utils.logMini("Nutrition%s:", nutrition.isCustom() ? "<reset>(<red>CUSTOM<reset>)<grey>" : "");
+                Utils.logMini(" - Key: <green>%s", nutritionKey);
+                Utils.logMini(" - Item: <yellow>%s", itemKey);
+                Utils.logMini(" - Values: <white>Carbs: <aqua>%s<white>, Proteins: <aqua>%s<white>, Vitamins: <aqua>%s",
+                    nutrition.getCarbs(), nutrition.getProteins(), nutrition.getVitamins());
+            });
+
+        List<Material> nutritionMaterials = new ArrayList<>();
+        getAllNutritions().forEach(nutrition -> nutritionMaterials.add(nutrition.itemStack.getType()));
+
+        Utils.logMini(" ");
+        Utils.logMini("Nutrition Materials Missing:");
+        for (ItemType itemType : Registry.ITEM.stream().sorted(Comparator.comparing(itemType -> itemType.getKey().toString())).toList()) {
+            ItemStack itemStack = itemType.createItemStack();
+            Material type = itemStack.getType();
+            if (itemStack.hasData(DataComponentTypes.FOOD)) {
+                if (!nutritionMaterials.contains(type)) {
+                    Utils.logMini("<grey> - <red>Nutrition missing for food item<white>: <aqua>%s", type.getKey().toString());
+                }
+            } else if (itemStack.hasData(DataComponentTypes.CONSUMABLE)) {
+                if (!nutritionMaterials.contains(type)) {
+                    Utils.logMini("<grey> - <#F09616>Nutrition missing for consumable item<white>: <aqua>%s", type.getKey().toString());
+                }
+            } else if (nutritionMaterials.contains(type)) {
+                if (type == Material.CAKE) continue;
+                Utils.logMini("<grey> - <yellow>Nutrition present for non food item<white>: <aqua>%s", type.getKey().toString());
+            }
+        }
     }
 
     private final NamespacedKey key;
