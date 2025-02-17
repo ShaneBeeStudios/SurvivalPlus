@@ -174,8 +174,8 @@ public class Config {
     public int ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS;
     public boolean ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY;
     public int ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS;
-    public boolean ENTITY_MECHANICS_PIGLIN_DROP_WATER;
-    public boolean ENTITY_MECHANICS_PIGLIN_ALT_DROP;
+    public boolean entity_mechanics_piglin_drop_water;
+    public boolean entity_mechanics_piglin_alt_drop;
 
     // RECIPES
     public boolean recipes_saddle;
@@ -431,8 +431,8 @@ public class Config {
         this.ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS = settings.getInt("Entity-Mechanics.chicken-breeding.max-eggs");
         this.ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY = settings.getBoolean("Entity-Mechanics.chicken-breeding.always-baby");
         this.ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS = settings.getInt("Entity-Mechanics.chicken-breeding.baby-ticks");
-        this.ENTITY_MECHANICS_PIGLIN_DROP_WATER = settings.getBoolean("Entity-Mechanics.piglin-barter.drop-purified-water");
-        this.ENTITY_MECHANICS_PIGLIN_ALT_DROP = settings.getBoolean("Entity-Mechanics.piglin-barter.alternate-bartering");
+        this.entity_mechanics_piglin_drop_water = settings.getBoolean("Entity-Mechanics.piglin-barter.drop-purified-water");
+        this.entity_mechanics_piglin_alt_drop = settings.getBoolean("Entity-Mechanics.piglin-barter.alternate-bartering");
 
         // RECIPES
         this.recipes_saddle = settings.getBoolean("Recipes.Saddle");

@@ -17,19 +17,11 @@ import java.util.Random;
 
 public class PiglinBarter implements Listener {
 
-    private final boolean SLOW_ARMOR;
-    private final boolean THIRST_ENABLED;
-    private final boolean DROP_WATER;
-    private final boolean ALT_DROPS;
-    private final Random RANDOM;
+    private final Config config;
+    private final Random random = new Random();
 
     public PiglinBarter(SurvivalPlugin plugin) {
-        Config config = plugin.getSurvivalConfig();
-        this.SLOW_ARMOR = config.mechanics_slow_armor;
-        this.THIRST_ENABLED = config.mechanics_thirst_enabled;
-        this.DROP_WATER = config.ENTITY_MECHANICS_PIGLIN_DROP_WATER;
-        this.ALT_DROPS = config.ENTITY_MECHANICS_PIGLIN_ALT_DROP;
-        this.RANDOM = new Random();
+        this.config = plugin.getSurvivalConfig();
     }
 
     @EventHandler
@@ -41,11 +33,11 @@ public class PiglinBarter implements Listener {
         Material itemDropMaterial = itemDropStack.getType();
 
         // If water bottle is dropped, let's change it
-        if (itemDropMaterial == Material.POTION && THIRST_ENABLED && DROP_WATER) {
+        if (itemDropMaterial == Material.POTION && this.config.mechanics_thirst_enabled && this.config.entity_mechanics_piglin_drop_water) {
             PotionMeta meta = ((PotionMeta) itemDropStack.getItemMeta());
             assert meta != null;
             if (meta.getBasePotionType() == PotionType.WATER) {
-                if (RANDOM.nextFloat() < 0.25f) {
+                if (this.random.nextFloat() < 0.25f) {
                     itemDrop.setItemStack(Items.PURIFIED_WATER.getItemStack());
                 } else {
                     itemDrop.setItemStack(Items.CLEAN_WATER.getItemStack());
@@ -54,30 +46,31 @@ public class PiglinBarter implements Listener {
             }
         }
 
-        // If alt drops are disabled let's get outta here
-        if (!ALT_DROPS) return;
+        // If alt drops are disabled let's get out of here
+        if (!this.config.entity_mechanics_piglin_alt_drop) return;
 
         // If slow armor is enabled let's always drop custom iron boots
-        if (itemDropMaterial == Material.IRON_BOOTS && SLOW_ARMOR) {
+        if (itemDropMaterial == Material.IRON_BOOTS && this.config.mechanics_slow_armor) {
             ItemStack boots = Items.IRON_BOOTS.getItemStack();
-            boots.addEnchantment(Enchantment.SOUL_SPEED, RANDOM.nextInt(3) + 1);
+            boots.addEnchantment(Enchantment.SOUL_SPEED, this.random.nextInt(3) + 1);
             itemDrop.setItemStack(boots);
             return;
         }
 
         // If anything else we have some random drops
-        ItemStack altItem = switch (itemDropMaterial) {
-            case LEATHER -> Items.SUSPICIOUS_MEAT.getItemStack();
-            case NETHER_BRICK -> Items.COFFEE_BEAN.getItemStack(RANDOM.nextInt(4) + 1);
-            case GRAVEL -> Items.FIRESTRIKER.getItemStack();
-            case SOUL_SAND -> Items.CAMPFIRE.getItemStack();
-            case POTION -> Items.MEDIC_KIT.getItemStack();
-            case SPLASH_POTION -> Items.GRAPPLING_HOOK.getItemStack();
-            case ENCHANTED_BOOK -> Items.RECURVE_CROSSBOW.getItemStack();
-            default -> null;
-        };
-        if (altItem != null && RANDOM.nextFloat() > 0.5f) {
-            itemDrop.setItemStack(altItem);
+
+        if (this.random.nextFloat() > 0.5f) {
+            ItemStack altItem = switch (itemDropMaterial) {
+                case LEATHER -> Items.SUSPICIOUS_MEAT.getItemStack();
+                case NETHER_BRICK -> Items.COFFEE_BEAN.getItemStack(this.random.nextInt(4) + 1);
+                case GRAVEL -> Items.FIRESTRIKER.getItemStack();
+                case SOUL_SAND -> Items.CAMPFIRE.getItemStack();
+                case POTION -> Items.MEDIC_KIT.getItemStack();
+                case SPLASH_POTION -> Items.GRAPPLING_HOOK.getItemStack();
+                case ENCHANTED_BOOK -> Items.RECURVE_CROSSBOW.getItemStack();
+                default -> null;
+            };
+            if (altItem != null) itemDrop.setItemStack(altItem);
         }
     }
 
