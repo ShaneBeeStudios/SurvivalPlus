@@ -268,25 +268,40 @@ items:
     name: "Workbench"
 
   # DRINKS
+  dirty_water:
+    name: "Dirty Water"
+    color: 0xA46F29
+    thirst_level: 7
+  salty_water:
+    name: "Salty Water"
+    color: 0x3DE294
+    thirst_level: 3
+  murky_water:
+    name: "Murky Water"
+    color: 12769874
+    thirst_level: 3
   clean_water:
     name: "Clean Water"
     color: 1213666
-  dirty_water:
-    name: "Dirty Water"
-    color: 12769874
+    thirst_level: 14
   purified_water:
     name: "Purified Water"
+    thirst_level: 24
     color: 0x00FFFF
   coffee:
     name: "Coffee"
+    thirst_level: 23
   cold_milk:
     name: "Cold Milk"
     color: 16250871
+    thirst_level: 15
   hot_milk:
     name: "Hot Milk"
     color: 16110486
+    thirst_level: 10
   water_bowl:
     name: "Water Bowl"
+    thirst_level: 10
 
   # FOOD
   suspicious_meat:

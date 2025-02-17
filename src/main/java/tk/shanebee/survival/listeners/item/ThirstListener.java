@@ -3,7 +3,6 @@ package tk.shanebee.survival.listeners.item;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,21 +13,18 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.config.Config;
 import tk.shanebee.survival.config.Lang;
 import tk.shanebee.survival.data.PlayerData;
 import tk.shanebee.survival.events.ThirstLevelChangeEvent;
+import tk.shanebee.survival.item.Item;
 import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.item.items.drinks.DrinkItem;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.StatusManager;
-import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,81 +52,36 @@ public class ThirstListener implements Listener {
         if (event.isCancelled()) return;
         final Player player = event.getPlayer();
         PlayerData playerData = playerManager.getPlayerData(player);
-        ItemStack item = event.getItem();
+        ItemStack itemStack = event.getItem();
         int change = 0;
-        switch (event.getItem().getType()) {
-            case POTION:
-                if (config.mechanics_thirst_purify_water) {
-                    if (checkWaterBottle(item)) {
-                        if (Items.DIRTY_WATER.is(item)) {
-                            change = config.mechanics_thirst_rep_dirty_water;
-                            Random rand = new Random();
-                            if (rand.nextInt(10) + 1 <= 5) {
-                                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
-                                player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
-                            }
-                        } else if (Items.CLEAN_WATER.is(item)) {
-                            change = config.mechanics_thirst_rep_clean_water;
-                            Random rand = new Random();
-                            if (rand.nextInt(10) + 1 <= 2) {
-                                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
-                                player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
-                            }
-                        } else if (Items.PURIFIED_WATER.is(item)) {
-                            change = config.mechanics_thirst_rep_pure_water;
-                        } else if (Items.COFFEE.is(item)) {
-                            change = config.mechanics_thirst_rep_coffee;
-                        } else if (Items.COLD_MILK.is(item)) {
-                            change = config.mechanics_thirst_rep_cold_milk;
-                        } else if (Items.HOT_MILK.is(item)) {
-                            change = config.mechanics_thirst_rep_hot_milk;
-                            player.damage(2);
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 0));
-                            Utils.sendColoredMini(player, lang.hot_milk_drink);
-                        } else if (Items.WATER_BOWL.is(item)) {
-                            event.setCancelled(true);
-                            change = handleWaterBowl(player);
-                        } else {
-                            change = config.mechanics_thirst_rep_other_water;
-                        }
+        Item item = Items.getFromStack(itemStack);
+        if (item instanceof DrinkItem drinkItem) {
+            change = drinkItem.getThirstLevel();
+        } else {
+            switch (event.getItem().getType()) {
+                case POTION:
+                    if (config.mechanics_thirst_purify_water) {
+                        change = config.mechanics_thirst_rep_other_water;
+                    } else {
+                        change = config.mechanics_thirst_rep_water;
                     }
-                } else {
-                    change = config.mechanics_thirst_rep_water;
-                }
-                break;
-            case MILK_BUCKET:
-                change = config.mechanics_thirst_rep_milk_bucket;
-                break;
-            case MELON_SLICE:
-                change = config.mechanics_thirst_rep_melon_slice;
-                break;
-            case MUSHROOM_STEW:
-                change = config.mechanics_thirst_rep_mush_stew;
-                break;
-            case HONEY_BOTTLE:
-                change = config.mechanics_thirst_rep_honey_bottle;
-                break;
-            case SUSPICIOUS_STEW:
-                if (Items.SUSPICIOUS_MEAT.is(item)) {
-                    // Remove the bowl from the player's hand afterward
-                    BukkitRunnable runnable = new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            PlayerInventory inv = player.getInventory();
-                            if (inv.getItemInMainHand().getType() == Material.BOWL) {
-                                inv.setItemInMainHand(null);
-                            } else if (inv.getItemInOffHand().getType() == Material.BOWL) {
-                                inv.setItemInOffHand(null);
-                            }
-                        }
-                    };
-                    runnable.runTaskLater(plugin, 1);
-                    return;
-                }
+                    break;
+                case MILK_BUCKET:
+                    change = config.mechanics_thirst_rep_milk_bucket;
+                    break;
+                case MELON_SLICE:
+                    change = config.mechanics_thirst_rep_melon_slice;
+                    break;
+                case MUSHROOM_STEW:
+                    change = config.mechanics_thirst_rep_mush_stew;
+                    break;
+                case HONEY_BOTTLE:
+                    change = config.mechanics_thirst_rep_honey_bottle;
+                    break;
+            }
         }
         ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
-        Bukkit.getPluginManager().callEvent(thirstEvent);
-        if (!thirstEvent.isCancelled()) {
+        if (thirstEvent.callEvent()) {
             playerData.setThirst(playerData.getThirst() + change);
         }
 
@@ -140,19 +91,6 @@ public class ThirstListener implements Listener {
                 player.sendMessage(plugin.getPlayerManager().getThirstVisual(player).get(1) + plugin.getPlayerManager().getThirstVisual(player).get(2) + " " + plugin.getPlayerManager().getThirstVisual(player).get(0).toUpperCase());
             }
         }, 1L);
-    }
-
-    private int handleWaterBowl(Player player) {
-        int change = config.mechanics_thirst_rep_water_bowl;
-        player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
-        if (config.mechanics_thirst_purify_water) {
-            Random rand = new Random();
-            if (rand.nextInt(10) + 1 <= 8) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 200, 0));
-            }
-        }
-        return change;
     }
 
     @EventHandler
@@ -181,7 +119,7 @@ public class ThirstListener implements Listener {
         if (event.isCancelled()) return;
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH) {
             Entity caught = event.getCaught();
-            if (caught instanceof Item item) {
+            if (caught instanceof org.bukkit.entity.Item item) {
                 ItemStack stack = item.getItemStack();
                 if (stack.getType() == Material.POTION && checkWaterBottle(stack)) {
                     item.setItemStack(Items.DIRTY_WATER.getItemStack());

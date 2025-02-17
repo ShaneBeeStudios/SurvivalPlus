@@ -1,6 +1,7 @@
 package tk.shanebee.survival.listeners.item;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -11,18 +12,20 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.Lightable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.util.Vector;
 import tk.shanebee.survival.SurvivalPlugin;
 import tk.shanebee.survival.events.WaterBowlFillEvent;
 import tk.shanebee.survival.item.Items;
+import tk.shanebee.survival.item.Recipes;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.Random;
@@ -41,16 +44,31 @@ public class WaterBowlListener implements Listener {
         this.clayEnabled = plugin.getSurvivalConfig().recipes_clay;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    private void onConsume(PlayerItemConsumeEvent event) {
-        if (this.thirstEnabled || event.isCancelled()) return;
+    @EventHandler // Leave an empty bow in the crafting grid after crafting clay
+    private void onCraft(CraftItemEvent event) {
+        if (!(event.getRecipe() instanceof Keyed keyed) || !keyed.getKey().equals(Recipes.CLAY.getKeys().getFirst()))
+            return;
 
-        if (Items.WATER_BOWL.is(event.getItem())) {
-            event.setCancelled(true);
+        final Player player = (Player) event.getWhoClicked();
+        final CraftingInventory inventory = event.getInventory();
+
+        ItemStack[] ingredients = inventory.getMatrix();
+        ItemStack result = inventory.getResult();
+
+        if (result != null && result.getType() == Material.CLAY) {
+            for (int i = 0; i < ingredients.length; i++) {
+                if (ingredients[i] != null && Items.WATER_BOWL.is(ingredients[i])) {
+                    int slot = i + 1;
+                    Bukkit.getServer().getScheduler().runTaskLater(this.plugin, () -> {
+                        inventory.setItem(slot, new ItemStack(Material.BOWL));
+                        player.updateInventory();
+                    }, 1);
+                }
+            }
         }
     }
 
-    @EventHandler
+    @EventHandler // Extinguish a campfire
     private void onExtinguishCampfire(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block clickedBlock = event.getClickedBlock();
@@ -73,7 +91,7 @@ public class WaterBowlListener implements Listener {
         Utils.spawnParticle(clickedBlock.getLocation().add(0.5, 0.5, 0.5), Particle.FALLING_WATER, 100, 0.25, 0.2, 0.25);
     }
 
-    @EventHandler
+    @EventHandler // Drop bowl into water to fill bowl
     private void onDrop(ItemSpawnEvent event) {
         if (event.isCancelled()) return;
         if (!this.thirstEnabled && !this.clayEnabled) return;
@@ -91,7 +109,8 @@ public class WaterBowlListener implements Listener {
                 int amount = itemDrop.getItemStack().getAmount();
                 itemDrop.remove();
                 for (int i = 0; i < amount; i++) {
-                    world.dropItem(itemLocation, Items.WATER_BOWL.getItemStack());
+                    world.dropItem(itemLocation, Items.WATER_BOWL.getItemStack(), item ->
+                        item.setVelocity(new Vector(0, 0.2, 0)));
                 }
             }, 20);
         }

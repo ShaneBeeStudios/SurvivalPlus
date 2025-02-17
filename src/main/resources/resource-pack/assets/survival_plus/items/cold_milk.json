@@ -4,7 +4,7 @@
         "model": "survival_plus:item/cold_milk",
         "tints": [
             {
-                "type": "minecraft:potion",
+                "type": "minecraft:dye",
                 "default": -13083194
             }
         ]

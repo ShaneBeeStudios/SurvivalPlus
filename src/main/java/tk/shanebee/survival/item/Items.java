@@ -3,6 +3,7 @@ package tk.shanebee.survival.item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
+import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +20,6 @@ import tk.shanebee.survival.item.items.drinks.Coffee;
 import tk.shanebee.survival.item.items.drinks.ColdMilk;
 import tk.shanebee.survival.item.items.drinks.HotMilk;
 import tk.shanebee.survival.item.items.drinks.Water;
-import tk.shanebee.survival.item.items.drinks.WaterBowl;
 import tk.shanebee.survival.item.items.food.SuspiciousMeat;
 import tk.shanebee.survival.item.items.legendary.BlazeSword;
 import tk.shanebee.survival.item.items.legendary.EnderGiantBlade;
@@ -123,13 +123,15 @@ public class Items {
     public static final Item SUSPICIOUS_MEAT = new SuspiciousMeat();
 
     // DRINKS
-    public static final Item DIRTY_WATER = new Water("dirty_water");
-    public static final Item CLEAN_WATER = new Water("clean_water");
-    public static final Item PURIFIED_WATER = new Water("purified_water");
+    public static final Water DIRTY_WATER = Water.dirty();
+    public static final Water CLEAN_WATER = Water.clean();
+    public static final Water PURIFIED_WATER = Water.purified();
+    public static final Water SALTY_WATER = Water.salty();
+    public static final Water MURKY_WATER = Water.murky();
+    public static final Water WATER_BOWL = Water.waterBowl();
     public static final Item COFFEE = new Coffee();
     public static final Item HOT_MILK = new HotMilk();
     public static final Item COLD_MILK = new ColdMilk();
-    public static final Item WATER_BOWL = new WaterBowl();
 
     // TODO Experimental
     public static final Item PERSISTENT_TORCH = null;
@@ -170,6 +172,24 @@ public class Items {
     }
 
     /**
+     * Get a water bottle based on a biome
+     *
+     * @param biome Biome to check for bottle
+     * @return Water bottle based on biome
+     */
+    public static Water getBiomeBasedWaterBottle(Biome biome) {
+        String string = biome.getKey().getKey();
+        if (string.contains("ocean")) {
+            return Items.SALTY_WATER;
+        } else if (string.contains("swamp")) {
+            return Items.MURKY_WATER;
+        } else if (string.contains("lush")) {
+            return Items.PURIFIED_WATER;
+        }
+        return Items.DIRTY_WATER;
+    }
+
+    /**
      * Tags for different {@link Items} groups
      */
     public enum Tags {
@@ -185,11 +205,11 @@ public class Items {
         /**
          * Any water bottle
          */
-        WATER_BOTTLE(DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER),
+        WATER_BOTTLE(DIRTY_WATER, MURKY_WATER, SALTY_WATER, CLEAN_WATER, PURIFIED_WATER),
         /**
          * Any drinkable item
          */
-        DRINKABLE(DIRTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
+        DRINKABLE(DIRTY_WATER, MURKY_WATER, SALTY_WATER, CLEAN_WATER, PURIFIED_WATER, WATER_BOWL,
             COLD_MILK, HOT_MILK, COFFEE),
 
         /**

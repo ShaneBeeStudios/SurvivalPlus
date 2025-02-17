@@ -1,9 +1,11 @@
 package tk.shanebee.survival.item;
 
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.DyedItemColor;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -27,10 +29,12 @@ public abstract class Item {
     private Key key;
     protected NamespacedKey recipeKey;
     private ItemStack itemStack;
+
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private double repairPercent; // TODO figure this out
 
     public ItemStack getItemStack() {
-        return this.itemStack.clone();
+        return getItemStack(1);
     }
 
     public ItemStack getItemStack(int amount) {
@@ -49,6 +53,13 @@ public abstract class Item {
         this.recipeKey = NamespacedKey.fromString(this.key.toString());
         if (!vanillaModel) {
             itemStack.setData(DataComponentTypes.ITEM_MODEL, this.key);
+        }
+
+        // Color
+        int color = ITEM_CONFIG.getColor(key);
+        if (color != 0) {
+            DyedItemColor dyedItemColor = DyedItemColor.dyedItemColor(Color.fromRGB(color), false);
+            itemStack.setData(DataComponentTypes.DYED_COLOR, dyedItemColor);
         }
 
         // Item Name
@@ -78,6 +89,7 @@ public abstract class Item {
         int maxDamage = ITEM_CONFIG.getMaxDamage(key);
         if (maxDamage > 0) {
             itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxDamage);
+            itemStack.setData(DataComponentTypes.DAMAGE, 0);
         }
 
         // Repair Cost

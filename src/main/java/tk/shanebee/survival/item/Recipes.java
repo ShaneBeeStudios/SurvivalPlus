@@ -21,6 +21,7 @@ import tk.shanebee.survival.util.Utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Enums of all custom recipes
@@ -435,6 +436,10 @@ public class Recipes {
             }
         }
         this.keys = list;
+    }
+
+    public List<NamespacedKey> getKeys() {
+        return new ArrayList<>(this.keys);
     }
 
     public void unlock(Player player) {

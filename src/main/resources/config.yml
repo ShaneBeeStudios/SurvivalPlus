@@ -205,20 +205,13 @@ Mechanics:
     # The amount of damage a player takes when their thirst level is empty
     damage-rate: 1.0
     # The level of thirst that will be replenished when a player consumes this item
+    # Some item's replenish thirst levels are handled in the items.yml file
     replenish-level:
       beetroot-soup: 6
       melon-slice: 6
       mushroom-stew: 12
-      water-bowl: 10
-      coffee: 23
-      cold-milk: 15
-      hot-milk: 10
       milk-bucket: 30
       honey-bottle: 16
-      # Only used if PurifyWater is enabled
-      dirty-water: 7
-      clean-water: 14
-      purified-water: 24
       # This can be used for any other water bottle (such as custom ones or just vanilla water bottles)
       # If you do not want players to get thirst from other water bottles leave this at 0
       other-water: 0

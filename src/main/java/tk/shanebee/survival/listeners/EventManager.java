@@ -39,7 +39,7 @@ import tk.shanebee.survival.listeners.item.ShivPoison;
 import tk.shanebee.survival.listeners.item.ThirstListener;
 import tk.shanebee.survival.listeners.item.TropicalFish;
 import tk.shanebee.survival.listeners.item.Valkyrie;
-import tk.shanebee.survival.listeners.item.WaterBottleCrafting;
+import tk.shanebee.survival.listeners.item.WaterBottleListener;
 import tk.shanebee.survival.listeners.item.WaterBowlListener;
 import tk.shanebee.survival.listeners.player.EnergyChange;
 import tk.shanebee.survival.listeners.player.PlayerDataListener;
@@ -98,7 +98,7 @@ public class EventManager {
 		if (config.mechanics_medic_kit)
 			pm.registerEvents(new MedicKit(plugin), this.plugin);
 
-		pm.registerEvents(new WaterBottleCrafting(plugin), this.plugin);
+		pm.registerEvents(new WaterBottleListener(plugin), this.plugin);
 
         if (config.settings_resource_pack_enabled) {
             pm.registerEvents(new ResourcePackListener(plugin), this.plugin);

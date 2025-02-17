@@ -125,13 +125,6 @@ public class Config {
     public int mechanics_thirst_rep_beetroot_soup;
     public int mechanics_thirst_rep_melon_slice;
     public int mechanics_thirst_rep_mush_stew;
-    public int mechanics_thirst_rep_water_bowl;
-    public int mechanics_thirst_rep_dirty_water;
-    public int mechanics_thirst_rep_clean_water;
-    public int mechanics_thirst_rep_pure_water;
-    public int mechanics_thirst_rep_coffee;
-    public int mechanics_thirst_rep_cold_milk;
-    public int mechanics_thirst_rep_hot_milk;
     public int mechanics_thirst_rep_milk_bucket;
     public int mechanics_thirst_rep_water;
     public int mechanics_thirst_rep_honey_bottle;
@@ -389,13 +382,6 @@ public class Config {
         this.mechanics_thirst_rep_beetroot_soup = settings.getInt("Mechanics.Thirst.replenish-level.beetroot-soup");
         this.mechanics_thirst_rep_melon_slice = settings.getInt("Mechanics.Thirst.replenish-level.melon-slice");
         this.mechanics_thirst_rep_mush_stew = settings.getInt("Mechanics.Thirst.replenish-level.mushroom-stew");
-        this.mechanics_thirst_rep_water_bowl = settings.getInt("Mechanics.Thirst.replenish-level.water-bowl");
-        this.mechanics_thirst_rep_dirty_water = settings.getInt("Mechanics.Thirst.replenish-level.dirty-water");
-        this.mechanics_thirst_rep_clean_water = settings.getInt("Mechanics.Thirst.replenish-level.clean-water");
-        this.mechanics_thirst_rep_pure_water = settings.getInt("Mechanics.Thirst.replenish-level.purified-water");
-        this.mechanics_thirst_rep_coffee = settings.getInt("Mechanics.Thirst.replenish-level.coffee");
-        this.mechanics_thirst_rep_cold_milk = settings.getInt("Mechanics.Thirst.replenish-level.cold-milk");
-        this.mechanics_thirst_rep_hot_milk = settings.getInt("Mechanics.Thirst.replenish-level.hot-milk");
         this.mechanics_thirst_rep_milk_bucket = settings.getInt("Mechanics.Thirst.replenish-level.milk-bucket");
         this.mechanics_thirst_rep_honey_bottle = settings.getInt("Mechanics.Thirst.replenish-level.honey-bottle");
         this.mechanics_thirst_rep_other_water = settings.getInt("Mechanics.Thirst.replenish-level.other-water");
