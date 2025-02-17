@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Chicken;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -19,21 +18,16 @@ import java.util.Random;
 
 public class ChickenSpawn implements Listener {
 
+    private final Config config;
     private final Random random = new Random();
-    private final int maxEggs;
-    private final boolean alwaysBaby;
-    private final int babyTicks;
 
     public ChickenSpawn(SurvivalPlugin plugin) {
-        Config config = plugin.getSurvivalConfig();
-        this.maxEggs = config.ENTITY_MECHANICS_CHICKEN_BREEDING_MAX_EGGS;
-        this.alwaysBaby = config.ENTITY_MECHANICS_CHICKEN_BREEDING_ALWAYS_BABY;
-        this.babyTicks = config.ENTITY_MECHANICS_CHICKEN_BREEDING_BABY_TICKS;
+        this.config = plugin.getSurvivalConfig();
     }
 
     @EventHandler
     private void onChickenSpawn(CreatureSpawnEvent event) {
-        if (event.getEntityType() == EntityType.CHICKEN) {
+        if (event.getEntity() instanceof Chicken chicken) {
             SpawnReason reason = event.getSpawnReason();
             if (reason == SpawnReason.BREEDING) {
                 event.setCancelled(true);
@@ -43,12 +37,12 @@ public class ChickenSpawn implements Listener {
                 world.dropItem(loc, getEgg());
                 world.playSound(loc, Sound.ENTITY_CHICKEN_EGG, 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
             } else if (reason == SpawnReason.EGG) {
-                Chicken chicken = ((Chicken) event.getEntity());
-                if (this.alwaysBaby) {
+                int babyTicks = this.config.entity_mechanics_chicken_breeding_baby_ticks;
+                if (this.config.entity_mechanics_chicken_breeding_always_baby) {
                     chicken.setBaby();
-                    chicken.setAge(-this.babyTicks);
+                    chicken.setAge(-babyTicks);
                 } else if (!chicken.isAdult()) {
-                    chicken.setAge(-this.babyTicks);
+                    chicken.setAge(-babyTicks);
                 }
             }
         }
@@ -63,6 +57,7 @@ public class ChickenSpawn implements Listener {
     }
 
     private ItemStack getEgg() {
+        int maxEggs = this.config.entity_mechanics_chicken_breeding_max_eggs;
         int ran = maxEggs > 1 ? this.random.nextInt(maxEggs) + 1 : 1;
         return Items.BREEDING_EGG.getItemStack(ran);
     }
