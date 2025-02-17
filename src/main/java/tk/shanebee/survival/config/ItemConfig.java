@@ -1,22 +1,25 @@
-package tk.shanebee.survival.item;
+package tk.shanebee.survival.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tk.shanebee.survival.SurvivalPlugin;
+import tk.shanebee.survival.item.Nutrition;
 import tk.shanebee.survival.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 public class ItemConfig {
 
-    static ItemConfig INSTANCE;
+    public static ItemConfig INSTANCE;
     private final SurvivalPlugin plugin = SurvivalPlugin.getInstance();
     private FileConfiguration settings;
     private File configFile;
 
-    ItemConfig() {
+    public ItemConfig() {
         INSTANCE = this;
         loadDefaultSettings();
         Nutrition.setup();
@@ -35,9 +38,30 @@ public class ItemConfig {
         } else {
             settings = YamlConfiguration.loadConfiguration(configFile);
         }
+        matchConfig(this.settings, this.configFile);
     }
 
-    int[] getNutritionValues(String key, int carbs, int proteins, int vitamins) {
+    private void matchConfig(FileConfiguration config, File file) {
+        try {
+            boolean hasUpdated = false;
+            InputStream is = plugin.getResource(file.getName());
+            assert is != null;
+            InputStreamReader isr = new InputStreamReader(is);
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(isr);
+            for (String key : defConfig.getConfigurationSection("").getKeys(true)) {
+                if (!config.contains(key)) {
+                    config.set(key, defConfig.get(key));
+                    hasUpdated = true;
+                }
+            }
+            if (hasUpdated)
+                config.save(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int[] getNutritionValues(String key, int carbs, int proteins, int vitamins) {
         String path = "nutritions." + key + ".";
         String[] paths = new String[]{path + "carbs", path + "proteins", path + "vitamins"};
         int[] nutritions = new int[]{carbs, proteins, vitamins};
@@ -59,11 +83,11 @@ public class ItemConfig {
         return nutritions;
     }
 
-    String getName(String key) {
+    public String getName(String key) {
         return this.settings.getString("items." + key + ".name");
     }
 
-    List<String> getLore(String key) {
+    public List<String> getLore(String key) {
         String path = "items." + key + ".lore";
         if (this.settings.contains(path)) {
             return this.settings.getStringList(path);
@@ -71,7 +95,7 @@ public class ItemConfig {
         return null;
     }
 
-    int getMaxDamage(String key) {
+    public int getMaxDamage(String key) {
         String path = "items." + key + ".max_damage";
         if (this.settings.contains(path)) {
             return this.settings.getInt(path);
@@ -79,7 +103,7 @@ public class ItemConfig {
         return 0;
     }
 
-    int getRepairCost(String key) {
+    public int getRepairCost(String key) {
         String path = "items." + key + ".repair_cost";
         if (this.settings.contains(path)) {
             return this.settings.getInt(path);
@@ -87,7 +111,7 @@ public class ItemConfig {
         return 0;
     }
 
-    double getRepairPercent(String key) {
+    public double getRepairPercent(String key) {
         String path = "items." + key + ".repair_percent";
         if (this.settings.contains(path)) {
             return this.settings.getDouble(path);

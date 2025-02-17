@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tk.shanebee.survival.config.ItemConfig;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class Nutrition implements Keyed {
 
-    static void setup() {
+    public static void setup() {
     }
 
     private static final Map<NamespacedKey, Nutrition> NUTRITION_MAP = new LinkedHashMap<>();

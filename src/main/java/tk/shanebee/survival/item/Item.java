@@ -9,6 +9,7 @@ import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import tk.shanebee.survival.config.ItemConfig;
 import tk.shanebee.survival.util.Utils;
 
 import java.util.ArrayList;
