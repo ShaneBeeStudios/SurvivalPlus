@@ -86,7 +86,7 @@ tasks {
     shadowJar {
         relocate("fr.mrmicky.fastboard", "com.shanebeestudios.survival.api.fastboard")
         relocate("dev.jorel.commandapi", "com.shanebeestudios.survival.api.commandapi")
-        relocate("org.bstats.bukkit", "com.shanebeestudios.survival.api.metrics.bstats")
+        relocate("org.bstats", "com.shanebeestudios.survival.api.metrics.bstats")
         archiveFileName = "SurvivalPlus-${projectVersion}.jar"
     }
     jar {
