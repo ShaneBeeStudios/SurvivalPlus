@@ -8,7 +8,7 @@
 # Language options are EN (English)
 Language: EN
 
-Settings:
+settings:
   # Enable the SurvivalPlus resource pack for players
   # You can disable this if you wish to supply it yourself
   enable-resource-pack: true
@@ -20,111 +20,117 @@ Settings:
   local-chat-distance: -1
 
 # When a player joins, they will get a link to a simple starter guide
-WelcomeGuide:
-  Enabled: true
+welcome-guide:
+  enabled: true
   # Only send to players the first time they log in
-  NewPlayersOnly: false
+  new-players-only: false
   # Delay in seconds until this message appears
-  Delay: 5
+  delay: 5
 
-Survival:
+survival:
   # When enabled, the basic custom SurvivalPlus items will be included in the game
-  Enabled: true
+  enabled: true
 
   # With this enabled, players will only be able to craft items which they have unlocked recipes for
   LimitedCrafting: false
 
   # If true, all custom recipes will be unlocked when a player joins
-  # If false, recipes will be unlocked as a player advances thru the game
-  Unlock-all-recipes-on-join: false
+  # If false, recipes will be unlocked as a player advances through the game
+  unlock-all-recipes-on-join: false
 
   # When enabled, all vanilla wooden tool recipes will be removed
   # This makes gameplay a little more difficult
-  Remove-Wooden-Tools: true
+  remove-wooden-tools: true
 
   # With these enabled, players will only be able to break most blocks with the correct tools
-  BreakOnlyWith:
-    Axe: true
-    Pickaxe: true
-    Shovel: true
-    Shears: true
-    Sickle: true
+  break-only-with:
+    axe: true
+    pickaxe: true
+    shovel: true
+    shears: true
+    sickle: true
 
   # Enable each sickle individually
-  # (note: if BreakOnlyWith.Sickle = false or Survival.Enabled = false, these will be ignored)
-  # (note: diamond and iron sickles rely on stone sickles in their recipe, so its best to leave stone enabled if diamond or iron are enabled)
-  Sickles:
-    Flint: true
-    Stone: true
-    Iron: true
-    Diamond: false
+  # (note: if `break-only-with.sickle` = false or survival.enabled` = false, these will be ignored)
+  # (note: diamond and iron sickles rely on stone sickles in their recipe, so it's best to leave stone enabled if diamond or iron are enabled)
+  sickles:
+    flint: true
+    stone: true
+    iron: true
+    diamond: false
 
-  # With this enabled, players will need a hammer in their off hand to place most buildable blocks
-  PlaceOnlyWith:
-    Hammer: true
+  # With this enabled, players will need a hammer in their off-hand to place most buildable blocks
+  place-only-with:
+    hammer: true
 
   # The rates at which items will drop (Value between 0.01 -> 1.0)
-  DropRate:
+  drop-rate:
     # Dropped when breaking gravel
-    Flint: 0.5
+    flint: 0.5
     # Dropped when breaking leaves
-    Stick: 0.25
+    stick: 0.25
 
   # Enables custom torch recipes
-  Torch: true
+  torch: true
 
   # Enables updating trade options for merchants (ie: Villagers) with custom items equivalent to the trade option
   # Ex: An armorer offers diamond chestplate -> diamond chestplate with the slowness attribute
   # Ex: A toolsmith offers diamond hoe -> diamond sickle
-  UpdateMerchantTrades: true
+  update-merchant-trades: true
 
-Mechanics:
+mechanics:
   # This is an experimental feature, I recommend not using it
-  SharedWorkbench: false
+  shared-workbench: false
 
   # When enabled, players will slow down when wearing heavy armor such as diamond or gold armor
-  SlowArmor: true
+  slow-armor: true
+
   # Enables recipes for reinforced leather armor
-  ReinforcedLeatherArmor: true
+  reinforced-leather-armor: true
 
   # When enabled, players will only be able to shoot a bow/crossbow from their main hand
   # They will also need to have arrows in their offhand to shoot a bow/load a crossbow
-  Bow: true
+  bow: true
+
   # Enables the recurved bow and crossbow
-  RecurveBow: true
+  recurve-bow: true
+
   # Enables grappling hooks
-  GrapplingHook: true
+  grappling-hook: true
+
   # Enables the medical kit
   # Players will be able to heal themselves and other players
   # The items.yml file allows you to modify how many uses it has
   # Each use (1 durability) will add 2 health points (1 heart)
-  MedicalKit: true
+  medical-kit: true
+
   # Reduced recipes for iron/gold nuggets
-  ReducedIronNugget: true
-  ReducedGoldNugget: true
+  reduced-iron-nugget: true
+  reduced-gold-nugget: true
 
   # Shows the players different status levels in a scoreboard
-  StatusScoreboard: true
+  status-scoreboard: true
+
   # Interval for alert messages [in seconds] (Currently used to warn players when thirst/nutrients are low)
-  AlertInterval: 20
+  alert-interval: 20
 
   # Applies hunger to players when eating raw meat
-  RawMeatHunger: true
+  raw-meat-hunger: true
 
   # Players can empty potions in a workbench
-  EmptyPotions: true
+  empty-potions: true
 
   # When consuming poisonous potatoes, apply a few extra effects to the player
-  PoisonousPotato: true
+  poisonous-potato: true
 
   # Eating cookies will boost a player's health
-  CookieHealthBoost: true
+  cookie-health-boost: true
 
   # Eating beetroots will boost a player's strength
-  BeetrootStrength: true
+  beetroot-strength: true
 
   # Players will need to eat a different variety of foods to stay nourished
-  FoodDiversity:
+  food-diversity:
     enabled: true
     # Max level for each nutritional value
     max-level: 1000
@@ -175,7 +181,7 @@ Mechanics:
             duration: 20
 
   # When enabled, players will need to drink water to replenish their thirst levels
-  Thirst:
+  thirst:
     enabled: true
     # The level of thirst a player starts out with (max = 40)
     starting-amount: 30.0
@@ -215,7 +221,7 @@ Mechanics:
       water: 18
 
   # Players will have an energy level out of 20, as it drops, players will get weak and suffer some bad effects
-  Energy:
+  energy:
     # With this enabled, players will need to sleep often or risk losing energy
     enabled: true
     # The amount of energy a player will start with (out of 20.0)
@@ -246,50 +252,52 @@ Mechanics:
     # Player will get a few minutes of haste when their energy is high
     haste: true
 
-  Hunger:
+  hunger:
     # The level of hunger a player starts out with (max = 40)(this is a mixture of hunger and saturation)
-    Starting-Amount: 30
-    # The level of hunger a player will receive after respawning after death (max = 40)
-    Respawn-Amount: 30
+    starting-amount: 30
+    # The level of hunger a player will receive after respawning post-death (max = 40)
+    respawn-amount: 30
 
   # Players can set a waypoint to a location using a compass
-  CompassWaypoint:
+  compass-waypoint:
     enabled: true
     # Whether a player is able to set a point for each world
     per-world: true
+
   # Players can eat a tropical fish to teleport to their waypoint
-  TropicalFish: true
+  tropical-fish: true
 
   # Enables fermented skin recipes
-  FermentedSkin: true
+  fermented-skin: true
 
   # Enables living slime
-  LivingSlime: true
+  living-slime: true
 
   # When a player throws a snowball it will place a snow layer on the ground
-  SnowballRevamp: true
+  snowball-revamp: true
 
   # Currently disabled, do not use!!!
   SnowGenerationRevamp: false
 
-  FarmingProducts:
-    Bread: true
-    Cookie: true
+  # Creates harder to craft recipes for these items
+  farming-products:
+    bread: true
+    cookie: true
 
   # Enables chairs and the blocks that can be used for chairs
-  Chairs:
-    Enabled: true
-    MaxChairWidth: 2
+  chairs:
+    enabled: true
+    max-chair-width: 2
     # Blocks that can be used as chairs
     # Has to be a stair block
     # Accepts Minecraft namespaced keys and tags
-    AllowedBlocks:
+    allowed-blocks:
       - '#minecraft:stairs'
 
   # WEATHER MECHANICS
   # These mechanics change how weather affects the player
-  Weather:
-    Enabled: false
+  weather:
+    enabled: false
     # Speed modifiers adjust player's speed based on weather
     speed:
       # This is the base speed (vanilla speed = 0.10) when a player is in normal conditions
@@ -304,13 +312,13 @@ Mechanics:
       snowstorm: 0.05
 
 # Mechanics that flow around items
-Item-Mechanics:
+item-mechanics:
   firestriker:
     # The amount of ticks it takes to cook/smelt an item with the FireStriker (default 100 ticks = 5 seconds)
     cook-time: 100
 
 # Mechanics that flow around entities
-Entity-Mechanics:
+entity-mechanics:
   # When a player opens a chest in the nether, and it contains gold items, zombified piglins will attack the player
   zombified-piglin-chests:
     enabled: true
@@ -350,37 +358,37 @@ Entity-Mechanics:
 
 # Enables custom recipes (Overrides vanilla recipes)
 # Disable these if you prefer to just use the vanilla recipes
-Recipes:
-  Saddle: true
-  Nametag: true
-  PackedIce: true
-  LeatherBard: true
-  IronBard: true
-  GoldBard: true
-  DiamondBard: true
-  ClayBrick: true
-  QuartzBlock: true
-  WoolString: true
-  WebString: true
-  Ice: true
-  Clay: true
-  Diorite: false
-  Granite: false
-  Andesite: false
-  Gravel: true
-  Slimeball: true
-  Cobweb: true
-  SaplingToSticks: true
-  FishingRod: true
-  Furnace: true
-  Workbench: true
+recipes:
+  saddle: true
+  nametag: true
+  packed-ice: true
+  leather-bard: true
+  iron-bard: true
+  gold-bard: true
+  diamond-bard: true
+  clay-brick: true
+  quartz-block: true
+  wool-string: true
+  web-string: true
+  ice: true
+  clay: true
+  diorite: false
+  granite: false
+  andesite: false
+  gravel: true
+  slimeball: true
+  cobweb: true
+  sapling-to-sticks: true
+  fishing-rod: true
+  furnace: true
+  workbench: true
 
 # Enables legendary items
-LegendaryItems:
-  ValkyrieAxe: true
-  QuartzPickaxe: true
-  ObsidianMace: true
-  GiantBlade: true
-  BlazeSword: true
-  NotchApple: true
-  GoldArmorBuff: true
+legendary-items:
+  valkyrie-axe: true
+  quartz-pickaxe: true
+  obsidian-mace: true
+  giant-blade: true
+  blaze-sword: true
+  notch-apple: true
+  gold-armor-buff: true

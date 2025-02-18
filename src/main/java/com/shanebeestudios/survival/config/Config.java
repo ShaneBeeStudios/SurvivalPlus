@@ -268,206 +268,206 @@ public class Config {
     }
 
     private void loadSettings() {
-
-        this.lang = settings.getString("Language");
+        this.lang = this.settings.getString("Language");
 
         // SETTINGS
-        this.settings_resource_pack_enabled = settings.getBoolean("Settings.enable-resource-pack");
-        this.settings_resource_pack_url = settings.getString("Settings.resource-pack-url");
-        this.settings_local_chat_distance = settings.getInt("settings.local-chat-distance");
+        this.settings_resource_pack_enabled = this.settings.getBoolean("settings.enable-resource-pack");
+        this.settings_resource_pack_url = this.settings.getString("settings.resource-pack-url");
+        this.settings_local_chat_distance = this.settings.getInt("settings.local-chat-distance");
 
         // WELCOME GUIDE
-        this.welcome_guide_enabled = settings.getBoolean("WelcomeGuide.Enabled");
-        this.welcome_guide_new_players = settings.getBoolean("WelcomeGuide.NewPlayersOnly");
-        this.welcome_guide_delay = settings.getInt("WelcomeGuide.Delay");
+        this.welcome_guide_enabled = this.settings.getBoolean("welcome-guide.enabled");
+        this.welcome_guide_new_players = this.settings.getBoolean("welcome-guide.new-players-only");
+        this.welcome_guide_delay = this.settings.getInt("welcome-guide.delay");
 
         // SURVIVAL
-        this.survival_enabled = settings.getBoolean("Survival.Enabled");
-        this.survival_limited_crafting = settings.getBoolean("Survival.LimitedCrafting");
-        this.survival_unlock_all_recipes = settings.getBoolean("Survival.Unlock-all-recipes-on-join");
-        this.survival_remove_wood_tools = settings.getBoolean("Survival.Remove-Wooden-Tools");
-        this.survival_torch = settings.getBoolean("Survival.Torch");
-        this.survival_update_merchant_trades = settings.getBoolean("Survival.UpdateMerchantTrades");
+        this.survival_enabled = this.settings.getBoolean("survival.enabled");
+        this.survival_limited_crafting = this.settings.getBoolean("survival.LimitedCrafting"); // TODO remove
+        this.survival_unlock_all_recipes = this.settings.getBoolean("survival.unlock-all-recipes-on-join");
+        this.survival_remove_wood_tools = this.settings.getBoolean("survival.remove-wooden-tools");
+        this.survival_torch = this.settings.getBoolean("survival.torch"); // TODO move to recipes area?!?!?
+        this.survival_update_merchant_trades = this.settings.getBoolean("survival.update-merchant-trades");
 
-        this.break_only_with_sickle = settings.getBoolean("Survival.BreakOnlyWith.Sickle");
-        this.survival_break_only_with_shovel = settings.getBoolean("Survival.BreakOnlyWith.Shovel");
-        this.survival_break_only_with_axe = settings.getBoolean("Survival.BreakOnlyWith.Axe");
-        this.survival_break_only_with_pickaxe = settings.getBoolean("Survival.BreakOnlyWith.Pickaxe");
-        this.survival_break_only_with_shears = settings.getBoolean("Survival.BreakOnlyWith.Shears");
-        this.survival_place_only_with_hammer = settings.getBoolean("Survival.PlaceOnlyWith.Hammer");
+        this.break_only_with_sickle = this.settings.getBoolean("survival.break-only-with.sickle");
+        this.survival_break_only_with_shovel = this.settings.getBoolean("survival.break-only-with.shovel");
+        this.survival_break_only_with_axe = this.settings.getBoolean("survival.break-only-with.axe");
+        this.survival_break_only_with_pickaxe = this.settings.getBoolean("survival.break-only-with.pickaxe");
+        this.survival_break_only_with_shears = this.settings.getBoolean("survival.break-only-with.shears");
+        this.survival_place_only_with_hammer = this.settings.getBoolean("survival.place-only_with.hammer");
 
-        this.survival_sickle_flint = settings.getBoolean("Survival.Sickles.Flint");
-        this.survival_sickle_stone = settings.getBoolean("Survival.Sickles.Stone");
-        this.survival_sickle_iron = settings.getBoolean("Survival.Sickles.Iron");
-        this.survival_sickle_diamond = settings.getBoolean("Survival.Sickles.Diamond");
+        this.survival_sickle_flint = this.settings.getBoolean("survival.sickles.flint");
+        this.survival_sickle_stone = this.settings.getBoolean("survival.sickles.stone");
+        this.survival_sickle_iron = this.settings.getBoolean("survival.sickles.iron");
+        this.survival_sickle_diamond = this.settings.getBoolean("survival.sickles.diamond");
 
-        this.survival_drop_rate_stick = settings.getDouble("Survival.DropRate.Stick");
-        this.survival_drop_rate_flint = settings.getDouble("Survival.DropRate.Flint");
+        this.survival_drop_rate_stick = this.settings.getDouble("survival.drop-rate.stick");
+        this.survival_drop_rate_flint = this.settings.getDouble("survival.drop-rate.flint");
 
         // MECHANICS
-        this.mechanics_shared_workbench = settings.getBoolean("Mechanics.SharedWorkbench");
-        this.mechanics_energy_enabled = settings.getBoolean("Mechanics.Energy.enabled");
-        this.mechanics_energy_start = settings.getDouble("Mechanics.Energy.start-level");
-        this.mechanics_energy_respawn = settings.getDouble("Mechanics.Energy.respawn-level");
-        this.mechanics_energy_warning = settings.getBoolean("Mechanics.Energy.warning");
-        this.mechanics_energy_drain_rate = settings.getDouble("Mechanics.Energy.drain-rate");
-        this.mechanics_energy_drain_cold_rate = settings.getDouble("Mechanics.Energy.cold-drain-rate");
-        this.mechanics_energy_refresh_rate_bed = settings.getDouble("Mechanics.Energy.sleeping-refresh-rate");
-        this.mechanics_energy_refresh_rate_chair = settings.getDouble("Mechanics.Energy.chair-refresh-rate");
-        this.mechanics_energy_exhaustion = settings.getDouble("Mechanics.Energy.exhaustion");
-        this.mechanics_energy_coffee_enabled = settings.getBoolean("Mechanics.Energy.coffee");
-        this.mechanics_energy_absorption = settings.getBoolean("Mechanics.Energy.absorption");
-        this.mechanics_energy_haste = settings.getBoolean("Mechanics.Energy.haste");
+        this.mechanics_slow_armor = this.settings.getBoolean("mechanics.slow-armor");
+        this.mechanics_reinforced_armor = this.settings.getBoolean("mechanics.reinforced-leather-armor");
+        this.MECHANICS_BOW = this.settings.getBoolean("mechanics.bow");
+        this.mechanics_recurved_bow = this.settings.getBoolean("mechanics.recurve-bow");
+        this.mechanics_grappling_hook = this.settings.getBoolean("mechanics.grappling-hook");
+        this.mechanics_medic_kit = this.settings.getBoolean("mechanics.medical-kit");
+        this.mechanics_reduced_iron_nugget = this.settings.getBoolean("mechanics.reduced-iron-nugget");
+        this.mechanics_reduced_gold_nugget = this.settings.getBoolean("mechanics.reduced-gold-nugget");
 
-        this.mechanics_slow_armor = settings.getBoolean("Mechanics.SlowArmor");
-        this.mechanics_reinforced_armor = settings.getBoolean("Mechanics.ReinforcedLeatherArmor");
-        this.MECHANICS_BOW = settings.getBoolean("Mechanics.Bow");
-        this.mechanics_recurved_bow = settings.getBoolean("Mechanics.RecurveBow");
-        this.mechanics_grappling_hook = settings.getBoolean("Mechanics.GrapplingHook");
-        this.mechanics_medic_kit = settings.getBoolean("Mechanics.MedicalKit");
-        this.mechanics_reduced_iron_nugget = settings.getBoolean("Mechanics.ReducedIronNugget");
-        this.mechanics_reduced_gold_nugget = settings.getBoolean("Mechanics.ReducedGoldNugget");
+        this.mechanics_status_scoreboard = this.settings.getBoolean("mechanics.status-scoreboard");
+        this.MECHANICS_ALERT_INTERVAL = this.settings.getInt("mechanics.alert-interval");
 
-        this.mechanics_status_scoreboard = settings.getBoolean("Mechanics.StatusScoreboard");
-        this.MECHANICS_ALERT_INTERVAL = settings.getInt("Mechanics.AlertInterval");
+        this.mechanics_raw_meat_hunger = this.settings.getBoolean("mechanics.raw-meat-hunger");
+        this.mechanics_empty_potion = this.settings.getBoolean("mechanics.empty-potions");
+        this.mechanics_poison_potato = this.settings.getBoolean("mechanics.poisonous-potato");
+        this.mechanics_cookie_boost = this.settings.getBoolean("mechanics.cookie-health-boost");
+        this.mechanics_beet_strength = this.settings.getBoolean("mechanics.beetroot-strength");
 
-        this.mechanics_raw_meat_hunger = settings.getBoolean("Mechanics.RawMeatHunger");
-        this.mechanics_empty_potion = settings.getBoolean("Mechanics.EmptyPotions");
-        this.mechanics_poison_potato = settings.getBoolean("Mechanics.PoisonousPotato");
-        this.mechanics_cookie_boost = settings.getBoolean("Mechanics.CookieHealthBoost");
-        this.mechanics_beet_strength = settings.getBoolean("Mechanics.BeetrootStrength");
+        this.mechanics_food_diversity_enabled = this.settings.getBoolean("mechanics.food-diversity.enabled");
+        this.mechanics_food_max_level = this.settings.getInt("mechanics.food-diversity.max-level");
+        this.mechanics_food_diversity_enabled = this.settings.getBoolean("mechanics.food-diversity.enabled");
+        this.mechanics_food_start_carbs = this.settings.getInt("mechanics.food-diversity.start-level.carbs");
+        this.mechanics_food_start_vitamins = this.settings.getInt("mechanics.food-diversity.start-level.vitamins");
+        this.mechanics_food_start_protein = this.settings.getInt("mechanics.food-diversity.start-level.proteins");
+        this.mechanics_food_diversity_enabled = this.settings.getBoolean("mechanics.food-diversity.enabled");
+        this.mechanics_food_respawn_carbs = this.settings.getInt("mechanics.food-diversity.respawn-level.carbs");
+        this.mechanics_food_respawn_vitamins = this.settings.getInt("mechanics.food-diversity.respawn-level.vitamins");
+        this.mechanics_food_respawn_proteins = this.settings.getInt("mechanics.food-diversity.respawn-level.proteins");
+        this.mechanics_food_effects_carbs_ex_amp_easy = this.settings.getInt("mechanics.food-diversity.effects.carbs.exhaustion-amplifier.easy");
+        this.mechanics_food_effects_carbs_ex_amp_medium = this.settings.getInt("mechanics.food-diversity.effects.carbs.exhaustion-amplifier.normal");
+        this.mechanics_food_effects_carbs_ex_amp_hard = this.settings.getInt("mechanics.food-diversity.effects.carbs.exhaustion-amplifier.hard");
+        this.mechanics_food_effects_vitamins_ex_amp = this.settings.getInt("mechanics.food-diversity.effects.vitamins.exhaustion-amplifier");
+        this.mechanics_food_effects_vitamins_se_normal_effect = this.settings.getString("mechanics.food-diversity.effects.vitamins.status-effects.normal.effect");
+        this.mechanics_food_effects_vitamins_se_normal_amp = this.settings.getInt("mechanics.food-diversity.effects.vitamins.status-effects.normal.amplifier");
+        this.mechanics_food_effects_vitamins_se_normal_duration = this.settings.getInt("mechanics.food-diversity.effects.vitamins.status-effects.normal.duration");
+        this.mechanics_food_effects_vitamins_se_hard_effect = this.settings.getString("mechanics.food-diversity.effects.vitamins.status-effects.hard.effect");
+        this.mechanics_food_effects_vitamins_se_hard_amp = this.settings.getInt("mechanics.food-diversity.effects.vitamins.status-effects.hard.amplifier");
+        this.mechanics_food_effects_vitamins_se_hard_duration = this.settings.getInt("mechanics.food-diversity.effects.vitamins.status-effects.hard.duration");
 
-        this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-        this.mechanics_food_max_level = settings.getInt("Mechanics.FoodDiversity.max-level");
-        this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-        this.mechanics_food_start_carbs = settings.getInt("Mechanics.FoodDiversity.start-level.carbs");
-        this.mechanics_food_start_vitamins = settings.getInt("Mechanics.FoodDiversity.start-level.vitamins");
-        this.mechanics_food_start_protein = settings.getInt("Mechanics.FoodDiversity.start-level.proteins");
-        this.mechanics_food_diversity_enabled = settings.getBoolean("Mechanics.FoodDiversity.enabled");
-        this.mechanics_food_respawn_carbs = settings.getInt("Mechanics.FoodDiversity.respawn-level.carbs");
-        this.mechanics_food_respawn_vitamins = settings.getInt("Mechanics.FoodDiversity.respawn-level.vitamins");
-        this.mechanics_food_respawn_proteins = settings.getInt("Mechanics.FoodDiversity.respawn-level.proteins");
-        this.mechanics_food_effects_carbs_ex_amp_easy = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.easy");
-        this.mechanics_food_effects_carbs_ex_amp_medium = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.normal");
-        this.mechanics_food_effects_carbs_ex_amp_hard = settings.getInt("Mechanics.FoodDiversity.effects.carbs.exhaustion-amplifier.hard");
-        this.mechanics_food_effects_vitamins_ex_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.exhaustion-amplifier");
-        this.mechanics_food_effects_vitamins_se_normal_effect = settings.getString("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.effect");
-        this.mechanics_food_effects_vitamins_se_normal_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.amplifier");
-        this.mechanics_food_effects_vitamins_se_normal_duration = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.normal.duration");
-        this.mechanics_food_effects_vitamins_se_hard_effect = settings.getString("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.effect");
-        this.mechanics_food_effects_vitamins_se_hard_amp = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.amplifier");
-        this.mechanics_food_effects_vitamins_se_hard_duration = settings.getInt("Mechanics.FoodDiversity.effects.vitamins.status-effects.hard.duration");
+        this.mechanics_food_effects_protein_ex_amp = this.settings.getInt("mechanics.food-diversity.effects.proteins.exhaustion-amplifier");
+        this.mechanics_food_effects_protein_se_normal_effect = this.settings.getString("mechanics.food-diversity.effects.proteins.status-effects.normal.effect");
+        this.mechanics_food_effects_protein_se_normal_amp = this.settings.getInt("mechanics.food-diversity.effects.proteins.status-effects.normal.amplifier");
+        this.mechanics_food_effects_protein_se_normal_duration = this.settings.getInt("mechanics.food-diversity.effects.proteins.status-effects.normal.duration");
+        this.mechanics_food_effects_protein_se_hard_effect = this.settings.getString("mechanics.food-diversity.effects.proteins.status-effects.hard.effect");
+        this.mechanics_food_effects_protein_se_hard_amp = this.settings.getInt("mechanics.food-diversity.effects.proteins.status-effects.hard.amplifier");
+        this.mechanics_food_effects_protein_se_hard_duration = this.settings.getInt("mechanics.food-diversity.effects.proteins.status-effects.hard.duration");
 
-        this.mechanics_food_effects_protein_ex_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.exhaustion-amplifier");
-        this.mechanics_food_effects_protein_se_normal_effect = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.effect");
-        this.mechanics_food_effects_protein_se_normal_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.amplifier");
-        this.mechanics_food_effects_protein_se_normal_duration = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.normal.duration");
-        this.mechanics_food_effects_protein_se_hard_effect = settings.getString("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.effect");
-        this.mechanics_food_effects_protein_se_hard_amp = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.amplifier");
-        this.mechanics_food_effects_protein_se_hard_duration = settings.getInt("Mechanics.FoodDiversity.effects.proteins.status-effects.hard.duration");
+        this.mechanics_thirst_enabled = this.settings.getBoolean("mechanics.thirst.enabled");
+        this.mechanics_thirst_starting_amount = this.settings.getInt("mechanics.thirst.starting-amount");
+        this.mechanics_thirst_respawn_amount = this.settings.getInt("mechanics.thirst.respawn-amount");
+        this.mechanics_thirst_purify_water = this.settings.getBoolean("mechanics.thirst.purify-water");
+        this.mechanics_thirst_melt_snow = this.settings.getBoolean("mechanics.thirst.melt-snow");
+        this.mechanics_thirst_drain_rate = this.settings.getDouble("mechanics.thirst.drain-rate");
+        this.mechanics_thirst_heat_drain = this.settings.getInt("mechanics.thirst.heat-drain");
+        this.mechanics_thirst_nether_drain = this.settings.getInt("mechanics.thirst.nether-drain");
+        this.mechanics_thirst_damage_rate = this.settings.getDouble("mechanics.thirst.damage-rate");
 
-        this.mechanics_thirst_enabled = settings.getBoolean("Mechanics.Thirst.enabled");
-        this.mechanics_thirst_starting_amount = settings.getInt("Mechanics.Thirst.starting-amount");
-        this.mechanics_thirst_respawn_amount = settings.getInt("Mechanics.Thirst.respawn-amount");
-        this.mechanics_thirst_purify_water = settings.getBoolean("Mechanics.Thirst.purify-water");
-        this.mechanics_thirst_melt_snow = settings.getBoolean("Mechanics.Thirst.melt-snow");
-        this.mechanics_thirst_drain_rate = settings.getDouble("Mechanics.Thirst.drain-rate");
-        this.mechanics_thirst_heat_drain = settings.getInt("Mechanics.Thirst.heat-drain");
-        this.mechanics_thirst_nether_drain = settings.getInt("Mechanics.Thirst.nether-drain");
-        this.mechanics_thirst_damage_rate = settings.getDouble("Mechanics.Thirst.damage-rate");
+        this.mechanics_thirst_rep_beetroot_soup = this.settings.getDouble("mechanics.thirst.replenish-level.beetroot-soup");
+        this.mechanics_thirst_rep_melon_slice = this.settings.getDouble("mechanics.thirst.replenish-level.melon-slice");
+        this.mechanics_thirst_rep_mush_stew = this.settings.getDouble("mechanics.thirst.replenish-level.mushroom-stew");
+        this.mechanics_thirst_rep_milk_bucket = this.settings.getDouble("mechanics.thirst.replenish-level.milk-bucket");
+        this.mechanics_thirst_rep_honey_bottle = this.settings.getDouble("mechanics.thirst.replenish-level.honey-bottle");
+        this.mechanics_thirst_rep_other_water = this.settings.getDouble("mechanics.thirst.replenish-level.other-water");
+        this.mechanics_thirst_rep_water = this.settings.getDouble("mechanics.thirst.replenish-level.water");
 
-        this.mechanics_thirst_rep_beetroot_soup = settings.getDouble("Mechanics.Thirst.replenish-level.beetroot-soup");
-        this.mechanics_thirst_rep_melon_slice = settings.getDouble("Mechanics.Thirst.replenish-level.melon-slice");
-        this.mechanics_thirst_rep_mush_stew = settings.getDouble("Mechanics.Thirst.replenish-level.mushroom-stew");
-        this.mechanics_thirst_rep_milk_bucket = settings.getDouble("Mechanics.Thirst.replenish-level.milk-bucket");
-        this.mechanics_thirst_rep_honey_bottle = settings.getDouble("Mechanics.Thirst.replenish-level.honey-bottle");
-        this.mechanics_thirst_rep_other_water = settings.getDouble("Mechanics.Thirst.replenish-level.other-water");
-        this.mechanics_thirst_rep_water = settings.getDouble("Mechanics.Thirst.replenish-level.water");
+        this.mechanics_shared_workbench = this.settings.getBoolean("mechanics.shared-workbench");
+        this.mechanics_energy_enabled = this.settings.getBoolean("mechanics.energy.enabled");
+        this.mechanics_energy_start = this.settings.getDouble("mechanics.energy.start-level");
+        this.mechanics_energy_respawn = this.settings.getDouble("mechanics.energy.respawn-level");
+        this.mechanics_energy_warning = this.settings.getBoolean("mechanics.energy.warning");
+        this.mechanics_energy_drain_rate = this.settings.getDouble("mechanics.energy.drain-rate");
+        this.mechanics_energy_drain_cold_rate = this.settings.getDouble("mechanics.energy.cold-drain-rate");
+        this.mechanics_energy_refresh_rate_bed = this.settings.getDouble("mechanics.energy.sleeping-refresh-rate");
+        this.mechanics_energy_refresh_rate_chair = this.settings.getDouble("mechanics.energy.chair-refresh-rate");
+        this.mechanics_energy_exhaustion = this.settings.getDouble("mechanics.energy.exhaustion");
+        this.mechanics_energy_coffee_enabled = this.settings.getBoolean("mechanics.energy.coffee");
+        this.mechanics_energy_absorption = this.settings.getBoolean("mechanics.energy.absorption");
+        this.mechanics_energy_haste = this.settings.getBoolean("mechanics.energy.haste");
 
-        this.mechanics_hunger_start_amount = settings.getInt("Mechanics.Hunger.Starting-Amount");
-        this.mechanics_hunger_respawn_amount = settings.getInt("Mechanics.Hunger.Respawn-Amount");
+        this.mechanics_hunger_start_amount = this.settings.getInt("mechanics.hunger.starting-amount");
+        this.mechanics_hunger_respawn_amount = this.settings.getInt("mechanics.hunger.respawn-amount");
 
-        this.mechanics_compass_waypoint = settings.getBoolean("Mechanics.CompassWaypoint.enabled");
-        this.mechanics_compass_waypoint_worlds = settings.getBoolean("Mechanics.CompassWaypoint.per-world");
-        this.mechanics_tropical_fish = settings.getBoolean("Mechanics.TropicalFish");
-        this.mechanics_fermented_skin = settings.getBoolean("Mechanics.FermentedSkin");
-        this.mechanics_living_slime = settings.getBoolean("Mechanics.LivingSlime");
+        this.mechanics_compass_waypoint = this.settings.getBoolean("mechanics.compass-waypoint.enabled");
+        this.mechanics_compass_waypoint_worlds = this.settings.getBoolean("mechanics.compass-waypoint.per-world");
 
-        this.mechanics_snowball_revamp = settings.getBoolean("Mechanics.SnowballRevamp");
-        this.MECHANICS_SNOW_GEN_REVAMP = settings.getBoolean("Mechanics.SnowGenerationRevamp");
+        this.mechanics_tropical_fish = this.settings.getBoolean("mechanics.tropical-fish");
+        this.mechanics_fermented_skin = this.settings.getBoolean("mechanics.fermented-skin");
+        this.mechanics_living_slime = this.settings.getBoolean("mechanics.living-slime");
 
-        this.mechanics_farming_products_cookie = settings.getBoolean("Mechanics.FarmingProducts.Cookie");
-        this.mechanics_farming_products_bread = settings.getBoolean("Mechanics.FarmingProducts.Bread");
+        this.mechanics_snowball_revamp = this.settings.getBoolean("mechanics.snowball-revamp");
+        this.MECHANICS_SNOW_GEN_REVAMP = this.settings.getBoolean("mechanics.SnowGenerationRevamp");
 
-        this.mechanics_chairs_enabled = settings.getBoolean("Mechanics.Chairs.Enabled");
-        this.mechanics_chairs_max_width = settings.getInt("Mechanics.Chairs.MaxChairWidth");
+        this.mechanics_farming_products_cookie = this.settings.getBoolean("mechanics.farming-products.cookie");
+        this.mechanics_farming_products_bread = this.settings.getBoolean("mechanics.farming-products.bread");
+
+        this.mechanics_chairs_enabled = this.settings.getBoolean("mechanics.chairs.enabled");
+        this.mechanics_chairs_max_width = this.settings.getInt("mechanics.chairs.max-chair-width");
         this.mechanics_chairs_blocks = getChairBlocks();
 
-        this.mechanics_weather_enabled = settings.getBoolean("Mechanics.Weather.Enabled");
-        this.mechanics_weather_speed_base = settings.getDouble("Mechanics.Weather.speed.base");
-        this.mechanics_weather_speed_rain = settings.getDouble("Mechanics.Weather.speed.rain");
-        this.mechanics_weather_speed_storm = settings.getDouble("Mechanics.Weather.speed.storm");
-        this.mechanics_weather_speed_snow = settings.getDouble("Mechanics.Weather.speed.snow");
-        this.mechanics_weather_speed_snowstorm = settings.getDouble("Mechanics.Weather.speed.snowstorm");
+        this.mechanics_weather_enabled = this.settings.getBoolean("mechanics.weather.enabled");
+        this.mechanics_weather_speed_base = this.settings.getDouble("mechanics.weather.speed.base");
+        this.mechanics_weather_speed_rain = this.settings.getDouble("mechanics.weather.speed.rain");
+        this.mechanics_weather_speed_storm = this.settings.getDouble("mechanics.weather.speed.storm");
+        this.mechanics_weather_speed_snow = this.settings.getDouble("mechanics.weather.speed.snow");
+        this.mechanics_weather_speed_snowstorm = this.settings.getDouble("mechanics.weather.speed.snowstorm");
 
         // ITEM MECHANICS
-        this.item_mechanics_firestriker_cook_time = settings.getInt("Item-Mechanics.firestriker.cook-time");
+        this.item_mechanics_firestriker_cook_time = this.settings.getInt("item-mechanics.firestriker.cook-time");
 
         // ENTITY MECHANICS
-        this.entity_mechanics_pigmen_chest_enabled = settings.getBoolean("Entity-Mechanics.zombified-piglin-chests.enabled");
-        this.entity_mechanics_pigmen_chest_radius = settings.getInt("Entity-Mechanics.zombified-piglin-chests.distance");
-        this.entity_mechanics_pigmen_chest_speed = settings.getDouble("Entity-Mechanics.zombified-piglin-chests.speed-modifier");
-        this.entity_mechanics_beekeeper_suit_enabled = settings.getBoolean("Entity-Mechanics.beekeeper-suit.enabled");
-        this.entity_mechanics_suspicious_meat_enabled = settings.getBoolean("Entity-Mechanics.suspicious-meat.enabled");
-        this.entity_mechanics_suspicious_meat_chance = settings.getInt("Entity-Mechanics.suspicious-meat.chance");
-        this.entity_mechanics_chicken_breeding_enabled = settings.getBoolean("Entity-Mechanics.chicken-breeding.enabled");
-        this.entity_mechanics_chicken_breeding_max_eggs = settings.getInt("Entity-Mechanics.chicken-breeding.max-eggs");
-        this.entity_mechanics_chicken_breeding_always_baby = settings.getBoolean("Entity-Mechanics.chicken-breeding.always-baby");
-        this.entity_mechanics_chicken_breeding_baby_ticks = settings.getInt("Entity-Mechanics.chicken-breeding.baby-ticks");
-        this.entity_mechanics_piglin_drop_water = settings.getBoolean("Entity-Mechanics.piglin-barter.drop-purified-water");
-        this.entity_mechanics_piglin_alt_drop = settings.getBoolean("Entity-Mechanics.piglin-barter.alternate-bartering");
+        this.entity_mechanics_pigmen_chest_enabled = this.settings.getBoolean("entity-mechanics.zombified-piglin-chests.enabled");
+        this.entity_mechanics_pigmen_chest_radius = this.settings.getInt("entity-mechanics.zombified-piglin-chests.distance");
+        this.entity_mechanics_pigmen_chest_speed = this.settings.getDouble("entity-mechanics.zombified-piglin-chests.speed-modifier");
+        this.entity_mechanics_beekeeper_suit_enabled = this.settings.getBoolean("entity-mechanics.beekeeper-suit.enabled");
+        this.entity_mechanics_suspicious_meat_enabled = this.settings.getBoolean("entity-mechanics.suspicious-meat.enabled");
+        this.entity_mechanics_suspicious_meat_chance = this.settings.getInt("entity-mechanics.suspicious-meat.chance");
+        this.entity_mechanics_chicken_breeding_enabled = this.settings.getBoolean("entity-mechanics.chicken-breeding.enabled");
+        this.entity_mechanics_chicken_breeding_max_eggs = this.settings.getInt("entity-mechanics.chicken-breeding.max-eggs");
+        this.entity_mechanics_chicken_breeding_always_baby = this.settings.getBoolean("entity-mechanics.chicken-breeding.always-baby");
+        this.entity_mechanics_chicken_breeding_baby_ticks = this.settings.getInt("entity-mechanics.chicken-breeding.baby-ticks");
+        this.entity_mechanics_piglin_drop_water = this.settings.getBoolean("entity-mechanics.piglin-barter.drop-purified-water");
+        this.entity_mechanics_piglin_alt_drop = this.settings.getBoolean("entity-mechanics.piglin-barter.alternate-bartering");
 
         // RECIPES
-        this.recipes_saddle = settings.getBoolean("Recipes.Saddle");
-        this.recipes_name_tag = settings.getBoolean("Recipes.Nametag");
-        this.recipes_packed_ice = settings.getBoolean("Recipes.PackedIce");
-        this.recipes_leather_bard = settings.getBoolean("Recipes.LeatherBard");
-        this.recipes_iron_bard = settings.getBoolean("Recipes.IronBard");
-        this.recipes_gold_bard = settings.getBoolean("Recipes.GoldBard");
-        this.recipes_diamond_bard = settings.getBoolean("Recipes.DiamondBard");
-        this.recipes_clay_brick = settings.getBoolean("Recipes.ClayBrick");
-        this.recipes_quartz_block = settings.getBoolean("Recipes.QuartzBlock");
-        this.recipes_wool_string = settings.getBoolean("Recipes.WoolString");
-        this.recipes_web_string = settings.getBoolean("Recipes.WebString");
-        this.recipes_ice = settings.getBoolean("Recipes.Ice");
-        this.recipes_clay = settings.getBoolean("Recipes.Clay");
-        this.recipes_diorite = settings.getBoolean("Recipes.Diorite");
-        this.recipes_granite = settings.getBoolean("Recipes.Granite");
-        this.recipes_andesite = settings.getBoolean("Recipes.Andesite");
-        this.recipes_gravel = settings.getBoolean("Recipes.Gravel");
-        this.recipes_slimeball = settings.getBoolean("Recipes.Slimeball");
-        this.recipes_cobweb = settings.getBoolean("Recipes.Cobweb");
-        this.recipes_sapling_stick = settings.getBoolean("Recipes.SaplingToSticks");
-        this.recipes_fishing_rod = settings.getBoolean("Recipes.FishingRod");
-        this.recipes_furnace = settings.getBoolean("Recipes.Furnace");
-        this.recipes_workbench = settings.getBoolean("Recipes.Workbench");
+        this.recipes_saddle = this.settings.getBoolean("recipes.saddle");
+        this.recipes_name_tag = this.settings.getBoolean("recipes.nametag");
+        this.recipes_packed_ice = this.settings.getBoolean("recipes.packed-ice");
+        this.recipes_leather_bard = this.settings.getBoolean("recipes.leather-bard");
+        this.recipes_iron_bard = this.settings.getBoolean("recipes.iron-bard");
+        this.recipes_gold_bard = this.settings.getBoolean("recipes.gold-bard");
+        this.recipes_diamond_bard = this.settings.getBoolean("recipes.diamond-bard");
+        this.recipes_clay_brick = this.settings.getBoolean("recipes.clay-brick");
+        this.recipes_quartz_block = this.settings.getBoolean("recipes.quartz-block");
+        this.recipes_wool_string = this.settings.getBoolean("recipes.wool-string");
+        this.recipes_web_string = this.settings.getBoolean("recipes.web-string");
+        this.recipes_ice = this.settings.getBoolean("recipes.ice");
+        this.recipes_clay = this.settings.getBoolean("recipes.clay");
+        this.recipes_diorite = this.settings.getBoolean("recipes.diorite");
+        this.recipes_granite = this.settings.getBoolean("recipes.granite");
+        this.recipes_andesite = this.settings.getBoolean("recipes.andesite");
+        this.recipes_gravel = this.settings.getBoolean("recipes.gravel");
+        this.recipes_slimeball = this.settings.getBoolean("recipes.slimeball");
+        this.recipes_cobweb = this.settings.getBoolean("recipes.cobweb");
+        this.recipes_sapling_stick = this.settings.getBoolean("recipes.sapling-to-sticks");
+        this.recipes_fishing_rod = this.settings.getBoolean("recipes.fishing-rod");
+        this.recipes_furnace = this.settings.getBoolean("recipes.furnace");
+        this.recipes_workbench = this.settings.getBoolean("recipes.workbench");
 
         // LEGENDARY ITEMS
-        this.legendary_valkyrie = settings.getBoolean("LegendaryItems.ValkyrieAxe");
-        this.legendary_quartz_pickaxe = settings.getBoolean("LegendaryItems.QuartzPickaxe");
-        this.legendary_obsidian_mace = settings.getBoolean("LegendaryItems.ObsidianMace");
-        this.legendary_giant_blade = settings.getBoolean("LegendaryItems.GiantBlade");
-        this.legendary_blaze_sword = settings.getBoolean("LegendaryItems.BlazeSword");
-        this.legendary_notch_apple = settings.getBoolean("LegendaryItems.NotchApple");
-        this.legendary_gold_armor_buff = settings.getBoolean("LegendaryItems.GoldArmorBuff");
+        this.legendary_valkyrie = this.settings.getBoolean("legendary-items.valkyrie-axe");
+        this.legendary_quartz_pickaxe = this.settings.getBoolean("legendary-items.quartz-pickaxe");
+        this.legendary_obsidian_mace = this.settings.getBoolean("legendary-items.obsidian-mace");
+        this.legendary_giant_blade = this.settings.getBoolean("legendary-items.giant-blade");
+        this.legendary_blaze_sword = this.settings.getBoolean("legendary-items.blaze-sword");
+        this.legendary_notch_apple = this.settings.getBoolean("legendary-items.notch-apple");
+        this.legendary_gold_armor_buff = this.settings.getBoolean("legendary-items.gold-armor-buff");
 
         // HIDDEN CONFIG
-        this.recipe_delay = settings.getInt("recipe-delay", 0);
+        this.recipe_delay = this.settings.getInt("recipe-delay", 0);
     }
 
     private List<Material> getChairBlocks() {
         List<Material> materials = new ArrayList<>();
-        List<String> allowedByStrings = settings.getStringList("Mechanics.Chairs.AllowedBlocks");
+        List<String> allowedByStrings = this.settings.getStringList("mechanics.chairs.allowed-blocks");
         for (String string : allowedByStrings) {
             if (string.startsWith("#")) {
                 NamespacedKey key;
