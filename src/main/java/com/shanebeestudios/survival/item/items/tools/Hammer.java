@@ -1,0 +1,33 @@
+package com.shanebeestudios.survival.item.items.tools;
+
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
+import com.shanebeestudios.survival.item.Item;
+
+public class Hammer extends Item {
+
+    @SuppressWarnings("UnstableApiUsage")
+    public Hammer() {
+        ItemStack itemStack = ItemType.WOODEN_SWORD.createItemStack();
+        ItemMeta hammerMeta = itemStack.getItemMeta();
+        itemStack.setItemMeta(hammerMeta);
+
+        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
+        setupDefaults("hammer", itemStack);
+    }
+
+    @Override
+    public Recipe getRecipe() {
+        ShapedRecipe recipe = new ShapedRecipe(this.recipeKey, this.getItemStack());
+        recipe.shape("c ", "sc");
+        recipe.setIngredient('c', Material.COBBLESTONE);
+        recipe.setIngredient('s', Material.STICK);
+        return recipe;
+    }
+
+}

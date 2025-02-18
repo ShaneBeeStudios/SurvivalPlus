@@ -1,0 +1,26 @@
+package com.shanebeestudios.survival.commands;
+
+import dev.jorel.commandapi.arguments.Argument;
+import dev.jorel.commandapi.arguments.LiteralArgument;
+import org.bukkit.entity.Player;
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.gui.NutritionGUI;
+
+public class NutritionCommand extends BaseCommand {
+
+    public NutritionCommand(SurvivalPlugin plugin) {
+        super(plugin);
+    }
+
+    @Override
+    Argument<?> register() {
+        return LiteralArgument.literal("nutrition")
+            .withPermission(Permissions.COMMAND_NUTRITION)
+            .executesPlayer(info -> {
+                Player player = info.sender();
+                NutritionGUI gui = new NutritionGUI(this.plugin);
+                gui.openInventory(player, 0);
+            });
+    }
+
+}

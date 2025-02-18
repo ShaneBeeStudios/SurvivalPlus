@@ -72,10 +72,10 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
-        exclude("tk/shanebee/survival/SurvivalBootstrap.java")
-        exclude("tk/shanebee/survival/commands")
-        exclude("tk/shanebee/survival/listeners")
-        exclude("tk/shanebee/survival/tasks")
+        exclude("com/shanebeestudios/survival/SurvivalBootstrap.java")
+        exclude("com/shanebeestudios/survival/commands")
+        exclude("com/shanebeestudios/survival/listeners")
+        exclude("com/shanebeestudios/survival/tasks")
         (options as StandardJavadocDocletOptions).links(
             "https://jd.papermc.io/paper/${minecraftVersion}/",
             "https://jd.advntr.dev/api/4.18.0/"

@@ -1,0 +1,74 @@
+package com.shanebeestudios.survival.events;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Called when a player's thirst level changes
+ */
+@SuppressWarnings("unused")
+public class ThirstLevelChangeEvent extends Event implements Cancellable {
+
+    private final static HandlerList handlers = new HandlerList();
+    private final Player player;
+    private final double thirst;
+    private final double changed;
+    private boolean isCancelled;
+
+    public ThirstLevelChangeEvent(Player player, double changed, double thirst) {
+        this.player = player;
+        this.changed = changed;
+        this.thirst = thirst;
+        this.isCancelled = false;
+    }
+
+    /**
+     * Get the player involved in this event
+     *
+     * @return The player involved in this event
+     */
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    /**
+     * Get the new thirst level from the event
+     *
+     * @return The new thirst level from the event
+     */
+    public double getThirst() {
+        return this.thirst;
+    }
+
+    /**
+     * Get the level of thirst that was changed
+     *
+     * @return The level that was changed
+     */
+    public double getChanged() {
+        return this.changed;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @Override
+    public @NotNull HandlerList getHandlers() {
+        return handlers;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return this.isCancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean b) {
+        this.isCancelled = b;
+    }
+
+}
