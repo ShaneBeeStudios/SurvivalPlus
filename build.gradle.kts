@@ -41,6 +41,10 @@ dependencies {
 
     // Papi
     compileOnly("me.clip:placeholderapi:2.11.6")
+
+    // bStats
+    implementation("org.bstats:bstats-bukkit:3.0.2")
+
 }
 
 tasks {
@@ -81,6 +85,7 @@ tasks {
     shadowJar {
         relocate("fr.mrmicky.fastboard", "com.shanebeestudios.survival.api.fastboard")
         relocate("dev.jorel.commandapi", "com.shanebeestudios.survival.api.commandapi")
+        relocate("org.bstats.bukkit", "com.shanebeestudios.survival.api.metrics.bstats")
         archiveFileName = "SurvivalPlus-${projectVersion}.jar"
     }
     jar {

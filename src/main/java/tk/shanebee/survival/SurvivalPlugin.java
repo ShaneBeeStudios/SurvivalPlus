@@ -3,6 +3,7 @@ package tk.shanebee.survival;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import dev.jorel.commandapi.exceptions.UnsupportedVersionException;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -29,7 +30,6 @@ import tk.shanebee.survival.managers.Placeholders;
 import tk.shanebee.survival.managers.PlayerManager;
 import tk.shanebee.survival.managers.RecipeManager;
 import tk.shanebee.survival.managers.ScoreBoardManager;
-import tk.shanebee.survival.metrics.Metrics;
 import tk.shanebee.survival.tasks.TaskManager;
 import tk.shanebee.survival.util.BlockTags;
 import tk.shanebee.survival.util.Utils;
@@ -169,8 +169,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
         }
 
 		// LOAD METRICS
-		Metrics metrics = new Metrics(this);
-		Utils.logMini("<grey>Metrics " + (metrics.isEnabled() ? "<green>enabled" : "<red>disabled"));
+		new Metrics(this, 24831);
 
 		Utils.logMini("<green>Successfully loaded <grey>in " + (System.currentTimeMillis() - time) + " milliseconds");
 
