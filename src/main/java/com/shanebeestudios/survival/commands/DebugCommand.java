@@ -1,11 +1,12 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.data.Placeholders;
+import com.shanebeestudios.survival.item.Items;
+import com.shanebeestudios.survival.item.Nutrition;
 import dev.jorel.commandapi.CommandPermission;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
-import com.shanebeestudios.survival.SurvivalPlugin;
-import com.shanebeestudios.survival.item.Items;
-import com.shanebeestudios.survival.item.Nutrition;
 
 public class DebugCommand extends BaseCommand{
     public DebugCommand(SurvivalPlugin plugin) {
@@ -28,7 +29,11 @@ public class DebugCommand extends BaseCommand{
                 .then(LiteralArgument.literal("remove")
                     .executes(info -> {
                         Items.debug(null);
-                    })));
+                    })))
+            .then(LiteralArgument.literal("placeholders")
+                .executes(info -> {
+                    Placeholders.debug();
+                }));
     }
 
 }

@@ -26,7 +26,7 @@ import com.shanebeestudios.survival.listeners.EventManager;
 import com.shanebeestudios.survival.managers.BlockManager;
 import com.shanebeestudios.survival.managers.EffectManager;
 import com.shanebeestudios.survival.managers.MerchantManager;
-import com.shanebeestudios.survival.managers.Placeholders;
+import com.shanebeestudios.survival.managers.PapiPlaceholders;
 import com.shanebeestudios.survival.managers.PlayerManager;
 import com.shanebeestudios.survival.managers.RecipeManager;
 import com.shanebeestudios.survival.managers.ScoreBoardManager;
@@ -154,7 +154,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
         // LOAD PLACEHOLDERS
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new Placeholders(this).register();
+            new PapiPlaceholders(this).register();
             Utils.logMini("<grey>PlaceholderAPI placeholders <green>enabled");
         }
 
