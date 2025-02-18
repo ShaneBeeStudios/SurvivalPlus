@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.data;
 
+import com.google.common.base.Preconditions;
 import fr.mrmicky.fastboard.adventure.FastBoard;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -7,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.jetbrains.annotations.Nullable;
-import com.shanebeestudios.survival.util.Validate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class HealthBoard {
     }
 
     public void setLine(int line, @Nullable String text, String format) {
-        Validate.isBetween(line, 1, 15);
+        Preconditions.checkArgument(line >= 1 && line <= 15, "Line number must be between 1 and 15, found: " + line);
         if (text != null) {
             Component component = MINI_MESSAGE.deserialize(text);
             this.lines[line - 1] = component;
@@ -80,7 +80,6 @@ public class HealthBoard {
      * @param line Line to delete (1 - 15)
      */
     public void deleteLine(int line) {
-        Validate.isBetween(line, 1, 15);
         setLine(line, null);
     }
 
