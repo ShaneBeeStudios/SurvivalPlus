@@ -153,12 +153,6 @@ public class Config {
     public int mechanics_chairs_max_width;
     public List<Material> mechanics_chairs_blocks;
 
-    public boolean MECHANICS_BURNOUT_TORCH_ENABLED;
-    public int MECHANICS_BURNOUT_TORCH_TIME;
-    public boolean MECHANICS_BURNOUT_TORCH_RELIGHT;
-    public boolean MECHANICS_BURNOUT_TORCH_DROP;
-    public boolean MECHANICS_BURNOUT_TORCH_PERSIST;
-
     public boolean mechanics_weather_enabled;
     public double mechanics_weather_speed_base;
     public double mechanics_weather_speed_rain;
@@ -408,12 +402,6 @@ public class Config {
         this.mechanics_chairs_enabled = settings.getBoolean("Mechanics.Chairs.Enabled");
         this.mechanics_chairs_max_width = settings.getInt("Mechanics.Chairs.MaxChairWidth");
         this.mechanics_chairs_blocks = getChairBlocks();
-
-        this.MECHANICS_BURNOUT_TORCH_ENABLED = settings.getBoolean("Mechanics.BurnoutTorches.Enabled");
-        this.MECHANICS_BURNOUT_TORCH_TIME = settings.getInt("Mechanics.BurnoutTorches.BurnoutTime");
-        this.MECHANICS_BURNOUT_TORCH_RELIGHT = settings.getBoolean("Mechanics.BurnoutTorches.Relightable");
-        this.MECHANICS_BURNOUT_TORCH_DROP = settings.getBoolean("Mechanics.BurnoutTorches.DropTorch");
-        this.MECHANICS_BURNOUT_TORCH_PERSIST = settings.getBoolean("Mechanics.BurnoutTorches.PersistentTorches");
 
         this.mechanics_weather_enabled = settings.getBoolean("Mechanics.Weather.Enabled");
         this.mechanics_weather_speed_base = settings.getDouble("Mechanics.Weather.speed.base");

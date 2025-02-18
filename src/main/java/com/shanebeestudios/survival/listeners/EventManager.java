@@ -6,7 +6,6 @@ import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.config.Config;
 import com.shanebeestudios.survival.listeners.block.BlockBreak;
 import com.shanebeestudios.survival.listeners.block.BlockPlace;
-import com.shanebeestudios.survival.listeners.block.BurnoutTorches;
 import com.shanebeestudios.survival.listeners.block.Campfire;
 import com.shanebeestudios.survival.listeners.block.Chairs;
 import com.shanebeestudios.survival.listeners.block.SnowGeneration;
@@ -138,8 +137,6 @@ public class EventManager {
 		    pm.registerEvents(new ChickenSpawn(this.plugin), this.plugin);
 		if (config.welcome_guide_enabled)
 			pm.registerEvents(new Guide(plugin), this.plugin);
-		if (config.MECHANICS_BURNOUT_TORCH_ENABLED) // TODO experimental feature, not 100% sure about this
-			pm.registerEvents(new BurnoutTorches(this.plugin), this.plugin);
 
 		if (config.entity_mechanics_pigmen_chest_enabled)
 			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);

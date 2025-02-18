@@ -23,7 +23,6 @@ import com.shanebeestudios.survival.config.Lang;
 import com.shanebeestudios.survival.config.PlayerDataConfig;
 import com.shanebeestudios.survival.data.PlayerData;
 import com.shanebeestudios.survival.listeners.EventManager;
-import com.shanebeestudios.survival.managers.BlockManager;
 import com.shanebeestudios.survival.managers.EffectManager;
 import com.shanebeestudios.survival.managers.MerchantManager;
 import com.shanebeestudios.survival.managers.PapiPlaceholders;
@@ -59,7 +58,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	private PlayerDataConfig playerDataConfig;
 
 	// Managers
-	private BlockManager blockManager;
 	private EffectManager effectManager;
 	private ScoreBoardManager scoreBoardManager;
 	private PlayerManager playerManager;
@@ -140,7 +138,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 
 		// LOAD MANAGERS
         BlockTags.initialize();
-		blockManager = new BlockManager(this);
 		playerManager = new PlayerManager(this, playerDataMap);
 		effectManager = new EffectManager(this);
 		taskManager = new TaskManager(this);
@@ -297,13 +294,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	 */
 	public static SurvivalPlugin getInstance() {
 		return instance;
-	}
-
-	/** Get the block manager
-	 * @return Instance of the block manager
-	 */
-	public BlockManager getBlockManager() {
-		return this.blockManager;
 	}
 
 	/** Get the effect manager

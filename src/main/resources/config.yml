@@ -286,19 +286,6 @@ Mechanics:
     AllowedBlocks:
       - '#minecraft:stairs'
 
-  # EXPERIMENTAL FEATURE
-  # DO NOT USE
-  BurnoutTorches:
-    Enabled: false
-    # Time (in seconds) before torch will burn out
-    BurnoutTime: 60
-    # If burnout torches can be re-lit
-    Relightable: true
-    # If non-persistent torches will drop a torch when broken, if disabled will drop a stick
-    DropTorch: true
-    # If persistent torches are enabled
-    PersistentTorches: true
-
   # WEATHER MECHANICS
   # These mechanics change how weather affects the player
   Weather:
