@@ -78,12 +78,12 @@ items:
     lore:
       - "<#38E29F>Right-Click a player to heal them"
       - "<#38AEE2>Sneak-Right-Click to heal yourself"
-  recurve_bow:
-    name: "Recurve Bow"
+  recurved_bow:
+    name: "Recurved Bow"
     repair_cost: 1
     repair_percent: 0.9
-  recurve_crossbow:
-    name: "Recurve Crossbow"
+  recurved_crossbow:
+    name: "Recurved Crossbow"
     repair_cost: 2
     repair_percent: 0.9
   shiv:

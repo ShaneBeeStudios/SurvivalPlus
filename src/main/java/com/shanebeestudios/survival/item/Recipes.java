@@ -179,8 +179,8 @@ public class Recipes {
         NETHERITE_LEGGINGS = register(config.mechanics_slow_armor, Items.NETHERITE_LEGGINGS.getRecipe());
         NETHERITE_BOOTS = register(config.mechanics_slow_armor, Items.NETHERITE_BOOTS.getRecipe());
         MEDIC_KIT = register(config.mechanics_medic_kit, Items.MEDIC_KIT.getRecipe());
-        RECURVED_BOW = register(config.mechanics_recurved_bow, Items.RECURVE_BOW.getRecipe());
-        RECURVED_CROSSBOW = register(config.mechanics_recurved_bow, Items.RECURVE_CROSSBOW.getRecipe());
+        RECURVED_BOW = register(config.mechanics_recurved_bow, Items.RECURVED_BOW.getRecipe());
+        RECURVED_CROSSBOW = register(config.mechanics_recurved_bow, Items.RECURVED_CROSSBOW.getRecipe());
         UNLIT_CAMPFIRE = register(true, Items.CAMPFIRE.getRecipe());// TODO config?!?!
         GRAPPLING_HOOK = register(config.mechanics_grappling_hook, Items.GRAPPLING_HOOK.getRecipe());
         COFFEE_BEAN = register(config.mechanics_energy_coffee_enabled, Items.COFFEE_BEAN.getRecipe());

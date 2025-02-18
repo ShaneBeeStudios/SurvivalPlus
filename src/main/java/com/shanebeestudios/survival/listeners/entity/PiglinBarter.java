@@ -67,7 +67,7 @@ public class PiglinBarter implements Listener {
                 case SOUL_SAND -> Items.CAMPFIRE.getItemStack();
                 case POTION -> Items.MEDIC_KIT.getItemStack();
                 case SPLASH_POTION -> Items.GRAPPLING_HOOK.getItemStack();
-                case ENCHANTED_BOOK -> Items.RECURVE_CROSSBOW.getItemStack();
+                case ENCHANTED_BOOK -> Items.RECURVED_CROSSBOW.getItemStack();
                 default -> null;
             };
             if (altItem != null) itemDrop.setItemStack(altItem);

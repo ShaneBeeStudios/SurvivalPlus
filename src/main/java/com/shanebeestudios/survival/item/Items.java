@@ -42,8 +42,8 @@ import com.shanebeestudios.survival.item.items.tools.Hammer;
 import com.shanebeestudios.survival.item.items.tools.Hatchet;
 import com.shanebeestudios.survival.item.items.tools.Mattock;
 import com.shanebeestudios.survival.item.items.tools.MedicKit;
-import com.shanebeestudios.survival.item.items.tools.RecurveBow;
-import com.shanebeestudios.survival.item.items.tools.RecurveCrossbow;
+import com.shanebeestudios.survival.item.items.tools.RecurvedBow;
+import com.shanebeestudios.survival.item.items.tools.RecurvedCrossbow;
 import com.shanebeestudios.survival.item.items.tools.Shiv;
 import com.shanebeestudios.survival.item.items.tools.Sickle;
 import com.shanebeestudios.survival.util.Utils;
@@ -75,8 +75,8 @@ public class Items {
     public static final Item IRON_SICKLE = new Sickle("iron", Material.IRON_INGOT);
     public static final Item DIAMOND_SICKLE = new Sickle("diamond", Material.DIAMOND);
     public static final MedicKit MEDIC_KIT = new MedicKit();
-    public static final Item RECURVE_BOW = new RecurveBow();
-    public static final Item RECURVE_CROSSBOW = new RecurveCrossbow();
+    public static final RecurvedBow RECURVED_BOW = new RecurvedBow();
+    public static final RecurvedCrossbow RECURVED_CROSSBOW = new RecurvedCrossbow();
 
     // LEGENDARY TOOLS
     public static final Item VALKYRIES_AXE = new ValkyriesAxe();

@@ -33,7 +33,7 @@ import com.shanebeestudios.survival.listeners.item.MedicKit;
 import com.shanebeestudios.survival.listeners.item.ObsidianMaceWeakness;
 import com.shanebeestudios.survival.listeners.item.PoisonousPotato;
 import com.shanebeestudios.survival.listeners.item.RawMeatHunger;
-import com.shanebeestudios.survival.listeners.item.RecurvedBow;
+import com.shanebeestudios.survival.listeners.item.RecurvedBowListener;
 import com.shanebeestudios.survival.listeners.item.RepairCrafting;
 import com.shanebeestudios.survival.listeners.item.ShivPoison;
 import com.shanebeestudios.survival.listeners.item.ThirstListener;
@@ -129,7 +129,7 @@ public class EventManager {
 		if (config.mechanics_food_diversity_enabled)
 			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
 		if (config.mechanics_recurved_bow)
-			pm.registerEvents(new RecurvedBow(plugin), this.plugin);
+			pm.registerEvents(new RecurvedBowListener(plugin), this.plugin);
 		if (config.mechanics_snowball_revamp)
 			pm.registerEvents(new SnowballThrow(), this.plugin);
 		if (config.MECHANICS_SNOW_GEN_REVAMP)
