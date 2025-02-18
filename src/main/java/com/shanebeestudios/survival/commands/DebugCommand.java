@@ -4,7 +4,6 @@ import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.data.Placeholders;
 import com.shanebeestudios.survival.item.Items;
 import com.shanebeestudios.survival.item.Nutrition;
-import dev.jorel.commandapi.CommandPermission;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 
@@ -16,9 +15,9 @@ public class DebugCommand extends BaseCommand{
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("debug")
-            .withPermission(CommandPermission.OP)
+            .withPermission(Permissions.COMMAND_DEBUG)
             .then(LiteralArgument.literal("nutrition")
-                .executes(info -> {
+                .executesConsole(info -> {
                     Nutrition.debug();
                 }))
             .then(LiteralArgument.literal("items")
@@ -27,12 +26,16 @@ public class DebugCommand extends BaseCommand{
                         Items.debug(info.sender());
                     }))
                 .then(LiteralArgument.literal("remove")
-                    .executes(info -> {
+                    .executesPlayer(info -> {
                         Items.debug(null);
                     })))
             .then(LiteralArgument.literal("placeholders")
-                .executes(info -> {
+                .executesConsole(info -> {
                     Placeholders.debug();
+                }))
+            .then(LiteralArgument.literal("permissions")
+                .executesConsole(info -> {
+                    Permissions.debug();
                 }));
     }
 

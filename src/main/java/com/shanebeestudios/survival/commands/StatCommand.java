@@ -51,6 +51,7 @@ public class StatCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("stats")
+            .withPermission(Permissions.COMMAND_STATS)
             .then(new StringArgument("info")
                 .includeSuggestions(ArgumentSuggestions.stringsWithTooltips(this.infoTooltips))
                 .then(new StringArgument("type")
