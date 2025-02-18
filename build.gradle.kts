@@ -3,6 +3,15 @@ plugins {
     id("io.github.goooler.shadow") version "8.1.7"
 }
 
+// Where this builds on the server
+val serverLocation = "Skript/1-21-4"
+// Version of SurvivalPlus
+val projectVersion = "1.0.0"
+// Minecraft version to build against
+val minecraftVersion = "1.21.4"
+
+java.sourceCompatibility = JavaVersion.VERSION_21
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -22,7 +31,7 @@ repositories {
 
 dependencies {
     // Paper
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:${minecraftVersion}-R0.1-SNAPSHOT")
 
     // FastBoard
     implementation("fr.mrmicky:fastboard:2.1.3")
@@ -33,13 +42,6 @@ dependencies {
     // Papi
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
-
-// Where this builds on the server
-val serverLocation = "1-21-4"
-// Version of SurvivalPlus
-val projectVersion = "1.0.0"
-
-java.sourceCompatibility = JavaVersion.VERSION_21
 
 tasks {
     register("server", Copy::class) {
@@ -66,10 +68,13 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
-        exclude("com/shanebeestudios/core/plugin")
+        exclude("tk/shanebee/survival/SurvivalBootstrap.java")
+        exclude("tk/shanebee/survival/commands")
+        exclude("tk/shanebee/survival/listeners")
+        exclude("tk/shanebee/survival/tasks")
         (options as StandardJavadocDocletOptions).links(
-            "https://jd.papermc.io/paper/1.21.1/",
-            "https://jd.advntr.dev/api/4.17.0/"
+            "https://jd.papermc.io/paper/${minecraftVersion}/",
+            "https://jd.advntr.dev/api/4.18.0/"
         )
 
     }
