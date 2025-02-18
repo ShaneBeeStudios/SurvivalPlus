@@ -24,7 +24,7 @@ import com.shanebeestudios.survival.config.PlayerDataConfig;
 import com.shanebeestudios.survival.data.PlayerData;
 import com.shanebeestudios.survival.listeners.EventManager;
 import com.shanebeestudios.survival.managers.EffectManager;
-import com.shanebeestudios.survival.managers.MerchantManager;
+import com.shanebeestudios.survival.managers.LootManager;
 import com.shanebeestudios.survival.managers.PapiPlaceholders;
 import com.shanebeestudios.survival.managers.PlayerManager;
 import com.shanebeestudios.survival.managers.RecipeManager;
@@ -62,7 +62,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	private ScoreBoardManager scoreBoardManager;
 	private PlayerManager playerManager;
 	private TaskManager taskManager;
-	private MerchantManager merchantManager;
+	private LootManager lootManager;
 	private RecipeManager recipeManager;
 
 	// Other
@@ -142,7 +142,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		effectManager = new EffectManager(this);
 		taskManager = new TaskManager(this);
 		scoreBoardManager = new ScoreBoardManager(this);
-		merchantManager = new MerchantManager(this);
+		lootManager = new LootManager(this);
         recipeManager = new RecipeManager(this);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
@@ -325,11 +325,11 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		return this.taskManager;
 	}
 
-    /** Get an instance of the merchant manager
-     * @return Instance of the merchant manager
+    /** Get an instance of the loot manager
+     * @return Instance of the loot manager
      */
-    public MerchantManager getMerchantManager() {
-        return merchantManager;
+    public LootManager getLootManager() {
+        return lootManager;
     }
 
     /** Get an instance of the recipe manager

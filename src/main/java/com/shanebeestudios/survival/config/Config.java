@@ -40,6 +40,7 @@ public class Config {
     public boolean survival_remove_wood_tools;
     public boolean survival_torch;
     public boolean survival_update_merchant_trades;
+    public boolean survival_update_loot_tables;
 
     public boolean break_only_with_sickle;
     public boolean survival_break_only_with_shovel;
@@ -288,6 +289,7 @@ public class Config {
         this.survival_remove_wood_tools = this.settings.getBoolean("survival.remove-wooden-tools");
         this.survival_torch = this.settings.getBoolean("survival.torch"); // TODO move to recipes area?!?!?
         this.survival_update_merchant_trades = this.settings.getBoolean("survival.update-merchant-trades");
+        this.survival_update_loot_tables = this.settings.getBoolean("survival.update-loot-tables");
 
         this.break_only_with_sickle = this.settings.getBoolean("survival.break-only-with.sickle");
         this.survival_break_only_with_shovel = this.settings.getBoolean("survival.break-only-with.shovel");

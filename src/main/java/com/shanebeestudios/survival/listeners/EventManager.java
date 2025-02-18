@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.listeners;
 
+import com.shanebeestudios.survival.listeners.block.LootTableListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import com.shanebeestudios.survival.SurvivalPlugin;
@@ -146,6 +147,9 @@ public class EventManager {
         }
         if (config.survival_update_merchant_trades) {
             pm.registerEvents(new MerchantTrades(this.plugin), this.plugin);
+        }
+        if (this.config.survival_update_loot_tables) {
+            pm.registerEvents(new LootTableListener(plugin), this.plugin);
         }
         pm.registerEvents(new PiglinBarter(this.plugin), this.plugin);
         // Config handled within this event

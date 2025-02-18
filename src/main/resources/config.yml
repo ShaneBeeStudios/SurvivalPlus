@@ -77,6 +77,8 @@ survival:
   # Ex: An armorer offers diamond chestplate -> diamond chestplate with the slowness attribute
   # Ex: A toolsmith offers diamond hoe -> diamond sickle
   update-merchant-trades: true
+  # Same as above but for loot tables (Such as chests/barrels in villages)
+  update-loot-tables: true
 
 mechanics:
   # This is an experimental feature, I recommend not using it
