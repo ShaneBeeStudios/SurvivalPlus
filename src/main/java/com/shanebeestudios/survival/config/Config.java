@@ -124,9 +124,10 @@ public class Config {
     public boolean mechanics_thirst_purify_water;
     public boolean mechanics_thirst_melt_snow;
     public double mechanics_thirst_drain_rate;
-    public int mechanics_thirst_heat_drain;
-    public int mechanics_thirst_nether_drain;
+    public double mechanics_thirst_heat_drain_rate;
+    public double mechanics_thirst_nether_drain_rate;
     public double mechanics_thirst_damage_rate;
+    public double mechanics_thirst_rep_apple;
     public double mechanics_thirst_rep_beetroot_soup;
     public double mechanics_thirst_rep_melon_slice;
     public double mechanics_thirst_rep_mush_stew;
@@ -357,10 +358,11 @@ public class Config {
         this.mechanics_thirst_purify_water = this.settings.getBoolean("mechanics.thirst.purify-water");
         this.mechanics_thirst_melt_snow = this.settings.getBoolean("mechanics.thirst.melt-snow");
         this.mechanics_thirst_drain_rate = this.settings.getDouble("mechanics.thirst.drain-rate");
-        this.mechanics_thirst_heat_drain = this.settings.getInt("mechanics.thirst.heat-drain");
-        this.mechanics_thirst_nether_drain = this.settings.getInt("mechanics.thirst.nether-drain");
+        this.mechanics_thirst_heat_drain_rate = this.settings.getInt("mechanics.thirst.heat-drain-rate");
+        this.mechanics_thirst_nether_drain_rate = this.settings.getInt("mechanics.thirst.nether-drain-rate");
         this.mechanics_thirst_damage_rate = this.settings.getDouble("mechanics.thirst.damage-rate");
 
+        this.mechanics_thirst_rep_apple = this.settings.getDouble("mechanics.thirst.replenish-level.apple");
         this.mechanics_thirst_rep_beetroot_soup = this.settings.getDouble("mechanics.thirst.replenish-level.beetroot-soup");
         this.mechanics_thirst_rep_melon_slice = this.settings.getDouble("mechanics.thirst.replenish-level.melon-slice");
         this.mechanics_thirst_rep_mush_stew = this.settings.getDouble("mechanics.thirst.replenish-level.mushroom-stew");

@@ -27,16 +27,10 @@ public class TaskManager {
         }
         // Thirst
         if (config.mechanics_thirst_enabled) {
-            new ThirstDrain(plugin);
+            new ThirstTask(plugin);
             if (!config.mechanics_status_scoreboard && alertInterval > 0) {
                 new ThirstAlert(plugin);
             }
-        }
-		if (config.mechanics_thirst_nether_drain > 0) {
-		    new ThirstDrainNether(plugin);
-        }
-		if (config.mechanics_thirst_heat_drain > 0) {
-		    new ThirstDrainHeat(plugin);
         }
 	}
 

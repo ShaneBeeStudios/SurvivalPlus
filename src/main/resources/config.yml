@@ -194,21 +194,22 @@ mechanics:
     # The amount of thirst to drop when doing exhaustive tasks such as running, mining, etc.
     # (When exhaustion reaches 4 and resets, this amount will be removed from the player's thirst)
     drain-rate: 0.5
-    # If player is in a HOT biome, drain 1 extra thirst point every X seconds
-    # This helps speed up thirst draining when a player is in a hot biome like the desert or savanna
-    # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
-    # If set to 0, this will be disabled
-    heat-drain: 30
-    # If player is in the nether, drain 1 extra thirst point every X seconds
-    # This helps speed up thirst draining when a player is in the nether
-    # (ex: at a rate of 30, thirst drops 2 points a minute, which means the player would lose all thirst in 20 minutes)
-    # If set to 0, this will be disabled
-    nether-drain: 30
-    # The amount of damage a player takes when their thirst level is empty
+    # The amount of thirst that will drop every 5 seconds in the heat
+    # Player needs to be in a hot biome where the temp exceeds 1.5 (eg: desert, savanna, badlands) and exposed to direct sunlight
+    # Default = 0.083 (This would take one 20-minute daylight cycle to drain thirst)
+    heat-drain-rate: 0.083
+    # The amount of thirst that will drop every 5 seconds in the nether
+    # Default = 0.17 (This would take 10 minutes to drain thirst)
+    nether-drain-rate: 0.17
+    # The amount of damage a player will take every 5 seconds when their thirst level is empty
+    # Easy mode = Will only damage if player's health > 10 (5 hearts)
+    # Normal mode = Will only damage if player's health > 1 (0.5 hearts)
+    # Hard mode = Will damage player no matter what (could kill)
     damage-rate: 1.0
     # The level of thirst that will be replenished when a player consumes this item
-    # Some item's replenish thirst levels are handled in the items.yml file
+    # Custom items' replenish thirst levels are handled in the items.yml file
     replenish-level:
+      apple: 1
       beetroot-soup: 6
       melon-slice: 6
       mushroom-stew: 12

@@ -111,7 +111,7 @@ public class PlayerData implements ConfigurationSerializable {
      *
      * @param thirst Level of thirst to add
      */
-    public void increaseThirst(int thirst) {
+    public void increaseThirst(double thirst) {
         this.thirst = Math.clamp(this.thirst + thirst, 0, 40);
     }
 

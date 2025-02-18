@@ -52,6 +52,12 @@ public class ThirstListener implements Listener {
             change = drinkItem.getThirstLevel();
         } else {
             switch (event.getItem().getType()) {
+                case APPLE:
+                    change = this.config.mechanics_thirst_rep_apple;
+                    break;
+                case BEETROOT_SOUP:
+                    change = this.config.mechanics_thirst_rep_beetroot_soup;
+                    break;
                 case POTION:
                     if (this.config.mechanics_thirst_purify_water) {
                         change = this.config.mechanics_thirst_rep_other_water;
@@ -73,6 +79,8 @@ public class ThirstListener implements Listener {
                     break;
             }
         }
+        if (change <= 0) return;
+
         ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
         if (thirstEvent.callEvent()) {
             playerData.setThirst(playerData.getThirst() + change);
