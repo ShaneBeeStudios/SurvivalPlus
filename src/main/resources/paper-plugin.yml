@@ -1,10 +1,10 @@
 name: SurvivalPlus
 version: '${version}'
-main: tk.shanebee.survival.SurvivalPlugin
+main: com.shanebeestudios.survival.SurvivalPlugin
 description: "A fun new way to change mechanics of Minecraft"
 authors: [ShaneBee]
 website: 'https://github.com/ShaneBeeStudios/SurvivalPlus'
-bootstrapper: tk.shanebee.survival.SurvivalBootstrap
+bootstrapper: com.shanebeestudios.survival.SurvivalBootstrap
 api-version: '1.21.4'
 dependencies:
   server:
