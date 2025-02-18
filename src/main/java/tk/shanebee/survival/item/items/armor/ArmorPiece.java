@@ -1,11 +1,15 @@
 package tk.shanebee.survival.item.items.armor;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Equippable;
+import net.kyori.adventure.key.Key;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
@@ -50,6 +54,15 @@ public class ArmorPiece extends Item {
         }
 
         itemStack.setItemMeta(itemMeta);
+
+        // Golden crown override
+        if (armorMaterial == ArmorMaterial.GOLDEN && armorType == ArmorType.HELMET) {
+            itemStack.setData(DataComponentTypes.EQUIPPABLE,
+                Equippable.equippable(EquipmentSlot.HEAD)
+                    .assetId(Key.key("survival_plus:gold"))
+                    .build());
+        }
+
         setupDefaults(armorMaterial.getKey(armorType), itemStack, this.armorMaterial != ArmorMaterial.GOLDEN && this.armorMaterial != ArmorMaterial.LEATHER);
     }
 
