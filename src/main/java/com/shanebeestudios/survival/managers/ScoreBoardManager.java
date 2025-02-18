@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.data.HealthBoard;
 import com.shanebeestudios.survival.tasks.HealthBoardTask;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,16 +22,17 @@ public class ScoreBoardManager {
     }
 
     /**
-     * Sets up a scoreboard for a player
-     * <p>
-     * This is generally used internally
-     *
-     * @param player Player to set up a scoreboard for
+     * @hidden Should not be used outside this plugin
      */
+    @ApiStatus.Internal
     public void setupScoreboard(Player player) {
         this.healthBoardTaskMap.put(player.getUniqueId(), new HealthBoardTask(this.plugin, player));
     }
 
+    /**
+     * @hidden Should not be used outside this plugin
+     */
+    @ApiStatus.Internal
     public void resetStatusScoreboard(boolean enabled) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (enabled) {
@@ -41,6 +43,10 @@ public class ScoreBoardManager {
         }
     }
 
+    /**
+     * @hidden Should not be used outside this plugin
+     */
+    @ApiStatus.Internal
     public void unloadScoreboard(Player player) {
         UUID uuid = player.getUniqueId();
         if (this.healthBoardTaskMap.containsKey(uuid)) {

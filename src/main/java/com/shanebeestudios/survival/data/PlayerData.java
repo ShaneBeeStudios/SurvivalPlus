@@ -373,9 +373,7 @@ public class PlayerData implements ConfigurationSerializable {
     }
 
     /**
-     * Internal serializer for yaml config
-     *
-     * @return Map for config
+     * @hidden
      */
     @SuppressWarnings("NullableProblems")
     @Override
@@ -397,10 +395,7 @@ public class PlayerData implements ConfigurationSerializable {
     }
 
     /**
-     * Internal deserializer for yaml config
-     *
-     * @param args Args from yaml config
-     * @return New PlayerData loaded from config
+     * @hidden
      */
     public static PlayerData deserialize(Map<String, Object> args) {
         UUID uuid = UUID.fromString(args.get("uuid").toString());

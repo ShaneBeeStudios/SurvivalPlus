@@ -1,15 +1,12 @@
 package com.shanebeestudios.survival.listeners;
 
-import com.shanebeestudios.survival.listeners.block.LootTableListener;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.config.Config;
 import com.shanebeestudios.survival.listeners.block.BlockBreakListener;
 import com.shanebeestudios.survival.listeners.block.BlockPlaceListener;
 import com.shanebeestudios.survival.listeners.block.Campfire;
 import com.shanebeestudios.survival.listeners.block.Chairs;
-import com.shanebeestudios.survival.listeners.block.SnowGeneration;
+import com.shanebeestudios.survival.listeners.block.LootTableListener;
 import com.shanebeestudios.survival.listeners.block.SnowballThrow;
 import com.shanebeestudios.survival.listeners.block.WorkbenchShare;
 import com.shanebeestudios.survival.listeners.entity.BeeKeeperSuit;
@@ -47,115 +44,112 @@ import com.shanebeestudios.survival.listeners.server.Guide;
 import com.shanebeestudios.survival.listeners.server.LocalChat;
 import com.shanebeestudios.survival.listeners.server.RecipeDiscovery;
 import com.shanebeestudios.survival.listeners.server.ResourcePackListener;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 
 /**
  * Internal use only
  */
 public class EventManager {
 
-	private final SurvivalPlugin plugin;
-	private final int LOCAL_CHAT;
-	private final Config config;
+    private final SurvivalPlugin plugin;
+    private final Config config;
 
-	public EventManager(SurvivalPlugin plugin) {
-		this.plugin = plugin;
-		this.config = plugin.getSurvivalConfig();
-		this.LOCAL_CHAT = config.settings_local_chat_distance;
-	}
+    public EventManager(SurvivalPlugin plugin) {
+        this.plugin = plugin;
+        this.config = plugin.getSurvivalConfig();
+    }
 
-	public void registerEvents() {
-		PluginManager pm = plugin.getServer().getPluginManager();
-		pm.registerEvents(this.plugin, this.plugin);
-		pm.registerEvents(new RecipeDiscovery(plugin), this.plugin);
+    public void registerEvents() {
+        PluginManager pluginManager = plugin.getServer().getPluginManager();
+        pluginManager.registerEvents(this.plugin, this.plugin);
+        pluginManager.registerEvents(new RecipeDiscovery(this.plugin), this.plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 
-		if (config.survival_enabled) {
-			pm.registerEvents(new BlockBreakListener(plugin), this.plugin);
-			pm.registerEvents(new BlockPlaceListener(plugin), this.plugin);
-			pm.registerEvents(new FirestrikerListener(plugin), this.plugin);
-			pm.registerEvents(new ShivPoison(this.plugin), this.plugin);
-			pm.registerEvents(new WaterBowlListener(plugin), this.plugin);
-			pm.registerEvents(new Campfire(plugin), this.plugin);
-			//pm.registerEvents(new Backpack(), this.plugin); needs to be reworked
-		}
-		if (config.MECHANICS_BOW)
-			pm.registerEvents(new BowListener(plugin), this.plugin);
-		if (config.mechanics_grappling_hook)
-			pm.registerEvents(new GrapplingHookListener(plugin), this.plugin);
-		if (config.legendary_obsidian_mace)
-			pm.registerEvents(new ObsidianMaceWeakness(plugin), this.plugin);
-		if (config.legendary_valkyrie)
-			pm.registerEvents(new Valkyrie(plugin), this.plugin);
-		if (config.legendary_giant_blade)
-			pm.registerEvents(new GiantBlade(plugin), this.plugin);
-		if (config.legendary_blaze_sword)
-			pm.registerEvents(new BlazeSword(), this.plugin);
-		if (LOCAL_CHAT > -1)
-			pm.registerEvents(new LocalChat(plugin), this.plugin);
-		if (config.mechanics_compass_waypoint)
-			pm.registerEvents(new CompassWaypoint(this.plugin), this.plugin);
-		if (config.mechanics_medic_kit)
-			pm.registerEvents(new MedicKit(plugin), this.plugin);
+        if (this.config.survival_enabled) {
+            pluginManager.registerEvents(new BlockBreakListener(this.plugin), this.plugin);
+            pluginManager.registerEvents(new BlockPlaceListener(this.plugin), this.plugin);
+            pluginManager.registerEvents(new FirestrikerListener(this.plugin), this.plugin);
+            pluginManager.registerEvents(new ShivPoison(this.plugin), this.plugin);
+            pluginManager.registerEvents(new WaterBowlListener(this.plugin), this.plugin);
+            pluginManager.registerEvents(new Campfire(this.plugin), this.plugin);
+        }
+        if (this.config.mechanics_bow)
+            pluginManager.registerEvents(new BowListener(this.plugin), this.plugin);
+        if (this.config.mechanics_grappling_hook)
+            pluginManager.registerEvents(new GrapplingHookListener(this.plugin), this.plugin);
+        if (this.config.legendary_obsidian_mace)
+            pluginManager.registerEvents(new ObsidianMaceWeakness(this.plugin), this.plugin);
+        if (this.config.legendary_valkyrie)
+            pluginManager.registerEvents(new Valkyrie(this.plugin), this.plugin);
+        if (this.config.legendary_giant_blade)
+            pluginManager.registerEvents(new GiantBlade(this.plugin), this.plugin);
+        if (this.config.legendary_blaze_sword)
+            pluginManager.registerEvents(new BlazeSword(), this.plugin);
+        if (this.config.settings_local_chat_distance > -1)
+            pluginManager.registerEvents(new LocalChat(this.plugin), this.plugin);
+        if (this.config.mechanics_compass_waypoint)
+            pluginManager.registerEvents(new CompassWaypoint(this.plugin), this.plugin);
+        if (this.config.mechanics_medic_kit)
+            pluginManager.registerEvents(new MedicKit(this.plugin), this.plugin);
 
-		pm.registerEvents(new WaterBottleListener(plugin), this.plugin);
+        pluginManager.registerEvents(new WaterBottleListener(this.plugin), this.plugin);
 
-        if (config.settings_resource_pack_enabled) {
-            pm.registerEvents(new ResourcePackListener(plugin), this.plugin);
+        if (this.config.settings_resource_pack_enabled) {
+            pluginManager.registerEvents(new ResourcePackListener(this.plugin), this.plugin);
         }
 
-		if (config.mechanics_raw_meat_hunger)
-			pm.registerEvents(new RawMeatHunger(), this.plugin);
-		if (config.mechanics_thirst_enabled) {
-			pm.registerEvents(new ThirstListener(this.plugin), this.plugin);
-			if (config.mechanics_thirst_purify_water)
-				pm.registerEvents(new CauldronWaterBottle(), this.plugin);
-		}
-		if (config.mechanics_poison_potato)
-			pm.registerEvents(new PoisonousPotato(), this.plugin);
-		if (config.mechanics_shared_workbench)
-			pm.registerEvents(new WorkbenchShare(plugin), this.plugin);
-		if (config.mechanics_chairs_enabled)
-			pm.registerEvents(new Chairs(plugin), this.plugin);
-		if (config.mechanics_cookie_boost)
-			pm.registerEvents(new CookieHealthBoost(), this.plugin);
-		if (config.mechanics_beet_strength)
-			pm.registerEvents(new BeetrootStrength(), this.plugin);
-		if (config.mechanics_tropical_fish)
-			pm.registerEvents(new TropicalFish(this.plugin), this.plugin);
-		if (config.mechanics_living_slime)
-			pm.registerEvents(new LivingSlime(plugin), this.plugin);
-		if (config.mechanics_energy_enabled)
-			pm.registerEvents(new EnergyChange(plugin), this.plugin);
-		if (config.mechanics_food_diversity_enabled)
-			pm.registerEvents(new FoodDiversityConsume(plugin), this.plugin);
-		if (config.mechanics_recurved_bow)
-			pm.registerEvents(new RecurvedBowListener(plugin), this.plugin);
-		if (config.mechanics_snowball_revamp)
-			pm.registerEvents(new SnowballThrow(), this.plugin);
-		if (config.MECHANICS_SNOW_GEN_REVAMP)
-			pm.registerEvents(new SnowGeneration(plugin), this.plugin);
-		if (config.entity_mechanics_chicken_breeding_enabled)
-		    pm.registerEvents(new ChickenSpawn(this.plugin), this.plugin);
-		if (config.welcome_guide_enabled)
-			pm.registerEvents(new Guide(plugin), this.plugin);
+        if (this.config.mechanics_raw_meat_hunger)
+            pluginManager.registerEvents(new RawMeatHunger(), this.plugin);
+        if (this.config.mechanics_thirst_enabled) {
+            pluginManager.registerEvents(new ThirstListener(this.plugin), this.plugin);
+            if (this.config.mechanics_thirst_purify_water)
+                pluginManager.registerEvents(new CauldronWaterBottle(), this.plugin);
+        }
+        if (this.config.mechanics_poison_potato)
+            pluginManager.registerEvents(new PoisonousPotato(), this.plugin);
+        if (this.config.mechanics_shared_workbench)
+            pluginManager.registerEvents(new WorkbenchShare(this.plugin), this.plugin);
+        if (this.config.mechanics_chairs_enabled)
+            pluginManager.registerEvents(new Chairs(this.plugin), this.plugin);
+        if (this.config.mechanics_cookie_boost)
+            pluginManager.registerEvents(new CookieHealthBoost(), this.plugin);
+        if (this.config.mechanics_beet_strength)
+            pluginManager.registerEvents(new BeetrootStrength(), this.plugin);
+        if (this.config.mechanics_tropical_fish)
+            pluginManager.registerEvents(new TropicalFish(this.plugin), this.plugin);
+        if (this.config.mechanics_living_slime)
+            pluginManager.registerEvents(new LivingSlime(this.plugin), this.plugin);
+        if (this.config.mechanics_energy_enabled)
+            pluginManager.registerEvents(new EnergyChange(this.plugin), this.plugin);
+        if (this.config.mechanics_food_diversity_enabled)
+            pluginManager.registerEvents(new FoodDiversityConsume(this.plugin), this.plugin);
+        if (this.config.mechanics_recurved_bow)
+            pluginManager.registerEvents(new RecurvedBowListener(this.plugin), this.plugin);
+        if (this.config.mechanics_snowball_revamp)
+            pluginManager.registerEvents(new SnowballThrow(), this.plugin);
+        if (this.config.entity_mechanics_chicken_breeding_enabled)
+            pluginManager.registerEvents(new ChickenSpawn(this.plugin), this.plugin);
+        if (this.config.welcome_guide_enabled)
+            pluginManager.registerEvents(new Guide(this.plugin), this.plugin);
 
-		if (config.entity_mechanics_pigmen_chest_enabled)
-			pm.registerEvents(new ChestPigmen(this.plugin), this.plugin);
+        if (this.config.entity_mechanics_pigmen_chest_enabled)
+            pluginManager.registerEvents(new ChestPigmen(this.plugin), this.plugin);
 
-        if (config.entity_mechanics_beekeeper_suit_enabled) {
+        if (this.config.entity_mechanics_beekeeper_suit_enabled) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
         }
-        if (config.survival_update_merchant_trades) {
-            pm.registerEvents(new MerchantTrades(this.plugin), this.plugin);
+        if (this.config.survival_update_merchant_trades) {
+            pluginManager.registerEvents(new MerchantTrades(this.plugin), this.plugin);
         }
         if (this.config.survival_update_loot_tables) {
-            pm.registerEvents(new LootTableListener(plugin), this.plugin);
+            pluginManager.registerEvents(new LootTableListener(this.plugin), this.plugin);
         }
-        pm.registerEvents(new PiglinBarter(this.plugin), this.plugin);
+        pluginManager.registerEvents(new PiglinBarter(this.plugin), this.plugin);
         // Config handled within this event
-        pm.registerEvents(new EntityDeath(this.plugin), this.plugin);
-        pm.registerEvents(new RepairCrafting(), this.plugin);
+        pluginManager.registerEvents(new EntityDeath(this.plugin), this.plugin);
+        pluginManager.registerEvents(new RepairCrafting(), this.plugin);
 
-	}
+    }
 
 }

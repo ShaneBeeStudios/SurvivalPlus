@@ -76,7 +76,7 @@ public class Config {
 
     public boolean mechanics_slow_armor;
     public boolean mechanics_reinforced_armor;
-    public boolean MECHANICS_BOW;
+    public boolean mechanics_bow;
     public boolean mechanics_recurved_bow;
     public boolean mechanics_grappling_hook;
     public boolean mechanics_medic_kit;
@@ -146,7 +146,6 @@ public class Config {
     public boolean mechanics_fermented_skin;
     public boolean mechanics_living_slime;
     public boolean mechanics_snowball_revamp;
-    public boolean MECHANICS_SNOW_GEN_REVAMP;
 
     public boolean mechanics_farming_products_cookie;
     public boolean mechanics_farming_products_bread;
@@ -309,7 +308,7 @@ public class Config {
         // MECHANICS
         this.mechanics_slow_armor = this.settings.getBoolean("mechanics.slow-armor");
         this.mechanics_reinforced_armor = this.settings.getBoolean("mechanics.reinforced-leather-armor");
-        this.MECHANICS_BOW = this.settings.getBoolean("mechanics.bow");
+        this.mechanics_bow = this.settings.getBoolean("mechanics.bow");
         this.mechanics_recurved_bow = this.settings.getBoolean("mechanics.recurve-bow");
         this.mechanics_grappling_hook = this.settings.getBoolean("mechanics.grappling-hook");
         this.mechanics_medic_kit = this.settings.getBoolean("mechanics.medical-kit");
@@ -398,7 +397,6 @@ public class Config {
         this.mechanics_living_slime = this.settings.getBoolean("mechanics.living-slime");
 
         this.mechanics_snowball_revamp = this.settings.getBoolean("mechanics.snowball-revamp");
-        this.MECHANICS_SNOW_GEN_REVAMP = this.settings.getBoolean("mechanics.SnowGenerationRevamp");
 
         this.mechanics_farming_products_cookie = this.settings.getBoolean("mechanics.farming-products.cookie");
         this.mechanics_farming_products_bread = this.settings.getBoolean("mechanics.farming-products.bread");

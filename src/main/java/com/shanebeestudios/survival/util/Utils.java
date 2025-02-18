@@ -206,8 +206,8 @@ public class Utils {
         return maj > major || min > minor || (min == minor && rev >= revision);
     }
 
-    public static boolean isRunningSpigot() {
-        return classExists("org.spigotmc.CustomTimingsHandler");
+    public static boolean isRunningPaper() {
+        return classExists("io.papermc.paper.ServerBuildInfo");
     }
 
     /**

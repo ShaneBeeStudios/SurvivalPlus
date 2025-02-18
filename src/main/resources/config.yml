@@ -279,9 +279,6 @@ mechanics:
   # When a player throws a snowball it will place a snow layer on the ground
   snowball-revamp: true
 
-  # Currently disabled, do not use!!!
-  SnowGenerationRevamp: false
-
   # Creates harder to craft recipes for these items
   farming-products:
     bread: true
