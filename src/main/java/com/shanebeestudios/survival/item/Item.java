@@ -4,11 +4,18 @@ import com.shanebeestudios.survival.config.ItemConfig;
 import com.shanebeestudios.survival.util.Utils;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.DyedItemColor;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Tag;
+import org.bukkit.block.BlockType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.jetbrains.annotations.Nullable;
@@ -117,6 +124,17 @@ public abstract class Item {
         this.repairPercent = ITEM_CONFIG.getRepairPercent(key);
         this.itemStack = itemStack;
         Items.ALL_ITEMS.put(this.key, this);
+    }
+
+    @SuppressWarnings("NullableProblems")
+    protected RegistryKeySet<BlockType> getBlockTag(TagKey<BlockType> tagKey) {
+        return RegistryAccess.registryAccess().getRegistry(RegistryKey.BLOCK).getTag(tagKey);
+    }
+
+    @SuppressWarnings("NullableProblems")
+    protected RegistryKeySet<BlockType> getBlockTag(Tag<Material> tag) {
+        TagKey<BlockType> tagKey = TagKey.create(RegistryKey.BLOCK, tag.key());
+        return RegistryAccess.registryAccess().getRegistry(RegistryKey.BLOCK).getTag(tagKey);
     }
 
     /**

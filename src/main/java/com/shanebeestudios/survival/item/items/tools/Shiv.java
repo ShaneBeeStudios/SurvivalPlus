@@ -1,6 +1,8 @@
 package com.shanebeestudios.survival.item.items.tools;
 
+import com.shanebeestudios.survival.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -10,28 +12,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import com.shanebeestudios.survival.item.Item;
 
 @SuppressWarnings("UnstableApiUsage")
 public class Shiv extends Item {
 
     public Shiv() {
-        ItemStack itemStack = ItemType.WOODEN_HOE.createItemStack();
-        ItemMeta itemMeta = itemStack.getItemMeta();
+        ItemStack itemStack = ItemType.WOODEN_SWORD.createItemStack();
 
-        int shiv_dmg = 4;
-        float shiv_spd = 1.8f;
+        AttributeModifier attackDamage = new AttributeModifier(BASE_ATTACK_DAMAGE, 3, Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
+        AttributeModifier attackSpeed = new AttributeModifier(BASE_ATTACK_SPEED, -2.2, Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND);
 
-        AttributeModifier i_shivDamage = new AttributeModifier(BASE_ATTACK_DAMAGE, shiv_dmg - 1, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_shivDamage);
+        itemStack.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes()
+            .addModifier(Attribute.ATTACK_DAMAGE, attackDamage)
+            .addModifier(Attribute.ATTACK_SPEED, attackSpeed)
+            .build());
 
-        AttributeModifier i_shivSpeed = new AttributeModifier(BASE_ATTACK_SPEED, shiv_spd - 4, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_shivSpeed);
-
-        itemStack.setItemMeta(itemMeta);
-
-        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
         setupDefaults("shiv", itemStack);
     }
 

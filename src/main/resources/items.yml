@@ -59,14 +59,17 @@ items:
     repair_percent: 0.85
   hammer:
     name: "Hammer"
+    max_damage: 50
     repair_cost: 0
     repair_percent: 0.85
   hatchet:
     name: "Hatchet"
+    max_damage: 50
     repair_cost: 0
     repair_percent: 0.85
   mattock:
     name: "Mattock"
+    max_damage: 50
     repair_cost: 0
     repair_percent: 0.85
   medic_kit:
@@ -97,18 +100,18 @@ items:
     repair_cost: 2
     repair_percent: 0.85
     max_damage: 1400
-  flint_sickle:
-    name: "Flint Sickle"
-    repair_cost: 0
-    repair_percent: 1.0
-    max_damage: 700
   iron_sickle:
     name: "Iron Sickle"
     repair_cost: 1
     repair_percent: 0.9
-    max_damage: 100
+    max_damage: 300
   stone_sickle:
     name: "Stone Sickle"
+    repair_cost: 0
+    repair_percent: 1.0
+    max_damage: 100
+  flint_sickle:
+    name: "Flint Sickle"
     repair_cost: 0
     repair_percent: 1.0
     max_damage: 50
