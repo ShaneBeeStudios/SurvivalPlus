@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival;
 
+import com.shanebeestudios.survival.managers.MessageManager;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import dev.jorel.commandapi.exceptions.UnsupportedVersionException;
@@ -64,6 +65,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	private TaskManager taskManager;
 	private LootManager lootManager;
 	private RecipeManager recipeManager;
+    private MessageManager messageManager;
 
 	// Other
 	private String prefix;
@@ -144,6 +146,7 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		scoreBoardManager = new ScoreBoardManager(this);
 		lootManager = new LootManager(this);
         recipeManager = new RecipeManager(this);
+        this.messageManager = new MessageManager(this);
 
 		// LOAD PLAYER DATA - (during a reload if players are still online)
 		playerDataLoader(true);
@@ -337,6 +340,10 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
      */
     public RecipeManager getRecipeManager() {
         return recipeManager;
+    }
+
+    public MessageManager getMessageManager() {
+        return this.messageManager;
     }
 
     /** Get the main SurvivalPlus config

@@ -1,5 +1,12 @@
 package com.shanebeestudios.survival.listeners.block;
 
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.config.Config;
+import com.shanebeestudios.survival.item.Items;
+import com.shanebeestudios.survival.managers.MessageManager;
+import com.shanebeestudios.survival.managers.MessageManager.MessageType;
+import com.shanebeestudios.survival.util.BlockTags;
+import com.shanebeestudios.survival.util.ItemUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -10,24 +17,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import com.shanebeestudios.survival.SurvivalPlugin;
-import com.shanebeestudios.survival.config.Config;
-import com.shanebeestudios.survival.config.Lang;
-import com.shanebeestudios.survival.item.Items;
-import com.shanebeestudios.survival.util.BlockTags;
-import com.shanebeestudios.survival.util.ItemUtils;
-import com.shanebeestudios.survival.util.Utils;
 
 import java.util.Random;
 
-public class BlockPlace implements Listener {
+public class BlockPlaceListener implements Listener {
 
     private final Config config;
-    private final Lang lang;
+    private final MessageManager messageManager;
 
-    public BlockPlace(SurvivalPlugin plugin) {
+    public BlockPlaceListener(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
-        this.lang = plugin.getLang();
+        this.messageManager = plugin.getMessageManager();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -69,7 +69,7 @@ public class BlockPlace implements Listener {
                     } else {
                         event.setCancelled(true);
                         player.updateInventory();
-                        Utils.sendColoredMini(player, "<red>" + lang.task_must_use_hammer);
+                        this.messageManager.sendMessage(player, MessageType.REQUIRES_HAMMER);
                     }
                 }
             }

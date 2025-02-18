@@ -1,5 +1,9 @@
 package com.shanebeestudios.survival.listeners.item;
 
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.item.Items;
+import com.shanebeestudios.survival.managers.MessageManager;
+import com.shanebeestudios.survival.managers.MessageManager.MessageType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -11,19 +15,15 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-import com.shanebeestudios.survival.SurvivalPlugin;
-import com.shanebeestudios.survival.config.Lang;
-import com.shanebeestudios.survival.item.Items;
-import com.shanebeestudios.survival.util.Utils;
 
 import java.util.List;
 
-public class GrapplingHook implements Listener {
+public class GrapplingHookListener implements Listener {
 
-    private final Lang lang;
+    private final MessageManager messageManager;
 
-    public GrapplingHook(SurvivalPlugin plugin) {
-        this.lang = plugin.getLang();
+    public GrapplingHookListener(SurvivalPlugin plugin) {
+        this.messageManager = plugin.getMessageManager();
     }
 
     @EventHandler
@@ -106,17 +106,17 @@ public class GrapplingHook implements Listener {
             } else {
                 event.setCancelled(true);
                 if (Items.GRAPPLING_HOOK.is(mainHand))
-                    Utils.sendColoredMini(player, "<red>" + this.lang.grappling_off_hand);
+                    this.messageManager.sendMessage(player, MessageType.GRAPPLING_HOOK_OFF_HAND);
                 else
-                    Utils.sendColoredMini(player, "<red>" + this.lang.fishing_off_hand);
+                    this.messageManager.sendMessage(player, MessageType.FISH_OFF_HAND);
                 player.updateInventory();
             }
         } else {
             event.setCancelled(true);
             if (Items.GRAPPLING_HOOK.is(offHand))
-                Utils.sendColoredMini(player, "<red>" + this.lang.grappling_main_hand);
+                this.messageManager.sendMessage(player, MessageType.GRAPPLING_HOOK_MAIN_HAND);
             else
-                Utils.sendColoredMini(player, "<red>" + this.lang.fishing_main_hand);
+                this.messageManager.sendMessage(player, MessageType.FISH_MAIN_HAND);
             player.updateInventory();
         }
     }

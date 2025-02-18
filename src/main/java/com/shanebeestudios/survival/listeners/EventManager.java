@@ -5,8 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.config.Config;
-import com.shanebeestudios.survival.listeners.block.BlockBreak;
-import com.shanebeestudios.survival.listeners.block.BlockPlace;
+import com.shanebeestudios.survival.listeners.block.BlockBreakListener;
+import com.shanebeestudios.survival.listeners.block.BlockPlaceListener;
 import com.shanebeestudios.survival.listeners.block.Campfire;
 import com.shanebeestudios.survival.listeners.block.Chairs;
 import com.shanebeestudios.survival.listeners.block.SnowGeneration;
@@ -21,14 +21,14 @@ import com.shanebeestudios.survival.listeners.entity.MerchantTrades;
 import com.shanebeestudios.survival.listeners.entity.PiglinBarter;
 import com.shanebeestudios.survival.listeners.item.BeetrootStrength;
 import com.shanebeestudios.survival.listeners.item.BlazeSword;
-import com.shanebeestudios.survival.listeners.item.Bow;
+import com.shanebeestudios.survival.listeners.item.BowListener;
 import com.shanebeestudios.survival.listeners.item.CauldronWaterBottle;
 import com.shanebeestudios.survival.listeners.item.CompassWaypoint;
 import com.shanebeestudios.survival.listeners.item.CookieHealthBoost;
 import com.shanebeestudios.survival.listeners.item.FirestrikerListener;
 import com.shanebeestudios.survival.listeners.item.FoodDiversityConsume;
 import com.shanebeestudios.survival.listeners.item.GiantBlade;
-import com.shanebeestudios.survival.listeners.item.GrapplingHook;
+import com.shanebeestudios.survival.listeners.item.GrapplingHookListener;
 import com.shanebeestudios.survival.listeners.item.MedicKit;
 import com.shanebeestudios.survival.listeners.item.ObsidianMaceWeakness;
 import com.shanebeestudios.survival.listeners.item.PoisonousPotato;
@@ -70,8 +70,8 @@ public class EventManager {
         Bukkit.getPluginManager().registerEvents(new PlayerDataListener(this.plugin), this.plugin);
 
 		if (config.survival_enabled) {
-			pm.registerEvents(new BlockBreak(plugin), this.plugin);
-			pm.registerEvents(new BlockPlace(plugin), this.plugin);
+			pm.registerEvents(new BlockBreakListener(plugin), this.plugin);
+			pm.registerEvents(new BlockPlaceListener(plugin), this.plugin);
 			pm.registerEvents(new FirestrikerListener(plugin), this.plugin);
 			pm.registerEvents(new ShivPoison(this.plugin), this.plugin);
 			pm.registerEvents(new WaterBowlListener(plugin), this.plugin);
@@ -79,9 +79,9 @@ public class EventManager {
 			//pm.registerEvents(new Backpack(), this.plugin); needs to be reworked
 		}
 		if (config.MECHANICS_BOW)
-			pm.registerEvents(new Bow(plugin), this.plugin);
+			pm.registerEvents(new BowListener(plugin), this.plugin);
 		if (config.mechanics_grappling_hook)
-			pm.registerEvents(new GrapplingHook(plugin), this.plugin);
+			pm.registerEvents(new GrapplingHookListener(plugin), this.plugin);
 		if (config.legendary_obsidian_mace)
 			pm.registerEvents(new ObsidianMaceWeakness(plugin), this.plugin);
 		if (config.legendary_valkyrie)

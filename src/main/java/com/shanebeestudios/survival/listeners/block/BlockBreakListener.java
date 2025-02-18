@@ -2,8 +2,9 @@ package com.shanebeestudios.survival.listeners.block;
 
 import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.config.Config;
-import com.shanebeestudios.survival.config.Lang;
 import com.shanebeestudios.survival.item.Items;
+import com.shanebeestudios.survival.managers.MessageManager;
+import com.shanebeestudios.survival.managers.MessageManager.MessageType;
 import com.shanebeestudios.survival.util.BlockTags;
 import com.shanebeestudios.survival.util.ItemUtils;
 import com.shanebeestudios.survival.util.Utils;
@@ -28,14 +29,14 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 
-public class BlockBreak implements Listener {
+public class BlockBreakListener implements Listener {
 
     private final Config config;
-    private final Lang lang;
+    private final MessageManager messageManager;
 
-    public BlockBreak(SurvivalPlugin plugin) {
-        this.lang = plugin.getLang();
+    public BlockBreakListener(SurvivalPlugin plugin) {
         this.config = plugin.getSurvivalConfig();
+        this.messageManager = plugin.getMessageManager();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -71,7 +72,7 @@ public class BlockBreak implements Listener {
                 } else if (BlockTags.REQUIRES_SHOVEL.isTagged(material)) {
                     event.setCancelled(true);
                     player.updateInventory();
-                    Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shovel);
+                    this.messageManager.sendMessage(player, MessageType.REQUIRES_SHOVEL);
                     return;
                 }
             } else if (this.config.survival_break_only_with_sickle) {
@@ -87,7 +88,7 @@ public class BlockBreak implements Listener {
         if (this.config.survival_break_only_with_sickle && BlockTags.REQUIRES_SICKLE.isTagged(material)) {
             if (!Items.Tags.SICKLES.isTagged(tool)) {
                 event.setCancelled(true);
-                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_sickle);
+                this.messageManager.sendMessage(player, MessageType.REQUIRES_SICKLE);
             } else {
                 event.setDropItems(false);
                 Location loc = event.getBlock().getLocation();
@@ -126,20 +127,20 @@ public class BlockBreak implements Listener {
             return;
         }
 
-        if (this.config.survival_break_only_with_axe && !Tag.ITEMS_AXES.isTagged(tool.getType())) {
-            if (BlockTags.REQUIRES_AXE.isTagged(material)) {
+        if (this.config.survival_break_only_with_axe && BlockTags.REQUIRES_AXE.isTagged(material)) {
+            if (!Tag.ITEMS_AXES.isTagged(tool.getType())) {
                 event.setCancelled(true);
                 player.updateInventory();
-                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_axe);
+                this.messageManager.sendMessage(player, MessageType.REQUIRES_AXE);
                 return;
             }
         }
 
-        if (this.config.survival_break_only_with_pickaxe && !Tag.ITEMS_PICKAXES.isTagged(tool.getType())) {
-            if (BlockTags.REQUIRES_PICKAXE.isTagged(material)) {
+        if (this.config.survival_break_only_with_pickaxe && BlockTags.REQUIRES_PICKAXE.isTagged(material)) {
+            if (!Tag.ITEMS_PICKAXES.isTagged(tool.getType())) {
                 event.setCancelled(true);
                 player.updateInventory();
-                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_pick);
+                this.messageManager.sendMessage(player, MessageType.REQUIRES_PICKAXE);
                 return;
             }
         }
@@ -157,7 +158,7 @@ public class BlockBreak implements Listener {
             if (BlockTags.REQUIRES_SHEARS.isTagged(material)) {
                 event.setCancelled(true);
                 player.updateInventory();
-                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shear);
+                this.messageManager.sendMessage(player, MessageType.REQUIRES_SHEARS);
                 return;
             }
         }
@@ -190,7 +191,7 @@ public class BlockBreak implements Listener {
             }
             if (!Items.Tags.SICKLES.isTagged(tool)) {
                 e.setCancelled(true);
-                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_sickle);
+                this.messageManager.sendMessage(player, MessageType.REQUIRES_SICKLE);
             } else {
                 if (bush.getAge() >= 2) {
                     int berries = 0;
