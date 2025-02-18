@@ -1,5 +1,12 @@
 package com.shanebeestudios.survival.listeners.block;
 
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.config.Config;
+import com.shanebeestudios.survival.config.Lang;
+import com.shanebeestudios.survival.item.Items;
+import com.shanebeestudios.survival.util.BlockTags;
+import com.shanebeestudios.survival.util.ItemUtils;
+import com.shanebeestudios.survival.util.Utils;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -18,13 +25,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import com.shanebeestudios.survival.SurvivalPlugin;
-import com.shanebeestudios.survival.config.Config;
-import com.shanebeestudios.survival.config.Lang;
-import com.shanebeestudios.survival.item.Items;
-import com.shanebeestudios.survival.util.BlockTags;
-import com.shanebeestudios.survival.util.ItemUtils;
-import com.shanebeestudios.survival.util.Utils;
 
 import java.util.Random;
 
@@ -38,151 +38,134 @@ public class BlockBreak implements Listener {
         this.config = plugin.getSurvivalConfig();
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     private void onBlockBreak(BlockBreakEvent event) {
-        if (event.isCancelled()) return;
         Player player = event.getPlayer();
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
 
         ItemStack tool = player.getInventory().getItemInMainHand();
 
         Block block = event.getBlock();
         Material material = block.getType();
 
-        if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
-            if (!Items.QUARTZ_PICKAXE.is(tool)) {
-                if (this.config.survival_break_only_with_shovel) {
-                    if (!Tag.ITEMS_SHOVELS.isTagged(tool.getType())) {
-                        if (BlockTags.REQUIRES_SHOVEL.isTagged(material)) {
-                            event.setCancelled(true);
-                            player.updateInventory();
-                            Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shovel);
-                        }
-                        //Flint
-                        if (material == Material.GRAVEL) {
-                            event.setDropItems(false);
-
-                            Random rand = new Random();
-                            double chance = rand.nextDouble();
-
-                            if (chance <= this.config.survival_drop_rate_flint)
-                                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.1, 0.5), new ItemStack(Material.FLINT));
-                        }
-                    } else {
-                        Block above = block.getRelative(BlockFace.UP);
-                        switch (block.getType()) {
-                            case GRASS_BLOCK:
-                            case DIRT:
-                            case PODZOL:
-                            case COARSE_DIRT:
-                            case FARMLAND:
-                                if (BlockTags.FARMABLE.isTagged(above.getType())) {
-                                    above.setType(Material.AIR);
-                                }
-                        }
-                    }
-                }
-
-                if (this.config.survival_break_only_with_axe && !Tag.ITEMS_AXES.isTagged(tool.getType())) {
-                    if (BlockTags.REQUIRES_AXE.isTagged(material)) {
-                        event.setCancelled(true);
-                        player.updateInventory();
-                        Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_axe);
-                    }
-
-                    //Fix half door glitch
-                    if (Tag.DOORS.isTagged(material)) {
-                        if (block.getRelative(BlockFace.UP).getType() == material)
-                            block.getRelative(BlockFace.UP).getState().update(true);
-                        if (block.getRelative(BlockFace.DOWN).getType() == material)
-                            block.getRelative(BlockFace.DOWN).getState().update(true);
-                    }
-                }
-                if (this.config.survival_break_only_with_pickaxe && !Tag.ITEMS_PICKAXES.isTagged(tool.getType())) {
-                    if (BlockTags.REQUIRES_PICKAXE.isTagged(material)) {
-                        event.setCancelled(true);
-                        player.updateInventory();
-                        Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_pick);
-                    }
-                }
-
-                if (this.config.break_only_with_sickle) {
-                    if (BlockTags.FARMABLE.isTagged(material)) {
-                        if (!Items.Tags.SICKLES.isTagged(tool)) {
-                            event.setCancelled(true);
-                            Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_sickle);
-                        } else {
-                            event.setDropItems(false);
-                            Location loc = event.getBlock().getLocation();
-                            int random = 1;
-                            int multiplier = 1;
-                            boolean fullyGrown = true;
-
-                            if (event.getBlock().getBlockData() instanceof Ageable crop) {
-                                fullyGrown = crop.getAge() == crop.getMaximumAge();
-                            }
-
-                            // Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
-                            if (Items.FLINT_SICKLE.is(tool)) {
-                                multiplier = 4;
-                                random = fullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
-                            }
-                            if (Items.STONE_SICKLE.is(tool)) {
-                                multiplier = 2;
-                                random = fullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
-                            }
-                            // Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
-                            if (Items.IRON_SICKLE.is(tool) || Items.DIAMOND_SICKLE.is(tool)) {
-                                random = fullyGrown ? new Random().nextInt(2) + 3 : 1;
-                            }
-
-                            for (Material drop : Utils.getDrops(material, fullyGrown)) {
-                                if (drop != Material.AIR && random != 0) {
-                                    assert loc.getWorld() != null;
-                                    if (drop == Material.PUMPKIN) { // prevent duping pumpkins
-                                        random = 1;
-                                    }
-                                    loc.getWorld().dropItemNaturally(loc.add(0.5, 0.1, 0.5), new ItemStack(drop, random));
-                                }
-                            }
-                            if (tool.getType().getMaxDurability() < ItemUtils.getDurability(tool) + multiplier) {
-                                player.getInventory().setItemInMainHand(null);
-                                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-                                return;
-                            }
-                            ItemUtils.setDurability(tool, ItemUtils.getDurability(tool) + multiplier);
-                            player.updateInventory();
-                        }
-                    }
-                }
-
-                if (!(tool.getType() == Material.SHEARS)) {
-                    if (this.config.survival_break_only_with_shears) {
-                        if (BlockTags.REQUIRES_SHEARS.isTagged(material)) {
-                            event.setCancelled(true);
-                            player.updateInventory();
-                            Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shear);
-                        }
-                    }
-
-                    //Sticks - Maybe this should be removed since 1.14+ leaves drop sticks?!?!?
-                    if (Tag.LEAVES.isTagged(material)) {
-                        Random rand = new Random();
-                        double chance = rand.nextDouble();
-
-                        if (chance <= this.config.survival_drop_rate_stick)
-                            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.1, 0.5), new ItemStack(Material.STICK));
-                    }
-                }
-                if (this.config.recipes_workbench && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
-                    event.setDropItems(false);
-                    ItemStack workbench = Items.WORKBENCH.getItemStack();
-                    block.getWorld().dropItem(block.getLocation(), workbench);
-                }
-            } else {
-                if (BlockTags.ORE_TYPE_BLOCK.isTagged(material) || BlockTags.ORES.isTagged(material)) {
-                    event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.1, 0.5), new ItemStack(material));
-                }
+        if (Items.QUARTZ_PICKAXE.is(tool)) {
+            // TODO figure out what this is about
+            if (BlockTags.ORE_TYPE_BLOCK.isTagged(material) || BlockTags.ORES.isTagged(material)) {
+                block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.1, 0.5), new ItemStack(material));
             }
+            return;
+        }
+
+        if (this.config.survival_break_only_with_shovel) {
+            if (!Tag.ITEMS_SHOVELS.isTagged(tool.getType())) {
+                // Gravel drop flint
+                if (material == Material.GRAVEL) {
+                    event.setDropItems(false);
+
+                    Random rand = new Random();
+                    double chance = rand.nextDouble();
+
+                    if (chance <= this.config.survival_drop_rate_flint)
+                        block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.1, 0.5), new ItemStack(Material.FLINT));
+                    return;
+                } else if (BlockTags.REQUIRES_SHOVEL.isTagged(material)) {
+                    event.setCancelled(true);
+                    player.updateInventory();
+                    Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shovel);
+                    return;
+                }
+            } else if (this.config.survival_break_only_with_sickle) {
+                // Prevent bypassing sickle by breaking block below
+                Block above = block.getRelative(BlockFace.UP);
+                if (BlockTags.REQUIRES_SICKLE.isTagged(above.getType())) {
+                    above.setType(Material.AIR);
+                }
+                return;
+            }
+        }
+
+        if (this.config.survival_break_only_with_sickle && BlockTags.REQUIRES_SICKLE.isTagged(material)) {
+            if (!Items.Tags.SICKLES.isTagged(tool)) {
+                event.setCancelled(true);
+                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_sickle);
+            } else {
+                event.setDropItems(false);
+                Location loc = event.getBlock().getLocation();
+                int random = 1;
+                int damageItemAmount = 1;
+                boolean isFullyGrown = true;
+
+                if (event.getBlock().getBlockData() instanceof Ageable ageable) {
+                    isFullyGrown = ageable.getAge() == ageable.getMaximumAge();
+                }
+
+                // Flint/Stone sickles drop a chance of 0-1 items (not grown) or 1-2 (grown)
+                if (Items.FLINT_SICKLE.is(tool)) {
+                    damageItemAmount = 4;
+                    random = isFullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+                } else if (Items.STONE_SICKLE.is(tool)) {
+                    damageItemAmount = 2;
+                    random = isFullyGrown ? new Random().nextInt(2) + 1 : new Random().nextInt(2);
+                }
+                // Iron/Diamond sickles drop a chance of 1 (not grown) or 2-4 items (grown)
+                else if (Items.IRON_SICKLE.is(tool) || Items.DIAMOND_SICKLE.is(tool)) {
+                    random = isFullyGrown ? new Random().nextInt(2) + 3 : 1;
+                }
+
+                for (Material drop : Utils.getDrops(material, isFullyGrown)) {
+                    if (drop != Material.AIR && random != 0) {
+                        assert loc.getWorld() != null;
+                        if (drop == Material.PUMPKIN) { // prevent duping pumpkins
+                            random = 1;
+                        }
+                        loc.getWorld().dropItemNaturally(loc.add(0.5, 0.1, 0.5), new ItemStack(drop, random));
+                    }
+                }
+                ItemUtils.damageItem(player, tool, damageItemAmount);
+            }
+            return;
+        }
+
+        if (this.config.survival_break_only_with_axe && !Tag.ITEMS_AXES.isTagged(tool.getType())) {
+            if (BlockTags.REQUIRES_AXE.isTagged(material)) {
+                event.setCancelled(true);
+                player.updateInventory();
+                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_axe);
+                return;
+            }
+        }
+
+        if (this.config.survival_break_only_with_pickaxe && !Tag.ITEMS_PICKAXES.isTagged(tool.getType())) {
+            if (BlockTags.REQUIRES_PICKAXE.isTagged(material)) {
+                event.setCancelled(true);
+                player.updateInventory();
+                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_pick);
+                return;
+            }
+        }
+
+        if (this.config.survival_break_only_with_shears && tool.getType() != Material.SHEARS) {
+            //Sticks - Maybe this should be removed since 1.14+ leaves drop sticks?!?!?
+            if (Tag.LEAVES.isTagged(material)) {
+                Random rand = new Random();
+                double chance = rand.nextDouble();
+
+                if (chance <= this.config.survival_drop_rate_stick)
+                    event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation().add(0.5, 0.1, 0.5), new ItemStack(Material.STICK));
+                return;
+            }
+            if (BlockTags.REQUIRES_SHEARS.isTagged(material)) {
+                event.setCancelled(true);
+                player.updateInventory();
+                Utils.sendColoredMini(player, "<red>" + this.lang.task_must_use_shear);
+                return;
+            }
+        }
+
+        if (this.config.recipes_workbench && material == Material.CRAFTING_TABLE && !event.isCancelled()) {
+            event.setDropItems(false);
+            ItemStack workbench = Items.WORKBENCH.getItemStack();
+            block.getWorld().dropItem(block.getLocation(), workbench);
         }
     }
 
@@ -190,7 +173,7 @@ public class BlockBreak implements Listener {
     @EventHandler
     private void onHarvest(PlayerInteractEvent e) {
         if (e.isCancelled()) return;
-        if (!this.config.break_only_with_sickle) return;
+        if (!this.config.survival_break_only_with_sickle) return;
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
             return;
         Player player = e.getPlayer();
@@ -258,10 +241,10 @@ public class BlockBreak implements Listener {
 
     @EventHandler
     private void onWaterBreakCrops(BlockPhysicsEvent event) {
-        if (!this.config.break_only_with_sickle) return;
+        if (!this.config.survival_break_only_with_sickle) return;
         if (event.getSourceBlock().getType() == Material.WATER) {
             Material type = event.getBlock().getType();
-            if (BlockTags.FARMABLE.isTagged(type)) {
+            if (BlockTags.REQUIRES_SICKLE.isTagged(type)) {
                 if (type == Material.MELON || type == Material.PUMPKIN) return;
                 event.getBlock().setType(Material.AIR);
             }
@@ -272,7 +255,7 @@ public class BlockBreak implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onTrample(PlayerInteractEvent event) {
         if (event.isCancelled()) return;
-        if (!this.config.break_only_with_sickle) return;
+        if (!this.config.survival_break_only_with_sickle) return;
         if (event.getAction() == Action.PHYSICAL) {
             if (event.getClickedBlock() == null) return;
             if (event.getClickedBlock().getType() == Material.FARMLAND) {

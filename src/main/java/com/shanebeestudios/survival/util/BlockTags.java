@@ -36,10 +36,6 @@ public class BlockTags {
      */
     public static Tag<Material> COOKING_BLOCK = getTag("cooking_block");
     /**
-     * Blocks that are farmable
-     */
-    public static Tag<Material> FARMABLE = getTag("farmable");
-    /**
      * All glazed terracotta
      */
     public static Tag<Material> GLAZED_TERRACOTTA = getTag("glazed_terracotta");
@@ -79,6 +75,10 @@ public class BlockTags {
      * Blocks that require shears to break
      */
     public static Tag<Material> REQUIRES_SHEARS = getTag("requires_shears");
+    /**
+     * Blocks that requires a sickle to break
+     */
+    public static Tag<Material> REQUIRES_SICKLE = getTag("requires_sickle");
     /**
      * Blocks that require a hammer to build
      */

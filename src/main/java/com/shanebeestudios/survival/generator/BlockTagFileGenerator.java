@@ -1,5 +1,7 @@
 package com.shanebeestudios.survival.generator;
 
+import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
+import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -12,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings({"UnstableApiUsage", "UnusedReturnValue"})
@@ -39,7 +42,6 @@ public class BlockTagFileGenerator {
 
         createConcreteTag(blocks);
         createCookingBlockTag(blocks);
-        createFarmableTag(blocks);
         createGlazedTerracottaTag(blocks);
         createOresTag(blocks);
         createOreTypeBlockTag(blocks);
@@ -51,6 +53,7 @@ public class BlockTagFileGenerator {
         createRequiresPickaxeTag(blocks);
         createRequiresShovelTag(blocks);
         createRequiresShearsTag(blocks);
+        createRequiresSickleTag(blocks);
         createRequiresHammerTag(blocks);
 
 
@@ -64,28 +67,30 @@ public class BlockTagFileGenerator {
 
     private void createGlazedTerracottaTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        Registry.BLOCK.forEach(block -> {
-            NamespacedKey namespacedKey = block.getKey();
-            String key = namespacedKey.getKey();
-            if (key.endsWith("_glazed_terracotta")) blocks.add(namespacedKey.toString());
+        Registry.BLOCK.stream().map(Keyed::getKey)
+            .sorted(Comparator.comparing(NamespacedKey::toString))
+            .toList().forEach(namespacedKey -> {
+                String key = namespacedKey.toString();
+                if (key.endsWith("_glazed_terracotta")) blocks.add(key);
         });
         section.set("glazed_terracotta", blocks);
     }
 
     private void createConcreteTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        Registry.BLOCK.forEach(block -> {
-            NamespacedKey namespacedKey = block.getKey();
-            String key = namespacedKey.getKey();
-            if (key.endsWith("_concrete")) blocks.add(namespacedKey.toString());
-        });
+        Registry.BLOCK.stream().map(Keyed::getKey)
+            .sorted(Comparator.comparing(NamespacedKey::toString))
+            .toList().forEach(namespacedKey -> {
+                String key = namespacedKey.toString();
+                if (key.endsWith("_concrete")) blocks.add(key);
+            });
         section.set("concrete", blocks);
     }
 
     private void createStoneTypeTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
         blocks.add("minecraft:stone");
-        blocks.add("cobblestone");
+        blocks.add("minecraft:cobblestone");
         blocks.add("minecraft:mossy_cobblestone");
         blocks.add("minecraft:infested_cobblestone");
         blocks.add("minecraft:andesite");
@@ -136,7 +141,7 @@ public class BlockTagFileGenerator {
     private void createStorageBlockTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
 
-        blocks.add("#minecraft:shulker_boxes");
+        blocks.add("#" + BlockTypeTagKeys.SHULKER_BOXES.key());
         blocks.add("minecraft:chest");
         blocks.add("minecraft:ender_chest");
         blocks.add("minecraft:trapped_chest");
@@ -186,37 +191,38 @@ public class BlockTagFileGenerator {
 
     private void createOresTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        Registry.BLOCK.forEach(block -> {
-            String key = block.getKey().toString();
-            if (key.endsWith("_ore")) blocks.add(key);
-        });
+        Registry.BLOCK.stream().map(Keyed::getKey)
+            .sorted(Comparator.comparing(NamespacedKey::toString))
+            .toList().forEach(namespacedKey -> {
+                String key = namespacedKey.toString();
+                if (key.endsWith("_ore")) blocks.add(key);
+            });
 
         section.set("ores", blocks);
     }
 
-    private void createFarmableTag(@NotNull ConfigurationSection section) {
+    private void createRequiresSickleTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
 
+        blocks.add("#" + BlockTypeTagKeys.CROPS.key());
+
         blocks.add("minecraft:melon");
-        blocks.add("minecraft:melon_stem");
         blocks.add("minecraft:pumpkin");
-        blocks.add("minecraft:pumpkin_stem");
         blocks.add("minecraft:chorus_flower");
         blocks.add("minecraft:chorus_plant");
-        blocks.add("minecraft:carrots");
-        blocks.add("minecraft:potatoes");
-        blocks.add("minecraft:beetroots");
-        blocks.add("minecraft:wheat");
         blocks.add("minecraft:sweet_berry_bush");
         blocks.add("minecraft:cocoa");
 
-        section.set("farmable", blocks);
+        section.set("requires_sickle", blocks);
     }
 
     private void createRequiresAxeTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        for (Material value : Tag.MINEABLE_AXE.getValues()) {
-            if (!Tag.REPLACEABLE.isTagged(value)) blocks.add(value.getKey().toString());
+        for (Material value : Tag.MINEABLE_AXE.getValues().stream().sorted(Comparator.comparing(material -> material.getKey().toString())).toList()) {
+            if (Tag.REPLACEABLE.isTagged(value)) continue;
+            if (Tag.CROPS.isTagged(value)) continue;
+            if (Tag.SWORD_EFFICIENT.isTagged(value)) continue;
+            blocks.add(value.getKey().toString());
         }
         section.set("requires_axe", blocks);
         section.setInlineComments("requires_axe", List.of("Blocks which require an axe to break."));
@@ -225,7 +231,7 @@ public class BlockTagFileGenerator {
 
     private void createRequiresPickaxeTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        blocks.add("#minecraft:mineable/pickaxe");
+        blocks.add("#" + BlockTypeTagKeys.MINEABLE_PICKAXE.key());
         section.set("requires_pickaxe", blocks);
         section.setInlineComments("requires_pickaxe", List.of("Blocks which require a pickaxe to break."));
 
@@ -233,9 +239,7 @@ public class BlockTagFileGenerator {
 
     private void createRequiresShovelTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        for (Material value : Tag.MINEABLE_SHOVEL.getValues()) {
-            if (value != Material.GRAVEL) blocks.add(value.getKey().toString());
-        }
+        blocks.add("#" + BlockTypeTagKeys.MINEABLE_SHOVEL.key());
         section.set("requires_shovel", blocks);
         section.setInlineComments("requires_shovel", List.of("Blocks which require a shovel to break."));
 
@@ -253,20 +257,20 @@ public class BlockTagFileGenerator {
 
     private void createRequiresHammerTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
-        blocks.add("#minecraft:fence_gates");
-        blocks.add("#minecraft:terracotta");
-        blocks.add("#minecraft:shulker_boxes");
-        blocks.add("#minecraft:beds");
-        blocks.add("#minecraft:logs");
-        blocks.add("#minecraft:stairs");
-        blocks.add("#minecraft:slabs");
-        blocks.add("#minecraft:planks");
-        blocks.add("#minecraft:wooden_pressure_plates");
-        blocks.add("#minecraft:wooden_fences");
-        blocks.add("#minecraft:rails");
-        blocks.add("#minecraft:banners");
-        blocks.add("#minecraft:fences");
-        blocks.add("#minecraft:signs");
+        blocks.add("#" + BlockTypeTagKeys.FENCE_GATES.key());
+        blocks.add("#" + BlockTypeTagKeys.TERRACOTTA.key());
+        blocks.add("#" + BlockTypeTagKeys.SHULKER_BOXES.key());
+        blocks.add("#" + BlockTypeTagKeys.BEDS.key());
+        blocks.add("#" + BlockTypeTagKeys.LOGS.key());
+        blocks.add("#" + BlockTypeTagKeys.STAIRS.key());
+        blocks.add("#" + BlockTypeTagKeys.SLABS.key());
+        blocks.add("#" + BlockTypeTagKeys.PLANKS.key());
+        blocks.add("#" + BlockTypeTagKeys.WOODEN_PRESSURE_PLATES.key());
+        blocks.add("#" + BlockTypeTagKeys.WOODEN_FENCES.key());
+        blocks.add("#" + BlockTypeTagKeys.RAILS.key());
+        blocks.add("#" + BlockTypeTagKeys.BANNERS.key());
+        blocks.add("#" + BlockTypeTagKeys.FENCES.key());
+        blocks.add("#" + BlockTypeTagKeys.SIGNS.key());
 
         blocks.add("#survival_plus:glazed_terracotta");
         blocks.add("#survival_plus:concrete");

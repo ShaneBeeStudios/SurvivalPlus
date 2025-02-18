@@ -41,7 +41,7 @@ public class Sickle extends Item {
 
         itemStack.setData(DataComponentTypes.TOOL, Tool.tool()
             .defaultMiningSpeed(0.0001f)
-            .addRule(Tool.rule(getBlockTag(BlockTags.FARMABLE), 1.0f, TriState.TRUE))
+            .addRule(Tool.rule(getBlockTag(BlockTags.REQUIRES_SICKLE), 1.0f, TriState.TRUE))
             .build());
 
         setupDefaults(typeKey + "_sickle", itemStack);

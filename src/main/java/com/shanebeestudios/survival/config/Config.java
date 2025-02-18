@@ -42,7 +42,7 @@ public class Config {
     public boolean survival_update_merchant_trades;
     public boolean survival_update_loot_tables;
 
-    public boolean break_only_with_sickle;
+    public boolean survival_break_only_with_sickle;
     public boolean survival_break_only_with_shovel;
     public boolean survival_break_only_with_axe;
     public boolean survival_break_only_with_pickaxe;
@@ -291,7 +291,7 @@ public class Config {
         this.survival_update_merchant_trades = this.settings.getBoolean("survival.update-merchant-trades");
         this.survival_update_loot_tables = this.settings.getBoolean("survival.update-loot-tables");
 
-        this.break_only_with_sickle = this.settings.getBoolean("survival.break-only-with.sickle");
+        this.survival_break_only_with_sickle = this.settings.getBoolean("survival.break-only-with.sickle");
         this.survival_break_only_with_shovel = this.settings.getBoolean("survival.break-only-with.shovel");
         this.survival_break_only_with_axe = this.settings.getBoolean("survival.break-only-with.axe");
         this.survival_break_only_with_pickaxe = this.settings.getBoolean("survival.break-only-with.pickaxe");

@@ -144,10 +144,10 @@ public class Recipes {
         SHIV = register(config.survival_enabled, Items.SHIV.getRecipe());
         HAMMER = register(config.survival_enabled, Items.HAMMER.getRecipe());
         FIRESTRIKER = register(config.survival_enabled, Items.FIRESTRIKER.getRecipe());
-        FLINT_SICKLE = register(config.survival_enabled && config.break_only_with_sickle && config.survival_sickle_flint, Items.FLINT_SICKLE.getRecipe());
-        STONE_SICKLE = register(config.survival_enabled && config.break_only_with_sickle && config.survival_sickle_stone, Items.STONE_SICKLE.getRecipe());
-        IRON_SICKLE = register(config.survival_enabled && config.break_only_with_sickle && config.survival_sickle_iron, Items.IRON_SICKLE.getRecipe());
-        DIAMOND_SICKLE = register(config.survival_enabled && config.break_only_with_sickle && config.survival_sickle_diamond, Items.DIAMOND_SICKLE.getRecipe());
+        FLINT_SICKLE = register(config.survival_enabled && config.survival_break_only_with_sickle && config.survival_sickle_flint, Items.FLINT_SICKLE.getRecipe());
+        STONE_SICKLE = register(config.survival_enabled && config.survival_break_only_with_sickle && config.survival_sickle_stone, Items.STONE_SICKLE.getRecipe());
+        IRON_SICKLE = register(config.survival_enabled && config.survival_break_only_with_sickle && config.survival_sickle_iron, Items.IRON_SICKLE.getRecipe());
+        DIAMOND_SICKLE = register(config.survival_enabled && config.survival_break_only_with_sickle && config.survival_sickle_diamond, Items.DIAMOND_SICKLE.getRecipe());
         WORKBENCH = register(config.survival_enabled && config.recipes_workbench, Items.WORKBENCH.getRecipe());
         VALKYRIES_AXE = register(config.legendary_valkyrie, Items.VALKYRIES_AXE.getRecipe());
         QUARTZ_PICKAXE = register(config.legendary_quartz_pickaxe, Items.QUARTZ_PICKAXE.getRecipe());
