@@ -81,6 +81,9 @@ public class ArmorPiece extends Item {
         return recipe;
     }
 
+    /**
+     * Types of armor pieces
+     */
     public enum ArmorType {
         HELMET("helmet", "crown", EquipmentSlotGroup.HEAD, "###", "# #"),
         CHESTPLATE("chestplate", "guard", EquipmentSlotGroup.CHEST, "# #", "###", "###"),
@@ -108,6 +111,9 @@ public class ArmorPiece extends Item {
         }
     }
 
+    /**
+     * Material types of armor pieces
+     */
     public enum ArmorMaterial {
         LEATHER("leather", null),
         GOLDEN("golden", ItemType.GOLD_INGOT),

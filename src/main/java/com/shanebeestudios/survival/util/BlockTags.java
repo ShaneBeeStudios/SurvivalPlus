@@ -7,27 +7,81 @@ import org.bukkit.Tag;
 
 /**
  * Custom block tags
+ * <p>These are created in the `block-tags.yml` file</p>
  */
 @SuppressWarnings("unused")
 public class BlockTags {
 
-    public static void initialize() {
+    private BlockTags() {
     }
 
-    public static Tag<Material> CONCRETE = getTag("concrete");
-    public static Tag<Material> COOKING_BLOCK = getTag("cooking_block");
-    public static Tag<Material> FARMABLE = getTag("farmable");
-    public static Tag<Material> GLAZED_TERRACOTTA = getTag("glazed_terracotta");
-    public static Tag<Material> ORES = getTag("ores");
-    public static Tag<Material> ORE_TYPE_BLOCK = getTag("ore_type_block");
-    public static Tag<Material> STONE_TYPE = getTag("stone_type");
-    public static Tag<Material> STORAGE_BLOCK = getTag("storage_block");
-    public static Tag<Material> UTILITY_BLOCK = getTag("utility_block");
+    private static boolean initialized = false;
 
+    /**
+     * @hidden
+     */
+    public static void initialize() {
+        if (initialized) {
+            throw new IllegalStateException("BlockTags already initialized");
+        }
+        initialized = true;
+    }
+
+    /**
+     * Concrete blocks
+     */
+    public static Tag<Material> CONCRETE = getTag("concrete");
+    /**
+     * Cooking blocks (furnace, smoker, blast furnace)
+     */
+    public static Tag<Material> COOKING_BLOCK = getTag("cooking_block");
+    /**
+     * Blocks that are farmable
+     */
+    public static Tag<Material> FARMABLE = getTag("farmable");
+    /**
+     * All glazed terracotta
+     */
+    public static Tag<Material> GLAZED_TERRACOTTA = getTag("glazed_terracotta");
+    /**
+     * Ores
+     */
+    public static Tag<Material> ORES = getTag("ores");
+    /**
+     * Blocks from ore blocks (such as diamond block, coal block, iron block)
+     */
+    public static Tag<Material> ORE_TYPE_BLOCK = getTag("ore_type_block");
+    /**
+     * Blocks that represent stone types
+     */
+    public static Tag<Material> STONE_TYPE = getTag("stone_type");
+    /**
+     * Blocks that can hold items
+     */
+    public static Tag<Material> STORAGE_BLOCK = getTag("storage_block");
+    /**
+     * Blocks that a player can utilize
+     */
+    public static Tag<Material> UTILITY_BLOCK = getTag("utility_block");
+    /**
+     * Blocks that require an axe to break
+     */
     public static Tag<Material> REQUIRES_AXE = getTag("requires_axe");
+    /**
+     * Blocks that require a pickaxe to break
+     */
     public static Tag<Material> REQUIRES_PICKAXE = getTag("requires_pickaxe");
+    /**
+     * Blocks that require a shovel to break
+     */
     public static Tag<Material> REQUIRES_SHOVEL = getTag("requires_shovel");
+    /**
+     * Blocks that require shears to break
+     */
     public static Tag<Material> REQUIRES_SHEARS = getTag("requires_shears");
+    /**
+     * Blocks that require a hammer to build
+     */
     public static Tag<Material> REQUIRES_HAMMER = getTag("requires_hammer");
 
     private static Tag<Material> getTag(String key) {

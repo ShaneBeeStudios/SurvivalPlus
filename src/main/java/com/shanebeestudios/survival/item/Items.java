@@ -55,7 +55,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Custom SurvivalPlus items
+ * Custom SurvivalPlus {@link Item Items}
  */
 @SuppressWarnings("UnstableApiUsage")
 public class Items {
@@ -86,35 +86,35 @@ public class Items {
     public static final Item BLAZE_SWORD = new BlazeSword();
 
     // ARMOR
-    public static final Item REINFORCED_LEATHER_HELMET = new ReinforcedPiece(ArmorType.HELMET);
-    public static final Item REINFORCED_LEATHER_TUNIC = new ReinforcedPiece(ArmorType.CHESTPLATE);
-    public static final Item REINFORCED_LEATHER_TROUSERS = new ReinforcedPiece(ArmorType.LEGGINGS);
-    public static final Item REINFORCED_LEATHER_BOOTS = new ReinforcedPiece(ArmorType.BOOTS);
+    public static final ReinforcedPiece REINFORCED_LEATHER_HELMET = new ReinforcedPiece(ArmorType.HELMET);
+    public static final ReinforcedPiece REINFORCED_LEATHER_TUNIC = new ReinforcedPiece(ArmorType.CHESTPLATE);
+    public static final ReinforcedPiece REINFORCED_LEATHER_TROUSERS = new ReinforcedPiece(ArmorType.LEGGINGS);
+    public static final ReinforcedPiece REINFORCED_LEATHER_BOOTS = new ReinforcedPiece(ArmorType.BOOTS);
 
-    public static final Item GOLDEN_CROWN = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.GOLDEN, 1.0, -0.0125);
-    public static final Item GOLDEN_GUARD = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.GOLDEN, 3.0, -0.02);
-    public static final Item GOLDEN_GREAVES = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.GOLDEN, 2.0, -0.02);
-    public static final Item GOLDEN_SABATONS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.GOLDEN, 1.0, -0.0125);
+    public static final ArmorPiece GOLDEN_CROWN = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.GOLDEN, 1.0, -0.0125);
+    public static final ArmorPiece GOLDEN_GUARD = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.GOLDEN, 3.0, -0.02);
+    public static final ArmorPiece GOLDEN_GREAVES = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.GOLDEN, 2.0, -0.02);
+    public static final ArmorPiece GOLDEN_SABATONS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.GOLDEN, 1.0, -0.0125);
 
-    public static final Item IRON_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.IRON, 2.0, -0.02);
-    public static final Item IRON_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.IRON, 6.0, -0.03);
-    public static final Item IRON_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.IRON, 5.0, -0.03);
-    public static final Item IRON_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.IRON, 2.0, -0.02);
+    public static final ArmorPiece IRON_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.IRON, 2.0, -0.02);
+    public static final ArmorPiece IRON_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.IRON, 6.0, -0.03);
+    public static final ArmorPiece IRON_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.IRON, 5.0, -0.03);
+    public static final ArmorPiece IRON_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.IRON, 2.0, -0.02);
 
-    public static final Item DIAMOND_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.DIAMOND, 3, -0.02);
-    public static final Item DIAMOND_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.DIAMOND, 8, -0.03);
-    public static final Item DIAMOND_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.DIAMOND, 6, -0.03);
-    public static final Item DIAMOND_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.DIAMOND, 3, -0.02);
+    public static final ArmorPiece DIAMOND_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.DIAMOND, 3, -0.02);
+    public static final ArmorPiece DIAMOND_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.DIAMOND, 8, -0.03);
+    public static final ArmorPiece DIAMOND_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.DIAMOND, 6, -0.03);
+    public static final ArmorPiece DIAMOND_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.DIAMOND, 3, -0.02);
 
-    public static final Item NETHERITE_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.NETHERITE, 3.0, -0.02, 3.0, 0.1);
-    public static final Item NETHERITE_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.NETHERITE, 8.0, -0.02, 3.0, 0.1);
-    public static final Item NETHERITE_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.NETHERITE, 6.0, -0.02, 3.0, 0.1);
-    public static final Item NETHERITE_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.NETHERITE, 3.0, -0.02, 3.0, 0.1);
+    public static final ArmorPiece NETHERITE_HELMET = new ArmorPiece(ArmorType.HELMET, ArmorMaterial.NETHERITE, 3.0, -0.02, 3.0, 0.1);
+    public static final ArmorPiece NETHERITE_CHESTPLATE = new ArmorPiece(ArmorType.CHESTPLATE, ArmorMaterial.NETHERITE, 8.0, -0.02, 3.0, 0.1);
+    public static final ArmorPiece NETHERITE_LEGGINGS = new ArmorPiece(ArmorType.LEGGINGS, ArmorMaterial.NETHERITE, 6.0, -0.02, 3.0, 0.1);
+    public static final ArmorPiece NETHERITE_BOOTS = new ArmorPiece(ArmorType.BOOTS, ArmorMaterial.NETHERITE, 3.0, -0.02, 3.0, 0.1);
 
-    public static final Item BEEKEEPER_HELMET = new BeekeeperPiece(ArmorType.HELMET);
-    public static final Item BEEKEEPER_CHESTPLATE = new BeekeeperPiece(ArmorType.CHESTPLATE);
-    public static final Item BEEKEEPER_LEGGINGS = new BeekeeperPiece(ArmorType.LEGGINGS);
-    public static final Item BEEKEEPER_BOOTS = new BeekeeperPiece(ArmorType.BOOTS);
+    public static final BeekeeperPiece BEEKEEPER_HELMET = new BeekeeperPiece(ArmorType.HELMET);
+    public static final BeekeeperPiece BEEKEEPER_CHESTPLATE = new BeekeeperPiece(ArmorType.CHESTPLATE);
+    public static final BeekeeperPiece BEEKEEPER_LEGGINGS = new BeekeeperPiece(ArmorType.LEGGINGS);
+    public static final BeekeeperPiece BEEKEEPER_BOOTS = new BeekeeperPiece(ArmorType.BOOTS);
     public static final Item SNOW_BOOTS = new SnowBoots();
     public static final Item RAIN_BOOTS = new RainBoots();
 
@@ -137,10 +137,13 @@ public class Items {
     public static final Water SALTY_WATER = Water.salty();
     public static final Water MURKY_WATER = Water.murky();
     public static final Water WATER_BOWL = Water.waterBowl();
-    public static final Item COFFEE = new Coffee();
-    public static final Item HOT_MILK = new HotMilk();
-    public static final Item COLD_MILK = new ColdMilk();
+    public static final Coffee COFFEE = new Coffee();
+    public static final HotMilk HOT_MILK = new HotMilk();
+    public static final ColdMilk COLD_MILK = new ColdMilk();
 
+    /**
+     * Currently null, don't use
+     */
     // TODO Experimental
     public static final Item PERSISTENT_TORCH = null;
 

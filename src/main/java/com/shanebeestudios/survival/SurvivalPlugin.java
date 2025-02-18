@@ -38,6 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Main plugin class
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class SurvivalPlugin extends JavaPlugin implements Listener {
 
@@ -69,6 +72,9 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 	private boolean loaded = true;
 	private boolean snowGenOption = true;
 
+    /**
+     * @hidden
+     */
     @Override
     public void onLoad() {
         try {
@@ -82,6 +88,9 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * @hidden
+     */
 	public void onEnable() {
 		instance = this;
 		long time = System.currentTimeMillis();
@@ -179,6 +188,9 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
 		}
 	}
 
+    /**
+     * @hidden
+     */
 	public void onDisable() {
 		if (!loaded) return;
 		Utils.logMini("<yellow>Shutting down");

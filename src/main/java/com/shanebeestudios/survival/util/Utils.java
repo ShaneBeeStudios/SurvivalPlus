@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * General utility methods for the plugin
+ */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Utils {
 

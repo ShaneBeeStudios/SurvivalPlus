@@ -1,5 +1,7 @@
 package com.shanebeestudios.survival.item;
 
+import com.shanebeestudios.survival.config.ItemConfig;
+import com.shanebeestudios.survival.util.Utils;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.DyedItemColor;
 import net.kyori.adventure.key.Key;
@@ -10,8 +12,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.jetbrains.annotations.Nullable;
-import com.shanebeestudios.survival.config.ItemConfig;
-import com.shanebeestudios.survival.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +36,21 @@ public abstract class Item {
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private double repairPercent; // TODO figure this out
 
+    /**
+     * Get an ItemStack from this item
+     *
+     * @return Cloned ItemStack of this item
+     */
     public ItemStack getItemStack() {
         return getItemStack(1);
     }
 
+    /**
+     * Get an ItemStack from this item
+     *
+     * @param amount Stack amount
+     * @return Cloned ItemStack of this item
+     */
     public ItemStack getItemStack(int amount) {
         ItemStack clone = this.itemStack.clone();
         clone.setAmount(amount);
@@ -108,10 +119,21 @@ public abstract class Item {
         Items.ALL_ITEMS.put(this.key, this);
     }
 
-    public Recipe getRecipe() {
+    /**
+     * Get the recipe of this item
+     *
+     * @return Recipe of this item if registered
+     */
+    public @Nullable Recipe getRecipe() {
         return null;
     }
 
+    /**
+     * Check if an {@link ItemStack} matches this item
+     *
+     * @param itemStack ItemStack to compare
+     * @return True if the item matches
+     */
     public boolean is(ItemStack itemStack) {
         if (itemStack.hasData(DataComponentTypes.ITEM_MODEL)) {
             Key data = itemStack.getData(DataComponentTypes.ITEM_MODEL);
@@ -120,10 +142,20 @@ public abstract class Item {
         return false;
     }
 
+    /**
+     * Get the {@link Key} of this item
+     *
+     * @return Key of this item
+     */
     public Key getKey() {
         return this.key;
     }
 
+    /**
+     * Get the name of this item
+     *
+     * @return Name of item
+     */
     public @Nullable String getName() {
         return this.name;
     }

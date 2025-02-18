@@ -9,6 +9,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
+/**
+ * {@link com.shanebeestudios.survival.item.Item} class for water based drinks
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class Water extends DrinkItem {
 
@@ -25,6 +28,9 @@ public class Water extends DrinkItem {
         setupDefaults(key, itemStack, effects, remainder);
     }
 
+    /**
+     * @hidden
+     */
     public static Water dirty() {
         PotionEffect poison = new PotionEffect(PotionEffectType.POISON, 100, 0);
         PotionEffect nausea = new PotionEffect(PotionEffectType.NAUSEA, 200, 0);
@@ -34,6 +40,9 @@ public class Water extends DrinkItem {
         ));
     }
 
+    /**
+     * @hidden
+     */
     public static Water salty() {
         PotionEffect hunger = new PotionEffect(PotionEffectType.HUNGER, 400, 0);
         PotionEffect nausea = new PotionEffect(PotionEffectType.NAUSEA, 100, 0);
@@ -45,6 +54,9 @@ public class Water extends DrinkItem {
         ));
     }
 
+    /**
+     * @hidden
+     */
     public static Water murky() {
         PotionEffect poison = new PotionEffect(PotionEffectType.POISON, 200, 2);
         PotionEffect nausea = new PotionEffect(PotionEffectType.NAUSEA, 1000, 0);
@@ -58,10 +70,16 @@ public class Water extends DrinkItem {
         ));
     }
 
+    /**
+     * @hidden
+     */
     public static Water clean() {
         return new Water("clean_water");
     }
 
+    /**
+     * @hidden
+     */
     public static Water purified() {
         PotionEffect health = new PotionEffect(PotionEffectType.HEALTH_BOOST, 100, 2);
         return new Water("purified_water", List.of(
@@ -69,6 +87,9 @@ public class Water extends DrinkItem {
         ));
     }
 
+    /**
+     * @hidden
+     */
     public static Water waterBowl() {
         return new Water("water_bowl", List.of(), new ItemStack(Material.BOWL));
     }

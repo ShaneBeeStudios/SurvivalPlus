@@ -76,6 +76,7 @@ tasks {
         exclude("com/shanebeestudios/survival/commands")
         exclude("com/shanebeestudios/survival/listeners")
         exclude("com/shanebeestudios/survival/tasks")
+        (options as CoreJavadocOptions).addBooleanOption("Xdoclint:none", true)
         (options as StandardJavadocDocletOptions).links(
             "https://jd.papermc.io/paper/${minecraftVersion}/",
             "https://jd.advntr.dev/api/4.18.0/"
