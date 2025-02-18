@@ -35,10 +35,9 @@ class ThirstTask extends BukkitRunnable {
             Environment environment = player.getWorld().getEnvironment();
             if (environment == Environment.NORMAL) {
                 Block block = player.getLocation().getBlock();
-                if (block.getTemperature() < 1.5) return; // Only hot biomes
-                if (block.getLightFromSky() < 14) return; // Must be exposed to sunlight
-
-                drain(player, playerData, this.config.mechanics_thirst_heat_drain_rate);
+                if (block.getTemperature() >= 1.5 && block.getLightLevel() >= 14) {
+                    drain(player, playerData, this.config.mechanics_thirst_heat_drain_rate);
+                }
             } else if (environment == Environment.NETHER) {
                 drain(player, playerData, this.config.mechanics_thirst_nether_drain_rate);
             }
