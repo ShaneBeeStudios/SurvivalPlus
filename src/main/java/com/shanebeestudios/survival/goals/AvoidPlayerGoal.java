@@ -10,6 +10,7 @@ import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.tag.Tag;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.key.Key;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -59,6 +60,7 @@ public class AvoidPlayerGoal implements Goal<@NotNull Mob> {
             .stream()
             .filter(entity -> entity.getType() == EntityType.PLAYER)
             .map(entity -> (Player) entity)
+            .filter(player -> player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
             .findAny();
         if (any.isEmpty()) return false;
 
