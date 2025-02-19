@@ -85,10 +85,13 @@ public class StatCommand extends BaseCommand {
 
         PlayerData playerData = this.playerManager.getPlayerData(player);
         String message = switch (info) {
-            case HUNGER -> String.format("%s: %s", this.lang.hunger, playerData.getHunger());
-            case THIRST -> String.format("%s: %s", this.lang.thirst, playerData.getThirst());
-            case ENERGY -> String.format("Energy: %.2f", playerData.getEnergy());
-            case NUTRIENTS -> String.format("%s: %s = %s, %s = %s, %s = %s",
+            case HUNGER -> String.format("<grey>%s<white>: <aqua>%.2f", this.lang.hunger, playerData.getHunger());
+            case THIRST -> String.format("<grey>%s<white>: <aqua>%.2f", this.lang.thirst, playerData.getThirst());
+            case ENERGY -> String.format("<grey>%s<white>: <aqua>%.2f", this.lang.energy, playerData.getEnergy());
+            case NUTRIENTS -> String.format("<grey>%s<white>: " +
+                    "<#A0E853>%s <white>= <aqua>%s, " +
+                    "<#CE784D>%s <white>= <aqua>%s, " +
+                    "<#53DDE8>%s <white>= <aqua>%s",
                 this.lang.nutrients,
                 this.lang.carbohydrates,
                 playerData.getNutrient(Nutrient.CARBS),
@@ -96,6 +99,10 @@ public class StatCommand extends BaseCommand {
                 playerData.getNutrient(Nutrient.PROTEIN),
                 this.lang.vitamins,
                 playerData.getNutrient(Nutrient.VITAMINS));
+
+            //nutrients.add("<#A0E853>" + this.lang.carbohydrates);
+            //        nutrients.add("<#CE784D>" + this.lang.protein);
+            //        nutrients.add("<#53DDE8>" + this.lang.vitamins);
         };
 
         Utils.sendColoredMini(player, message);
