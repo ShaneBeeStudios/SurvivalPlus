@@ -367,6 +367,10 @@ entity-mechanics:
     - "minecraft:cow"
     - "minecraft:chicken"
     - "minecraft:pig"
+  # Make wolves attack players without provocation
+  # Holding wolf food in hand will stop them
+  # Options are "always", "night" or "disabled"
+  angry-wolves: night
 
 # Enables custom recipes (Overrides vanilla recipes)
 # Disable these if you prefer to just use the vanilla recipes

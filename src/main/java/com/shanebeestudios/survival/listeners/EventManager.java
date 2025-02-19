@@ -9,7 +9,7 @@ import com.shanebeestudios.survival.listeners.block.Chairs;
 import com.shanebeestudios.survival.listeners.block.LootTableListener;
 import com.shanebeestudios.survival.listeners.block.SnowballThrow;
 import com.shanebeestudios.survival.listeners.block.WorkbenchShare;
-import com.shanebeestudios.survival.listeners.entity.AvoidPlayerListener;
+import com.shanebeestudios.survival.listeners.entity.MobGoalListener;
 import com.shanebeestudios.survival.listeners.entity.BeeKeeperSuit;
 import com.shanebeestudios.survival.listeners.entity.ChestPigmen;
 import com.shanebeestudios.survival.listeners.entity.ChickenSpawn;
@@ -45,7 +45,6 @@ import com.shanebeestudios.survival.listeners.server.Guide;
 import com.shanebeestudios.survival.listeners.server.LocalChat;
 import com.shanebeestudios.survival.listeners.server.RecipeDiscovery;
 import com.shanebeestudios.survival.listeners.server.ResourcePackListener;
-import com.shanebeestudios.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -139,9 +138,6 @@ public class EventManager {
         if (this.config.entity_mechanics_beekeeper_suit_enabled) {
             Bukkit.getPluginManager().registerEvents(new BeeKeeperSuit(), this.plugin);
         }
-        if (!this.config.entity_mechanics_mobs_avoid_players.isEmpty()) {
-            pluginManager.registerEvents(new AvoidPlayerListener(this.plugin), this.plugin);
-        }
         if (this.config.survival_update_merchant_trades) {
             pluginManager.registerEvents(new MerchantTrades(this.plugin), this.plugin);
         }
@@ -152,6 +148,7 @@ public class EventManager {
         // Config handled within this event
         pluginManager.registerEvents(new EntityDeath(this.plugin), this.plugin);
         pluginManager.registerEvents(new RepairCrafting(), this.plugin);
+        pluginManager.registerEvents(new MobGoalListener(this.plugin), this.plugin);
 
     }
 

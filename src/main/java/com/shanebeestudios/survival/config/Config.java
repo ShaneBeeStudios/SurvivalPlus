@@ -1,6 +1,7 @@
 package com.shanebeestudios.survival.config;
 
 import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.goals.AngryWolfGoal;
 import com.shanebeestudios.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -181,6 +182,7 @@ public class Config {
     public boolean entity_mechanics_piglin_drop_water;
     public boolean entity_mechanics_piglin_alt_drop;
     public List<EntityType> entity_mechanics_mobs_avoid_players;
+    public AngryWolfGoal.Type entity_mechanics_angry_wolves;
 
     // RECIPES
     public boolean recipes_saddle;
@@ -433,6 +435,7 @@ public class Config {
         this.entity_mechanics_piglin_drop_water = this.settings.getBoolean("entity-mechanics.piglin-barter.drop-purified-water");
         this.entity_mechanics_piglin_alt_drop = this.settings.getBoolean("entity-mechanics.piglin-barter.alternate-bartering");
         this.entity_mechanics_mobs_avoid_players = getEntityTypes("entity-mechanics.mobs-avoid-players");
+        this.entity_mechanics_angry_wolves = AngryWolfGoal.Type.getByKey(this.settings.getString("entity-mechanics.angry-wolves", "night"));
 
         // RECIPES
         this.recipes_saddle = this.settings.getBoolean("recipes.saddle");
