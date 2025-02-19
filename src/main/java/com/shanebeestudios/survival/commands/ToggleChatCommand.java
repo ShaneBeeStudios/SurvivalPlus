@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.BukkitStringTooltip;
 import dev.jorel.commandapi.IStringTooltip;
 import dev.jorel.commandapi.arguments.Argument;
@@ -27,7 +28,7 @@ public class ToggleChatCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("chat")
-            .withPermission(Permissions.COMMAND_CHAT)
+            .withPermission(Permissions.COMMAND_CHAT.permission())
             //.then(new StringArgument("type")
             .then(new StringArgument("type")
                 .replaceSuggestions(ArgumentSuggestions.stringsWithTooltips(this.typeTooltips))

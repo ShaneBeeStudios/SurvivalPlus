@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.tasks;
 
+import com.shanebeestudios.survival.data.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
@@ -36,6 +37,7 @@ class NutrientsEffect extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (Permissions.BYPASS_STAT_NUTRITION.has(player)) continue;
             if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) continue;
 
             World world = player.getWorld();

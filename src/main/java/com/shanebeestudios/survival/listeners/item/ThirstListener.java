@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.listeners.item;
 
+import com.shanebeestudios.survival.data.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -44,6 +45,8 @@ public class ThirstListener implements Listener {
     private void onConsume(PlayerItemConsumeEvent event) {
         if (event.isCancelled()) return;
         final Player player = event.getPlayer();
+        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
+
         PlayerData playerData = playerManager.getPlayerData(player);
         ItemStack itemStack = event.getItem();
         double change = 0;
@@ -97,6 +100,8 @@ public class ThirstListener implements Listener {
     @EventHandler
     private void onExhaustionReached(EntityExhaustionEvent event) {
         Player player = (Player) event.getEntity();
+        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
+
         if (player.getExhaustion() >= 3.97) { // highest amount the event gets to (sometimes)
             PlayerData playerData = this.playerManager.getPlayerData(player);
 
@@ -132,6 +137,8 @@ public class ThirstListener implements Listener {
     private void onRespawn(PlayerRespawnEvent event) {
         if (event.getRespawnReason() != PlayerRespawnEvent.RespawnReason.DEATH) return;
         Player player = event.getPlayer();
+        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
+
         PlayerData playerData = playerManager.getPlayerData(player);
         double thirst = config.mechanics_thirst_respawn_amount;
         playerData.setThirst(thirst);

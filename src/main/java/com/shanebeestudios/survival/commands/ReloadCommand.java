@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
 import com.shanebeestudios.survival.SurvivalPlugin;
@@ -14,7 +15,7 @@ public class ReloadCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("reload")
-            .withPermission(Permissions.COMMAND_RELOAD)
+            .withPermission(Permissions.COMMAND_RELOAD.permission())
             .executes(info -> {
                 this.plugin.loadSettings(info.sender());
                 Utils.sendColoredMini(info.sender(), this.lang.prefix + "<green>Reload complete");

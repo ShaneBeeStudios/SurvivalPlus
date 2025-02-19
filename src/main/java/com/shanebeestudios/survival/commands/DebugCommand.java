@@ -1,6 +1,7 @@
 package com.shanebeestudios.survival.commands;
 
 import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.data.Permissions;
 import com.shanebeestudios.survival.data.Placeholders;
 import com.shanebeestudios.survival.item.Items;
 import com.shanebeestudios.survival.item.Nutrition;
@@ -15,7 +16,7 @@ public class DebugCommand extends BaseCommand{
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("debug")
-            .withPermission(Permissions.COMMAND_DEBUG)
+            .withPermission(Permissions.COMMAND_DEBUG.permission())
             .then(LiteralArgument.literal("nutrition")
                 .executesConsole(info -> {
                     Nutrition.debug();

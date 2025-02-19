@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.tasks;
 
+import com.shanebeestudios.survival.data.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -29,6 +30,7 @@ public class WeatherTask extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (Permissions.BYPASS_WEATHER.has(player)) continue;
             handleWeather(player);
         }
     }

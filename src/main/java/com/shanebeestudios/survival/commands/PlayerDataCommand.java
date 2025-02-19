@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.DoubleArgument;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
@@ -22,7 +23,7 @@ public class PlayerDataCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("playerdata")
-            .withPermission(Permissions.COMMAND_PLAYERDATA)
+            .withPermission(Permissions.COMMAND_PLAYERDATA.permission())
             .then(new EntitySelectorArgument.ManyPlayers("players")
                 .then(new MultiLiteralArgument("type", PlayerData.DataType.getNames())
                     .then(new MultiLiteralArgument("change", "add", "remove", "set")

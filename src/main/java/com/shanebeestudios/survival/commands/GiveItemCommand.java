@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
@@ -39,7 +40,7 @@ public class GiveItemCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("giveitem")
-            .withPermission(Permissions.COMMAND_GIVEITEM)
+            .withPermission(Permissions.COMMAND_GIVEITEM.permission())
             .then(new EntitySelectorArgument.ManyPlayers("players")
                 .then(new StringArgument("item")
                     .includeSuggestions(ArgumentSuggestions.strings(this.names))

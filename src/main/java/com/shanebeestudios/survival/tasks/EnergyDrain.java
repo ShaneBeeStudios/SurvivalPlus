@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.tasks;
 
+import com.shanebeestudios.survival.data.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.World.Environment;
@@ -38,6 +39,8 @@ public class EnergyDrain extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (Permissions.BYPASS_STAT_ENERGY.has(player)) continue;
+
             PlayerData playerData = playerManager.getPlayerData(player);
             GameMode mode = player.getGameMode();
             if (mode == GameMode.SPECTATOR || mode == GameMode.CREATIVE) continue;

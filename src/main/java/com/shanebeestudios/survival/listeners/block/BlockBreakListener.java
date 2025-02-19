@@ -2,6 +2,7 @@ package com.shanebeestudios.survival.listeners.block;
 
 import com.shanebeestudios.survival.SurvivalPlugin;
 import com.shanebeestudios.survival.config.Config;
+import com.shanebeestudios.survival.data.Permissions;
 import com.shanebeestudios.survival.item.Items;
 import com.shanebeestudios.survival.managers.MessageManager;
 import com.shanebeestudios.survival.managers.MessageManager.MessageType;
@@ -56,6 +57,8 @@ public class BlockBreakListener implements Listener {
             }
             return;
         }
+
+        if (Permissions.BYPASS_REQUIRED_TOOLS.has(player)) return;
 
         if (this.config.survival_break_only_with_shovel) {
             if (!Tag.ITEMS_SHOVELS.isTagged(tool.getType())) {

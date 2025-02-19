@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.BukkitStringTooltip;
 import dev.jorel.commandapi.IStringTooltip;
 import dev.jorel.commandapi.arguments.Argument;
@@ -51,7 +52,7 @@ public class StatCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("stats")
-            .withPermission(Permissions.COMMAND_STATS)
+            .withPermission(Permissions.COMMAND_STATS.permission())
             .then(new StringArgument("info")
                 .includeSuggestions(ArgumentSuggestions.stringsWithTooltips(this.infoTooltips))
                 .then(new StringArgument("type")

@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.commands;
 
+import com.shanebeestudios.survival.data.Permissions;
 import dev.jorel.commandapi.arguments.Argument;
 import dev.jorel.commandapi.arguments.EntitySelectorArgument;
 import dev.jorel.commandapi.arguments.LiteralArgument;
@@ -23,13 +24,13 @@ public class HealCommand extends BaseCommand {
     @Override
     Argument<?> register() {
         return LiteralArgument.literal("heal")
-            .withPermission(Permissions.COMMAND_HEAL)
+            .withPermission(Permissions.COMMAND_HEAL.permission())
             .executesPlayer(info -> {
                 heal(info.sender());
                 Utils.sendColoredMini(info.sender(), this.lang.cmd_heal_self);
             })
             .then(new EntitySelectorArgument.ManyPlayers("players")
-                .withPermission(Permissions.COMMAND_HEAL_OTHERS)
+                .withPermission(Permissions.COMMAND_HEAL_OTHERS.permission())
                 .executes(info -> {
                     CommandSender sender = info.sender();
                     Collection<Player> players = (Collection<Player>) info.args().get("players");
