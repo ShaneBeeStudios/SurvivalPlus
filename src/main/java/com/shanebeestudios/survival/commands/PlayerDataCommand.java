@@ -26,6 +26,27 @@ public class PlayerDataCommand extends BaseCommand {
             .withPermission(Permissions.COMMAND_PLAYERDATA.permission())
             .then(new EntitySelectorArgument.ManyPlayers("players")
                 .then(new MultiLiteralArgument("type", PlayerData.DataType.getNames())
+                    .then(LiteralArgument.literal("get")
+                        .executes(info -> {
+                            Collection<Player> players = (Collection<Player>) info.args().get("players");
+                            String type = info.args().getByClass("type", String.class);
+                            PlayerData.DataType dataType = PlayerData.DataType.getByName(type);
+                            if (dataType == null) {
+                                return;
+                            }
+                            assert players != null;
+                            players.forEach(player -> {
+                                PlayerData playerData = this.playerManager.getPlayerData(player);
+                                if (playerData == null) {
+                                    Utils.sendColoredMini(info.sender(), "<red>Invalid player data for <aqua>" + player.getName());
+                                    return;
+                                }
+
+                                double data = playerData.getData(dataType);
+                                Utils.sendColoredMini(info.sender(), "<grey>Data: <aqua>%s <white>= <green>%.2f", type, data);
+                            });
+
+                        }))
                     .then(new MultiLiteralArgument("change", "add", "remove", "set")
                         .then(new DoubleArgument("amount")
                             .executes(info -> {
