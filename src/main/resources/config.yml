@@ -241,7 +241,8 @@ mechanics:
     # Setting to 0 will disable this
     cold-drain-rate: 0.015
     # Every 5 seconds a player spends in bed, the level of energy to increase
-    sleeping-refresh-rate: 0.83 # Default (0.83) equivalent to 10 levels in 1 minute
+    # Default (0.83) equivalent to 10 levels in 1 minute
+    sleeping-refresh-rate: 0.83
     # Every 5 seconds a player spends sitting in a chair, the level of energy to increase
     # (Will only work if chairs are enabled)
     chair-refresh-rate: 0.25 # Default (0.41) equivalent to 3 levels in 1 minute
