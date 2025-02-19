@@ -19,9 +19,9 @@ import com.shanebeestudios.survival.listeners.entity.PiglinBarter;
 import com.shanebeestudios.survival.listeners.item.BeetrootStrength;
 import com.shanebeestudios.survival.listeners.item.BlazeSword;
 import com.shanebeestudios.survival.listeners.item.BowListener;
-import com.shanebeestudios.survival.listeners.item.CauldronWaterBottle;
 import com.shanebeestudios.survival.listeners.item.CompassWaypoint;
 import com.shanebeestudios.survival.listeners.item.CookieHealthBoost;
+import com.shanebeestudios.survival.listeners.item.DrinkableItemListener;
 import com.shanebeestudios.survival.listeners.item.FirestrikerListener;
 import com.shanebeestudios.survival.listeners.item.FoodDiversityConsume;
 import com.shanebeestudios.survival.listeners.item.GiantBlade;
@@ -33,10 +33,10 @@ import com.shanebeestudios.survival.listeners.item.RawMeatHunger;
 import com.shanebeestudios.survival.listeners.item.RecurvedBowListener;
 import com.shanebeestudios.survival.listeners.item.RepairCrafting;
 import com.shanebeestudios.survival.listeners.item.ShivPoison;
-import com.shanebeestudios.survival.listeners.item.ThirstListener;
+import com.shanebeestudios.survival.listeners.player.ThirstListener;
 import com.shanebeestudios.survival.listeners.item.TropicalFish;
 import com.shanebeestudios.survival.listeners.item.Valkyrie;
-import com.shanebeestudios.survival.listeners.item.WaterBottleListener;
+import com.shanebeestudios.survival.listeners.item.WaterPurifiedListener;
 import com.shanebeestudios.survival.listeners.item.WaterBowlListener;
 import com.shanebeestudios.survival.listeners.player.EnergyChange;
 import com.shanebeestudios.survival.listeners.player.PlayerDataListener;
@@ -92,19 +92,17 @@ public class EventManager {
             pluginManager.registerEvents(new CompassWaypoint(this.plugin), this.plugin);
         if (this.config.mechanics_medic_kit)
             pluginManager.registerEvents(new MedicKit(this.plugin), this.plugin);
-
-        pluginManager.registerEvents(new WaterBottleListener(this.plugin), this.plugin);
-
         if (this.config.settings_resource_pack_enabled) {
             pluginManager.registerEvents(new ResourcePackListener(this.plugin), this.plugin);
         }
-
         if (this.config.mechanics_raw_meat_hunger)
             pluginManager.registerEvents(new RawMeatHunger(), this.plugin);
         if (this.config.mechanics_thirst_enabled) {
             pluginManager.registerEvents(new ThirstListener(this.plugin), this.plugin);
-            if (this.config.mechanics_thirst_purify_water)
-                pluginManager.registerEvents(new CauldronWaterBottle(), this.plugin);
+            pluginManager.registerEvents(new DrinkableItemListener(this.plugin), this.plugin);
+            if (this.config.mechanics_thirst_purify_water) {
+                pluginManager.registerEvents(new WaterPurifiedListener(this.plugin), this.plugin);
+            }
         }
         if (this.config.mechanics_poison_potato)
             pluginManager.registerEvents(new PoisonousPotato(), this.plugin);
