@@ -39,7 +39,6 @@ public class Config {
 
     // SURVIVAL
     public boolean survival_enabled;
-    public boolean survival_limited_crafting;
     public boolean survival_unlock_all_recipes;
     public boolean survival_remove_wood_tools;
     public boolean survival_torch;
@@ -289,7 +288,6 @@ public class Config {
 
         // SURVIVAL
         this.survival_enabled = this.settings.getBoolean("survival.enabled");
-        this.survival_limited_crafting = this.settings.getBoolean("survival.LimitedCrafting"); // TODO remove
         this.survival_unlock_all_recipes = this.settings.getBoolean("survival.unlock-all-recipes-on-join");
         this.survival_remove_wood_tools = this.settings.getBoolean("survival.remove-wooden-tools");
         this.survival_torch = this.settings.getBoolean("survival.torch"); // TODO move to recipes area?!?!?

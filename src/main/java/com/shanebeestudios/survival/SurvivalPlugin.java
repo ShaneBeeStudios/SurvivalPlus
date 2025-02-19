@@ -21,9 +21,7 @@ import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import dev.jorel.commandapi.exceptions.UnsupportedVersionException;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -116,10 +114,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
         // LOAD CONFIG FILES
         loadSettings(Bukkit.getConsoleSender());
 
-        for (World world : getServer().getWorlds()) {
-            world.setGameRule(GameRule.DO_LIMITED_CRAFTING, this.config.survival_limited_crafting);
-        }
-
         // LOAD RESOURCE PACK
         if (this.config.settings_resource_pack_enabled) {
             if (this.config.settings_resource_pack_url.isEmpty()) {
@@ -190,12 +184,6 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
         if (!loaded) return;
         Utils.logMini("<yellow>Shutting down");
         getServer().getScheduler().cancelTasks(this);
-        //getServer().resetRecipes(); <-- why is this even here?
-
-        // Remove limited crafting when server shuts down (important if server removes this plugin)
-        for (World world : getServer().getWorlds()) {
-            world.setGameRule(GameRule.DO_LIMITED_CRAFTING, false);
-        }
 
         // Unload player data (decrease chance of memory leak)
         playerDataLoader(false);
