@@ -354,13 +354,13 @@ public class Config {
         this.mechanics_food_effects_protein_se_hard_duration = this.settings.getInt("mechanics.food-diversity.effects.proteins.status-effects.hard.duration");
 
         this.mechanics_thirst_enabled = this.settings.getBoolean("mechanics.thirst.enabled");
-        this.mechanics_thirst_starting_amount = this.settings.getInt("mechanics.thirst.starting-amount");
-        this.mechanics_thirst_respawn_amount = this.settings.getInt("mechanics.thirst.respawn-amount");
+        this.mechanics_thirst_starting_amount = this.settings.getDouble("mechanics.thirst.starting-amount");
+        this.mechanics_thirst_respawn_amount = this.settings.getDouble("mechanics.thirst.respawn-amount");
         this.mechanics_thirst_purify_water = this.settings.getBoolean("mechanics.thirst.purify-water");
         this.mechanics_thirst_melt_snow = this.settings.getBoolean("mechanics.thirst.melt-snow");
         this.mechanics_thirst_drain_rate = this.settings.getDouble("mechanics.thirst.drain-rate");
-        this.mechanics_thirst_heat_drain_rate = this.settings.getInt("mechanics.thirst.heat-drain-rate");
-        this.mechanics_thirst_nether_drain_rate = this.settings.getInt("mechanics.thirst.nether-drain-rate");
+        this.mechanics_thirst_heat_drain_rate = this.settings.getDouble("mechanics.thirst.heat-drain-rate");
+        this.mechanics_thirst_nether_drain_rate = this.settings.getDouble("mechanics.thirst.nether-drain-rate");
         this.mechanics_thirst_damage_rate = this.settings.getDouble("mechanics.thirst.damage-rate");
 
         this.mechanics_thirst_rep_apple = this.settings.getDouble("mechanics.thirst.replenish-level.apple");
