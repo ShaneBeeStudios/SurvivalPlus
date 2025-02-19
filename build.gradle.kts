@@ -72,21 +72,20 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
-        exclude("com/shanebeestudios/survival/SurvivalBootstrap.java")
-        exclude("com/shanebeestudios/survival/commands")
-        exclude("com/shanebeestudios/survival/listeners")
-        exclude("com/shanebeestudios/survival/tasks")
+        exclude("com/shanebeestudios/survival/plugin/SurvivalBootstrap.java")
+        exclude("com/shanebeestudios/survival/plugin/commands")
+        exclude("com/shanebeestudios/survival/plugin/listeners")
+        exclude("com/shanebeestudios/survival/plugin/tasks")
         (options as CoreJavadocOptions).addBooleanOption("Xdoclint:none", true)
         (options as StandardJavadocDocletOptions).links(
             "https://jd.papermc.io/paper/${minecraftVersion}/",
             "https://jd.advntr.dev/api/4.18.0/"
         )
-
     }
     shadowJar {
         relocate("fr.mrmicky.fastboard", "com.shanebeestudios.survival.api.fastboard")
         relocate("dev.jorel.commandapi", "com.shanebeestudios.survival.api.commandapi")
-        relocate("org.bstats", "com.shanebeestudios.survival.api.metrics.bstats")
+        relocate("org.bstats", "com.shanebeestudios.survival.api.metrics")
         archiveFileName = "SurvivalPlus-${projectVersion}.jar"
     }
     jar {
