@@ -15,7 +15,6 @@ public class TaskManager {
 		    new EnergyDrain(plugin);
         }
 		if (config.mechanics_food_diversity_enabled) {
-			new NutrientsDrain(plugin);
 			new NutrientsEffect(plugin);
 			if (!config.mechanics_status_scoreboard && alertInterval > 0) {
 				new NutrientsAlert(plugin);

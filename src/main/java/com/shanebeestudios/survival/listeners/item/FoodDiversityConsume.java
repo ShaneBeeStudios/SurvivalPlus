@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.listeners.item;
 
+import com.shanebeestudios.survival.data.Permissions;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityExhaustionEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -34,6 +36,20 @@ public class FoodDiversityConsume implements Listener {
         RESPAWN_CARBS = config.mechanics_food_respawn_carbs;
         RESPAWN_SALTS = config.mechanics_food_respawn_vitamins;
 	}
+
+    @EventHandler // Decrease nutrients when player does exhaustive tasks
+    private void onExhausted(EntityExhaustionEvent event) {
+        Player player = (Player) event.getEntity();
+        if (Permissions.BYPASS_STAT_NUTRITION.has(player)) return;
+
+        float exhaustion = event.getExhaustion();
+        if (player.getExhaustion() + exhaustion < 4.0f) return;
+
+        PlayerData playerData = playerManager.getPlayerData(player);
+        playerData.increaseNutrient(Nutrient.CARBS, -8);
+        playerData.increaseNutrient(Nutrient.PROTEIN, -2);
+        playerData.increaseNutrient(Nutrient.VITAMINS, -3);
+    }
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onConsume(PlayerItemConsumeEvent event) {
