@@ -350,12 +350,23 @@ entity-mechanics:
     # If 'always-baby = false' this time will only be applied to baby chickens
     # Vanilla default = 24,000 ticks = 20 minutes
     baby-ticks: 48000
+  # Mechanics for piglin bartering
   piglin-barter:
     # When enabled, if a piglin drops a water bottle they'll drop purified/clean water instead
     # Thirst needs to be enabled for this to work
     drop-purified-water: true
     # When enabled, piglins have a chance of randomly dropping custom SurvivalPlus items
     alternate-bartering: true
+  # Mobs that should avoid the player
+  # Will support minecraft tags, ex: `"#minecraft:some_entity_tag"`
+  # Mobs will run away from players at a speed of 1.6x their normal speed
+  # For new players (played less than 2 MC days) the multiplier is reduced to 1.25x
+  # To disable, clear the list and put "empty" in the list
+  mobs-avoid-players:
+    - "minecraft:sheep"
+    - "minecraft:cow"
+    - "minecraft:chicken"
+    - "minecraft:pig"
 
 # Enables custom recipes (Overrides vanilla recipes)
 # Disable these if you prefer to just use the vanilla recipes

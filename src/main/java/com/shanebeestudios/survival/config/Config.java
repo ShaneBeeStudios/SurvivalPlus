@@ -1,5 +1,7 @@
 package com.shanebeestudios.survival.config;
 
+import com.shanebeestudios.survival.SurvivalPlugin;
+import com.shanebeestudios.survival.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -7,8 +9,9 @@ import org.bukkit.Registry;
 import org.bukkit.Tag;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import com.shanebeestudios.survival.SurvivalPlugin;
-import com.shanebeestudios.survival.util.Utils;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 
 import java.io.File;
 import java.io.InputStream;
@@ -177,6 +180,7 @@ public class Config {
     public int entity_mechanics_chicken_breeding_baby_ticks;
     public boolean entity_mechanics_piglin_drop_water;
     public boolean entity_mechanics_piglin_alt_drop;
+    public List<EntityType> entity_mechanics_mobs_avoid_players;
 
     // RECIPES
     public boolean recipes_saddle;
@@ -428,6 +432,7 @@ public class Config {
         this.entity_mechanics_chicken_breeding_baby_ticks = this.settings.getInt("entity-mechanics.chicken-breeding.baby-ticks");
         this.entity_mechanics_piglin_drop_water = this.settings.getBoolean("entity-mechanics.piglin-barter.drop-purified-water");
         this.entity_mechanics_piglin_alt_drop = this.settings.getBoolean("entity-mechanics.piglin-barter.alternate-bartering");
+        this.entity_mechanics_mobs_avoid_players = getEntityTypes("entity-mechanics.mobs-avoid-players");
 
         // RECIPES
         this.recipes_saddle = this.settings.getBoolean("recipes.saddle");
@@ -507,6 +512,45 @@ public class Config {
             }
         }
         return materials;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private List<EntityType> getEntityTypes(String path) {
+        List<EntityType> entityTypes = new ArrayList<>();
+        List<String> stringList = this.settings.getStringList(path);
+        for (String string : stringList) {
+            if (string.startsWith("#")) {
+                NamespacedKey key;
+                if (string.contains(":")) key = NamespacedKey.fromString(string);
+                else key = NamespacedKey.minecraft(string);
+                if (key != null) {
+                    Tag<EntityType> tag = Bukkit.getTag(Tag.REGISTRY_ENTITY_TYPES, key, EntityType.class);
+                    if (tag != null) {
+                        for (EntityType entityType : tag.getValues()) {
+                            if (entityType != null) {
+                                Class<? extends Entity> entityClass = entityType.getEntityClass();
+                                if (entityClass == null || !Mob.class.isAssignableFrom(entityClass)) continue;
+                                entityTypes.add(entityType);
+                            }
+                        }
+                    }
+                }
+            } else {
+                NamespacedKey key;
+                if (string.contains(":")) key = NamespacedKey.fromString(string);
+                else key = NamespacedKey.minecraft(string);
+                if (key != null) {
+                    EntityType entityType = Registry.ENTITY_TYPE.get(key);
+                    if (entityType != null) {
+                        Class<? extends Entity> entityClass = entityType.getEntityClass();
+                        if (entityClass == null || !Mob.class.isAssignableFrom(entityClass)) continue;
+                        entityTypes.add(entityType);
+                    }
+                }
+            }
+        }
+
+        return entityTypes;
     }
 
 }
