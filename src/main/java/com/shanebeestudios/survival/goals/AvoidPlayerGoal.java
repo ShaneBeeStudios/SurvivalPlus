@@ -34,7 +34,7 @@ public class AvoidPlayerGoal implements Goal<@NotNull Mob> {
     private static final Registry<ItemType> ITEM_REGISTRY = RegistryAccess.registryAccess().getRegistry(RegistryKey.ITEM);
 
     @SuppressWarnings("DataFlowIssue")
-    private static final GoalKey<@NotNull Mob> GOAL_KEY = GoalKey.of(Mob.class, NamespacedKey.fromString("beer:avoid_player_goal"));
+    private static final GoalKey<@NotNull Mob> GOAL_KEY = GoalKey.of(Mob.class, NamespacedKey.fromString("survival_plus:avoid_player_goal"));
 
     private final Random random = new Random();
     private final Mob mob;
@@ -114,7 +114,6 @@ public class AvoidPlayerGoal implements Goal<@NotNull Mob> {
 
     @Override
     public void start() {
-
         this.pathfinder.moveTo(this.path, this.speed);
     }
 
