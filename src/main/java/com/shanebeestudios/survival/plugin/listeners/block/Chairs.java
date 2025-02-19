@@ -27,6 +27,7 @@ import com.shanebeestudios.survival.plugin.config.Config;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class Chairs implements Listener {
 
 	private final SurvivalPlugin plugin;

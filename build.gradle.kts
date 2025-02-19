@@ -69,6 +69,8 @@ tasks {
     }
     compileJava {
         options.release = 21
+        options.compilerArgs.add("-Xlint:unchecked")
+        options.compilerArgs.add("-Xlint:deprecation")
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()

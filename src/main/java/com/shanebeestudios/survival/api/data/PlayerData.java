@@ -298,7 +298,6 @@ public class PlayerData implements ConfigurationSerializable {
             case THIRST -> this.score_thirst;
             case ENERGY -> this.score_energy;
             case NUTRIENTS -> this.score_nutrients;
-            default -> throw new IllegalArgumentException("Unexpected value: " + info);
         };
     }
 
@@ -397,6 +396,7 @@ public class PlayerData implements ConfigurationSerializable {
     /**
      * @hidden
      */
+    @SuppressWarnings("unchecked")
     public static PlayerData deserialize(Map<String, Object> args) {
         UUID uuid = UUID.fromString(args.get("uuid").toString());
         double thirst = getDouble(args, "thirst", 20.0);
@@ -417,7 +417,6 @@ public class PlayerData implements ConfigurationSerializable {
         data.setInfoDisplayed(score_hunger, score_thirst, score_energy, score_nutrients);
 
         if (args.containsKey("compass")) {
-            //noinspection unchecked
             data.compassMap = (Map<String, Location>) args.get("compass");
         }
 
@@ -522,7 +521,6 @@ public class PlayerData implements ConfigurationSerializable {
             case CARBS -> getNutrient(Nutrient.CARBS);
             case VITAMINS -> getNutrient(Nutrient.VITAMINS);
             case HUNGER -> getHunger();
-            default -> throw new IllegalArgumentException("Unknown type: " + type);
         };
     }
 

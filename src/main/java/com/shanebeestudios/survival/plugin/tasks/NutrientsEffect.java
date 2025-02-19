@@ -1,6 +1,12 @@
 package com.shanebeestudios.survival.plugin.tasks;
 
+import com.shanebeestudios.survival.api.data.Nutrient;
 import com.shanebeestudios.survival.api.data.Permissions;
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
@@ -11,12 +17,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.data.Nutrient;
-import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.plugin.managers.PlayerManager;
-import com.shanebeestudios.survival.api.util.Utils;
 
 class NutrientsEffect extends BukkitRunnable {
 
@@ -63,12 +63,12 @@ class NutrientsEffect extends BukkitRunnable {
                 switch (world.getDifficulty()) {
                     case NORMAL:
                         if (VITAMINS_NORMAL != null) {
-                            player.addPotionEffect(VITAMINS_NORMAL, true);
+                            player.addPotionEffect(VITAMINS_NORMAL);
                         }
                         break;
                     case HARD:
                         if (VITAMINS_HARD != null) {
-                            player.addPotionEffect(VITAMINS_HARD, true);
+                            player.addPotionEffect(VITAMINS_HARD);
                         }
                         break;
                     default:
@@ -80,12 +80,12 @@ class NutrientsEffect extends BukkitRunnable {
                 switch (world.getDifficulty()) {
                     case NORMAL:
                         if (PROTEIN_NORMAL != null) {
-                            player.addPotionEffect(PROTEIN_NORMAL, true);
+                            player.addPotionEffect(PROTEIN_NORMAL);
                         }
                         break;
                     case HARD:
                         if (PROTEIN_HARD != null) {
-                            player.addPotionEffect(PROTEIN_HARD, true);
+                            player.addPotionEffect(PROTEIN_HARD);
                         }
                         break;
                     default:

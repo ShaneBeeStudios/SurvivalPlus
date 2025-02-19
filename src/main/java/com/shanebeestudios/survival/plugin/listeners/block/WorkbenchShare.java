@@ -1,6 +1,7 @@
 package com.shanebeestudios.survival.plugin.listeners.block;
 
 import com.google.common.collect.ImmutableSet;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -11,26 +12,33 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public class WorkbenchShare implements Listener {
 
-	private SurvivalPlugin plugin;
+	private final SurvivalPlugin plugin;
 
 	public WorkbenchShare(SurvivalPlugin plugin) {
 		this.plugin = plugin;
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	@SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "unchecked"})
 	private void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.isCancelled()) return;
 		final Player p = e.getPlayer();
@@ -47,7 +55,7 @@ public class WorkbenchShare implements Listener {
 			if (!block.hasMetadata("shared_players"))
 				block.setMetadata("shared_players", new FixedMetadataValue(plugin, new ArrayList<UUID>()));
 
-			final List<UUID> list = (block.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").get(0).value() : new ArrayList<>();
+			final List<UUID> list = (block.getMetadata("shared_players").getFirst().value() instanceof List<?>) ? (List<UUID>) block.getMetadata("shared_players").getFirst().value() : new ArrayList<>();
 
 			final Inventory open = p.getOpenInventory().getTopInventory();
 
@@ -70,7 +78,7 @@ public class WorkbenchShare implements Listener {
 			Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 				if (list.isEmpty())
 					return;
-				Player first = Bukkit.getPlayer(list.get(0));
+				Player first = Bukkit.getPlayer(list.getFirst());
 				assert first != null;
 				Inventory pInv = first.getOpenInventory().getTopInventory();
 				if (pInv.getType() != InventoryType.WORKBENCH)
@@ -92,32 +100,30 @@ public class WorkbenchShare implements Listener {
 		onInventoryInteract(e);
 	}
 
-	private void onInventoryInteract(InventoryInteractEvent e) {
+	@SuppressWarnings("unchecked")
+    private void onInventoryInteract(InventoryInteractEvent e) {
 		if (e.isCancelled()) return;
-		if (!(e.getWhoClicked() instanceof Player))
+		if (!(e.getWhoClicked() instanceof Player player))
 			return;
 
-		final Player p = (Player) e.getWhoClicked();
-
-		if (!p.hasMetadata("shared_workbench"))
+        if (!player.hasMetadata("shared_workbench"))
 			return;
 
 		if (e.getInventory().getType() == InventoryType.WORKBENCH) {
 			// Workaround to get the accessed WorkBench
-			final Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block) p.getMetadata("shared_workbench").get(0).value() : null;
+			final Block workbench = (player.getMetadata("shared_workbench").getFirst().value() instanceof Block) ? (Block) player.getMetadata("shared_workbench").getFirst().value() : null;
 
 			assert workbench != null;
 			if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE) {
-				if (p.getOpenInventory().getTopInventory() != null)
-					p.getOpenInventory().getTopInventory().clear();
-				p.closeInventory();
-				p.removeMetadata("shared_workbench", plugin);
+				player.getOpenInventory().getTopInventory().clear();
+				player.closeInventory();
+				player.removeMetadata("shared_workbench", plugin);
 				return;
 			}
 
-			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
+			List<UUID> list = (workbench.getMetadata("shared_players").getFirst().value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").getFirst().value() : new ArrayList<UUID>();
 
-			final Inventory pInv = p.getOpenInventory().getTopInventory();
+			final Inventory pInv = player.getOpenInventory().getTopInventory();
 			if (pInv.getType() != InventoryType.WORKBENCH) {
 				workbench.removeMetadata("shared_players", plugin);
 				return;
@@ -128,7 +134,7 @@ public class WorkbenchShare implements Listener {
 			while (iterator.hasNext()) {
 				UUID next = iterator.next();
 
-				if (p.getUniqueId().equals(next))
+				if (player.getUniqueId().equals(next))
 					continue;
 
 				final Player idPlayer = Bukkit.getPlayer(next);
@@ -143,14 +149,14 @@ public class WorkbenchShare implements Listener {
 				if (open.getType() != InventoryType.WORKBENCH) {
 					// Close Inventory if player managed to access the workbench without actually use one.
 					iterator.remove();
-					p.closeInventory();
+					player.closeInventory();
 					continue;
 				}
 
 				Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
 					open.setContents(pInv.getContents());
 					Bukkit.getServer().getScheduler().runTaskLater(plugin, () -> {
-						p.updateInventory();
+						player.updateInventory();
 						idPlayer.updateInventory();
 					}, 1);
 				}, 1);
@@ -158,7 +164,8 @@ public class WorkbenchShare implements Listener {
 		}
 	}
 
-	@EventHandler
+	@SuppressWarnings("unchecked")
+    @EventHandler
 	private void onInventoryClose(InventoryCloseEvent e) {
 		if (!(e.getPlayer() instanceof Player))
 			return;
@@ -178,7 +185,7 @@ public class WorkbenchShare implements Listener {
 				return;
 			}
 
-			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
+			List<UUID> list = (workbench.getMetadata("shared_players").getFirst().value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").getFirst().value() : new ArrayList<UUID>();
 
 			assert list != null;
 			list.remove(p.getUniqueId());
@@ -192,17 +199,18 @@ public class WorkbenchShare implements Listener {
 		}
 	}
 
-	@EventHandler
+	@SuppressWarnings("unchecked")
+    @EventHandler
 	private void onPlayerQuit(PlayerQuitEvent e) {
 		final Player p = e.getPlayer();
 
 		if (!p.hasMetadata("shared_workbench"))
 			return;
 
-		Block workbench = (p.getMetadata("shared_workbench").get(0).value() instanceof Block) ? (Block) p.getMetadata("shared_workbench").get(0).value() : null;
+		Block workbench = (p.getMetadata("shared_workbench").getFirst().value() instanceof Block) ? (Block) p.getMetadata("shared_workbench").getFirst().value() : null;
 
 		if (workbench != null && workbench.hasMetadata("shared_players") && workbench.getType() == Material.CRAFTING_TABLE) {
-			List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
+			List<UUID> list = (workbench.getMetadata("shared_players").getFirst().value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").getFirst().value() : new ArrayList<UUID>();
 
 			assert list != null;
 			list.remove(p.getUniqueId());
@@ -216,7 +224,8 @@ public class WorkbenchShare implements Listener {
 		p.removeMetadata("shared_workbench", plugin);
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@SuppressWarnings("unchecked")
+    @EventHandler(priority = EventPriority.HIGHEST)
 	private void onBreakWorkbench(BlockBreakEvent e) {
 		if (e.isCancelled()) return;
 		if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
@@ -225,7 +234,7 @@ public class WorkbenchShare implements Listener {
 		if (!workbench.hasMetadata("shared_players") || workbench.getType() != Material.CRAFTING_TABLE)
 			return;
 
-		List<UUID> list = (workbench.getMetadata("shared_players").get(0).value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").get(0).value() : new ArrayList<UUID>();
+		List<UUID> list = (workbench.getMetadata("shared_players").getFirst().value() instanceof List<?>) ? (List<UUID>) workbench.getMetadata("shared_players").getFirst().value() : new ArrayList<UUID>();
 
 		assert list != null;
 		Iterator<UUID> iterator = list.iterator();

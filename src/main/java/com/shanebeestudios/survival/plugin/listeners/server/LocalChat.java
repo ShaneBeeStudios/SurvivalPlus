@@ -14,16 +14,18 @@ import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import com.shanebeestudios.survival.plugin.config.Config;
 
+@SuppressWarnings("deprecation")
 public class LocalChat implements Listener {
 
-	private Config config;
-	private PlayerManager playerManager;
+	private final Config config;
+	private final PlayerManager playerManager;
 
 	public LocalChat(SurvivalPlugin plugin) {
 		this.config = plugin.getSurvivalConfig();
 		this.playerManager = plugin.getPlayerManager();
 	}
 
+    // TODO cleanup?!?!
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onChat(AsyncPlayerChatEvent event) {
 		if (event.isCancelled()) return;
