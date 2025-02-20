@@ -33,12 +33,19 @@ public class BlockTagFileGenerator {
         header.add("This accepts both Minecraft block types `minecraft:stone`");
         header.add("and block tags prefixed with `#`, ex: `#minecraft:logs` (minecraft or custom)");
         header.add(" ");
-        header.add("The names of these sections double as tags.");
-        header.add("Example `requires_shovel` = `#survival_plus:requires_shovel`");
+        header.add("The names of these sections double as namespaces.");
+        header.add("The `survival_plus` section will create new tags");
+        header.add("Example `requires_shovel` = `survival_plus:requires_shovel`");
+        header.add(" ");
+        header.add("You can optionally add a `minecraft` section to add blocks to current Minecraft tags");
+        header.add("Example (This would add oak_stairs to the `minecraft:logs` tag):");
+        header.add("minecraft:");
+        header.add(" logs:");
+        header.add("    - minecraft:oak_stairs");
         config.options().setHeader(header);
 
-        ConfigurationSection blocks = config.getConfigurationSection("blocks");
-        if (blocks == null) blocks = config.createSection("blocks");
+        ConfigurationSection blocks = config.getConfigurationSection("survival_plus");
+        if (blocks == null) blocks = config.createSection("survival_plus");
 
         createConcreteTag(blocks);
         createCookingBlockTag(blocks);
@@ -214,6 +221,8 @@ public class BlockTagFileGenerator {
         blocks.add("minecraft:cocoa");
 
         section.set("requires_sickle", blocks);
+        section.setInlineComments("requires_sickle", List.of("Blocks which require a sickle to break."));
+
     }
 
     private void createRequiresAxeTag(@NotNull ConfigurationSection section) {

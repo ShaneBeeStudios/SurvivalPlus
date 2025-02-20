@@ -5,10 +5,17 @@
 # This accepts both Minecraft block types `minecraft:stone`
 # and block tags prefixed with `#`, ex: `#minecraft:logs` (minecraft or custom)
 #
-# The names of these sections double as tags.
-# Example `requires_shovel` = `#survival_plus:requires_shovel`
+# The names of these sections double as namespaces.
+# The `survival_plus` section will create new tags
+# Example `requires_shovel` = `survival_plus:requires_shovel`
+#
+# You can optionally add a `minecraft` section to add blocks to current Minecraft tags
+# Example (This would add oak_stairs to the `minecraft:logs` tag):
+# minecraft:
+#  logs:
+#     - minecraft:oak_stairs
 
-blocks:
+survival_plus:
   concrete:
     - minecraft:black_concrete
     - minecraft:blue_concrete
@@ -30,14 +37,6 @@ blocks:
     - minecraft:furnace
     - minecraft:blast_furnace
     - minecraft:smoker
-  requires_sickle:
-    - '#minecraft:crops'
-    - minecraft:melon
-    - minecraft:pumpkin
-    - minecraft:chorus_flower
-    - minecraft:chorus_plant
-    - minecraft:sweet_berry_bush
-    - minecraft:cocoa
   glazed_terracotta:
     - minecraft:black_glazed_terracotta
     - minecraft:blue_glazed_terracotta
@@ -418,6 +417,14 @@ blocks:
     - minecraft:tripwire
     - minecraft:tnt
     - minecraft:mushroom_stem
+  requires_sickle: # Blocks which require a sickle to break.
+    - '#minecraft:crops'
+    - minecraft:melon
+    - minecraft:pumpkin
+    - minecraft:chorus_flower
+    - minecraft:chorus_plant
+    - minecraft:sweet_berry_bush
+    - minecraft:cocoa
   requires_hammer: # Blocks which require a hammer to place.
     - '#minecraft:fence_gates'
     - '#minecraft:terracotta'
