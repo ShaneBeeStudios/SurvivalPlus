@@ -1,0 +1,44 @@
+{
+    "description": {
+        "text": "Quartz Mining",
+        "color": "#e27c20"
+    },
+    "supported_items": "#minecraft:pickaxes",
+    "exclusive_set": "#minecraft:exclusive_set/mining",
+    "weight": 1,
+    "max_level": 1,
+    "min_cost": {
+        "base": 20,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 45,
+        "per_level_above_first": 10
+    },
+    "anvil_cost": 4,
+    "slots": [
+        "mainhand"
+    ],
+    "effects": {
+        "minecraft:attributes": [
+            {
+                "amount": {
+                    "type": "minecraft:linear",
+                    "base": 0.2,
+                    "per_level_above_first": 0.1
+                },
+                "attribute": "minecraft:mining_efficiency",
+                "id": "minecraft:enchantment.efficiency",
+                "operation": "add_multiplied_base"
+            }
+        ],
+        "minecraft:repair_with_xp": [
+            {
+                "effect": {
+                    "type": "minecraft:multiply",
+                    "factor": 2.0
+                }
+            }
+        ]
+    }
+}

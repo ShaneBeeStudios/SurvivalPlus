@@ -1,6 +1,10 @@
 package com.shanebeestudios.survival.api.item.items.legendary;
 
+import com.shanebeestudios.survival.api.data.Enchantments;
+import com.shanebeestudios.survival.api.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
+import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -11,31 +15,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import com.shanebeestudios.survival.api.item.Item;
 
 @SuppressWarnings("UnstableApiUsage")
 public class QuartzPickaxe extends Item {
 
     public QuartzPickaxe() {
         ItemStack itemStack = ItemType.DIAMOND_PICKAXE.createItemStack();
-        ItemMeta itemMeta = itemStack.getItemMeta();
 
-        int gPickaxe_dmg = 5;
-        float gPickaxe_spd = 0.8f;
+        itemStack.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments()
+            .add(Enchantment.SILK_TOUCH, 1)
+            .add(Enchantments.QUARTZ_MINING, 1)
+            .build());
 
-        AttributeModifier i_gPickDamage = new AttributeModifier(BASE_ATTACK_DAMAGE, gPickaxe_dmg - 1, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gPickDamage);
-
-        AttributeModifier i_gPickSpeed = new AttributeModifier(BASE_ATTACK_SPEED, gPickaxe_spd - 4, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gPickSpeed);
-
-        itemMeta.addEnchant(Enchantment.SILK_TOUCH, 1, false);
-        itemMeta.addEnchant(Enchantment.MENDING, 1, false);
-        itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-        itemStack.setItemMeta(itemMeta);
-
-        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
+        itemStack.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes()
+            .addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE, 2.0, Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+            .addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED, -3.0, Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
+            .build());
         setupDefaults("quartz_pickaxe", itemStack);
     }
 

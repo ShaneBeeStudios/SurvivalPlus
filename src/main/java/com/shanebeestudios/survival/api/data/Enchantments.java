@@ -12,6 +12,7 @@ public class Enchantments {
 
     public static final Enchantment BLAZING = get("blazing");
     public static final Enchantment OBSIDIAN_POWER = get("obsidian_power");
+    public static final Enchantment QUARTZ_MINING = get("quartz_mining");
 
     @SuppressWarnings("PatternValidation")
     private static Enchantment get(String key) {

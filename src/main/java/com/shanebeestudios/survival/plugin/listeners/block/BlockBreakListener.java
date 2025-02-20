@@ -50,14 +50,6 @@ public class BlockBreakListener implements Listener {
         Block block = event.getBlock();
         Material material = block.getType();
 
-        if (Items.QUARTZ_PICKAXE.is(tool)) {
-            // TODO figure out what this is about
-            if (BlockTags.ORE_TYPE_BLOCK.isTagged(material) || BlockTags.ORES.isTagged(material)) {
-                block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.1, 0.5), new ItemStack(material));
-            }
-            return;
-        }
-
         if (Permissions.BYPASS_REQUIRED_TOOLS.has(player)) return;
 
         if (this.config.survival_break_only_with_shovel) {

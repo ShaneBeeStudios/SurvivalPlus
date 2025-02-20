@@ -3,7 +3,6 @@ package com.shanebeestudios.survival.plugin.managers;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.tasks.tool.GiantBlade;
-import com.shanebeestudios.survival.plugin.tasks.tool.QuartzPickaxe;
 import com.shanebeestudios.survival.plugin.tasks.tool.Valkyrie;
 
 public class EffectManager {
@@ -13,7 +12,6 @@ public class EffectManager {
 
     // Effect Tasks
     private GiantBlade giantBlade = null;
-    private QuartzPickaxe quartzPickaxe = null;
     private Valkyrie valkyrie = null;
 
     public EffectManager(SurvivalPlugin plugin) {
@@ -27,8 +25,6 @@ public class EffectManager {
             this.giantBlade = new GiantBlade(plugin);
         if (config.legendary_valkyrie)
             this.valkyrie = new Valkyrie(plugin);
-        if (config.legendary_quartz_pickaxe)
-            this.quartzPickaxe = new QuartzPickaxe(plugin);
     }
 
     /**
@@ -38,8 +34,6 @@ public class EffectManager {
     public void cancelTasks() {
         if (giantBlade != null)
             giantBlade.cancel();
-        if (quartzPickaxe != null)
-            quartzPickaxe.cancel();
         if (valkyrie != null)
             valkyrie.cancel();
     }
