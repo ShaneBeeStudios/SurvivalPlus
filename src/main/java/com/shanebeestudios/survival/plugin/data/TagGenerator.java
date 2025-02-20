@@ -108,6 +108,7 @@ public class TagGenerator {
 
             List<TypedKey<Enchantment>> newTags = new ArrayList<>();
             newTags.add(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("survival_plus:blazing")));
+            newTags.add(TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("survival_plus:obsidian_power")));
             registrar.setTag(EnchantmentTagKeys.TOOLTIP_ORDER, newTags);
             registrar.addToTag(EnchantmentTagKeys.TOOLTIP_ORDER, tag);
         });

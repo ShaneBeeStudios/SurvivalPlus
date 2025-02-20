@@ -1,0 +1,169 @@
+{
+    "description": {
+        "text": "Obsidian Power",
+        "color": "#973DF1"
+    },
+    "supported_items": "#minecraft:enchantable/mace",
+    "weight": 1,
+    "max_level": 1,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 25,
+        "per_level_above_first": 10
+    },
+    "anvil_cost": 4,
+    "slots": [
+        "hand"
+    ],
+    "effects": {
+        "minecraft:tick": [
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "periodic_tick": 1
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:spawn_particles",
+                    "particle": {
+                        "type": "minecraft:crit"
+                    },
+                    "horizontal_position": {
+                        "type": "entity_position",
+                        "offset": 0,
+                        "scale": 1
+                    },
+                    "vertical_position": {
+                        "type": "entity_position",
+                        "offset": 0.9,
+                        "scale": 1
+                    },
+                    "horizontal_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "vertical_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "speed": 0.5
+                }
+            },
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "periodic_tick": 1
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:spawn_particles",
+                    "particle": {
+                        "type": "minecraft:portal"
+                    },
+                    "horizontal_position": {
+                        "type": "entity_position",
+                        "offset": 0,
+                        "scale": 1
+                    },
+                    "vertical_position": {
+                        "type": "entity_position",
+                        "offset": 0.9,
+                        "scale": 1
+                    },
+                    "horizontal_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "vertical_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "speed": 0.5
+                }
+            }
+        ],
+        "minecraft:post_attack": [
+            {
+                "effect": {
+                    "type": "minecraft:apply_mob_effect",
+                    "to_apply": [
+                        "minecraft:weakness",
+                        "minecraft:slowness"
+                    ],
+                    "min_duration": 90,
+                    "max_duration": 150,
+                    "min_amplifier": 0,
+                    "max_amplifier": 0
+                },
+                "enchanted": "attacker",
+                "affected": "victim"
+            },
+            {
+                "effect": {
+                    "type": "minecraft:apply_mob_effect",
+                    "to_apply": [
+                        "minecraft:regeneration"
+                    ],
+                    "min_duration": 45,
+                    "max_duration": 55,
+                    "min_amplifier": 0,
+                    "max_amplifier": 0
+                },
+                "enchanted": "attacker",
+                "affected": "attacker"
+            },
+            {
+                "effect": {
+                    "type": "minecraft:spawn_particles",
+                    "particle": {
+                        "type": "minecraft:heart"
+                    },
+                    "horizontal_position": {
+                        "type": "entity_position",
+                        "offset": 0,
+                        "scale": 1
+                    },
+                    "vertical_position": {
+                        "type": "entity_position",
+                        "offset": 2.0,
+                        "scale": 1
+                    },
+                    "horizontal_velocity": {
+                        "base": 2,
+                        "movement_scale": 2
+                    },
+                    "vertical_velocity": {
+                        "base": 2,
+                        "movement_scale": 2
+                    },
+                    "speed": 1
+                },
+                "enchanted": "attacker",
+                "affected": "attacker"
+            }
+        ]
+    }
+}

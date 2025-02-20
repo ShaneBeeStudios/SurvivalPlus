@@ -11,6 +11,7 @@ import org.bukkit.enchantments.Enchantment;
 public class Enchantments {
 
     public static final Enchantment BLAZING = get("blazing");
+    public static final Enchantment OBSIDIAN_POWER = get("obsidian_power");
 
     @SuppressWarnings("PatternValidation")
     private static Enchantment get(String key) {

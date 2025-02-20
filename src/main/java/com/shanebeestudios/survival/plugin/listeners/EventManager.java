@@ -28,7 +28,6 @@ import com.shanebeestudios.survival.plugin.listeners.item.FoodDiversityConsume;
 import com.shanebeestudios.survival.plugin.listeners.item.GiantBlade;
 import com.shanebeestudios.survival.plugin.listeners.item.GrapplingHookListener;
 import com.shanebeestudios.survival.plugin.listeners.item.MedicKit;
-import com.shanebeestudios.survival.plugin.listeners.item.ObsidianMaceWeakness;
 import com.shanebeestudios.survival.plugin.listeners.item.PoisonousPotato;
 import com.shanebeestudios.survival.plugin.listeners.item.RawMeatHunger;
 import com.shanebeestudios.survival.plugin.listeners.item.RecurvedBowListener;
@@ -79,8 +78,6 @@ public class EventManager {
             pluginManager.registerEvents(new BowListener(this.plugin), this.plugin);
         if (this.config.mechanics_grappling_hook)
             pluginManager.registerEvents(new GrapplingHookListener(this.plugin), this.plugin);
-        if (this.config.legendary_obsidian_mace)
-            pluginManager.registerEvents(new ObsidianMaceWeakness(this.plugin), this.plugin);
         if (this.config.legendary_valkyrie)
             pluginManager.registerEvents(new Valkyrie(this.plugin), this.plugin);
         if (this.config.legendary_giant_blade)

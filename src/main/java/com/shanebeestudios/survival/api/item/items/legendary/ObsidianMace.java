@@ -1,6 +1,10 @@
 package com.shanebeestudios.survival.api.item.items.legendary;
 
+import com.shanebeestudios.survival.api.data.Enchantments;
+import com.shanebeestudios.survival.api.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
+import io.papermc.paper.datacomponent.item.ItemEnchantments;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -8,39 +12,33 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import com.shanebeestudios.survival.api.item.Item;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ObsidianMace extends Item {
 
     public ObsidianMace() {
-        ItemStack itemStack = ItemType.DIAMOND_SHOVEL.createItemStack();
-        ItemMeta itemMeta = itemStack.getItemMeta();
+        ItemStack itemStack = ItemType.MACE.createItemStack();
 
-        int gSpade_dmg = 4;
-        float gSpade_spd = 0.8f;
-        float gSpade_knockbackPercent = 0.5f;
+        itemStack.setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments()
+            .add(Enchantments.OBSIDIAN_POWER, 1)
+            .add(Enchantment.KNOCKBACK, 3)
+            .add(Enchantment.UNBREAKING, 5)
+            .add(Enchantment.BINDING_CURSE, 1)
+            .build());
 
-        AttributeModifier i_gSpadeDamage = new AttributeModifier(BASE_ATTACK_DAMAGE, gSpade_dmg - 1, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, i_gSpadeDamage);
+        itemStack.setData(DataComponentTypes.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.itemAttributes()
+            .addModifier(Attribute.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE, 6f, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND))
+            .addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED, -3.2f, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND))
+            .addModifier(Attribute.KNOCKBACK_RESISTANCE, new AttributeModifier(NamespacedKey.minecraft("base_attack_resistance"), 0.5f, Operation.ADD_SCALAR, EquipmentSlotGroup.HAND))
+            .addModifier(Attribute.MOVEMENT_SPEED, new AttributeModifier(BASE_MOVEMENT_SPEED, -0.2, Operation.ADD_SCALAR, EquipmentSlotGroup.HAND))
+            .build());
 
-        AttributeModifier i_gSpadeSpeed = new AttributeModifier(BASE_ATTACK_SPEED, gSpade_spd - 4, Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, i_gSpadeSpeed);
-
-        AttributeModifier i_gSpadeKnock = new AttributeModifier(NamespacedKey.minecraft("base_attack_resistance"), gSpade_knockbackPercent, Operation.ADD_SCALAR, EquipmentSlotGroup.HAND);
-        itemMeta.addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, i_gSpadeKnock);
-
-        itemMeta.addEnchant(Enchantment.KNOCKBACK, 3, true);
-        itemMeta.addEnchant(Enchantment.UNBREAKING, 5, true);
-        itemMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-        itemStack.setItemMeta(itemMeta);
-
-        itemStack.unsetData(DataComponentTypes.REPAIRABLE);
+        itemStack.setData(DataComponentTypes.RARITY, ItemRarity.EPIC);
         setupDefaults("obsidian_mace", itemStack);
     }
 
