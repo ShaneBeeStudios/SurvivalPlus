@@ -1,14 +1,12 @@
 package com.shanebeestudios.survival.plugin.managers;
 
+import com.shanebeestudios.survival.api.util.Utils;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.plugin.tasks.tool.BlazeSwordEffects;
-import com.shanebeestudios.survival.plugin.tasks.tool.BlazeSwordSound;
 import com.shanebeestudios.survival.plugin.tasks.tool.GiantBlade;
 import com.shanebeestudios.survival.plugin.tasks.tool.ObsidianMace;
 import com.shanebeestudios.survival.plugin.tasks.tool.QuartzPickaxe;
 import com.shanebeestudios.survival.plugin.tasks.tool.Valkyrie;
-import com.shanebeestudios.survival.api.util.Utils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
@@ -22,8 +20,6 @@ public class EffectManager {
     private final Config config;
 
     // Effect Tasks
-    private BlazeSwordEffects blazeSwordEffects = null;
-    private BlazeSwordSound blazeSwordSound = null;
     private GiantBlade giantBlade = null;
     private ObsidianMace obsidianMace = null;
     private QuartzPickaxe quartzPickaxe = null;
@@ -36,10 +32,6 @@ public class EffectManager {
     }
 
     private void loadEffects() {
-        if (config.legendary_blaze_sword) {
-            this.blazeSwordEffects = new BlazeSwordEffects(plugin);
-            this.blazeSwordSound = new BlazeSwordSound(plugin);
-        }
         if (config.legendary_giant_blade)
             this.giantBlade = new GiantBlade(plugin);
         if (config.legendary_obsidian_mace)
@@ -55,10 +47,6 @@ public class EffectManager {
      */
     @SuppressWarnings("unused")
     public void cancelTasks() {
-        if (blazeSwordEffects != null)
-            blazeSwordEffects.cancel();
-        if (blazeSwordSound != null)
-            blazeSwordSound.cancel();
         if (giantBlade != null)
             giantBlade.cancel();
         if (obsidianMace != null)

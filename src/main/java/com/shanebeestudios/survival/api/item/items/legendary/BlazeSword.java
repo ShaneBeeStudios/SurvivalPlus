@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.api.item.items.legendary;
 
+import com.shanebeestudios.survival.api.data.Enchantments;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -37,6 +38,7 @@ public class BlazeSword extends Item {
 
         itemMeta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
         itemMeta.addEnchant(Enchantment.UNBREAKING, 3, false);
+        itemMeta.addEnchant(Enchantments.BLAZING, 1, true);
         itemStack.setItemMeta(itemMeta);
 
         itemStack.unsetData(DataComponentTypes.REPAIRABLE);

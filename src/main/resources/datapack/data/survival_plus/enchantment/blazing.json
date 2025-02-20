@@ -1,0 +1,102 @@
+{
+    "description": {
+        "text": "Blazing",
+        "color": "#e27c20"
+    },
+    "supported_items": "#minecraft:enchantable/sharp_weapon",
+    "weight": 1,
+    "max_level": 1,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 25,
+        "per_level_above_first": 10
+    },
+    "anvil_cost": 4,
+    "slots": [
+        "hand"
+    ],
+    "effects": {
+        "minecraft:damage_immunity": [
+            {
+                "requirements": {
+                    "condition": "minecraft:damage_source_properties",
+                    "predicate": {
+                        "tags": [
+                            {
+                                "id": "minecraft:is_fire",
+                                "expected": true
+                            }
+                        ]
+                    }
+                },
+                "effect": {}
+            }
+        ],
+        "minecraft:tick": [
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "periodic_tick": 1
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:spawn_particles",
+                    "particle": {
+                        "type": "minecraft:flame"
+                    },
+                    "horizontal_position": {
+                        "type": "entity_position",
+                        "offset": 0,
+                        "scale": 1
+                    },
+                    "vertical_position": {
+                        "type": "entity_position",
+                        "offset": 0.9,
+                        "scale": 1
+                    },
+                    "horizontal_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "vertical_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "speed": 0.075
+                }
+            },
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "periodic_tick": 50
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:play_sound",
+                    "sound": "minecraft:entity.blaze.ambient",
+                    "volume": 3,
+                    "pitch": {
+                        "type": "minecraft:uniform",
+                        "min_inclusive": 0.8,
+                        "max_exclusive": 1.2
+                    }
+                }
+            }
+        ]
+    }
+}
