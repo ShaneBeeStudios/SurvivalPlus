@@ -1,7 +1,7 @@
 {
     "description": {
         "text": "Quartz Mining",
-        "color": "#e27c20"
+        "color": "#E8DFD4"
     },
     "supported_items": "#minecraft:pickaxes",
     "exclusive_set": "#minecraft:exclusive_set/mining",
