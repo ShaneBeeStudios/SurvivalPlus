@@ -71,7 +71,7 @@ public class Items {
     public static final Item GRAPPLING_HOOK = new GrapplingHook();
     public static final Item COMPASS = new Compass();
     public static final Item FLINT_SICKLE = new Sickle("flint", Material.FLINT);
-    public static final Item STONE_SICKLE = new Sickle("stone", Material.STONE);
+    public static final Item STONE_SICKLE = new Sickle("stone", Material.COBBLESTONE);
     public static final Item IRON_SICKLE = new Sickle("iron", Material.IRON_INGOT);
     public static final Item DIAMOND_SICKLE = new Sickle("diamond", Material.DIAMOND);
     public static final MedicKit MEDIC_KIT = new MedicKit();
