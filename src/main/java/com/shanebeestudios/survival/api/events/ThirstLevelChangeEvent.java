@@ -21,7 +21,7 @@ public class ThirstLevelChangeEvent extends Event implements Cancellable {
     public ThirstLevelChangeEvent(Player player, double changed, double thirst) {
         this.player = player;
         this.changed = changed;
-        this.thirst = thirst;
+        this.thirst = Math.clamp(thirst, 0, 40);
         this.isCancelled = false;
     }
 

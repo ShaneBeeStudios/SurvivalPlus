@@ -1,16 +1,18 @@
 package com.shanebeestudios.survival.api.data;
 
+import com.shanebeestudios.survival.api.events.EnergyLevelChangeEvent;
+import com.shanebeestudios.survival.api.events.ThirstLevelChangeEvent;
+import com.shanebeestudios.survival.api.util.Math;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.bukkit.entity.Player;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.util.Math;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class PlayerData implements ConfigurationSerializable {
 
     private final Config config = SurvivalPlugin.getInstance().getSurvivalConfig();
+    private final Player player;
     private final UUID uuid;
     private Map<String, Location> compassMap = new HashMap<>();
 
@@ -36,9 +39,6 @@ public class PlayerData implements ConfigurationSerializable {
     private int vitamins;
     private double energy;
     private double thirst;
-
-    // Dunno yet
-    private boolean localChat = false;
 
     // Stats
     private int charge = 0;
@@ -50,6 +50,7 @@ public class PlayerData implements ConfigurationSerializable {
     private int healTimes = 0;
     private int recurveFiring = 0;
     private int recurveCooldown = 0;
+    private boolean localChat = false;
 
     // Scoreboard info
     private boolean score_hunger = true;
@@ -57,17 +58,18 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean score_energy = true;
     private boolean score_nutrients = true;
 
-    public PlayerData(OfflinePlayer player, double thirst, int proteins, int carbs, int vitamins, double energy) {
-        this(player.getUniqueId(), thirst, proteins, carbs, vitamins, energy);
-    }
-
-    public PlayerData(UUID uuid, double thirst, int proteins, int carbs, int vitamins, double energy) {
-        this.uuid = uuid;
-        this.thirst = thirst;
+    /**
+     * @hidden Shouldn't be using this constructor outside the plugin
+     */
+    @ApiStatus.Internal
+    public PlayerData(Player player, double thirst, int proteins, int carbs, int vitamins, double energy) {
+        this.player = player;
+        this.uuid = player.getUniqueId();
+        this.thirst = Math.clamp(thirst, 0, 40);
         this.proteins = proteins;
         this.carbs = carbs;
         this.vitamins = vitamins;
-        this.energy = energy;
+        this.energy = Math.clamp(energy, 0, 20);
     }
 
     /**
@@ -76,7 +78,7 @@ public class PlayerData implements ConfigurationSerializable {
      * @return Player from this data
      */
     public Player getPlayer() {
-        return Bukkit.getPlayer(uuid);
+        return this.player;
     }
 
     /**
@@ -85,7 +87,7 @@ public class PlayerData implements ConfigurationSerializable {
      * @return UUID of player from this data
      */
     public UUID getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     /**
@@ -112,7 +114,9 @@ public class PlayerData implements ConfigurationSerializable {
      * @param thirst Level of thirst to add
      */
     public void increaseThirst(double thirst) {
-        this.thirst = Math.clamp(this.thirst + thirst, 0, 40);
+        ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(this.player, thirst, getThirst() + thirst);
+        if (!thirstEvent.callEvent()) return;
+        setThirst(this.thirst + thirst);
     }
 
     /**
@@ -211,6 +215,8 @@ public class PlayerData implements ConfigurationSerializable {
      * @param energy Energy amount to increase
      */
     public void increaseEnergy(double energy) {
+        EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, energy, getEnergy() + energy);
+        if (!energyEvent.callEvent()) return;
         setEnergy(this.energy + energy);
     }
 
@@ -355,7 +361,7 @@ public class PlayerData implements ConfigurationSerializable {
             this.compassMap.clear();
         }
         this.compassMap.put(world.getName(), location);
-        getPlayer().setCompassTarget(location);
+        this.player.setCompassTarget(location);
     }
 
     /**
@@ -401,11 +407,16 @@ public class PlayerData implements ConfigurationSerializable {
         UUID uuid = UUID.fromString(args.get("uuid").toString());
         double thirst = getDouble(args, "thirst", 20.0);
         double energy = getDouble(args, "energy", 20.0);
-        int proteins = ((Integer) args.get("nutrients.proteins"));
-        int carbs = ((Integer) args.get("nutrients.carbs"));
-        int vitamins = ((Integer) args.get("nutrients.vitamins"));
+        int proteins = getInt(args, "nutrients.proteins", 500);
+        int carbs = getInt(args, "nutrients.carbs", 500);
+        int vitamins = getInt(args, "nutrients.vitamins", 500);
 
-        PlayerData data = new PlayerData(uuid, thirst, proteins, carbs, vitamins, energy);
+        Player player = Bukkit.getPlayer(uuid);
+        if (player == null) {
+            throw new IllegalArgumentException("Player not found for uuid: " + uuid);
+        }
+
+        PlayerData data = new PlayerData(player, thirst, proteins, carbs, vitamins, energy);
 
         boolean localChat = getBool(args, "local-chat", false);
         data.setLocalChat(localChat);
@@ -449,8 +460,7 @@ public class PlayerData implements ConfigurationSerializable {
      * @return Hunger level from this player data
      */
     public double getHunger() {
-        Player player = getPlayer();
-        return player.getFoodLevel() + player.getSaturation();
+        return this.player.getFoodLevel() + this.player.getSaturation();
     }
 
     /**
@@ -471,9 +481,8 @@ public class PlayerData implements ConfigurationSerializable {
         } else if (hunger >= 0) {
             hun = hunger;
         }
-        Player player = getPlayer();
-        player.setFoodLevel((int) hun);
-        player.setSaturation((float) sat);
+        this.player.setFoodLevel((int) hun);
+        this.player.setSaturation((float) sat);
     }
 
     /**

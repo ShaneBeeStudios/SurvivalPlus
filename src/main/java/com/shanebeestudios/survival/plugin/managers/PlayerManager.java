@@ -67,16 +67,15 @@ public class PlayerManager implements Listener {
      * @return Newly created player data
      */
     public PlayerData createNewPlayerData(Player player) {
-        UUID uuid = player.getUniqueId();
         setHunger(player, this.config.mechanics_hunger_start_amount);
 
-        PlayerData playerData = new PlayerData(uuid,
+        PlayerData playerData = new PlayerData(player,
             this.config.mechanics_thirst_starting_amount,
             this.config.mechanics_food_start_protein,
             this.config.mechanics_food_start_carbs,
             this.config.mechanics_food_start_vitamins,
             this.config.mechanics_energy_start);
-        this.playerDataMap.put(uuid, playerData);
+        this.playerDataMap.put(player.getUniqueId(), playerData);
         savePlayerData(playerData);
         return playerData;
     }

@@ -73,11 +73,7 @@ public class EnergyChange implements Listener {
         double modifier = this.config.mechanics_energy_exhaustion;
         if (modifier <= 0) return;
 
-        PlayerData playerData = playerManager.getPlayerData(player);
-        EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, -modifier, playerData.getEnergy() - modifier);
-        if (!energyEvent.callEvent()) return;
-
-        playerData.increaseEnergy(-modifier);
+        this.playerManager.getPlayerData(player).increaseEnergy(-modifier);
     }
 
     // Send messages when energy level decreases

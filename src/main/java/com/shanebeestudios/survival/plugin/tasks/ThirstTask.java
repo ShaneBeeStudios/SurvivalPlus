@@ -42,10 +42,10 @@ class ThirstTask extends BukkitRunnable {
             if (environment == Environment.NORMAL && world.isDayTime()) {
                 Block block = player.getLocation().getBlock();
                 if (block.getTemperature() >= 1.5 && block.getLightLevel() >= 14) {
-                    drain(player, playerData, this.config.mechanics_thirst_heat_drain_rate);
+                    playerData.increaseThirst(-this.config.mechanics_thirst_heat_drain_rate);
                 }
             } else if (environment == Environment.NETHER) {
-                drain(player, playerData, this.config.mechanics_thirst_nether_drain_rate);
+                playerData.increaseThirst(-this.config.mechanics_thirst_nether_drain_rate);
             }
             // Damage player when thirst is too low
             if (playerData.getThirst() <= 0) {
@@ -63,14 +63,6 @@ class ThirstTask extends BukkitRunnable {
                         break;
                 }
             }
-        }
-    }
-
-    private void drain(Player player, PlayerData playerData, double change) {
-        // Call thirst level change event
-        ThirstLevelChangeEvent event = new ThirstLevelChangeEvent(player, change, playerData.getThirst() - change);
-        if (event.callEvent()) {
-            playerData.increaseThirst(-change);
         }
     }
 
