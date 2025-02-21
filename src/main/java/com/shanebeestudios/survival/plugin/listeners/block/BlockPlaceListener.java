@@ -46,7 +46,7 @@ public class BlockPlaceListener implements Listener {
         ItemStack offTool = player.getInventory().getItemInOffHand();
         Block block = event.getBlock();
 
-        if (BlockTags.REQUIRES_HAMMER.isTagged(block.getType())) return;
+        if (!BlockTags.REQUIRES_HAMMER.isTagged(block.getType())) return;
 
         if (Items.HAMMER.is(offTool)) {
             int chance_reduceDur = this.random.nextInt(10) + 1;
