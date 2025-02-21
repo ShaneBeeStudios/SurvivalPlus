@@ -1,5 +1,8 @@
 package com.shanebeestudios.survival.plugin.listeners.server;
 
+import com.shanebeestudios.survival.api.item.Items;
+import com.shanebeestudios.survival.api.item.Recipes;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -13,9 +16,6 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.api.item.Items;
-import com.shanebeestudios.survival.api.item.Recipes;
 
 public class RecipeDiscovery implements Listener {
 
@@ -55,58 +55,76 @@ public class RecipeDiscovery implements Listener {
         if (this.unlockAllRecipes) return;
         if (!(e.getEntity() instanceof Player player)) return;
         Material item = e.getItem().getItemStack().getType();
-        if (item == Material.DIAMOND) {
-            Recipes.DIAMOND_BOOTS.unlock(player);
-            Recipes.DIAMOND_CHESTPLATE.unlock(player);
-            Recipes.DIAMOND_LEGGINGS.unlock(player);
-            Recipes.DIAMOND_HELMET.unlock(player);
-            Recipes.DIAMOND_HORSE_ARMOR.unlock(player);
-            Recipes.VALKYRIES_AXE.unlock(player);
-            Recipes.QUARTZ_PICKAXE.unlock(player);
-            Recipes.ENDER_GIANT_BLADE.unlock(player);
-            Recipes.DIAMOND_SICKLE.unlock(player);
-        } else if (item == Material.FLINT) {
-            Recipes.FIRESTRIKER.unlock(player);
-            Recipes.GRAVEL.unlock(player);
-            Recipes.FLINT_SICKLE.unlock(player);
-        } else if (item == Material.FEATHER) {
-            Recipes.MEDIC_KIT.unlock(player);
-            Recipes.FISHING_ROD.unlock(player);
-        } else if (item == Material.BLAZE_POWDER || item == Material.BLAZE_ROD) {
-            Recipes.BLAZE_SWORD.unlock(player);
-        } else if (item == Material.LEATHER) {
-            Recipes.SADDLE.unlock(player);
-            Recipes.LEATHER_HORSE_ARMOR.unlock(player);
-        } else if (item == Material.GRAVEL) {
-            Recipes.FLINT.unlock(player);
-        } else if (item == Material.ROTTEN_FLESH) {
-            Recipes.FERMENTED_SKIN.unlock(player);
-        } else if (item == Material.STRING) {
-            Recipes.COBWEB.unlock(player);
-            Recipes.RECURVED_BOW.unlock(player);
-        } else if (item == Material.SPIDER_EYE) {
-            Recipes.FERMENTED_SPIDER_EYE.unlock(player);
-        } else if (item == Material.POTATO) {
-            Recipes.POISONOUS_POTATO.unlock(player);
-        } else if (item == Material.COBBLESTONE) {
-            Recipes.ANDESITE.unlock(player);
-            Recipes.DIORITE.unlock(player);
-            Recipes.GRANITE.unlock(player);
-            Recipes.STONE_SICKLE.unlock(player);
-        } else if (item == Material.QUARTZ) {
-            Recipes.QUARTZ.unlock(player);
-        } else if (item == Material.DIRT) {
-            Recipes.CLAY.unlock(player);
-        } else if (item == Material.EGG) {
-            Recipes.COOKIE.unlock(player);
-        } else if (Items.WATER_BOWL.is(e.getItem().getItemStack())) {
+        switch (item) {
+            case DIAMOND:
+                Recipes.DIAMOND_BOOTS.unlock(player);
+                Recipes.DIAMOND_CHESTPLATE.unlock(player);
+                Recipes.DIAMOND_LEGGINGS.unlock(player);
+                Recipes.DIAMOND_HELMET.unlock(player);
+                Recipes.DIAMOND_HORSE_ARMOR.unlock(player);
+                Recipes.VALKYRIES_AXE.unlock(player);
+                Recipes.QUARTZ_PICKAXE.unlock(player);
+                Recipes.ENDER_GIANT_BLADE.unlock(player);
+                Recipes.DIAMOND_SICKLE.unlock(player);
+                break;
+            case FLINT:
+                Recipes.FIRESTRIKER.unlock(player);
+                Recipes.GRAVEL.unlock(player);
+                Recipes.FLINT_SICKLE.unlock(player);
+                break;
+            case FEATHER:
+                Recipes.MEDIC_KIT.unlock(player);
+                Recipes.FISHING_ROD.unlock(player);
+                break;
+            case BLAZE_POWDER, BLAZE_ROD:
+                Recipes.BLAZE_SWORD.unlock(player);
+                break;
+            case LEATHER:
+                Recipes.SADDLE.unlock(player);
+                Recipes.LEATHER_HORSE_ARMOR.unlock(player);
+                break;
+            case GRAVEL:
+                Recipes.FLINT.unlock(player);
+                break;
+            case ROTTEN_FLESH:
+                Recipes.FERMENTED_SKIN.unlock(player);
+                break;
+            case STRING:
+                Recipes.COBWEB.unlock(player);
+                Recipes.RECURVED_BOW.unlock(player);
+                break;
+            case SPIDER_EYE:
+                Recipes.FERMENTED_SPIDER_EYE.unlock(player);
+                break;
+            case POTATO:
+                Recipes.POISONOUS_POTATO.unlock(player);
+                break;
+            case COBBLESTONE:
+                Recipes.ANDESITE.unlock(player);
+                Recipes.DIORITE.unlock(player);
+                Recipes.GRANITE.unlock(player);
+                Recipes.STONE_SICKLE.unlock(player);
+                break;
+            case QUARTZ:
+                Recipes.QUARTZ.unlock(player);
+                break;
+            case DIRT:
+                Recipes.CLAY.unlock(player);
+                break;
+            case EGG:
+                Recipes.COOKIE.unlock(player);
+                break;
+            case VINE:
+                Recipes.SLIMEBALL.unlock(player);
+                break;
+            case REDSTONE:
+                Recipes.COMPASS.unlock(player);
+                break;
+            case HONEYCOMB:
+                Recipes.BEEKEEPER_SUIT.unlock(player);
+        }
+        if (Items.WATER_BOWL.is(e.getItem().getItemStack())) {
             Recipes.BOWL.unlock(player);
-        } else if (item == Material.VINE) {
-            Recipes.SLIMEBALL.unlock(player);
-        } else if (item == Material.REDSTONE) {
-            Recipes.COMPASS.unlock(player);
-        } else if (item == Material.HONEYCOMB) {
-            Recipes.BEEKEEPER_SUIT.unlock(player);
         }
     }
 
@@ -115,24 +133,33 @@ public class RecipeDiscovery implements Listener {
     private void onFurnaceExtract(FurnaceExtractEvent event) {
         if (this.unlockAllRecipes) return;
         Player player = event.getPlayer();
-        if (event.getItemType() == Material.IRON_INGOT) {
-            Recipes.IRON_BOOTS.unlock(player);
-            Recipes.IRON_CHESTPLATE.unlock(player);
-            Recipes.IRON_HELMET.unlock(player);
-            Recipes.IRON_LEGGINGS.unlock(player);
-            Recipes.IRON_HORSE_ARMOR.unlock(player);
-            Recipes.IRON_INGOT.unlock(player);
-            Recipes.IRON_SICKLE.unlock(player);
-            Recipes.IRON_NUGGET.unlock(player);
-        } else if (event.getItemType() == Material.GOLD_INGOT) {
-            Recipes.GOLD_NUGGET.unlock(player);
-            Recipes.GOLD_INGOT.unlock(player);
-            Recipes.GOLD_CROWN.unlock(player);
-            Recipes.GOLD_GREAVES.unlock(player);
-            Recipes.GOLD_GUARD.unlock(player);
-            Recipes.GOLD_SABATONS.unlock(player);
-            Recipes.GOLD_HORSE_ARMOR.unlock(player);
-            Recipes.ENCHANTED_GOLDEN_APPLE.unlock(player);
+        Material itemType = event.getItemType();
+        switch (itemType) {
+            case IRON_INGOT:
+                Recipes.IRON_BOOTS.unlock(player);
+                Recipes.IRON_CHESTPLATE.unlock(player);
+                Recipes.IRON_HELMET.unlock(player);
+                Recipes.IRON_LEGGINGS.unlock(player);
+                Recipes.IRON_HORSE_ARMOR.unlock(player);
+                Recipes.IRON_INGOT.unlock(player);
+                Recipes.IRON_SICKLE.unlock(player);
+                Recipes.IRON_NUGGET.unlock(player);
+                break;
+            case GOLD_INGOT:
+                Recipes.GOLD_NUGGET.unlock(player);
+                Recipes.GOLD_INGOT.unlock(player);
+                Recipes.GOLD_CROWN.unlock(player);
+                Recipes.GOLD_GREAVES.unlock(player);
+                Recipes.GOLD_GUARD.unlock(player);
+                Recipes.GOLD_SABATONS.unlock(player);
+                Recipes.GOLD_HORSE_ARMOR.unlock(player);
+                Recipes.ENCHANTED_GOLDEN_APPLE.unlock(player);
+                break;
+            case NETHERITE_INGOT:
+                Recipes.NETHERITE_HELMET.unlock(player);
+                Recipes.NETHERITE_CHESTPLATE.unlock(player);
+                Recipes.NETHERITE_LEGGINGS.unlock(player);
+                Recipes.NETHERITE_BOOTS.unlock(player);
         }
     }
 

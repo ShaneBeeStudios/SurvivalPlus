@@ -174,7 +174,6 @@ public class Recipes {
         DIAMOND_CHESTPLATE = register(config.mechanics_slow_armor, Items.DIAMOND_CHESTPLATE.getRecipe());
         DIAMOND_LEGGINGS = register(config.mechanics_slow_armor, Items.DIAMOND_LEGGINGS.getRecipe());
         DIAMOND_BOOTS = register(config.mechanics_slow_armor, Items.DIAMOND_BOOTS.getRecipe());
-        // TODO discovery for netherite
         NETHERITE_HELMET = register(config.mechanics_slow_armor, Items.NETHERITE_HELMET.getRecipe());
         NETHERITE_CHESTPLATE = register(config.mechanics_slow_armor, Items.NETHERITE_CHESTPLATE.getRecipe());
         NETHERITE_LEGGINGS = register(config.mechanics_slow_armor, Items.NETHERITE_LEGGINGS.getRecipe());
