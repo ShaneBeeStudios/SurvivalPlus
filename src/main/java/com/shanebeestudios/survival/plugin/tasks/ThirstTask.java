@@ -8,6 +8,7 @@ import com.shanebeestudios.survival.api.events.ThirstLevelChangeEvent;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.damage.DamageSource;
@@ -36,8 +37,9 @@ class ThirstTask extends BukkitRunnable {
             if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) continue;
 
             PlayerData playerData = this.playerManager.getPlayerData(player);
-            Environment environment = player.getWorld().getEnvironment();
-            if (environment == Environment.NORMAL) {
+            World world = player.getWorld();
+            Environment environment = world.getEnvironment();
+            if (environment == Environment.NORMAL && world.isDayTime()) {
                 Block block = player.getLocation().getBlock();
                 if (block.getTemperature() >= 1.5 && block.getLightLevel() >= 14) {
                     drain(player, playerData, this.config.mechanics_thirst_heat_drain_rate);
@@ -47,7 +49,7 @@ class ThirstTask extends BukkitRunnable {
             }
             // Damage player when thirst is too low
             if (playerData.getThirst() <= 0) {
-                switch (player.getWorld().getDifficulty()) {
+                switch (world.getDifficulty()) {
                     case EASY:
                         if (player.getHealth() > 10)
                             player.damage(this.config.mechanics_thirst_damage_rate, this.damageSource);
