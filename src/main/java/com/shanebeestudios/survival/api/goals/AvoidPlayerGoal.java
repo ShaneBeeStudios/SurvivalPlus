@@ -15,6 +15,8 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.Statistic;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
@@ -109,6 +111,12 @@ public class AvoidPlayerGoal implements Goal<@NotNull Mob> {
     public boolean shouldStayActive() {
         int statistic = this.avoid.getStatistic(Statistic.PLAY_ONE_MINUTE);
         this.speed = statistic > 48000 ? 1.6 : 1.25;
+        AttributeInstance attribute = this.mob.getAttribute(Attribute.MAX_HEALTH);
+        assert attribute != null;
+        // Slow the mob down when not at full health
+        if (this.mob.getHealth() / attribute.getValue() < 0.7) {
+            this.speed *= 0.8;
+        }
         return this.shouldAvoid() && this.path != null && this.pathfinder.hasPath();
     }
 
