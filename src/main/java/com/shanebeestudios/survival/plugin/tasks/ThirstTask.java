@@ -1,10 +1,8 @@
 package com.shanebeestudios.survival.plugin.tasks;
 
+import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.data.Permissions;
-import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.api.events.ThirstLevelChangeEvent;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -32,8 +30,6 @@ class ThirstTask extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            if (Permissions.BYPASS_STAT_THIRST.has(player)) continue;
-
             if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) continue;
 
             PlayerData playerData = this.playerManager.getPlayerData(player);

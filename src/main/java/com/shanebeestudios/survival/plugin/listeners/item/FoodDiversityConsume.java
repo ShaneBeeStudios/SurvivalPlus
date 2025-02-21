@@ -1,6 +1,12 @@
 package com.shanebeestudios.survival.plugin.listeners.item;
 
-import com.shanebeestudios.survival.api.data.Permissions;
+import com.shanebeestudios.survival.api.data.Nutrient;
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.api.item.Nutrition;
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,13 +22,6 @@ import org.bukkit.event.entity.EntityExhaustionEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.data.Nutrient;
-import com.shanebeestudios.survival.api.item.Nutrition;
-import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.plugin.managers.PlayerManager;
-import com.shanebeestudios.survival.api.util.Utils;
 
 public class FoodDiversityConsume implements Listener {
 
@@ -40,7 +39,6 @@ public class FoodDiversityConsume implements Listener {
     @EventHandler // Decrease nutrients when player does exhaustive tasks
     private void onExhausted(EntityExhaustionEvent event) {
         Player player = (Player) event.getEntity();
-        if (Permissions.BYPASS_STAT_NUTRITION.has(player)) return;
 
         float exhaustion = event.getExhaustion();
         if (player.getExhaustion() + exhaustion < 4.0f) return;

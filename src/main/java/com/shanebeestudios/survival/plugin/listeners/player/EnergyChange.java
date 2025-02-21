@@ -1,6 +1,13 @@
 package com.shanebeestudios.survival.plugin.listeners.player;
 
-import com.shanebeestudios.survival.api.data.Permissions;
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.api.events.EnergyLevelChangeEvent;
+import com.shanebeestudios.survival.api.item.Items;
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.config.Lang;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,14 +16,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.world.TimeSkipEvent;
 import org.bukkit.inventory.ItemStack;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.plugin.config.Lang;
-import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.api.events.EnergyLevelChangeEvent;
-import com.shanebeestudios.survival.api.item.Items;
-import com.shanebeestudios.survival.plugin.managers.PlayerManager;
-import com.shanebeestudios.survival.api.util.Utils;
 
 public class EnergyChange implements Listener {
 
@@ -36,7 +35,6 @@ public class EnergyChange implements Listener {
 
         Player player = event.getPlayer();
         if (Utils.isCitizensNPC(player)) return;
-        if (Permissions.BYPASS_STAT_ENERGY.has(player)) return;
 
         PlayerData playerData = this.playerManager.getPlayerData(player);
 
@@ -51,7 +49,6 @@ public class EnergyChange implements Listener {
     private void onDrinkCoffee(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem();
         Player player = event.getPlayer();
-        if (Permissions.BYPASS_STAT_ENERGY.has(player)) return;
 
         PlayerData playerData = this.playerManager.getPlayerData(player);
 
@@ -65,7 +62,6 @@ public class EnergyChange implements Listener {
     @EventHandler // Decrease energy when player does exhaustive tasks
     private void onExhausted(EntityExhaustionEvent event) {
         Player player = (Player) event.getEntity();
-        if (Permissions.BYPASS_STAT_ENERGY.has(player)) return;
 
         float exhaustion = event.getExhaustion();
         if (player.getExhaustion() + exhaustion < 4.0f) return;
@@ -111,7 +107,6 @@ public class EnergyChange implements Listener {
         if (event.getSkipReason() != TimeSkipEvent.SkipReason.NIGHT_SKIP) return;
 
         for (Player player : event.getWorld().getPlayers()) {
-            if (Permissions.BYPASS_STAT_ENERGY.has(player)) continue;
             if (!player.isSleeping()) continue;
             PlayerData playerData = this.playerManager.getPlayerData(player);
 

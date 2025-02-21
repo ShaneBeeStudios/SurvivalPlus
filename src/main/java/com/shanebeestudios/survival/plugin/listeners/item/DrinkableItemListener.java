@@ -1,13 +1,11 @@
 package com.shanebeestudios.survival.plugin.listeners.item;
 
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.data.Permissions;
 import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.api.events.ThirstLevelChangeEvent;
 import com.shanebeestudios.survival.api.item.Item;
 import com.shanebeestudios.survival.api.item.Items;
 import com.shanebeestudios.survival.api.item.items.drinks.DrinkItem;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,7 +30,6 @@ public class DrinkableItemListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     private void onConsume(PlayerItemConsumeEvent event) {
         final Player player = event.getPlayer();
-        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
 
         PlayerData playerData = playerManager.getPlayerData(player);
         ItemStack itemStack = event.getItem();

@@ -59,6 +59,9 @@ public class PlayerData implements ConfigurationSerializable {
     private boolean score_energy = true;
     private boolean score_nutrients = true;
 
+    // Bypasses
+    private final Map<Info, Boolean> bypasses = new HashMap<>();
+
     /**
      * @hidden Shouldn't be using this constructor outside the plugin
      */
@@ -71,6 +74,9 @@ public class PlayerData implements ConfigurationSerializable {
         this.carbs = carbs;
         this.vitamins = vitamins;
         this.energy = Math.clamp(energy, 0, 20);
+        this.bypasses.put(Info.ENERGY, Permissions.BYPASS_STAT_ENERGY.has(player));
+        this.bypasses.put(Info.THIRST, Permissions.BYPASS_STAT_THIRST.has(player));
+        this.bypasses.put(Info.NUTRIENTS, Permissions.BYPASS_STAT_NUTRITION.has(player));
     }
 
     /**
@@ -115,10 +121,14 @@ public class PlayerData implements ConfigurationSerializable {
      * @param change Level of thirst to add
      */
     public void increaseThirst(double change) {
-        int immunityMinutes = this.config.mechanics_thirst_immunity_minutes;
-        if (change < 0 && immunityMinutes > 0) {
-            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
-            if (immunityMinutes > secondsPlayed) return;
+        if (change < 0) {
+            int immunityMinutes = this.config.mechanics_thirst_immunity_minutes;
+            if (this.bypasses.get(Info.THIRST)) {
+                return;
+            } else if (immunityMinutes > 0) {
+                int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+                if (immunityMinutes > secondsPlayed) return;
+            }
         }
         ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(this.player, change, getThirst() + change);
         if (!thirstEvent.callEvent()) return;
@@ -178,13 +188,17 @@ public class PlayerData implements ConfigurationSerializable {
      * Increase a nutrient for this data
      *
      * @param nutrient Nutrient to increase
-     * @param change    Level of increase
+     * @param change   Level of increase
      */
     public void increaseNutrient(Nutrient nutrient, int change) {
-        int immunityMinutes = this.config.mechanics_food_immunity_minutes;
-        if (change < 0 && immunityMinutes > 0) {
-            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
-            if (immunityMinutes > secondsPlayed) return;
+        if (change < 0) {
+            int immunityMinutes = this.config.mechanics_food_immunity_minutes;
+            if (this.bypasses.get(Info.NUTRIENTS)) {
+                return;
+            } else if (immunityMinutes > 0) {
+                int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+                if (immunityMinutes > secondsPlayed) return;
+            }
         }
         switch (nutrient) {
             case PROTEIN:
@@ -226,10 +240,14 @@ public class PlayerData implements ConfigurationSerializable {
      * @param change Energy amount to increase
      */
     public void increaseEnergy(double change) {
-        int immunityMinutes = this.config.mechanics_energy_immunity_minutes;
-        if (change < 0 && immunityMinutes > 0) {
-            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
-            if (immunityMinutes > secondsPlayed) return;
+        if (change < 0) {
+            int immunityMinutes = this.config.mechanics_energy_immunity_minutes;
+            if (this.bypasses.get(Info.ENERGY)) {
+                return;
+            } else if (immunityMinutes > 0) {
+                int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+                if (immunityMinutes > secondsPlayed) return;
+            }
         }
         EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, change, getEnergy() + change);
         if (!energyEvent.callEvent()) return;

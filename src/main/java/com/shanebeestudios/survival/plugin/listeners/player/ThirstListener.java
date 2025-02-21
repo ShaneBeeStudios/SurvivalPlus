@@ -1,6 +1,5 @@
 package com.shanebeestudios.survival.plugin.listeners.player;
 
-import com.shanebeestudios.survival.api.data.Permissions;
 import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
@@ -27,7 +26,6 @@ public class ThirstListener implements Listener {
     @EventHandler
     private void onExhaustionReached(EntityExhaustionEvent event) {
         Player player = (Player) event.getEntity();
-        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
 
         float exhaustion = event.getExhaustion();
         if (player.getExhaustion() + exhaustion < 4.0f) return;
@@ -48,7 +46,6 @@ public class ThirstListener implements Listener {
         if (event.getRespawnReason() != PlayerRespawnEvent.RespawnReason.DEATH) return;
 
         Player player = event.getPlayer();
-        if (Permissions.BYPASS_STAT_THIRST.has(player)) return;
 
         PlayerData playerData = this.playerManager.getPlayerData(player);
         double thirst = this.config.mechanics_thirst_respawn_amount;

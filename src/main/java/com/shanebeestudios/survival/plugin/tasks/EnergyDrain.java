@@ -1,6 +1,11 @@
 package com.shanebeestudios.survival.plugin.tasks;
 
-import com.shanebeestudios.survival.api.data.Permissions;
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.config.Lang;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.World.Environment;
@@ -11,12 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.plugin.config.Lang;
-import com.shanebeestudios.survival.api.data.PlayerData;
-import com.shanebeestudios.survival.plugin.managers.PlayerManager;
-import com.shanebeestudios.survival.api.util.Utils;
 
 public class EnergyDrain extends BukkitRunnable {
 
@@ -39,7 +38,6 @@ public class EnergyDrain extends BukkitRunnable {
     @Override
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (Permissions.BYPASS_STAT_ENERGY.has(player)) continue;
 
             PlayerData playerData = playerManager.getPlayerData(player);
             GameMode mode = player.getGameMode();

@@ -33,7 +33,6 @@ public class Permissions {
 
     // Bypass permissions
     public static final Permission BYPASS_STAT_ENERGY = getBypass("stat.energy", "Bypass energy stats");
-    public static final Permission BYPASS_STAT_HUNGER = getBypass("stat.hunger", "Bypass hunger stats");
     public static final Permission BYPASS_STAT_NUTRITION = getBypass("stat.nutrition", "Bypass nutrition stats");
     public static final Permission BYPASS_REQUIRED_TOOLS = getBypass("required_tools", "Bypass required tools");
     public static final Permission BYPASS_STAT_THIRST = getBypass("stat.thirst", "Bypass thirst stats");
