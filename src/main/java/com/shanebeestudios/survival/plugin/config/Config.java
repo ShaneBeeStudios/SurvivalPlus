@@ -302,7 +302,7 @@ public class Config {
         this.survival_break_only_with_axe = this.settings.getBoolean("survival.break-only-with.axe");
         this.survival_break_only_with_pickaxe = this.settings.getBoolean("survival.break-only-with.pickaxe");
         this.survival_break_only_with_shears = this.settings.getBoolean("survival.break-only-with.shears");
-        this.survival_place_only_with_hammer = this.settings.getBoolean("survival.place-only_with.hammer");
+        this.survival_place_only_with_hammer = this.settings.getBoolean("survival.place-only-with.hammer");
 
         this.survival_sickle_flint = this.settings.getBoolean("survival.sickles.flint");
         this.survival_sickle_stone = this.settings.getBoolean("survival.sickles.stone");
