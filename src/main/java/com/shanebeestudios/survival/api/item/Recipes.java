@@ -1,5 +1,7 @@
 package com.shanebeestudios.survival.api.item;
 
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -15,8 +17,6 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.SmokingRecipe;
-import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.api.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -348,12 +348,13 @@ public class Recipes {
         bowl.setIngredient('1', Items.WATER_BOWL.getItemStack());
         BOWL = register(config.mechanics_empty_potion, bowl);
 
+        List<ItemStack> dirtyWaters = List.of(Items.DIRTY_WATER.getItemStack(), Items.MURKY_WATER.getItemStack(), Items.SALTY_WATER.getItemStack());
         FurnaceRecipe clean_water_furnace = new FurnaceRecipe(Utils.getNamespacedKey("clean_water_furnace"),
-            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(Items.DIRTY_WATER.getItemStack()), 0, 600);
+            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(dirtyWaters), 0, 600);
         SmokingRecipe clean_water_smoker = new SmokingRecipe(Utils.getNamespacedKey("clean_water_smoker"),
-            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(Items.DIRTY_WATER.getItemStack()), 0, 300);
+            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(dirtyWaters), 0, 300);
         CampfireRecipe clean_water_camp = new CampfireRecipe(Utils.getNamespacedKey("clean_water_campfire"),
-            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(Items.DIRTY_WATER.getItemStack()), 0, 2400);
+            Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(dirtyWaters), 0, 2400);
         CLEAN_WATER_BOTTLES = register(config.mechanics_thirst_purify_water, clean_water_camp, clean_water_smoker, clean_water_furnace);
 
         ShapedRecipe fishing_rod = new ShapedRecipe(Utils.getNamespacedKey("fishing_rod"), new ItemStack(Material.FISHING_ROD, 1));
