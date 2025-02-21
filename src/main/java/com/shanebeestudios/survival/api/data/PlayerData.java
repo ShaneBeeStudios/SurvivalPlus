@@ -8,6 +8,7 @@ import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Statistic;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
@@ -111,12 +112,17 @@ public class PlayerData implements ConfigurationSerializable {
     /**
      * Increase the thirst for this data
      *
-     * @param thirst Level of thirst to add
+     * @param change Level of thirst to add
      */
-    public void increaseThirst(double thirst) {
-        ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(this.player, thirst, getThirst() + thirst);
+    public void increaseThirst(double change) {
+        int immunityMinutes = this.config.mechanics_thirst_immunity_minutes;
+        if (change < 0 && immunityMinutes > 0) {
+            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+            if (immunityMinutes > secondsPlayed) return;
+        }
+        ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(this.player, change, getThirst() + change);
         if (!thirstEvent.callEvent()) return;
-        setThirst(this.thirst + thirst);
+        setThirst(this.thirst + change);
     }
 
     /**
@@ -172,18 +178,23 @@ public class PlayerData implements ConfigurationSerializable {
      * Increase a nutrient for this data
      *
      * @param nutrient Nutrient to increase
-     * @param value    Level of increase
+     * @param change    Level of increase
      */
-    public void increaseNutrient(Nutrient nutrient, int value) {
+    public void increaseNutrient(Nutrient nutrient, int change) {
+        int immunityMinutes = this.config.mechanics_food_immunity_minutes;
+        if (change < 0 && immunityMinutes > 0) {
+            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+            if (immunityMinutes > secondsPlayed) return;
+        }
         switch (nutrient) {
             case PROTEIN:
-                this.proteins = Math.clamp(this.proteins + value, 0, this.config.mechanics_food_max_level);
+                this.proteins = Math.clamp(this.proteins + change, 0, this.config.mechanics_food_max_level);
                 break;
             case CARBS:
-                this.carbs = Math.clamp(this.carbs + value, 0, this.config.mechanics_food_max_level);
+                this.carbs = Math.clamp(this.carbs + change, 0, this.config.mechanics_food_max_level);
                 break;
             case VITAMINS:
-                this.vitamins = Math.clamp(this.vitamins + value, 0, this.config.mechanics_food_max_level);
+                this.vitamins = Math.clamp(this.vitamins + change, 0, this.config.mechanics_food_max_level);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + nutrient);
@@ -212,12 +223,17 @@ public class PlayerData implements ConfigurationSerializable {
     /**
      * Increase the energy level for this data
      *
-     * @param energy Energy amount to increase
+     * @param change Energy amount to increase
      */
-    public void increaseEnergy(double energy) {
-        EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, energy, getEnergy() + energy);
+    public void increaseEnergy(double change) {
+        int immunityMinutes = this.config.mechanics_energy_immunity_minutes;
+        if (change < 0 && immunityMinutes > 0) {
+            int secondsPlayed = this.player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20 / 60;
+            if (immunityMinutes > secondsPlayed) return;
+        }
+        EnergyLevelChangeEvent energyEvent = new EnergyLevelChangeEvent(player, change, getEnergy() + change);
         if (!energyEvent.callEvent()) return;
-        setEnergy(this.energy + energy);
+        setEnergy(this.energy + change);
     }
 
     /**

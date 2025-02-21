@@ -143,6 +143,11 @@ mechanics:
       proteins: 120
       carbs: 480
       vitamins: 180
+    # The amount of minutes a new player will be immune to food diversity effects
+    # This gives the player time to understand the game and prepare for food diversity changes
+    # Default = 40 minutes = 2 Minecraft days
+    # Set to 0 to disable
+    immunity-minutes: 40
     # Each nutrition section has different effects when player's levels are too low
     effects:
       carbs:
@@ -186,6 +191,12 @@ mechanics:
     starting-amount: 30.0
     # The level of thirst a player gets after respawning (max = 40)
     respawn-amount: 30.0
+    # The amount of minutes a new player will be immune to thirst effects
+    # This gives the player time to understand the game and prepare for thirst changes
+    # During this time the player can drink and do any water related tasks, but their thirst won't drop
+    # Default = 40 minutes = 2 Minecraft days
+    # Set to 0 to disable
+    immunity-minutes: 40
     # Enables 5 different levels of water (dirty, salty, murky, clean, purified)
     purify-water: true
     # Unused (maybe for the future?!?!)
@@ -228,6 +239,11 @@ mechanics:
     start-level: 20.0
     # The amount of energy a player will get after they respawn (out of 20.0)
     respawn-level: 20.0
+    # The amount of minutes a new player will be immune to energy effects
+    # This gives the player time to understand the game and prepare for energy changes
+    # Default = 40 minutes = 2 Minecraft days
+    # Set to 0 to disable
+    immunity-minutes: 40
     # Warn the player via message when energy starts dropping below 10
     warning: true
     # The amount of energy a player loses every 5 seconds of gameplay
@@ -237,15 +253,15 @@ mechanics:
     # Default (0.015) equivalent to 3.6 levels in 1 MC day (20 minutes)
     # Setting to 0 will disable this
     cold-drain-rate: 0.015
+    # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
+    # Amount to drop per exhaustion reset (set to 0 to disable)
+    exhaustion: 0.15
     # Every 5 seconds a player spends in bed, the level of energy to increase
     # Default (0.83) equivalent to 10 levels in 1 minute
     sleeping-refresh-rate: 0.83
     # Every 5 seconds a player spends sitting in a chair, the level of energy to increase
     # (Will only work if chairs are enabled)
     chair-refresh-rate: 0.25 # Default (0.41) equivalent to 3 levels in 1 minute
-    # Players doing exhaustive tasks (such as mining, running, jumping) will lose energy quicker
-    # Amount to drop per exhaustion reset (set to 0 to disable)
-    exhaustion: 0.15
     # Enables coffee recipes and effects (Drink coffee to regain energy)
     coffee: true
     # Player will get a few minutes of absorption when their energy is high

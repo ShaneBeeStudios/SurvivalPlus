@@ -67,6 +67,7 @@ public class Config {
     public boolean mechanics_energy_enabled;
     public double mechanics_energy_start;
     public double mechanics_energy_respawn;
+    public int mechanics_energy_immunity_minutes;
     public boolean mechanics_energy_warning;
     public double mechanics_energy_drain_rate;
     public double mechanics_energy_drain_cold_rate;
@@ -100,6 +101,7 @@ public class Config {
     public int mechanics_food_start_carbs;
     public int mechanics_food_start_protein;
     public int mechanics_food_start_vitamins;
+    public int mechanics_food_immunity_minutes;
     public int mechanics_food_respawn_proteins;
     public int mechanics_food_respawn_vitamins;
     public int mechanics_food_respawn_carbs;
@@ -125,6 +127,7 @@ public class Config {
     public boolean mechanics_thirst_enabled;
     public double mechanics_thirst_starting_amount;
     public double mechanics_thirst_respawn_amount;
+    public int mechanics_thirst_immunity_minutes;
     public boolean mechanics_thirst_purify_water;
     public boolean mechanics_thirst_melt_snow;
     public double mechanics_thirst_drain_rate;
@@ -329,6 +332,7 @@ public class Config {
         this.mechanics_beet_strength = this.settings.getBoolean("mechanics.beetroot-strength");
 
         this.mechanics_food_diversity_enabled = this.settings.getBoolean("mechanics.food-diversity.enabled");
+        this.mechanics_food_immunity_minutes = this.settings.getInt("mechanics.food-diversity.immunity-minutes");
         this.mechanics_food_max_level = this.settings.getInt("mechanics.food-diversity.max-level");
         this.mechanics_food_diversity_enabled = this.settings.getBoolean("mechanics.food-diversity.enabled");
         this.mechanics_food_start_carbs = this.settings.getInt("mechanics.food-diversity.start-level.carbs");
@@ -360,6 +364,7 @@ public class Config {
         this.mechanics_thirst_enabled = this.settings.getBoolean("mechanics.thirst.enabled");
         this.mechanics_thirst_starting_amount = this.settings.getDouble("mechanics.thirst.starting-amount");
         this.mechanics_thirst_respawn_amount = this.settings.getDouble("mechanics.thirst.respawn-amount");
+        this.mechanics_thirst_immunity_minutes = this.settings.getInt("mechanics.thirst.immunity-minutes");
         this.mechanics_thirst_purify_water = this.settings.getBoolean("mechanics.thirst.purify-water");
         this.mechanics_thirst_melt_snow = this.settings.getBoolean("mechanics.thirst.melt-snow");
         this.mechanics_thirst_drain_rate = this.settings.getDouble("mechanics.thirst.drain-rate");
@@ -380,6 +385,7 @@ public class Config {
         this.mechanics_energy_enabled = this.settings.getBoolean("mechanics.energy.enabled");
         this.mechanics_energy_start = this.settings.getDouble("mechanics.energy.start-level");
         this.mechanics_energy_respawn = this.settings.getDouble("mechanics.energy.respawn-level");
+        this.mechanics_energy_immunity_minutes = this.settings.getInt("mechanics.energy.immunity-minutes");
         this.mechanics_energy_warning = this.settings.getBoolean("mechanics.energy.warning");
         this.mechanics_energy_drain_rate = this.settings.getDouble("mechanics.energy.drain-rate");
         this.mechanics_energy_drain_cold_rate = this.settings.getDouble("mechanics.energy.cold-drain-rate");
