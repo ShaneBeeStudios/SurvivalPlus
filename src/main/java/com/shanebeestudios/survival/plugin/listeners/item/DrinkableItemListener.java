@@ -73,7 +73,7 @@ public class DrinkableItemListener implements Listener {
 
         ThirstLevelChangeEvent thirstEvent = new ThirstLevelChangeEvent(player, change, playerData.getThirst() + change);
         if (thirstEvent.callEvent()) {
-            playerData.setThirst(playerData.getThirst() + change);
+            playerData.increaseThirst(change);
         }
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
