@@ -9,16 +9,15 @@ import com.shanebeestudios.survival.plugin.listeners.block.Chairs;
 import com.shanebeestudios.survival.plugin.listeners.block.LootTableListener;
 import com.shanebeestudios.survival.plugin.listeners.block.SnowballThrow;
 import com.shanebeestudios.survival.plugin.listeners.block.WorkbenchShare;
-import com.shanebeestudios.survival.plugin.listeners.entity.MobGoalListener;
 import com.shanebeestudios.survival.plugin.listeners.entity.BeeKeeperSuit;
 import com.shanebeestudios.survival.plugin.listeners.entity.ChestPigmen;
 import com.shanebeestudios.survival.plugin.listeners.entity.ChickenSpawn;
 import com.shanebeestudios.survival.plugin.listeners.entity.EntityDeath;
 import com.shanebeestudios.survival.plugin.listeners.entity.LivingSlime;
 import com.shanebeestudios.survival.plugin.listeners.entity.MerchantTrades;
+import com.shanebeestudios.survival.plugin.listeners.entity.MobGoalListener;
 import com.shanebeestudios.survival.plugin.listeners.entity.PiglinBarter;
 import com.shanebeestudios.survival.plugin.listeners.item.BeetrootStrength;
-import com.shanebeestudios.survival.plugin.listeners.item.BlazeSword;
 import com.shanebeestudios.survival.plugin.listeners.item.BowListener;
 import com.shanebeestudios.survival.plugin.listeners.item.CompassWaypoint;
 import com.shanebeestudios.survival.plugin.listeners.item.CookieHealthBoost;
@@ -33,13 +32,13 @@ import com.shanebeestudios.survival.plugin.listeners.item.RawMeatHunger;
 import com.shanebeestudios.survival.plugin.listeners.item.RecurvedBowListener;
 import com.shanebeestudios.survival.plugin.listeners.item.RepairCrafting;
 import com.shanebeestudios.survival.plugin.listeners.item.ShivPoison;
-import com.shanebeestudios.survival.plugin.listeners.player.ThirstListener;
 import com.shanebeestudios.survival.plugin.listeners.item.TropicalFish;
 import com.shanebeestudios.survival.plugin.listeners.item.Valkyrie;
-import com.shanebeestudios.survival.plugin.listeners.item.WaterPurifiedListener;
 import com.shanebeestudios.survival.plugin.listeners.item.WaterBowlListener;
+import com.shanebeestudios.survival.plugin.listeners.item.WaterPurifiedListener;
 import com.shanebeestudios.survival.plugin.listeners.player.EnergyChange;
 import com.shanebeestudios.survival.plugin.listeners.player.PlayerDataListener;
+import com.shanebeestudios.survival.plugin.listeners.player.ThirstListener;
 import com.shanebeestudios.survival.plugin.listeners.server.Guide;
 import com.shanebeestudios.survival.plugin.listeners.server.LocalChat;
 import com.shanebeestudios.survival.plugin.listeners.server.RecipeDiscovery;
@@ -82,8 +81,6 @@ public class EventManager {
             pluginManager.registerEvents(new Valkyrie(this.plugin), this.plugin);
         if (this.config.legendary_giant_blade)
             pluginManager.registerEvents(new GiantBlade(this.plugin), this.plugin);
-        if (this.config.legendary_blaze_sword)
-            pluginManager.registerEvents(new BlazeSword(), this.plugin);
         if (this.config.settings_local_chat_distance > -1)
             pluginManager.registerEvents(new LocalChat(this.plugin), this.plugin);
         if (this.config.mechanics_compass_waypoint)

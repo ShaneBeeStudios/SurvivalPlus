@@ -97,6 +97,63 @@
                     }
                 }
             }
+        ],
+        "minecraft:hit_block": [
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "flags": {
+                            "is_sneaking": true
+                        }
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:all_of",
+                    "effects": [
+                        {
+                            "type": "minecraft:replace_disk",
+                            "block_state": {
+                                "type": "minecraft:simple_state_provider",
+                                "state": {
+                                    "Name": "minecraft:fire"
+                                }
+                            },
+                            "predicate": {
+                                "type": "minecraft:all_of",
+                                "predicates": [
+                                    {
+                                        "type": "minecraft:has_sturdy_face",
+                                        "direction": "up",
+                                        "offset": [
+                                            0,
+                                            -1,
+                                            0
+                                        ]
+                                    },
+                                    {
+                                        "type": "minecraft:matching_block_tag",
+                                        "tag": "minecraft:replaceable"
+                                    }
+                                ]
+                            },
+                            "trigger_game_event": "minecraft:block_place",
+                            "radius": 4,
+                            "height": 2,
+                            "offset": [
+                                0,
+                                1,
+                                0
+                            ]
+                        },
+                        {
+                            "type": "minecraft:change_item_damage",
+                            "amount": 5
+                        }
+                    ]
+                }
+            }
         ]
     }
 }
