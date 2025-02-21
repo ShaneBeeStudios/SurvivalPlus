@@ -2,6 +2,7 @@ package com.shanebeestudios.survival.api.item;
 
 import com.shanebeestudios.survival.api.util.Utils;
 import com.shanebeestudios.survival.plugin.config.Config;
+import io.papermc.paper.potion.PotionMix;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -357,6 +358,11 @@ public class Recipes {
             Items.CLEAN_WATER.getItemStack(), new RecipeChoice.ExactChoice(dirtyWaters), 0, 2400);
         CLEAN_WATER_BOTTLES = register(config.mechanics_thirst_purify_water, clean_water_camp, clean_water_smoker, clean_water_furnace);
 
+        makeBrewingRecipe("dirty_water", Items.DIRTY_WATER);
+        makeBrewingRecipe("murky_water", Items.MURKY_WATER);
+        makeBrewingRecipe("salty_water", Items.SALTY_WATER);
+        makeBrewingRecipe("clean_water", Items.CLEAN_WATER);
+
         ShapedRecipe fishing_rod = new ShapedRecipe(Utils.getNamespacedKey("fishing_rod"), new ItemStack(Material.FISHING_ROD, 1));
         fishing_rod.shape("1- ", "1 -", "1@*");
         fishing_rod.setIngredient('1', Material.STICK);
@@ -423,6 +429,14 @@ public class Recipes {
         ShapelessRecipe stick = new ShapelessRecipe(Utils.getNamespacedKey("stick"), new ItemStack(Material.STICK, 4));
         stick.addIngredient(new RecipeChoice.MaterialChoice(Tag.SAPLINGS));
         STICK = register(config.recipes_sapling_stick, stick);
+    }
+
+    private static void makeBrewingRecipe(String key, Item input) {
+        PotionMix potionMix = new PotionMix(Utils.getNamespacedKey("purified_water_from_" + key),
+            Items.PURIFIED_WATER.getItemStack(),
+            new RecipeChoice.ExactChoice(input.getItemStack()),
+            new RecipeChoice.MaterialChoice(Material.CHARCOAL));
+        Bukkit.getPotionBrewer().addPotionMix(potionMix);
     }
 
     private final Collection<NamespacedKey> keys;
