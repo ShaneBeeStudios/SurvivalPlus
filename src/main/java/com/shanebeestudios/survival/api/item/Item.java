@@ -1,7 +1,7 @@
 package com.shanebeestudios.survival.api.item;
 
-import com.shanebeestudios.survival.plugin.config.ItemConfig;
 import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.config.ItemConfig;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.DyedItemColor;
 import io.papermc.paper.registry.RegistryAccess;
@@ -40,8 +40,8 @@ public abstract class Item {
     private ItemStack itemStack;
     private String name;
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private double repairPercent; // TODO figure this out
+    private double repairPercent;
+    private int repairCost;
 
     /**
      * Get an ItemStack from this item
@@ -115,9 +115,9 @@ public abstract class Item {
         }
 
         // Repair Cost
-        int repairCost = ITEM_CONFIG.getRepairCost(key);
-        if (repairCost > 0) {
-            itemStack.setData(DataComponentTypes.REPAIR_COST, repairCost);
+        this.repairCost = ITEM_CONFIG.getRepairCost(key);
+        if (this.repairCost > 0) {
+            itemStack.setData(DataComponentTypes.REPAIR_COST, this.repairCost);
         }
 
         // Repair Percent
@@ -158,6 +158,25 @@ public abstract class Item {
             return data != null && data.equals(this.key);
         }
         return false;
+    }
+
+    /**
+     * Get the repair percent of this item
+     * <p>This is used to determine output durability during repairs</p>
+     *
+     * @return Repair percent of item
+     */
+    public double getRepairPercent() {
+        return this.repairPercent;
+    }
+
+    /**
+     * Get the repair cost of this item
+     *
+     * @return Repair cost of item
+     */
+    public int getRepairCost() {
+        return this.repairCost;
     }
 
     /**
