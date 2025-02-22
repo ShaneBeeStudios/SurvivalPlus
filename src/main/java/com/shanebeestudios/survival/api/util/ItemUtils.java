@@ -1,14 +1,13 @@
 package com.shanebeestudios.survival.api.util;
 
+import com.shanebeestudios.survival.api.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import com.shanebeestudios.survival.api.item.Item;
 
 import java.util.Map;
 import java.util.Random;
@@ -20,19 +19,6 @@ import java.util.Random;
 public class ItemUtils {
 
     private static final Random RANDOM = new Random();
-
-    /**
-     * Set the durability of an ItemStack
-     *
-     * @param item       The ItemStack to set
-     * @param durability The durability to set
-     */
-    public static void setDurability(ItemStack item, int durability) {
-        ItemMeta meta = item.getItemMeta();
-        assert meta != null;
-        ((Damageable) meta).setDamage(durability);
-        item.setItemMeta(meta);
-    }
 
     /**
      * Check the durability of an ItemStack
@@ -47,6 +33,20 @@ public class ItemUtils {
             assert maxDamage != null;
             assert damage != null;
             return maxDamage - damage;
+        }
+        return 0;
+    }
+
+    /**
+     * Get the max damage of an ItemStack
+     *
+     * @param item Item to get max from
+     * @return Max damage of item
+     */
+    public static int getMaxDamage(ItemStack item) {
+        if (item.hasData(DataComponentTypes.MAX_DAMAGE)) {
+            Integer maxDamage = item.getData(DataComponentTypes.MAX_DAMAGE);
+            return maxDamage == null ? 0 : maxDamage;
         }
         return 0;
     }
@@ -87,7 +87,7 @@ public class ItemUtils {
      * Apply the enchantments from an {@link Item} to an existing ItemStack
      *
      * @param itemStack Current ItemStack to apply enchantments to
-     * @param item     Item to grab data from
+     * @param item      Item to grab data from
      */
     public static void applyEnchantments(ItemStack itemStack, Item item) {
         ItemStack from = item.getItemStack();
