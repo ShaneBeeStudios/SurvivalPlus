@@ -59,9 +59,11 @@ items:
     repair_percent: 0.85
   hammer:
     name: "Hammer"
-    max_damage: 50
+    max_damage: 200
     repair_cost: 0
     repair_percent: 0.85
+    lore:
+      - "<#F39516>Required in your off-hand for building"
   hatchet:
     name: "Hatchet"
     max_damage: 50

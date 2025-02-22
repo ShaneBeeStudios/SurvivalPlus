@@ -29,7 +29,7 @@ task-must-use-shovel: "You must use a shovel to dig this."
 task-must-use-axe: "You must use an axe to chop this."
 task-must-use-pick: "You must use a pick to mine this."
 task-must-use-shear: "You must use shears to cut this."
-task-must-use-hammer: "You must use a hammer to construct this."
+task-must-use-hammer: "You must use a hammer in your off-hand to construct this."
 task-must-use-sickle: "You must use a sickle to harvest this."
 
 charge: "CHARGE!"
