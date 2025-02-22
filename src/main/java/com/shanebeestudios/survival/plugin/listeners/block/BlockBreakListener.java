@@ -1,14 +1,14 @@
 package com.shanebeestudios.survival.plugin.listeners.block;
 
-import com.shanebeestudios.survival.plugin.SurvivalPlugin;
-import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.api.data.Permissions;
 import com.shanebeestudios.survival.api.item.Items;
-import com.shanebeestudios.survival.plugin.managers.MessageManager;
-import com.shanebeestudios.survival.plugin.managers.MessageManager.MessageType;
 import com.shanebeestudios.survival.api.util.BlockTags;
 import com.shanebeestudios.survival.api.util.ItemUtils;
 import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.managers.MessageManager;
+import com.shanebeestudios.survival.plugin.managers.MessageManager.MessageType;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -192,7 +192,6 @@ public class BlockBreakListener implements Listener {
                     int berries = 0;
                     Location loc = block.getLocation();
                     assert loc.getWorld() != null;
-                    int multiplier = 1;
                     e.setCancelled(true);
                     int random = new Random().nextInt(5) + 1;
 
@@ -200,7 +199,6 @@ public class BlockBreakListener implements Listener {
                         if (bush.getAge() == 3) {
                             berries = 1;
                         }
-                        multiplier = 4;
                     } else if (Items.STONE_SICKLE.is(tool)) {
                         if (bush.getAge() == 2) {
                             if (random <= 4) berries = 1;
@@ -208,7 +206,6 @@ public class BlockBreakListener implements Listener {
                             if (random <= 3) berries = 1;
                             else berries = 2;
                         }
-                        multiplier = 2;
                     } else if (Items.IRON_SICKLE.is(tool) || Items.DIAMOND_SICKLE.is(tool)) {
                         if (bush.getAge() == 2) {
                             if (random <= 3) berries = 1;
@@ -223,13 +220,8 @@ public class BlockBreakListener implements Listener {
 
                     bush.setAge(1);
                     block.setBlockData(bush);
-                    int durability = ItemUtils.getDurability(tool) + multiplier;
-                    ItemUtils.setDurability(tool, durability);
                     player.playSound(loc, Sound.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1, 1);
-                    if (durability >= tool.getType().getMaxDurability()) {
-                        player.getInventory().setItemInMainHand(null);
-                        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
-                    }
+                    ItemUtils.damageItem(player, tool, 1);
                 }
             }
         }
