@@ -12,7 +12,6 @@ import net.kyori.adventure.key.Key;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.inventory.ItemType;
@@ -62,19 +61,20 @@ public class AngryWolfGoal implements Goal<@NotNull Wolf> {
 
     @Override
     public boolean shouldActivate() {
+        // Minecraft uses this to decide if the mob should random stroll
+        // If they can't, they're further than 32 blocks from a player
+        // No need to check for players close by
+        if (this.wolf.getNoActionTicks() > 100) return false;
+
         if (this.wolf.isAngry()) return false; // He's already angry
         if (this.type == Type.NIGHT && this.wolf.getWorld().isDayTime()) return false;
 
-        Optional<Player> any = this.wolf.getNearbyEntities(10, 7, 10)
-            .stream()
-            .filter(entity -> entity.getType() == EntityType.PLAYER)
-            .map(entity -> (Player) entity)
-            .filter(player -> player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
-            .findAny();
+        Optional<Player> any = this.wolf.getLocation().getNearbyPlayers(10, 7, 10,
+                p -> p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE)
+            .stream().findAny();
         if (any.isEmpty()) return false;
 
         this.target = any.get();
-
         return shouldAttack();
     }
 

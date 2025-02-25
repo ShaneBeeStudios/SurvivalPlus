@@ -17,7 +17,6 @@ import org.bukkit.Registry;
 import org.bukkit.Statistic;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemType;
@@ -58,12 +57,14 @@ public class AvoidPlayerGoal implements Goal<@NotNull Mob> {
 
     @Override
     public boolean shouldActivate() {
-        Optional<Player> any = this.mob.getNearbyEntities(7, 7, 7)
-            .stream()
-            .filter(entity -> entity.getType() == EntityType.PLAYER)
-            .map(entity -> (Player) entity)
-            .filter(player -> player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)
-            .findAny();
+        // Minecraft uses this to decide if the mob should random stroll
+        // If they can't, they're further than 32 blocks from a player
+        // No need to check for players close by
+        if (this.mob.getNoActionTicks() > 100) return false;
+
+        Optional<Player> any = this.mob.getLocation().getNearbyPlayers(7, 7, 7,
+            p -> p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE)
+            .stream().findAny();
         if (any.isEmpty()) return false;
 
         this.avoid = any.get();
