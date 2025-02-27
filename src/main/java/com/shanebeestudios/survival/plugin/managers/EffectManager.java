@@ -2,7 +2,6 @@ package com.shanebeestudios.survival.plugin.managers;
 
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
-import com.shanebeestudios.survival.plugin.tasks.tool.GiantBlade;
 import com.shanebeestudios.survival.plugin.tasks.tool.Valkyrie;
 
 public class EffectManager {
@@ -11,7 +10,6 @@ public class EffectManager {
     private final Config config;
 
     // Effect Tasks
-    private GiantBlade giantBlade = null;
     private Valkyrie valkyrie = null;
 
     public EffectManager(SurvivalPlugin plugin) {
@@ -21,8 +19,6 @@ public class EffectManager {
     }
 
     private void loadEffects() {
-        if (config.legendary_giant_blade)
-            this.giantBlade = new GiantBlade(plugin);
         if (config.legendary_valkyrie)
             this.valkyrie = new Valkyrie(plugin);
     }
@@ -32,8 +28,6 @@ public class EffectManager {
      */
     @SuppressWarnings("unused")
     public void cancelTasks() {
-        if (giantBlade != null)
-            giantBlade.cancel();
         if (valkyrie != null)
             valkyrie.cancel();
     }

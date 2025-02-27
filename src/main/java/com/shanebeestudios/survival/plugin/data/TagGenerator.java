@@ -15,11 +15,13 @@ import io.papermc.paper.tag.PreFlattenTagRegistrar;
 import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.block.BlockType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemType;
 import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
@@ -39,27 +41,29 @@ import java.util.Objects;
 @SuppressWarnings({"UnstableApiUsage", "PatternValidation", "NullableProblems"})
 public class TagGenerator {
 
-    private FileConfiguration config;
+    private final FileConfiguration blockTagConfig;
+    private final FileConfiguration itemTagConfig;
 
     public TagGenerator(BootstrapContext context) {
-        loadConfig(context.getDataDirectory());
+        this.blockTagConfig = loadConfig(context.getDataDirectory(), "block-tags.yml");
+        this.itemTagConfig = loadConfig(context.getDataDirectory(), "item-tags.yml");
         loadDatapack(context);
         loadTags(context);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void loadConfig(Path dataFolder) {
-        File file = new File(dataFolder.toFile(), "block-tags.yml");
+    private FileConfiguration loadConfig(Path dataFolder, String ymlFile) {
+        File file = new File(dataFolder.toFile(), ymlFile);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
-            URL resource = getClass().getClassLoader().getResource("block-tags.yml");
+            URL resource = getClass().getClassLoader().getResource(ymlFile);
             try {
                 FileUtils.copyURLToFile(resource, file);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        this.config = YamlConfiguration.loadConfiguration(file);
+        return YamlConfiguration.loadConfiguration(file);
     }
 
     private void loadDatapack(BootstrapContext context) {
@@ -82,23 +86,13 @@ public class TagGenerator {
         // Create block tags
         manager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(RegistryKey.BLOCK), event -> {
             final PreFlattenTagRegistrar<BlockType> registrar = event.registrar();
+            createTags(logger, registrar, this.blockTagConfig);
+        });
 
-            logger.info(Utils.getMini("<grey>Tag Creation:"));
-            ConfigurationSection survivalPlusSection = this.config.getConfigurationSection("survival_plus");
-            assert survivalPlusSection != null;
-            for (String key : survivalPlusSection.getKeys(false)) {
-                createTagFromSection(key, registrar);
-                logger.info(Utils.getMini("<grey>Generating block tag <white>'<aqua>survival_plus:%s<white>'", key));
-            }
-            ConfigurationSection minecraftSection = this.config.getConfigurationSection("minecraft");
-            if (minecraftSection == null) return;
-
-            logger.info(Utils.getMini("<grey>Tag Mutation:"));
-            for (String key : minecraftSection.getKeys(false)) {
-                addToTagFromSection(key, registrar);
-                logger.info(Utils.getMini("<grey>Adding value to block tag <white>'<aqua>minecraft:%s<white>'", key));
-
-            }
+        // Create item tags
+        manager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(RegistryKey.ITEM), event -> {
+            final PreFlattenTagRegistrar<ItemType> registrar = event.registrar();
+            createTags(logger, registrar, this.itemTagConfig);
         });
 
         // Put our enchantments at the top of the tooltip list
@@ -115,31 +109,50 @@ public class TagGenerator {
         });
     }
 
-    private void createTagFromSection(String key, PreFlattenTagRegistrar<BlockType> registrar) {
-        List<TagEntry<BlockType>> entries = new ArrayList<>();
-        for (String s : this.config.getStringList("survival_plus." + key)) {
-            entries.add(getTagEntry(s));
+    private <T> void createTags(ComponentLogger logger, PreFlattenTagRegistrar<T> registrar, FileConfiguration config) {
+        String registerName = StringUtils.capitalize(registrar.registryKey().key().value());
+        logger.info(Utils.getMini("<grey>%s Tag Creation:", registerName));
+        ConfigurationSection survivalPlusSection = config.getConfigurationSection("survival_plus");
+        assert survivalPlusSection != null;
+        for (String key : survivalPlusSection.getKeys(false)) {
+            createTagFromSection(key, registrar, survivalPlusSection);
+            logger.info(Utils.getMini("<grey>Generating tag <white>'<aqua>survival_plus:%s<white>'", key));
+        }
+        ConfigurationSection minecraftSection = config.getConfigurationSection("minecraft");
+        if (minecraftSection == null) return;
+
+        logger.info(Utils.getMini("<grey>%s Tag Mutation:", registerName));
+        for (String key : minecraftSection.getKeys(false)) {
+            addToTagFromSection(key, registrar, survivalPlusSection);
+            logger.info(Utils.getMini("<grey>Adding value to tag <white>'<aqua>minecraft:%s<white>'", key));
+        }
+    }
+
+    private <T> void createTagFromSection(String key, PreFlattenTagRegistrar<T> registrar, ConfigurationSection survivalPlusSection) {
+        List<TagEntry<T>> entries = new ArrayList<>();
+        for (String s : survivalPlusSection.getStringList( key)) {
+            entries.add(getTagEntry(s, registrar.registryKey()));
         }
 
         registrar.setTag(TagKey.create(registrar.registryKey(), Key.key("survival_plus:" + key)), entries);
     }
 
-    private void addToTagFromSection(String key, PreFlattenTagRegistrar<BlockType> registrar) {
-        List<TagEntry<BlockType>> entries = new ArrayList<>();
-        for (String s : this.config.getStringList("minecraft." + key)) {
-            entries.add(getTagEntry(s));
+    private <T> void addToTagFromSection(String key, PreFlattenTagRegistrar<T> registrar, ConfigurationSection survivalPlusSection) {
+        List<TagEntry<T>> entries = new ArrayList<>();
+        for (String s : survivalPlusSection.getStringList("minecraft." + key)) {
+            entries.add(getTagEntry(s, registrar.registryKey()));
         }
         if (entries.isEmpty()) return;
 
         registrar.addToTag(TagKey.create(registrar.registryKey(), Key.key("minecraft:" + key)), entries);
     }
 
-    private TagEntry<BlockType> getTagEntry(String string) {
+    private <T> TagEntry<T> getTagEntry(String string, RegistryKey<T> key) {
         if (string.startsWith("#")) {
-            TagKey<BlockType> tagKey = TagKey.create(RegistryKey.BLOCK, Key.key(string.substring(1)));
+            TagKey<T> tagKey = TagKey.create(key, Key.key(string.substring(1)));
             return TagEntry.tagEntry(tagKey);
         }
-        TypedKey<BlockType> blockKey = TypedKey.create(RegistryKey.BLOCK, Key.key(string));
+        TypedKey<T> blockKey = TypedKey.create(key, Key.key(string));
         return TagEntry.valueEntry(blockKey);
     }
 

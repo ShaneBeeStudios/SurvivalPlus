@@ -70,14 +70,6 @@ public class Valkyrie implements Listener {
 						}
 					}
 				}
-			} else {
-				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 1);
-				else if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-					playerData.setStat(Stat.DUAL_WIELD_MSG, playerData.getStat(Stat.DUAL_WIELD_MSG) + 2);
-				if (playerData.getStat(Stat.DUAL_WIELD_MSG) == 2) {
-                    Utils.sendColoredMini(player,"<red>" + this.lang.valkyrie_axe_unable_dual);
-				}
 			}
 		}
 		playerData.setStat(Stat.DUAL_WIELD_MSG, 0);
@@ -122,8 +114,6 @@ public class Valkyrie implements Listener {
 						}
 					}
 				}
-			} else {
-				event.setCancelled(true);
 			}
 		}
 	}

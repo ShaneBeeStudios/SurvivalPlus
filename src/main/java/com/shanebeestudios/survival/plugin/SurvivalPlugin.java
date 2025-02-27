@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.plugin;
 
+import com.shanebeestudios.survival.api.util.ItemTags;
 import com.shanebeestudios.survival.plugin.commands.SurvivalCommand;
 import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.config.Lang;
@@ -127,8 +128,11 @@ public class SurvivalPlugin extends JavaPlugin implements Listener {
             Utils.logMini("<yellow>Resource Pack disabled");
         }
 
-        // LOAD MANAGERS
+        // LOAD TAGS
         BlockTags.initialize();
+        ItemTags.initialize();
+
+        // LOAD MANAGERS
         this.playerManager = new PlayerManager(this, this.playerDataMap);
         this.effectManager = new EffectManager(this);
         this.taskManager = new TaskManager(this);

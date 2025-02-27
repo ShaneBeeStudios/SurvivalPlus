@@ -151,6 +151,14 @@ public class ItemConfig {
         return defaultValue;
     }
 
+    public boolean getBoolean(String itemKey, String valueKey, boolean defaultValue) {
+        String path = "items." + itemKey + "." + valueKey;
+        if (this.settings.contains(path)) {
+            return this.settings.getBoolean(path);
+        }
+        return defaultValue;
+    }
+
     void save() {
         try {
             settings.save(configFile);

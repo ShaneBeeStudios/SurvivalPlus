@@ -1,0 +1,24 @@
+# Items Tags
+# This file is used to create some tags the plugin uses.
+# Modify this to your liking but be very careful when you do.
+#
+# This accepts both Minecraft item types `minecraft:diamond_sword`
+# and item tags prefixed with `#`, ex: `#minecraft:swords` (minecraft or custom)
+#
+# The names of these sections double as namespaces.
+# The `survival_plus` section will create new tags
+# Example `prevent_duel_wield` = `survival_plus:prevent_duel_wield`
+#
+# You can optionally add a `minecraft` section to add items to current Minecraft tags
+# Example (This would add stick to the `minecraft:swords` tag):
+# minecraft:
+#  swords:
+#     - minecraft:stick
+
+survival_plus:
+  prevent_dual_wield: # Items which cannot dual wield with legendary tools.
+    - '#minecraft:axes'
+    - '#minecraft:pickaxes'
+    - '#minecraft:hoes'
+    - '#minecraft:shovels'
+    - '#minecraft:swords'

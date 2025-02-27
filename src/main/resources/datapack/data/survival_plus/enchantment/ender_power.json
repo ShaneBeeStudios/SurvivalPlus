@@ -1,0 +1,120 @@
+{
+    "description": {
+        "text": "Ender Power",
+        "color": "#973DF1"
+    },
+    "supported_items": "#minecraft:swords",
+    "weight": 1,
+    "max_level": 5,
+    "min_cost": {
+        "base": 10,
+        "per_level_above_first": 10
+    },
+    "max_cost": {
+        "base": 25,
+        "per_level_above_first": 10
+    },
+    "anvil_cost": 4,
+    "slots": [
+        "hand"
+    ],
+    "effects": {
+        "minecraft:tick": [
+            {
+                "requirements": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "periodic_tick": 1
+                    }
+                },
+                "effect": {
+                    "type": "minecraft:spawn_particles",
+                    "particle": {
+                        "type": "minecraft:crit"
+                    },
+                    "horizontal_position": {
+                        "type": "entity_position",
+                        "offset": 0,
+                        "scale": 1
+                    },
+                    "vertical_position": {
+                        "type": "entity_position",
+                        "offset": 0.9,
+                        "scale": 1
+                    },
+                    "horizontal_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "vertical_velocity": {
+                        "base": {
+                            "type": "uniform",
+                            "min_inclusive": -2,
+                            "max_exclusive": 2
+                        },
+                        "movement_scale": 1
+                    },
+                    "speed": 0.5
+                }
+            }
+        ],
+        "minecraft:item_damage": [
+            {
+                "effect": {
+                    "type": "minecraft:remove_binomial",
+                    "chance": {
+                        "type": "minecraft:fraction",
+                        "denominator": {
+                            "type": "minecraft:linear",
+                            "base": 10.0,
+                            "per_level_above_first": 5.0
+                        },
+                        "numerator": {
+                            "type": "minecraft:linear",
+                            "base": 2.0,
+                            "per_level_above_first": 2.0
+                        }
+                    }
+                },
+                "requirements": {
+                    "condition": "minecraft:match_tool",
+                    "predicate": {
+                        "items": "#minecraft:enchantable/armor"
+                    }
+                }
+            },
+            {
+                "effect": {
+                    "type": "minecraft:remove_binomial",
+                    "chance": {
+                        "type": "minecraft:fraction",
+                        "denominator": {
+                            "type": "minecraft:linear",
+                            "base": 2.0,
+                            "per_level_above_first": 1.0
+                        },
+                        "numerator": {
+                            "type": "minecraft:linear",
+                            "base": 1.0,
+                            "per_level_above_first": 1.0
+                        }
+                    }
+                },
+                "requirements": {
+                    "condition": "minecraft:inverted",
+                    "term": {
+                        "condition": "minecraft:match_tool",
+                        "predicate": {
+                            "items": "#minecraft:enchantable/armor"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -86,7 +86,7 @@ public class Lang {
     public String poisoned_enemy;
     public String poisoned_retain;
     public String reduce_50;
-    public String valkyrie_axe_unable_dual;
+    public String prevent_dual_wield;
     public String valkyrie_axe_spin;
     public String valkyrie_axe_cooldown;
     public String quartz_breaker;
@@ -96,10 +96,6 @@ public class Lang {
     public String exhausted_slow;
     public String expire_disarm;
     public String knockback_resistance;
-    public String ender_giant_blade;
-    public String ender_giant_blade_unable_duel;
-    public String ender_giant_blade_charge;
-    public String ender_giant_blade_cooldown;
     public String half_shield_resistance;
     public String reflecting_coming;
     public String blaze_sword_fire_resistance;
@@ -189,7 +185,7 @@ public class Lang {
         poisoned_enemy = lang.getString("poisoned-enemy");
         poisoned_retain = lang.getString("poisoned-retain");
         reduce_50 = lang.getString("reduce-50");
-        valkyrie_axe_unable_dual = lang.getString("valkyrie-axe-unable-dual");
+        prevent_dual_wield = lang.getString("prevent-dual-wield");
         valkyrie_axe_spin = lang.getString("valkyrie-axe-spin");
         valkyrie_axe_cooldown = lang.getString("valkyrie-axe-cooldown");
         quartz_breaker = lang.getString("quartz-breaker");
@@ -199,10 +195,6 @@ public class Lang {
         exhausted_slow = lang.getString("exhausted-slow");
         expire_disarm = lang.getString("expire-disarm");
         knockback_resistance = lang.getString("knockback-resistance");
-        ender_giant_blade = lang.getString("ender-giant-blade");
-        ender_giant_blade_unable_duel = lang.getString("ender-giant-blade-unable-duel");
-        ender_giant_blade_charge = lang.getString("ender-giant-blade-charge");
-        ender_giant_blade_cooldown = lang.getString("ender-giant-blade-cooldown");
         half_shield_resistance = lang.getString("half-shield-resistance");
         reflecting_coming = lang.getString("reflecting-coming");
         blaze_sword_fire_resistance = lang.getString("blaze-sword-fire-resistance");

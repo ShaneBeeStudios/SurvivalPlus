@@ -38,6 +38,12 @@ public class MessageManager {
                 return "<red>" + lang.bow_main_hand;
             }
         },
+        DUAL_WIELD_NO {
+            @Override
+            String getMessage(Lang lang) {
+                return "<red>" + lang.prevent_dual_wield;
+            }
+        },
         FISH_MAIN_HAND {
             @Override
             String getMessage(Lang lang) {
@@ -122,6 +128,12 @@ public class MessageManager {
         if (this.messages.get(messageType).contains(player)) return;
         this.messages.get(messageType).add(player);
         Utils.sendColoredMini(player, messageType.getMessage(this.lang));
+    }
+
+    public void sendMessage(Player player, MessageType messageType, Object... args) {
+        if (this.messages.get(messageType).contains(player)) return;
+        this.messages.get(messageType).add(player);
+        Utils.sendColoredMini(player, messageType.getMessage(this.lang), args);
     }
 
 }

@@ -42,6 +42,7 @@ public abstract class Item {
 
     private double repairPercent;
     private int repairCost;
+    private boolean preventDuelWield;
 
     /**
      * Get an ItemStack from this item
@@ -123,6 +124,10 @@ public abstract class Item {
         // Repair Percent
         this.repairPercent = ITEM_CONFIG.getRepairPercent(key);
         this.itemStack = itemStack;
+
+        // Prevent dual wield
+        this.preventDuelWield = ITEM_CONFIG.getBoolean(key, "prevent_dual_wield", false);
+
         Items.ALL_ITEMS.put(this.key, this);
     }
 
@@ -180,6 +185,15 @@ public abstract class Item {
     }
 
     /**
+     * Check if an item cannot dual wield
+     *
+     * @return Whether item prevents dual wielding
+     */
+    public boolean isPreventDuelWield() {
+        return this.preventDuelWield;
+    }
+
+    /**
      * Get the {@link Key} of this item
      *
      * @return Key of this item
@@ -197,4 +211,16 @@ public abstract class Item {
         return this.name;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+            "key=" + key +
+            ", recipeKey=" + recipeKey +
+            ", itemStack=" + itemStack +
+            ", name='" + name + '\'' +
+            ", repairPercent=" + repairPercent +
+            ", repairCost=" + repairCost +
+            ", preventDuelWield=" + preventDuelWield +
+            '}';
+    }
 }

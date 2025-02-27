@@ -123,23 +123,32 @@ items:
     name: "Blaze Sword"
     repair_cost: 5
     repair_percent: 0.95
+    prevent_dual_wield: true
   ender_giant_blade:
     name: "Ender Giant Blade"
+    lore:
+      - '<#36D19B>Right-Click while sprinting to charge toward enemies'
     repair_cost: 5
     repair_percent: 0.95
+    max_damage: 2400
+    prevent_dual_wield: true
+    charge_damage: 5 # Amount of damage to inflict on nearby entities when charging
   obsidian_mace:
     name: "Obsidian Mace"
     repair_cost: 5
     repair_percent: 0.95
+    prevent_dual_wield: true
   quartz_pickaxe:
     name: "Quartz Pickaxe"
     repair_cost: 5
     repair_percent: 0.95
     max_damage: 2400
+    prevent_dual_wield: true
   valkyries_axe:
     name: "Valkyries Axe"
     repair_cost: 5
     repair_percent: 0.95
+    prevent_dual_wield: true
 
   # ARMOR
   snow_boots:

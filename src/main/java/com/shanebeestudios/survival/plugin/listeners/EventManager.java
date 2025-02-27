@@ -22,9 +22,10 @@ import com.shanebeestudios.survival.plugin.listeners.item.BowListener;
 import com.shanebeestudios.survival.plugin.listeners.item.CompassWaypoint;
 import com.shanebeestudios.survival.plugin.listeners.item.CookieHealthBoost;
 import com.shanebeestudios.survival.plugin.listeners.item.DrinkableItemListener;
+import com.shanebeestudios.survival.plugin.listeners.item.DualWieldListener;
 import com.shanebeestudios.survival.plugin.listeners.item.FirestrikerListener;
 import com.shanebeestudios.survival.plugin.listeners.item.FoodDiversityConsume;
-import com.shanebeestudios.survival.plugin.listeners.item.GiantBlade;
+import com.shanebeestudios.survival.plugin.listeners.item.GiantBladeListener;
 import com.shanebeestudios.survival.plugin.listeners.item.GrapplingHookListener;
 import com.shanebeestudios.survival.plugin.listeners.item.MedicKit;
 import com.shanebeestudios.survival.plugin.listeners.item.PoisonousPotato;
@@ -80,7 +81,7 @@ public class EventManager {
         if (this.config.legendary_valkyrie)
             pluginManager.registerEvents(new Valkyrie(this.plugin), this.plugin);
         if (this.config.legendary_giant_blade)
-            pluginManager.registerEvents(new GiantBlade(this.plugin), this.plugin);
+            pluginManager.registerEvents(new GiantBladeListener(this.plugin), this.plugin);
         if (this.config.settings_local_chat_distance > -1)
             pluginManager.registerEvents(new LocalChat(this.plugin), this.plugin);
         if (this.config.mechanics_compass_waypoint)
@@ -144,6 +145,8 @@ public class EventManager {
         pluginManager.registerEvents(new RepairCrafting(), this.plugin);
         pluginManager.registerEvents(new MobGoalListener(this.plugin), this.plugin);
 
+        // TODO config?
+        pluginManager.registerEvents(new DualWieldListener(this.plugin), this.plugin);
     }
 
 }

@@ -82,7 +82,7 @@ public class Items {
     public static final Item VALKYRIES_AXE = new ValkyriesAxe();
     public static final Item QUARTZ_PICKAXE = new QuartzPickaxe();
     public static final Item OBSIDIAN_MACE = new ObsidianMace();
-    public static final Item ENDER_GIANT_BLADE = new EnderGiantBlade();
+    public static final EnderGiantBlade ENDER_GIANT_BLADE = new EnderGiantBlade();
     public static final Item BLAZE_SWORD = new BlazeSword();
 
     // ARMOR

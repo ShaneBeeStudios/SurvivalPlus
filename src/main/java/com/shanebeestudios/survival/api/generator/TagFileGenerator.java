@@ -1,6 +1,7 @@
 package com.shanebeestudios.survival.api.generator;
 
 import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
+import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,7 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings({"UnstableApiUsage", "UnusedReturnValue"})
-public class BlockTagFileGenerator {
+public class TagFileGenerator {
 
     public FileConfiguration generateBlockTags(File pluginDataFolder, String path) {
         File file = new File(pluginDataFolder, path);
@@ -72,6 +73,44 @@ public class BlockTagFileGenerator {
         }
     }
 
+    public FileConfiguration generateItemTags(File pluginDataFolder, String path) {
+        File file = new File(pluginDataFolder, path);
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        List<String> header = new ArrayList<>();
+
+        header.add("Items Tags");
+        header.add("This file is used to create some tags the plugin uses.");
+        header.add("Modify this to your liking but be very careful when you do.");
+        header.add(" ");
+        header.add("This accepts both Minecraft item types `minecraft:diamond_sword`");
+        header.add("and item tags prefixed with `#`, ex: `#minecraft:swords` (minecraft or custom)");
+        header.add(" ");
+        header.add("The names of these sections double as namespaces.");
+        header.add("The `survival_plus` section will create new tags");
+        header.add("Example `prevent_duel_wield` = `survival_plus:prevent_duel_wield`");
+        header.add(" ");
+        header.add("You can optionally add a `minecraft` section to add items to current Minecraft tags");
+        header.add("Example (This would add stick to the `minecraft:swords` tag):");
+        header.add("minecraft:");
+        header.add(" swords:");
+        header.add("    - minecraft:stick");
+        config.options().setHeader(header);
+
+        ConfigurationSection items = config.getConfigurationSection("survival_plus");
+        if (items == null) items = config.createSection("survival_plus");
+
+        createDualWieldTag(items);
+
+        try {
+            config.save(file);
+            return config;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Block Tags
     private void createGlazedTerracottaTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
         Registry.BLOCK.stream().map(Keyed::getKey)
@@ -291,6 +330,19 @@ public class BlockTagFileGenerator {
 
         section.set("requires_hammer", blocks);
         section.setInlineComments("requires_hammer", List.of("Blocks which require a hammer to place."));
+    }
+
+    // ItemTags
+    private void createDualWieldTag(@NotNull ConfigurationSection section) {
+        List<String> items = new ArrayList<>();
+        items.add("#" + ItemTypeTagKeys.AXES.key());
+        items.add("#" + ItemTypeTagKeys.PICKAXES.key());
+        items.add("#" + ItemTypeTagKeys.HOES.key());
+        items.add("#" + ItemTypeTagKeys.SHOVELS.key());
+        items.add("#" + ItemTypeTagKeys.SWORDS.key());
+
+        section.set("prevent_dual_wield", items);
+        section.setInlineComments("prevent_dual_wield", List.of("Items which cannot dual wield with legendary tools."));
     }
 
 }

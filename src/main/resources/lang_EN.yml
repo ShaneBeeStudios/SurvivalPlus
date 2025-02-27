@@ -88,6 +88,9 @@ energy-level-1: "<red>Your lack of sleep is really taking a toll on you."
 # Item Details
 ####################
 
+# '%s' Will be replaced with the name of the item
+prevent-dual-wield: "<red>Unable to dual-wield with %s"
+
 right-click-sprinting: "Right Click when sprinting:"
 right-click-sneaking: "Right Click when sneaking:"
 decrease-hunger-value: "<gray> Decreases hunger value"
@@ -96,7 +99,6 @@ poisoned-enemy: "<dark_green>Poisoned: Poison enemy on hit"
 poisoned-retain: "<dark_green>Poisoning Effect <grey>retains"
 reduce-50: "<gray> Reduce chance by 50%"
 
-valkyrie-axe-unable-dual: "<red>Unable to dual-wield with Valkyrie's Axe"
 valkyrie-axe-spin: "<green>Spin: Spin your axe in a circle to attack all nearby enemies!"
 valkyrie-axe-cooldown: "<gray> Cooldown: 1 second"
 
@@ -109,9 +111,6 @@ exhausted-slow: "<dark_gray>Exhausted: <red>Slowness II"
 expire-disarm: "<gray> Expires after disarming for 5 seconds"
 knockback-resistance: "<blue>+50% Knockback Resistance"
 
-ender-giant-blade-unable-duel: "<red>Unable to dual-wield with the Ender Giant Blade"
-ender-giant-blade-charge: "<green>Charge: Sprint forward, attack enemies in the way"
-ender-giant-blade-cooldown: "<gray> Cooldown: 5 seconds"
 half-shield-resistance: "<green>Half-Shield: Gains <dark_red>Resistance II"
 reflecting-coming: "<gray> Reflecting incoming damage by 40%"
 
