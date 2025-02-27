@@ -4,7 +4,7 @@ import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.api.data.Stat;
 import com.shanebeestudios.survival.api.item.Item;
 import com.shanebeestudios.survival.api.item.Items;
-import com.shanebeestudios.survival.api.util.ItemTags;
+import com.shanebeestudios.survival.api.registry.ItemTags;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.managers.MessageManager;
 import com.shanebeestudios.survival.plugin.managers.MessageManager.MessageType;

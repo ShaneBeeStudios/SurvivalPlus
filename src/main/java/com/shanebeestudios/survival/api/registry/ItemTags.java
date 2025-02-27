@@ -1,4 +1,4 @@
-package com.shanebeestudios.survival.api.util;
+package com.shanebeestudios.survival.api.registry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

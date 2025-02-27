@@ -1,6 +1,6 @@
 package com.shanebeestudios.survival.plugin;
 
-import com.shanebeestudios.survival.api.util.ItemTags;
+import com.shanebeestudios.survival.api.registry.ItemTags;
 import com.shanebeestudios.survival.plugin.commands.SurvivalCommand;
 import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.config.Lang;
@@ -15,7 +15,7 @@ import com.shanebeestudios.survival.plugin.managers.PlayerManager;
 import com.shanebeestudios.survival.plugin.managers.RecipeManager;
 import com.shanebeestudios.survival.plugin.managers.ScoreBoardManager;
 import com.shanebeestudios.survival.plugin.tasks.TaskManager;
-import com.shanebeestudios.survival.api.util.BlockTags;
+import com.shanebeestudios.survival.api.registry.BlockTags;
 import com.shanebeestudios.survival.api.util.Utils;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;

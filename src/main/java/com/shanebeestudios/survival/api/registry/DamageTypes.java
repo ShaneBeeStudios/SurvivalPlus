@@ -1,10 +1,13 @@
-package com.shanebeestudios.survival.api.data;
+package com.shanebeestudios.survival.api.registry;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.key.Key;
 import org.bukkit.damage.DamageType;
 
+/**
+ * Custom {@link DamageType DamageTypes}
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class DamageTypes {
 

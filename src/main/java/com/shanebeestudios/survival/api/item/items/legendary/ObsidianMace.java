@@ -1,6 +1,6 @@
 package com.shanebeestudios.survival.api.item.items.legendary;
 
-import com.shanebeestudios.survival.api.data.Enchantments;
+import com.shanebeestudios.survival.api.registry.Enchantments;
 import com.shanebeestudios.survival.api.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;

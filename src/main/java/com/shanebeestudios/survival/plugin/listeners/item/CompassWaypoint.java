@@ -16,7 +16,7 @@ import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Lang;
 import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.plugin.managers.PlayerManager;
-import com.shanebeestudios.survival.api.util.BlockTags;
+import com.shanebeestudios.survival.api.registry.BlockTags;
 import com.shanebeestudios.survival.api.util.Utils;
 
 public class CompassWaypoint implements Listener {

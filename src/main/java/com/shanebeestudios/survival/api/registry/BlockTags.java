@@ -1,5 +1,6 @@
-package com.shanebeestudios.survival.api.util;
+package com.shanebeestudios.survival.api.registry;
 
+import com.shanebeestudios.survival.api.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

@@ -1,6 +1,6 @@
 package com.shanebeestudios.survival.plugin.listeners.item;
 
-import com.shanebeestudios.survival.api.data.DamageTypes;
+import com.shanebeestudios.survival.api.registry.DamageTypes;
 import com.shanebeestudios.survival.api.data.PlayerData;
 import com.shanebeestudios.survival.api.data.Stat;
 import com.shanebeestudios.survival.api.item.Items;

@@ -1,4 +1,4 @@
-package com.shanebeestudios.survival.api.data;
+package com.shanebeestudios.survival.api.registry;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;

@@ -1,6 +1,6 @@
 package com.shanebeestudios.survival.api.item.items.legendary;
 
-import com.shanebeestudios.survival.api.data.Enchantments;
+import com.shanebeestudios.survival.api.registry.Enchantments;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

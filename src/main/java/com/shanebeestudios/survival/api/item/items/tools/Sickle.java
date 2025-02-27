@@ -1,7 +1,7 @@
 package com.shanebeestudios.survival.api.item.items.tools;
 
 import com.shanebeestudios.survival.api.item.Item;
-import com.shanebeestudios.survival.api.util.BlockTags;
+import com.shanebeestudios.survival.api.registry.BlockTags;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
 import io.papermc.paper.datacomponent.item.Tool;

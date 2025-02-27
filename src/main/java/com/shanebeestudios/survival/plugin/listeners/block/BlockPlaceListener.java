@@ -2,7 +2,7 @@ package com.shanebeestudios.survival.plugin.listeners.block;
 
 import com.shanebeestudios.survival.api.data.Permissions;
 import com.shanebeestudios.survival.api.item.Items;
-import com.shanebeestudios.survival.api.util.BlockTags;
+import com.shanebeestudios.survival.api.registry.BlockTags;
 import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import com.shanebeestudios.survival.plugin.config.Config;
 import com.shanebeestudios.survival.plugin.managers.MessageManager;
