@@ -1,5 +1,5 @@
 {
-    "parent": "item/generated",
+    "parent": "minecraft:item/handheld",
     "textures": {
         "layer0": "survival_plus:item/stone_sickle"
     }
