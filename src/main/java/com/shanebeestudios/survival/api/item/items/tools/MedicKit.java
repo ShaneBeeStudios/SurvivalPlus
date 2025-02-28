@@ -17,6 +17,7 @@ public class MedicKit extends Item {
         int maxHeals = ITEM_CONFIG.getInt("medic_kit", "max_heals", 10);
         itemStack.setData(DataComponentTypes.MAX_DAMAGE, maxHeals);
         itemStack.setData(DataComponentTypes.DAMAGE, 0);
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
         setupDefaults("medic_kit", itemStack);
     }
 

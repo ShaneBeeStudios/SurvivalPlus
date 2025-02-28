@@ -29,6 +29,8 @@ public class Hammer extends Item {
             .addModifier(Attribute.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED, -3.0d, Operation.ADD_NUMBER, EquipmentSlotGroup.MAINHAND))
             .build());
 
+        itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
+
         setupDefaults("hammer", itemStack);
     }
 
