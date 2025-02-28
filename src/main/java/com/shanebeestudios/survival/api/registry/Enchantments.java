@@ -12,6 +12,7 @@ public class Enchantments {
 
     public static final Enchantment BLAZING = get("blazing");
     public static final Enchantment ENDER_POWER = get("ender_power");
+    public static final Enchantment BUILDING_REACH = get("building_reach");
     public static final Enchantment OBSIDIAN_POWER = get("obsidian_power");
     public static final Enchantment QUARTZ_MINING = get("quartz_mining");
 
