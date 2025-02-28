@@ -1,0 +1,25 @@
+{
+    "layers": {
+        "horse_body": [
+            {
+                "texture": "minecraft:leather"
+            }
+        ],
+        "humanoid": [
+            {
+                "texture": "survival_plus:reinforced_leather",
+                "dyeable": {
+                    "color_when_undyed": -2302756
+                }
+            }
+        ],
+        "humanoid_leggings": [
+            {
+                "texture": "survival_plus:reinforced_leather",
+                "dyeable": {
+                    "color_when_undyed": -2302756
+                }
+            }
+        ]
+    }
+}

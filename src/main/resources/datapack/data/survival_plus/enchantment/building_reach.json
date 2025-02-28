@@ -1,0 +1,35 @@
+{
+    "description": {
+        "text": "Building Reach",
+        "color": "#23F2AA"
+    },
+    "supported_items": "minecraft:stick",
+    "weight": 1,
+    "max_level": 3,
+    "min_cost": {
+        "base": 15,
+        "per_level_above_first": 7
+    },
+    "max_cost": {
+        "base": 30,
+        "per_level_above_first": 10
+    },
+    "anvil_cost": 4,
+    "slots": [
+        "offhand"
+    ],
+    "effects": {
+        "attributes": [
+            {
+                "attribute": "minecraft:block_interaction_range",
+                "amount": {
+                    "type": "linear",
+                    "base": 3,
+                    "per_level_above_first": 2
+                },
+                "operation": "add_value",
+                "id": "survival_plus:hammer_reach"
+            }
+        ]
+    }
+}

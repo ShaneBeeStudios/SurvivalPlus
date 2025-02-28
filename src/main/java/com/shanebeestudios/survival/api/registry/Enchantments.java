@@ -1,0 +1,25 @@
+package com.shanebeestudios.survival.api.registry;
+
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
+import net.kyori.adventure.key.Key;
+import org.bukkit.enchantments.Enchantment;
+
+/**
+ * Custom {@link Enchantment Enchantments}
+ */
+public class Enchantments {
+
+    public static final Enchantment BLAZING = get("blazing");
+    public static final Enchantment ENDER_POWER = get("ender_power");
+    public static final Enchantment BUILDING_REACH = get("building_reach");
+    public static final Enchantment OBSIDIAN_POWER = get("obsidian_power");
+    public static final Enchantment QUARTZ_MINING = get("quartz_mining");
+
+    @SuppressWarnings("PatternValidation")
+    private static Enchantment get(String key) {
+        return RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT)
+            .get(Key.key("survival_plus:" + key));
+    }
+
+}

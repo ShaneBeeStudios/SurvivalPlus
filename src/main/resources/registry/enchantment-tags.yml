@@ -1,0 +1,14 @@
+# Enchantment Tags
+# This file is used to create some tags the plugin uses.
+# Modify this to your liking but be very careful when you do.
+#
+# This accepts both Minecraft enchantment types `minecraft:sharpness`
+# and enchantment tags prefixed with `#`, ex: `#minecraft:curse` (minecraft or custom)
+#
+# The names of these sections double as namespaces.
+# The `survival_plus` section will create new tags
+# The `minecraft` section will add to vanilla Minecraft enchantment tags.
+
+minecraft:
+  in_enchanting_table: # Custom enchantments which can be used in the enchanting table.
+    - survival_plus:building_reach

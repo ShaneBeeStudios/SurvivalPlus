@@ -1,0 +1,65 @@
+package com.shanebeestudios.survival.plugin.tasks;
+
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
+import org.bukkit.block.Block;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+@SuppressWarnings("UnstableApiUsage")
+class ThirstTask extends BukkitRunnable {
+
+    private final Config config;
+    private final PlayerManager playerManager;
+    private final DamageSource damageSource = DamageSource.builder(DamageType.DRY_OUT).build();
+
+    ThirstTask(SurvivalPlugin plugin) {
+        this.config = plugin.getSurvivalConfig();
+        this.playerManager = plugin.getPlayerManager();
+        this.runTaskTimer(plugin, 100, 100);
+    }
+
+    @Override
+    public void run() {
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            if (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE) continue;
+
+            PlayerData playerData = this.playerManager.getPlayerData(player);
+            World world = player.getWorld();
+            Environment environment = world.getEnvironment();
+            if (environment == Environment.NORMAL && world.isDayTime()) {
+                Block block = player.getLocation().getBlock();
+                if (block.getTemperature() >= 1.5 && block.getLightLevel() >= 14) {
+                    playerData.increaseThirst(-this.config.mechanics_thirst_heat_drain_rate);
+                }
+            } else if (environment == Environment.NETHER) {
+                playerData.increaseThirst(-this.config.mechanics_thirst_nether_drain_rate);
+            }
+            // Damage player when thirst is too low
+            if (playerData.getThirst() <= 0) {
+                switch (world.getDifficulty()) {
+                    case EASY:
+                        if (player.getHealth() > 10)
+                            player.damage(this.config.mechanics_thirst_damage_rate, this.damageSource);
+                        break;
+                    case NORMAL:
+                        if (player.getHealth() > 1)
+                            player.damage(this.config.mechanics_thirst_damage_rate, this.damageSource);
+                        break;
+                    case HARD:
+                        player.damage(this.config.mechanics_thirst_damage_rate, this.damageSource);
+                        break;
+                }
+            }
+        }
+    }
+
+}

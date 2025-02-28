@@ -1,0 +1,4 @@
+{
+    "death.attack.ender_power": "%1$s was charged at by %2$s",
+    "death.attack.ender_power.item": "%1$s was charged at by %2$s using %3$s"
+}

@@ -1,0 +1,152 @@
+package com.shanebeestudios.survival.plugin.listeners.item;
+
+import com.shanebeestudios.survival.api.data.Nutrient;
+import com.shanebeestudios.survival.api.data.PlayerData;
+import com.shanebeestudios.survival.api.item.Nutrition;
+import com.shanebeestudios.survival.api.util.Utils;
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
+import com.shanebeestudios.survival.plugin.config.Config;
+import com.shanebeestudios.survival.plugin.managers.PlayerManager;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityExhaustionEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+
+public class FoodDiversityConsume implements Listener {
+
+	private final PlayerManager playerManager;
+	private final int RESPAWN_PROTEIN, RESPAWN_CARBS, RESPAWN_SALTS;
+
+	public FoodDiversityConsume(SurvivalPlugin plugin) {
+		this.playerManager = plugin.getPlayerManager();
+        Config config = plugin.getSurvivalConfig();
+        RESPAWN_PROTEIN = config.mechanics_food_respawn_proteins;
+        RESPAWN_CARBS = config.mechanics_food_respawn_carbs;
+        RESPAWN_SALTS = config.mechanics_food_respawn_vitamins;
+	}
+
+    @EventHandler // Decrease nutrients when player does exhaustive tasks
+    private void onExhausted(EntityExhaustionEvent event) {
+        Player player = (Player) event.getEntity();
+
+        float exhaustion = event.getExhaustion();
+        if (player.getExhaustion() + exhaustion < 4.0f) return;
+
+        PlayerData playerData = playerManager.getPlayerData(player);
+        playerData.increaseNutrient(Nutrient.CARBS, -8);
+        playerData.increaseNutrient(Nutrient.PROTEIN, -2);
+        playerData.increaseNutrient(Nutrient.VITAMINS, -3);
+    }
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	private void onConsume(PlayerItemConsumeEvent event) {
+		if (event.isCancelled()) return;
+		Player player = event.getPlayer();
+
+		Nutrition nutrition = Nutrition.getByItemStack(event.getItem());
+		if (nutrition != null) {
+			addStats(player, nutrition);
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@EventHandler(priority = EventPriority.HIGHEST)
+	private void onConsumeCake(PlayerInteractEvent event) {
+		if (event.isCancelled()) return;
+		Player player = event.getPlayer();
+		if (event.hasBlock() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			Block cake = event.getClickedBlock();
+			assert cake != null;
+			if (cake.getType().equals(Material.CAKE)) {
+				if (player.getFoodLevel() < 20 && (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE)) {
+					addStats(player, Nutrition.CAKE);
+				}
+			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	private void onDamage(EntityDamageEvent event) {
+	    DamageCause cause = event.getCause();
+	    if (cause == DamageCause.VOID || cause == DamageCause.CUSTOM) return;
+		if (event.isCancelled()) return;
+
+        Entity entity = event.getEntity();
+		if (entity instanceof Player && !Utils.isCitizensNPC(entity)) {
+			event.setDamage(event.getDamage() * addMultiplier((Player) entity));
+		}
+	}
+
+	@EventHandler
+	private void onRespawn(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		if (Utils.isCitizensNPC(player)) return;
+
+		setStats(player, RESPAWN_CARBS, RESPAWN_PROTEIN, RESPAWN_SALTS);
+	}
+
+	private void addStats(Player player, Nutrient nutrient, int point) {
+		PlayerData playerData = playerManager.getPlayerData(player);
+		playerData.setNutrient(nutrient, playerData.getNutrient(nutrient) + point);
+	}
+
+	private void addStats(Player player, Nutrition nutrition) {
+		addStats(player, Nutrient.CARBS, nutrition.getCarbs());
+		addStats(player, Nutrient.PROTEIN, nutrition.getProteins());
+		addStats(player, Nutrient.VITAMINS, nutrition.getVitamins());
+	}
+
+	private void setStats(Player player, int carbs, int proteins, int vitamins) {
+		PlayerData playerData = playerManager.getPlayerData(player);
+		playerData.setNutrient(Nutrient.CARBS, carbs);
+		playerData.setNutrient(Nutrient.PROTEIN, proteins);
+		playerData.setNutrient(Nutrient.VITAMINS, vitamins);
+	}
+
+	private double addMultiplier(Player player) {
+		PlayerData playerData = playerManager.getPlayerData(player);
+		double damageMultiplier = 1;
+
+		if (playerData.getNutrient(Nutrient.PROTEIN) <= 75) {
+			switch (player.getWorld().getDifficulty()) {
+				case EASY:
+					damageMultiplier *= 1.25;
+					break;
+				case NORMAL:
+					damageMultiplier *= 1.5;
+					break;
+				case HARD:
+					damageMultiplier *= 2;
+					break;
+				default:
+			}
+		}
+		if (playerData.getNutrient(Nutrient.VITAMINS) <= 100) {
+			switch (player.getWorld().getDifficulty()) {
+				case EASY:
+					damageMultiplier *= 1.25;
+					break;
+				case NORMAL:
+					damageMultiplier *= 1.5;
+					break;
+				case HARD:
+					damageMultiplier *= 2;
+					break;
+				default:
+			}
+		}
+		return damageMultiplier;
+	}
+
+}

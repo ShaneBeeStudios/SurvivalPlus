@@ -3,14 +3,16 @@
 # This file holds certain properties for custom items
 # Only change it if you know what you're doing
 
-# --ITEMS--
-# model_data is the CustomModalData version of this item which represents the CustomModelData number in the resource pack
-# If you are using a custom resource pack, you can change this number to match
+# This file supports MiniMessage formatting
+# See the website for more info: https://docs.advntr.dev/minimessage/format
+#
+# Using legacy color codes '&' or '§' are not supported and will error
 
-# repair_cost_multiplier = the amount that will multiply when repairing in an anvil
-# -1 = does not require an anvil, can be repaired in a crafting table
-# 0 = requires an anvil, but no multiplier
-# >0 = requires an anvil, multiplier applied
+# --ITEMS--
+
+# repair_cost = The number of experience levels to add to the base level cost when repairing, combining,
+# or renaming this item with an anvil. Must be a non-negative integer, defaults to 0.
+# See https://minecraft.wiki/w/Data_component_format#repair_cost for further details.
 
 # repair_percent = modifier for repair amount
 # Value must be between 0.0 and 1.0 (1.0 = full vanilla healing)
@@ -26,5 +28,304 @@
 # --NUTRITION--
 
 # Nutrition values can be changed. They cannot be removed nor added to
-# Deleting a value will reset to it's default value
+# Deleting a value will reset to its default value
 # The values must be >= 0
+
+items:
+  # TOOLS
+  compass:
+    name: "Compass"
+    repair_cost: 0
+    repair_percent: 0.85
+    lore:
+      - '<#B1BBBE>Shift-Right-Click:'
+      - '<#17DA4F>  Set waypoint to current location'
+      - '<#B1BBBE>Left-Click:'
+      - '<#17DA4F>  See coords of waypoint'
+  firestriker:
+    name: "Firestriker"
+    lore:
+      - "<green>Right-Click to burn things"
+      - "<grey> - You can also light campfires"
+      - "<aqua>Sneak-Right-Click to smelt things"
+      - "<grey> - Put a smeltable item into input slot"
+      - "<grey> - Keep it open and watch it cook"
+    repair_cost: 0
+    repair_percent: 0.0
+    max_cooks: 10
+  grappling_hook:
+    name: "Grappling Hook"
+    repair_cost: 0
+    repair_percent: 0.85
+  hammer:
+    name: "Hammer"
+    max_damage: 200
+    repair_cost: 0
+    repair_percent: 0.85
+    lore:
+      - "<#F39516>Required in your off-hand for building"
+  hatchet:
+    name: "Hatchet"
+    max_damage: 50
+    repair_cost: 0
+    repair_percent: 0.85
+  mattock:
+    name: "Mattock"
+    max_damage: 50
+    repair_cost: 0
+    repair_percent: 0.85
+  medic_kit:
+    name: "Medic Kit"
+    repair_cost: 0
+    repair_percent: 0.0
+    # The amount of times the medic kit can heal 1 heart
+    max_heals: 10
+    lore:
+      - "<#38E29F>Right-Click a player to heal them"
+      - "<#38AEE2>Sneak-Right-Click to heal yourself"
+  recurved_bow:
+    name: "Recurved Bow"
+    repair_cost: 1
+    repair_percent: 0.9
+  recurved_crossbow:
+    name: "Recurved Crossbow"
+    repair_cost: 2
+    repair_percent: 0.9
+  shiv:
+    name: "Shiv"
+    repair_cost: 0
+    repair_percent: 0.85
+
+  # SICKLES
+  diamond_sickle:
+    name: "Diamond Sickle"
+    repair_cost: 2
+    repair_percent: 0.85
+    max_damage: 1400
+  iron_sickle:
+    name: "Iron Sickle"
+    repair_cost: 1
+    repair_percent: 0.9
+    max_damage: 300
+  stone_sickle:
+    name: "Stone Sickle"
+    repair_cost: 0
+    repair_percent: 1.0
+    max_damage: 100
+  flint_sickle:
+    name: "Flint Sickle"
+    repair_cost: 0
+    repair_percent: 1.0
+    max_damage: 50
+
+  # LEGENDARY TOOLS
+  blaze_sword:
+    name: "Blaze Sword"
+    repair_cost: 5
+    repair_percent: 0.95
+    prevent_dual_wield: true
+  ender_giant_blade:
+    name: "Ender Giant Blade"
+    lore:
+      - '<#36D19B>Right-Click while sprinting to charge toward enemies'
+    repair_cost: 5
+    repair_percent: 0.95
+    max_damage: 2400
+    prevent_dual_wield: true
+    charge_damage: 5 # Amount of damage to inflict on nearby entities when charging
+  obsidian_mace:
+    name: "Obsidian Mace"
+    repair_cost: 5
+    repair_percent: 0.95
+    prevent_dual_wield: true
+  quartz_pickaxe:
+    name: "Quartz Pickaxe"
+    repair_cost: 5
+    repair_percent: 0.95
+    max_damage: 2400
+    prevent_dual_wield: true
+  valkyries_axe:
+    name: "Valkyries Axe"
+    repair_cost: 5
+    repair_percent: 0.95
+    prevent_dual_wield: true
+
+  # ARMOR
+  snow_boots:
+    name: "Snow Boots"
+    lore:
+      - '<aqua>Move quicker in snow'
+    repair_cost: 1
+    repair_percent: 0.97
+  rain_boots:
+    name: "Rain Boots"
+    lore:
+      - '<aqua>Move quicker in rain'
+    repair_cost: 1
+    repair_percent: 0.97
+  diamond_helmet:
+    name: "Diamond Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_chestplate:
+    name: "Diamond Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_leggings:
+    name: "Diamond Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  diamond_boots:
+    name: "Diamond Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_helmet:
+    name: "Iron Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_chestplate:
+    name: "Iron Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_leggings:
+    name: "Iron Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  iron_boots:
+    name: "Iron Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_crown:
+    name: "Golden Crown"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_guard:
+    name: "Golden Guard"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_greaves:
+    name: "Golden Greaves"
+    repair_cost: 0
+    repair_percent: 1.0
+  golden_sabatons:
+    name: "Golden Sabatons"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_helmet:
+    name: "Netherite Helmet"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_chestplate:
+    name: "Netherite Chestplate"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_leggings:
+    name: "Netherite Leggings"
+    repair_cost: 0
+    repair_percent: 1.0
+  netherite_boots:
+    name: "Netherite Boots"
+    repair_cost: 0
+    repair_percent: 1.0
+  beekeeper_helmet:
+    name: "Beekeeper Helmet"
+    lore:
+      - '<aqua>Prevent bee stings'
+    repair_cost: 0
+    repair_percent: 1.0
+    color: 16777215
+  beekeeper_chestplate:
+    name: "Beekeeper Chestplate"
+    lore:
+      - '<aqua>Prevent bee stings'
+    repair_cost: 0
+    repair_percent: 1.0
+    color: 16777215
+  beekeeper_leggings:
+    name: "Beekeeper Leggings"
+    lore:
+      - '<aqua>Prevent bee stings'
+    repair_cost: 0
+    repair_percent: 1.0
+    color: 16777215
+  beekeeper_boots:
+    name: "Beekeeper Boots"
+    lore:
+      - '<aqua>Prevent bee stings'
+    repair_cost: 0
+    repair_percent: 1.0
+    color: 16777215
+  reinforced_leather_helmet:
+    name: "Reinforced Leather Helmet"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_tunic:
+    name: "Reinforced Leather Tunic"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_trousers:
+    name: "Reinforced Leather Trousers"
+    repair_cost: 0
+    repair_percent: 0.85
+  reinforced_leather_boots:
+    name: "Reinforced Leather Boots"
+    repair_cost: 0
+    repair_percent: 0.85
+
+  # BLOCKS
+  unlit_campfire:
+    name: "Campfire"
+    lore:
+      - "<aqua>Unlit"
+      - "<grey>Hit with a stick a few times"
+      - "<grey>to light the campfire"
+  workbench:
+    name: "Workbench"
+
+  # DRINKS
+  dirty_water:
+    name: "Dirty Water"
+    color: 0xA46F29
+    thirst_level: 7
+  salty_water:
+    name: "Salty Water"
+    color: 0x3DE294
+    thirst_level: 3
+  murky_water:
+    name: "Murky Water"
+    color: 12769874
+    thirst_level: 3
+  clean_water:
+    name: "Clean Water"
+    color: 1213666
+    thirst_level: 14
+  purified_water:
+    name: "Purified Water"
+    thirst_level: 24
+    color: 0x00FFFF
+  coffee:
+    name: "Coffee"
+    thirst_level: 23
+  cold_milk:
+    name: "Cold Milk"
+    color: 16250871
+    thirst_level: 15
+  hot_milk:
+    name: "Hot Milk"
+    color: 16110486
+    thirst_level: 10
+  water_bowl:
+    name: "Water Bowl"
+    thirst_level: 10
+
+  # FOOD
+  suspicious_meat:
+    name: "Suspicious Meat"
+
+  # MISC
+  breeding_egg:
+    name: "Breeding Egg"
+  coffee_bean:
+    name: "Coffee Bean"
+  fermented_skin:
+    name: "Fermented Skin"

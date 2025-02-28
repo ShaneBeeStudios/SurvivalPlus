@@ -1,0 +1,13 @@
+name: SurvivalPlus
+version: '${version}'
+main: com.shanebeestudios.survival.plugin.SurvivalPlugin
+description: "A fun new way to change mechanics of Minecraft"
+authors: [ShaneBee]
+website: 'https://github.com/ShaneBeeStudios/SurvivalPlus'
+bootstrapper: com.shanebeestudios.survival.plugin.SurvivalBootstrap
+api-version: '1.21.4'
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
