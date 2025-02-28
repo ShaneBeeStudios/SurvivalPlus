@@ -63,6 +63,13 @@ tasks {
             destinationDirectory = file("build/libs/")
         }
     }
+    register("datapack", Zip::class) {
+        archiveFileName = "SurvivalPlusDataPack-${projectVersion}.zip"
+        from("src/main/resources/datapack") {
+            exclude("**/.DS_Store")
+            destinationDirectory = file("build/libs/")
+        }
+    }
     processResources {
         expand("version" to projectVersion)
         exclude("resource-pack/*")
