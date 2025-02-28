@@ -2,6 +2,7 @@ package com.shanebeestudios.survival.api.item.items.tools;
 
 import com.shanebeestudios.survival.api.item.Item;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Enchantable;
 import io.papermc.paper.datacomponent.item.ItemAttributeModifiers;
 import io.papermc.paper.datacomponent.item.Tool;
 import org.bukkit.Material;
@@ -30,6 +31,7 @@ public class Hammer extends Item {
             .build());
 
         itemStack.setData(DataComponentTypes.MAX_STACK_SIZE, 1);
+        itemStack.setData(DataComponentTypes.ENCHANTABLE, Enchantable.enchantable(1));
 
         setupDefaults("hammer", itemStack);
     }

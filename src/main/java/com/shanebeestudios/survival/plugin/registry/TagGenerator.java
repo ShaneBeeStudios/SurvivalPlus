@@ -1,4 +1,4 @@
-package com.shanebeestudios.survival.plugin.data;
+package com.shanebeestudios.survival.plugin.registry;
 
 import com.shanebeestudios.survival.api.util.Utils;
 import com.shanebeestudios.survival.plugin.SurvivalBootstrap;
@@ -43,10 +43,12 @@ public class TagGenerator {
 
     private final FileConfiguration blockTagConfig;
     private final FileConfiguration itemTagConfig;
+    private final FileConfiguration enchantmentTagConfig;
 
     public TagGenerator(BootstrapContext context) {
-        this.blockTagConfig = loadConfig(context.getDataDirectory(), "block-tags.yml");
-        this.itemTagConfig = loadConfig(context.getDataDirectory(), "item-tags.yml");
+        this.blockTagConfig = loadConfig(context.getDataDirectory(), "registry/block-tags.yml");
+        this.itemTagConfig = loadConfig(context.getDataDirectory(), "registry/item-tags.yml");
+        this.enchantmentTagConfig = loadConfig(context.getDataDirectory(), "registry/enchantment-tags.yml");
         loadDatapack(context);
         loadTags(context);
     }
@@ -85,14 +87,20 @@ public class TagGenerator {
 
         // Create block tags
         manager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(RegistryKey.BLOCK), event -> {
-            final PreFlattenTagRegistrar<BlockType> registrar = event.registrar();
+            PreFlattenTagRegistrar<BlockType> registrar = event.registrar();
             createTags(logger, registrar, this.blockTagConfig);
         });
 
         // Create item tags
         manager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(RegistryKey.ITEM), event -> {
-            final PreFlattenTagRegistrar<ItemType> registrar = event.registrar();
+            PreFlattenTagRegistrar<ItemType> registrar = event.registrar();
             createTags(logger, registrar, this.itemTagConfig);
+        });
+
+        // Create enchantment tags
+        manager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(RegistryKey.ENCHANTMENT), event -> {
+            PreFlattenTagRegistrar<Enchantment> registrar = event.registrar();
+            createTags(logger, registrar, this.enchantmentTagConfig);
         });
 
         // Put our enchantments at the top of the tooltip list
@@ -111,20 +119,21 @@ public class TagGenerator {
 
     private <T> void createTags(ComponentLogger logger, PreFlattenTagRegistrar<T> registrar, FileConfiguration config) {
         String registerName = StringUtils.capitalize(registrar.registryKey().key().value());
-        logger.info(Utils.getMini("<grey>%s Tag Creation:", registerName));
         ConfigurationSection survivalPlusSection = config.getConfigurationSection("survival_plus");
-        assert survivalPlusSection != null;
-        for (String key : survivalPlusSection.getKeys(false)) {
-            createTagFromSection(key, registrar, survivalPlusSection);
-            logger.info(Utils.getMini("<grey>Generating tag <white>'<aqua>survival_plus:%s<white>'", key));
+        if (survivalPlusSection != null) {
+            logger.info(Utils.getMini("<green>%s Tag Creation:", registerName));
+            for (String key : survivalPlusSection.getKeys(false)) {
+                createTagFromSection(key, registrar, survivalPlusSection);
+                logger.info(Utils.getMini("  <grey>Generating tag <white>'<aqua>survival_plus:%s<white>'", key));
+            }
         }
         ConfigurationSection minecraftSection = config.getConfigurationSection("minecraft");
-        if (minecraftSection == null) return;
-
-        logger.info(Utils.getMini("<grey>%s Tag Mutation:", registerName));
-        for (String key : minecraftSection.getKeys(false)) {
-            addToTagFromSection(key, registrar, survivalPlusSection);
-            logger.info(Utils.getMini("<grey>Adding value to tag <white>'<aqua>minecraft:%s<white>'", key));
+        if (minecraftSection != null) {
+            logger.info(Utils.getMini("<yellow>%s Tag Mutation:", registerName));
+            for (String key : minecraftSection.getKeys(false)) {
+                addToTagFromSection(key, registrar, minecraftSection);
+                logger.info(Utils.getMini("  <grey>Adding value to tag <white>'<aqua>minecraft:%s<white>'", key));
+            }
         }
     }
 

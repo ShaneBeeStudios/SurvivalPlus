@@ -1,5 +1,6 @@
 package com.shanebeestudios.survival.api.generator;
 
+import com.shanebeestudios.survival.plugin.SurvivalPlugin;
 import io.papermc.paper.registry.keys.tags.BlockTypeTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import org.bukkit.Keyed;
@@ -18,10 +19,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings({"UnstableApiUsage", "UnusedReturnValue"})
+@SuppressWarnings({"UnstableApiUsage", "UnusedReturnValue", "SameParameterValue"})
 public class TagFileGenerator {
 
-    public FileConfiguration generateBlockTags(File pluginDataFolder, String path) {
+    private final File dataFolder;
+
+    public TagFileGenerator(SurvivalPlugin plugin) {
+        this.dataFolder = plugin.getDataFolder();
+    }
+
+    public void generate() {
+        generateBlockTags(this.dataFolder, "generated/block-tags.yml");
+        generateItemTags(this.dataFolder, "generated/item-tags.yml");
+        generateEnchantmentTags(this.dataFolder, "generated/enchantment-tags.yml");
+    }
+
+    private FileConfiguration generateBlockTags(File pluginDataFolder, String path) {
         File file = new File(pluginDataFolder, path);
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
@@ -64,7 +77,6 @@ public class TagFileGenerator {
         createRequiresSickleTag(blocks);
         createRequiresHammerTag(blocks);
 
-
         try {
             config.save(file);
             return config;
@@ -73,7 +85,7 @@ public class TagFileGenerator {
         }
     }
 
-    public FileConfiguration generateItemTags(File pluginDataFolder, String path) {
+    private FileConfiguration generateItemTags(File pluginDataFolder, String path) {
         File file = new File(pluginDataFolder, path);
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
@@ -110,6 +122,37 @@ public class TagFileGenerator {
         }
     }
 
+    private FileConfiguration generateEnchantmentTags(File pluginDataFolder, String path) {
+        File file = new File(pluginDataFolder, path);
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        List<String> header = new ArrayList<>();
+
+        header.add("Enchantment Tags");
+        header.add("This file is used to create some tags the plugin uses.");
+        header.add("Modify this to your liking but be very careful when you do.");
+        header.add(" ");
+        header.add("This accepts both Minecraft enchantment types `minecraft:sharpness`");
+        header.add("and enchantment tags prefixed with `#`, ex: `#minecraft:curse` (minecraft or custom)");
+        header.add(" ");
+        header.add("The names of these sections double as namespaces.");
+        header.add("The `survival_plus` section will create new tags");
+        header.add("The `minecraft` section will add to vanilla Minecraft enchantment tags.");
+        config.options().setHeader(header);
+
+        ConfigurationSection enchantments = config.getConfigurationSection("minecraft");
+        if (enchantments == null) enchantments = config.createSection("minecraft");
+
+        createInEnchantmentTableTag(enchantments);
+
+        try {
+            config.save(file);
+            return config;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // Block Tags
     private void createGlazedTerracottaTag(@NotNull ConfigurationSection section) {
         List<String> blocks = new ArrayList<>();
@@ -118,7 +161,7 @@ public class TagFileGenerator {
             .toList().forEach(namespacedKey -> {
                 String key = namespacedKey.toString();
                 if (key.endsWith("_glazed_terracotta")) blocks.add(key);
-        });
+            });
         section.set("glazed_terracotta", blocks);
     }
 
@@ -343,6 +386,14 @@ public class TagFileGenerator {
 
         section.set("prevent_dual_wield", items);
         section.setInlineComments("prevent_dual_wield", List.of("Items which cannot dual wield with legendary tools."));
+    }
+
+    // Enchantment Tags
+    private void createInEnchantmentTableTag(@NotNull ConfigurationSection section) {
+        List<String> enchantments = new ArrayList<>();
+        enchantments.add("survival_plus:building_reach");
+        section.set("in_enchanting_table", enchantments);
+        section.setInlineComments("in_enchanting_table", List.of("Custom enchantments which can be used in the enchanting table."));
     }
 
 }

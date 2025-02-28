@@ -13,7 +13,7 @@ public class DataGenCommand extends BaseCommand {
 
     public DataGenCommand(SurvivalPlugin plugin) {
         super(plugin);
-        this.tagFileGenerator = new TagFileGenerator();
+        this.tagFileGenerator = new TagFileGenerator(plugin);
     }
 
     @Override
@@ -21,8 +21,7 @@ public class DataGenCommand extends BaseCommand {
         return LiteralArgument.literal("datagen")
             .withPermission(Permissions.COMMAND_DATA_GEN.permission())
             .executes(info -> {
-                this.tagFileGenerator.generateBlockTags(this.plugin.getDataFolder(), "generated/block-tags.yml");
-                this.tagFileGenerator.generateItemTags(this.plugin.getDataFolder(), "generated/item-tags.yml");
+                this.tagFileGenerator.generate();
                 Utils.sendColoredMini(info.sender(), "Finished generating block-tags.yml");
             });
     }
